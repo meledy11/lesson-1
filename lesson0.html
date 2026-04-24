@@ -483,31 +483,31 @@
     <div class="tones-showcase">
         <div class="tones-title">🎵 Пять тонов китайского языка</div>
         <div class="tones-grid-large">
-            <div class="tone-card-large" onclick="playChineseWithTone('妈妈', 1)">
+            <div class="tone-card-large" onclick="playChinese('妈妈')">
                 <div class="tone-pinyin">mā</div>
                 <div class="tone-name">1-й тон (ровный)</div>
                 <div class="tone-example">妈</div>
                 <div style="font-size:0.8rem;">мама</div>
             </div>
-            <div class="tone-card-large" onclick="playChineseWithTone('麻木', 2)">
+            <div class="tone-card-large" onclick="playChinese('麻木')">
                 <div class="tone-pinyin">má</div>
                 <div class="tone-name">2-й тон (восходящий)</div>
                 <div class="tone-example">麻</div>
                 <div style="font-size:0.8rem;">конопля</div>
             </div>
-            <div class="tone-card-large" onclick="playChineseWithTone('马上', 3)">
+            <div class="tone-card-large" onclick="playChinese('马上')">
                 <div class="tone-pinyin">mǎ</div>
                 <div class="tone-name">3-й тон (вниз-вверх)</div>
                 <div class="tone-example">马</div>
                 <div style="font-size:0.8rem;">лошадь</div>
             </div>
-            <div class="tone-card-large" onclick="playChineseWithTone('骂人', 4)">
+            <div class="tone-card-large" onclick="playChinese('骂人')">
                 <div class="tone-pinyin">mà</div>
                 <div class="tone-name">4-й тон (резкий вниз)</div>
                 <div class="tone-example">骂</div>
                 <div style="font-size:0.8rem;">ругать</div>
             </div>
-            <div class="tone-card-large" onclick="playChineseWithTone('吗', 5)">
+            <div class="tone-card-large" onclick="playChinese('吗')">
                 <div class="tone-pinyin">ma</div>
                 <div class="tone-name">5-й тон (нейтральный)</div>
                 <div class="tone-example">吗</div>
@@ -543,54 +543,30 @@
 <script src="pinyin-full-db.js"></script>
 <script>
     let currentModalSound = '';
-    let currentModalTone = 1;
+    let currentModalPinyin = '';
 
-    // Функция озвучивания с поддержкой тонов (улучшенная)
-    function playChineseWithTone(word, toneNum) {
-        if (!window.speechSynthesis) {
-            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
-            return;
-        }
-        
-        window.speechSynthesis.cancel();
-        
-        let utteranceText = word;
-        
-        // Добавляем эталонное слово для каждого тона для лучшего распознавания
-        if (toneNum === 1) {
-            utteranceText = word + "，一声";
-        } else if (toneNum === 2) {
-            utteranceText = word + "，二声";
-        } else if (toneNum === 3) {
-            utteranceText = word + "，三声";
-        } else if (toneNum === 4) {
-            utteranceText = word + "，四声";
-        }
-        
-        const utterance = new SpeechSynthesisUtterance(utteranceText);
-        utterance.lang = "zh-CN";
-        utterance.rate = 0.6;
-        utterance.pitch = 1.0;
-        setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-    }
-
-    // Простая озвучка без тонов (для инициалей)
+    // ✅ ИСПРАВЛЕННАЯ функция озвучивания — ТОЛЬКО слово, БЕЗ лишних добавок
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
             return;
         }
+        
+        // Отменяем предыдущее воспроизведение, чтобы звуки не накладывались
         window.speechSynthesis.cancel();
+        
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.7;
-        utterance.pitch = 1.0;
+        utterance.rate = 0.7;      // Оптимальная скорость для изучения
+        utterance.pitch = 1.0;     // Нормальная высота
+        
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
 
+    // Функция для модального окна
     function playModalSound() {
         if (currentModalSound) {
-            playChineseWithTone(currentModalSound, currentModalTone);
+            playChinese(currentModalSound);
         }
     }
 
@@ -603,9 +579,10 @@
         return 1;
     }
 
-    function showModal(item, toneNum) {
+    function showModal(item) {
         currentModalSound = item.sound;
-        currentModalTone = toneNum || 1;
+        currentModalPinyin = item.pinyin;
+        
         document.getElementById('modal-char').innerHTML = item.char;
         document.getElementById('modal-pinyin').innerHTML = item.pinyin;
         document.getElementById('modal-ru').innerHTML = item.ru_sound ? `[${item.ru_sound}]` : '';
@@ -619,6 +596,9 @@
         }
         document.getElementById('modal-example').innerHTML = exampleHtml;
         document.getElementById('modal').style.display = 'flex';
+        
+        // Автоматически проигрываем звук при открытии модального окна
+        playChinese(item.sound);
     }
 
     function closeModal() {
@@ -720,7 +700,6 @@
                         sylData.tones.forEach(tone => {
                             const toneCard = document.createElement('div');
                             toneCard.className = 'tone-card';
-                            const toneNum = getToneNumber(tone.tone);
                             toneCard.onclick = (e) => {
                                 e.stopPropagation();
                                 showModal({
@@ -731,9 +710,7 @@
                                     example: tone.example,
                                     example_ru: tone.example_ru,
                                     sound: tone.sound
-                                }, toneNum);
-                                // Также проигрываем звук тона
-                                playChineseWithTone(tone.sound, toneNum);
+                                });
                             };
                             toneCard.innerHTML = `
                                 <div class="tone-number">${tone.tone || ''}</div>
