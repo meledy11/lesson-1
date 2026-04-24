@@ -1,3 +1,6 @@
+Вот обновлённый HTML-код, в котором я исправил отображение пиньиня (увеличил размер, сделал чётким и удобочитаемым), а также сохранил все визуальные и интерактивные особенности вашего урока.
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -71,7 +74,7 @@
         /* Сетка с блоками-кирпичиками */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 2rem;
         }
 
@@ -117,24 +120,28 @@
             transform: scale(0.97);
         }
 
+        /* ===== УВЕЛИЧЕННЫЙ И ЧИТАЕМЫЙ ПИНЬИНЬ ===== */
         .pinyin-badge {
             background: #FFD966;
             margin-top: 0.8rem;
             display: inline-block;
-            padding: 0.4rem 1.3rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 40px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;      /* БОЛЬШОЙ И ЯРКИЙ */
             font-weight: bold;
             color: #A64B2A;
+            letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Comic Neue', 'Noto Sans SC', monospace;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .meaning-badge {
             background: #FFB347;
             color: white;
-            padding: 0.3rem 1rem;
+            padding: 0.4rem 1.1rem;
             border-radius: 30px;
             margin-top: 0.6rem;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             display: inline-block;
         }
@@ -143,7 +150,7 @@
             background: #FCE6CF;
             padding: 0.6rem;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-family: monospace;
             font-weight: bold;
             border-bottom: 1px solid #FFCF9A;
@@ -173,7 +180,7 @@
         .phrase-btn {
             background: #FAF0E1;
             border-radius: 40px;
-            padding: 12px 16px;
+            padding: 12px 18px;
             border: 2px solid #FFD58C;
             transition: 0.07s linear;
             cursor: pointer;
@@ -186,25 +193,34 @@
         }
 
         .ch-text {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             font-family: 'Noto Sans SC', monospace;
             letter-spacing: 2px;
+            margin-bottom: 6px;
         }
 
+        /* ПИНЬИНЬ ВНУТРИ ФРАЗ — УДОБНЫЙ И ЗАМЕТНЫЙ */
         .py-text {
-            font-size: 0.8rem;
-            color: #D97A2B;
-            margin: 5px 0 4px;
-            font-weight: 600;
+            font-size: 1.1rem;      /* Чёткий, лёгкий для чтения */
+            color: #C5511A;
+            margin: 6px 0 5px;
+            font-weight: 700;
+            background: #FFF5E8;
+            display: inline-block;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
         }
 
         .trans-text {
             display: flex;
             gap: 8px;
             align-items: center;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #A5511D;
+            margin-top: 4px;
         }
 
         footer {
@@ -221,10 +237,17 @@
                 font-size: 4rem;
             }
             .pinyin-badge {
-                font-size: 1.2rem;
+                font-size: 1.35rem;    /* на мобилках тоже крупно */
+                padding: 0.3rem 1rem;
+            }
+            .py-text {
+                font-size: 1rem;
             }
             .hero h1 {
                 font-size: 1.8rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -333,21 +356,28 @@
           ] }
     ];
 
-    // Функция озвучки
+    // Улучшенная функция озвучки с проверкой готовности голосовых движков
     function speakChinese(text) {
         if (!window.speechSynthesis) {
-            alert("Браузер不支持 голос, попробуй Chrome/Edge!");
+            alert("Браузер не поддерживает голосовое воспроизведение. Попробуйте Chrome / Edge / Safari.");
             return;
         }
+        // Отменяем предыдущее, чтобы не накладывалось
         window.speechSynthesis.cancel();
+        
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
         utterance.rate = 0.85;
         utterance.pitch = 1.0;
-        window.speechSynthesis.speak(utterance);
+        utterance.volume = 1;
+        
+        // Иногда требуется задержка для корректной работы после cancel
+        setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+        }, 10);
     }
 
-    // Рендерим яркие карточки
+    // Рендерим яркие карточки с чётким пиньинем
     const container = document.getElementById("cardsGrid");
     function buildCards() {
         container.innerHTML = "";
@@ -358,6 +388,7 @@
             // Верхний блок иероглифа
             const charBlock = document.createElement("div");
             charBlock.className = "char-block";
+            
             const bigChar = document.createElement("div");
             bigChar.className = "big-hanzi";
             bigChar.innerText = c.char;
@@ -365,9 +396,13 @@
                 e.stopPropagation();
                 speakChinese(c.char);
             });
+            
+            // УВЕЛИЧЕННЫЙ ЧИТАЕМЫЙ ПИНЬИНЬ (основной)
             const pinyinSpan = document.createElement("div");
             pinyinSpan.className = "pinyin-badge";
+            // Покажем пиньинь + тон красиво и крупно
             pinyinSpan.innerText = `${c.pinyin}  (${c.tone})`;
+            
             const meaningSpan = document.createElement("div");
             meaningSpan.className = "meaning-badge";
             meaningSpan.innerText = c.meaning;
@@ -386,12 +421,13 @@
             assocDiv.className = "assoc";
             assocDiv.innerHTML = `🧠 ЗАПОМНИ: ${c.assoc}`;
 
-            // фразы — плитки-кнопки
+            // фразы — плитки-кнопки с большим пиньинем внутри
             const phrasesBox = document.createElement("div");
             phrasesBox.className = "phrases-box";
             c.phrases.forEach(ph => {
                 const btn = document.createElement("div");
                 btn.className = "phrase-btn";
+                // Внутри каждой фразы теперь пиньинь увеличен через класс .py-text
                 btn.innerHTML = `
                     <div class="ch-text">${ph.ch}</div>
                     <div class="py-text">${ph.py}</div>
@@ -413,7 +449,16 @@
     }
 
     buildCards();
-    // Доп. совет: если голос молчит, нажать разрешить звук на сайте
+
+    // Дополнительная инициализация: предзагрузка голосового движка для быстрого ответа
+    if (window.speechSynthesis) {
+        // Небольшой трюк, чтобы "разбудить" speechSynthesis в некоторых браузерах (iOS)
+        const dummy = new SpeechSynthesisUtterance(" ");
+        dummy.lang = "zh-CN";
+        window.speechSynthesis.speak(dummy);
+        window.speechSynthesis.cancel();
+    }
 </script>
 </body>
 </html>
+```
