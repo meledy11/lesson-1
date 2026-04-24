@@ -10,173 +10,313 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: linear-gradient(135deg, #FFE5B4 0%, #FFDAB9 100%);
-            font-family: 'Segoe UI', 'Roboto', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             padding: 1rem;
             min-height: 100vh;
         }
+
         .container {
             max-width: 1600px;
             margin: 0 auto;
         }
+
+        /* ========== СТИЛИ ШАПКИ ========== */
         .hero {
             text-align: center;
-            background: linear-gradient(135deg, #FF9A3C, #FF6B35);
-            border-radius: 70px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
+            border-radius: 80px;
+            padding: 2rem 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 15px 0 #C16F1A;
+            box-shadow: 0 20px 0 #C16F1A;
             color: white;
+            position: relative;
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: "✨";
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            bottom: -20px;
+            right: -20px;
+            transform: rotate(-15deg);
+        }
+
+        .hero::after {
+            content: "🎵";
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.1;
+            top: -20px;
+            left: -20px;
+            transform: rotate(15deg);
+        }
+
         .hero h1 {
-            font-size: 2.2rem;
-            background: #FFF6E0;
+            font-size: 2.8rem;
+            background: rgba(255,255,255,0.95);
             display: inline-block;
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 2rem;
             border-radius: 60px;
             color: #E67E22;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
+
         .hero p {
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
+
         .back-home {
             display: inline-block;
-            background: #FFB347;
-            color: white;
+            background: rgba(255,255,255,0.9);
+            color: #E67E22;
             text-decoration: none;
             padding: 0.6rem 1.5rem;
             border-radius: 50px;
             font-weight: bold;
-            margin: 0.5rem 0.3rem;
+            margin: 1rem 0.3rem 0;
             box-shadow: 0 4px 0 #C16F1A;
-            transition: 0.05s linear;
+            transition: 0.08s linear;
+            position: relative;
+            z-index: 1;
         }
+
         .back-home:active {
             transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
         }
+
+        /* ========== БЛОК С ТОНАМИ ========== */
+        .tones-showcase {
+            background: white;
+            border-radius: 60px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 0 #FFB347;
+            border: 2px solid #FFCF9A;
+        }
+
+        .tones-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #E67E22;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .tones-grid-large {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tone-card-large {
+            background: linear-gradient(145deg, #FFF5E8, #FFE8D0);
+            border-radius: 50px;
+            padding: 1.2rem;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            cursor: pointer;
+            transition: 0.08s linear;
+            border: 2px solid #FFD58C;
+        }
+
+        .tone-card-large:active {
+            transform: scale(0.96);
+        }
+
+        .tone-pinyin {
+            font-size: 2.2rem;
+            font-weight: bold;
+            font-family: 'Noto Sans SC', monospace;
+            color: #C5511A;
+        }
+
+        .tone-name {
+            font-size: 0.85rem;
+            color: #E67E22;
+            margin: 5px 0;
+        }
+
+        .tone-example {
+            font-size: 1.8rem;
+            font-family: 'Noto Sans SC', monospace;
+        }
+
+        /* ========== КАРТОЧКИ ИНИЦИАЛЕЙ ========== */
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
+
         .initial-card {
             background: white;
             border-radius: 48px;
             margin-bottom: 1.5rem;
             border: 3px solid #FFCF9A;
             overflow: hidden;
-            box-shadow: 0 10px 0 #FFB347;
+            box-shadow: 0 12px 0 #FFB347;
+            transition: transform 0.1s ease;
         }
+
+        .initial-card:hover {
+            transform: translateY(-2px);
+        }
+
         .initial-header {
             background: linear-gradient(135deg, #FFB347, #FF8C42);
-            padding: 1rem;
+            padding: 1.2rem;
             cursor: pointer;
+            transition: 0.08s;
         }
+
+        .initial-header:active {
+            transform: scale(0.99);
+        }
+
         .initial-header .big-pinyin {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             font-weight: 900;
             background: white;
             display: inline-block;
-            padding: 0.3rem 1.5rem;
+            padding: 0.3rem 1.8rem;
             border-radius: 60px;
             color: #C4450C;
             font-family: 'Noto Sans SC', monospace;
+            box-shadow: 0 4px 0 #D98F33;
         }
+
         .initial-header .sound-desc {
             color: white;
             font-size: 1rem;
             font-weight: bold;
             margin-top: 0.5rem;
             background: rgba(0,0,0,0.2);
-            padding: 0.3rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 40px;
             display: inline-block;
         }
+
         .articulation {
             background: #FFF8E8;
-            padding: 0.8rem 1rem;
-            font-size: 0.9rem;
+            padding: 1rem;
+            font-size: 0.95rem;
             color: #A64B2A;
-            line-height: 1.4;
+            line-height: 1.5;
             border-bottom: 2px solid #FFD58C;
+            font-weight: 500;
         }
+
+        /* Строка слога */
         .syllable-row {
             border-bottom: 1px solid #FFE0B5;
             background: #FFFDF5;
         }
+
         .syllable-name {
             background: #FFE0A3;
-            padding: 0.7rem 1rem;
+            padding: 0.8rem 1rem;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #A64B2A;
             cursor: pointer;
+            transition: 0.05s;
         }
+
         .syllable-name:active {
             background: #FFD58C;
         }
+
+        .syllable-trans {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+            margin-left: 8px;
+        }
+
+        /* Сетка тонов (4 карточки) */
         .tones-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.8rem;
             padding: 1rem;
         }
+
         .tone-card {
             background: linear-gradient(145deg, #FAF0E1, #FFF5E8);
-            border-radius: 35px;
+            border-radius: 30px;
             padding: 12px 6px;
             text-align: center;
             cursor: pointer;
             transition: 0.08s linear;
             border: 2px solid #FFD58C;
         }
+
         .tone-card:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
             background: #FFE8CC;
         }
+
         .tone-number {
             font-size: 0.7rem;
             color: #E67E22;
             font-weight: bold;
             background: white;
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 30px;
         }
+
         .pinyin-tone {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
             color: #C5511A;
-            margin: 6px 0 4px;
+            margin: 8px 0 4px;
         }
+
         .ru-sound {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #A64B2A;
-            margin: 3px 0;
-            font-weight: bold;
-        }
-        .example-hanzi {
-            font-size: 1.8rem;
-            font-family: 'Noto Sans SC', monospace;
             margin: 4px 0;
+            font-weight: 600;
         }
+
+        .example-hanzi {
+            font-size: 2rem;
+            font-family: 'Noto Sans SC', monospace;
+            margin: 5px 0;
+        }
+
         .example-meaning {
             font-size: 0.7rem;
             color: #8B5A2B;
             margin: 3px 0;
         }
+
         .example-phrase {
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             color: #A64B2A;
             background: white;
-            padding: 2px 4px;
-            border-radius: 15px;
+            padding: 2px 6px;
+            border-radius: 20px;
             display: inline-block;
-            margin-top: 3px;
+            margin-top: 4px;
         }
+
+        /* ========== МОДАЛЬНОЕ ОКНО ========== */
         .modal {
             display: none;
             position: fixed;
@@ -185,22 +325,31 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background: linear-gradient(145deg, #FFF8F0, #FFECD0);
             border-radius: 80px;
             padding: 2rem;
-            max-width: 500px;
+            max-width: 550px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 20px 0 #C16F1A;
+            box-shadow: 0 25px 0 #C16F1A;
             border: 4px solid #FFB347;
+            animation: modalPop 0.2s ease;
         }
+
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         .big-char {
-            font-size: 6rem;
+            font-size: 7rem;
             font-family: 'Noto Sans SC', monospace;
             background: white;
             display: inline-block;
@@ -210,81 +359,117 @@
             box-shadow: 0 8px 0 #D98F33;
             color: #C4450C;
         }
+
         .modal-pinyin {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             color: #C5511A;
+            font-family: monospace;
         }
+
+        .modal-ru {
+            font-size: 1.3rem;
+            color: #A64B2A;
+            margin: 0.3rem 0;
+        }
+
         .modal-meaning {
             font-size: 1.2rem;
-            color: #A64B2A;
+            color: #8B5A2B;
             margin: 0.5rem 0;
         }
+
         .modal-example {
             background: white;
             border-radius: 50px;
-            padding: 0.8rem;
+            padding: 1rem;
             margin: 1rem 0;
-            font-size: 1rem;
         }
+
+        .modal-example .ch {
+            font-size: 1.6rem;
+            font-family: 'Noto Sans SC', monospace;
+            font-weight: bold;
+        }
+
+        .modal-example .trans {
+            font-size: 0.9rem;
+            color: #A64B2A;
+            margin-top: 5px;
+        }
+
         .listen-btn {
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 0.8rem 1.8rem;
-            font-size: 1.1rem;
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
             margin: 0.5rem;
-            box-shadow: 0 3px 0 #2E7D32;
+            box-shadow: 0 4px 0 #2E7D32;
+            transition: 0.05s;
         }
+
         .listen-btn:active {
             transform: translateY(2px);
+            box-shadow: 0 2px 0 #2E7D32;
         }
+
         .close-btn {
             background: #FF6B35;
             color: white;
             border: none;
-            padding: 0.8rem 1.8rem;
-            font-size: 1.1rem;
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
             margin: 0.5rem;
-            box-shadow: 0 3px 0 #C16F1A;
+            box-shadow: 0 4px 0 #C16F1A;
+            transition: 0.05s;
         }
+
         .close-btn:active {
             transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
         }
+
         .warning {
             background: #FFF1C1;
             padding: 1rem;
-            border-radius: 40px;
+            border-radius: 50px;
             margin-top: 1rem;
             text-align: center;
             border-left: 8px solid #FF8C42;
+            font-size: 0.95rem;
         }
+
         footer {
             text-align: center;
             margin-top: 2rem;
-            padding: 1rem;
+            padding: 1.2rem;
             background: #FFD699;
-            border-radius: 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
         }
+
         .error-box {
             background: #FFEEEE;
             border-left: 8px solid #FF0000;
             padding: 2rem;
             border-radius: 40px;
-            margin: 1rem;
             text-align: center;
             color: #990000;
         }
+
         @media (max-width: 900px) {
             .two-columns { grid-template-columns: 1fr; }
             .tones-grid { grid-template-columns: repeat(2, 1fr); }
-            .big-char { font-size: 3.5rem; }
-            .initial-header .big-pinyin { font-size: 2rem; }
-            .example-hanzi { font-size: 1.4rem; }
+            .big-char { font-size: 4rem; }
+            .initial-header .big-pinyin { font-size: 2.2rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .tone-pinyin { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -298,22 +483,60 @@
         <a href="lesson1.html" class="back-home">📚 К уроку 1</a>
     </div>
 
+    <!-- БЛОК ТОНОВ -->
+    <div class="tones-showcase">
+        <div class="tones-title">🎵 Пять тонов китайского языка</div>
+        <div class="tones-grid-large">
+            <div class="tone-card-large" onclick="playChinese('mā')">
+                <div class="tone-pinyin">mā</div>
+                <div class="tone-name">1-й тон (ровный)</div>
+                <div class="tone-example">妈</div>
+                <div style="font-size:0.8rem;">мама</div>
+            </div>
+            <div class="tone-card-large" onclick="playChinese('má')">
+                <div class="tone-pinyin">má</div>
+                <div class="tone-name">2-й тон (восходящий)</div>
+                <div class="tone-example">麻</div>
+                <div style="font-size:0.8rem;">конопля</div>
+            </div>
+            <div class="tone-card-large" onclick="playChinese('mǎ')">
+                <div class="tone-pinyin">mǎ</div>
+                <div class="tone-name">3-й тон (вниз-вверх)</div>
+                <div class="tone-example">马</div>
+                <div style="font-size:0.8rem;">лошадь</div>
+            </div>
+            <div class="tone-card-large" onclick="playChinese('mà')">
+                <div class="tone-pinyin">mà</div>
+                <div class="tone-name">4-й тон (резкий вниз)</div>
+                <div class="tone-example">骂</div>
+                <div style="font-size:0.8rem;">ругать</div>
+            </div>
+            <div class="tone-card-large" onclick="playChinese('ma')">
+                <div class="tone-pinyin">ma</div>
+                <div class="tone-name">5-й тон (нейтральный)</div>
+                <div class="tone-example">吗</div>
+                <div style="font-size:0.8rem;">вопр. частица</div>
+            </div>
+        </div>
+    </div>
+
     <div id="initials-container" class="two-columns"></div>
 
     <div class="warning">
-        🔊 <strong>Тоны в китайском:</strong><br>
-        🟢 1-й тон (¯) — ровный высокий | 🔵 2-й тон (´) — восходящий<br>
-        🟡 3-й тон (ˇ) — вниз-вверх | 🔴 4-й тон (`) — резко вниз
+        🔊 <strong>Как тренироваться:</strong><br>
+        • Нажми на <strong>букву в шапке</strong> — услышишь звук инициали<br>
+        • Нажми на <strong>название слога</strong> — услышишь слово с 1-м тоном<br>
+        • Нажми на <strong>карточку тона</strong> — откроется крупный иероглиф, пример и перевод
     </div>
 
-    <footer>🌟 Нажимай на карточки — слушай разницу между тонами! 🌟</footer>
+    <footer>🌟 Нажимай на карточки — слушай разницу между тонами! Тоны меняют смысл слова! 🌟</footer>
 </div>
 
 <div id="modal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div id="modal-char" class="big-char"></div>
         <div id="modal-pinyin" class="modal-pinyin"></div>
-        <div id="modal-ru" class="modal-meaning" style="color:#C5511A;"></div>
+        <div id="modal-ru" class="modal-ru"></div>
         <div id="modal-meaning" class="modal-meaning"></div>
         <div id="modal-example" class="modal-example"></div>
         <button class="listen-btn" onclick="playModalSound()">🔊 Слушать слово</button>
@@ -325,6 +548,7 @@
 <script>
     let currentModalSound = '';
 
+    // Функция озвучивания
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
@@ -347,8 +571,15 @@
         document.getElementById('modal-char').innerHTML = item.char;
         document.getElementById('modal-pinyin').innerHTML = item.pinyin;
         document.getElementById('modal-ru').innerHTML = item.ru_sound ? `[${item.ru_sound}]` : '';
-        document.getElementById('modal-meaning').innerHTML = item.meaning;
-        document.getElementById('modal-example').innerHTML = `<strong>Пример:</strong> ${item.example}`;
+        document.getElementById('modal-meaning').innerHTML = item.meaning || '';
+        
+        let exampleHtml = '';
+        if (item.example) {
+            exampleHtml = `<div class="ch">${item.example}</div>`;
+            if (item.example_ru) exampleHtml += `<div class="trans">${item.example_ru}</div>`;
+            else if (item.example_ru === undefined && item.example) exampleHtml += `<div class="trans">${item.example}</div>`;
+        }
+        document.getElementById('modal-example').innerHTML = exampleHtml;
         document.getElementById('modal').style.display = 'flex';
     }
 
@@ -391,6 +622,8 @@
             return;
         }
         
+        console.log('✅ База загружена! Инициали:', Object.keys(pinyinFullDB));
+        
         container.innerHTML = '';
         const initials = Object.keys(pinyinFullDB);
         const mid = Math.ceil(initials.length / 2);
@@ -404,6 +637,7 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
+            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
             const soundToPlay = getInitialSound(data);
@@ -414,6 +648,7 @@
             `;
             card.appendChild(header);
             
+            // Артикуляция
             if (data.articulation) {
                 const artDiv = document.createElement('div');
                 artDiv.className = 'articulation';
@@ -421,6 +656,7 @@
                 card.appendChild(artDiv);
             }
             
+            // Слоги
             const syllables = data.syllables;
             if (syllables) {
                 for (const [syllable, sylData] of Object.entries(syllables)) {
@@ -429,7 +665,7 @@
                     
                     const sylName = document.createElement('div');
                     sylName.className = 'syllable-name';
-                    sylName.innerHTML = `🔊 ${syllable} ${sylData.translation ? `(${sylData.translation})` : ''}`;
+                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">${sylData.translation ? `[${sylData.translation}]` : ''}</span>`;
                     const firstToneWord = getFirstToneWord(sylData);
                     sylName.onclick = (e) => {
                         e.stopPropagation();
@@ -456,6 +692,7 @@
                                     ru_sound: tone.ru || '',
                                     meaning: tone.meaning,
                                     example: tone.example,
+                                    example_ru: tone.example_ru,
                                     sound: tone.sound
                                 });
                             };
@@ -465,7 +702,7 @@
                                 <div class="ru-sound">${tone.ru || ''}</div>
                                 <div class="example-hanzi">${tone.char || '—'}</div>
                                 <div class="example-meaning">${tone.meaning || ''}</div>
-                                <div class="example-phrase">${tone.example && tone.example.length > 12 ? tone.example.substring(0, 12) + '...' : (tone.example || '—')}</div>
+                                <div class="example-phrase">${tone.example && tone.example.length > 15 ? tone.example.substring(0, 15) + '...' : (tone.example || '—')}</div>
                             `;
                             tonesGrid.appendChild(toneCard);
                         });
