@@ -1,1 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Говорящий урок: Топ-10 иероглифов | Аудио + пиньинь</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: system-ui, 'Segoe UI', 'Noto Sans SC', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fef7e0, #fff1e0);
+            color: #2c1e12;
+            padding: 1.5rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            background: linear-gradient(120deg, #c95a0f, #e67e22);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            text-align: center;
+            color: #b45f2b;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .audio-note {
+            background: #2c3e2f20;
+            backdrop-filter: blur(4px);
+            text-align: center;
+            padding: 8px;
+            border-radius: 60px;
+            width: fit-content;
+            margin: 0 auto 2rem auto;
+            font-size: 0.8rem;
+            background: #f3e5c9;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 245, 0.97);
+            border-radius: 2rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+            overflow: hidden;
+            border: 1px solid #ffddb0;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .char-area {
+            background: #fff9f0;
+            text-align: center;
+            padding: 1.6rem 1rem 1rem;
+            border-bottom: 2px solid #ffdebc;
+        }
+
+        .big-hanzi {
+            font-size: 5rem;
+            font-weight: 800;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #784a1a;
+            letter-spacing: 6px;
+            transition: 0.1s;
+            display: inline-block;
+            padding: 0 10px;
+            border-radius: 30px;
+        }
+
+        .big-hanzi:active {
+            background: #fee0b5;
+        }
+
+        .pinyin-main {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #d45f1a;
+            background: #ffefdd;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin: 10px 0 6px;
+        }
+
+        .meaning {
+            font-size: 0.9rem;
+            background: #f3e1ce;
+            width: fit-content;
+            margin: 8px auto;
+            padding: 3px 12px;
+            border-radius: 30px;
+        }
+
+        .stroke {
+            background: #fff3e7;
+            padding: 6px;
+            font-size: 0.7rem;
+            color: #a35f2c;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        .assoc {
+            background: #fef2e6;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-style: italic;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #ffdebc;
+        }
+
+        .phrases-list {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .phrase {
+            background: #faf2e7;
+            border-radius: 1.2rem;
+            padding: 10px 14px;
+            transition: 0.05s linear;
+            cursor: pointer;
+            border: 1px solid #ffe1c2;
+        }
+
+        .phrase:active {
+            background: #fbe5cf;
+        }
+
+        .hanzi-ph {
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Noto Sans SC', monospace;
+            letter-spacing: 1px;
+        }
+
+        .pinyin-ph {
+            font-size: 0.7rem;
+            color: #c4672c;
+            margin: 3px 0;
+        }
+
+        .trans-ph {
+            font-size: 0.8rem;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .speaker-icon {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-left: 6px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #a66e3e;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 720px) {
+            .big-hanzi {
+                font-size: 3.8rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔊 十個必學漢字 · Говорящий урок</h1>
+    <div class="sub">🎧 Нажмите на любой иероглиф или фразу — браузер произнесёт вслух (китайский голос)</div>
+    <div class="audio-note">
+        <span>📢 Рекомендуем: Chrome / Edge / Safari. Если голос не китайский — в настройках выберите "Chinese (Mandarin)"</span>
+    </div>
+
+    <div class="grid" id="app"></div>
+
+    <footer>
+        ⭐ Тренируйте произношение: нажимайте на фразы и повторяйте. Тоны: 1-й (－), 2-й (／), 3-й (Ｖ), 4-й (＼)
+    </footer>
+</div>
+
+<script>
+    // Данные урока: 10 иероглифов с фразами
+    const lessonData = [
+        { char: "的", pinyin: "de", toneMark: "нейтральный", meaning: "частица принадлежности / описания",
+          stroke: "ノ 丨 𠃍 一 一 ㇂ ノ 丶 + ノ 𠃌 一 一 丨 一 ㇂ ノ 丶",
+          assoc: "🎯 меткий выстрел в белую мишень → точно описать",
+          phrases: [
+              { text: "我的车", pinyin: "wǒ de chē", translation: "🚗 Моя машина" },
+              { text: "红色的苹果", pinyin: "hóngsè de píngguǒ", translation: "🍎 Красное яблоко" },
+              { text: "好的！", pinyin: "hǎo de", translation: "✅ Хорошо / ладно" },
+              { text: "这是给我的咖啡吗？", pinyin: "zhè shì gěi wǒ de kāfēi ma?", translation: "☕ Это кофе для меня?" }
+          ] },
+        { char: "一", pinyin: "yī", toneMark: "1-й тон (высокий)", meaning: "один, единый",
+          stroke: "一 (горизонталь слева направо)", assoc: "📏 полка с одним предметом",
+          phrases: [
+              { text: "一个人", pinyin: "yī gè rén", translation: "🧑 Один человек" },
+              { text: "等一下", pinyin: "děng yī xià", translation: "⏳ Подожди секунду" },
+              { text: "第一名", pinyin: "dì yī míng", translation: "🥇 Первое место" },
+              { text: "一见钟情", pinyin: "yī jiàn zhōngqíng", translation: "💘 Любовь с первого взгляда" }
+          ] },
+        { char: "是", pinyin: "shì", toneMark: "4-й тон (резкий)", meaning: "быть, являться",
+          stroke: "日 + 正 (11 черт)", assoc: "☀️ Солнце прямо над головой = истина",
+          phrases: [
+              { text: "她是医生", pinyin: "tā shì yīshēng", translation: "👩‍⚕️ Она врач" },
+              { text: "这是什么？", pinyin: "zhè shì shénme?", translation: "❓ Что это?" },
+              { text: "是的！", pinyin: "shì de", translation: "✔️ Да / верно" },
+              { text: "北京是中国的首都", pinyin: "Běijīng shì Zhōngguó de shǒudū", translation: "🏛️ Пекин — столица Китая" }
+          ] },
+        { char: "不", pinyin: "bù", toneMark: "4-й тон (меняется перед 4м)", meaning: "нет, не",
+          stroke: "一 ノ 丨 丶", assoc: "🐦 птичка отвернулась и сказала НЕТ",
+          phrases: [
+              { text: "不好意思", pinyin: "bù hǎoyìsi", translation: "🙏 Извините / мне неловко" },
+              { text: "不是我的错", pinyin: "bùshì wǒ de cuò", translation: "❌ Не моя вина" },
+              { text: "学不好", pinyin: "xué bù hǎo", translation: "📚 Плохо учится" },
+              { text: "我不喝咖啡", pinyin: "wǒ bù hē kāfēi", translation: "☕🚫 Я не пью кофе" }
+          ] },
+        { char: "了", pinyin: "le", toneMark: "нейтральный (завершение)", meaning: "уже / изменилось",
+          stroke: "𠃋 亅", assoc: "🎣 крючок вытащил событие",
+          phrases: [
+              { text: "吃了吗？", pinyin: "chī le ma?", translation: "🍜 Поел? (приветствие)" },
+              { text: "太棒了！", pinyin: "tài bàng le!", translation: "🤩 Потрясающе!" },
+              { text: "我累了", pinyin: "wǒ lèi le", translation: "😴 Я устал" },
+              { text: "下雨了", pinyin: "xiàyǔ le", translation: "🌧️ Дождь пошёл" }
+          ] },
+        { char: "在", pinyin: "zài", toneMark: "4-й тон", meaning: "находиться в/на",
+          stroke: "𠂇 + 土", assoc: "🌱 человек стоит на земле",
+          phrases: [
+              { text: "在家", pinyin: "zài jiā", translation: "🏠 Дома" },
+              { text: "你在干嘛？", pinyin: "nǐ zài gàn ma?", translation: "📱 Что делаешь?" },
+              { text: "他在吃饭", pinyin: "tā zài chīfàn", translation: "🍚 Он ест (сейчас)" },
+              { text: "我在这里等你", pinyin: "wǒ zài zhèlǐ děng nǐ", translation: "📍 Я жду тебя здесь" }
+          ] },
+        { char: "人", pinyin: "rén", toneMark: "2-й тон (восходящий)", meaning: "человек, люди",
+          stroke: "ノ ㇏", assoc: "🚶 человек идёт в профиль",
+          phrases: [
+              { text: "中国人", pinyin: "Zhōngguó rén", translation: "🇨🇳 Китаец" },
+              { text: "家人", pinyin: "jiā rén", translation: "🏠❤️ Семья / родные" },
+              { text: "好人", pinyin: "hǎo rén", translation: "😇 Хороший человек" },
+              { text: "大人", pinyin: "dà rén", translation: "🧑 Взрослый" }
+          ] },
+        { char: "有", pinyin: "yǒu", toneMark: "3-й тон", meaning: "иметь, обладать",
+          stroke: "𠂇 + 月", assoc: "✋🍖 рука держит мясо → есть",
+          phrases: [
+              { text: "有没有？", pinyin: "yǒu méiyǒu?", translation: "❓ Есть или нет?" },
+              { text: "我有钱", pinyin: "wǒ yǒu qián", translation: "💰 У меня есть деньги" },
+              { text: "有时间吗？", pinyin: "yǒu shíjiān ma?", translation: "⏰ Есть время?" },
+              { text: "有一本书", pinyin: "yǒu yī běn shū", translation: "📖 Есть одна книга" }
+          ] },
+        { char: "我", pinyin: "wǒ", toneMark: "3-й тон", meaning: "я, меня, мой",
+          stroke: "手 + 戈 (рука с копьём)", assoc: "🛡️⚔️ Я защищаю себя копьём",
+          phrases: [
+              { text: "我爱你", pinyin: "wǒ ài nǐ", translation: "❤️ Я тебя люблю" },
+              { text: "我是学生", pinyin: "wǒ shì xuésheng", translation: "🎓 Я студент" },
+              { text: "我不知道", pinyin: "wǒ bù zhīdào", translation: "🤷 Я не знаю" },
+              { text: "我自己做", pinyin: "wǒ zìjǐ zuò", translation: "💪 Я сам сделаю" }
+          ] },
+        { char: "他", pinyin: "tā", toneMark: "1-й тон", meaning: "он / его (для людей)",
+          stroke: "亻 + 也", assoc: "🐍 человек и змея (чужой)",
+          phrases: [
+              { text: "他们", pinyin: "tā men", translation: "👥 Они (мужчины или смешанная группа)" },
+              { text: "他跑了", pinyin: "tā pǎo le", translation: "🏃 Он убежал" },
+              { text: "他的朋友", pinyin: "tā de péngyou", translation: "👬 Его друг" },
+              { text: "他怎么了？", pinyin: "tā zěnme le?", translation: "🤔 Что с ним?" }
+          ] }
+    ];
+
+    // Функция озвучки текста на китайском (мандарин)
+    function speakChinese(text) {
+        if (!window.speechSynthesis) {
+            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
+            return;
+        }
+        // Останавливаем текущее, чтобы не накладывалось
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        // По возможности выбираем мужской или женский голос, но главное zh-CN
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Рендер карточек
+    function renderCards() {
+        const grid = document.getElementById("app");
+        if (!grid) return;
+        grid.innerHTML = "";
+        lessonData.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            // Верхняя часть с большим иероглифом
+            const charArea = document.createElement("div");
+            charArea.className = "char-area";
+            const hanziSpan = document.createElement("div");
+            hanziSpan.className = "big-hanzi";
+            hanziSpan.innerText = item.char;
+            hanziSpan.setAttribute("data-audio", item.char);
+            // озвучка по клику на иероглиф
+            hanziSpan.addEventListener("click", (e) => {
+                e.stopPropagation();
+                speakChinese(item.char);
+            });
+            const pinyinSpan = document.createElement("div");
+            pinyinSpan.className = "pinyin-main";
+            pinyinSpan.innerText = `${item.pinyin}  ·  ${item.toneMark}`;
+            const meaningSpan = document.createElement("div");
+            meaningSpan.className = "meaning";
+            meaningSpan.innerText = item.meaning;
+
+            charArea.appendChild(hanziSpan);
+            charArea.appendChild(pinyinSpan);
+            charArea.appendChild(meaningSpan);
+
+            // прописи + ассоциация
+            const strokeDiv = document.createElement("div");
+            strokeDiv.className = "stroke";
+            strokeDiv.innerText = `✍️ Прописи: ${item.stroke}`;
+            const assocDiv = document.createElement("div");
+            assocDiv.className = "assoc";
+            assocDiv.innerHTML = `<span>🧠 Ассоциация:</span> ${item.assoc}`;
+
+            // фразы
+            const phrasesDiv = document.createElement("div");
+            phrasesDiv.className = "phrases-list";
+            item.phrases.forEach(ph => {
+                const phraseBlock = document.createElement("div");
+                phraseBlock.className = "phrase";
+                const hanziPh = document.createElement("div");
+                hanziPh.className = "hanzi-ph";
+                hanziPh.innerText = ph.text;
+                const pinyinPh = document.createElement("div");
+                pinyinPh.className = "pinyin-ph";
+                pinyinPh.innerText = ph.pinyin;
+                const transPh = document.createElement("div");
+                transPh.className = "trans-ph";
+                transPh.innerHTML = `<span class="speaker-icon">🔊</span> ${ph.translation}`;
+                phraseBlock.appendChild(hanziPh);
+                phraseBlock.appendChild(pinyinPh);
+                phraseBlock.appendChild(transPh);
+                // нажатие на фразу озвучивает её китайский текст
+                phraseBlock.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    speakChinese(ph.text);
+                });
+                phrasesDiv.appendChild(phraseBlock);
+            });
+
+            card.appendChild(charArea);
+            card.appendChild(strokeDiv);
+            card.appendChild(assocDiv);
+            card.appendChild(phrasesDiv);
+            grid.appendChild(card);
+        });
+
+        // добавим глобальные инструкции для голосовых движков: просим поддерживать китайский (уже и так)
+        // дополнительно — вешаем подсказку
+    }
+
+    renderCards();
+
+    // предзагрузка: совет для пользователя, если голоса нет
+    if (window.speechSynthesis) {
+        // просто проверяем, что поддержка есть
+        console.log("Web Speech API готов");
+    } else {
+        const note = document.querySelector(".audio-note");
+        if (note) note.innerHTML += "<br>⚠️ Ваш браузер не поддерживает SpeechSynthesis. Попробуйте Chrome или Edge.";
+    }
+</script>
+</body>
+</html>
