@@ -12,7 +12,9 @@
     <div class="hero">
         <h1>🧸 Урок 1 · Топ-10 иероглифов 🧸</h1>
         <p>🎤 Нажми на букву или фразу — китайский скажет сам! 🎤</p>
-        <a href="index.html" class="back-home">🏠 На главную</a>
+        <div style="margin-top: 0.8rem;">
+            <a href="index.html" class="back-home">🏠 На главную</a>
+        </div>
     </div>
     
     <div class="speak-tip">
@@ -23,14 +25,15 @@
 
     <footer>
         🌟 Учи весело! Запоминай картинки-ассоциации и повторяй фразы. 🌟
-        <div style="margin-top: 0.5rem;"><a href="index.html" class="back-home" style="font-size: 0.9rem;">📖 К списку уроков</a></div>
+        <div style="margin-top: 0.8rem;">
+            <a href="index.html" class="back-home">📖 К списку уроков</a>
+        </div>
     </footer>
 </div>
 
 <script src="lessons-data.js"></script>
 <script src="script.js"></script>
 <script>
-    // Загружаем данные первого урока и рендерим
     if (lessonsDB.lesson1) {
         renderLesson(lessonsDB.lesson1.data, 'cardsGrid');
     } else {
