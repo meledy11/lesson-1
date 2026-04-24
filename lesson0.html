@@ -224,6 +224,10 @@
             border-radius: 50px;
             cursor: pointer;
             margin: 0.5rem;
+            box-shadow: 0 3px 0 #2E7D32;
+        }
+        .listen-btn:active {
+            transform: translateY(2px);
         }
         .close-btn {
             background: #FF6B35;
@@ -234,6 +238,10 @@
             border-radius: 50px;
             cursor: pointer;
             margin: 0.5rem;
+            box-shadow: 0 3px 0 #C16F1A;
+        }
+        .close-btn:active {
+            transform: translateY(2px);
         }
         .warning {
             background: #FFF1C1;
@@ -241,6 +249,7 @@
             border-radius: 40px;
             margin-top: 1rem;
             text-align: center;
+            border-left: 8px solid #FF8C42;
         }
         footer {
             text-align: center;
@@ -329,7 +338,7 @@
         if (!container) return;
         
         if (typeof pinyinFullDB === 'undefined') {
-            container.innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: файл pinyin-full-db.js не загружен!</div>';
+            container.innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: файл pinyin-full-db.js не загружен! Проверьте, что файл лежит в той же папке.</div>';
             return;
         }
         
