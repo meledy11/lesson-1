@@ -5,28 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📚 Весёлый китайский - Все уроки</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Дополнительные стили только для главной */
-        .main-hero {
-            background: linear-gradient(135deg, #FF9A3C, #FF6B35);
-        }
-        .welcome-text {
-            text-align: center;
-            margin: 1.5rem 0;
-            font-size: 1.2rem;
-            color: #A64B2A;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <div class="hero main-hero">
+        <div class="hero">
             <h1>📚 Весёлый китайский</h1>
             <p>🎧 Интерактивные уроки с озвучкой 🎧</p>
         </div>
         
-        <div class="welcome-text">
-            🌟 Выбери урок и начинай учить иероглифы с удовольствием! 🌟
+        <div class="speak-tip">
+            <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
         </div>
         
         <div class="lessons-list" id="lessonsList"></div>
@@ -38,7 +26,6 @@
     
     <script src="lessons-data.js"></script>
     <script>
-        // Рендерим список уроков на главной
         const lessonsList = document.getElementById('lessonsList');
         
         for (const [key, lesson] of Object.entries(lessonsDB)) {
@@ -48,12 +35,11 @@
             lessonCard.innerHTML = `
                 <h2>${lesson.icon} ${lesson.title}</h2>
                 <p>${lesson.description}</p>
-                <div style="margin-top: 0.8rem; font-size: 0.9rem;">🎯 ${lesson.data.length} иероглифов</div>
+                <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">🎯 ${lesson.data.length} иероглифов</div>
             `;
             lessonsList.appendChild(lessonCard);
         }
         
-        // Если уроков пока нет, покажем сообщение
         if (Object.keys(lessonsDB).length === 0) {
             lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
         }
