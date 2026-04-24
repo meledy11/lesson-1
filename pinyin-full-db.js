@@ -3194,7 +3194,7 @@ const pinyinFullDB = {
                     { tone: "4-й", pinyin: "suàn", ru: "суань", char: "算", meaning: "считать 🧮", example: "算了 suàn le", example_ru: "ладно", sound: "算了" }
                 ]
             },
-            sun: { 
+                       sun: { 
                 translation: "сунь",
                 tones: [
                     { tone: "1-й", pinyin: "sūn", ru: "сунь", char: "孙", meaning: "внук 👶", example: "孙子 sūn zi", example_ru: "внук", sound: "孙子" },
@@ -3211,4 +3211,3 @@ const pinyinFullDB = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = pinyinFullDB;
 }
-    
