@@ -272,7 +272,7 @@
 <div class="container">
     <div class="hero">
         <h1>🎓 Урок 0 · Полная таблица пиньиня 🎓</h1>
-        <p>🎤 Нажми на букву → звук | Нажми на карточку тона → слово с тоном!</p>
+        <p>🎤 Нажми на букву → слово с 1-м тоном | Нажми на карточку тона → слово с правильным тоном!</p>
         <a href="index.html" class="back-home">🏠 На главную</a>
         <a href="lesson1.html" class="back-home">📚 К уроку 1</a>
     </div>
@@ -303,7 +303,6 @@
 <script>
     let currentModalSound = '';
 
-    // Функция озвучивания с правильной скоростью для тонов
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
@@ -312,7 +311,7 @@
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.6;      // Оптимальная скорость для восприятия тонов
+        utterance.rate = 0.6;
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
@@ -335,16 +334,23 @@
         currentModalSound = '';
     }
 
-    // Получаем звук для инициали (первый тон первого слога)
+    // Получаем ПЕРВОЕ слово (1-й тон) для озвучивания инициали и слога
+    function getFirstToneWord(sylData) {
+        if (sylData && sylData.tones && sylData.tones.length > 0) {
+            const firstTone = sylData.tones.find(t => t.tone === "1-й");
+            if (firstTone && firstTone.sound) return firstTone.sound;
+            if (sylData.tones[0] && sylData.tones[0].sound) return sylData.tones[0].sound;
+        }
+        return null;
+    }
+
+    // Получаем первый слог с 1-м тоном для инициали
     function getInitialSound(data) {
         const syllables = data.syllables;
         if (syllables) {
             for (const [sylName, sylData] of Object.entries(syllables)) {
-                if (sylData.tones && sylData.tones.length > 0) {
-                    const firstTone = sylData.tones.find(t => t.tone === "1-й");
-                    if (firstTone && firstTone.sound) return firstTone.sound;
-                    if (sylData.tones[0] && sylData.tones[0].sound) return sylData.tones[0].sound;
-                }
+                const sound = getFirstToneWord(sylData);
+                if (sound) return sound;
             }
         }
         return data.sound;
@@ -355,7 +361,7 @@
         if (!container) return;
         
         if (typeof pinyinFullDB === 'undefined') {
-            container.innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: файл pinyin-full-db.js не загружен! Проверьте, что файл лежит в той же папке.</div>';
+            container.innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: файл pinyin-full-db.js не загружен!</div>';
             return;
         }
         
@@ -372,7 +378,7 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали
+            // Шапка инициали — озвучиваем слово с 1-м тоном
             const header = document.createElement('div');
             header.className = 'initial-header';
             const soundToPlay = getInitialSound(data);
@@ -399,10 +405,12 @@
                     const sylName = document.createElement('div');
                     sylName.className = 'syllable-name';
                     sylName.innerHTML = `🔊 ${syllable}`;
+                    // Нажатие на слог — озвучиваем слово с 1-м тоном
+                    const firstToneWord = getFirstToneWord(sylData);
                     sylName.onclick = (e) => {
                         e.stopPropagation();
-                        if (sylData.tones && sylData.tones[0]) {
-                            playChinese(sylData.tones[0].sound);
+                        if (firstToneWord) {
+                            playChinese(firstToneWord);
                         } else {
                             playChinese(syllable);
                         }
