@@ -21,22 +21,23 @@ body {
     text-align: center;
     background: #FFB347;
     border-radius: 70px;
-    padding: 1rem 1rem 1.5rem;
+    padding: 1.5rem 1rem;
     margin-bottom: 2rem;
     box-shadow: 0 15px 0 #C16F1A;
     color: white;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     text-shadow: 4px 4px 0 #C16F1A;
     background: #FFF6E0;
     display: inline-block;
-    padding: 0.3rem 2rem;
+    padding: 0.5rem 2rem;
     border-radius: 60px;
     color: #E67E22;
     margin-bottom: 0.8rem;
     font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .hero p {
@@ -44,7 +45,7 @@ body {
     font-weight: bold;
     background: #FFD966;
     display: inline-block;
-    padding: 0.4rem 1.5rem;
+    padding: 0.5rem 1.8rem;
     border-radius: 50px;
     color: #b45f2b;
 }
@@ -67,14 +68,14 @@ body {
     flex-wrap: wrap;
 }
 
-/* Сетка с блоками-кирпичиками */
+/* Сетка с блоками */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     gap: 2rem;
 }
 
-/* КАРТОЧКА-БЛОК как яркий кубик */
+/* КАРТОЧКА */
 .card {
     background: #FFFEF7;
     border-radius: 48px;
@@ -98,7 +99,7 @@ body {
 }
 
 .big-hanzi {
-    font-size: 8rem;
+    font-size: 7rem;
     font-weight: 900;
     font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', sans-serif;
     background: white;
@@ -110,7 +111,6 @@ body {
     transition: 0.05s linear;
     cursor: pointer;
     line-height: 1.2;
-    letter-spacing: 0.05em;
 }
 
 .big-hanzi:active {
@@ -121,12 +121,11 @@ body {
     background: #FFD966;
     margin-top: 1rem;
     display: inline-block;
-    padding: 0.7rem 2rem;
+    padding: 0.7rem 1.8rem;
     border-radius: 50px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #A64B2A;
-    letter-spacing: 1px;
     font-family: 'Segoe UI', 'Roboto', 'Noto Sans SC', sans-serif;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
@@ -147,7 +146,6 @@ body {
     padding: 0.8rem;
     text-align: center;
     font-size: 0.85rem;
-    font-family: 'Courier New', monospace;
     font-weight: bold;
     border-bottom: 1px solid #FFCF9A;
     color: #AA6F3C;
@@ -163,7 +161,6 @@ body {
     align-items: center;
     border-bottom: 2px solid #FFDCA8;
     color: #B95C1A;
-    line-height: 1.4;
 }
 
 .phrases-box {
@@ -189,7 +186,7 @@ body {
 }
 
 .ch-text {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 800;
     font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
     letter-spacing: 2px;
@@ -198,7 +195,7 @@ body {
 }
 
 .py-text {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #C5511A;
     margin: 8px 0 6px;
     font-weight: 700;
@@ -206,7 +203,6 @@ body {
     display: inline-block;
     padding: 0.2rem 1rem;
     border-radius: 40px;
-    letter-spacing: 0.5px;
     font-family: 'Segoe UI', 'Roboto', 'Noto Sans SC', sans-serif;
 }
 
@@ -224,7 +220,7 @@ footer {
     text-align: center;
     margin-top: 3rem;
     background: #FFD699;
-    padding: 0.8rem;
+    padding: 1rem;
     border-radius: 60px;
     font-weight: bold;
     font-size: 1rem;
@@ -236,12 +232,12 @@ footer {
     background: #FFB347;
     color: white;
     text-decoration: none;
-    padding: 0.7rem 1.5rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 50px;
     font-weight: bold;
-    margin-top: 0.5rem;
     transition: 0.1s ease;
     box-shadow: 0 4px 0 #C16F1A;
+    font-size: 1rem;
 }
 
 .back-home:active {
@@ -252,9 +248,9 @@ footer {
 /* Список уроков на главной */
 .lessons-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin-top: 2rem;
+    margin: 2rem 0;
 }
 
 .lesson-card {
@@ -276,7 +272,7 @@ footer {
 }
 
 .lesson-card h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #E67E22;
     margin-bottom: 0.5rem;
 }
@@ -292,24 +288,38 @@ footer {
         padding: 1rem;
     }
     
+    .hero h1 {
+        font-size: 1.8rem;
+        padding: 0.3rem 1rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
     .big-hanzi {
-        font-size: 5.5rem;
+        font-size: 5rem;
         padding: 0.3rem 0.8rem;
     }
+    
     .pinyin-badge {
-        font-size: 1.6rem;
-        padding: 0.5rem 1.2rem;
+        font-size: 1.3rem;
+        padding: 0.5rem 1rem;
     }
-    .py-text {
-        font-size: 1.1rem;
-    }
+    
     .ch-text {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
-    .hero h1 {
-        font-size: 1.6rem;
+    
+    .py-text {
+        font-size: 1rem;
     }
+    
     .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lessons-list {
         grid-template-columns: 1fr;
     }
 }
