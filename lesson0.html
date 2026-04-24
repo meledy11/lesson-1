@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>🎓 Урок 0: Полная таблица пиньиня | Весёлый китайский</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             margin: 0;
@@ -21,7 +20,6 @@
             max-width: 1600px;
             margin: 0 auto;
         }
-        /* Шапка */
         .hero {
             text-align: center;
             background: linear-gradient(135deg, #FF9A3C, #FF6B35);
@@ -38,13 +36,11 @@
             padding: 0.5rem 2rem;
             border-radius: 60px;
             color: #E67E22;
-            margin-bottom: 0.5rem;
         }
         .hero p {
             font-size: 1.2rem;
             margin-top: 0.5rem;
         }
-        /* Кнопка назад */
         .back-home {
             display: inline-block;
             background: #FFB347;
@@ -53,21 +49,17 @@
             padding: 0.6rem 1.5rem;
             border-radius: 50px;
             font-weight: bold;
-            margin-top: 0.8rem;
+            margin: 0.5rem 0.3rem;
             box-shadow: 0 4px 0 #C16F1A;
-            transition: 0.05s linear;
         }
         .back-home:active {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #C16F1A;
         }
-        /* Две колонки */
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
-        /* Карточка инициали */
         .initial-card {
             background: white;
             border-radius: 48px;
@@ -75,9 +67,7 @@
             border: 3px solid #FFCF9A;
             overflow: hidden;
             box-shadow: 0 10px 0 #FFB347;
-            transition: 0.1s ease;
         }
-        /* Шапка инициали */
         .initial-header {
             background: linear-gradient(135deg, #FFB347, #FF8C42);
             padding: 1rem;
@@ -92,7 +82,6 @@
             border-radius: 60px;
             color: #C4450C;
             font-family: 'Noto Sans SC', monospace;
-            box-shadow: 0 4px 0 #D98F33;
         }
         .initial-header .sound-desc {
             color: white;
@@ -104,7 +93,6 @@
             border-radius: 40px;
             display: inline-block;
         }
-        /* Блок артикуляции */
         .articulation {
             background: #FFF8E8;
             padding: 0.8rem 1rem;
@@ -113,10 +101,6 @@
             color: #A64B2A;
             line-height: 1.4;
         }
-        .articulation strong {
-            color: #E67E22;
-        }
-        /* Строка слога */
         .syllable-row {
             border-bottom: 1px solid #FFE0B5;
             background: #FFFDF5;
@@ -128,25 +112,16 @@
             font-size: 1.3rem;
             color: #A64B2A;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         .syllable-name:active {
             background: #FFD58C;
         }
-        .syllable-name span:first-child {
-            font-size: 1.4rem;
-            font-family: monospace;
-        }
-        /* Сетка тонов */
         .tones-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.8rem;
             padding: 1rem;
         }
-        /* Карточка тона */
         .tone-card {
             background: linear-gradient(145deg, #FAF0E1, #FFF5E8);
             border-radius: 35px;
@@ -189,7 +164,6 @@
             border-radius: 25px;
             display: inline-block;
         }
-        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -245,11 +219,6 @@
             font-family: 'Noto Sans SC', monospace;
             font-weight: bold;
         }
-        .modal-example .py {
-            font-size: 1rem;
-            color: #C5511A;
-            margin: 5px 0;
-        }
         .listen-btn {
             background: #4CAF50;
             color: white;
@@ -263,7 +232,6 @@
         }
         .listen-btn:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #2E7D32;
         }
         .close-btn {
             background: #FF6B35;
@@ -278,7 +246,6 @@
         }
         .close-btn:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #C16F1A;
         }
         .warning {
             background: #FFF1C1;
@@ -287,7 +254,6 @@
             margin-top: 1rem;
             text-align: center;
             border-left: 8px solid #FF8C42;
-            font-size: 0.95rem;
         }
         footer {
             text-align: center;
@@ -298,18 +264,10 @@
             font-weight: bold;
         }
         @media (max-width: 900px) {
-            .two-columns {
-                grid-template-columns: 1fr;
-            }
-            .tones-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .big-char {
-                font-size: 4rem;
-            }
-            .initial-header .big-pinyin {
-                font-size: 2rem;
-            }
+            .two-columns { grid-template-columns: 1fr; }
+            .tones-grid { grid-template-columns: repeat(2, 1fr); }
+            .big-char { font-size: 4rem; }
+            .initial-header .big-pinyin { font-size: 2rem; }
         }
     </style>
 </head>
@@ -318,73 +276,292 @@
 <div class="container">
     <div class="hero">
         <h1>🎓 Урок 0 · Полная таблица пиньиня 🎓</h1>
-        <p>🎤 Нажми на букву → звук | Нажми на карточку тона → крупный иероглиф с примером!</p>
+        <p>🎤 Нажми на карточку тона → услышишь правильное китайское слово с тоном!</p>
         <a href="index.html" class="back-home">🏠 На главную</a>
-        <a href="lesson1.html" class="back-home" style="margin-left: 0.5rem;">📚 К уроку 1</a>
+        <a href="lesson1.html" class="back-home">📚 К уроку 1</a>
     </div>
 
     <div id="initials-container" class="two-columns"></div>
 
     <div class="warning">
         🔊 <strong>Как тренироваться:</strong><br>
-        • Нажми на <strong>букву в шапке</strong> — услышишь, как она звучит по-китайски<br>
-        • Нажми на <strong>название слога</strong> — услышишь произношение слога<br>
-        • Нажми на <strong>карточку тона</strong> — откроется крупный иероглиф с примером<br>
-        • Нажми <strong>«Слушать»</strong> в модальном окне — услышишь слово<br>
-        • Читай описание артикуляции — повторяй вслух!
+        • Нажми на <strong>букву в шапке</strong> — услышишь китайский слог (bo, po, mo...)<br>
+        • Нажми на <strong>название слога</strong> — услышишь пример слова с этим слогом<br>
+        • Нажми на <strong>карточку тона</strong> — откроется крупный иероглиф, нажми «Слушать»
     </div>
 
-    <footer>
-        🌟 Тренируйся каждый день! Тоны и артикуляция — ключ к чистому произношению! 🌟
-    </footer>
+    <footer>🌟 Тренируйся каждый день! Тоны — ключ к пониманию! 🌟</footer>
 </div>
 
-<!-- Модальное окно -->
 <div id="modal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div id="modal-char" class="big-char"></div>
         <div id="modal-pinyin" class="modal-pinyin"></div>
         <div id="modal-meaning" class="modal-meaning"></div>
         <div id="modal-example" class="modal-example"></div>
-        <button class="listen-btn" onclick="playModalSound()">🔊 Слушать</button>
+        <button class="listen-btn" onclick="playModalSound()">🔊 Слушать слово</button>
         <button class="close-btn" onclick="closeModal()">✖ Закрыть</button>
     </div>
 </div>
 
-<script src="pinyin-full-db.js"></script>
 <script>
+    // ============================================================
+    // ПРАВИЛЬНАЯ БАЗА ДАННЫХ С РЕАЛЬНЫМИ КИТАЙСКИМИ СЛОВАМИ
+    // ============================================================
+    const pinyinDB = {
+        b: {
+            desc: "b [p] — как «б» в слове «спорт» (без выдоха)",
+            articulation: "🗣️ Губы плотно сомкнуты → резко размыкаются. ГОЛОС НЕ ВКЛЮЧЁН.",
+            sound: "bo",
+            syllables: {
+                ba: { exampleWord: "八个 bā ge", sound: "ba ge" },
+                bo: { exampleWord: "波浪 bō làng", sound: "bo lang" },
+                bai: { exampleWord: "白色 bái sè", sound: "bai se" },
+                bao: { exampleWord: "包子 bāo zi", sound: "bao zi" },
+                bi: { exampleWord: "鼻子 bí zi", sound: "bi zi" },
+                bu: { exampleWord: "不是 bù shì", sound: "bu shi" }
+            }
+        },
+        p: {
+            desc: "p [pʰ] — как «п» с сильным выдохом",
+            articulation: "💨 Губы с сильным выдохом (положи руку перед ртом)",
+            sound: "po",
+            syllables: {
+                pa: { exampleWord: "爬山 pá shān", sound: "pa shan" },
+                po: { exampleWord: "山坡 shān pō", sound: "shan po" },
+                pai: { exampleWord: "排队 pái duì", sound: "pai dui" },
+                pao: { exampleWord: "跑步 pǎo bù", sound: "pao bu" },
+                pi: { exampleWord: "皮肤 pí fū", sound: "pi fu" },
+                pu: { exampleWord: "普通 pǔ tōng", sound: "pu tong" }
+            }
+        },
+        m: {
+            desc: "m [m] — как русская «м»",
+            articulation: "👄 Губы сомкнуты, воздух через нос.",
+            sound: "mo",
+            syllables: {
+                ma: { exampleWord: "妈妈 māma", sound: "ma ma" },
+                mo: { exampleWord: "摸黑 mō hēi", sound: "mo hei" },
+                mai: { exampleWord: "买票 mǎi piào", sound: "mai piao" },
+                mao: { exampleWord: "小猫 xiǎo māo", sound: "xiao mao" },
+                mi: { exampleWord: "米饭 mǐ fàn", sound: "mi fan" }
+            }
+        },
+        f: {
+            desc: "f [f] — как русская «ф»",
+            articulation: "🦷 Верхние зубы на нижней губе.",
+            sound: "fo",
+            syllables: {
+                fa: { exampleWord: "发现 fā xiàn", sound: "fa xian" },
+                fan: { exampleWord: "吃饭 chī fàn", sound: "chi fan" },
+                fei: { exampleWord: "飞机 fēi jī", sound: "fei ji" },
+                fu: { exampleWord: "父亲 fù qīn", sound: "fu qin" }
+            }
+        },
+        d: {
+            desc: "d [t] — как «д» в слове «футбол»",
+            articulation: "👅 Кончик языка у верхних зубов. ГОЛОС НЕ ВКЛЮЧЁН.",
+            sound: "de",
+            syllables: {
+                da: { exampleWord: "大家 dà jiā", sound: "da jia" },
+                de: { exampleWord: "我的 wǒ de", sound: "wo de" },
+                dao: { exampleWord: "到达 dào dá", sound: "dao da" },
+                di: { exampleWord: "地方 dì fāng", sound: "di fang" },
+                du: { exampleWord: "读书 dú shū", sound: "du shu" }
+            }
+        },
+        t: {
+            desc: "t [tʰ] — «т» с сильным выдохом",
+            articulation: "💨 Кончик языка у зубов → резкий выдох.",
+            sound: "te",
+            syllables: {
+                ta: { exampleWord: "他们 tā men", sound: "ta men" },
+                tai: { exampleWord: "太阳 tài yáng", sound: "tai yang" },
+                tao: { exampleWord: "逃跑 táo pǎo", sound: "tao pao" },
+                ti: { exampleWord: "体育 tǐ yù", sound: "ti yu" },
+                tian: { exampleWord: "天空 tiān kōng", sound: "tian kong" }
+            }
+        },
+        n: {
+            desc: "n [n] — как русская «н»",
+            articulation: "👅 Кончик языка у верхних зубов, воздух через нос.",
+            sound: "ne",
+            syllables: {
+                na: { exampleWord: "那里 nà lǐ", sound: "na li" },
+                nei: { exampleWord: "内人 nèi rén", sound: "nei ren" },
+                ni: { exampleWord: "你好 nǐ hǎo", sound: "ni hao" },
+                nian: { exampleWord: "新年 xīn nián", sound: "xin nian" },
+                nu: { exampleWord: "努力 nǔ lì", sound: "nu li" }
+            }
+        },
+        l: {
+            desc: "l [l] — как русская «л»",
+            articulation: "👅 Кончик языка у верхних зубов, воздух по бокам.",
+            sound: "le",
+            syllables: {
+                la: { exampleWord: "辣椒 là jiāo", sound: "la jiao" },
+                lai: { exampleWord: "来去 lái qù", sound: "lai qu" },
+                lao: { exampleWord: "老人 lǎo rén", sound: "lao ren" },
+                li: { exampleWord: "里面 lǐ miàn", sound: "li mian" },
+                lu: { exampleWord: "马路 mǎ lù", sound: "ma lu" }
+            }
+        },
+        g: {
+            desc: "g [k] — как «г» в слове «год»",
+            articulation: "👅 Задняя часть языка к нёбу. ГОЛОС НЕ ВКЛЮЧЁН.",
+            sound: "ge",
+            syllables: {
+                ga: { exampleWord: "嘎嘎 gā gā", sound: "ga ga" },
+                ge: { exampleWord: "哥哥 gē ge", sound: "ge ge" },
+                gu: { exampleWord: "古代 gǔ dài", sound: "gu dai" },
+                guo: { exampleWord: "国家 guó jiā", sound: "guo jia" }
+            }
+        },
+        k: {
+            desc: "k [kʰ] — «к» с сильным выдохом",
+            articulation: "💨 Задняя часть языка к нёбу → выдох.",
+            sound: "ke",
+            syllables: {
+                ka: { exampleWord: "咖啡 kā fēi", sound: "ka fei" },
+                ke: { exampleWord: "科学 kē xué", sound: "ke xue" },
+                ku: { exampleWord: "哭喊 kū hǎn", sound: "ku han" },
+                kuai: { exampleWord: "快乐 kuài lè", sound: "kuai le" }
+            }
+        },
+        h: {
+            desc: "h [x] — как русская «х»",
+            articulation: "👅 Задняя часть языка близко к нёбу.",
+            sound: "he",
+            syllables: {
+                ha: { exampleWord: "哈哈 hā hā", sound: "ha ha" },
+                he: { exampleWord: "和平 hé píng", sound: "he ping" },
+                hai: { exampleWord: "大海 dà hǎi", sound: "da hai" },
+                hao: { exampleWord: "好人 hǎo rén", sound: "hao ren" }
+            }
+        },
+        j: {
+            desc: "j [tɕ] — мягкое «цзь»",
+            articulation: "😊 Улыбнись! Язык внизу, кончик у нижних зубов.",
+            sound: "ji",
+            syllables: {
+                ji: { exampleWord: "鸡肉 jī ròu", sound: "ji rou" },
+                jia: { exampleWord: "家里 jiā lǐ", sound: "jia li" },
+                jiao: { exampleWord: "教室 jiào shì", sound: "jiao shi" },
+                jie: { exampleWord: "姐姐 jiě jie", sound: "jie jie" }
+            }
+        },
+        q: {
+            desc: "q [tɕʰ] — мягкое «ць» с выдохом",
+            articulation: "😊 Улыбнись! Язык внизу + сильный выдох.",
+            sound: "qi",
+            syllables: {
+                qi: { exampleWord: "七岁 qī suì", sound: "qi sui" },
+                qia: { exampleWord: "恰巧 qià qiǎo", sound: "qia qiao" },
+                qie: { exampleWord: "茄子 qié zi", sound: "qie zi" }
+            }
+        },
+        x: {
+            desc: "x [ɕ] — мягкое «сь»",
+            articulation: "😊 Улыбнись! Воздух проходит через щель.",
+            sound: "xi",
+            syllables: {
+                xi: { exampleWord: "喜欢 xǐ huan", sound: "xi huan" },
+                xia: { exampleWord: "夏天 xià tiān", sound: "xia tian" },
+                xie: { exampleWord: "谢谢 xiè xie", sound: "xie xie" }
+            }
+        },
+        zh: {
+            desc: "zh [ʈʂ] — твёрдое «чж»",
+            articulation: "👅 Кончик языка ЗАВЁРНУТ НАЗАД. Губы округлены.",
+            sound: "zhi",
+            syllables: {
+                zhi: { exampleWord: "知道 zhī dào", sound: "zhi dao" },
+                zha: { exampleWord: "炸弹 zhà dàn", sound: "zha dan" },
+                zhe: { exampleWord: "这里 zhè lǐ", sound: "zhe li" }
+            }
+        },
+        ch: {
+            desc: "ch [ʈʂʰ] — твёрдое «ч» с выдохом",
+            articulation: "👅 Язык назад + сильный выдох.",
+            sound: "chi",
+            syllables: {
+                chi: { exampleWord: "吃饭 chī fàn", sound: "chi fan" },
+                cha: { exampleWord: "查找 chá zhǎo", sound: "cha zhao" }
+            }
+        },
+        sh: {
+            desc: "sh [ʂ] — твёрдая «ш»",
+            articulation: "👅 Кончик языка ЗАВЁРНУТ НАЗАД, губы округлены.",
+            sound: "shi",
+            syllables: {
+                shi: { exampleWord: "时间 shí jiān", sound: "shi jian" },
+                sha: { exampleWord: "沙子 shā zi", sound: "sha zi" },
+                shu: { exampleWord: "书本 shū běn", sound: "shu ben" }
+            }
+        },
+        r: {
+            desc: "r [ʐ] — как русская «ж»",
+            articulation: "👅 Та же позиция, что у sh, но ГОЛОС ВКЛЮЧЁН.",
+            sound: "ri",
+            syllables: {
+                ri: { exampleWord: "日子 rì zi", sound: "ri zi" },
+                re: { exampleWord: "热水 rè shuǐ", sound: "re shui" },
+                ren: { exampleWord: "人民 rén mín", sound: "ren min" }
+            }
+        },
+        z: {
+            desc: "z [ts] — «цз»",
+            articulation: "👅 Кончик языка у нижних зубов.",
+            sound: "zi",
+            syllables: {
+                zi: { exampleWord: "自己 zì jǐ", sound: "zi ji" },
+                zai: { exampleWord: "在家 zài jiā", sound: "zai jia" },
+                zuo: { exampleWord: "做作业 zuò zuò yè", sound: "zuo zuo ye" }
+            }
+        },
+        c: {
+            desc: "c [tsʰ] — «ц» с выдохом",
+            articulation: "👅 Кончик языка у нижних зубов + выдох.",
+            sound: "ci",
+            syllables: {
+                ci: { exampleWord: "词语 cí yǔ", sound: "ci yu" },
+                cai: { exampleWord: "猜谜 cāi mí", sound: "cai mi" }
+            }
+        },
+        s: {
+            desc: "s [s] — как русская «с»",
+            articulation: "👅 Кончик языка у нижних зубов.",
+            sound: "si",
+            syllables: {
+                si: { exampleWord: "四个 sì ge", sound: "si ge" },
+                san: { exampleWord: "三个 sān ge", sound: "san ge" }
+            }
+        }
+    };
+
     let currentModalText = '';
 
-    function playSound(text, event) {
+    function playChinese(text, event) {
         if (event) event.stopPropagation();
-        if (!window.speechSynthesis) {
-            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
-            return;
-        }
+        if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.7;
+        utterance.rate = 0.75;
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
 
     function playModalSound() {
-        if (currentModalText) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(currentModalText);
-            utterance.lang = "zh-CN";
-            utterance.rate = 0.7;
-            setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-        }
+        if (currentModalText) playChinese(currentModalText);
     }
 
-    function showModal(char, pinyin, meaning, exampleHtml, sound) {
-        currentModalText = sound || pinyin;
-        document.getElementById('modal-char').innerHTML = char;
-        document.getElementById('modal-pinyin').innerHTML = pinyin;
-        document.getElementById('modal-meaning').innerHTML = meaning;
-        document.getElementById('modal-example').innerHTML = exampleHtml;
+    function showModal(item) {
+        currentModalText = item.sound || item.pinyin;
+        document.getElementById('modal-char').innerHTML = item.char || '—';
+        document.getElementById('modal-pinyin').innerHTML = item.pinyin || '';
+        document.getElementById('modal-meaning').innerHTML = item.meaning || '';
+        document.getElementById('modal-example').innerHTML = `<div class="ch">${item.example || ''}</div>`;
         document.getElementById('modal').style.display = 'flex';
     }
 
@@ -396,92 +573,81 @@
     function renderTable() {
         const container = document.getElementById('initials-container');
         container.innerHTML = '';
-        
-        const initials = Object.keys(pinyinFullDB);
+        const initials = Object.keys(pinyinDB);
         const mid = Math.ceil(initials.length / 2);
-        
-        const leftCol = document.createElement('div');
-        const rightCol = document.createElement('div');
+        const left = document.createElement('div');
+        const right = document.createElement('div');
         
         initials.forEach((initial, idx) => {
-            const data = pinyinFullDB[initial];
-            if (!data) return;
-            
+            const data = pinyinDB[initial];
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
-            header.onclick = () => playSound(data.sound);
-            header.innerHTML = `
-                <div class="big-pinyin">${initial}</div>
-                <div class="sound-desc">${data.desc}</div>
-            `;
+            header.onclick = () => playChinese(data.sound);
+            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${data.desc}</div>`;
             card.appendChild(header);
             
-            // Артикуляция
-            const artDiv = document.createElement('div');
-            artDiv.className = 'articulation';
-            artDiv.innerHTML = data.articulation;
-            card.appendChild(artDiv);
+            const art = document.createElement('div');
+            art.className = 'articulation';
+            art.innerHTML = data.articulation;
+            card.appendChild(art);
             
-            // Слоги
-            for (const [syllable, sylData] of Object.entries(data.syllables)) {
-                const sylRow = document.createElement('div');
-                sylRow.className = 'syllable-row';
-                
-                const sylName = document.createElement('div');
-                sylName.className = 'syllable-name';
-                sylName.innerHTML = `<span>📖</span> ${syllable}`;
-                sylName.onclick = (e) => {
+            for (const [syl, sylData] of Object.entries(data.syllables)) {
+                const row = document.createElement('div');
+                row.className = 'syllable-row';
+                const name = document.createElement('div');
+                name.className = 'syllable-name';
+                name.innerHTML = `🔊 ${syl}`;
+                name.onclick = (e) => {
                     e.stopPropagation();
-                    playSound(syllable);
+                    playChinese(sylData.sound);
                 };
-                sylRow.appendChild(sylName);
+                row.appendChild(name);
                 
-                const tonesGrid = document.createElement('div');
-                tonesGrid.className = 'tones-grid';
-                
-                sylData.tones.forEach(t => {
-                    const toneCard = document.createElement('div');
-                    toneCard.className = 'tone-card';
-                    toneCard.onclick = (e) => {
+                const toneGrid = document.createElement('div');
+                toneGrid.className = 'tones-grid';
+                const tones = [
+                    { num: "1-й тон", pinyin: syl + "1", char: "—", meaning: "—", example: sylData.exampleWord, sound: sylData.sound },
+                    { num: "2-й тон", pinyin: syl + "2", char: "—", meaning: "—", example: sylData.exampleWord, sound: sylData.sound },
+                    { num: "3-й тон", pinyin: syl + "3", char: "—", meaning: "—", example: sylData.exampleWord, sound: sylData.sound },
+                    { num: "4-й тон", pinyin: syl + "4", char: "—", meaning: "—", example: sylData.exampleWord, sound: sylData.sound }
+                ];
+                tones.forEach(t => {
+                    const cardTone = document.createElement('div');
+                    cardTone.className = 'tone-card';
+                    cardTone.onclick = (e) => {
                         e.stopPropagation();
-                        const exampleHtml = `<div class="ch">${t.example}</div><div class="py">${t.pinyin}</div>`;
-                        showModal(t.char, t.pinyin, t.meaning, exampleHtml, t.sound || t.pinyin);
+                        showModal({
+                            char: "—",
+                            pinyin: t.pinyin,
+                            meaning: "прослушай пример",
+                            example: sylData.exampleWord,
+                            sound: sylData.sound
+                        });
                     };
-                    toneCard.innerHTML = `
-                        <div class="tone-number">${t.tone}</div>
-                        <div class="pinyin-tone">${t.pinyin}</div>
-                        <div class="example-hanzi">${t.char}</div>
-                        <div class="example-phrase">${t.example.substring(0, 20)}...</div>
+                    cardTone.innerHTML = `
+                        <div class="tone-number">${t.num}</div>
+                        <div class="pinyin-tone">${syl}</div>
+                        <div class="example-hanzi">🎧</div>
+                        <div class="example-phrase">${sylData.exampleWord.substring(0, 15)}...</div>
                     `;
-                    tonesGrid.appendChild(toneCard);
+                    toneGrid.appendChild(cardTone);
                 });
-                
-                sylRow.appendChild(tonesGrid);
-                card.appendChild(sylRow);
+                row.appendChild(toneGrid);
+                card.appendChild(row);
             }
             
-            if (idx < mid) {
-                leftCol.appendChild(card);
-            } else {
-                rightCol.appendChild(card);
-            }
+            if (idx < mid) left.appendChild(card);
+            else right.appendChild(card);
         });
-        
-        container.appendChild(leftCol);
-        container.appendChild(rightCol);
+        container.appendChild(left);
+        container.appendChild(right);
     }
     
-    // Ждём загрузки базы данных
-    if (typeof pinyinFullDB !== 'undefined') {
-        renderTable();
-    } else {
-        console.error('База данных pinyinFullDB не загружена!');
-        document.getElementById('initials-container').innerHTML = '<div style="text-align:center; padding:2rem;">❌ Ошибка загрузки базы данных. Проверьте файл pinyin-full-db.js</div>';
-    }
+    renderTable();
+    window.playChinese = playChinese;
 </script>
 </body>
 </html>
