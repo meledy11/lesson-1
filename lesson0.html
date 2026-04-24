@@ -25,6 +25,8 @@
             color: #B95C1A;
             font-size: 1.4rem;
             margin: 1.2rem 0 0.8rem 0;
+            border-bottom: 2px solid #FFDCA8;
+            padding-bottom: 0.3rem;
         }
         .theory-block p {
             font-size: 1.05rem;
@@ -40,35 +42,37 @@
         }
         .word-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 0.8rem;
             margin: 1rem 0;
         }
         .phrase-card {
             background: #FAF0E1;
             border-radius: 48px;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border: 2px solid #FFD58C;
             cursor: pointer;
             transition: 0.05s linear;
-            font-weight: bold;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .phrase-card:active {
             transform: translateY(2px);
         }
-        .char-large {
-            font-size: 1.8rem;
-            font-family: 'Noto Sans SC', 'Microsoft YaHei', monospace;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        .pinyin-word {
-            font-size: 1.3rem;
-            font-family: 'Segoe UI', 'Noto Sans SC', monospace;
+        .big-pinyin {
+            font-size: 1.5rem;
             font-weight: bold;
+            font-family: 'Segoe UI', 'Noto Sans SC', monospace;
             color: #C5511A;
+            margin-right: 10px;
+        }
+        .example-sound {
+            display: inline-block;
+            background: #FFE0A3;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 8px;
         }
         .tone-grid {
             display: flex;
@@ -82,29 +86,25 @@
             padding: 1.2rem;
             text-align: center;
             flex: 1;
-            min-width: 110px;
+            min-width: 100px;
             cursor: pointer;
             transition: 0.05s linear;
         }
         .tone-card:active {
             transform: scale(0.97);
         }
-        .tone-card div:first-child {
-            font-size: 2.5rem;
+        .tone-card .pinyin {
+            font-size: 2rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
         }
-        .tone-card div:nth-child(2) {
+        .tone-card .meaning {
             font-size: 0.9rem;
             margin: 0.5rem 0;
         }
-        .tone-card div:nth-child(3) {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .tone-card div:last-child {
-            font-size: 2rem;
-            font-family: 'Noto Sans SC', 'Microsoft YaHei', monospace;
+        .tone-card .hanzi {
+            font-size: 1.8rem;
+            font-family: 'Noto Sans SC', monospace;
         }
         .warning {
             background: #FFF1C1;
@@ -112,7 +112,7 @@
             padding: 1rem;
             border-radius: 24px;
             margin: 1rem 0;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .info-box {
             background: #E8F0FE;
@@ -122,6 +122,13 @@
             margin: 1rem 0;
             font-size: 0.95rem;
         }
+        .rule-box {
+            background: #E8F8E8;
+            border-left: 8px solid #5CB85C;
+            padding: 1rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+        }
         @media (max-width: 750px) {
             .theory-block {
                 padding: 1rem;
@@ -129,11 +136,11 @@
             .two-columns {
                 grid-template-columns: 1fr;
             }
-            .tone-card div:first-child {
-                font-size: 1.8rem;
-            }
-            .tone-card div:last-child {
+            .tone-card .pinyin {
                 font-size: 1.5rem;
+            }
+            .tone-card .hanzi {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -143,7 +150,7 @@
 <div class="container">
     <div class="hero">
         <h1>🎓 Урок 0 · Пиньинь. Инициали и финали 🎓</h1>
-        <p>🎤 Нажми на любой блок — услышишь правильное произношение ПИНЬИНЕМ!</p>
+        <p>🎤 Нажми на любой блок — услышишь ПРАВИЛЬНОЕ китайское произношение!</p>
         <div style="margin-top: 0.8rem;">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson1.html" class="back-home" style="margin-left: 0.5rem;">📚 К уроку 1</a>
@@ -152,130 +159,123 @@
 
     <div class="theory-block">
         <h2>📖 Что такое пиньинь?</h2>
-        <p><strong>Пиньинь (拼音 pīnyīn)</strong> — это официальная система записи китайского произношения латинскими буквами. Каждый китаец учит пиньинь в школе вместе с иероглифами.</p>
+        <p><strong>Пиньинь (拼音 pīnyīn)</strong> — это система записи китайского произношения латинскими буквами.</p>
         
-        <div class="info-box">
-            💡 <strong>Главное правило:</strong> Читаем пиньинь <strong>так, как написано</strong>, но с особыми правилами для некоторых букв. Вот они:
+        <div class="rule-box">
+            📌 <strong>Важное правило:</strong><br>
+            • В китайском языке буква звучит <strong>ОДИНАКОВО</strong> во всех словах — нет такого как в английском, где C может читаться [k] или [s].<br>
+            • Исключение: буква <strong>ü</strong> после j, q, x пишется как <strong>u</strong>, но читается всё равно <strong>ü</strong>.<br>
+            • <strong>Тон</strong> меняет значение слова, но не произношение буквы!
         </div>
 
-        <h2>🔤 Особые буквы пиньиня</h2>
-        <div class="word-grid">
-            <div class="phrase-card" onclick="playPinyin('c')"><span class="char-large">c</span> читается как «ц» в слове <strong>ц</strong>апля (с придыханием)</div>
-            <div class="phrase-card" onclick="playPinyin('z')"><span class="char-large">z</span> читается как «цз» — попробуйте сказать «ц» и сразу добавить голос</div>
-            <div class="phrase-card" onclick="playPinyin('s')"><span class="char-large">s</span> читается как русская «с»</div>
-            <div class="phrase-card" onclick="playPinyin('zh')"><span class="char-large">zh</span> читается как твёрдое «дж» (как в английском John)</div>
-            <div class="phrase-card" onclick="playPinyin('ch')"><span class="char-large">ch</span> читается как твёрдое «ч» с придыханием</div>
-            <div class="phrase-card" onclick="playPinyin('sh')"><span class="char-large">sh</span> читается как твёрдая «ш»</div>
-            <div class="phrase-card" onclick="playPinyin('r')"><span class="char-large">r</span> читается как русская «ж»</div>
-            <div class="phrase-card" onclick="playPinyin('j')"><span class="char-large">j</span> читается как мягкая «джь» (улыбнитесь, язык внизу)</div>
-            <div class="phrase-card" onclick="playPinyin('q')"><span class="char-large">q</span> читается как мягкая «чь» с придыханием</div>
-            <div class="phrase-card" onclick="playPinyin('x')"><span class="char-large">x</span> читается как мягкая «сь» (как в слове сьесть)</div>
-            <div class="phrase-card" onclick="playPinyin('ü')"><span class="char-large">ü</span> читается как немецкая ü или русская «ю» без «й» в начале</div>
+        <h2>🗣️ Часть 1: Инициали (начальные согласные)</h2>
+        <p>Инициали всегда звучат одинаково, независимо от того, какая гласная после них.</p>
+
+        <div class="two-columns">
+            <div>
+                <h3>Группа 1: Губные звуки</h3>
+                <div class="phrase-card" onclick="playSyllable('ba')"><span class="big-pinyin">b</span> → как «б» без голоса (как в "спорт")</div>
+                <div class="phrase-card" onclick="playSyllable('pa')"><span class="big-pinyin">p</span> → «п» с сильным выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('ma')"><span class="big-pinyin">m</span> → как русская «м»</div>
+                <div class="phrase-card" onclick="playSyllable('fa')"><span class="big-pinyin">f</span> → как русская «ф»</div>
+
+                <h3>Группа 2: Переднеязычные</h3>
+                <div class="phrase-card" onclick="playSyllable('da')"><span class="big-pinyin">d</span> → как «д» без голоса (как в "футбол")</div>
+                <div class="phrase-card" onclick="playSyllable('ta')"><span class="big-pinyin">t</span> → «т» с сильным выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('na')"><span class="big-pinyin">n</span> → как русская «н»</div>
+                <div class="phrase-card" onclick="playSyllable('la')"><span class="big-pinyin">l</span> → как русская «л»</div>
+
+                <h3>Группа 3: Заднеязычные</h3>
+                <div class="phrase-card" onclick="playSyllable('ga')"><span class="big-pinyin">g</span> → как «г» без голоса (как в "год")</div>
+                <div class="phrase-card" onclick="playSyllable('ka')"><span class="big-pinyin">k</span> → «к» с сильным выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('ha')"><span class="big-pinyin">h</span> → как русская «х»</div>
+            </div>
+            <div>
+                <h3>Группа 4: Мягкие (палатальные)</h3>
+                <div class="phrase-card" onclick="playSyllable('ji')"><span class="big-pinyin">j</span> → как «цзь» (мягко, язык внизу, улыбка)</div>
+                <div class="phrase-card" onclick="playSyllable('qi')"><span class="big-pinyin">q</span> → «ць» с выдохом (мягко)</div>
+                <div class="phrase-card" onclick="playSyllable('xi')"><span class="big-pinyin">x</span> → «сь» мягко (как в "синий")</div>
+
+                <h3>Группа 5: Шипящие (язык назад)</h3>
+                <div class="phrase-card" onclick="playSyllable('zhi')"><span class="big-pinyin">zh</span> → «дж» твёрдое (язык завёрнут назад)</div>
+                <div class="phrase-card" onclick="playSyllable('chi')"><span class="big-pinyin">ch</span> → «ч» твёрдое с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('shi')"><span class="big-pinyin">sh</span> → «ш» твёрдая</div>
+                <div class="phrase-card" onclick="playSyllable('ri')"><span class="big-pinyin">r</span> → как русская «ж»</div>
+
+                <h3>Группа 6: Свистящие (язык у нижних зубов)</h3>
+                <div class="phrase-card" onclick="playSyllable('zi')"><span class="big-pinyin">z</span> → «цз» (как «ц» с голосом)</div>
+                <div class="phrase-card" onclick="playSyllable('ci')"><span class="big-pinyin">c</span> → «ц» с сильным выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('si')"><span class="big-pinyin">s</span> → как русская «с»</div>
+            </div>
         </div>
 
         <div class="warning">
-            🔊 <strong>Важное правило:</strong> В китайском НЕТ звонких согласных (б, г, д, ж, з). Вместо них:<br>
-            • b — как в слове «спорт» (не «бар»)<br>
-            • g — как в слове «год» (не «горд»)<br>
-            • d — как в слове «футбол» (не «дом»)<br>
-            • Никогда не добавляйте голос в конце!
+            🔊 <strong>Как слышать разницу между b/p, d/t, g/k?</strong><br>
+            • b/d/g — произносятся БЕЗ выдоха, как в "спорт", "футбол", "год"<br>
+            • p/t/k — с сильным выдохом, как при задувании свечи<br>
+            • Положите руку перед ртом: на p/t/k должен быть сильный поток воздуха!
         </div>
 
-        <h2>🗣️ Все инициали (начальные звуки) с примерами</h2>
-        <div class="two-columns">
-            <div>
-                <h3>Губные</h3>
-                <div class="phrase-card" onclick="playSyllable('bo')"><span class="pinyin-word">b</span> → «бо» как в слове «спорт»</div>
-                <div class="phrase-card" onclick="playSyllable('po')"><span class="pinyin-word">p</span> → «по» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('mo')"><span class="pinyin-word">m</span> → «мо» как русская «м»</div>
-                <div class="phrase-card" onclick="playSyllable('fo')"><span class="pinyin-word">f</span> → «фо» как русская «ф»</div>
-                
-                <h3>Переднеязычные</h3>
-                <div class="phrase-card" onclick="playSyllable('de')"><span class="pinyin-word">d</span> → «дэ» как в слове «футбол»</div>
-                <div class="phrase-card" onclick="playSyllable('te')"><span class="pinyin-word">t</span> → «тэ» с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('ne')"><span class="pinyin-word">n</span> → «нэ» как русская «н»</div>
-                <div class="phrase-card" onclick="playSyllable('le')"><span class="pinyin-word">l</span> → «лэ» как русская «л»</div>
-                
-                <h3>Заднеязычные</h3>
-                <div class="phrase-card" onclick="playSyllable('ge')"><span class="pinyin-word">g</span> → «гэ» как в слове «год»</div>
-                <div class="phrase-card" onclick="playSyllable('ke')"><span class="pinyin-word">k</span> → «кэ» с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('he')"><span class="pinyin-word">h</span> → «хэ» как русская «х»</div>
-            </div>
-            <div>
-                <h3>Мягкие (палатальные)</h3>
-                <div class="phrase-card" onclick="playSyllable('ji')"><span class="pinyin-word">j</span> → «цзи» (улыбнуться, язык внизу)</div>
-                <div class="phrase-card" onclick="playSyllable('qi')"><span class="pinyin-word">q</span> → «ци» с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('xi')"><span class="pinyin-word">x</span> → «си» мягкое (как в «синий»)</div>
-                
-                <h3>С шипящими (язык назад)</h3>
-                <div class="phrase-card" onclick="playSyllable('zhi')"><span class="pinyin-word">zh</span> → «чжи» твёрдое (как английское John)</div>
-                <div class="phrase-card" onclick="playSyllable('chi')"><span class="pinyin-word">ch</span> → «чи» твёрдое с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('shi')"><span class="pinyin-word">sh</span> → «ши» твёрдая</div>
-                <div class="phrase-card" onclick="playSyllable('ri')"><span class="pinyin-word">r</span> → «жи» как русская «ж»</div>
-                
-                <h3>Свистящие (язык у нижних зубов)</h3>
-                <div class="phrase-card" onclick="playSyllable('zi')"><span class="pinyin-word">z</span> → «цзы» (как «ц» с голосом)</div>
-                <div class="phrase-card" onclick="playSyllable('ci')"><span class="pinyin-word">c</span> → «цы» с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('si')"><span class="pinyin-word">s</span> → «сы» как русская «с»</div>
-            </div>
-        </div>
-
-        <h2>🎵 Тоны — это самое главное!</h2>
-        <p>Один слог с разными тонами — разные слова. Тренируйте уши!</p>
+        <h2>🎵 Часть 2: Тоны</h2>
+        <p>В китайском языке 4 основных тона + нейтральный. Один и тот же слог с разными тонами — разные слова!</p>
         
         <div class="tone-grid">
             <div class="tone-card" onclick="playTone('mā')">
-                <div>mā</div>
-                <div>1-й тон (ровный высокий)</div>
-                <div>мама</div>
-                <div>妈</div>
+                <div class="pinyin">mā</div>
+                <div class="meaning">1-й тон (ровный высокий)</div>
+                <div class="meaning">мама</div>
+                <div class="hanzi">妈</div>
             </div>
             <div class="tone-card" onclick="playTone('má')">
-                <div>má</div>
-                <div>2-й тон (восходящий)</div>
-                <div>конопля</div>
-                <div>麻</div>
+                <div class="pinyin">má</div>
+                <div class="meaning">2-й тон (восходящий, как вопрос)</div>
+                <div class="meaning">конопля</div>
+                <div class="hanzi">麻</div>
             </div>
             <div class="tone-card" onclick="playTone('mǎ')">
-                <div>mǎ</div>
-                <div>3-й тон (вниз-вверх)</div>
-                <div>лошадь</div>
-                <div>马</div>
+                <div class="pinyin">mǎ</div>
+                <div class="meaning">3-й тон (вниз-вверх)</div>
+                <div class="meaning">лошадь</div>
+                <div class="hanzi">马</div>
             </div>
             <div class="tone-card" onclick="playTone('mà')">
-                <div>mà</div>
-                <div>4-й тон (резко вниз)</div>
-                <div>ругать</div>
-                <div>骂</div>
+                <div class="pinyin">mà</div>
+                <div class="meaning">4-й тон (резкий нисходящий)</div>
+                <div class="meaning">ругать</div>
+                <div class="hanzi">骂</div>
             </div>
             <div class="tone-card" onclick="playTone('ma')">
-                <div>ma</div>
-                <div>5-й тон (короткий)</div>
-                <div>вопросительная частица</div>
-                <div>吗</div>
+                <div class="pinyin">ma</div>
+                <div class="meaning">5-й тон (нейтральный, короткий)</div>
+                <div class="meaning">вопр. частица</div>
+                <div class="hanzi">吗</div>
             </div>
         </div>
 
-        <h2>📝 Базовые слова (учим с тонами)</h2>
+        <h2>📝 Часть 3: Базовые слова (учим с тонами!)</h2>
         <div class="word-grid">
-            <div class="phrase-card" onclick="playTone('yī')"><span class="char-large">一</span> yī (1) — один</div>
-            <div class="phrase-card" onclick="playTone('èr')"><span class="char-large">二</span> èr (4) — два</div>
-            <div class="phrase-card" onclick="playTone('sān')"><span class="char-large">三</span> sān (1) — три</div>
-            <div class="phrase-card" onclick="playTone('sì')"><span class="char-large">四</span> sì (4) — четыре</div>
-            <div class="phrase-card" onclick="playTone('wǔ')"><span class="char-large">五</span> wǔ (3) — пять</div>
-            <div class="phrase-card" onclick="playTone('liù')"><span class="char-large">六</span> liù (4) — шесть</div>
-            <div class="phrase-card" onclick="playTone('rén')"><span class="char-large">人</span> rén (2) — человек</div>
-            <div class="phrase-card" onclick="playTone('kǒu')"><span class="char-large">口</span> kǒu (3) — рот</div>
-            <div class="phrase-card" onclick="playTone('shān')"><span class="char-large">山</span> shān (1) — гора</div>
-            <div class="phrase-card" onclick="playTone('shuǐ')"><span class="char-large">水</span> shuǐ (3) — вода</div>
-            <div class="phrase-card" onclick="playTone('huǒ')"><span class="char-large">火</span> huǒ (3) — огонь</div>
-            <div class="phrase-card" onclick="playTone('tiān')"><span class="char-large">天</span> tiān (1) — небо</div>
-            <div class="phrase-card" onclick="playTone('dì')"><span class="char-large">地</span> dì (4) — земля</div>
+            <div class="phrase-card" onclick="playTone('yī')"><span class="big-pinyin">一 yī</span> (1-й тон) — один</div>
+            <div class="phrase-card" onclick="playTone('èr')"><span class="big-pinyin">二 èr</span> (4-й тон) — два</div>
+            <div class="phrase-card" onclick="playTone('sān')"><span class="big-pinyin">三 sān</span> (1-й тон) — три</div>
+            <div class="phrase-card" onclick="playTone('sì')"><span class="big-pinyin">四 sì</span> (4-й тон) — четыре</div>
+            <div class="phrase-card" onclick="playTone('wǔ')"><span class="big-pinyin">五 wǔ</span> (3-й тон) — пять</div>
+            <div class="phrase-card" onclick="playTone('liù')"><span class="big-pinyin">六 liù</span> (4-й тон) — шесть</div>
+            <div class="phrase-card" onclick="playTone('qī')"><span class="big-pinyin">七 qī</span> (1-й тон) — семь</div>
+            <div class="phrase-card" onclick="playTone('bā')"><span class="big-pinyin">八 bā</span> (1-й тон) — восемь</div>
+            <div class="phrase-card" onclick="playTone('jiǔ')"><span class="big-pinyin">九 jiǔ</span> (3-й тон) — девять</div>
+            <div class="phrase-card" onclick="playTone('shí')"><span class="big-pinyin">十 shí</span> (2-й тон) — десять</div>
+            <div class="phrase-card" onclick="playTone('rén')"><span class="big-pinyin">人 rén</span> (2-й тон) — человек</div>
+            <div class="phrase-card" onclick="playTone('kǒu')"><span class="big-pinyin">口 kǒu</span> (3-й тон) — рот</div>
+            <div class="phrase-card" onclick="playTone('shān')"><span class="big-pinyin">山 shān</span> (1-й тон) — гора</div>
+            <div class="phrase-card" onclick="playTone('shuǐ')"><span class="big-pinyin">水 shuǐ</span> (3-й тон) — вода</div>
+            <div class="phrase-card" onclick="playTone('huǒ')"><span class="big-pinyin">火 huǒ</span> (3-й тон) — огонь</div>
+            <div class="phrase-card" onclick="playTone('tiān')"><span class="big-pinyin">天 tiān</span> (1-й тон) — небо</div>
+            <div class="phrase-card" onclick="playTone('dì')"><span class="big-pinyin">地 dì</span> (4-й тон) — земля</div>
         </div>
 
         <div class="info-box">
             📖 <strong>Пословица:</strong><br>
-            <span style="font-size: 1.5rem;">千里之行，始于足下</span><br>
+            <span style="font-size: 1.3rem;">千里之行，始于足下</span><br>
             <strong>qiānlǐ zhī xíng, shǐyú zú xià</strong><br>
             Дорога в тысячу миль начинается с первого шага.
         </div>
@@ -292,23 +292,12 @@
 <script src="lessons-data.js"></script>
 <script src="script.js"></script>
 <script>
-    // Функция для озвучивания пиньинь (слогов)
-    function playPinyin(sound, event) {
-        if (event) event.stopPropagation();
-        if (!window.speechSynthesis) return;
-        
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(sound);
-        utterance.lang = "zh-CN";
-        utterance.rate = 0.8;
-        utterance.pitch = 1.0;
-        setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-    }
-    
-    // Функция для озвучивания целых слогов
     function playSyllable(syllable, event) {
         if (event) event.stopPropagation();
-        if (!window.speechSynthesis) return;
+        if (!window.speechSynthesis) {
+            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
+            return;
+        }
         
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(syllable);
@@ -318,10 +307,12 @@
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
     
-    // Функция для озвучивания тонов
     function playTone(syllable, event) {
         if (event) event.stopPropagation();
-        if (!window.speechSynthesis) return;
+        if (!window.speechSynthesis) {
+            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
+            return;
+        }
         
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(syllable);
@@ -331,7 +322,6 @@
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
     
-    // Переопределяем общую функцию (для совместимости)
     window.speakChinese = playTone;
 </script>
 </body>
