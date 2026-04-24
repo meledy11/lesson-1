@@ -371,65 +371,68 @@
             artDiv.innerHTML = data.articulation;
             card.appendChild(artDiv);
             
-            // Слоги
-            for (const [syllable, sylData] of Object.entries(data.syllables)) {
-                const sylRow = document.createElement('div');
-                sylRow.className = 'syllable-row';
-                
-                const sylName = document.createElement('div');
-                sylName.className = 'syllable-name';
-                sylName.innerHTML = `🔊 ${syllable}`;
-                sylName.onclick = (e) => {
-                    e.stopPropagation();
-                    if (sylData.tones && sylData.tones[0]) {
-                        playChinese(sylData.tones[0].sound);
+            // Слоги - используем data.syllables (как в вашей базе)
+            const syllables = data.syllables;
+            if (syllables) {
+                for (const [syllable, sylData] of Object.entries(syllables)) {
+                    const sylRow = document.createElement('div');
+                    sylRow.className = 'syllable-row';
+                    
+                    const sylName = document.createElement('div');
+                    sylName.className = 'syllable-name';
+                    sylName.innerHTML = `🔊 ${syllable}`;
+                    sylName.onclick = (e) => {
+                        e.stopPropagation();
+                        if (sylData.tones && sylData.tones[0]) {
+                            playChinese(sylData.tones[0].sound);
+                        } else {
+                            playChinese(syllable);
+                        }
+                    };
+                    sylRow.appendChild(sylName);
+                    
+                    const tonesGrid = document.createElement('div');
+                    tonesGrid.className = 'tones-grid';
+                    
+                    if (sylData.tones && sylData.tones.length > 0) {
+                        sylData.tones.forEach(tone => {
+                            const toneCard = document.createElement('div');
+                            toneCard.className = 'tone-card';
+                            toneCard.onclick = (e) => {
+                                e.stopPropagation();
+                                showModal({
+                                    char: tone.char,
+                                    pinyin: tone.pinyin,
+                                    meaning: tone.meaning,
+                                    example: tone.example,
+                                    sound: tone.sound
+                                });
+                            };
+                            toneCard.innerHTML = `
+                                <div class="tone-number">${tone.tone}</div>
+                                <div class="pinyin-tone">${tone.pinyin}</div>
+                                <div class="example-hanzi">${tone.char}</div>
+                                <div class="example-phrase">${tone.example.length > 20 ? tone.example.substring(0, 20) + '...' : tone.example}</div>
+                            `;
+                            tonesGrid.appendChild(toneCard);
+                        });
                     } else {
-                        playChinese(syllable);
+                        for (let i = 1; i <= 4; i++) {
+                            const toneCard = document.createElement('div');
+                            toneCard.className = 'tone-card';
+                            toneCard.innerHTML = `
+                                <div class="tone-number">${i}-й тон</div>
+                                <div class="pinyin-tone">${syllable}</div>
+                                <div class="example-hanzi">—</div>
+                                <div class="example-phrase">—</div>
+                            `;
+                            tonesGrid.appendChild(toneCard);
+                        }
                     }
-                };
-                sylRow.appendChild(sylName);
-                
-                const tonesGrid = document.createElement('div');
-                tonesGrid.className = 'tones-grid';
-                
-                if (sylData.tones && sylData.tones.length > 0) {
-                    sylData.tones.forEach(tone => {
-                        const toneCard = document.createElement('div');
-                        toneCard.className = 'tone-card';
-                        toneCard.onclick = (e) => {
-                            e.stopPropagation();
-                            showModal({
-                                char: tone.char,
-                                pinyin: tone.pinyin,
-                                meaning: tone.meaning,
-                                example: tone.example,
-                                sound: tone.sound
-                            });
-                        };
-                        toneCard.innerHTML = `
-                            <div class="tone-number">${tone.tone}</div>
-                            <div class="pinyin-tone">${tone.pinyin}</div>
-                            <div class="example-hanzi">${tone.char}</div>
-                            <div class="example-phrase">${tone.example.length > 20 ? tone.example.substring(0, 20) + '...' : tone.example}</div>
-                        `;
-                        tonesGrid.appendChild(toneCard);
-                    });
-                } else {
-                    for (let i = 1; i <= 4; i++) {
-                        const toneCard = document.createElement('div');
-                        toneCard.className = 'tone-card';
-                        toneCard.innerHTML = `
-                            <div class="tone-number">${i}-й тон</div>
-                            <div class="pinyin-tone">${syllable}</div>
-                            <div class="example-hanzi">—</div>
-                            <div class="example-phrase">—</div>
-                        `;
-                        tonesGrid.appendChild(toneCard);
-                    }
+                    
+                    sylRow.appendChild(tonesGrid);
+                    card.appendChild(sylRow);
                 }
-                
-                sylRow.appendChild(tonesGrid);
-                card.appendChild(sylRow);
             }
             
             if (idx < mid) {
