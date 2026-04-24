@@ -33,25 +33,6 @@
             margin-bottom: 1rem;
             color: #2c1810;
         }
-        .pinyin-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #FFF8F0;
-            border-radius: 24px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-        .pinyin-table th, .pinyin-table td {
-            border: 1px solid #FFD58C;
-            padding: 0.6rem;
-            text-align: left;
-            vertical-align: top;
-        }
-        .pinyin-table th {
-            background: #FFE0A3;
-            color: #A64B2A;
-            font-weight: bold;
-        }
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -64,7 +45,6 @@
             gap: 0.8rem;
             margin: 1rem 0;
         }
-        /* УВЕЛИЧЕННЫЕ КАРТОЧКИ ДЛЯ СЛОВ */
         .phrase-card {
             background: #FAF0E1;
             border-radius: 48px;
@@ -79,7 +59,12 @@
         .phrase-card:active {
             transform: translateY(2px);
         }
-        /* УВЕЛИЧЕННЫЕ ТОНЫ */
+        .char-large {
+            font-size: 1.8rem;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', monospace;
+            display: inline-block;
+            margin-right: 8px;
+        }
         .tone-grid {
             display: flex;
             gap: 1rem;
@@ -124,13 +109,6 @@
             margin: 1rem 0;
             font-size: 1rem;
         }
-        /* Крупные иероглифы в алфавите */
-        .char-large {
-            font-size: 1.8rem;
-            font-family: 'Noto Sans SC', 'Microsoft YaHei', monospace;
-            display: inline-block;
-            margin-right: 8px;
-        }
         @media (max-width: 750px) {
             .theory-block {
                 padding: 1rem;
@@ -147,6 +125,9 @@
             .phrase-card {
                 font-size: 1rem;
                 padding: 10px 12px;
+            }
+            .char-large {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -180,93 +161,98 @@
             <div>
                 <h3>Буквы и произношение</h3>
                 <div class="word-grid">
-                    <div class="phrase-card" onclick="speakChinese('a')"><span class="char-large">A a</span> [a] - а</div>
-                    <div class="phrase-card" onclick="speakChinese('bê')"><span class="char-large">B b</span> [p] - б</div>
-                    <div class="phrase-card" onclick="speakChinese('cê')"><span class="char-large">C c</span> [tsʰ] - ц</div>
-                    <div class="phrase-card" onclick="speakChinese('dê')"><span class="char-large">D d</span> [t] - д</div>
-                    <div class="phrase-card" onclick="speakChinese('e')"><span class="char-large">E e</span> [ɤ] - э</div>
-                    <div class="phrase-card" onclick="speakChinese('fó')"><span class="char-large">F f</span> [f] - ф</div>
-                    <div class="phrase-card" onclick="speakChinese('gê')"><span class="char-large">G g</span> [k] - г</div>
-                    <div class="phrase-card" onclick="speakChinese('ha')"><span class="char-large">H h</span> [x] - х</div>
-                    <div class="phrase-card" onclick="speakChinese('yi')"><span class="char-large">I i</span> [i] - и</div>
-                    <div class="phrase-card" onclick="speakChinese('jiê')"><span class="char-large">J j</span> [tɕ] - цз</div>
-                    <div class="phrase-card" onclick="speakChinese('kê')"><span class="char-large">K k</span> [kʰ] - к</div>
-                    <div class="phrase-card" onclick="speakChinese('lè')"><span class="char-large">L l</span> [l] - л</div>
-                    <div class="phrase-card" onclick="speakChinese('mò')"><span class="char-large">M m</span> [m] - м</div>
-                    <div class="phrase-card" onclick="speakChinese('nè')"><span class="char-large">N n</span> [n] - н</div>
-                    <div class="phrase-card" onclick="speakChinese('o')"><span class="char-large">O o</span> [o] - о</div>
-                    <div class="phrase-card" onclick="speakChinese('pê')"><span class="char-large">P p</span> [pʰ] - п</div>
-                    <div class="phrase-card" onclick="speakChinese('qiū')"><span class="char-large">Q q</span> [tɕʰ] - ц</div>
-                    <div class="phrase-card" onclick="speakChinese('ár')"><span class="char-large">R r</span> [ʐ] - ж</div>
-                    <div class="phrase-card" onclick="speakChinese('èsī')"><span class="char-large">S s</span> [s] - с</div>
-                    <div class="phrase-card" onclick="speakChinese('tê')"><span class="char-large">T t</span> [tʰ] - т</div>
-                    <div class="phrase-card" onclick="speakChinese('wu')"><span class="char-large">U u</span> [u] - у</div>
-                    <div class="phrase-card" onclick="speakChinese('ü')"><span class="char-large">Ü ü</span> [y] - ю</div>
-                    <div class="phrase-card" onclick="speakChinese('wā')"><span class="char-large">W w</span> [w] - в</div>
-                    <div class="phrase-card" onclick="speakChinese('xī')"><span class="char-large">X x</span> [ɕ] - сь</div>
-                    <div class="phrase-card" onclick="speakChinese('yā')"><span class="char-large">Y y</span> [j] - й</div>
-                    <div class="phrase-card" onclick="speakChinese('zê')"><span class="char-large">Z z</span> [ts] - цз</div>
+                    <div class="phrase-card" onclick="speakChinese('a', event)"><span class="char-large">A a</span> [a] - а</div>
+                    <div class="phrase-card" onclick="speakChinese('bō', event)"><span class="char-large">B b</span> [p] - б</div>
+                    <div class="phrase-card" onclick="speakChinese('cí', event)"><span class="char-large">C c</span> [tsʰ] - ц</div>
+                    <div class="phrase-card" onclick="speakChinese('dé', event)"><span class="char-large">D d</span> [t] - д</div>
+                    <div class="phrase-card" onclick="speakChinese('è', event)"><span class="char-large">E e</span> [ɤ] - э</div>
+                    <div class="phrase-card" onclick="speakChinese('fó', event)"><span class="char-large">F f</span> [f] - ф</div>
+                    <div class="phrase-card" onclick="speakChinese('gē', event)"><span class="char-large">G g</span> [k] - г</div>
+                    <div class="phrase-card" onclick="speakChinese('hē', event)"><span class="char-large">H h</span> [x] - х</div>
+                    <div class="phrase-card" onclick="speakChinese('yī', event)"><span class="char-large">I i</span> [i] - и</div>
+                    <div class="phrase-card" onclick="speakChinese('jī', event)"><span class="char-large">J j</span> [tɕ] - цз</div>
+                    <div class="phrase-card" onclick="speakChinese('kē', event)"><span class="char-large">K k</span> [kʰ] - к</div>
+                    <div class="phrase-card" onclick="speakChinese('lè', event)"><span class="char-large">L l</span> [l] - л</div>
+                    <div class="phrase-card" onclick="speakChinese('mō', event)"><span class="char-large">M m</span> [m] - м</div>
+                    <div class="phrase-card" onclick="speakChinese('nè', event)"><span class="char-large">N n</span> [n] - н</div>
+                    <div class="phrase-card" onclick="speakChinese('ó', event)"><span class="char-large">O o</span> [o] - о</div>
+                    <div class="phrase-card" onclick="speakChinese('pō', event)"><span class="char-large">P p</span> [pʰ] - п</div>
+                    <div class="phrase-card" onclick="speakChinese('qī', event)"><span class="char-large">Q q</span> [tɕʰ] - ц</div>
+                    <div class="phrase-card" onclick="speakChinese('rì', event)"><span class="char-large">R r</span> [ʐ] - ж</div>
+                    <div class="phrase-card" onclick="speakChinese('sī', event)"><span class="char-large">S s</span> [s] - с</div>
+                    <div class="phrase-card" onclick="speakChinese('tè', event)"><span class="char-large">T t</span> [tʰ] - т</div>
+                    <div class="phrase-card" onclick="speakChinese('wū', event)"><span class="char-large">U u</span> [u] - у</div>
+                    <div class="phrase-card" onclick="speakChinese('lǜ', event)"><span class="char-large">Ü ü</span> [y] - ю</div>
+                    <div class="phrase-card" onclick="speakChinese('wā', event)"><span class="char-large">W w</span> [w] - в</div>
+                    <div class="phrase-card" onclick="speakChinese('xī', event)"><span class="char-large">X x</span> [ɕ] - сь</div>
+                    <div class="phrase-card" onclick="speakChinese('yī', event)"><span class="char-large">Y y</span> [j] - й</div>
+                    <div class="phrase-card" onclick="speakChinese('zǐ', event)"><span class="char-large">Z z</span> [ts] - цз</div>
                 </div>
             </div>
             <div>
-                <h3>Китайские названия букв</h3>
+                <h3>Китайские названия букв (официальные)</h3>
                 <div class="word-grid">
-                    <div class="phrase-card" onclick="speakChinese('诶')"><span class="char-large">诶</span> (ēi) - Эй</div>
-                    <div class="phrase-card" onclick="speakChinese('比')"><span class="char-large">比</span> (bǐ) - Би</div>
-                    <div class="phrase-card" onclick="speakChinese('西')"><span class="char-large">西</span> (xī) - Си</div>
-                    <div class="phrase-card" onclick="speakChinese('迪')"><span class="char-large">迪</span> (dí) - Ди</div>
-                    <div class="phrase-card" onclick="speakChinese('伊')"><span class="char-large">伊</span> (yī) - И</div>
-                    <div class="phrase-card" onclick="speakChinese('艾弗')"><span class="char-large">艾弗</span> (ài fú) - Эф</div>
-                    <div class="phrase-card" onclick="speakChinese('吉')"><span class="char-large">吉</span> (jí) - Джи</div>
-                    <div class="phrase-card" onclick="speakChinese('艾尺')"><span class="char-large">艾尺</span> (ài chǐ) - Эйч</div>
-                    <div class="phrase-card" onclick="speakChinese('艾')"><span class="char-large">艾</span> (ài) - Ай</div>
-                    <div class="phrase-card" onclick="speakChinese('杰')"><span class="char-large">杰</span> (jié) - Джей</div>
-                    <div class="phrase-card" onclick="speakChinese('开')"><span class="char-large">开</span> (kāi) - Кей</div>
-                    <div class="phrase-card" onclick="speakChinese('艾勒')"><span class="char-large">艾勒</span> (ài lè) - Эл</div>
-                    <div class="phrase-card" onclick="speakChinese('艾马')"><span class="char-large">艾马</span> (ài mǎ) - Эм</div>
-                    <div class="phrase-card" onclick="speakChinese('艾娜')"><span class="char-large">艾娜</span> (ài nà) - Эн</div>
-                    <div class="phrase-card" onclick="speakChinese('哦')"><span class="char-large">哦</span> (ó) - О</div>
-                    <div class="phrase-card" onclick="speakChinese('屁')"><span class="char-large">屁</span> (pì) - Пи</div>
-                    <div class="phrase-card" onclick="speakChinese('吉吾')"><span class="char-large">吉吾</span> (jí wú) - Кью</div>
-                    <div class="phrase-card" onclick="speakChinese('艾儿')"><span class="char-large">艾儿</span> (ài ér) - Ар</div>
-                    <div class="phrase-card" onclick="speakChinese('艾丝')"><span class="char-large">艾丝</span> (ài sī) - Эс</div>
-                    <div class="phrase-card" onclick="speakChinese('提')"><span class="char-large">提</span> (tí) - Ти</div>
-                    <div class="phrase-card" onclick="speakChinese('伊吾')"><span class="char-large">伊吾</span> (yī wú) - Ю</div>
-                    <div class="phrase-card" onclick="speakChinese('维')"><span class="char-large">维</span> (wéi) - Ви</div>
-                    <div class="phrase-card" onclick="speakChinese('艾克斯')"><span class="char-large">艾克斯</span> (ài kè sī) - Экс</div>
-                    <div class="phrase-card" onclick="speakChinese('吾艾')"><span class="char-large">吾艾</span> (wú ài) - Уай</div>
-                    <div class="phrase-card" onclick="speakChinese('贼德')"><span class="char-large">贼德</span> (zéi dé) - Зэд</div>
+                    <div class="phrase-card" onclick="speakChinese('ā', event)"><span class="char-large">啊</span> (ā) - а</div>
+                    <div class="phrase-card" onclick="speakChinese('bō', event)"><span class="char-large">波</span> (bō) - бо</div>
+                    <div class="phrase-card" onclick="speakChinese('cí', event)"><span class="char-large">雌</span> (cí) - цы</div>
+                    <div class="phrase-card" onclick="speakChinese('dé', event)"><span class="char-large">得</span> (dé) - дэ</div>
+                    <div class="phrase-card" onclick="speakChinese('è', event)"><span class="char-large">饿</span> (è) - э</div>
+                    <div class="phrase-card" onclick="speakChinese('fó', event)"><span class="char-large">佛</span> (fó) - фо</div>
+                    <div class="phrase-card" onclick="speakChinese('gē', event)"><span class="char-large">哥</span> (gē) - гэ</div>
+                    <div class="phrase-card" onclick="speakChinese('hē', event)"><span class="char-large">喝</span> (hē) - хэ</div>
+                    <div class="phrase-card" onclick="speakChinese('yī', event)"><span class="char-large">衣</span> (yī) - и</div>
+                    <div class="phrase-card" onclick="speakChinese('jī', event)"><span class="char-large">机</span> (jī) - цзи</div>
+                    <div class="phrase-card" onclick="speakChinese('kē', event)"><span class="char-large">科</span> (kē) - кэ</div>
+                    <div class="phrase-card" onclick="speakChinese('lè', event)"><span class="char-large">勒</span> (lè) - лэ</div>
+                    <div class="phrase-card" onclick="speakChinese('mō', event)"><span class="char-large">摸</span> (mō) - мо</div>
+                    <div class="phrase-card" onclick="speakChinese('nè', event)"><span class="char-large">讷</span> (nè) - нэ</div>
+                    <div class="phrase-card" onclick="speakChinese('ó', event)"><span class="char-large">哦</span> (ó) - о</div>
+                    <div class="phrase-card" onclick="speakChinese('pō', event)"><span class="char-large">坡</span> (pō) - по</div>
+                    <div class="phrase-card" onclick="speakChinese('qī', event)"><span class="char-large">欺</span> (qī) - ци</div>
+                    <div class="phrase-card" onclick="speakChinese('rì', event)"><span class="char-large">日</span> (rì) - жи</div>
+                    <div class="phrase-card" onclick="speakChinese('sī', event)"><span class="char-large">思</span> (sī) - сы</div>
+                    <div class="phrase-card" onclick="speakChinese('tè', event)"><span class="char-large">特</span> (tè) - тэ</div>
+                    <div class="phrase-card" onclick="speakChinese('wū', event)"><span class="char-large">乌</span> (wū) - у</div>
+                    <div class="phrase-card" onclick="speakChinese('wēi', event)"><span class="char-large">微</span> (wēi) - вэй</div>
+                    <div class="phrase-card" onclick="speakChinese('wā', event)"><span class="char-large">蛙</span> (wā) - ва</div>
+                    <div class="phrase-card" onclick="speakChinese('xī', event)"><span class="char-large">希</span> (xī) - си</div>
+                    <div class="phrase-card" onclick="speakChinese('yā', event)"><span class="char-large">丫</span> (yā) - я</div>
+                    <div class="phrase-card" onclick="speakChinese('zǐ', event)"><span class="char-large">子</span> (zǐ) - цзы</div>
                 </div>
             </div>
+        </div>
+
+        <div class="warning">
+            💡 <strong>Примечание:</strong> Буква V используется редко, в основном для записи иностранных слов и диалектов. Её китайское название — 微 (wēi).
         </div>
 
         <h2>🗣️ Инициали</h2>
         <p>Инициаль — начальный согласный звук слога.</p>
         <div class="two-columns">
             <div>
-                <div class="phrase-card" onclick="speakChinese('bo')"><span class="char-large">b</span> [p] — как «б»</div>
-                <div class="phrase-card" onclick="speakChinese('po')"><span class="char-large">p</span> [pʰ] — «п» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('mo')"><span class="char-large">m</span> [m] — «м»</div>
-                <div class="phrase-card" onclick="speakChinese('fo')"><span class="char-large">f</span> [f] — «ф»</div>
-                <div class="phrase-card" onclick="speakChinese('de')"><span class="char-large">d</span> [t] — «д»</div>
-                <div class="phrase-card" onclick="speakChinese('te')"><span class="char-large">t</span> [tʰ] — «т» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('ne')"><span class="char-large">n</span> [n] — «н»</div>
-                <div class="phrase-card" onclick="speakChinese('le')"><span class="char-large">l</span> [l] — «л»</div>
-                <div class="phrase-card" onclick="speakChinese('ge')"><span class="char-large">g</span> [k] — «г»</div>
-                <div class="phrase-card" onclick="speakChinese('ke')"><span class="char-large">k</span> [kʰ] — «к» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('he')"><span class="char-large">h</span> [x] — «х»</div>
+                <div class="phrase-card" onclick="speakChinese('bo', event)"><span class="char-large">b</span> [p] — как «б»</div>
+                <div class="phrase-card" onclick="speakChinese('po', event)"><span class="char-large">p</span> [pʰ] — «п» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('mo', event)"><span class="char-large">m</span> [m] — «м»</div>
+                <div class="phrase-card" onclick="speakChinese('fo', event)"><span class="char-large">f</span> [f] — «ф»</div>
+                <div class="phrase-card" onclick="speakChinese('de', event)"><span class="char-large">d</span> [t] — «д»</div>
+                <div class="phrase-card" onclick="speakChinese('te', event)"><span class="char-large">t</span> [tʰ] — «т» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('ne', event)"><span class="char-large">n</span> [n] — «н»</div>
+                <div class="phrase-card" onclick="speakChinese('le', event)"><span class="char-large">l</span> [l] — «л»</div>
+                <div class="phrase-card" onclick="speakChinese('ge', event)"><span class="char-large">g</span> [k] — «г»</div>
+                <div class="phrase-card" onclick="speakChinese('ke', event)"><span class="char-large">k</span> [kʰ] — «к» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('he', event)"><span class="char-large">h</span> [x] — «х»</div>
             </div>
             <div>
-                <div class="phrase-card" onclick="speakChinese('ji')"><span class="char-large">j</span> [tɕ] — мягкое «цзь»</div>
-                <div class="phrase-card" onclick="speakChinese('qi')"><span class="char-large">q</span> [tɕʰ] — «ць» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('xi')"><span class="char-large">x</span> [ɕ] — мягкое «сь»</div>
-                <div class="phrase-card" onclick="speakChinese('zhi')"><span class="char-large">zh</span> [ʈʂ] — «чж»</div>
-                <div class="phrase-card" onclick="speakChinese('chi')"><span class="char-large">ch</span> [ʈʂʰ] — «ч» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('shi')"><span class="char-large">sh</span> [ʂ] — «ш»</div>
-                <div class="phrase-card" onclick="speakChinese('ri')"><span class="char-large">r</span> [ʐ] — «ж»</div>
-                <div class="phrase-card" onclick="speakChinese('zi')"><span class="char-large">z</span> [ts] — «цз»</div>
-                <div class="phrase-card" onclick="speakChinese('ci')"><span class="char-large">c</span> [tsʰ] — «ц» с придыханием</div>
-                <div class="phrase-card" onclick="speakChinese('si')"><span class="char-large">s</span> [s] — «с»</div>
+                <div class="phrase-card" onclick="speakChinese('ji', event)"><span class="char-large">j</span> [tɕ] — мягкое «цзь»</div>
+                <div class="phrase-card" onclick="speakChinese('qi', event)"><span class="char-large">q</span> [tɕʰ] — «ць» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('xi', event)"><span class="char-large">x</span> [ɕ] — мягкое «сь»</div>
+                <div class="phrase-card" onclick="speakChinese('zhi', event)"><span class="char-large">zh</span> [ʈʂ] — «чж»</div>
+                <div class="phrase-card" onclick="speakChinese('chi', event)"><span class="char-large">ch</span> [ʈʂʰ] — «ч» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('shi', event)"><span class="char-large">sh</span> [ʂ] — «ш»</div>
+                <div class="phrase-card" onclick="speakChinese('ri', event)"><span class="char-large">r</span> [ʐ] — «ж»</div>
+                <div class="phrase-card" onclick="speakChinese('zi', event)"><span class="char-large">z</span> [ts] — «цз»</div>
+                <div class="phrase-card" onclick="speakChinese('ci', event)"><span class="char-large">c</span> [tsʰ] — «ц» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('si', event)"><span class="char-large">s</span> [s] — «с»</div>
             </div>
         </div>
         
@@ -278,31 +264,31 @@
         <p>Тоны имеют смыслоразличительный характер. Один и тот же слог с разными тонами означает разные слова!</p>
         
         <div class="tone-grid">
-            <div class="tone-card" onclick="speakChinese('mā')">
+            <div class="tone-card" onclick="speakChinese('mā', event)">
                 <div>mā</div>
                 <div>1-й тон (ровный)</div>
                 <div>мама</div>
                 <div>妈</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('má')">
+            <div class="tone-card" onclick="speakChinese('má', event)">
                 <div>má</div>
                 <div>2-й тон (восходящий)</div>
                 <div>конопля</div>
                 <div>麻</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('mǎ')">
+            <div class="tone-card" onclick="speakChinese('mǎ', event)">
                 <div>mǎ</div>
                 <div>3-й тон (нисх.-восх.)</div>
                 <div>лошадь</div>
                 <div>马</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('mà')">
+            <div class="tone-card" onclick="speakChinese('mà', event)">
                 <div>mà</div>
                 <div>4-й тон (нисходящий)</div>
                 <div>ругать</div>
                 <div>骂</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('ma')">
+            <div class="tone-card" onclick="speakChinese('ma', event)">
                 <div>ma</div>
                 <div>5-й тон (нейтральный)</div>
                 <div>вопросительная частица</div>
@@ -312,25 +298,35 @@
 
         <h2>📝 Базовые иероглифы для запоминания</h2>
         <div class="word-grid">
-            <div class="phrase-card" onclick="speakChinese('yī')"><span class="char-large">一</span> (yī) - один</div>
-            <div class="phrase-card" onclick="speakChinese('èr')"><span class="char-large">二</span> (èr) - два</div>
-            <div class="phrase-card" onclick="speakChinese('sān')"><span class="char-large">三</span> (sān) - три</div>
-            <div class="phrase-card" onclick="speakChinese('sì')"><span class="char-large">四</span> (sì) - четыре</div>
-            <div class="phrase-card" onclick="speakChinese('wǔ')"><span class="char-large">五</span> (wǔ) - пять</div>
-            <div class="phrase-card" onclick="speakChinese('liù')"><span class="char-large">六</span> (liù) - шесть</div>
-            <div class="phrase-card" onclick="speakChinese('qī')"><span class="char-large">七</span> (qī) - семь</div>
-            <div class="phrase-card" onclick="speakChinese('bā')"><span class="char-large">八</span> (bā) - восемь</div>
-            <div class="phrase-card" onclick="speakChinese('jiǔ')"><span class="char-large">九</span> (jiǔ) - девять</div>
-            <div class="phrase-card" onclick="speakChinese('shí')"><span class="char-large">十</span> (shí) - десять</div>
-            <div class="phrase-card" onclick="speakChinese('rén')"><span class="char-large">人</span> (rén) - человек</div>
-            <div class="phrase-card" onclick="speakChinese('kǒu')"><span class="char-large">口</span> (kǒu) - рот</div>
-            <div class="phrase-card" onclick="speakChinese('shān')"><span class="char-large">山</span> (shān) - гора</div>
-            <div class="phrase-card" onclick="speakChinese('shuǐ')"><span class="char-large">水</span> (shuǐ) - вода</div>
+            <div class="phrase-card" onclick="speakChinese('yī', event)"><span class="char-large">一</span> (yī) - один</div>
+            <div class="phrase-card" onclick="speakChinese('èr', event)"><span class="char-large">二</span> (èr) - два</div>
+            <div class="phrase-card" onclick="speakChinese('sān', event)"><span class="char-large">三</span> (sān) - три</div>
+            <div class="phrase-card" onclick="speakChinese('sì', event)"><span class="char-large">四</span> (sì) - четыре</div>
+            <div class="phrase-card" onclick="speakChinese('wǔ', event)"><span class="char-large">五</span> (wǔ) - пять</div>
+            <div class="phrase-card" onclick="speakChinese('liù', event)"><span class="char-large">六</span> (liù) - шесть</div>
+            <div class="phrase-card" onclick="speakChinese('qī', event)"><span class="char-large">七</span> (qī) - семь</div>
+            <div class="phrase-card" onclick="speakChinese('bā', event)"><span class="char-large">八</span> (bā) - восемь</div>
+            <div class="phrase-card" onclick="speakChinese('jiǔ', event)"><span class="char-large">九</span> (jiǔ) - девять</div>
+            <div class="phrase-card" onclick="speakChinese('shí', event)"><span class="char-large">十</span> (shí) - десять</div>
+            <div class="phrase-card" onclick="speakChinese('rén', event)"><span class="char-large">人</span> (rén) - человек</div>
+            <div class="phrase-card" onclick="speakChinese('kǒu', event)"><span class="char-large">口</span> (kǒu) - рот</div>
+            <div class="phrase-card" onclick="speakChinese('shān', event)"><span class="char-large">山</span> (shān) - гора</div>
+            <div class="phrase-card" onclick="speakChinese('shuǐ', event)"><span class="char-large">水</span> (shuǐ) - вода</div>
+            <div class="phrase-card" onclick="speakChinese('huǒ', event)"><span class="char-large">火</span> (huǒ) - огонь</div>
+            <div class="phrase-card" onclick="speakChinese('tiān', event)"><span class="char-large">天</span> (tiān) - небо</div>
+            <div class="phrase-card" onclick="speakChinese('dì', event)"><span class="char-large">地</span> (dì) - земля</div>
         </div>
 
         <div class="warning">
             📖 <strong>Пословица:</strong> 千里之行，始于足下 (qiānlǐ zhī xíng, shǐyú zú xià)<br>
             Дорога в тысячу миль начинается с первого шага.
+        </div>
+        
+        <div class="warning">
+            🎯 <strong>Совет для запоминания:</strong> Прописывайте каждый новый иероглиф по несколько раз в тетради. Правила написания:<br>
+            • Иероглифы пишутся сверху вниз, слева направо<br>
+            • Сначала горизонтальные черты, затем вертикальные<br>
+            • Сначала внешние черты, затем внутренние
         </div>
     </div>
 
@@ -344,5 +340,29 @@
 
 <script src="lessons-data.js"></script>
 <script src="script.js"></script>
+<script>
+    // Переопределяем функцию speakChinese для этого урока, чтобы правильно обрабатывать event
+    window.speakChinese = function(text, event) {
+        if (event) {
+            event.stopPropagation();
+        }
+        
+        if (!window.speechSynthesis) {
+            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
+            return;
+        }
+        
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.85;
+        utterance.pitch = 1.0;
+        utterance.volume = 1;
+        
+        setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+        }, 10);
+    };
+</script>
 </body>
 </html>
