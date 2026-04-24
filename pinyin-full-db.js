@@ -3207,9 +3207,6 @@ const pinyinFullDB = {
     }
 };
 
-// Закрытие основного объекта
-};
-
 // Экспорт для использования
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = pinyinFullDB;
