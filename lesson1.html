@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🍎 Урок 1: Топ-10 иероглифов | Весёлый китайский</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>🧸 Урок 1 · Топ-10 иероглифов 🧸</h1>
+        <p>🎤 Нажми на букву или фразу — китайский скажет сам! 🎤</p>
+        <a href="index.html" class="back-home">🏠 На главную</a>
+    </div>
+    
+    <div class="speak-tip">
+        <span>🔊🔊🔊</span> КЛИКАЙ НА ЛЮБОЙ ИЕРОГЛИФ ИЛИ ЖЁЛТУЮ ФРАЗУ — УСЛЫШИШЬ ПРОИЗНОШЕНИЕ! <span>🎧✨</span>
+    </div>
+
+    <div class="grid" id="cardsGrid"></div>
+
+    <footer>
+        🌟 Учи весело! Запоминай картинки-ассоциации и повторяй фразы. 🌟
+        <div style="margin-top: 0.5rem;"><a href="index.html" class="back-home" style="font-size: 0.9rem;">📖 К списку уроков</a></div>
+    </footer>
+</div>
+
+<script src="lessons-data.js"></script>
+<script src="script.js"></script>
+<script>
+    // Загружаем данные первого урока и рендерим
+    if (lessonsDB.lesson1) {
+        renderLesson(lessonsDB.lesson1.data, 'cardsGrid');
+    } else {
+        document.getElementById('cardsGrid').innerHTML = '<div style="text-align: center; padding: 2rem;">❌ Данные урока не найдены</div>';
+    }
+</script>
+</body>
+</html>
