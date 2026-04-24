@@ -303,6 +303,7 @@
 <script>
     let currentModalSound = '';
 
+    // Функция озвучивания с правильной скоростью для тонов
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
@@ -311,7 +312,7 @@
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.75;
+        utterance.rate = 0.6;      // Оптимальная скорость для восприятия тонов
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
@@ -334,17 +335,15 @@
         currentModalSound = '';
     }
 
-    function getFirstToneSound(data) {
-        // Пытаемся найти первый слог с 1-м тоном для озвучивания инициали
+    // Получаем звук для инициали (первый тон первого слога)
+    function getInitialSound(data) {
         const syllables = data.syllables;
         if (syllables) {
             for (const [sylName, sylData] of Object.entries(syllables)) {
                 if (sylData.tones && sylData.tones.length > 0) {
-                    // Ищем 1-й тон
                     const firstTone = sylData.tones.find(t => t.tone === "1-й");
-                    if (firstTone) return firstTone.pinyin;
-                    // Если нет 1-го тона, берем первый попавшийся
-                    return sylData.tones[0].pinyin;
+                    if (firstTone && firstTone.sound) return firstTone.sound;
+                    if (sylData.tones[0] && sylData.tones[0].sound) return sylData.tones[0].sound;
                 }
             }
         }
@@ -373,10 +372,10 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали - озвучиваем первый тон первого слога
+            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
-            const soundToPlay = getFirstToneSound(data);
+            const soundToPlay = getInitialSound(data);
             header.onclick = () => playChinese(soundToPlay);
             header.innerHTML = `
                 <div class="big-pinyin">${initial}</div>
