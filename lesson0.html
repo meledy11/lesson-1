@@ -51,6 +51,7 @@
             font-weight: bold;
             margin: 0.5rem 0.3rem;
             box-shadow: 0 4px 0 #C16F1A;
+            transition: 0.05s linear;
         }
         .back-home:active {
             transform: translateY(2px);
@@ -327,7 +328,6 @@
         const container = document.getElementById('initials-container');
         if (!container) return;
         
-        // Проверяем наличие базы данных
         if (typeof pinyinFullDB === 'undefined') {
             container.innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: файл pinyin-full-db.js не загружен!</div>';
             return;
@@ -372,7 +372,6 @@
                 sylName.innerHTML = `🔊 ${syllable}`;
                 sylName.onclick = (e) => {
                     e.stopPropagation();
-                    // Озвучиваем первый пример из тонов
                     if (sylData.tones && sylData.tones[0]) {
                         playChinese(sylData.tones[0].sound);
                     } else {
@@ -407,7 +406,6 @@
                         tonesGrid.appendChild(toneCard);
                     });
                 } else {
-                    // Заглушка если нет тонов
                     for (let i = 1; i <= 4; i++) {
                         const toneCard = document.createElement('div');
                         toneCard.className = 'tone-card';
@@ -436,7 +434,6 @@
         container.appendChild(rightCol);
     }
     
-    // Ждём загрузки страницы
     document.addEventListener('DOMContentLoaded', renderTable);
 </script>
 </body>
