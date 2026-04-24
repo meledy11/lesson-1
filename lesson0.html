@@ -64,12 +64,11 @@
             display: inline-block;
             margin-right: 8px;
         }
-        .sound-badge {
-            background: #FFD966;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 8px;
+        .pinyin-word {
+            font-size: 1.3rem;
+            font-family: 'Segoe UI', 'Noto Sans SC', monospace;
+            font-weight: bold;
+            color: #C5511A;
         }
         .tone-grid {
             display: flex;
@@ -93,7 +92,7 @@
         .tone-card div:first-child {
             font-size: 2.5rem;
             font-weight: bold;
-            font-family: 'Segoe UI', 'Noto Sans SC', monospace;
+            font-family: 'Noto Sans SC', monospace;
         }
         .tone-card div:nth-child(2) {
             font-size: 0.9rem;
@@ -136,13 +135,6 @@
             .tone-card div:last-child {
                 font-size: 1.5rem;
             }
-            .phrase-card {
-                font-size: 1rem;
-                padding: 10px 12px;
-            }
-            .char-large {
-                font-size: 1.4rem;
-            }
         }
     </style>
 </head>
@@ -151,7 +143,7 @@
 <div class="container">
     <div class="hero">
         <h1>🎓 Урок 0 · Пиньинь. Инициали и финали 🎓</h1>
-        <p>🎤 Нажми на любой блок — услышишь правильное произношение!</p>
+        <p>🎤 Нажми на любой блок — услышишь правильное произношение ПИНЬИНЕМ!</p>
         <div style="margin-top: 0.8rem;">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson1.html" class="back-home" style="margin-left: 0.5rem;">📚 К уроку 1</a>
@@ -160,150 +152,137 @@
 
     <div class="theory-block">
         <h2>📖 Что такое пиньинь?</h2>
-        <p>Пиньинь (汉语拼音 hànyǔ pīnyīn) — официальная система транскрипции китайского языка на латинице.</p>
+        <p><strong>Пиньинь (拼音 pīnyīn)</strong> — это официальная система записи китайского произношения латинскими буквами. Каждый китаец учит пиньинь в школе вместе с иероглифами.</p>
         
         <div class="info-box">
-            💡 <strong>Важно понимать:</strong><br>
-            • <strong>Название буквы</strong> (например, «B» называется «波 bō») — это как сказать «бэ» по-русски.<br>
-            • <strong>Звук буквы в слоге</strong> — это то, как буква реально произносится в словах.<br>
-            • В китайском языке звуки делятся на <strong>инициали</strong> (начало слога) и <strong>финали</strong> (конец слога).
+            💡 <strong>Главное правило:</strong> Читаем пиньинь <strong>так, как написано</strong>, но с особыми правилами для некоторых букв. Вот они:
         </div>
 
-        <h2>🔤 1. Названия букв (как называется буква по-китайски)</h2>
-        <p><em>Это нужно, чтобы уметь продиктовать слово по буквам или назвать букву алфавита. Озвучивается китайский иероглиф-название.</em></p>
+        <h2>🔤 Особые буквы пиньиня</h2>
         <div class="word-grid">
-            <div class="phrase-card" onclick="speakChinese('啊', event)"><span class="char-large">A</span> → 啊 (ā)</div>
-            <div class="phrase-card" onclick="speakChinese('波', event)"><span class="char-large">B</span> → 波 (bō)</div>
-            <div class="phrase-card" onclick="speakChinese('雌', event)"><span class="char-large">C</span> → 雌 (cí)</div>
-            <div class="phrase-card" onclick="speakChinese('得', event)"><span class="char-large">D</span> → 得 (dé)</div>
-            <div class="phrase-card" onclick="speakChinese('饿', event)"><span class="char-large">E</span> → 饿 (è)</div>
-            <div class="phrase-card" onclick="speakChinese('佛', event)"><span class="char-large">F</span> → 佛 (fó)</div>
-            <div class="phrase-card" onclick="speakChinese('哥', event)"><span class="char-large">G</span> → 哥 (gē)</div>
-            <div class="phrase-card" onclick="speakChinese('喝', event)"><span class="char-large">H</span> → 喝 (hē)</div>
-            <div class="phrase-card" onclick="speakChinese('衣', event)"><span class="char-large">I</span> → 衣 (yī)</div>
-            <div class="phrase-card" onclick="speakChinese('机', event)"><span class="char-large">J</span> → 机 (jī)</div>
-            <div class="phrase-card" onclick="speakChinese('科', event)"><span class="char-large">K</span> → 科 (kē)</div>
-            <div class="phrase-card" onclick="speakChinese('勒', event)"><span class="char-large">L</span> → 勒 (lè)</div>
-            <div class="phrase-card" onclick="speakChinese('摸', event)"><span class="char-large">M</span> → 摸 (mō)</div>
-            <div class="phrase-card" onclick="speakChinese('讷', event)"><span class="char-large">N</span> → 讷 (nè)</div>
-            <div class="phrase-card" onclick="speakChinese('哦', event)"><span class="char-large">O</span> → 哦 (ó)</div>
-            <div class="phrase-card" onclick="speakChinese('坡', event)"><span class="char-large">P</span> → 坡 (pō)</div>
-            <div class="phrase-card" onclick="speakChinese('欺', event)"><span class="char-large">Q</span> → 欺 (qī)</div>
-            <div class="phrase-card" onclick="speakChinese('日', event)"><span class="char-large">R</span> → 日 (rì)</div>
-            <div class="phrase-card" onclick="speakChinese('思', event)"><span class="char-large">S</span> → 思 (sī)</div>
-            <div class="phrase-card" onclick="speakChinese('特', event)"><span class="char-large">T</span> → 特 (tè)</div>
-            <div class="phrase-card" onclick="speakChinese('乌', event)"><span class="char-large">U</span> → 乌 (wū)</div>
-            <div class="phrase-card" onclick="speakChinese('于', event)"><span class="char-large">Ü</span> → 于 (yú)</div>
-            <div class="phrase-card" onclick="speakChinese('蛙', event)"><span class="char-large">W</span> → 蛙 (wā)</div>
-            <div class="phrase-card" onclick="speakChinese('希', event)"><span class="char-large">X</span> → 希 (xī)</div>
-            <div class="phrase-card" onclick="speakChinese('丫', event)"><span class="char-large">Y</span> → 丫 (yā)</div>
-            <div class="phrase-card" onclick="speakChinese('子', event)"><span class="char-large">Z</span> → 子 (zǐ)</div>
+            <div class="phrase-card" onclick="playPinyin('c')"><span class="char-large">c</span> читается как «ц» в слове <strong>ц</strong>апля (с придыханием)</div>
+            <div class="phrase-card" onclick="playPinyin('z')"><span class="char-large">z</span> читается как «цз» — попробуйте сказать «ц» и сразу добавить голос</div>
+            <div class="phrase-card" onclick="playPinyin('s')"><span class="char-large">s</span> читается как русская «с»</div>
+            <div class="phrase-card" onclick="playPinyin('zh')"><span class="char-large">zh</span> читается как твёрдое «дж» (как в английском John)</div>
+            <div class="phrase-card" onclick="playPinyin('ch')"><span class="char-large">ch</span> читается как твёрдое «ч» с придыханием</div>
+            <div class="phrase-card" onclick="playPinyin('sh')"><span class="char-large">sh</span> читается как твёрдая «ш»</div>
+            <div class="phrase-card" onclick="playPinyin('r')"><span class="char-large">r</span> читается как русская «ж»</div>
+            <div class="phrase-card" onclick="playPinyin('j')"><span class="char-large">j</span> читается как мягкая «джь» (улыбнитесь, язык внизу)</div>
+            <div class="phrase-card" onclick="playPinyin('q')"><span class="char-large">q</span> читается как мягкая «чь» с придыханием</div>
+            <div class="phrase-card" onclick="playPinyin('x')"><span class="char-large">x</span> читается как мягкая «сь» (как в слове сьесть)</div>
+            <div class="phrase-card" onclick="playPinyin('ü')"><span class="char-large">ü</span> читается как немецкая ü или русская «ю» без «й» в начале</div>
         </div>
 
-        <h2>🗣️ 2. Инициали — как реально произносятся звуки</h2>
-        <p><em>Это основа китайского произношения. Нажмите на карточку, чтобы услышать ЗВУК (не название буквы!).</em></p>
-        
         <div class="warning">
-            🔊 <strong>Как слушать:</strong> Звук произносится в слоге с гласной "a", чтобы было понятнее. Например, "b" звучит как "ба", но без гласного хвостика.
+            🔊 <strong>Важное правило:</strong> В китайском НЕТ звонких согласных (б, г, д, ж, з). Вместо них:<br>
+            • b — как в слове «спорт» (не «бар»)<br>
+            • g — как в слове «год» (не «горд»)<br>
+            • d — как в слове «футбол» (не «дом»)<br>
+            • Никогда не добавляйте голос в конце!
         </div>
 
+        <h2>🗣️ Все инициали (начальные звуки) с примерами</h2>
         <div class="two-columns">
             <div>
-                <h3>Губные и переднеязычные</h3>
-                <div class="phrase-card" onclick="playInitialSound('b')"><span class="char-large">b</span> [p] — как «б», но без голоса (как в слове «спорт»)</div>
-                <div class="phrase-card" onclick="playInitialSound('p')"><span class="char-large">p</span> [pʰ] — «п» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playInitialSound('m')"><span class="char-large">m</span> [m] — как русская «м»</div>
-                <div class="phrase-card" onclick="playInitialSound('f')"><span class="char-large">f</span> [f] — как русская «ф»</div>
-                <div class="phrase-card" onclick="playInitialSound('d')"><span class="char-large">d</span> [t] — как «д», но без голоса (кончик языка у зубов)</div>
-                <div class="phrase-card" onclick="playInitialSound('t')"><span class="char-large">t</span> [tʰ] — «т» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playInitialSound('n')"><span class="char-large">n</span> [n] — как русская «н»</div>
-                <div class="phrase-card" onclick="playInitialSound('l')"><span class="char-large">l</span> [l] — как русская «л»</div>
-                <div class="phrase-card" onclick="playInitialSound('g')"><span class="char-large">g</span> [k] — как «г», но без голоса (как в слове «год»)</div>
-                <div class="phrase-card" onclick="playInitialSound('k')"><span class="char-large">k</span> [kʰ] — «к» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playInitialSound('h')"><span class="char-large">h</span> [x] — как русская «х»</div>
+                <h3>Губные</h3>
+                <div class="phrase-card" onclick="playSyllable('bo')"><span class="pinyin-word">b</span> → «бо» как в слове «спорт»</div>
+                <div class="phrase-card" onclick="playSyllable('po')"><span class="pinyin-word">p</span> → «по» с сильным выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('mo')"><span class="pinyin-word">m</span> → «мо» как русская «м»</div>
+                <div class="phrase-card" onclick="playSyllable('fo')"><span class="pinyin-word">f</span> → «фо» как русская «ф»</div>
+                
+                <h3>Переднеязычные</h3>
+                <div class="phrase-card" onclick="playSyllable('de')"><span class="pinyin-word">d</span> → «дэ» как в слове «футбол»</div>
+                <div class="phrase-card" onclick="playSyllable('te')"><span class="pinyin-word">t</span> → «тэ» с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('ne')"><span class="pinyin-word">n</span> → «нэ» как русская «н»</div>
+                <div class="phrase-card" onclick="playSyllable('le')"><span class="pinyin-word">l</span> → «лэ» как русская «л»</div>
+                
+                <h3>Заднеязычные</h3>
+                <div class="phrase-card" onclick="playSyllable('ge')"><span class="pinyin-word">g</span> → «гэ» как в слове «год»</div>
+                <div class="phrase-card" onclick="playSyllable('ke')"><span class="pinyin-word">k</span> → «кэ» с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('he')"><span class="pinyin-word">h</span> → «хэ» как русская «х»</div>
             </div>
             <div>
-                <h3>Палатальные и шипящие</h3>
-                <div class="phrase-card" onclick="playInitialSound('j')"><span class="char-large">j</span> [tɕ] — мягкое, как «цзь» (улыбнуться, язык внизу)</div>
-                <div class="phrase-card" onclick="playInitialSound('q')"><span class="char-large">q</span> [tɕʰ] — мягкое «ць» с выдохом</div>
-                <div class="phrase-card" onclick="playInitialSound('x')"><span class="char-large">x</span> [ɕ] — мягкое «сь» (как в слове «синий»)</div>
-                <div class="phrase-card" onclick="playInitialSound('zh')"><span class="char-large">zh</span> [ʈʂ] — «чж», язык завёрнут назад</div>
-                <div class="phrase-card" onclick="playInitialSound('ch')"><span class="char-large">ch</span> [ʈʂʰ] — «ч» с выдохом, язык завёрнут</div>
-                <div class="phrase-card" onclick="playInitialSound('sh')"><span class="char-large">sh</span> [ʂ] — «ш», язык завёрнут назад</div>
-                <div class="phrase-card" onclick="playInitialSound('r')"><span class="char-large">r</span> [ʐ] — как русская «ж»</div>
-                <div class="phrase-card" onclick="playInitialSound('z')"><span class="char-large">z</span> [ts] — «цз», как в слове «цапля»</div>
-                <div class="phrase-card" onclick="playInitialSound('c')"><span class="char-large">c</span> [tsʰ] — «ц» с выдохом</div>
-                <div class="phrase-card" onclick="playInitialSound('s')"><span class="char-large">s</span> [s] — как русская «с»</div>
+                <h3>Мягкие (палатальные)</h3>
+                <div class="phrase-card" onclick="playSyllable('ji')"><span class="pinyin-word">j</span> → «цзи» (улыбнуться, язык внизу)</div>
+                <div class="phrase-card" onclick="playSyllable('qi')"><span class="pinyin-word">q</span> → «ци» с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('xi')"><span class="pinyin-word">x</span> → «си» мягкое (как в «синий»)</div>
+                
+                <h3>С шипящими (язык назад)</h3>
+                <div class="phrase-card" onclick="playSyllable('zhi')"><span class="pinyin-word">zh</span> → «чжи» твёрдое (как английское John)</div>
+                <div class="phrase-card" onclick="playSyllable('chi')"><span class="pinyin-word">ch</span> → «чи» твёрдое с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('shi')"><span class="pinyin-word">sh</span> → «ши» твёрдая</div>
+                <div class="phrase-card" onclick="playSyllable('ri')"><span class="pinyin-word">r</span> → «жи» как русская «ж»</div>
+                
+                <h3>Свистящие (язык у нижних зубов)</h3>
+                <div class="phrase-card" onclick="playSyllable('zi')"><span class="pinyin-word">z</span> → «цзы» (как «ц» с голосом)</div>
+                <div class="phrase-card" onclick="playSyllable('ci')"><span class="pinyin-word">c</span> → «цы» с выдохом</div>
+                <div class="phrase-card" onclick="playSyllable('si')"><span class="pinyin-word">s</span> → «сы» как русская «с»</div>
             </div>
         </div>
-        
-        <div class="warning">
-            ⚠️ <strong>Ключевые отличия от русского:</strong><br>
-            • В китайском НЕТ звонких согласных (б, г, д, ж, з произносятся глухо, но без придыхания)<br>
-            • Придыхание (p, t, k, q, ch, c) — это сильный выдох, как при задувании свечи<br>
-            • z / c / s — язык у нижних зубов (как русские ц, с)<br>
-            • zh / ch / sh / r — язык завёрнут назад (как английские, но мягче)
-        </div>
 
-        <h2>🎵 3. Тоны</h2>
-        <p>Тоны меняют значение слова! Один и тот же слог ma с разными тонами — 5 разных слов.</p>
+        <h2>🎵 Тоны — это самое главное!</h2>
+        <p>Один слог с разными тонами — разные слова. Тренируйте уши!</p>
         
         <div class="tone-grid">
-            <div class="tone-card" onclick="speakChinese('mā', event)">
+            <div class="tone-card" onclick="playTone('mā')">
                 <div>mā</div>
                 <div>1-й тон (ровный высокий)</div>
                 <div>мама</div>
                 <div>妈</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('má', event)">
+            <div class="tone-card" onclick="playTone('má')">
                 <div>má</div>
                 <div>2-й тон (восходящий)</div>
                 <div>конопля</div>
                 <div>麻</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('mǎ', event)">
+            <div class="tone-card" onclick="playTone('mǎ')">
                 <div>mǎ</div>
-                <div>3-й тон (нисх.→восх.)</div>
+                <div>3-й тон (вниз-вверх)</div>
                 <div>лошадь</div>
                 <div>马</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('mà', event)">
+            <div class="tone-card" onclick="playTone('mà')">
                 <div>mà</div>
-                <div>4-й тон (резкий вниз)</div>
+                <div>4-й тон (резко вниз)</div>
                 <div>ругать</div>
                 <div>骂</div>
             </div>
-            <div class="tone-card" onclick="speakChinese('ma', event)">
+            <div class="tone-card" onclick="playTone('ma')">
                 <div>ma</div>
-                <div>5-й тон (нейтральный)</div>
-                <div>вопр. частица</div>
+                <div>5-й тон (короткий)</div>
+                <div>вопросительная частица</div>
                 <div>吗</div>
             </div>
         </div>
 
-        <h2>📝 4. Базовые иероглифы (с тонами)</h2>
+        <h2>📝 Базовые слова (учим с тонами)</h2>
         <div class="word-grid">
-            <div class="phrase-card" onclick="speakChinese('一', event)"><span class="char-large">一</span> yī (1-й) — один</div>
-            <div class="phrase-card" onclick="speakChinese('二', event)"><span class="char-large">二</span> èr (4-й) — два</div>
-            <div class="phrase-card" onclick="speakChinese('三', event)"><span class="char-large">三</span> sān (1-й) — три</div>
-            <div class="phrase-card" onclick="speakChinese('四', event)"><span class="char-large">四</span> sì (4-й) — четыре</div>
-            <div class="phrase-card" onclick="speakChinese('五', event)"><span class="char-large">五</span> wǔ (3-й) — пять</div>
-            <div class="phrase-card" onclick="speakChinese('六', event)"><span class="char-large">六</span> liù (4-й) — шесть</div>
-            <div class="phrase-card" onclick="speakChinese('人', event)"><span class="char-large">人</span> rén (2-й) — человек</div>
-            <div class="phrase-card" onclick="speakChinese('口', event)"><span class="char-large">口</span> kǒu (3-й) — рот</div>
-            <div class="phrase-card" onclick="speakChinese('山', event)"><span class="char-large">山</span> shān (1-й) — гора</div>
-            <div class="phrase-card" onclick="speakChinese('水', event)"><span class="char-large">水</span> shuǐ (3-й) — вода</div>
+            <div class="phrase-card" onclick="playTone('yī')"><span class="char-large">一</span> yī (1) — один</div>
+            <div class="phrase-card" onclick="playTone('èr')"><span class="char-large">二</span> èr (4) — два</div>
+            <div class="phrase-card" onclick="playTone('sān')"><span class="char-large">三</span> sān (1) — три</div>
+            <div class="phrase-card" onclick="playTone('sì')"><span class="char-large">四</span> sì (4) — четыре</div>
+            <div class="phrase-card" onclick="playTone('wǔ')"><span class="char-large">五</span> wǔ (3) — пять</div>
+            <div class="phrase-card" onclick="playTone('liù')"><span class="char-large">六</span> liù (4) — шесть</div>
+            <div class="phrase-card" onclick="playTone('rén')"><span class="char-large">人</span> rén (2) — человек</div>
+            <div class="phrase-card" onclick="playTone('kǒu')"><span class="char-large">口</span> kǒu (3) — рот</div>
+            <div class="phrase-card" onclick="playTone('shān')"><span class="char-large">山</span> shān (1) — гора</div>
+            <div class="phrase-card" onclick="playTone('shuǐ')"><span class="char-large">水</span> shuǐ (3) — вода</div>
+            <div class="phrase-card" onclick="playTone('huǒ')"><span class="char-large">火</span> huǒ (3) — огонь</div>
+            <div class="phrase-card" onclick="playTone('tiān')"><span class="char-large">天</span> tiān (1) — небо</div>
+            <div class="phrase-card" onclick="playTone('dì')"><span class="char-large">地</span> dì (4) — земля</div>
         </div>
 
         <div class="info-box">
-            📖 <strong>Пословица:</strong> 千里之行，始于足下<br>
-            qiānlǐ zhī xíng, shǐyú zú xià<br>
+            📖 <strong>Пословица:</strong><br>
+            <span style="font-size: 1.5rem;">千里之行，始于足下</span><br>
+            <strong>qiānlǐ zhī xíng, shǐyú zú xià</strong><br>
             Дорога в тысячу миль начинается с первого шага.
         </div>
     </div>
 
     <footer>
-        🌟 Учи осознанно! Сначала слушай звук, потом повторяй вслух. 🌟
+        🌟 Учи осознанно! Слушай произношение, повторяй вслух. Тоны — ключ к пониманию! 🌟
         <div style="margin-top: 0.8rem;">
             <a href="index.html" class="back-home">📖 К списку уроков</a>
         </div>
@@ -313,42 +292,47 @@
 <script src="lessons-data.js"></script>
 <script src="script.js"></script>
 <script>
-    // Функция для озвучивания названий букв (китайские иероглифы)
-    window.speakChinese = function(text, event) {
+    // Функция для озвучивания пиньинь (слогов)
+    function playPinyin(sound, event) {
         if (event) event.stopPropagation();
         if (!window.speechSynthesis) return;
         
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
+        const utterance = new SpeechSynthesisUtterance(sound);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.85;
+        utterance.rate = 0.8;
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-    };
+    }
     
-    // Функция для озвучивания инициалей (реальных звуков) - использует слог + подсказка
-    window.playInitialSound = function(initial, event) {
+    // Функция для озвучивания целых слогов
+    function playSyllable(syllable, event) {
         if (event) event.stopPropagation();
         if (!window.speechSynthesis) return;
         
         window.speechSynthesis.cancel();
-        
-        // Добавляем гласную 'a' для озвучивания, но с паузой чтобы было понятно
-        let syllable = initial + 'a';
-        // Корректировка для особых случаев
-        if (initial === 'zh') syllable = 'zha';
-        if (initial === 'ch') syllable = 'cha';
-        if (initial === 'sh') syllable = 'sha';
-        if (initial === 'c') syllable = 'ca';
-        if (initial === 'z') syllable = 'za';
-        if (initial === 'r') syllable = 'ri';
-        
         const utterance = new SpeechSynthesisUtterance(syllable);
         utterance.lang = "zh-CN";
-        utterance.rate = 0.7;  // медленнее, чтобы уловить звук
+        utterance.rate = 0.75;
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-    };
+    }
+    
+    // Функция для озвучивания тонов
+    function playTone(syllable, event) {
+        if (event) event.stopPropagation();
+        if (!window.speechSynthesis) return;
+        
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(syllable);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.7;
+        utterance.pitch = 1.0;
+        setTimeout(() => window.speechSynthesis.speak(utterance), 10);
+    }
+    
+    // Переопределяем общую функцию (для совместимости)
+    window.speakChinese = playTone;
 </script>
 </body>
 </html>
