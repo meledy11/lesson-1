@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🎓 Урок 0: Пиньинь. Инициали и финали | Весёлый китайский</title>
+    <title>🎓 Урок 0: Полная таблица пиньиня | Весёлый китайский</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .theory-block {
@@ -23,100 +23,147 @@
         }
         .theory-block h3 {
             color: #B95C1A;
-            font-size: 1.4rem;
-            margin: 1.2rem 0 0.8rem 0;
+            font-size: 1.3rem;
+            margin: 1rem 0 0.5rem 0;
             border-bottom: 2px solid #FFDCA8;
             padding-bottom: 0.3rem;
         }
-        .theory-block p {
-            font-size: 1.05rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            color: #2c1810;
+        .initial-card {
+            background: white;
+            border-radius: 40px;
+            margin-bottom: 1.5rem;
+            border: 2px solid #FFCF9A;
+            overflow: hidden;
         }
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-        .word-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-        .phrase-card {
-            background: #FAF0E1;
-            border-radius: 48px;
-            padding: 12px 16px;
-            border: 2px solid #FFD58C;
+        .initial-header {
+            background: #FFB347;
+            padding: 0.7rem 1rem;
             cursor: pointer;
-            transition: 0.05s linear;
-            text-align: center;
-            font-size: 1rem;
-        }
-        .phrase-card:active {
-            transform: translateY(2px);
-        }
-        .big-pinyin {
-            font-size: 1.5rem;
-            font-weight: bold;
-            font-family: 'Segoe UI', 'Noto Sans SC', monospace;
-            color: #C5511A;
-            margin-right: 10px;
-        }
-        .example-sound {
-            display: inline-block;
-            background: #FFE0A3;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 8px;
-        }
-        .tone-grid {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
-            margin: 1rem 0;
+        }
+        .initial-header .big-pinyin {
+            font-size: 2rem;
+            font-weight: 900;
+            background: white;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            color: #C4450C;
+            font-family: 'Noto Sans SC', monospace;
+        }
+        .initial-header .description {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .syllable-row {
+            border-bottom: 1px solid #FFE0B5;
+            background: #FFFDF5;
+        }
+        .syllable-name {
+            background: #FFE0A3;
+            padding: 0.4rem 1rem;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #A64B2A;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+        }
+        .syllable-name:active {
+            background: #FFD58C;
+        }
+        .tones-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            padding: 0.8rem;
         }
         .tone-card {
-            background: #FFD966;
-            border-radius: 40px;
-            padding: 1.2rem;
+            background: #FAF0E1;
+            border-radius: 30px;
+            padding: 8px;
             text-align: center;
-            flex: 1;
-            min-width: 100px;
             cursor: pointer;
             transition: 0.05s linear;
+            border: 1px solid #FFD58C;
         }
         .tone-card:active {
             transform: scale(0.97);
+            background: #FFE0A3;
         }
-        .tone-card .pinyin {
-            font-size: 2rem;
+        .tone-number {
+            font-size: 0.7rem;
+            color: #E67E22;
+            font-weight: bold;
+        }
+        .pinyin-tone {
+            font-size: 1rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
+            color: #C5511A;
         }
-        .tone-card .meaning {
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
+        .example-hanzi {
+            font-size: 1.4rem;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', monospace;
+            margin: 5px 0;
         }
-        .tone-card .hanzi {
-            font-size: 1.8rem;
-            font-family: 'Noto Sans SC', monospace;
+        .example-word {
+            font-size: 0.65rem;
+            color: #A64B2A;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 3px;
         }
-        .warning {
+        .comparison-box {
+            background: #E8F0FE;
+            border-radius: 30px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #4A90D9;
+        }
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 30px;
+            cursor: pointer;
+            flex-wrap: wrap;
+        }
+        .comparison-row:active {
+            background: #FFE8CC;
+        }
+        .special-rule {
             background: #FFF1C1;
             border-left: 8px solid #FF8C42;
             padding: 1rem;
             border-radius: 24px;
             margin: 1rem 0;
-            font-size: 0.95rem;
         }
-        .info-box {
-            background: #E8F0FE;
-            border-left: 8px solid #4A90D9;
+        .special-example {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 30px;
+            margin: 8px 0;
+            cursor: pointer;
+            flex-wrap: wrap;
+        }
+        .special-example:active {
+            background: #FFE0A3;
+        }
+        .warning {
+            background: #FFF1C1;
+            border-left: 8px solid #FF8C42;
             padding: 1rem;
             border-radius: 24px;
             margin: 1rem 0;
@@ -129,6 +176,11 @@
             border-radius: 24px;
             margin: 1rem 0;
         }
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
         @media (max-width: 750px) {
             .theory-block {
                 padding: 1rem;
@@ -136,11 +188,11 @@
             .two-columns {
                 grid-template-columns: 1fr;
             }
-            .tone-card .pinyin {
-                font-size: 1.5rem;
+            .tones-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .tone-card .hanzi {
-                font-size: 1.3rem;
+            .example-hanzi {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -149,8 +201,8 @@
 
 <div class="container">
     <div class="hero">
-        <h1>🎓 Урок 0 · Пиньинь. Инициали и финали 🎓</h1>
-        <p>🎤 Нажми на любой блок — услышишь ПРАВИЛЬНОЕ китайское произношение!</p>
+        <h1>🎓 Урок 0 · Полная таблица пиньиня 🎓</h1>
+        <p>🎤 Нажми на любую карточку — услышишь китайское произношение!</p>
         <div style="margin-top: 0.8rem;">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson1.html" class="back-home" style="margin-left: 0.5rem;">📚 К уроку 1</a>
@@ -158,171 +210,353 @@
     </div>
 
     <div class="theory-block">
-        <h2>📖 Что такое пиньинь?</h2>
-        <p><strong>Пиньинь (拼音 pīnyīn)</strong> — это система записи китайского произношения латинскими буквами.</p>
-        
+        <h2>📖 Тоны в китайском языке</h2>
         <div class="rule-box">
-            📌 <strong>Важное правило:</strong><br>
-            • В китайском языке буква звучит <strong>ОДИНАКОВО</strong> во всех словах — нет такого как в английском, где C может читаться [k] или [s].<br>
-            • Исключение: буква <strong>ü</strong> после j, q, x пишется как <strong>u</strong>, но читается всё равно <strong>ü</strong>.<br>
-            • <strong>Тон</strong> меняет значение слова, но не произношение буквы!
+            📌 <strong>4 тона:</strong><br>
+            • <strong>1-й тон (¯)</strong> — ровный высокий: mā (мама)<br>
+            • <strong>2-й тон (´)</strong> — восходящий: má (конопля)<br>
+            • <strong>3-й тон (ˇ)</strong> — нисходяще-восходящий: mǎ (лошадь)<br>
+            • <strong>4-й тон (`)</strong> — резкий нисходящий: mà (ругать)
         </div>
 
-        <h2>🗣️ Часть 1: Инициали (начальные согласные)</h2>
-        <p>Инициали всегда звучат одинаково, независимо от того, какая гласная после них.</p>
-
-        <div class="two-columns">
-            <div>
-                <h3>Группа 1: Губные звуки</h3>
-                <div class="phrase-card" onclick="playSyllable('ba')"><span class="big-pinyin">b</span> → как «б» без голоса (как в "спорт")</div>
-                <div class="phrase-card" onclick="playSyllable('pa')"><span class="big-pinyin">p</span> → «п» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('ma')"><span class="big-pinyin">m</span> → как русская «м»</div>
-                <div class="phrase-card" onclick="playSyllable('fa')"><span class="big-pinyin">f</span> → как русская «ф»</div>
-
-                <h3>Группа 2: Переднеязычные</h3>
-                <div class="phrase-card" onclick="playSyllable('da')"><span class="big-pinyin">d</span> → как «д» без голоса (как в "футбол")</div>
-                <div class="phrase-card" onclick="playSyllable('ta')"><span class="big-pinyin">t</span> → «т» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('na')"><span class="big-pinyin">n</span> → как русская «н»</div>
-                <div class="phrase-card" onclick="playSyllable('la')"><span class="big-pinyin">l</span> → как русская «л»</div>
-
-                <h3>Группа 3: Заднеязычные</h3>
-                <div class="phrase-card" onclick="playSyllable('ga')"><span class="big-pinyin">g</span> → как «г» без голоса (как в "год")</div>
-                <div class="phrase-card" onclick="playSyllable('ka')"><span class="big-pinyin">k</span> → «к» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('ha')"><span class="big-pinyin">h</span> → как русская «х»</div>
+        <h2>🎧 Сравнение: звук в начале и в середине слова</h2>
+        <div class="comparison-box">
+            <div class="comparison-row" onclick="playWord('bàba')">
+                <span>🔊</span>
+                <span style="font-size:1.1rem">爸爸 bàba</span>
+                <span>→ b в начале [p] глухой, в середине [b] звонкий</span>
             </div>
-            <div>
-                <h3>Группа 4: Мягкие (палатальные)</h3>
-                <div class="phrase-card" onclick="playSyllable('ji')"><span class="big-pinyin">j</span> → как «цзь» (мягко, язык внизу, улыбка)</div>
-                <div class="phrase-card" onclick="playSyllable('qi')"><span class="big-pinyin">q</span> → «ць» с выдохом (мягко)</div>
-                <div class="phrase-card" onclick="playSyllable('xi')"><span class="big-pinyin">x</span> → «сь» мягко (как в "синий")</div>
-
-                <h3>Группа 5: Шипящие (язык назад)</h3>
-                <div class="phrase-card" onclick="playSyllable('zhi')"><span class="big-pinyin">zh</span> → «дж» твёрдое (язык завёрнут назад)</div>
-                <div class="phrase-card" onclick="playSyllable('chi')"><span class="big-pinyin">ch</span> → «ч» твёрдое с выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('shi')"><span class="big-pinyin">sh</span> → «ш» твёрдая</div>
-                <div class="phrase-card" onclick="playSyllable('ri')"><span class="big-pinyin">r</span> → как русская «ж»</div>
-
-                <h3>Группа 6: Свистящие (язык у нижних зубов)</h3>
-                <div class="phrase-card" onclick="playSyllable('zi')"><span class="big-pinyin">z</span> → «цз» (как «ц» с голосом)</div>
-                <div class="phrase-card" onclick="playSyllable('ci')"><span class="big-pinyin">c</span> → «ц» с сильным выдохом</div>
-                <div class="phrase-card" onclick="playSyllable('si')"><span class="big-pinyin">s</span> → как русская «с»</div>
+            <div class="comparison-row" onclick="playWord('dàdòu')">
+                <span>🔊</span>
+                <span style="font-size:1.1rem">大豆 dàdòu</span>
+                <span>→ d в начале [t] глухой, в середине [d] звонкий</span>
+            </div>
+            <div class="comparison-row" onclick="playWord('gēge')">
+                <span>🔊</span>
+                <span style="font-size:1.1rem">哥哥 gēge</span>
+                <span>→ g в начале [k] глухой, в середине [g] звонкий</span>
+            </div>
+            <div class="comparison-row" onclick="playWord('píngguǒ')">
+                <span>🔊</span>
+                <span style="font-size:1.1rem">苹果 píngguǒ</span>
+                <span>→ p в начале [pʰ] с выдохом, в середине слабее</span>
             </div>
         </div>
+
+        <h2>🔄 Правила изменения тонов</h2>
+        <div class="special-rule">
+            <div class="special-example" onclick="playWord('lǎobǎn')">
+                <span>🔊</span>
+                <div><strong>3-й + 3-й</strong> → 2-й + 3-й: 老板 lǎobǎn → láobǎn</div>
+            </div>
+            <div class="special-example" onclick="playWord('búkèqi')">
+                <span>❌</span>
+                <div><strong>不 bù + 4-й</strong> → bù → bú: 不客气 búkèqi</div>
+            </div>
+            <div class="special-example" onclick="playWord('yígè')">
+                <span>1️⃣</span>
+                <div><strong>一 yī + 4-й</strong> → yī → yí: 一个 yígè</div>
+            </div>
+        </div>
+
+        <h2>🗣️ Все слоги: каждый с 4 тонами</h2>
+        <p>• Нажми на <strong>слог</strong> — услышишь произношение<br>
+        • Нажми на <strong>тон</strong> — услышишь слово с иероглифом</p>
+
+        <div id="full-table"></div>
 
         <div class="warning">
-            🔊 <strong>Как слышать разницу между b/p, d/t, g/k?</strong><br>
-            • b/d/g — произносятся БЕЗ выдоха, как в "спорт", "футбол", "год"<br>
-            • p/t/k — с сильным выдохом, как при задувании свечи<br>
-            • Положите руку перед ртом: на p/t/k должен быть сильный поток воздуха!
-        </div>
-
-        <h2>🎵 Часть 2: Тоны</h2>
-        <p>В китайском языке 4 основных тона + нейтральный. Один и тот же слог с разными тонами — разные слова!</p>
-        
-        <div class="tone-grid">
-            <div class="tone-card" onclick="playTone('mā')">
-                <div class="pinyin">mā</div>
-                <div class="meaning">1-й тон (ровный высокий)</div>
-                <div class="meaning">мама</div>
-                <div class="hanzi">妈</div>
-            </div>
-            <div class="tone-card" onclick="playTone('má')">
-                <div class="pinyin">má</div>
-                <div class="meaning">2-й тон (восходящий, как вопрос)</div>
-                <div class="meaning">конопля</div>
-                <div class="hanzi">麻</div>
-            </div>
-            <div class="tone-card" onclick="playTone('mǎ')">
-                <div class="pinyin">mǎ</div>
-                <div class="meaning">3-й тон (вниз-вверх)</div>
-                <div class="meaning">лошадь</div>
-                <div class="hanzi">马</div>
-            </div>
-            <div class="tone-card" onclick="playTone('mà')">
-                <div class="pinyin">mà</div>
-                <div class="meaning">4-й тон (резкий нисходящий)</div>
-                <div class="meaning">ругать</div>
-                <div class="hanzi">骂</div>
-            </div>
-            <div class="tone-card" onclick="playTone('ma')">
-                <div class="pinyin">ma</div>
-                <div class="meaning">5-й тон (нейтральный, короткий)</div>
-                <div class="meaning">вопр. частица</div>
-                <div class="hanzi">吗</div>
-            </div>
-        </div>
-
-        <h2>📝 Часть 3: Базовые слова (учим с тонами!)</h2>
-        <div class="word-grid">
-            <div class="phrase-card" onclick="playTone('yī')"><span class="big-pinyin">一 yī</span> (1-й тон) — один</div>
-            <div class="phrase-card" onclick="playTone('èr')"><span class="big-pinyin">二 èr</span> (4-й тон) — два</div>
-            <div class="phrase-card" onclick="playTone('sān')"><span class="big-pinyin">三 sān</span> (1-й тон) — три</div>
-            <div class="phrase-card" onclick="playTone('sì')"><span class="big-pinyin">四 sì</span> (4-й тон) — четыре</div>
-            <div class="phrase-card" onclick="playTone('wǔ')"><span class="big-pinyin">五 wǔ</span> (3-й тон) — пять</div>
-            <div class="phrase-card" onclick="playTone('liù')"><span class="big-pinyin">六 liù</span> (4-й тон) — шесть</div>
-            <div class="phrase-card" onclick="playTone('qī')"><span class="big-pinyin">七 qī</span> (1-й тон) — семь</div>
-            <div class="phrase-card" onclick="playTone('bā')"><span class="big-pinyin">八 bā</span> (1-й тон) — восемь</div>
-            <div class="phrase-card" onclick="playTone('jiǔ')"><span class="big-pinyin">九 jiǔ</span> (3-й тон) — девять</div>
-            <div class="phrase-card" onclick="playTone('shí')"><span class="big-pinyin">十 shí</span> (2-й тон) — десять</div>
-            <div class="phrase-card" onclick="playTone('rén')"><span class="big-pinyin">人 rén</span> (2-й тон) — человек</div>
-            <div class="phrase-card" onclick="playTone('kǒu')"><span class="big-pinyin">口 kǒu</span> (3-й тон) — рот</div>
-            <div class="phrase-card" onclick="playTone('shān')"><span class="big-pinyin">山 shān</span> (1-й тон) — гора</div>
-            <div class="phrase-card" onclick="playTone('shuǐ')"><span class="big-pinyin">水 shuǐ</span> (3-й тон) — вода</div>
-            <div class="phrase-card" onclick="playTone('huǒ')"><span class="big-pinyin">火 huǒ</span> (3-й тон) — огонь</div>
-            <div class="phrase-card" onclick="playTone('tiān')"><span class="big-pinyin">天 tiān</span> (1-й тон) — небо</div>
-            <div class="phrase-card" onclick="playTone('dì')"><span class="big-pinyin">地 dì</span> (4-й тон) — земля</div>
-        </div>
-
-        <div class="info-box">
-            📖 <strong>Пословица:</strong><br>
-            <span style="font-size: 1.3rem;">千里之行，始于足下</span><br>
-            <strong>qiānlǐ zhī xíng, shǐyú zú xià</strong><br>
-            Дорога в тысячу миль начинается с первого шага.
+            🔊 <strong>Как тренироваться:</strong><br>
+            • Сравни 1-й и 2-й тон — разница в высоте<br>
+            • 3-й тон самый длинный, 4-й — резкий и короткий<br>
+            • Повторяй вслух, записывай себя на диктофон!
         </div>
     </div>
 
     <footer>
-        🌟 Учи осознанно! Слушай произношение, повторяй вслух. Тоны — ключ к пониманию! 🌟
+        🌟 Каждый слог — 4 разных значения! Тоны меняют смысл! 🌟
         <div style="margin-top: 0.8rem;">
             <a href="index.html" class="back-home">📖 К списку уроков</a>
         </div>
     </footer>
 </div>
 
-<script src="lessons-data.js"></script>
-<script src="script.js"></script>
 <script>
-    function playSyllable(syllable, event) {
+    function playWord(text, event) {
         if (event) event.stopPropagation();
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
             return;
         }
-        
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(syllable);
-        utterance.lang = "zh-CN";
-        utterance.rate = 0.75;
-        utterance.pitch = 1.0;
-        setTimeout(() => window.speechSynthesis.speak(utterance), 10);
-    }
-    
-    function playTone(syllable, event) {
-        if (event) event.stopPropagation();
-        if (!window.speechSynthesis) {
-            alert("Ваш браузер не поддерживает голосовое воспроизведение.");
-            return;
-        }
-        
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(syllable);
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
         utterance.rate = 0.7;
         utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
+
+    // ПОЛНАЯ БАЗА ДАННЫХ: все слоги с 4 тонами
+    // Формат: [слог, иероглиф1, пример1, иероглиф2, пример2, иероглиф3, пример3, иероглиф4, пример4]
+    const fullData = {
+        // === B ===
+        ba: { base: "ba", t1: "八", ex1: "八个 bā ge", t2: "拔", ex2: "拔草 bá cǎo", t3: "把", ex3: "把手 bǎ shǒu", t4: "爸", ex4: "爸爸 bàba" },
+        bo: { base: "bo", t1: "波", ex1: "波浪 bō làng", t2: "伯", ex2: "伯伯 bó bo", t3: "跛", ex3: "跛脚 bǒ jiǎo", t4: "薄", ex4: "薄荷 bò he" },
+        bai: { base: "bai", t1: "掰", ex1: "掰开 bāi kāi", t2: "白", ex2: "白色 bái sè", t3: "百", ex3: "一百 yī bǎi", t4: "败", ex4: "失败 shī bài" },
+        bao: { base: "bao", t1: "包", ex1: "包子 bāo zi", t2: "薄", ex2: "薄厚 báo hòu", t3: "饱", ex3: "吃饱 chī bǎo", t4: "抱", ex4: "拥抱 yōng bào" },
+        ban: { base: "ban", t1: "班", ex1: "班级 bān jí", t2: "办", ex2: "办法 bàn fǎ", t3: "板", ex3: "黑板 hēi bǎn", t4: "办", ex4: "办公室 bàn gōng shì" },
+        ben: { base: "ben", t1: "奔", ex1: "奔跑 bēn pǎo", t2: "甭", ex2: "甭说 béng shuō", t3: "本", ex3: "书本 shū běn", t4: "笨", ex4: "笨蛋 bèn dàn" },
+        bi: { base: "bi", t1: "逼", ex1: "逼迫 bī pò", t2: "鼻", ex2: "鼻子 bí zi", t3: "笔", ex3: "铅笔 qiān bǐ", t4: "必", ex4: "必须 bì xū" },
+        bie: { base: "bie", t1: "憋", ex1: "憋气 biē qì", t2: "别", ex2: "别人 bié rén", t3: "瘪", ex3: "干瘪 gān biě", t4: "别", ex4: "离别 lí bié" },
+        biao: { base: "biao", t1: "标", ex1: "标准 biāo zhǔn", t2: "表", ex2: "表达 biǎo dá", t3: "表", ex3: "钟表 zhōng biǎo", t4: "鳔", ex4: "鱼鳔 yú biào" },
+        bian: { base: "bian", t1: "边", ex1: "旁边 páng biān", t2: "便", ex2: "便宜 pián yi", t3: "变", ex3: "变化 biàn huà", t4: "遍", ex4: "一遍 yī biàn" },
+        bin: { base: "bin", t1: "宾", ex1: "宾馆 bīn guǎn", t2: "彬", ex2: "彬彬有礼 bīn bīn yǒu lǐ", t3: "殡", ex3: "殡仪馆 bìn yí guǎn", t4: "鬓", ex4: "鬓角 bìn jiǎo" },
+        bing: { base: "bing", t1: "冰", ex1: "冰块 bīng kuài", t2: "病", ex2: "病人 bìng rén", t3: "饼", ex3: "饼干 bǐng gān", t4: "并", ex4: "并且 bìng qiě" },
+        bu: { base: "bu", t1: "不", ex1: "不是 bù shì", t2: "醭", ex2: "醭子 bú zi", t3: "补", ex3: "补充 bǔ chōng", t4: "不", ex4: "不对 bù duì" },
+        // === P ===
+        pa: { base: "pa", t1: "趴", ex1: "趴下 pā xià", t2: "爬", ex2: "爬山 pá shān", t3: "啪", ex3: "啪啪 pā pā", t4: "怕", ex4: "害怕 hài pà" },
+        po: { base: "po", t1: "坡", ex1: "山坡 shān pō", t2: "婆", ex2: "婆婆 pó po", t3: "叵", ex3: "叵测 pǒ cè", t4: "破", ex4: "破坏 pò huài" },
+        pai: { base: "pai", t1: "拍", ex1: "拍照 pāi zhào", t2: "排", ex2: "排队 pái duì", t3: "迫", ex3: "迫击炮 pǎi jī pào", t4: "派", ex4: "派人 pài rén" },
+        pao: { base: "pao", t1: "抛", ex1: "抛弃 pāo qì", t2: "跑", ex2: "跑步 pǎo bù", t3: "跑", ex3: "跑步 pǎo bù", t4: "泡", ex4: "泡面 pào miàn" },
+        pan: { base: "pan", t1: "攀", ex1: "攀登 pān dēng", t2: "盘", ex2: "盘子 pán zi", t3: "盼", ex3: "盼望 pàn wàng", t4: "判", ex4: "判断 pàn duàn" },
+        pen: { base: "pen", t1: "喷", ex1: "喷水 pēn shuǐ", t2: "盆", ex2: "花盆 huā pén", t3: "喷", ex3: "喷喷香 pèn pèn xiāng", t4: "喷", ex4: "喷香 pèn xiāng" },
+        pi: { base: "pi", t1: "批", ex1: "批准 pī zhǔn", t2: "皮", ex2: "皮肤 pí fū", t3: "匹", ex3: "一匹 yī pǐ", t4: "屁", ex4: "屁股 pì gu" },
+        pian: { base: "pian", t1: "片", ex1: "片刻 piàn kè", t2: "便", ex2: "便宜 pián yí", t3: "片", ex3: "影片 yǐng piàn", t4: "骗", ex4: "骗子 piàn zi" },
+        piao: { base: "piao", t1: "飘", ex1: "飘动 piāo dòng", t2: "瓢", ex2: "瓢虫 piáo chóng", t3: "漂", ex3: "漂白 piǎo bái", t4: "票", ex4: "车票 chē piào" },
+        pin: { base: "pin", t1: "拼", ex1: "拼音 pīn yīn", t2: "贫", ex2: "贫穷 pín qióng", t3: "品", ex3: "商品 shāng pǐn", t4: "聘", ex4: "聘请 pìn qǐng" },
+        ping: { base: "ping", t1: "平", ex1: "平安 píng ān", t2: "苹", ex2: "苹果 píng guǒ", t3: "平", ex3: "平面 píng miàn", t4: "瓶", ex4: "瓶子 píng zi" },
+        pu: { base: "pu", t1: "扑", ex1: "扑倒 pū dǎo", t2: "葡", ex2: "葡萄 pú tao", t3: "普", ex3: "普通 pǔ tōng", t4: "铺", ex4: "店铺 diàn pù" },
+        // === M ===
+        ma: { base: "ma", t1: "妈", ex1: "妈妈 māma", t2: "麻", ex2: "麻木 má mù", t3: "马", ex3: "马上 mǎ shàng", t4: "骂", ex4: "骂人 mà rén" },
+        mo: { base: "mo", t1: "摸", ex1: "摸黑 mō hēi", t2: "膜", ex2: "薄膜 báo mó", t3: "抹", ex3: "抹布 mǒ bù", t4: "莫", ex4: "莫怕 mò pà" },
+        mai: { base: "mai", t1: "埋", ex1: "埋没 mái mò", t2: "买", ex2: "买票 mǎi piào", t3: "买", ex3: "买东西 mǎi dōng xi", t4: "卖", ex4: "卖东西 mài dōng xi" },
+        mao: { base: "mao", t1: "猫", ex1: "小猫 xiǎo māo", t2: "毛", ex2: "毛线 máo xiàn", t3: "毛", ex3: "毛笔 máo bǐ", t4: "帽", ex4: "帽子 mào zi" },
+        man: { base: "man", t1: "蛮", ex1: "蛮好 mán hǎo", t2: "慢", ex2: "慢慢 màn màn", t3: "满", ex3: "满意 mǎn yì", t4: "慢", ex4: "快慢 kuài màn" },
+        men: { base: "men", t1: "闷", ex1: "闷热 mēn rè", t2: "门", ex2: "门口 mén kǒu", t3: "闷", ex3: "郁闷 yù mèn", t4: "闷", ex4: "烦闷 fán mèn" },
+        mi: { base: "mi", t1: "咪", ex1: "咪咪 mī mī", t2: "迷", ex2: "迷路 mí lù", t3: "米", ex3: "米饭 mǐ fàn", t4: "密", ex4: "秘密 mì mì" },
+        miao: { base: "miao", t1: "喵", ex1: "喵喵叫 miāo miāo jiào", t2: "苗", ex2: "树苗 shù miáo", t3: "秒", ex3: "秒钟 miǎo zhōng", t4: "庙", ex4: "寺庙 sì miào" },
+        // === F ===
+        fa: { base: "fa", t1: "发", ex1: "发现 fā xiàn", t2: "罚", ex2: "罚款 fá kuǎn", t3: "法", ex3: "法律 fǎ lǜ", t4: "发", ex4: "头发 tóu fa" },
+        fan: { base: "fan", t1: "翻", ex1: "翻身 fān shēn", t2: "凡", ex2: "平凡 píng fán", t3: "反", ex3: "相反 xiāng fǎn", t4: "饭", ex4: "吃饭 chī fàn" },
+        fang: { base: "fang", t1: "方", ex1: "方便 fāng biàn", t2: "房", ex2: "房子 fáng zi", t3: "访", ex3: "访问 fǎng wèn", t4: "放", ex4: "放学 fàng xué" },
+        fei: { base: "fei", t1: "飞", ex1: "飞机 fēi jī", t2: "肥", ex2: "肥肉 féi ròu", t3: "匪", ex3: "土匪 tǔ fěi", t4: "费", ex4: "免费 miǎn fèi" },
+        fen: { base: "fen", t1: "分", ex1: "分开 fēn kāi", t2: "粉", ex2: "粉色 fěn sè", t3: "粉", ex3: "粉笔 fěn bǐ", t4: "分", ex4: "水分 shuǐ fèn" },
+        feng: { base: "feng", t1: "风", ex1: "风雨 fēng yǔ", t2: "逢", ex2: "相逢 xiāng féng", t3: "讽", ex3: "讽刺 fěng cì", t4: "缝", ex4: "缝隙 fèng xì" },
+        fu: { base: "fu", t1: "夫", ex1: "丈夫 zhàng fu", t2: "福", ex2: "幸福 xìng fú", t3: "府", ex3: "政府 zhèng fǔ", t4: "父", ex4: "父亲 fù qīn" },
+        // === D ===
+        da: { base: "da", t1: "搭", ex1: "搭车 dā chē", t2: "答", ex2: "回答 huí dá", t3: "打", ex3: "打篮球 dǎ lánqiú", t4: "大", ex4: "大家 dà jiā" },
+        de: { base: "de", t1: "的", ex1: "我的 wǒ de", t2: "得", ex2: "得到 dé dào", t3: "得", ex3: "得意 dé yì", t4: "地", ex4: "慢慢地 màn màn de" },
+        dai: { base: "dai", t1: "呆", ex1: "发呆 fā dāi", t2: "戴", ex2: "戴帽子 dài mào zi", t3: "歹", ex3: "歹徒 dǎi tú", t4: "带", ex4: "带来 dài lái" },
+        dao: { base: "dao", t1: "刀", ex1: "刀子 dāo zi", t2: "倒", ex2: "倒车 dào chē", t3: "岛", ex3: "小岛 xiǎo dǎo", t4: "到", ex4: "到达 dào dá" },
+        dan: { base: "dan", t1: "单", ex1: "简单 jiǎn dān", t2: "但", ex2: "但是 dàn shì", t3: "胆", ex3: "胆子 dǎn zi", t4: "蛋", ex4: "鸡蛋 jī dàn" },
+        deng: { base: "deng", t1: "灯", ex1: "灯光 dēng guāng", t2: "等", ex2: "等待 děng dài", t3: "等", ex3: "等于 děng yú", t4: "凳", ex4: "凳子 dèng zi" },
+        di: { base: "di", t1: "低", ex1: "低头 dī tóu", t2: "弟", ex2: "弟弟 dì di", t3: "底", ex3: "底下 dǐ xià", t4: "地", ex4: "地方 dì fāng" },
+        dian: { base: "dian", t1: "颠", ex1: "颠倒 diān dǎo", t2: "点", ex2: "点菜 diǎn cài", t3: "电", ex3: "电视 diàn shì", t4: "店", ex4: "商店 shāng diàn" },
+        ding: { base: "ding", t1: "丁", ex1: "人丁 rén dīng", t2: "顶", ex2: "山顶 shān dǐng", t3: "顶", ex3: "顶好 dǐng hǎo", t4: "定", ex4: "一定 yī dìng" },
+        du: { base: "du", t1: "都", ex1: "都是 dōu shì", t2: "读", ex2: "读书 dú shū", t3: "堵", ex3: "堵车 dǔ chē", t4: "度", ex4: "温度 wēn dù" },
+        duo: { base: "duo", t1: "多", ex1: "多少 duō shǎo", t2: "夺", ex2: "夺取 duó qǔ", t3: "朵", ex3: "花朵 huā duǒ", t4: "惰", ex4: "懒惰 lǎn duò" },
+        dui: { base: "dui", t1: "堆", ex1: "堆积 duī jī", t2: "对", ex2: "对面 duì miàn", t3: "队", ex3: "队伍 duì wǔ", t4: "对", ex4: "对话 duì huà" },
+        // === G ===
+        ga: { base: "ga", t1: "嘎", ex1: "嘎嘎叫 gā gā jiào", t2: "轧", ex2: "轧钢 gá gāng", t3: "尕", ex3: "尕娃 gǎ wá", t4: "尬", ex4: "尴尬 gān gà" },
+        ge: { base: "ge", t1: "哥", ex1: "哥哥 gē ge", t2: "格", ex2: "格子 gé zi", t3: "个", ex3: "个人 gè rén", t4: "各", ex4: "各自 gè zì" },
+        gai: { base: "gai", t1: "该", ex1: "应该 yīng gāi", t2: "改", ex2: "改变 gǎi biàn", t3: "盖", ex3: "盖房子 gài fáng zi", t4: "钙", ex4: "钙片 gài piàn" },
+        gao: { base: "gao", t1: "高", ex1: "高兴 gāo xìng", t2: "搞", ex2: "搞定 gǎo dìng", t3: "告", ex3: "告诉 gào su", t4: "膏", ex4: "牙膏 yá gāo" },
+        gan: { base: "gan", t1: "干", ex1: "干净 gān jìng", t2: "赶", ex2: "赶路 gǎn lù", t3: "感", ex3: "感觉 gǎn jué", t4: "干", ex4: "干活 gàn huó" },
+        gang: { base: "gang", t1: "刚", ex1: "刚才 gāng cái", t2: "钢", ex2: "钢铁 gāng tiě", t3: "岗", ex3: "岗位 gǎng wèi", t4: "港", ex4: "香港 xiāng gǎng" },
+        gou: { base: "gou", t1: "勾", ex1: "勾引 gōu yǐn", t2: "狗", ex2: "小狗 xiǎo gǒu", t3: "够", ex3: "足够 zú gòu", t4: "购", ex4: "购物 gòu wù" },
+        gu: { base: "gu", t1: "姑", ex1: "姑娘 gū niang", t2: "古", ex2: "古代 gǔ dài", t3: "股", ex3: "股票 gǔ piào", t4: "故", ex4: "故事 gù shì" },
+        gua: { base: "gua", t1: "瓜", ex1: "西瓜 xī guā", t2: "刮", ex2: "刮风 guā fēng", t3: "寡", ex3: "寡妇 guǎ fu", t4: "挂", ex4: "挂念 guà niàn" },
+        guo: { base: "guo", t1: "锅", ex1: "火锅 huǒ guō", t2: "国", ex2: "国家 guó jiā", t3: "果", ex3: "苹果 píng guǒ", t4: "过", ex4: "过去 guò qù" },
+        // === H ===
+        ha: { base: "ha", t1: "哈", ex1: "哈哈 hā hā", t2: "蛤", ex2: "蛤蟆 há ma", t3: "哈", ex3: "哈巴狗 hǎ ba gǒu", t4: "哈", ex4: "哈气 hā qì" },
+        he: { base: "he", t1: "喝", ex1: "喝水 hē shuǐ", t2: "和", ex2: "和平 hé píng", t3: "可", ex3: "可是 kě shì", t4: "贺", ex4: "祝贺 zhù hè" },
+        hai: { base: "hai", t1: "嗨", ex1: "嗨！ hāi", t2: "海", ex2: "大海 dà hǎi", t3: "海", ex3: "海水 hǎi shuǐ", t4: "害", ex4: "害怕 hài pà" },
+        hao: { base: "hao", t1: "好", ex1: "好人 hǎo rén", t2: "号", ex2: "号码 hào mǎ", t3: "好", ex3: "好像 hǎo xiàng", t4: "号", ex4: "号召 hào zhào" },
+        han: { base: "han", t1: "喊", ex1: "喊叫 hǎn jiào", t2: "汉", ex2: "汉语 Hàn yǔ", t3: "喊", ex3: "大喊 dà hǎn", t4: "汗", ex4: "出汗 chū hàn" },
+        hong: { base: "hong", t1: "红", ex1: "红色 hóng sè", t2: "红", ex2: "红旗 hóng qí", t3: "哄", ex3: "哄骗 hǒng piàn", t4: "哄", ex4: "起哄 qǐ hòng" },
+        hu: { base: "hu", t1: "呼", ex1: "呼吸 hū xī", t2: "胡", ex2: "胡子 hú zi", t3: "虎", ex3: "老虎 lǎo hǔ", t4: "护", ex4: "保护 bǎo hù" },
+        hua: { base: "hua", t1: "花", ex1: "花朵 huā duǒ", t2: "华", ex2: "中华 Zhōng huá", t3: "画", ex3: "画图 huà tú", t4: "话", ex4: "说话 shuō huà" },
+        // === J ===
+        ji: { base: "ji", t1: "鸡", ex1: "鸡肉 jī ròu", t2: "级", ex2: "年级 nián jí", t3: "几", ex3: "几个 jǐ ge", t4: "记", ex4: "记住 jì zhù" },
+        jia: { base: "jia", t1: "家", ex1: "家里 jiā lǐ", t2: "夹", ex2: "夹子 jiā zi", t3: "假", ex3: "假期 jià qī", t4: "价", ex4: "价格 jià gé" },
+        jiao: { base: "jiao", t1: "教", ex1: "教室 jiào shì", t2: "脚", ex2: "脚丫 jiǎo yā", t3: "角", ex3: "角度 jiǎo dù", t4: "叫", ex4: "叫声 jiào shēng" },
+        jie: { base: "jie", t1: "街", ex1: "街道 jiē dào", t2: "节", ex2: "节日 jié rì", t3: "姐", ex3: "姐姐 jiě jie", t4: "借", ex4: "借书 jiè shū" },
+        jiu: { base: "jiu", t1: "九", ex1: "九个 jiǔ ge", t2: "旧", ex2: "旧衣服 jiù yī fu", t3: "久", ex3: "很久 hěn jiǔ", t4: "就", ex4: "就是 jiù shì" },
+        jian: { base: "jian", t1: "见", ex1: "见面 jiàn miàn", t2: "件", ex2: "一件 yī jiàn", t3: "减", ex3: "减少 jiǎn shǎo", t4: "建", ex4: "建设 jiàn shè" },
+        jin: { base: "jin", t1: "金", ex1: "金子 jīn zi", t2: "近", ex2: "近处 jìn chù", t3: "紧", ex3: "紧张 jǐn zhāng", t4: "进", ex4: "进来 jìn lái" },
+        jing: { base: "jing", t1: "经", ex1: "经过 jīng guò", t2: "井", ex2: "水井 shuǐ jǐng", t3: "景", ex3: "景色 jǐng sè", t4: "静", ex4: "安静 ān jìng" },
+        ju: { base: "ju", t1: "居", ex1: "居住 jū zhù", t2: "橘", ex2: "橘子 jú zi", t3: "举", ex3: "举起 jǔ qǐ", t4: "句", ex4: "句子 jù zi" },
+        // === Q ===
+        qi: { base: "qi", t1: "七", ex1: "七个 qī ge", t2: "骑", ex2: "骑马 qí mǎ", t3: "起", ex3: "起来 qǐ lái", t4: "气", ex4: "空气 kōng qì" },
+        qia: { base: "qia", t1: "掐", ex1: "掐断 qiā duàn", t2: "卡", ex2: "卡住 qiǎ zhù", t3: "卡", ex3: "卡片 qiǎ piàn", t4: "洽", ex4: "洽谈 qià tán" },
+        qiao: { base: "qiao", t1: "敲", ex1: "敲门 qiāo mén", t2: "桥", ex2: "桥头 qiáo tóu", t3: "巧", ex3: "巧合 qiǎo hé", t4: "翘", ex4: "翘起 qiào qǐ" },
+        qie: { base: "qie", t1: "切", ex1: "切菜 qiē cài", t2: "茄", ex2: "茄子 qié zi", t3: "且", ex3: "并且 bìng qiě", t4: "切", ex4: "亲切 qīn qiè" },
+        qiu: { base: "qiu", t1: "秋", ex1: "秋天 qiū tiān", t2: "球", ex2: "足球 zú qiú", t3: "求", ex3: "请求 qiú qǐng", t4: "去", ex4: "不去 bù qù" },
+        qian: { base: "qian", t1: "千", ex1: "一千 yī qiān", t2: "前", ex2: "前面 qián miàn", t3: "浅", ex3: "浅水 qiǎn shuǐ", t4: "欠", ex4: "欠钱 qiàn qián" },
+        qin: { base: "qin", t1: "亲", ex1: "亲人 qīn rén", t2: "琴", ex2: "钢琴 gāng qín", t3: "寝", ex3: "寝室 qǐn shì", t4: "亲", ex4: "亲家 qìng jia" },
+        qing: { base: "qing", t1: "青", ex1: "青色 qīng sè", t2: "情", ex2: "感情 gǎn qíng", t3: "请", ex3: "请客 qǐng kè", t4: "庆", ex4: "庆祝 qìng zhù" },
+        qu: { base: "qu", t1: "去", ex1: "出去 chū qù", t2: "取", ex2: "取得 qǔ dé", t3: "娶", ex3: "娶亲 qǔ qīn", t4: "趣", ex4: "有趣 yǒu qù" },
+        // === X ===
+        xi: { base: "xi", t1: "西", ex1: "西方 xī fāng", t2: "习", ex2: "学习 xué xí", t3: "洗", ex3: "洗澡 xǐ zǎo", t4: "戏", ex4: "游戏 yóu xì" },
+        xia: { base: "xia", t1: "下", ex1: "下来 xià lái", t2: "虾", ex2: "龙虾 lóng xiā", t3: "夏", ex3: "夏天 xià tiān", t4: "下", ex4: "下午 xià wǔ" },
+        xiao: { base: "xiao", t1: "小", ex1: "小孩 xiǎo hái", t2: "笑", ex2: "笑容 xiào róng", t3: "晓", ex3: "知晓 zhī xiǎo", t4: "校", ex4: "学校 xué xiào" },
+        xie: { base: "xie", t1: "些", ex1: "一些 yī xiē", t2: "鞋", ex2: "鞋子 xié zi", t3: "写", ex3: "写字 xiě zì", t4: "谢", ex4: "谢谢 xiè xie" },
+        xiu: { base: "xiu", t1: "休", ex1: "休息 xiū xi", t2: "秀", ex2: "秀美 xiù měi", t3: "修", ex3: "修理 xiū lǐ", t4: "绣", ex4: "绣花 xiù huā" },
+        xian: { base: "xian", t1: "先", ex1: "先生 xiān shēng", t2: "闲", ex2: "空闲 kòng xián", t3: "显", ex3: "显示 xiǎn shì", t4: "现", ex4: "现在 xiàn zài" },
+        xiang: { base: "xiang", t1: "想", ex1: "想念 xiǎng niàn", t2: "像", ex2: "好像 hǎo xiàng", t3: "相", ex3: "相反 xiāng fǎn", t4: "向", ex4: "方向 fāng xiàng" },
+        xin: { base: "xin", t1: "心", ex1: "心里 xīn lǐ", t2: "新", ex2: "新的 xīn de", t3: "信", ex3: "相信 xiāng xìn", t4: "信", ex4: "信封 xìn fēng" },
+        xing: { base: "xing", t1: "星", ex1: "星星 xīng xing", t2: "行", ex2: "行走 xíng zǒu", t3: "醒", ex3: "醒来 xǐng lái", t4: "性", ex4: "性格 xìng gé" },
+        xu: { base: "xu", t1: "需", ex1: "需要 xū yào", t2: "许", ex2: "允许 yǔn xǔ", t3: "续", ex3: "继续 jì xù", t4: "序", ex4: "顺序 shùn xù" },
+        // === ZH ===
+        zhi: { base: "zhi", t1: "知", ex1: "知道 zhī dào", t2: "直", ex2: "直接 zhí jiē", t3: "纸", ex3: "纸张 zhǐ zhāng", t4: "志", ex4: "志愿 zhì yuàn" },
+        zha: { base: "zha", t1: "扎", ex1: "扎根 zhā gēn", t2: "炸", ex2: "炸酱 zhá jiàng", t3: "眨", ex3: "眨眼 zhǎ yǎn", t4: "炸", ex4: "炸弹 zhà dàn" },
+        zhe: { base: "zhe", t1: "遮", ex1: "遮挡 zhē dǎng", t2: "折", ex2: "折断 zhé duàn", t3: "这", ex3: "这个 zhè ge", t4: "这", ex4: "这里 zhè lǐ" },
+        zhao: { base: "zhao", t1: "招", ex1: "招手 zhāo shǒu", t2: "找", ex2: "找到 zhǎo dào", t3: "找", ex3: "找人 zhǎo rén", t4: "照", ex4: "照片 zhào piàn" },
+        zhou: { base: "zhou", t1: "周", ex1: "周末 zhōu mò", t2: "洲", ex2: "亚洲 Yà zhōu", t3: "肘", ex3: "肘子 zhǒu zi", t4: "皱", ex4: "皱纹 zhòu wén" },
+        zhu: { base: "zhu", t1: "住", ex1: "住房 zhù fáng", t2: "主", ex2: "主人 zhǔ rén", t3: "煮", ex3: "煮饭 zhǔ fàn", t4: "住", ex4: "住在 zhù zài" },
+        zhua: { base: "zhua", t1: "抓", ex1: "抓住 zhuā zhù", t2: "爪", ex2: "爪子 zhuǎ zi", t3: "爪", ex3: "爪牙 zhǎo yá", t4: "抓", ex4: "抓人 zhuā rén" },
+        zhuo: { base: "zhuo", t1: "捉", ex1: "捉住 zhuō zhù", t2: "桌", ex2: "桌子 zhuō zi", t3: "着", ex3: "着手 zhuó shǒu", t4: "着", ex4: "衣着 yī zhuó" },
+        // === CH ===
+        chi: { base: "chi", t1: "吃", ex1: "吃饭 chī fàn", t2: "迟", ex2: "迟到 chí dào", t3: "尺", ex3: "尺子 chǐ zi", t4: "赤", ex4: "赤色 chì sè" },
+        cha: { base: "cha", t1: "差", ex1: "差别 chā bié", t2: "查", ex2: "查找 chá zhǎo", t3: "叉", ex3: "叉子 chā zi", t4: "差", ex4: "差劲 chà jìn" },
+        che: { base: "che", t1: "车", ex1: "汽车 qì chē", t2: "扯", ex2: "扯开 chě kāi", t3: "彻", ex3: "彻底 chè dǐ", t4: "撤", ex4: "撤走 chè zǒu" },
+        chao: { base: "chao", t1: "超", ex1: "超过 chāo guò", t2: "朝", ex2: "朝向 cháo xiàng", t3: "吵", ex3: "吵架 chǎo jià", t4: "炒", ex4: "炒菜 chǎo cài" },
+        chen: { base: "chen", t1: "衬", ex1: "衬衫 chèn shān", t2: "尘", ex2: "灰尘 huī chén", t3: "沉", ex3: "沉重 chén zhòng", t4: "趁", ex4: "趁机 chèn jī" },
+        cheng: { base: "cheng", t1: "成", ex1: "成为 chéng wéi", t2: "城", ex2: "城市 chéng shì", t3: "程", ex3: "程度 chéng dù", t4: "乘", ex4: "乘坐 chéng zuò" },
+        chu: { base: "chu", t1: "出", ex1: "出去 chū qù", t2: "初", ex2: "初中 chū zhōng", t3: "处", ex3: "处理 chǔ lǐ", t4: "处", ex4: "到处 dào chù" },
+        chuan: { base: "chuan", t1: "穿", ex1: "穿衣服 chuān yī fu", t2: "船", ex2: "小船 xiǎo chuán", t3: "喘", ex3: "喘气 chuǎn qì", t4: "串", ex4: "一串 yī chuàn" },
+        // === SH ===
+        shi: { base: "shi", t1: "师", ex1: "老师 lǎo shī", t2: "十", ex2: "十个 shí ge", t3: "使", ex3: "使用 shǐ yòng", t4: "是", ex4: "是不是 shì bu shì" },
+        sha: { base: "sha", t1: "沙", ex1: "沙子 shā zi", t2: "啥", ex2: "啥事 shá shì", t3: "傻", ex3: "傻瓜 shǎ guā", t4: "煞", ex4: "煞车 shā chē" },
+        she: { base: "she", t1: "蛇", ex1: "小蛇 xiǎo shé", t2: "舍", ex2: "舍不得 shě bu dé", t3: "社", ex3: "社会 shè huì", t4: "摄", ex4: "摄影 shè yǐng" },
+        shao: { base: "shao", t1: "少", ex1: "多少 duō shǎo", t2: "少", ex2: "少年 shào nián", t3: "烧", ex3: "烧火 shāo huǒ", t4: "稍", ex4: "稍微 shāo wēi" },
+        shan: { base: "shan", t1: "山", ex1: "山上 shān shàng", t2: "善", ex2: "善良 shàn liáng", t3: "闪", ex3: "闪开 shǎn kāi", t4: "扇", ex4: "扇子 shàn zi" },
+        shang: { base: "shang", t1: "上", ex1: "上面 shàng mian", t2: "商", ex2: "商店 shāng diàn", t3: "赏", ex3: "欣赏 xīn shǎng", t4: "上", ex4: "上班 shàng bān" },
+        shu: { base: "shu", t1: "书", ex1: "书本 shū běn", t2: "树", ex2: "树木 shù mù", t3: "数", ex3: "数字 shù zì", t4: "数", ex4: "数数 shǔ shù" },
+        shua: { base: "shua", t1: "刷", ex1: "刷牙 shuā yá", t2: "耍", ex2: "玩耍 wán shuǎ", t3: "唰", ex3: "唰唰响 shuā shuā xiǎng", t4: "刷", ex4: "刷子 shuā zi" },
+        shuo: { base: "shuo", t1: "说", ex1: "说话 shuō huà", t2: "硕", ex2: "硕士 shuò shì", t3: "烁", ex3: "闪烁 shǎn shuò", t4: "数", ex4: "数落 shǔ luo" },
+        // === R ===
+        ri: { base: "ri", t1: "日", ex1: "日子 rì zi", t2: "日", ex2: "日记 rì jì", t3: "日", ex3: "日日 rì rì", t4: "日", ex4: "日本 Rì běn" },
+        ren: { base: "ren", t1: "人", ex1: "人们 rén men", t2: "任", ex2: "任何 rèn hé", t3: "忍", ex3: "忍受 rěn shòu", t4: "认", ex4: "认识 rèn shi" },
+        re: { base: "re", t1: "热", ex1: "热水 rè shuǐ", t2: "惹", ex2: "惹事 rě shì", t3: "热", ex3: "热闹 rè nào", t4: "热", ex4: "热情 rè qíng" },
+        ru: { base: "ru", t1: "如", ex1: "如果 rú guǒ", t2: "入", ex2: "入口 rù kǒu", t3: "乳", ex3: "牛奶 niú nǎi", t4: "入", ex4: "进入 jìn rù" },
+        ruan: { base: "ruan", t1: "软", ex1: "软件 ruǎn jiàn", t2: "软", ex2: "柔软 róu ruǎn", t3: "软", ex3: "软糖 ruǎn táng", t4: "软", ex4: "软弱 ruǎn ruò" },
+        // === Z ===
+        zi: { base: "zi", t1: "资", ex1: "资本 zī běn", t2: "子", ex2: "儿子 ér zi", t3: "子", ex3: "子女 zǐ nǚ", t4: "字", ex4: "汉字 Hàn zì" },
+        za: { base: "za", t1: "扎", ex1: "包扎 bāo zā", t2: "杂", ex2: "杂乱 zá luàn", t3: "咋", ex3: "咋办 zǎ bàn", t4: "砸", ex4: "砸烂 zá làn" },
+        ze: { base: "ze", t1: "则", ex1: "原则 yuán zé", t2: "责", ex2: "责任 zé rèn", t3: "泽", ex3: "光泽 guāng zé", t4: "仄", ex4: "仄声 zè shēng" },
+        zai: { base: "zai", t1: "在", ex1: "在家 zài jiā", t2: "再", ex2: "再次 zài cì", t3: "载", ex3: "载重 zài zhòng", t4: "载", ex4: "记载 jì zǎi" },
+        zao: { base: "zao", t1: "早", ex1: "早上 zǎo shàng", t2: "造", ex2: "造成 zào chéng", t3: "澡", ex3: "洗澡 xǐ zǎo", t4: "躁", ex4: "急躁 jí zào" },
+        zu: { base: "zu", t1: "组", ex1: "组织 zǔ zhī", t2: "族", ex2: "民族 mín zú", t3: "祖", ex3: "祖国 zǔ guó", t4: "组", ex4: "组长 zǔ zhǎng" },
+        zuo: { base: "zuo", t1: "做", ex1: "做事 zuò shì", t2: "坐", ex2: "坐下 zuò xià", t3: "作", ex3: "作业 zuò yè", t4: "昨", ex4: "昨天 zuó tiān" },
+        zui: { base: "zui", t1: "最", ex1: "最好 zuì hǎo", t2: "嘴", ex2: "嘴巴 zuǐ ba", t3: "最", ex3: "最后 zuì hòu", t4: "醉", ex4: "醉酒 zuì jiǔ" },
+        // === C ===
+        ci: { base: "ci", t1: "呲", ex1: "呲牙 cī yá", t2: "词", ex2: "词语 cí yǔ", t3: "此", ex3: "此处 cǐ chù", t4: "次", ex4: "一次 yī cì" },
+        ca: { base: "ca", t1: "擦", ex1: "擦掉 cā diào", t2: "嚓", ex2: "咔嚓 kā chā", t3: "拆", ex3: "拆开 chāi kāi", t4: "礤", ex4: "礤床 cǎ chuáng" },
+        ce: { base: "ce", t1: "测", ex1: "测试 cè shì", t2: "策", ex2: "政策 zhèng cè", t3: "册", ex3: "手册 shǒu cè", t4: "厕", ex4: "厕所 cè suǒ" },
+        cai: { base: "cai", t1: "猜", ex1: "猜谜 cāi mí", t2: "才", ex2: "才能 cái néng", t3: "采", ex3: "采访 cǎi fǎng", t4: "菜", ex4: "蔬菜 shū cài" },
+        cao: { base: "cao", t1: "操", ex1: "体操 tǐ cāo", t2: "草", ex2: "草地 cǎo dì", t3: "操", ex3: "操心 cāo xīn", t4: "操", ex4: "操场 cāo chǎng" },
+        can: { base: "can", t1: "参", ex1: "参加 cān jiā", t2: "残", ex2: "残忍 cán rěn", t3: "惨", ex3: "悲惨 bēi cǎn", t4: "灿", ex4: "灿烂 càn làn" },
+        cu: { base: "cu", t1: "粗", ex1: "粗心 cū xīn", t2: "促", ex2: "促进 cù jìn", t3: "醋", ex3: "陈醋 chén cù", t4: "簇", ex4: "花簇 huā cù" },
+        cuo: { base: "cuo", t1: "搓", ex1: "搓手 cuō shǒu", t2: "错", ex2: "错误 cuò wù", t3: "撮", ex3: "一撮 yī cuō", t4: "挫", ex4: "挫折 cuò zhé" },
+        cui: { base: "cui", t1: "催", ex1: "催促 cuī cù", t2: "翠", ex2: "翠绿 cuì lǜ", t3: "脆", ex3: "脆皮 cuì pí", t4: "粹", ex4: "纯粹 chún cuì" },
+        cun: { base: "cun", t1: "村", ex1: "村子 cūn zi", t2: "存", ex2: "存在 cún zài", t3: "忖", ex3: "忖度 cǔn duó", t4: "寸", ex4: "尺寸 chǐ cùn" },
+        // === S ===
+        si: { base: "si", t1: "思", ex1: "思考 sī kǎo", t2: "死", ex2: "死人 sǐ rén", t3: "四", ex3: "四个 sì ge", t4: "寺", ex4: "寺庙 sì miào" },
+        sa: { base: "sa", t1: "撒", ex1: "撒网 sā wǎng", t2: "洒", ex2: "洒水 sǎ shuǐ", t3: "洒", ex3: "洒脱 sǎ tuō", t4: "萨", ex4: "萨满 sà mǎn" },
+        se: { base: "se", t1: "色", ex1: "颜色 yán sè", t2: "塞", ex2: "堵塞 dǔ sè", t3: "涩", ex3: "苦涩 kǔ sè", t4: "瑟", ex4: "瑟缩 sè suō" },
+        sai: { base: "sai", t1: "塞", ex1: "塞车 sāi chē", t2: "腮", ex2: "腮帮 sāi bāng", t3: "赛", ex3: "比赛 bǐ sài", t4: "塞", ex4: "边塞 biān sài" },
+        sao: { base: "sao", t1: "扫", ex1: "扫地 sǎo dì", t2: "嫂", ex2: "嫂子 sǎo zi", t3: "骚", ex3: "骚乱 sāo luàn", t4: "扫", ex4: "扫兴 sǎo xìng" },
+        san: { base: "san", t1: "三", ex1: "三个 sān ge", t2: "伞", ex2: "雨伞 yǔ sǎn", t3: "散", ex3: "散步 sàn bù", t4: "散", ex4: "分散 fēn sàn" },
+        su: { base: "su", t1: "苏", ex1: "苏州 Sū zhōu", t2: "速", ex2: "速度 sù dù", t3: "素", ex3: "素菜 sù cài", t4: "宿", ex4: "宿舍 sù shè" },
+        suo: { base: "suo", t1: "所", ex1: "所以 suǒ yǐ", t2: "索", ex2: "索取 suǒ qǔ", t3: "锁", ex3: "锁门 suǒ mén", t4: "所", ex4: "住所 zhù suǒ" },
+        sui: { base: "sui", t1: "岁", ex1: "几岁 jǐ suì", t2: "随", ex2: "随便 suí biàn", t3: "碎", ex3: "破碎 pò suì", t4: "穗", ex4: "稻穗 dào suì" },
+        sun: { base: "sun", t1: "孙", ex1: "孙子 sūn zi", t2: "损", ex2: "损坏 sǔn huài", t3: "笋", ex3: "竹笋 zhú sǔn", t4: "榫", ex4: "榫头 sǔn tou" }
+    };
+
+    function renderFullTable() {
+        const container = document.getElementById('full-table');
+        container.innerHTML = '';
+        
+        // Группируем по первой букве
+        const groups = {};
+        for (const [syllable, data] of Object.entries(fullData)) {
+            const firstLetter = syllable[0];
+            if (!groups[firstLetter]) groups[firstLetter] = [];
+            groups[firstLetter].push({ syllable, data });
+        }
+        
+        const sortedLetters = Object.keys(groups).sort();
+        const leftCol = document.createElement('div');
+        leftCol.className = 'two-columns';
+        const rightCol = document.createElement('div');
+        rightCol.className = 'two-columns';
+        const mid = Math.ceil(sortedLetters.length / 2);
+        
+        sortedLetters.forEach((letter, idx) => {
+            const card = document.createElement('div');
+            card.className = 'initial-card';
+            
+            // Шапка
+            const header = document.createElement('div');
+            header.className = 'initial-header';
+            header.onclick = () => playWord(letter);
+            let desc = '';
+            if (['b','d','g','j','zh','z'].includes(letter)) desc = 'глухой в начале, звонкий в середине';
+            else if (['p','t','k','q','ch','c'].includes(letter)) desc = 'с придыханием';
+            else desc = 'сонорный';
+            header.innerHTML = `<span class="big-pinyin">${letter}</span><span class="description">${desc}</span>`;
+            card.appendChild(header);
+            
+            // Слоги
+            groups[letter].forEach(({ syllable, data }) => {
+                const sylDiv = document.createElement('div');
+                sylDiv.className = 'syllable-row';
+                
+                const sylName = document.createElement('div');
+                sylName.className = 'syllable-name';
+                sylName.textContent = syllable;
+                sylName.onclick = (e) => { e.stopPropagation(); playWord(syllable); };
+                sylDiv.appendChild(sylName);
+                
+                const tonesGrid = document.createElement('div');
+                tonesGrid.className = 'tones-grid';
+                
+                const tones = [
+                    { num: '1', pinyin: syllable + '̄', hanzi: data.t1 || '—', example: data.ex1 || '—' },
+                    { num: '2', pinyin: syllable + '́', hanzi: data.t2 || '—', example: data.ex2 || '—' },
+                    { num: '3', pinyin: syllable + '̌', hanzi: data.t3 || '—', example: data.ex3 || '—' },
+                    { num: '4', pinyin: syllable + '̀', hanzi: data.t4 || '—', example: data.ex4 || '—' }
+                ];
+                
+                tones.forEach((t, idx) => {
+                    const toneCard = document.createElement('div');
+                    toneCard.className = 'tone-card';
+                    const fullPinyin = data[`t${t.num}`] ? data[`t${t.num}`] : syllable;
+                    toneCard.onclick = (e) => { e.stopPropagation(); playWord(fullPinyin); };
+                    toneCard.innerHTML = `
+                        <div class="tone-number">${t.num}-й тон</div>
+                        <div class="pinyin-tone">${fullPinyin}</div>
+                        <div class="example-hanzi">${t.hanzi}</div>
+                        <div class="example-word">${t.example}</div>
+                    `;
+                    tonesGrid.appendChild(toneCard);
+                });
+                
+                sylDiv.appendChild(tonesGrid);
+                card.appendChild(sylDiv);
+            });
+            
+            if (idx < mid) leftCol.appendChild(card);
+            else rightCol.appendChild(card);
+        });
+        
+        container.appendChild(leftCol);
+        container.appendChild(rightCol);
+    }
     
-    window.speakChinese = playTone;
+    renderFullTable();
+    window.playWord = playWord;
 </script>
 </body>
 </html>
