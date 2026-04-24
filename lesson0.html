@@ -152,18 +152,30 @@
             color: #C5511A;
             margin: 6px 0 4px;
         }
+        .ru-sound {
+            font-size: 0.85rem;
+            color: #A64B2A;
+            margin: 3px 0;
+            font-weight: bold;
+        }
         .example-hanzi {
             font-size: 1.8rem;
             font-family: 'Noto Sans SC', monospace;
             margin: 4px 0;
         }
+        .example-meaning {
+            font-size: 0.7rem;
+            color: #8B5A2B;
+            margin: 3px 0;
+        }
         .example-phrase {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #A64B2A;
             background: white;
-            padding: 2px 5px;
-            border-radius: 20px;
+            padding: 2px 4px;
+            border-radius: 15px;
             display: inline-block;
+            margin-top: 3px;
         }
         .modal {
             display: none;
@@ -301,6 +313,7 @@
     <div class="modal-content" onclick="event.stopPropagation()">
         <div id="modal-char" class="big-char"></div>
         <div id="modal-pinyin" class="modal-pinyin"></div>
+        <div id="modal-ru" class="modal-meaning" style="color:#C5511A;"></div>
         <div id="modal-meaning" class="modal-meaning"></div>
         <div id="modal-example" class="modal-example"></div>
         <button class="listen-btn" onclick="playModalSound()">🔊 Слушать слово</button>
@@ -333,6 +346,7 @@
         currentModalSound = item.sound;
         document.getElementById('modal-char').innerHTML = item.char;
         document.getElementById('modal-pinyin').innerHTML = item.pinyin;
+        document.getElementById('modal-ru').innerHTML = item.ru_sound ? `[${item.ru_sound}]` : '';
         document.getElementById('modal-meaning').innerHTML = item.meaning;
         document.getElementById('modal-example').innerHTML = `<strong>Пример:</strong> ${item.example}`;
         document.getElementById('modal').style.display = 'flex';
@@ -371,13 +385,11 @@
             container.innerHTML = `
                 <div class="error-box">
                     ❌ <strong>Ошибка: файл pinyin-full-db.js не загружен!</strong><br><br>
-                    🔍 Проверьте, что файл <strong>pinyin-full-db.js</strong> лежит в той же папке что и lesson0.html
+                    🔍 Проверьте, что файл лежит в той же папке
                 </div>
             `;
             return;
         }
-        
-        console.log('✅ База загружена! Инициали:', Object.keys(pinyinFullDB));
         
         container.innerHTML = '';
         const initials = Object.keys(pinyinFullDB);
@@ -392,7 +404,6 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
             const soundToPlay = getInitialSound(data);
@@ -403,7 +414,6 @@
             `;
             card.appendChild(header);
             
-            // Артикуляция
             if (data.articulation) {
                 const artDiv = document.createElement('div');
                 artDiv.className = 'articulation';
@@ -411,7 +421,6 @@
                 card.appendChild(artDiv);
             }
             
-            // Слоги
             const syllables = data.syllables;
             if (syllables) {
                 for (const [syllable, sylData] of Object.entries(syllables)) {
@@ -420,7 +429,7 @@
                     
                     const sylName = document.createElement('div');
                     sylName.className = 'syllable-name';
-                    sylName.innerHTML = `🔊 ${syllable}`;
+                    sylName.innerHTML = `🔊 ${syllable} ${sylData.translation ? `(${sylData.translation})` : ''}`;
                     const firstToneWord = getFirstToneWord(sylData);
                     sylName.onclick = (e) => {
                         e.stopPropagation();
@@ -444,6 +453,7 @@
                                 showModal({
                                     char: tone.char,
                                     pinyin: tone.pinyin,
+                                    ru_sound: tone.ru || '',
                                     meaning: tone.meaning,
                                     example: tone.example,
                                     sound: tone.sound
@@ -452,8 +462,10 @@
                             toneCard.innerHTML = `
                                 <div class="tone-number">${tone.tone || ''}</div>
                                 <div class="pinyin-tone">${tone.pinyin || ''}</div>
+                                <div class="ru-sound">${tone.ru || ''}</div>
                                 <div class="example-hanzi">${tone.char || '—'}</div>
-                                <div class="example-phrase">${tone.example && tone.example.length > 18 ? tone.example.substring(0, 18) + '...' : (tone.example || '—')}</div>
+                                <div class="example-meaning">${tone.meaning || ''}</div>
+                                <div class="example-phrase">${tone.example && tone.example.length > 12 ? tone.example.substring(0, 12) + '...' : (tone.example || '—')}</div>
                             `;
                             tonesGrid.appendChild(toneCard);
                         });
@@ -464,8 +476,9 @@
                             toneCard.innerHTML = `
                                 <div class="tone-number">${i}-й тон</div>
                                 <div class="pinyin-tone">${syllable}</div>
+                                <div class="ru-sound">—</div>
                                 <div class="example-hanzi">—</div>
-                                <div class="example-phrase">—</div>
+                                <div class="example-meaning">—</div>
                             `;
                             tonesGrid.appendChild(toneCard);
                         }
