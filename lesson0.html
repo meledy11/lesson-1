@@ -137,32 +137,32 @@
             background: #FFE8CC;
         }
         .tone-number {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #E67E22;
             font-weight: bold;
             background: white;
             display: inline-block;
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 30px;
         }
         .pinyin-tone {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
             color: #C5511A;
-            margin: 8px 0 5px;
+            margin: 6px 0 4px;
         }
         .example-hanzi {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-family: 'Noto Sans SC', monospace;
-            margin: 5px 0;
+            margin: 4px 0;
         }
         .example-phrase {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #A64B2A;
             background: white;
-            padding: 3px 6px;
-            border-radius: 25px;
+            padding: 2px 5px;
+            border-radius: 20px;
             display: inline-block;
         }
         .modal {
@@ -263,6 +263,7 @@
             .tones-grid { grid-template-columns: repeat(2, 1fr); }
             .big-char { font-size: 3.5rem; }
             .initial-header .big-pinyin { font-size: 2rem; }
+            .example-hanzi { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -333,6 +334,23 @@
         currentModalSound = '';
     }
 
+    function getFirstToneSound(data) {
+        // Пытаемся найти первый слог с 1-м тоном для озвучивания инициали
+        const syllables = data.syllables;
+        if (syllables) {
+            for (const [sylName, sylData] of Object.entries(syllables)) {
+                if (sylData.tones && sylData.tones.length > 0) {
+                    // Ищем 1-й тон
+                    const firstTone = sylData.tones.find(t => t.tone === "1-й");
+                    if (firstTone) return firstTone.pinyin;
+                    // Если нет 1-го тона, берем первый попавшийся
+                    return sylData.tones[0].pinyin;
+                }
+            }
+        }
+        return data.sound;
+    }
+
     function renderTable() {
         const container = document.getElementById('initials-container');
         if (!container) return;
@@ -355,10 +373,11 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали
+            // Шапка инициали - озвучиваем первый тон первого слога
             const header = document.createElement('div');
             header.className = 'initial-header';
-            header.onclick = () => playChinese(data.sound);
+            const soundToPlay = getFirstToneSound(data);
+            header.onclick = () => playChinese(soundToPlay);
             header.innerHTML = `
                 <div class="big-pinyin">${initial}</div>
                 <div class="sound-desc">${data.desc}</div>
@@ -371,7 +390,7 @@
             artDiv.innerHTML = data.articulation;
             card.appendChild(artDiv);
             
-            // Слоги - используем data.syllables (как в вашей базе)
+            // Слоги
             const syllables = data.syllables;
             if (syllables) {
                 for (const [syllable, sylData] of Object.entries(syllables)) {
@@ -412,7 +431,7 @@
                                 <div class="tone-number">${tone.tone}</div>
                                 <div class="pinyin-tone">${tone.pinyin}</div>
                                 <div class="example-hanzi">${tone.char}</div>
-                                <div class="example-phrase">${tone.example.length > 20 ? tone.example.substring(0, 20) + '...' : tone.example}</div>
+                                <div class="example-phrase">${tone.example.length > 18 ? tone.example.substring(0, 18) + '...' : tone.example}</div>
                             `;
                             tonesGrid.appendChild(toneCard);
                         });
