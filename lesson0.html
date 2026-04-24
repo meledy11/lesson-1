@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎓 Урок 0: Пиньинь. Инициали и финали | Весёлый китайский</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Дополнительные стили только для урока 0 */
+        .theory-block {
+            background: #FFFEF7;
+            border-radius: 48px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 0 #FFB347;
+            border: 2px solid #FFCF9A;
+        }
+        .theory-block h2 {
+            color: #E67E22;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-left: 8px solid #FFB347;
+            padding-left: 1rem;
+        }
+        .theory-block h3 {
+            color: #B95C1A;
+            font-size: 1.4rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+        .theory-block p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: #2c1810;
+        }
+        .pinyin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #FFF8F0;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .pinyin-table th, .pinyin-table td {
+            border: 1px solid #FFD58C;
+            padding: 0.6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .pinyin-table th {
+            background: #FFE0A3;
+            color: #A64B2A;
+            font-weight: bold;
+        }
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .phrase-card {
+            background: #FAF0E1;
+            border-radius: 48px;
+            padding: 10px 16px;
+            border: 2px solid #FFD58C;
+            cursor: pointer;
+            transition: 0.05s linear;
+            font-weight: bold;
+            text-align: center;
+        }
+        .phrase-card:active {
+            transform: translateY(2px);
+        }
+        .tone-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .tone-card {
+            background: #FFD966;
+            border-radius: 40px;
+            padding: 1rem;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            cursor: pointer;
+        }
+        .tone-card:active {
+            transform: scale(0.97);
+        }
+        .warning {
+            background: #FFF1C1;
+            border-left: 8px solid #FF8C42;
+            padding: 1rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+        }
+        @media (max-width: 750px) {
+            .theory-block {
+                padding: 1rem;
+            }
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>🎓 Урок 0 · Пиньинь. Инициали и финали 🎓</h1>
+        <p>🎤 Нажми на любую фразу или слово — услышишь правильное произношение!</p>
+        <div style="margin-top: 0.8rem;">
+            <a href="index.html" class="back-home">🏠 На главную</a>
+            <a href="lesson1.html" class="back-home" style="margin-left: 0.5rem;">📚 К уроку 1</a>
+        </div>
+    </div>
+
+    <!-- ТЕОРЕТИЧЕСКАЯ ЧАСТЬ -->
+    <div class="theory-block">
+        <h2>📖 Что такое пиньинь?</h2>
+        <p>Чтение китайских иероглифов передаётся при помощи <strong>пиньиня</strong> — системы транскрипции для путунхуа (汉语拼音 hànyǔ pīnyīn — «запись звуков китайского языка»). Китайские школьники наряду с иероглифами тоже изучают пиньинь, имеющий официальный статус.</p>
+        <p>При изучении китайского не следует пугаться слишком большого количества незнакомых значков. Постепенно осваивая китайскую письменность, придерживаясь определённой системы изучения языка, можно достаточно быстро и эффективно запомнить весь материал.</p>
+        
+        <div class="warning">
+            <strong>🎧 Совет:</strong> Нажимайте на любые жёлтые блоки с китайскими словами — они озвучиваются!
+        </div>
+
+        <h2>🔤 Латинский алфавит в пиньине</h2>
+        <p>В пиньине задействуются все буквы латинского алфавита (кроме V) + буква ü.</p>
+        
+        <div class="two-columns">
+            <div>
+                <h3>Буквы и произношение</h3>
+                <div class="word-grid">
+                    <div class="phrase-card" onclick="speakChinese('a')">A a [a] - а</div>
+                    <div class="phrase-card" onclick="speakChinese('bê')">B b [p] - б</div>
+                    <div class="phrase-card" onclick="speakChinese('cê')">C c [tsʰ] - ц</div>
+                    <div class="phrase-card" onclick="speakChinese('dê')">D d [t] - д</div>
+                    <div class="phrase-card" onclick="speakChinese('e')">E e [ɤ] - э</div>
+                    <div class="phrase-card" onclick="speakChinese('fó')">F f [f] - ф</div>
+                    <div class="phrase-card" onclick="speakChinese('gê')">G g [k] - г</div>
+                    <div class="phrase-card" onclick="speakChinese('ha')">H h [x] - х</div>
+                    <div class="phrase-card" onclick="speakChinese('yi')">I i [i] - и</div>
+                    <div class="phrase-card" onclick="speakChinese('jiê')">J j [tɕ] - цз</div>
+                    <div class="phrase-card" onclick="speakChinese('kê')">K k [kʰ] - к</div>
+                    <div class="phrase-card" onclick="speakChinese('lè')">L l [l] - л</div>
+                    <div class="phrase-card" onclick="speakChinese('mò')">M m [m] - м</div>
+                    <div class="phrase-card" onclick="speakChinese('nè')">N n [n] - н</div>
+                    <div class="phrase-card" onclick="speakChinese('o')">O o [o] - о</div>
+                    <div class="phrase-card" onclick="speakChinese('pê')">P p [pʰ] - п</div>
+                    <div class="phrase-card" onclick="speakChinese('qiū')">Q q [tɕʰ] - ц</div>
+                    <div class="phrase-card" onclick="speakChinese('ár')">R r [ʐ] - ж</div>
+                    <div class="phrase-card" onclick="speakChinese('èsī')">S s [s] - с</div>
+                    <div class="phrase-card" onclick="speakChinese('tê')">T t [tʰ] - т</div>
+                    <div class="phrase-card" onclick="speakChinese('wu')">U u [u] - у</div>
+                    <div class="phrase-card" onclick="speakChinese('ü')">Ü ü [y] - ю</div>
+                    <div class="phrase-card" onclick="speakChinese('wā')">W w [w] - в</div>
+                    <div class="phrase-card" onclick="speakChinese('xī')">X x [ɕ] - сь</div>
+                    <div class="phrase-card" onclick="speakChinese('yā')">Y y [j] - й</div>
+                    <div class="phrase-card" onclick="speakChinese('zê')">Z z [ts] - цз</div>
+                </div>
+            </div>
+            <div>
+                <h3>Китайские названия букв</h3>
+                <div class="word-grid">
+                    <div class="phrase-card" onclick="speakChinese('诶')">诶 (ēi) - Эй</div>
+                    <div class="phrase-card" onclick="speakChinese('比')">比 (bǐ) - Би</div>
+                    <div class="phrase-card" onclick="speakChinese('西')">西 (xī) - Си</div>
+                    <div class="phrase-card" onclick="speakChinese('迪')">迪 (dí) - Ди</div>
+                    <div class="phrase-card" onclick="speakChinese('伊')">伊 (yī) - И</div>
+                    <div class="phrase-card" onclick="speakChinese('艾弗')">艾弗 (ài fú) - Эф</div>
+                    <div class="phrase-card" onclick="speakChinese('吉')">吉 (jí) - Джи</div>
+                    <div class="phrase-card" onclick="speakChinese('艾尺')">艾尺 (ài chǐ) - Эйч</div>
+                    <div class="phrase-card" onclick="speakChinese('艾')">艾 (ài) - Ай</div>
+                    <div class="phrase-card" onclick="speakChinese('杰')">杰 (jié) - Джей</div>
+                    <div class="phrase-card" onclick="speakChinese('开')">开 (kāi) - Кей</div>
+                    <div class="phrase-card" onclick="speakChinese('艾勒')">艾勒 (ài lè) - Эл</div>
+                    <div class="phrase-card" onclick="speakChinese('艾马')">艾马 (ài mǎ) - Эм</div>
+                    <div class="phrase-card" onclick="speakChinese('艾娜')">艾娜 (ài nà) - Эн</div>
+                    <div class="phrase-card" onclick="speakChinese('哦')">哦 (ó) - О</div>
+                    <div class="phrase-card" onclick="speakChinese('屁')">屁 (pì) - Пи</div>
+                    <div class="phrase-card" onclick="speakChinese('吉吾')">吉吾 (jí wú) - Кью</div>
+                    <div class="phrase-card" onclick="speakChinese('艾儿')">艾儿 (ài ér) - Ар</div>
+                    <div class="phrase-card" onclick="speakChinese('艾丝')">艾丝 (ài sī) - Эс</div>
+                    <div class="phrase-card" onclick="speakChinese('提')">提 (tí) - Ти</div>
+                    <div class="phrase-card" onclick="speakChinese('伊吾')">伊吾 (yī wú) - Ю</div>
+                    <div class="phrase-card" onclick="speakChinese('维')">维 (wéi) - Ви</div>
+                    <div class="phrase-card" onclick="speakChinese('艾克斯')">艾克斯 (ài kè sī) - Экс</div>
+                    <div class="phrase-card" onclick="speakChinese('吾艾')">吾艾 (wú ài) - Уай</div>
+                    <div class="phrase-card" onclick="speakChinese('贼德')">贼德 (zéi dé) - Зэд</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🗣️ Инициали и финали</h2>
+        <p>Звуки делят не на согласные и гласные, а на <strong>инициали</strong> и <strong>финали</strong>. Инициаль — это звук, с которого начинается слог, финаль — звук, которым слог заканчивается. Всего насчитывают 21 инициаль и 34 финали.</p>
+
+        <h3>Инициали — начальные согласные слога</h3>
+        <div class="two-columns">
+            <div>
+                <div class="phrase-card" onclick="speakChinese('bo')">b [p] — как «б»</div>
+                <div class="phrase-card" onclick="speakChinese('po')">p [pʰ] — «п» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('mo')">m [m] — «м»</div>
+                <div class="phrase-card" onclick="speakChinese('fo')">f [f] — «ф»</div>
+                <div class="phrase-card" onclick="speakChinese('de')">d [t] — «д»</div>
+                <div class="phrase-card" onclick="speakChinese('te')">t [tʰ] — «т» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('ne')">n [n] — «н»</div>
+                <div class="phrase-card" onclick="speakChinese('le')">l [l] — «л»</div>
+                <div class="phrase-card" onclick="speakChinese('ge')">g [k] — «г»</div>
+                <div class="phrase-card" onclick="speakChinese('ke')">k [kʰ] — «к» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('he')">h [x] — «х»</div>
+            </div>
+            <div>
+                <div class="phrase-card" onclick="speakChinese('ji')">j [tɕ] — мягкое «цзь»</div>
+                <div class="phrase-card" onclick="speakChinese('qi')">q [tɕʰ] — «ць» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('xi')">x [ɕ] — мягкое «сь»</div>
+                <div class="phrase-card" onclick="speakChinese('zhi')">zh [ʈʂ] — «чж»</div>
+                <div class="phrase-card" onclick="speakChinese('chi')">ch [ʈʂʰ] — «ч» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('shi')">sh [ʂ] — «ш»</div>
+                <div class="phrase-card" onclick="speakChinese('ri')">r [ʐ] — «ж»</div>
+                <div class="phrase-card" onclick="speakChinese('zi')">z [ts] — «цз»</div>
+                <div class="phrase-card" onclick="speakChinese('ci')">c [tsʰ] — «ц» с придыханием</div>
+                <div class="phrase-card" onclick="speakChinese('si')">s [s] — «с»</div>
+            </div>
+        </div>
+        
+        <div class="warning">
+            ⚠️ <strong>Важно!</strong> [r] в пиньине произносится как [ж]! Запись [si] означает [сы].
+        </div>
+
+        <h2>🎵 Тоны в китайском языке</h2>
+        <p>Тоны имеют смыслоразличительный характер. Один и тот же слог с разными тонами означает разные слова!</p>
+        
+        <div class="tone-grid">
+            <div class="tone-card" onclick="speakChinese('mā')">
+                <div style="font-size: 2rem;">mā</div>
+                <div>1-й тон (ровный)</div>
+                <div>мама</div>
+                <div>妈</div>
+            </div>
+            <div class="tone-card" onclick="speakChinese('má')">
+                <div style="font-size: 2rem;">má</div>
+                <div>2-й тон (восходящий)</div>
+                <div>конопля</div>
+                <div>麻</div>
+            </div>
+            <div class="tone-card" onclick="speakChinese('mǎ')">
+                <div style="font-size: 2rem;">mǎ</div>
+                <div>3-й тон (нисх.-восх.)</div>
+                <div>лошадь</div>
+                <div>马</div>
+            </div>
+            <div class="tone-card" onclick="speakChinese('mà')">
+                <div style="font-size: 2rem;">mà</div>
+                <div>4-й тон (нисходящий)</div>
+                <div>ругать</div>
+                <div>骂</div>
+            </div>
+            <div class="tone-card" onclick="speakChinese('ma')">
+                <div style="font-size: 2rem;">ma</div>
+                <div>5-й тон (нейтральный)</div>
+                <div>вопросительная частица</div>
+                <div>吗</div>
+            </div>
+        </div>
+
+        <h2>📝 Базовые слова для запоминания</h2>
+        <div class="word-grid">
+            <div class="phrase-card" onclick="speakChinese('yī')">一 (yī) - один</div>
+            <div class="phrase-card" onclick="speakChinese('èr')">二 (èr) - два</div>
+            <div class="phrase-card" onclick="speakChinese('sān')">三 (sān) - три</div>
+            <div class="phrase-card" onclick="speakChinese('sì')">四 (sì) - четыре</div>
+            <div class="phrase-card" onclick="speakChinese('wǔ')">五 (wǔ) - пять</div>
+            <div class="phrase-card" onclick="speakChinese('liù')">六 (liù) - шесть</div>
+            <div class="phrase-card" onclick="speakChinese('qī')">七 (qī) - семь</div>
+            <div class="phrase-card" onclick="speakChinese('bā')">八 (bā) - восемь</div>
+            <div class="phrase-card" onclick="speakChinese('jiǔ')">九 (jiǔ) - девять</div>
+            <div class="phrase-card" onclick="speakChinese('shí')">十 (shí) - десять</div>
+        </div>
+
+        <div class="warning">
+            📖 <strong>Пословица:</strong> 千里之行，始于足下 (qiānlǐ zhī xíng, shǐyú zú xià)<br>
+            Дорога в тысячу миль начинается с первого шага.
+        </div>
+    </div>
+
+    <footer>
+        🌟 Учи весело! Повторяй вслух и нажимай на слова для проверки произношения. 🌟
+        <div style="margin-top: 0.8rem;">
+            <a href="index.html" class="back-home">📖 К списку уроков</a>
+        </div>
+    </footer>
+</div>
+
+<script src="lessons-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
