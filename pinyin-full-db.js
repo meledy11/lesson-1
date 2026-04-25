@@ -3168,3 +3168,7 @@ const pinyinFullDB = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = pinyinFullDB;
 }
+// Делаем переменную доступной в браузере
+if (typeof window !== 'undefined') {
+    window.pinyinFullDB = pinyinFullDB;
+}
