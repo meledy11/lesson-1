@@ -2037,6 +2037,379 @@ const pinyinFullDB = {
             }
         }
     },
+    // ==================== J ====================
+    j: {
+        desc: "j [tɕ] — как «цзь» (мягкое, язык к нёбу)",
+        ru_sound: "цзь",
+        articulation: "👅 Средняя часть языка к твёрдому нёбу",
+        sound: "jī",
+        syllables: {
+            ji: {
+                translation: "цзи",
+                tones: [
+                    { tone: "1-й", pinyin: "jī", ru: "цзи", char: "鸡", meaning: "курица 🐔", example: "鸡肉", example_ru: "курица", sound: "鸡肉" },
+                    { tone: "2-й", pinyin: "jí", ru: "цзи", char: "级", meaning: "уровень 📊", example: "年级", example_ru: "класс", sound: "年级" },
+                    { tone: "3-й", pinyin: "jǐ", ru: "цзи", char: "几", meaning: "сколько ❓", example: "几个", example_ru: "сколько", sound: "几个" },
+                    { tone: "4-й", pinyin: "jì", ru: "цзи", char: "记", meaning: "запоминать 🧠", example: "记住", example_ru: "запомнить", sound: "记住" }
+                ]
+            },
+            jia: {
+                translation: "цзя",
+                tones: [
+                    { tone: "1-й", pinyin: "jiā", ru: "цзя", char: "家", meaning: "дом 🏠", example: "家庭", example_ru: "семья", sound: "家庭" },
+                    { tone: "2-й", pinyin: "jiá", ru: "цзя", char: "夹", meaning: "зажимать 🔧", example: "夹住", example_ru: "зажать", sound: "夹住" },
+                    { tone: "3-й", pinyin: "jiǎ", ru: "цзя", char: "假", meaning: "фальшивый 🎭", example: "假装", example_ru: "притворяться", sound: "假装" },
+                    { tone: "4-й", pinyin: "jià", ru: "цзя", char: "价", meaning: "цена 💰", example: "价格", example_ru: "цена", sound: "价格" }
+                ]
+            },
+            jian: {
+                translation: "цзянь",
+                tones: [
+                    { tone: "1-й", pinyin: "jiān", ru: "цзянь", char: "间", meaning: "между 🔄", example: "时间", example_ru: "время", sound: "时间" },
+                    { tone: "3-й", pinyin: "jiǎn", ru: "цзянь", char: "简", meaning: "простой 📝", example: "简单", example_ru: "простой", sound: "简单" },
+                    { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "见", meaning: "видеть 👀", example: "看见", example_ru: "видеть", sound: "看见" }
+                ]
+            },
+            jiang: {
+                translation: "цзян",
+                tones: [
+                    { tone: "1-й", pinyin: "jiāng", ru: "цзян", char: "江", meaning: "река 🌊", example: "长江", example_ru: "река Янцзы", sound: "长江" },
+                    { tone: "3-й", pinyin: "jiǎng", ru: "цзян", char: "讲", meaning: "говорить 🗣️", example: "讲话", example_ru: "говорить", sound: "讲话" },
+                    { tone: "4-й", pinyin: "jiàng", ru: "цзян", char: "将", meaning: "генерал 🎖️", example: "将军", example_ru: "генерал", sound: "将军" }
+                ]
+            },
+            jiao: {
+                translation: "цзяо",
+                tones: [
+                    { tone: "1-й", pinyin: "jiāo", ru: "цзяо", char: "教", meaning: "учить 📚", example: "教学", example_ru: "преподавание", sound: "教学" },
+                    { tone: "2-й", pinyin: "jiáo", ru: "цзяо", char: "嚼", meaning: "жевать 🍬", example: "咀嚼", example_ru: "жевать", sound: "咀嚼" },
+                    { tone: "3-й", pinyin: "jiǎo", ru: "цзяо", char: "脚", meaning: "нога 🦶", example: "脚步", example_ru: "шаг", sound: "脚步" },
+                    { tone: "4-й", pinyin: "jiào", ru: "цзяо", char: "叫", meaning: "звать 📢", example: "呼叫", example_ru: "вызывать", sound: "呼叫" }
+                ]
+            },
+            jie: {
+                translation: "цзе",
+                tones: [
+                    { tone: "1-й", pinyin: "jiē", ru: "цзе", char: "街", meaning: "улица 🏙️", example: "街道", example_ru: "улица", sound: "街道" },
+                    { tone: "2-й", pinyin: "jié", ru: "цзе", char: "节", meaning: "праздник 🎉", example: "节日", example_ru: "праздник", sound: "节日" },
+                    { tone: "3-й", pinyin: "jiě", ru: "цзе", char: "姐", meaning: "старшая сестра 👩", example: "姐姐", example_ru: "сестра", sound: "姐姐" },
+                    { tone: "4-й", pinyin: "jiè", ru: "цзе", char: "借", meaning: "одалживать 🤝", example: "借用", example_ru: "одолжить", sound: "借用" }
+                ]
+            },
+            jin: {
+                translation: "цзинь",
+                tones: [
+                    { tone: "1-й", pinyin: "jīn", ru: "цзинь", char: "今", meaning: "сегодня 📅", example: "今天", example_ru: "сегодня", sound: "今天" },
+                    { tone: "3-й", pinyin: "jǐn", ru: "цзинь", char: "紧", meaning: "плотный 🔒", example: "紧张", example_ru: "напряжённый", sound: "紧张" },
+                    { tone: "4-й", pinyin: "jìn", ru: "цзинь", char: "进", meaning: "входить 🚪", example: "进入", example_ru: "входить", sound: "进入" }
+                ]
+            },
+            jing: {
+                translation: "цзин",
+                tones: [
+                    { tone: "1-й", pinyin: "jīng", ru: "цзин", char: "经", meaning: "проходить через 🔄", example: "经过", example_ru: "проходить", sound: "经过" },
+                    { tone: "3-й", pinyin: "jǐng", ru: "цзин", char: "井", meaning: "колодец 🕳️", example: "水井", example_ru: "колодец", sound: "水井" },
+                    { tone: "4-й", pinyin: "jìng", ru: "цзин", char: "静", meaning: "тихий 🤫", example: "安静", example_ru: "тихий", sound: "安静" }
+                ]
+            },
+            jiong: {
+                translation: "цзюн",
+                tones: [
+                    { tone: "3-й", pinyin: "jiǒng", ru: "цзюн", char: "窘", meaning: "неловкий 😅", example: "窘迫", example_ru: "смущённый", sound: "窘迫" }
+                ]
+            },
+            jiu: {
+                translation: "цзю",
+                tones: [
+                    { tone: "1-й", pinyin: "jiū", ru: "цзю", char: "九", meaning: "девять 9️⃣", example: "九个", example_ru: "девять", sound: "九个" },
+                    { tone: "2-й", pinyin: "jiú", ru: "цзю", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "九" },
+                    { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "酒", meaning: "вино 🍷", example: "喝酒", example_ru: "пить вино", sound: "喝酒" },
+                    { tone: "4-й", pinyin: "jiù", ru: "цзю", char: "就", meaning: "тогда ⏰", example: "就是", example_ru: "именно", sound: "就是" }
+                ]
+            },
+            ju: {
+                translation: "цзюй",
+                tones: [
+                    { tone: "1-й", pinyin: "jū", ru: "цзюй", char: "居", meaning: "жить 🏡", example: "居住", example_ru: "проживать", sound: "居住" },
+                    { tone: "2-й", pinyin: "jú", ru: "цзюй", char: "局", meaning: "бюро 🏢", example: "局长", example_ru: "начальник", sound: "局长" },
+                    { tone: "3-й", pinyin: "jǔ", ru: "цзюй", char: "举", meaning: "поднимать 🙌", example: "举手", example_ru: "поднять руку", sound: "举手" },
+                    { tone: "4-й", pinyin: "jù", ru: "цзюй", char: "句", meaning: "предложение 💬", example: "句子", example_ru: "предложение", sound: "句子" }
+                ]
+            },
+            juan: {
+                translation: "цзюань",
+                tones: [
+                    { tone: "1-й", pinyin: "juān", ru: "цзюань", char: "捐", meaning: "пожертвовать 🎁", example: "捐款", example_ru: "пожертвование", sound: "捐款" },
+                    { tone: "3-й", pinyin: "juǎn", ru: "цзюань", char: "卷", meaning: "свиток 📜", example: "卷子", example_ru: "свиток", sound: "卷子" },
+                    { tone: "4-й", pinyin: "juàn", ru: "цзюань", char: "卷", meaning: "экзамен 📝", example: "试卷", example_ru: "экзаменационный лист", sound: "试卷" }
+                ]
+            },
+            jue: {
+                translation: "цзюэ",
+                tones: [
+                    { tone: "1-й", pinyin: "juē", ru: "цзюэ", char: "撅", meaning: "выпячивать 😗", example: "撅嘴", example_ru: "надуть губы", sound: "撅嘴" },
+                    { tone: "2-й", pinyin: "jué", ru: "цзюэ", char: "决", meaning: "решать ✅", example: "决定", example_ru: "решать", sound: "决定" },
+                    { tone: "4-й", pinyin: "juè", ru: "цзюэ", char: "倔", meaning: "упрямый 🦾", example: "倔强", example_ru: "упрямый", sound: "倔强" }
+                ]
+            },
+            jun: {
+                translation: "цзюнь",
+                tones: [
+                    { tone: "1-й", pinyin: "jūn", ru: "цзюнь", char: "军", meaning: "армия 🪖", example: "军队", example_ru: "армия", sound: "军队" },
+                    { tone: "4-й", pinyin: "jùn", ru: "цзюнь", char: "俊", meaning: "красивый ✨", example: "俊美", example_ru: "красивый", sound: "俊美" }
+                ]
+            }
+        }
+    },
+
+    // ==================== Q ====================
+    q: {
+        desc: "q [tɕʰ] — «ць» с сильным выдохом (почти как «ч», но мягко)",
+        ru_sound: "ць (с выдохом)",
+        articulation: "💨 Язык как у j, но с СИЛЬНЫМ ПРИДЫХАНИЕМ",
+        sound: "qī",
+        syllables: {
+            qi: {
+                translation: "ци",
+                tones: [
+                    { tone: "1-й", pinyin: "qī", ru: "ци", char: "七", meaning: "семь 7️⃣", example: "七个", example_ru: "семь", sound: "七个" },
+                    { tone: "2-й", pinyin: "qí", ru: "ци", char: "奇", meaning: "странный 🤔", example: "奇怪", example_ru: "странный", sound: "奇怪" },
+                    { tone: "3-й", pinyin: "qǐ", ru: "ци", char: "起", meaning: "вставать 🚶", example: "起来", example_ru: "вставать", sound: "起来" },
+                    { tone: "4-й", pinyin: "qì", ru: "ци", char: "气", meaning: "воздух 💨", example: "空气", example_ru: "воздух", sound: "空气" }
+                ]
+            },
+            qia: {
+                translation: "ця",
+                tones: [
+                    { tone: "1-й", pinyin: "qiā", ru: "ця", char: "掐", meaning: "щипать ✋", example: "掐断", example_ru: "отщипнуть", sound: "掐断" },
+                    { tone: "4-й", pinyin: "qià", ru: "ця", char: "恰", meaning: "как раз 🎯", example: "恰好", example_ru: "как раз", sound: "恰好" }
+                ]
+            },
+            qian: {
+                translation: "цянь",
+                tones: [
+                    { tone: "1-й", pinyin: "qiān", ru: "цянь", char: "千", meaning: "тысяча 1️⃣0️⃣0️⃣0️⃣", example: "一千", example_ru: "тысяча", sound: "一千" },
+                    { tone: "2-й", pinyin: "qián", ru: "цянь", char: "前", meaning: "перед 👆", example: "前面", example_ru: "впереди", sound: "前面" },
+                    { tone: "3-й", pinyin: "qiǎn", ru: "цянь", char: "浅", meaning: "мелкий 🏖️", example: "浅水", example_ru: "мелкая вода", sound: "浅水" },
+                    { tone: "4-й", pinyin: "qiàn", ru: "цянь", char: "欠", meaning: "быть должным 💸", example: "欠钱", example_ru: "должен деньги", sound: "欠钱" }
+                ]
+            },
+            qiang: {
+                translation: "цян",
+                tones: [
+                    { tone: "1-й", pinyin: "qiāng", ru: "цян", char: "枪", meaning: "ружьё 🔫", example: "手枪", example_ru: "пистолет", sound: "手枪" },
+                    { tone: "2-й", pinyin: "qiáng", ru: "цян", char: "强", meaning: "сильный 💪", example: "强大", example_ru: "сильный", sound: "强大" },
+                    { tone: "3-й", pinyin: "qiǎng", ru: "цян", char: "抢", meaning: "грабить 🦹", example: "抢劫", example_ru: "грабёж", sound: "抢劫" },
+                    { tone: "4-й", pinyin: "qiàng", ru: "цян", char: "呛", meaning: "подавиться 😤", example: "呛到", example_ru: "подавиться", sound: "呛到" }
+                ]
+            },
+            qiao: {
+                translation: "цяо",
+                tones: [
+                    { tone: "1-й", pinyin: "qiāo", ru: "цяо", char: "敲", meaning: "стучать 🔨", example: "敲门", example_ru: "стучать в дверь", sound: "敲门" },
+                    { tone: "2-й", pinyin: "qiáo", ru: "цяо", char: "桥", meaning: "мост 🌉", example: "桥梁", example_ru: "мост", sound: "桥梁" },
+                    { tone: "3-й", pinyin: "qiǎo", ru: "цяо", char: "巧", meaning: "умелый 🛠️", example: "巧妙", example_ru: "искусный", sound: "巧妙" },
+                    { tone: "4-й", pinyin: "qiào", ru: "цяо", char: "窍", meaning: "отверстие 🕳️", example: "诀窍", example_ru: "секрет", sound: "诀窍" }
+                ]
+            },
+            qie: {
+                translation: "це",
+                tones: [
+                    { tone: "1-й", pinyin: "qiē", ru: "це", char: "切", meaning: "резать 🔪", example: "切菜", example_ru: "резать овощи", sound: "切菜" },
+                    { tone: "3-й", pinyin: "qiě", ru: "це", char: "且", meaning: "к тому же ➕", example: "而且", example_ru: "кроме того", sound: "而且" },
+                    { tone: "4-й", pinyin: "qiè", ru: "це", char: "切", meaning: "соответствовать ✅", example: "切实", example_ru: "реальный", sound: "切实" }
+                ]
+            },
+            qin: {
+                translation: "цинь",
+                tones: [
+                    { tone: "1-й", pinyin: "qīn", ru: "цинь", char: "亲", meaning: "родственник 👨‍👩‍👧", example: "亲人", example_ru: "родные", sound: "亲人" },
+                    { tone: "2-й", pinyin: "qín", ru: "цинь", char: "琴", meaning: "музыкальный инструмент 🎹", example: "钢琴", example_ru: "пианино", sound: "钢琴" },
+                    { tone: "3-й", pinyin: "qǐn", ru: "цинь", char: "寝", meaning: "спальня 🛏️", example: "寝室", example_ru: "спальня", sound: "寝室" },
+                    { tone: "4-й", pinyin: "qìn", ru: "цинь", char: "沁", meaning: "проникать 💧", example: "沁入", example_ru: "проникать", sound: "沁入" }
+                ]
+            },
+            qing: {
+                translation: "цин",
+                tones: [
+                    { tone: "1-й", pinyin: "qīng", ru: "цин", char: "青", meaning: "зелёный/синий 💚💙", example: "青色", example_ru: "сине-зелёный", sound: "青色" },
+                    { tone: "2-й", pinyin: "qíng", ru: "цин", char: "情", meaning: "чувство ❤️", example: "感情", example_ru: "чувство", sound: "感情" },
+                    { tone: "3-й", pinyin: "qǐng", ru: "цин", char: "请", meaning: "пожалуйста 🙏", example: "请进", example_ru: "входите", sound: "请进" },
+                    { tone: "4-й", pinyin: "qìng", ru: "цин", char: "庆", meaning: "праздновать 🎉", example: "庆祝", example_ru: "праздновать", sound: "庆祝" }
+                ]
+            },
+            qiong: {
+                translation: "цюн",
+                tones: [
+                    { tone: "2-й", pinyin: "qióng", ru: "цюн", char: "穷", meaning: "бедный 🥺", example: "贫穷", example_ru: "бедность", sound: "贫穷" }
+                ]
+            },
+            qiu: {
+                translation: "цю",
+                tones: [
+                    { tone: "1-й", pinyin: "qiū", ru: "цю", char: "秋", meaning: "осень 🍂", example: "秋天", example_ru: "осень", sound: "秋天" },
+                    { tone: "2-й", pinyin: "qiú", ru: "цю", char: "球", meaning: "мяч ⚽", example: "足球", example_ru: "футбол", sound: "足球" }
+                ]
+            },
+            qu: {
+                translation: "цюй",
+                tones: [
+                    { tone: "1-й", pinyin: "qū", ru: "цюй", char: "区", meaning: "район 🗺️", example: "地区", example_ru: "регион", sound: "地区" },
+                    { tone: "2-й", pinyin: "qú", ru: "цюй", char: "渠", meaning: "канал 🚰", example: "渠道", example_ru: "канал", sound: "渠道" },
+                    { tone: "3-й", pinyin: "qǔ", ru: "цюй", char: "取", meaning: "брать ✋", example: "取钱", example_ru: "снять деньги", sound: "取钱" },
+                    { tone: "4-й", pinyin: "qù", ru: "цюй", char: "去", meaning: "идти 🚶", example: "去学校", example_ru: "идти в школу", sound: "去学校" }
+                ]
+            },
+            quan: {
+                translation: "цюань",
+                tones: [
+                    { tone: "1-й", pinyin: "quān", ru: "цюань", char: "圈", meaning: "круг ⭕", example: "圆圈", example_ru: "круг", sound: "圆圈" },
+                    { tone: "2-й", pinyin: "quán", ru: "цюань", char: "全", meaning: "весь 🌍", example: "全部", example_ru: "все", sound: "全部" },
+                    { tone: "3-й", pinyin: "quǎn", ru: "цюань", char: "犬", meaning: "собака 🐕", example: "警犬", example_ru: "служебная собака", sound: "警犬" },
+                    { tone: "4-й", pinyin: "quàn", ru: "цюань", char: "劝", meaning: "советовать 💬", example: "劝说", example_ru: "убеждать", sound: "劝说" }
+                ]
+            },
+            que: {
+                translation: "цюэ",
+                tones: [
+                    { tone: "1-й", pinyin: "quē", ru: "цюэ", char: "缺", meaning: "не хватать ❌", example: "缺少", example_ru: "недоставать", sound: "缺少" },
+                    { tone: "2-й", pinyin: "qué", ru: "цюэ", char: "瘸", meaning: "хромать 🦯", example: "瘸腿", example_ru: "хромать", sound: "瘸腿" },
+                    { tone: "4-й", pinyin: "què", ru: "цюэ", char: "确", meaning: "точный ✅", example: "确实", example_ru: "действительно", sound: "确实" }
+                ]
+            },
+            qun: {
+                translation: "цюнь",
+                tones: [
+                    { tone: "2-й", pinyin: "qún", ru: "цюнь", char: "群", meaning: "группа 👥", example: "群众", example_ru: "народ", sound: "群众" }
+                ]
+            }
+        }
+    },
+
+    // ==================== X ====================
+    x: {
+        desc: "x [ɕ] — как «сь» (очень мягкая «с», язык у нижних зубов)",
+        ru_sound: "сь (мягкая «с», как в слове «сиять», улыбка)",
+        articulation: "👅 Язык прижат к нижним зубам, улыбка, воздух идёт по желобку",
+        sound: "xī",
+        syllables: {
+            xi: {
+                translation: "си",
+                tones: [
+                    { tone: "1-й", pinyin: "xī", ru: "си", char: "西", meaning: "запад 🌇", example: "西方", example_ru: "запад", sound: "西方" },
+                    { tone: "2-й", pinyin: "xí", ru: "си", char: "习", meaning: "изучать 📖", example: "学习", example_ru: "учиться", sound: "学习" },
+                    { tone: "3-й", pinyin: "xǐ", ru: "си", char: "喜", meaning: "радость 😊", example: "喜欢", example_ru: "нравиться", sound: "喜欢" },
+                    { tone: "4-й", pinyin: "xì", ru: "си", char: "系", meaning: "система ⚙️", example: "系统", example_ru: "система", sound: "系统" }
+                ]
+            },
+            xia: {
+                translation: "ся",
+                tones: [
+                    { tone: "1-й", pinyin: "xiā", ru: "ся", char: "虾", meaning: "креветка 🦐", example: "龙虾", example_ru: "омар", sound: "龙虾" },
+                    { tone: "2-й", pinyin: "xiá", ru: "ся", char: "霞", meaning: "заря 🌅", example: "晚霞", example_ru: "вечерняя заря", sound: "晚霞" },
+                    { tone: "4-й", pinyin: "xià", ru: "ся", char: "下", meaning: "низ ⬇️", example: "下面", example_ru: "снизу", sound: "下面" }
+                ]
+            },
+            xian: {
+                translation: "сянь",
+                tones: [
+                    { tone: "1-й", pinyin: "xiān", ru: "сянь", char: "先", meaning: "сначала 🥇", example: "首先", example_ru: "во-первых", sound: "首先" },
+                    { tone: "2-й", pinyin: "xián", ru: "сянь", char: "闲", meaning: "свободный 🆓", example: "空闲", example_ru: "свободный", sound: "空闲" },
+                    { tone: "3-й", pinyin: "xiǎn", ru: "сянь", char: "显", meaning: "очевидный 👁️", example: "明显", example_ru: "очевидный", sound: "明显" },
+                    { tone: "4-й", pinyin: "xiàn", ru: "сянь", char: "现", meaning: "появляться 🌟", example: "现在", example_ru: "сейчас", sound: "现在" }
+                ]
+            },
+            xiang: {
+                translation: "сян",
+                tones: [
+                    { tone: "1-й", pinyin: "xiāng", ru: "сян", char: "相", meaning: "друг друга 🤝", example: "互相", example_ru: "взаимно", sound: "互相" },
+                    { tone: "2-й", pinyin: "xiáng", ru: "сян", char: "祥", meaning: "благоприятный 🍀", example: "吉祥", example_ru: "счастливый", sound: "吉祥" },
+                    { tone: "3-й", pinyin: "xiǎng", ru: "сян", char: "想", meaning: "думать 🤔", example: "想到", example_ru: "думать", sound: "想到" },
+                    { tone: "4-й", pinyin: "xiàng", ru: "сян", char: "向", meaning: "к, в направлении 🧭", example: "方向", example_ru: "направление", sound: "方向" }
+                ]
+            },
+            xiao: {
+                translation: "сяо",
+                tones: [
+                    { tone: "1-й", pinyin: "xiāo", ru: "сяо", char: "消", meaning: "исчезать 💨", example: "消失", example_ru: "исчезать", sound: "消失" },
+                    { tone: "2-й", pinyin: "xiáo", ru: "сяо", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "小" },
+                    { tone: "3-й", pinyin: "xiǎo", ru: "сяо", char: "小", meaning: "маленький 🔹", example: "小孩", example_ru: "ребёнок", sound: "小孩" },
+                    { tone: "4-й", pinyin: "xiào", ru: "сяо", char: "笑", meaning: "смеяться 😂", example: "笑容", example_ru: "улыбка", sound: "笑容" }
+                ]
+            },
+            xie: {
+                translation: "се",
+                tones: [
+                    { tone: "1-й", pinyin: "xiē", ru: "се", char: "些", meaning: "несколько 🔢", example: "一些", example_ru: "несколько", sound: "一些" },
+                    { tone: "2-й", pinyin: "xié", ru: "се", char: "鞋", meaning: "обувь 👞", example: "鞋子", example_ru: "обувь", sound: "鞋子" },
+                    { tone: "3-й", pinyin: "xiě", ru: "се", char: "写", meaning: "писать ✍️", example: "写字", example_ru: "писать", sound: "写字" },
+                    { tone: "4-й", pinyin: "xiè", ru: "се", char: "谢", meaning: "благодарить 🙏", example: "谢谢", example_ru: "спасибо", sound: "谢谢" }
+                ]
+            },
+            xin: {
+                translation: "синь",
+                tones: [
+                    { tone: "1-й", pinyin: "xīn", ru: "синь", char: "新", meaning: "новый 🆕", example: "新年", example_ru: "Новый год", sound: "新年" },
+                    { tone: "4-й", pinyin: "xìn", ru: "синь", char: "信", meaning: "письмо 💌", example: "信封", example_ru: "конверт", sound: "信封" }
+                ]
+            },
+            xing: {
+                translation: "син",
+                tones: [
+                    { tone: "1-й", pinyin: "xīng", ru: "син", char: "星", meaning: "звезда ⭐", example: "星星", example_ru: "звезда", sound: "星星" },
+                    { tone: "2-й", pinyin: "xíng", ru: "син", char: "行", meaning: "идти 🚶", example: "行走", example_ru: "ходить", sound: "行走" },
+                    { tone: "3-й", pinyin: "xǐng", ru: "син", char: "醒", meaning: "просыпаться 🌅", example: "醒来", example_ru: "проснуться", sound: "醒来" },
+                    { tone: "4-й", pinyin: "xìng", ru: "син", char: "姓", meaning: "фамилия 📛", example: "姓名", example_ru: "имя и фамилия", sound: "姓名" }
+                ]
+            },
+            xiong: {
+                translation: "сюн",
+                tones: [
+                    { tone: "1-й", pinyin: "xiōng", ru: "сюн", char: "兄", meaning: "старший брат 👨", example: "兄弟", example_ru: "братья", sound: "兄弟" },
+                    { tone: "2-й", pinyin: "xióng", ru: "сюн", char: "熊", meaning: "медведь 🐻", example: "熊猫", example_ru: "панда", sound: "熊猫" }
+                ]
+            },
+            xiu: {
+                translation: "сю",
+                tones: [
+                    { tone: "1-й", pinyin: "xiū", ru: "сю", char: "休", meaning: "отдыхать 😴", example: "休息", example_ru: "отдыхать", sound: "休息" },
+                    { tone: "3-й", pinyin: "xiǔ", ru: "сю", char: "宿", meaning: "ночевать 🏨", example: "住宿", example_ru: "проживание", sound: "住宿" },
+                    { tone: "4-й", pinyin: "xiù", ru: "сю", char: "秀", meaning: "шоу 🎭", example: "表演", example_ru: "выступление", sound: "表演" }
+                ]
+            },
+            xu: {
+                translation: "сюй",
+                tones: [
+                    { tone: "1-й", pinyin: "xū", ru: "сюй", char: "须", meaning: "должен ⚠️", example: "必须", example_ru: "обязан", sound: "必须" },
+                    { tone: "3-й", pinyin: "xǔ", ru: "сюй", char: "许", meaning: "разрешать ✅", example: "允许", example_ru: "разрешать", sound: "允许" },
+                    { tone: "4-й", pinyin: "xù", ru: "сюй", char: "续", meaning: "продолжать ⏩", example: "继续", example_ru: "продолжать", sound: "继续" }
+                ]
+            },
+            xuan: {
+                translation: "сюань",
+                tones: [
+                    { tone: "1-й", pinyin: "xuān", ru: "сюань", char: "宣", meaning: "объявлять 📢", example: "宣布", example_ru: "объявить", sound: "宣布" },
+                    { tone: "2-й", pinyin: "xuán", ru: "сюань", char: "悬", meaning: "висеть 🪢", example: "悬挂", example_ru: "висеть", sound: "悬挂" },
+                    { tone: "4-й", pinyin: "xuàn", ru: "сюань", char: "炫", meaning: "хвастаться ✨", example: "炫耀", example_ru: "хвастаться", sound: "炫耀" }
+                ]
+            },
+            xue: {
+                translation: "сюэ",
+                tones: [
+                    { tone: "1-й", pinyin: "xuē", ru: "сюэ", char: "靴", meaning: "сапоги 👢", example: "靴子", example_ru: "сапоги", sound: "靴子" },
+                    { tone: "3-й", pinyin: "xuě", ru: "сюэ", char: "雪", meaning: "снег ❄️", example: "雪人", example_ru: "снеговик", sound: "雪人" },
+                    { tone: "4-й", pinyin: "xuè", ru: "сюэ", char: "血", meaning: "кровь 🩸", example: "血液", example_ru: "кровь", sound: "血液" }
+                ]
+            },
+            xun: {
+                translation: "сюнь",
+                tones: [
+                    { tone: "2-й", pinyin: "xún", ru: "сюнь", char: "寻", meaning: "искать 🔍", example: "寻找", example_ru: "искать", sound: "寻找" },
+                    { tone: "4-й", pinyin: "xùn", ru: "сюнь", char: "训", meaning: "тренировать 🏋️", example: "训练", example_ru: "тренировка", sound: "训练" }
+                ]
+            }
+        }
+    },
 
     // ==================== S ====================
     s: {
