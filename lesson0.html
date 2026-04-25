@@ -672,7 +672,16 @@
         return data.sound;
     }
 
-    // ========== ПОИСК ==========
+    // ========== НОВАЯ ФУНКЦИЯ ДЛЯ УДАЛЕНИЯ ТОНОВ ИЗ ПИНЬИНЯ ==========
+    function removeToneMarks(pinyin) {
+        if (!pinyin) return '';
+        return pinyin
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
+    // ========== ПОИСК (ИСПРАВЛЕНАЯ ВЕРСИЯ) ==========
     let allTonesCache = [];
 
     function buildAllTonesCache() {
@@ -683,7 +692,12 @@
             for (const [syllable, sylData] of Object.entries(data.syllables)) {
                 if (!sylData.tones) continue;
                 for (const tone of sylData.tones) {
-                    cache.push({ ...tone, initial, syllable });
+                    cache.push({ 
+                        ...tone, 
+                        initial, 
+                        syllable,
+                        exampleChars: tone.example || ''
+                    });
                 }
             }
         }
@@ -694,14 +708,43 @@
         if (!query.trim()) return [];
         const lowerQuery = query.toLowerCase().trim();
         const results = [];
+        
         for (const tone of allTonesCache) {
-            if (tone.meaning && tone.meaning.toLowerCase().includes(lowerQuery)) results.push(tone);
-            else if (tone.pinyin && tone.pinyin.toLowerCase().includes(lowerQuery)) results.push(tone);
-            else if (tone.char && tone.char === query) results.push(tone);
-            else if (tone.ru && tone.ru.toLowerCase().includes(lowerQuery)) results.push(tone);
-            else if (tone.example && tone.example.toLowerCase().includes(lowerQuery)) results.push(tone);
-            else if (tone.example_ru && tone.example_ru.toLowerCase().includes(lowerQuery)) results.push(tone);
+            // Нормализуем пиньинь (убираем тоны)
+            const cleanPinyin = removeToneMarks(tone.pinyin);
+            const cleanSyllable = removeToneMarks(tone.syllable);
+            
+            let matched = false;
+            
+            // 1. Поиск по иероглифу (точное совпадение)
+            if (tone.char && tone.char === query) matched = true;
+            
+            // 2. Поиск по пиньиню без тонов
+            else if (cleanPinyin.includes(lowerQuery)) matched = true;
+            
+            // 3. Поиск по слогу без тонов
+            else if (cleanSyllable.includes(lowerQuery)) matched = true;
+            
+            // 4. Поиск по русскому переводу
+            else if (tone.meaning && tone.meaning.toLowerCase().includes(lowerQuery)) matched = true;
+            
+            // 5. Поиск по русской транскрипции
+            else if (tone.ru && tone.ru.toLowerCase().includes(lowerQuery)) matched = true;
+            
+            // 6. Поиск по примеру (иероглифы)
+            else if (tone.example && tone.example.includes(query)) matched = true;
+            
+            // 7. Поиск по переводу примера
+            else if (tone.example_ru && tone.example_ru.toLowerCase().includes(lowerQuery)) matched = true;
+            
+            // 8. Оригинальный пиньинь (с тонами) - частичное совпадение
+            else if (tone.pinyin && tone.pinyin.toLowerCase().includes(lowerQuery)) matched = true;
+            
+            if (matched) {
+                results.push(tone);
+            }
         }
+        
         return results;
     }
 
