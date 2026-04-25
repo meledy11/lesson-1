@@ -61,18 +61,10 @@
             color: #A64B2A;
             grid-column: 1/-1;
         }
-        .error-box {
-            background: #FFEEEE;
-            border-left: 8px solid #FF0000;
-            padding: 2rem;
-            border-radius: 40px;
-            text-align: center;
-            color: #990000;
-            grid-column: 1/-1;
-        }
     </style>
 </head>
 <body>
+
 <div class="container">
     <div class="hero">
         <h1>🎓 Урок 0 · Полная таблица пиньиня 🎓</h1>
@@ -81,12 +73,14 @@
         <a href="lesson1.html" class="back-home">📚 К уроку 1</a>
     </div>
 
+    <!-- БЛОК ПОИСКА -->
     <div class="search-container">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по-русски или пиньинь... (например: мама, лошадь, ni hao)">
         <button id="clearSearch" class="search-clear">✖ Сбросить</button>
     </div>
     <div id="searchStats" class="search-stats"></div>
 
+    <!-- БЛОК ТОНОВ -->
     <div class="tones-showcase">
         <div class="tones-title">🎵 Пять тонов китайского языка</div>
         <div class="tones-grid-large">
@@ -147,58 +141,13 @@
     </div>
 </div>
 
+<!-- ВАША БАЗА ДАННЫХ -->
+<script src="pinyin-full-db.js"></script>
+
 <script>
-    // ЭМУЛЯЦИЯ БАЗЫ ДАННЫХ (ПРЯМО В HTML, ЧТОБЫ ГАРАНТИРОВАННО РАБОТАЛО)
-    // ЕСЛИ ВАШ ФАЙЛ pinyin-full-db.js НЕ ЗАГРУЖАЕТСЯ — ЭТА БАЗА ЗАРАБОТАЕТ
-    // ЕСЛИ ВАШ ФАЙЛ ЗАГРУЗИТСЯ — ОНА ПЕРЕЗАПИШЕТ ЭТУ ВРЕМЕННУЮ
-    
-    let pinyinFullDB = {};
-    
-    // ПЫТАЕМСЯ ЗАГРУЗИТЬ ВАШУ БАЗУ
-    function loadExternalDB() {
-        const script = document.createElement('script');
-        script.src = 'pinyin-full-db.js';
-        script.onload = function() {
-            console.log('✅ База pinyin-full-db.js загружена');
-            if (typeof window.pinyinFullDB !== 'undefined') {
-                pinyinFullDB = window.pinyinFullDB;
-            }
-            initApp();
-        };
-        script.onerror = function() {
-            console.error('❌ Файл pinyin-full-db.js не найден! Использую встроенную мини-базу');
-            initApp();
-        };
-        document.head.appendChild(script);
-    }
-    
-    // МИНИ-БАЗА ДЛЯ ТЕСТА (ЕСЛИ ВАША НЕ ЗАГРУЗИТСЯ)
-    function initMiniDB() {
-        if (Object.keys(pinyinFullDB).length === 0) {
-            pinyinFullDB = {
-                b: {
-                    desc: "b — звук б",
-                    sound: "八",
-                    syllables: {
-                        ba: {
-                            translation: "ба",
-                            tones: [
-                                { tone: "1-й", pinyin: "bā", ru: "ба", char: "八", meaning: "восемь", example: "八个", sound: "八个" },
-                                { tone: "2-й", pinyin: "bá", ru: "ба", char: "拔", meaning: "вытаскивать", example: "拔草", sound: "拔草" },
-                                { tone: "3-й", pinyin: "bǎ", ru: "ба", char: "把", meaning: "держать", example: "把手", sound: "把手" },
-                                { tone: "4-й", pinyin: "bà", ru: "ба", char: "爸", meaning: "папа", example: "爸爸", sound: "爸爸" }
-                            ]
-                        }
-                    }
-                }
-            };
-            console.log('📦 Использую встроенную мини-базу (только b + ba)');
-        }
-    }
-    
-    // ВСЕ ОСТАЛЬНЫЕ ФУНКЦИИ (playChinese, showModal, renderTable и т.д.)
+    // ========== ФУНКЦИИ ==========
     let currentModalSound = '';
-    
+
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
@@ -208,13 +157,14 @@
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "zh-CN";
         utterance.rate = 0.7;
+        utterance.pitch = 1.0;
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
-    
+
     function playModalSound() {
         if (currentModalSound) playChinese(currentModalSound);
     }
-    
+
     function showModal(item) {
         currentModalSound = item.sound;
         document.getElementById('modal-char').innerHTML = item.char;
@@ -230,12 +180,12 @@
         document.getElementById('modal').style.display = 'flex';
         playChinese(item.sound);
     }
-    
+
     function closeModal() {
         document.getElementById('modal').style.display = 'none';
         currentModalSound = '';
     }
-    
+
     function getFirstToneWord(sylData) {
         if (sylData && sylData.tones && sylData.tones.length > 0) {
             const firstTone = sylData.tones.find(t => t.tone === "1-й");
@@ -244,7 +194,7 @@
         }
         return null;
     }
-    
+
     function getInitialSound(data) {
         if (data.syllables) {
             for (const [sylName, sylData] of Object.entries(data.syllables)) {
@@ -254,11 +204,12 @@
         }
         return data.sound;
     }
-    
+
+    // ========== ПОИСК ==========
     let allTonesCache = [];
-    
+
     function buildAllTonesCache() {
-        if (!pinyinFullDB) return [];
+        if (typeof pinyinFullDB === 'undefined') return [];
         const cache = [];
         for (const [initial, data] of Object.entries(pinyinFullDB)) {
             if (!data.syllables) continue;
@@ -271,22 +222,23 @@
         }
         return cache;
     }
-    
-    function searchPinyin(query, cache) {
+
+    function searchPinyin(query) {
         if (!query.trim()) return [];
         const lowerQuery = query.toLowerCase().trim();
         const results = [];
-        for (const tone of cache) {
+        for (const tone of allTonesCache) {
             if (tone.meaning && tone.meaning.toLowerCase().includes(lowerQuery)) results.push(tone);
             else if (tone.pinyin && tone.pinyin.toLowerCase().includes(lowerQuery)) results.push(tone);
-            else if (tone.char === query) results.push(tone);
+            else if (tone.char && tone.char === query) results.push(tone);
             else if (tone.ru && tone.ru.toLowerCase().includes(lowerQuery)) results.push(tone);
             else if (tone.example && tone.example.toLowerCase().includes(lowerQuery)) results.push(tone);
+            else if (tone.example_ru && tone.example_ru.toLowerCase().includes(lowerQuery)) results.push(tone);
         }
         return results;
     }
-    
-    function renderSearchResults(results, db) {
+
+    function renderSearchResults(results) {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
         
@@ -314,11 +266,20 @@
             const tones = grouped[initial];
             const card = document.createElement('div');
             card.className = 'initial-card';
+            
             const header = document.createElement('div');
             header.className = 'initial-header';
-            header.onclick = () => playChinese(db[initial] ? getInitialSound(db[initial]) : tones[0]?.sound);
-            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${db[initial]?.desc || ''}</div>`;
+            const soundToPlay = window.pinyinFullDB && window.pinyinFullDB[initial] ? getInitialSound(window.pinyinFullDB[initial]) : tones[0]?.sound;
+            header.onclick = () => playChinese(soundToPlay);
+            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${window.pinyinFullDB && window.pinyinFullDB[initial]?.desc || ''}</div>`;
             card.appendChild(header);
+            
+            if (window.pinyinFullDB && window.pinyinFullDB[initial]?.articulation) {
+                const artDiv = document.createElement('div');
+                artDiv.className = 'articulation';
+                artDiv.innerHTML = window.pinyinFullDB[initial].articulation;
+                card.appendChild(artDiv);
+            }
             
             const bySyllable = {};
             for (const tone of tones) {
@@ -331,8 +292,9 @@
                 sylRow.className = 'syllable-row';
                 const sylName = document.createElement('div');
                 sylName.className = 'syllable-name';
-                sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">[${db[initial]?.syllables?.[syllable]?.translation || ''}]</span>`;
-                sylName.onclick = (e) => { e.stopPropagation(); playChinese(getFirstToneWord(db[initial]?.syllables?.[syllable]) || syllable); };
+                sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">[${window.pinyinFullDB && window.pinyinFullDB[initial]?.syllables?.[syllable]?.translation || ''}]</span>`;
+                const firstWord = getFirstToneWord(window.pinyinFullDB ? window.pinyinFullDB[initial]?.syllables?.[syllable] : null);
+                sylName.onclick = (e) => { e.stopPropagation(); playChinese(firstWord || syllable); };
                 sylRow.appendChild(sylName);
                 
                 const tonesGrid = document.createElement('div');
@@ -350,39 +312,55 @@
                 sylRow.appendChild(tonesGrid);
                 card.appendChild(sylRow);
             }
-            if (idx < mid) leftCol.appendChild(card);
-            else rightCol.appendChild(card);
+            
+            if (idx < mid) {
+                leftCol.appendChild(card);
+            } else {
+                rightCol.appendChild(card);
+            }
         });
         container.appendChild(leftCol);
         container.appendChild(rightCol);
     }
-    
-    function renderFullTable(db) {
+
+    // ОРИГИНАЛЬНАЯ ФУНКЦИЯ ОТРИСОВКИ (ВАША, НЕ МЕНЯЛ)
+    function renderTable() {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
         if (!container) return;
         if (statsDiv) statsDiv.innerHTML = '';
         
-        if (!db || Object.keys(db).length === 0) {
-            container.innerHTML = `<div class="error-box">❌ База данных пуста. Проверьте файл pinyin-full-db.js</div>`;
+        if (typeof pinyinFullDB === 'undefined') {
+            container.innerHTML = `
+                <div class="error-box">
+                    ❌ <strong>Ошибка: файл pinyin-full-db.js не загружен!</strong><br><br>
+                    🔍 Проверьте, что файл лежит в той же папке
+                </div>
+            `;
             return;
         }
         
         container.innerHTML = '';
-        const initials = Object.keys(db);
+        const initials = Object.keys(pinyinFullDB);
         const mid = Math.ceil(initials.length / 2);
         const leftCol = document.createElement('div');
         const rightCol = document.createElement('div');
         
         initials.forEach((initial, idx) => {
-            const data = db[initial];
+            const data = pinyinFullDB[initial];
             if (!data) return;
+            
             const card = document.createElement('div');
             card.className = 'initial-card';
+            
             const header = document.createElement('div');
             header.className = 'initial-header';
-            header.onclick = () => playChinese(getInitialSound(data));
-            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${data.desc || ''}</div>`;
+            const soundToPlay = getInitialSound(data);
+            header.onclick = () => playChinese(soundToPlay);
+            header.innerHTML = `
+                <div class="big-pinyin">${initial}</div>
+                <div class="sound-desc">${data.desc || ''}</div>
+            `;
             card.appendChild(header);
             
             if (data.articulation) {
@@ -397,66 +375,125 @@
                 for (const [syllable, sylData] of Object.entries(syllables)) {
                     const sylRow = document.createElement('div');
                     sylRow.className = 'syllable-row';
+                    
                     const sylName = document.createElement('div');
                     sylName.className = 'syllable-name';
-                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">[${sylData.translation ? sylData.translation : ''}]</span>`;
+                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">${sylData.translation ? `[${sylData.translation}]` : ''}</span>`;
                     const firstToneWord = getFirstToneWord(sylData);
-                    sylName.onclick = (e) => { e.stopPropagation(); if (firstToneWord) playChinese(firstToneWord); else playChinese(syllable); };
+                    sylName.onclick = (e) => {
+                        e.stopPropagation();
+                        if (firstToneWord) {
+                            playChinese(firstToneWord);
+                        } else {
+                            playChinese(syllable);
+                        }
+                    };
                     sylRow.appendChild(sylName);
+                    
                     const tonesGrid = document.createElement('div');
                     tonesGrid.className = 'tones-grid';
+                    
                     if (sylData.tones && sylData.tones.length > 0) {
                         sylData.tones.forEach(tone => {
                             const toneCard = document.createElement('div');
                             toneCard.className = 'tone-card';
-                            toneCard.onclick = (e) => { e.stopPropagation(); showModal(tone); };
-                            toneCard.innerHTML = `<div class="tone-number">${tone.tone || ''}</div><div class="pinyin-tone">${tone.pinyin || ''}</div><div class="ru-sound">${tone.ru || ''}</div><div class="example-hanzi">${tone.char || '—'}</div><div class="example-meaning">${tone.meaning || ''}</div><div class="example-phrase">${tone.example && tone.example.length > 15 ? tone.example.substring(0, 15) + '...' : (tone.example || '—')}</div>`;
+                            toneCard.onclick = (e) => {
+                                e.stopPropagation();
+                                showModal({
+                                    char: tone.char,
+                                    pinyin: tone.pinyin,
+                                    ru_sound: tone.ru || '',
+                                    meaning: tone.meaning,
+                                    example: tone.example,
+                                    example_ru: tone.example_ru,
+                                    sound: tone.sound
+                                });
+                            };
+                            toneCard.innerHTML = `
+                                <div class="tone-number">${tone.tone || ''}</div>
+                                <div class="pinyin-tone">${tone.pinyin || ''}</div>
+                                <div class="ru-sound">${tone.ru || ''}</div>
+                                <div class="example-hanzi">${tone.char || '—'}</div>
+                                <div class="example-meaning">${tone.meaning || ''}</div>
+                                <div class="example-phrase">${tone.example && tone.example.length > 15 ? tone.example.substring(0, 15) + '...' : (tone.example || '—')}</div>
+                            `;
                             tonesGrid.appendChild(toneCard);
                         });
+                    } else {
+                        for (let i = 1; i <= 4; i++) {
+                            const toneCard = document.createElement('div');
+                            toneCard.className = 'tone-card';
+                            toneCard.innerHTML = `
+                                <div class="tone-number">${i}-й тон</div>
+                                <div class="pinyin-tone">${syllable}</div>
+                                <div class="ru-sound">—</div>
+                                <div class="example-hanzi">—</div>
+                                <div class="example-meaning">—</div>
+                            `;
+                            tonesGrid.appendChild(toneCard);
+                        }
                     }
                     sylRow.appendChild(tonesGrid);
                     card.appendChild(sylRow);
                 }
             }
-            if (idx < mid) leftCol.appendChild(card);
-            else rightCol.appendChild(card);
+            
+            if (idx < mid) {
+                leftCol.appendChild(card);
+            } else {
+                rightCol.appendChild(card);
+            }
         });
+        
         container.appendChild(leftCol);
         container.appendChild(rightCol);
     }
     
-    function initApp() {
-        initMiniDB();
-        allTonesCache = buildAllTonesCache();
-        renderFullTable(pinyinFullDB);
-        
-        const searchInput = document.getElementById('searchInput');
-        const clearBtn = document.getElementById('clearSearch');
-        const statsDiv = document.getElementById('searchStats');
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', function(e) {
-                const query = e.target.value;
-                if (!query.trim()) {
-                    renderFullTable(pinyinFullDB);
-                    if (statsDiv) statsDiv.innerHTML = '';
-                } else {
-                    const results = searchPinyin(query, allTonesCache);
-                    renderSearchResults(results, pinyinFullDB);
+    // ========== ЗАПУСК ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ждём загрузки базы
+        const checkDB = setInterval(function() {
+            if (typeof pinyinFullDB !== 'undefined') {
+                clearInterval(checkDB);
+                allTonesCache = buildAllTonesCache();
+                renderTable();
+                
+                const searchInput = document.getElementById('searchInput');
+                const clearBtn = document.getElementById('clearSearch');
+                const statsDiv = document.getElementById('searchStats');
+                
+                if (searchInput) {
+                    searchInput.addEventListener('input', function(e) {
+                        const query = e.target.value;
+                        if (!query.trim()) {
+                            renderTable();
+                            if (statsDiv) statsDiv.innerHTML = '';
+                        } else {
+                            const results = searchPinyin(query);
+                            renderSearchResults(results);
+                        }
+                    });
                 }
-            });
-        }
-        if (clearBtn) {
-            clearBtn.addEventListener('click', function() {
-                if (searchInput) searchInput.value = '';
-                renderFullTable(pinyinFullDB);
-                if (statsDiv) statsDiv.innerHTML = '';
-            });
-        }
-    }
-    
-    // ЗАПУСК
-    loadExternalDB();
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', function() {
+                        if (searchInput) searchInput.value = '';
+                        renderTable();
+                        if (statsDiv) statsDiv.innerHTML = '';
+                    });
+                }
+            }
+        }, 100);
+        
+        // Если через 3 секунды база не загрузилась — показываем ошибку
+        setTimeout(function() {
+            if (typeof pinyinFullDB === 'undefined') {
+                const container = document.getElementById('initials-container');
+                if (container) {
+                    container.innerHTML = `<div class="error-box">❌ Ошибка: файл pinyin-full-db.js не загружен!<br><br>Проверьте:<br>1. Файл находится в той же папке<br>2. Называется точно <strong>pinyin-full-db.js</strong><br>3. Откройте консоль (F12) для деталей</div>`;
+                }
+            }
+        }, 3000);
+    });
 </script>
 </body>
 </html>
