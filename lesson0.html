@@ -609,6 +609,7 @@
     let currentModalSound = '';
     let currentModalPinyin = '';
 
+    // Функция озвучивания
     function playChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение.");
@@ -704,7 +705,8 @@
         return results;
     }
 
-    function renderSearchResults(results) {
+    // Функция отображения результатов поиска (С ДВУМЯ КОЛОНКАМИ)
+    function renderSearchResults(results, originalDB) {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
         
@@ -716,13 +718,17 @@
         
         if (statsDiv) statsDiv.innerHTML = `🔍 Найдено: ${results.length} слов`;
         
+        // Группируем результаты по инициалям
         const grouped = {};
         for (const item of results) {
             if (!grouped[item.initial]) grouped[item.initial] = [];
             grouped[item.initial].push(item);
         }
         
+        // Очищаем контейнер
         container.innerHTML = '';
+        
+        // Получаем список инициалей и делим на две колонки
         const initialsList = Object.keys(grouped);
         const mid = Math.ceil(initialsList.length / 2);
         const leftCol = document.createElement('div');
@@ -733,60 +739,92 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
+            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
-            const soundToPlay = pinyinFullDB[initial] ? getInitialSound(pinyinFullDB[initial]) : tones[0]?.sound;
+            const soundToPlay = originalDB[initial] ? getInitialSound(originalDB[initial]) : tones[0]?.sound;
             header.onclick = () => playChinese(soundToPlay);
-            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${pinyinFullDB[initial]?.desc || ''}</div>`;
+            header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${originalDB[initial]?.desc || ''}</div>`;
             card.appendChild(header);
             
-            if (pinyinFullDB[initial]?.articulation) {
+            // Артикуляция
+            if (originalDB[initial]?.articulation) {
                 const artDiv = document.createElement('div');
                 artDiv.className = 'articulation';
-                artDiv.innerHTML = pinyinFullDB[initial].articulation;
+                artDiv.innerHTML = originalDB[initial].articulation;
                 card.appendChild(artDiv);
             }
             
+            // Группируем тоны по слогам
             const bySyllable = {};
             for (const tone of tones) {
                 if (!bySyllable[tone.syllable]) bySyllable[tone.syllable] = [];
                 bySyllable[tone.syllable].push(tone);
             }
             
+            // Рисуем строки для каждого слога
             for (const [syllable, syllableTones] of Object.entries(bySyllable)) {
                 const sylRow = document.createElement('div');
                 sylRow.className = 'syllable-row';
+                
                 const sylName = document.createElement('div');
                 sylName.className = 'syllable-name';
-                sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">[${pinyinFullDB[initial]?.syllables?.[syllable]?.translation || ''}]</span>`;
-                const firstWord = getFirstToneWord(pinyinFullDB[initial]?.syllables?.[syllable]);
+                sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">[${originalDB[initial]?.syllables?.[syllable]?.translation || ''}]</span>`;
+                const firstWord = getFirstToneWord(originalDB[initial]?.syllables?.[syllable]);
                 sylName.onclick = (e) => { e.stopPropagation(); playChinese(firstWord || syllable); };
                 sylRow.appendChild(sylName);
                 
                 const tonesGrid = document.createElement('div');
                 tonesGrid.className = 'tones-grid';
+                
+                // Показываем все 4 тона, но подсвечиваем только те, что есть в результатах
                 for (let i = 1; i <= 4; i++) {
-                    const tone = syllableTones.find(t => t.tone === `${i}-й`);
-                    if (tone) {
+                    const existingTone = syllableTones.find(t => t.tone === `${i}-й`);
+                    if (existingTone) {
                         const toneCard = document.createElement('div');
                         toneCard.className = 'tone-card';
-                        toneCard.onclick = (e) => { e.stopPropagation(); showModal(tone); };
-                        toneCard.innerHTML = `<div class="tone-number">${tone.tone}</div><div class="pinyin-tone">${tone.pinyin}</div><div class="ru-sound">${tone.ru || ''}</div><div class="example-hanzi">${tone.char}</div><div class="example-meaning">${tone.meaning || ''}</div><div class="example-phrase">${tone.example ? (tone.example.length > 15 ? tone.example.substring(0,15) + '...' : tone.example) : '—'}</div>`;
+                        toneCard.onclick = (e) => { e.stopPropagation(); showModal(existingTone); };
+                        toneCard.innerHTML = `
+                            <div class="tone-number">${existingTone.tone}</div>
+                            <div class="pinyin-tone">${existingTone.pinyin}</div>
+                            <div class="ru-sound">${existingTone.ru || ''}</div>
+                            <div class="example-hanzi">${existingTone.char}</div>
+                            <div class="example-meaning">${existingTone.meaning || ''}</div>
+                            <div class="example-phrase">${existingTone.example ? (existingTone.example.length > 15 ? existingTone.example.substring(0,15) + '...' : existingTone.example) : '—'}</div>
+                        `;
                         tonesGrid.appendChild(toneCard);
+                    } else {
+                        // Пустая карточка для тона, которого нет в результатах
+                        const emptyCard = document.createElement('div');
+                        emptyCard.className = 'tone-card';
+                        emptyCard.style.opacity = '0.4';
+                        emptyCard.innerHTML = `
+                            <div class="tone-number">${i}-й тон</div>
+                            <div class="pinyin-tone">${syllable}</div>
+                            <div class="ru-sound">—</div>
+                            <div class="example-hanzi">—</div>
+                            <div class="example-meaning">—</div>
+                        `;
+                        tonesGrid.appendChild(emptyCard);
                     }
                 }
                 sylRow.appendChild(tonesGrid);
                 card.appendChild(sylRow);
             }
             
-            if (idx < mid) leftCol.appendChild(card);
-            else rightCol.appendChild(card);
+            // Распределяем по колонкам
+            if (idx < mid) {
+                leftCol.appendChild(card);
+            } else {
+                rightCol.appendChild(card);
+            }
         });
+        
         container.appendChild(leftCol);
         container.appendChild(rightCol);
     }
 
-    // ОРИГИНАЛЬНАЯ ФУНКЦИЯ renderTable (НЕ МЕНЯЮ)
+    // ОРИГИНАЛЬНАЯ ФУНКЦИЯ renderTable (БЕЗ ИЗМЕНЕНИЙ)
     function renderTable() {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
@@ -845,8 +883,11 @@
                     const firstToneWord = getFirstToneWord(sylData);
                     sylName.onclick = (e) => {
                         e.stopPropagation();
-                        if (firstToneWord) playChinese(firstToneWord);
-                        else playChinese(syllable);
+                        if (firstToneWord) {
+                            playChinese(firstToneWord);
+                        } else {
+                            playChinese(syllable);
+                        }
                     };
                     sylRow.appendChild(sylName);
                     
@@ -898,8 +939,11 @@
                 }
             }
             
-            if (idx < mid) leftCol.appendChild(card);
-            else rightCol.appendChild(card);
+            if (idx < mid) {
+                leftCol.appendChild(card);
+            } else {
+                rightCol.appendChild(card);
+            }
         });
         
         container.appendChild(leftCol);
@@ -926,7 +970,7 @@
                             if (statsDiv) statsDiv.innerHTML = '';
                         } else {
                             const results = searchPinyin(query);
-                            renderSearchResults(results);
+                            renderSearchResults(results, pinyinFullDB);
                         }
                     });
                 }
