@@ -323,3 +323,71 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* ========== БЛОК ПОИСКА ========== */
+.search-section {
+    background: white;
+    border-radius: 60px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 12px 0 #FFB347;
+    border: 2px solid #FFCF9A;
+}
+
+.search-box {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-input {
+    flex: 3;
+    min-width: 250px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 3px solid #FFD58C;
+    border-radius: 60px;
+    outline: none;
+    font-family: inherit;
+    background: #FFFDF5;
+}
+
+.search-input:focus {
+    border-color: #FF8C42;
+    box-shadow: 0 0 0 3px rgba(255,140,66,0.2);
+}
+
+.clear-search-btn {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    background: #FF8C42;
+    color: white;
+    box-shadow: 0 4px 0 #C16F1A;
+}
+
+.clear-search-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #C16F1A;
+}
+
+.search-stats {
+    margin-top: 0.8rem;
+    text-align: center;
+    color: #A64B2A;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.error-box {
+    background: #FFEEEE;
+    border-left: 8px solid #FF0000;
+    padding: 2rem;
+    border-radius: 40px;
+    text-align: center;
+    color: #990000;
+}
