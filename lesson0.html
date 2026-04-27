@@ -601,6 +601,7 @@
         <div id="modal-meaning" class="modal-meaning"></div>
         <div id="modal-example" class="modal-example"></div>
         <button class="listen-btn" onclick="playModalSound()">🔊 Слушать слово</button>
+        <button class="listen-btn" onclick="sendToCopybook()" style="background:#FF8C42; box-shadow:0 4px 0 #B45F1B;">✍️ Писать в тетради</button>
         <button class="close-btn" onclick="closeModal()">✖ Закрыть</button>
     </div>
 </div>
@@ -609,6 +610,8 @@
 <script>
     let currentModalSound = '';
     let currentModalPinyin = '';
+    let currentModalChar = '';
+    let currentModalMeaning = '';
 
     // Функция озвучивания
     function playChinese(text) {
@@ -624,6 +627,47 @@
         setTimeout(() => window.speechSynthesis.speak(utterance), 10);
     }
 
+    function playModalSound() {
+        if (currentModalSound) playChinese(currentModalSound);
+    }
+
+    // НОВАЯ ФУНКЦИЯ: отправляем иероглиф в тетрадь
+    function sendToCopybook() {
+        const charData = {
+            char: currentModalChar,
+            pinyin: currentModalPinyin,
+            meaning: currentModalMeaning,
+            sound: currentModalSound
+        };
+        localStorage.setItem('selectedCharacter', JSON.stringify(charData));
+        window.location.href = 'copybook.html';
+    }
+
+    function showModal(item) {
+        currentModalSound = item.sound;
+        currentModalPinyin = item.pinyin;
+        currentModalChar = item.char;
+        currentModalMeaning = item.meaning || '';
+        
+        document.getElementById('modal-char').innerHTML = item.char;
+        document.getElementById('modal-pinyin').innerHTML = item.pinyin;
+        document.getElementById('modal-ru').innerHTML = item.ru_sound ? `[${item.ru_sound}]` : '';
+        document.getElementById('modal-meaning').innerHTML = item.meaning || '';
+        
+        let exampleHtml = '';
+        if (item.example) {
+            exampleHtml = `<div class="ch">${item.example}</div>`;
+            if (item.example_ru) exampleHtml += `<div class="trans">${item.example_ru}</div>`;
+            else if (item.example) exampleHtml += `<div class="trans">${item.example}</div>`;
+        }
+        document.getElementById('modal-example').innerHTML = exampleHtml;
+        document.getElementById('modal').style.display = 'flex';
+        playChinese(item.sound);
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+            
     function playModalSound() {
         if (currentModalSound) playChinese(currentModalSound);
     }
