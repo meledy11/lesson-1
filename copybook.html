@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📝 Тетрадь прописей | Китайские иероглифы</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #E9E0D0;
+            font-family: 'Segoe UI', 'Poppins', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            padding: 1rem;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .copybook {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #FFF9EF;
+            border-radius: 48px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+            padding: 2rem;
+            border: 2px solid #E4C9A0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 2rem;
+            background: #F3E5C0;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+        }
+        .header h1 {
+            background: white;
+            padding: 0.3rem 1.8rem;
+            border-radius: 50px;
+            color: #B46F2A;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+        .btn-home {
+            background: #FF8C42;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #B45F1B;
+            transition: 0.08s linear;
+        }
+        .btn-home:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #B45F1B;
+        }
+
+        .practice-area {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Поле для прописей с сеткой */
+        .canvas-paper {
+            background: #FFFCF0;
+            border-radius: 40px;
+            padding: 1rem;
+            box-shadow: 0 12px 0 #C9AF85;
+            border: 2px solid #E2CFAD;
+        }
+        .canvas-container {
+            text-align: center;
+        }
+        canvas {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+            max-width: 550px;
+            cursor: crosshair;
+            border-radius: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #D9B48B;
+        }
+        .canvas-tools {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .tool-btn {
+            background: #E8D5B0;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.05s linear;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tool-btn:active { transform: scale(0.96); background: #DDC79E; }
+        .check-btn {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 0 #2C6E2F;
+        }
+        .clear-btn {
+            background: #FF8C42;
+            color: white;
+        }
+        .brush-slider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #F5E8D4;
+            padding: 5px 15px;
+            border-radius: 50px;
+        }
+
+        .character-panel {
+            background: #FFF6E8;
+            border-radius: 40px;
+            padding: 1.5rem;
+            border: 2px solid #FDDEB6;
+            box-shadow: 0 8px 0 #D9B48B;
+        }
+        .target-char {
+            text-align: center;
+            font-size: 5.5rem;
+            font-family: 'Noto Sans SC', 'Segoe UI', monospace;
+            background: #FEF1DD;
+            border-radius: 60px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            color: #A5511A;
+        }
+        .select-char {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: 2px solid #E1C394;
+            background: white;
+            margin-bottom: 10px;
+        }
+        .accuracy-box {
+            background: #EEDDBB;
+            border-radius: 40px;
+            padding: 1rem;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .accuracy-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #B95F1A;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-top: 8px;
+            color: #684E1A;
+        }
+        .example-row {
+            background: white;
+            border-radius: 35px;
+            padding: 0.8rem;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+        .help {
+            background: #F7EBD9;
+            border-radius: 35px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-left: 8px solid #FF9F4A;
+        }
+
+        @media (max-width: 850px) {
+            .practice-area {
+                grid-template-columns: 1fr;
+            }
+            .copybook {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="copybook">
+    <div class="header">
+        <h1>📖 Тетрадь для прописей ✍️</h1>
+        <a href="lesson0.html" class="btn-home">⬅ Вернуться к уроку 0</a>
+    </div>
+
+    <div class="practice-area">
+        <!-- КРУПНОЕ ПОЛЕ С РАЗМЕТКОЙ (прописи) -->
+        <div class="canvas-paper">
+            <div class="canvas-container">
+                <canvas id="writingCanvas" width="500" height="500" style="width:100%; height:auto; max-width:500px; aspect-ratio:1/1"></canvas>
+            </div>
+            <div class="canvas-tools">
+                <div class="brush-slider">
+                    <span>✏️ Кисть:</span>
+                    <input type="range" id="brushSize" min="2" max="30" value="8" step="1">
+                    <span id="brushSizeValue">8</span>
+                </div>
+                <button class="tool-btn clear-btn" id="clearCanvasBtn">🧽 Очистить</button>
+                <button class="tool-btn" id="undoBtn">↩ Отменить</button>
+                <button class="tool-btn check-btn" id="checkAccuracyBtn">🔍 Проверить</button>
+            </div>
+            <div class="help">
+                ✍️ Рисуй пальцем или мышкой в клетке. ←→ Ползунок меняет толщину линии.<br>
+                📐 Сетка помогает соблюдать пропорции. Нажми «Показать эталон» — иероглиф появится для обведения.
+            </div>
+        </div>
+
+        <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
+        <div class="character-panel">
+            <div class="target-char" id="targetCharDisplay">八</div>
+            <label>📌 Выбери иероглиф (из базы урока 0):</label>
+            <select id="characterSelect" class="select-char"></select>
+            
+            <button id="loadExampleBtn" class="tool-btn" style="background:#C7A56B; color:white; width:100%; margin-top:5px;">🖼 Показать эталон (обведи)</button>
+            <button id="speakCharBtn" class="tool-btn" style="background:#5D9B4B; color:white; width:100%; margin-top:8px;">🔊 Произнести иероглиф</button>
+
+            <div class="accuracy-box">
+                <div>🎯 Точность написания</div>
+                <div class="accuracy-score" id="accuracyPercent">0%</div>
+                <div class="feedback" id="feedbackMsg">Напишите иероглиф, затем проверьте</div>
+            </div>
+
+            <div class="example-row">
+                <strong>📖 Значение:</strong><br>
+                <span id="exampleMeaning">八 (bā) — восемь 🧮</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- НАСТРОЙКИ ХОЛСТА ----------
+    const canvas = document.getElementById('writingCanvas');
+    const ctx = canvas.getContext('2d');
+    let painting = false;
+    let undoStack = [];
+
+    function resizeCanvas() {
+        // фикс размера: у нас жёстко 500x500
+        canvas.width = 500;
+        canvas.height = 500;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        saveState();
+    }
+
+    // Клеточная разметка (прописи)
+    function drawGrid() {
+        ctx.save();
+        ctx.strokeStyle = '#D9C2A7';
+        ctx.lineWidth = 1;
+        let cellSize = canvas.width / 4;
+        for (let i = 1; i <= 3; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * cellSize, 0);
+            ctx.lineTo(i * cellSize, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * cellSize);
+            ctx.lineTo(canvas.width, i * cellSize);
+            ctx.stroke();
+        }
+        // диагонали для ориентира (тонкие)
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width,0);
+        ctx.lineTo(0,canvas.height);
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function saveState() {
+        undoStack.push(canvas.toDataURL());
+        if (undoStack.length > 20) undoStack.shift();
+    }
+
+    function restoreState(imgData) {
+        let img = new Image();
+        img.src = imgData;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+            drawGrid();
+        };
+    }
+
+    function undo() {
+        if (undoStack.length <= 1) {
+            clearCanvas();
+            return;
+        }
+        undoStack.pop();
+        let prev = undoStack[undoStack.length - 1];
+        restoreState(prev);
+    }
+
+    function clearCanvas() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        saveState();
+        document.getElementById('accuracyPercent').innerText = '0%';
+        document.getElementById('feedbackMsg').innerHTML = 'Холст очищен, напишите иероглиф';
+    }
+
+    function startPainting(e) {
+        painting = true;
+        draw(e);
+    }
+    function endPainting() {
+        painting = false;
+        ctx.beginPath();
+        saveState();
+    }
+    function draw(e) {
+        if (!painting) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let x, y;
+        if (e.touches) {
+            x = (e.touches[0].clientX - rect.left) * scaleX;
+            y = (e.touches[0].clientY - rect.top) * scaleY;
+        } else {
+            x = (e.clientX - rect.left) * scaleX;
+            y = (e.clientY - rect.top) * scaleY;
+        }
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        const brushSize = parseInt(document.getElementById('brushSize').value);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#2C2C2C';
+        ctx.lineWidth = brushSize;
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    }
+
+    canvas.addEventListener('mousedown', startPainting);
+    canvas.addEventListener('mouseup', endPainting);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchstart', startPainting);
+    canvas.addEventListener('touchend', endPainting);
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+
+    document.getElementById('clearCanvasBtn').addEventListener('click', clearCanvas);
+    document.getElementById('undoBtn').addEventListener('click', undo);
+    const brushSlider = document.getElementById('brushSize');
+    const brushVal = document.getElementById('brushSizeValue');
+    brushSlider.addEventListener('input', () => { brushVal.innerText = brushSlider.value; });
+
+    resizeCanvas();
+
+    // ---------- ЗАГРУЗКА ИЕРОГЛИФОВ ИЗ pinyin-full-db.js ИЛИ РЕЗЕРВ ----------
+    let charactersList = [];
+    let currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个" };
+
+    function extractCharsFromDB(db) {
+        const charsSet = new Map();
+        if (!db) return [];
+        for (let [initial, data] of Object.entries(db)) {
+            if (data.syllables) {
+                for (let [syl, sylData] of Object.entries(data.syllables)) {
+                    if (sylData.tones) {
+                        sylData.tones.forEach(tone => {
+                            if (tone.char && !charsSet.has(tone.char)) {
+                                charsSet.set(tone.char, {
+                                    char: tone.char,
+                                    pinyin: tone.pinyin,
+                                    meaning: tone.meaning || tone.ru || '',
+                                    sound: tone.sound || tone.char
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        return Array.from(charsSet.values()).slice(0, 35);
+    }
+
+    function loadCharacters() {
+        if (typeof pinyinFullDB !== 'undefined' && pinyinFullDB) {
+            let extracted = extractCharsFromDB(pinyinFullDB);
+            if (extracted.length > 0) charactersList = extracted;
+        }
+        if (charactersList.length === 0) {
+            charactersList = [
+                { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个" },
+                { char: "爸", pinyin: "bà", meaning: "папа 👨", sound: "爸爸" },
+                { char: "白", pinyin: "bái", meaning: "белый ⚪", sound: "白色" },
+                { char: "百", pinyin: "bǎi", meaning: "сто 💯", sound: "一百" },
+                { char: "包", pinyin: "bāo", meaning: "сумка 🎒", sound: "包子" },
+                { char: "波", pinyin: "bō", meaning: "волна 🌊", sound: "波浪" }
+            ];
+        }
+        const select = document.getElementById('characterSelect');
+        select.innerHTML = '';
+        charactersList.forEach((item, idx) => {
+            let option = document.createElement('option');
+            option.value = idx;
+            option.textContent = `${item.char} — ${item.pinyin} (${item.meaning})`;
+            select.appendChild(option);
+        });
+        if (charactersList.length) updateSelectedChar(0);
+    }
+
+    function updateSelectedChar(index) {
+        let data = charactersList[index];
+        if (!data) return;
+        currentCharData = data;
+        document.getElementById('targetCharDisplay').innerText = data.char;
+        document.getElementById('exampleMeaning').innerHTML = `${data.char} (${data.pinyin}) — ${data.meaning}`;
+    }
+
+    document.getElementById('characterSelect').addEventListener('change', (e) => {
+        updateSelectedChar(parseInt(e.target.value));
+        clearCanvas();
+    });
+
+    // Озвучивание
+    function speakChinese(text) {
+        if (!window.speechSynthesis) return alert("Голос не поддерживается");
+        window.speechSynthesis.cancel();
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.7;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    document.getElementById('speakCharBtn').addEventListener('click', () => {
+        if (currentCharData && currentCharData.sound) speakChinese(currentCharData.sound);
+        else speakChinese(currentCharData.char);
+    });
+
+    // ОТОБРАЖЕНИЕ ЭТАЛОНА (для обведения) - крупно и в клетку
+    function drawTemplateOnCanvas(charToDraw) {
+        // сохраняем текущий рисунок перед показом эталона? нет, накладываем поверх для обведения
+        // Чтобы ученик мог обводить, эталон должен быть полупрозрачным.
+        ctx.save();
+        ctx.globalAlpha = 0.55;
+        ctx.font = `bold ${canvas.width * 0.7}px 'Noto Sans SC'`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#AAAAAA';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillText(charToDraw, canvas.width/2, canvas.height/2);
+        ctx.globalAlpha = 1;
+        drawGrid();   // сетка поверх
+        ctx.restore();
+        saveState();
+        document.getElementById('feedbackMsg').innerHTML = '✏️ Эталон загружен, обводите прямо поверх него!';
+    }
+
+    document.getElementById('loadExampleBtn').addEventListener('click', () => {
+        if (currentCharData && currentCharData.char) {
+            drawTemplateOnCanvas(currentCharData.char);
+        }
+    });
+
+    // ПРОВЕРКА ТОЧНОСТИ (сравнение с пустым эталоном / правильным начертанием)
+    function getBlackPixelRatio(imageData) {
+        let total = 0, black = 0;
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            let r = imageData.data[i], g = imageData.data[i+1], b = imageData.data[i+2];
+            let brightness = (r + g + b) / 3;
+            if (brightness < 120) black++;
+            total++;
+        }
+        return black / total;
+    }
+
+    function generateIdealCharImage(char) {
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width = canvas.width;
+        offCanvas.height = canvas.height;
+        const offCtx = offCanvas.getContext('2d');
+        offCtx.fillStyle = 'white';
+        offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
+        offCtx.font = `bold ${offCanvas.width * 0.7}px 'Noto Sans SC'`;
+        offCtx.textAlign = 'center';
+        offCtx.textBaseline = 'middle';
+        offCtx.fillStyle = 'black';
+        offCtx.fillText(char, offCanvas.width/2, offCanvas.height/2);
+        return offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+    }
+
+    function compareDrawings() {
+        if (!currentCharData) return 0;
+        const ideal = generateIdealCharImage(currentCharData.char);
+        const current = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let totalPixels = ideal.width * ideal.height;
+        let matchPixels = 0;
+        for (let i = 0; i < ideal.data.length; i += 4) {
+            let idealBlack = (ideal.data[i] + ideal.data[i+1] + ideal.data[i+2]) / 3 < 120;
+            let drawnBlack = (current.data[i] + current.data[i+1] + current.data[i+2]) / 3 < 120;
+            if (idealBlack === drawnBlack) matchPixels++;
+        }
+        let accuracy = (matchPixels / totalPixels) * 100;
+        return Math.min(100, Math.max(0, accuracy));
+    }
+
+    document.getElementById('checkAccuracyBtn').addEventListener('click', () => {
+        let accuracy = compareDrawings();
+        let percentSpan = document.getElementById('accuracyPercent');
+        let feedback = document.getElementById('feedbackMsg');
+        percentSpan.innerText = Math.floor(accuracy) + '%';
+        if (accuracy > 85) feedback.innerHTML = '🏆 Отлично! Очень похоже на образец!';
+        else if (accuracy > 65) feedback.innerHTML = '👍 Хорошо, но потренируйся ещё';
+        else if (accuracy > 40) feedback.innerHTML = '📝 Старайся повторять форму иероглифа точнее';
+        else feedback.innerHTML = '✍️ Попробуй обвести эталон или посмотри на образец слева';
+    });
+
+    // Инициализация
+    loadCharacters();
+    // если база загрузится позже, обновим список
+    setTimeout(() => {
+        if (typeof pinyinFullDB !== 'undefined' && pinyinFullDB && charactersList.length < 8) {
+            loadCharacters();
+        }
+    }, 500);
+</script>
+</body>
+</html>
