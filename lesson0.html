@@ -934,238 +934,122 @@
             
             const syllables = data.syllables;
             if (syllables) {
-                for (const {
-                for (const [syllable, sylData] of [syllable, sylData] of Object.entries(syllables)) {
-                    const sylRow = document Object.entries(syllables)) {
+                for (const [syllable, sylData] of Object.entries(syllables)) {
                     const sylRow = document.createElement('div');
-.createElement('div');
-                    sylRow.className = 'syllable                    sylRow.className = 'syllable-row';
+                    sylRow.className = 'syllable-row';
                     
                     const sylName = document.createElement('div');
                     sylName.className = 'syllable-name';
-                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans-row';
-                    
-                    const sylName = document.createElement('div');
-                    sylName.className = 'syllable-name';
-                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">${sylData.translation ? `[${sylData.translation">${sylData.translation ? `[${sylData.translation}]`}]` : ''}</span>`;
-                    const firstToneWord = getFirstToneWord : ''}</span>`;
+                    sylName.innerHTML = `🔊 ${syllable} <span class="syllable-trans">${sylData.translation ? `[${sylData.translation}]` : ''}</span>`;
                     const firstToneWord = getFirstToneWord(sylData);
-                    syl(sylData);
-                    sylName.onclick = (e) =>Name.onclick = (e) => {
-                        e.stop {
+                    sylName.onclick = (e) => {
                         e.stopPropagation();
-                        if (firstToneWordPropagation();
                         if (firstToneWord) {
                             playChinese(firstToneWord);
-                        }) {
-                            playChinese(firstToneWord);
                         } else {
-                            playChinese(syllable else {
                             playChinese(syllable);
-                        }
-                    };
-                   );
                         }
                     };
                     sylRow.appendChild(sylName);
                     
-                    const tonesGrid = document.createElement(' sylRow.appendChild(sylName);
-                    
                     const tonesGrid = document.createElement('div');
-                    tonesdiv');
                     tonesGrid.className = 'tones-grid';
                     
-                    if (Grid.className = 'tones-grid';
-                    
-                    if (sylData.tones &&sylData.tones && sylData.tones.length > 0) {
-                        syl sylData.tones.length > 0) {
-                        sylData.Data.tones.forEach(tonetones.forEach(tone => {
-                            const toneCard = document.createElement('div');
-                            toneCard.className = 'tone-card';
-                            toneCard.onclick = (e) => {
-                                e.stopPropagation();
-                                showModal({
-                                    char => {
+                    if (sylData.tones && sylData.tones.length > 0) {
+                        sylData.tones.forEach(tone => {
                             const toneCard = document.createElement('div');
                             toneCard.className = 'tone-card';
                             toneCard.onclick = (e) => {
                                 e.stopPropagation();
                                 showModal({
                                     char: tone.char,
-                                    p: tone.char,
-                                    pinyin: tone.pinyin: tone.pinyin,
-                                    ru_sound: tone.ru ||inyin,
+                                    pinyin: tone.pinyin,
                                     ru_sound: tone.ru || '',
                                     meaning: tone.meaning,
                                     example: tone.example,
-                                    example '',
-                                    meaning: tone.meaning,
-                                    example: tone.example,
                                     example_ru: tone.example_ru,
-_ru: tone.example_ru,
-                                    sound: tone.sound                                    sound: tone.sound
+                                    sound: tone.sound
                                 });
                             };
-                            toneCard.innerHTML =
-                                });
-                            };
-                            toneCard `
-                                <div class="tone-number">${tone.t.innerHTML = `
+                            toneCard.innerHTML = `
                                 <div class="tone-number">${tone.tone || ''}</div>
-                               one || ''}</div>
-                                <div class="pinyin-t <div class="pinyin-tone">${tone.pinyin || ''}</div>
-                                <div class="ru-soundone">${tone.pinyin || ''}</div>
-                                <div class="ru-sound">${tone.ru || ''}</">${tone.ru || ''}</div>
-                               div>
-                                <div class="example-hanzi">${tone.char || '—'}</div <div class="example-hanzi">${tone.char || '—'}</div>
-                                <div class="example-me>
-                                <div class="example-meaning">${tone.meaning ||aning">${tone.meaning || ''}</div>
- ''}</div>
-                                <div class="example-phrase">${                                <div class="example-phrase">${tone.example &&tone.example && tone.example.length > 15 ? tone.example.substring(0 tone.example.length > 15 ? tone.example.substring(0, 15) + '...', 15) + '...' : (tone.example || '— : (tone.example ||')}</div>
-                            `;
-                            tonesGrid.appendChild(toneCard '—')}</div>
+                                <div class="pinyin-tone">${tone.pinyin || ''}</div>
+                                <div class="ru-sound">${tone.ru || ''}</div>
+                                <div class="example-hanzi">${tone.char || '—'}</div>
+                                <div class="example-meaning">${tone.meaning || ''}</div>
+                                <div class="example-phrase">${tone.example && tone.example.length > 15 ? tone.example.substring(0, 15) + '...' : (tone.example || '—')}</div>
                             `;
                             tonesGrid.appendChild(toneCard);
                         });
                     } else {
-                        for (let i = 1;);
-                        });
-                    } else {
-                        for (let i =  i <= 4; i++) {
-                            const toneCard = document.createElement('1; i <= 4; i++) {
-                            const toneCard = documentdiv');
-                            toneCard.className = 'tone-card.createElement('div');
+                        for (let i = 1; i <= 4; i++) {
+                            const toneCard = document.createElement('div');
                             toneCard.className = 'tone-card';
                             toneCard.innerHTML = `
-                               ';
-                            toneCard.innerHTML = `
-                                <div class="tone-number">${i <div class="tone-number">${i}-й тон</div>
-                               }-й тон</div>
-                                <div class="pinyin-tone"> <div class="pinyin-tone">${syllable}</div>
-                               ${syllable}</div>
+                                <div class="tone-number">${i}-й тон</div>
+                                <div class="pinyin-tone">${syllable}</div>
                                 <div class="ru-sound">—</div>
-                                <div class="ru-sound">—</div>
-                                <div class="example-hanzi">—</ <div class="example-hanzi">—</div>
-                                <div classdiv>
+                                <div class="example-hanzi">—</div>
                                 <div class="example-meaning">—</div>
-                           ="example-meaning">—</div>
                             `;
-                            tonesGrid.appendChild `;
                             tonesGrid.appendChild(toneCard);
                         }
                     }
-                    syl(toneCard);
-                        }
-                    }
-                    sylRow.appendChildRow.appendChild(tonesGrid);
-                    card.appendChild(sylRow);
-               (tonesGrid);
+                    sylRow.appendChild(tonesGrid);
                     card.appendChild(sylRow);
                 }
             }
             
-            if }
-            }
-            
-            if (idx < mid (idx < mid) {
-                leftCol.appendChild(card);
-            } else) {
+            if (idx < mid) {
                 leftCol.appendChild(card);
             } else {
                 rightCol.appendChild(card);
             }
         });
- {
-                rightCol.appendChild(card);
-            }
-        });
         
-        container.appendChild(leftCol        
         container.appendChild(leftCol);
         container.appendChild(rightCol);
     }
     
-);
-        container.appendChild(rightCol);
-    }
-    
-    // ЗАПУ    // ЗАПУСК
-    document.addEventListener('DOMContentLoaded',СК
+    // ЗАПУСК
     document.addEventListener('DOMContentLoaded', function() {
-        const check function() {
         const checkDB = setInterval(function() {
-            if (DB = setInterval(function() {
-           typeof pinyinFullDB !== 'undefined') {
+            if (typeof pinyinFullDB !== 'undefined') {
                 clearInterval(checkDB);
- if (typeof pinyinFullDB !== 'undefined') {
-                clearInterval(checkDB);
-                allTonesCache =                allTonesCache = buildAllTonesCache();
+                allTonesCache = buildAllTonesCache();
                 renderTable();
                 
-                buildAllTonesCache();
-                renderTable();
-                
-                const searchInput = const searchInput = document.getElementById('searchInput');
-                const clearBtn = document document.getElementById('searchInput');
-                const clearBtn.getElementById('clearSearch');
-                const statsDiv = document.getElementById('search = document.getElementById('clearSearch');
+                const searchInput = document.getElementById('searchInput');
+                const clearBtn = document.getElementById('clearSearch');
                 const statsDiv = document.getElementById('searchStats');
                 
                 if (searchInput) {
-                    searchInput.addEventListener('input', functionStats');
-                
-                if (searchInput) {
                     searchInput.addEventListener('input', function(e) {
-                        const query = e(e) {
                         const query = e.target.value;
-                        if (!query.trim.target.value;
                         if (!query.trim()) {
                             renderTable();
-                            if()) {
-                            renderTable();
-                            if (statsDiv) statsDiv.innerHTML = (statsDiv) statsDiv.innerHTML = '';
-                        } else {
-                            const results '';
+                            if (statsDiv) statsDiv.innerHTML = '';
                         } else {
                             const results = searchPinyin(query);
-                            renderSearchResults(results, = searchPinyin(query);
                             renderSearchResults(results, pinyinFullDB);
-                        pinyinFullDB);
                         }
                     });
                 }
-                if (clearBtn }
-                    });
-                }
                 if (clearBtn) {
-                    clearBtn.addEventListener) {
                     clearBtn.addEventListener('click', function() {
-                        if (search('click', function() {
                         if (searchInput) searchInput.value = '';
-                       Input) searchInput.value = '';
                         renderTable();
                         if (statsDiv) statsDiv.innerHTML = '';
                     });
                 }
- renderTable();
-                        if (statsDiv) statsDiv.innerHTML = '';
-                    });
-                }
             }
-        },            }
         }, 100);
         
         setTimeout(function() {
-            if ( 100);
-        
-        setTimeout(function() {
             if (typeof pinyinFullDB === 'undefined') {
-                consttypeof pinyinFullDB === 'undefined') {
-                const container = document.getElementById container = document.getElementById('initials-container');
+                const container = document.getElementById('initials-container');
                 if (container) {
-                   ('initials-container');
-                if (container) {
-                    container.innerHTML = `<div class="error-box"> container.innerHTML = `<div class="error-box">❌ Ошибка: файл❌ Ошибка: pinyin-full-db.js не загружен!<br><br>Пров файл pinyin-full-db.js не загружен!<brерьте, что файл лежит в той же папке</div>`;
+                    container.innerHTML = `<div class="error-box">❌ Ошибка: файл pinyin-full-db.js не загружен!<br><br>Проверьте, что файл лежит в той же папке</div>`;
                 }
             }
         }, 3000);
