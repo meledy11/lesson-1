@@ -26,7 +26,7 @@
             background: #FFF9EF;
             border-radius: 40px;
             box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-            padding: 20px 16px 100px 16px;
+            padding: 20px 16px 120px 16px;
             border: 2px solid #E4C9A0;
         }
 
@@ -63,7 +63,6 @@
         }
         .btn-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
 
-        /* КРУПНЫЙ образец иероглифа */
         .current-info {
             text-align: center;
             margin-bottom: 20px;
@@ -93,7 +92,6 @@
             margin-top: 8px;
         }
 
-        /* поле для рисования */
         .canvas-area {
             background: #FFFCF0;
             border-radius: 32px;
@@ -203,7 +201,7 @@
         }
 
         @media (max-width: 550px) {
-            .copybook { padding: 12px 12px 120px 12px; }
+            .copybook { padding: 12px 12px 140px 12px; }
             .big-char { font-size: 4rem; padding: 10px 25px; }
             .pinyin-info { font-size: 1.2rem; }
             .btn { padding: 12px 18px; font-size: 0.9rem; min-width: 85px; }
@@ -219,7 +217,6 @@
         <a href="lesson0.html" class="btn-home">⬅ К уроку 0</a>
     </div>
 
-    <!-- КРУПНЫЙ ОБРАЗЕЦ -->
     <div class="current-info">
         <div class="big-char" id="currentChar">八</div>
         <div class="pinyin-info" id="currentPinyin">bā</div>
@@ -256,7 +253,6 @@
 </div>
 
 <script>
-    // ========== НАСТРОЙКИ ХОЛСТА ==========
     const canvas = document.getElementById('writingCanvas');
     let ctx = canvas.getContext('2d');
     let painting = false;
@@ -407,7 +403,7 @@
     function showTemplate() {
         ctx.save();
         ctx.globalAlpha = 0.45;
-        ctx.font = `bold ${canvas.width * 0.7}px 'Noto Sans SC'`;
+        ctx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#999999';
@@ -420,41 +416,117 @@
         document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите серый образец прямо поверх!';
     }
 
-    function generateIdealImage() {
-        const offCanvas = document.createElement('canvas');
-        offCanvas.width = canvas.width;
-        offCanvas.height = canvas.height;
-        const offCtx = offCanvas.getContext('2d');
-        offCtx.fillStyle = 'white';
-        offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
-        offCtx.font = `bold ${offCanvas.width * 0.7}px 'Noto Sans SC'`;
-        offCtx.textAlign = 'center';
-        offCtx.textBaseline = 'middle';
-        offCtx.fillStyle = 'black';
-        offCtx.fillText(currentCharData.char, offCanvas.width / 2, offCanvas.height / 2);
-        return offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
-    }
-
+    // Новая, более точная проверка
     function checkAccuracy() {
-        const ideal = generateIdealImage();
-        const current = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        let totalPixels = ideal.width * ideal.height;
-        let matchPixels = 0;
+        // Получаем идеальное изображение иероглифа
+        const idealCanvas = document.createElement('canvas');
+        idealCanvas.width = canvas.width;
+        idealCanvas.height = canvas.height;
+        const idealCtx = idealCanvas.getContext('2d');
+        idealCtx.fillStyle = 'white';
+        idealCtx.fillRect(0, 0, idealCanvas.width, idealCanvas.height);
+        idealCtx.font = `bold ${idealCanvas.width * 0.65}px 'Noto Sans SC'`;
+        idealCtx.textAlign = 'center';
+        idealCtx.textBaseline = 'middle';
+        idealCtx.fillStyle = 'black';
+        idealCtx.fillText(currentCharData.char, idealCanvas.width / 2, idealCanvas.height / 2);
         
-        for (let i = 0; i < ideal.data.length; i += 4) {
-            let idealBlack = (ideal.data[i] + ideal.data[i+1] + ideal.data[i+2]) / 3 < 120;
-            let drawnBlack = (current.data[i] + current.data[i+1] + current.data[i+2]) / 3 < 120;
-            if (idealBlack === drawnBlack) matchPixels++;
+        const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
+        const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        // Нормализация: размытие для учёта разной толщины линий
+        function normalizePixel(r, g, b) {
+            return (r + g + b) / 3 < 200 ? 0 : 255;
         }
-        let accuracy = Math.floor((matchPixels / totalPixels) * 100);
-        accuracy = Math.min(100, Math.max(0, accuracy));
+        
+        let matchCount = 0;
+        let totalImportant = 0;
+        
+        // Проходим по каждому пикселю, но с учётом соседей (для терпимости к толщине)
+        for (let y = 2; y < canvas.height - 2; y++) {
+            for (let x = 2; x < canvas.width - 2; x++) {
+                const idx = (y * canvas.width + x) * 4;
+                
+                // Проверяем, есть ли в идеале значимый пиксель
+                const idealR = idealData.data[idx];
+                const idealG = idealData.data[idx+1];
+                const idealB = idealData.data[idx+2];
+                const isIdealImportant = (idealR + idealG + idealB) / 3 < 150;
+                
+                if (isIdealImportant) {
+                    totalImportant++;
+                    
+                    // Ищем в текущем рисунке чёрный пиксель в области 3x3
+                    let foundMatch = false;
+                    for (let dy = -2; dy <= 2; dy++) {
+                        for (let dx = -2; dx <= 2; dx++) {
+                            const ny = y + dy;
+                            const nx = x + dx;
+                            if (ny >= 0 && ny < canvas.height && nx >= 0 && nx < canvas.width) {
+                                const nidx = (ny * canvas.width + nx) * 4;
+                                const currentR = currentData.data[nidx];
+                                const currentG = currentData.data[nidx+1];
+                                const currentB = currentData.data[nidx+2];
+                                const isCurrentImportant = (currentR + currentG + currentB) / 3 < 150;
+                                if (isCurrentImportant) {
+                                    foundMatch = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (foundMatch) break;
+                    }
+                    
+                    if (foundMatch) matchCount++;
+                }
+            }
+        }
+        
+        // Процент совпадения важных областей
+        let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
+        accuracy = Math.min(100, Math.max(0, Math.floor(accuracy)));
+        
+        // Дополнительная проверка: центр масс
+        let sumX = 0, sumY = 0, blackCount = 0;
+        for (let y = 0; y < canvas.height; y++) {
+            for (let x = 0; x < canvas.width; x++) {
+                const idx = (y * canvas.width + x) * 4;
+                const brightness = (currentData.data[idx] + currentData.data[idx+1] + currentData.data[idx+2]) / 3;
+                if (brightness < 150) {
+                    sumX += x;
+                    sumY += y;
+                    blackCount++;
+                }
+            }
+        }
+        
+        let centerBonus = 100;
+        if (blackCount > 0) {
+            const centerX = sumX / blackCount;
+            const centerY = sumY / blackCount;
+            const idealCenter = canvas.width / 2;
+            const offset = Math.sqrt(Math.pow(centerX - idealCenter, 2) + Math.pow(centerY - idealCenter, 2));
+            const maxOffset = canvas.width / 4;
+            centerBonus = Math.max(0, 100 - (offset / maxOffset) * 50);
+            // Корректируем точность с учётом центра
+            accuracy = Math.floor(accuracy * 0.8 + centerBonus * 0.2);
+        }
         
         document.getElementById('accuracyPercent').innerText = accuracy + '%';
         let feedback = document.getElementById('feedbackMsg');
-        if (accuracy > 85) feedback.innerHTML = '🏆 Отлично! Очень похоже на образец!';
-        else if (accuracy > 65) feedback.innerHTML = '👍 Хорошо, но потренируйся ещё';
-        else if (accuracy > 40) feedback.innerHTML = '📝 Старайся повторять форму иероглифа точнее';
-        else feedback.innerHTML = '✍️ Попробуй обвести эталон (кнопка «Образец»)';
+        
+        if (accuracy > 85) {
+            feedback.innerHTML = '🏆 Отлично! Иероглиф написан очень точно!';
+        } else if (accuracy > 70) {
+            feedback.innerHTML = '👍 Хорошо! Небольшие погрешности в форме.';
+        } else if (accuracy > 55) {
+            feedback.innerHTML = '📝 Неплохо, но обрати внимание на пропорции и положение в клетке.';
+        } else if (accuracy > 35) {
+            feedback.innerHTML = '✍️ Попробуй обвести эталон (кнопка «Образец») — это поможет почувствовать форму.';
+        } else {
+            feedback.innerHTML = '🖌️ Начни с обведения образца. Пиши более уверенно, с нажимом.';
+        }
+        
         return accuracy;
     }
 
@@ -517,7 +589,6 @@
         return true;
     }
 
-    // Кнопки
     document.getElementById('templateBtn').addEventListener('click', showTemplate);
     document.getElementById('checkBtn').addEventListener('click', checkAccuracy);
     document.getElementById('speakBtn').addEventListener('click', () => {
