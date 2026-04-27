@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            touch-action: none; /* отключаем прокрутку при рисовании */
         }
 
         body {
@@ -18,7 +17,8 @@
             font-family: 'Segoe UI', 'Poppins', 'Noto Sans SC', 'Microsoft YaHei', 'SF Pro Text', sans-serif;
             padding: 12px;
             min-height: 100vh;
-            touch-action: pan-y pinch-zoom; /* разрешаем вертикальный скролл */
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .copybook {
@@ -27,7 +27,7 @@
             background: #FFF9EF;
             border-radius: 40px;
             box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-            padding: 20px 16px;
+            padding: 20px 16px 40px 16px;
             border: 2px solid #E4C9A0;
         }
 
@@ -60,6 +60,7 @@
             font-size: 0.9rem;
             box-shadow: 0 3px 0 #B45F1B;
             transition: 0.05s linear;
+            display: inline-block;
         }
         .btn-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
 
@@ -152,10 +153,10 @@
             padding: 8px;
             background: #F5E8D4;
             border-radius: 50px;
+            flex-wrap: wrap;
         }
         input[type="range"] {
             width: 150px;
-            touch-action: pan-y;
         }
 
         .accuracy-panel {
@@ -181,11 +182,12 @@
             border-radius: 30px;
             padding: 12px;
             margin-top: 16px;
+            margin-bottom: 20px;
             font-size: 0.85rem;
         }
 
         @media (max-width: 550px) {
-            .copybook { padding: 12px; }
+            .copybook { padding: 12px 12px 40px 12px; }
             .big-char { font-size: 3rem; }
             .btn { padding: 8px 14px; font-size: 0.8rem; }
         }
@@ -211,7 +213,7 @@
         <div class="toolbar">
             <button class="btn btn-warning" id="clearBtn">🧽 Очистить</button>
             <button class="btn" id="undoBtn">↩ Отменить</button>
-            <button class="btn btn-secondary" id="templateBtn">🖼 Образец (обведи)</button>
+            <button class="btn btn-secondary" id="templateBtn">🖼 Образец</button>
             <button class="btn btn-primary" id="checkBtn">🔍 Проверить</button>
         </div>
         <div class="brush-control">
@@ -234,7 +236,7 @@
 </div>
 
 <script>
-    // ========== НАСТРОЙКИ ХОЛСТА (БЕЗ ЛИШНИХ ЛИНИЙ) ==========
+    // ========== НАСТРОЙКИ ХОЛСТА ==========
     const canvas = document.getElementById('writingCanvas');
     let ctx = canvas.getContext('2d');
     let painting = false;
@@ -247,14 +249,12 @@
         example: "八个 bā ge"
     };
 
-    // Инициализация размера канваса (всегда 400x400)
     function initCanvas() {
         canvas.width = 400;
         canvas.height = 400;
         clearCanvas();
     }
 
-    // Рисуем сетку прописей (4×4)
     function drawGrid() {
         ctx.save();
         ctx.strokeStyle = '#D9C2A7';
@@ -270,7 +270,6 @@
             ctx.lineTo(canvas.width, i * cellSize);
             ctx.stroke();
         }
-        // лёгкие диагонали для ориентира
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(canvas.width, canvas.height);
@@ -316,9 +315,6 @@
         restoreState(prev);
     }
 
-    // ========== РИСОВАНИЕ (ТОЛЬКО ПРИ АКТИВНОМ ДВИЖЕНИИ) ==========
-    let lastX = 0, lastY = 0;
-    
     function startDrawing(e) {
         painting = true;
         const coords = getCanvasCoords(e);
@@ -326,8 +322,6 @@
         ctx.moveTo(coords.x, coords.y);
         ctx.lineTo(coords.x, coords.y);
         ctx.stroke();
-        lastX = coords.x;
-        lastY = coords.y;
     }
 
     function draw(e) {
@@ -343,8 +337,6 @@
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(coords.x, coords.y);
-        lastX = coords.x;
-        lastY = coords.y;
     }
 
     function stopDrawing() {
@@ -353,7 +345,6 @@
         saveState();
     }
 
-    // Получение координат с учётом тач-событий и масштаба
     function getCanvasCoords(e) {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
@@ -375,7 +366,6 @@
         return { x, y };
     }
 
-    // НАВЕШИВАЕМ СОБЫТИЯ (адаптация под мобильные)
     canvas.addEventListener('mousedown', startDrawing);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stopDrawing);
@@ -393,14 +383,13 @@
     const brushVal = document.getElementById('brushValue');
     brushSlider.addEventListener('input', () => { brushVal.innerText = brushSlider.value; });
 
-    // ========== ОТОБРАЖЕНИЕ ЭТАЛОНА ДЛЯ ОБВЕДЕНИЯ ==========
     function showTemplate() {
         ctx.save();
-        ctx.globalAlpha = 0.5;
+        ctx.globalAlpha = 0.45;
         ctx.font = `bold ${canvas.width * 0.7}px 'Noto Sans SC'`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#888888';
+        ctx.fillStyle = '#999999';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillText(currentCharData.char, canvas.width / 2, canvas.height / 2);
         ctx.globalAlpha = 1;
@@ -410,7 +399,6 @@
         document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите серый образец прямо поверх!';
     }
 
-    // ========== ПРОВЕРКА ТОЧНОСТИ ==========
     function generateIdealImage() {
         const offCanvas = document.createElement('canvas');
         offCanvas.width = canvas.width;
@@ -449,7 +437,6 @@
         return accuracy;
     }
 
-    // ========== ОЗВУЧИВАНИЕ ==========
     function speakChinese(text) {
         if (!window.speechSynthesis) {
             alert("Ваш браузер не поддерживает голосовое воспроизведение");
@@ -462,7 +449,6 @@
         window.speechSynthesis.speak(utterance);
     }
 
-    // ========== ОБНОВЛЕНИЕ ИНТЕРФЕЙСА ==========
     function updateUI() {
         document.getElementById('currentChar').innerText = currentCharData.char;
         document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
@@ -471,9 +457,7 @@
         clearCanvas();
     }
 
-    // ========== ЗАГРУЗКА ИЕРОГЛИФА ИЗ УРОКА 0 (localStorage) ИЛИ БАЗЫ ==========
     function loadCharacterFromLesson() {
-        // Пытаемся получить иероглиф, выбранный в уроке
         const savedChar = localStorage.getItem('selectedCharacter');
         if (savedChar) {
             try {
@@ -481,13 +465,12 @@
                 if (charObj && charObj.char) {
                     currentCharData = charObj;
                     updateUI();
-                    localStorage.removeItem('selectedCharacter'); // чистим после загрузки
+                    localStorage.removeItem('selectedCharacter');
                     return true;
                 }
             } catch(e) {}
         }
         
-        // Если нет сохранённого — загружаем из базы первый попавшийся
         if (typeof pinyinFullDB !== 'undefined' && pinyinFullDB) {
             for (let [initial, data] of Object.entries(pinyinFullDB)) {
                 if (data.syllables) {
@@ -508,20 +491,17 @@
                 }
             }
         }
-        // Резерв
         currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个", example: "八个" };
         updateUI();
         return true;
     }
 
-    // ========== КНОПКИ ==========
     document.getElementById('templateBtn').addEventListener('click', showTemplate);
     document.getElementById('checkBtn').addEventListener('click', checkAccuracy);
     document.getElementById('speakBtn').addEventListener('click', () => {
         speakChinese(currentCharData.sound || currentCharData.char);
     });
 
-    // ========== ЗАПУСК ==========
     initCanvas();
     loadCharacterFromLesson();
 </script>
