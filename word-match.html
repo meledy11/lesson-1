@@ -206,7 +206,7 @@
     let allWords = [];
     let answered = false;
     
-    // ========== ЗАГРУЗКА СЛОВ ПРЯМО ИЗ EXAMPLE ==========
+    // ========== ЗАГРУЗКА СЛОВ ==========
     function loadWords() {
         if (typeof pinyinFullDB === 'undefined') {
             document.getElementById('gameArea').innerHTML = '<p style="color:#e94560;">❌ База не загружена!</p>';
@@ -220,10 +220,9 @@
             for (const [syllable, sylData] of Object.entries(data.syllables)) {
                 if (!sylData.tones) continue;
                 for (const tone of sylData.tones) {
-                    if (!tone.example || tone.example === '—') continue;
                     if (tone.char === '—' || !tone.char) continue;
+                    if (!tone.example || tone.example === '—') continue;
                     
-                    // Разбираем example: "安全 ān quán" → слово, пиньинь
                     const raw = tone.example.trim();
                     const firstSpace = raw.indexOf(' ');
                     
@@ -232,17 +231,23 @@
                         word = raw.substring(0, firstSpace);
                         pinyinPart = raw.substring(firstSpace + 1).trim();
                     } else {
+                        // Нет пробела — example это само слово
                         word = raw;
-                        pinyinPart = tone.pinyin;
+                        pinyinPart = tone.pinyin || '';
                     }
                     
-                    // Только слова из иероглифов, минимум 2 символа
+                    // Только двусложные иероглифы
                     if (!word || !/^[\u4e00-\u9fff]+$/.test(word)) continue;
                     if (word.length < 2) continue;
                     
-                    // Пиньинь должен содержать латиницу
-                    if (!/[a-zA-Z]/.test(pinyinPart)) {
-                        pinyinPart = tone.pinyin;
+                    // Если пиньинь слитный (Yīngguó) — разделяем
+                    if (pinyinPart && !/\s/.test(pinyinPart) && /[A-Z]/.test(pinyinPart)) {
+                        pinyinPart = pinyinPart.replace(/([a-zà-ǜ])([A-Z])/g, '$1 $2').toLowerCase();
+                    }
+                    
+                    // Если пиньинь всё ещё нет — используем syllable + tone.pinyin
+                    if (!pinyinPart || !/[a-zA-Z]/.test(pinyinPart)) {
+                        pinyinPart = tone.pinyin + ' ' + syllable;
                     }
                     
                     if (seen.has(word)) continue;
@@ -250,7 +255,7 @@
                     
                     allWords.push({
                         word: word,
-                        pinyin: pinyinPart,
+                        pinyin: pinyinPart.toLowerCase(),
                         meaning: tone.meaning || '',
                         example_ru: tone.example_ru || tone.meaning || '',
                         sound: word
@@ -281,6 +286,10 @@
     
     // ========== ИГРА 1: ИЕРОГЛИФ → ПИНЬИНЬ ==========
     function renderPinyinGame() {
+        if (allWords.length === 0) {
+            document.getElementById('gameArea').innerHTML = '<p style="color:#ffb347;">⚠️ Нет загруженных слов</p>';
+            return;
+        }
         const word = getRandomWord();
         currentWord = word;
         answered = false;
@@ -307,7 +316,8 @@
     
     // ========== ИГРА 2: ИЕРОГЛИФ → ПЕРЕВОД ==========
     function renderMeaningGame() {
-        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—' && w.example_ru !== w.meaning);
+        if (allWords.length === 0) return;
+        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—');
         const pool = withRu.length >= 4 ? withRu : allWords;
         const correct = pool[Math.floor(Math.random() * pool.length)];
         currentWord = correct;
@@ -334,6 +344,7 @@
     
     // ========== ИГРА 3: СЛУХ → ИЕРОГЛИФ ==========
     function renderListenGame() {
+        if (allWords.length === 0) return;
         const word = getRandomWord();
         currentWord = word;
         answered = false;
