@@ -67,6 +67,7 @@
             border: 2px solid #FFB347;
         }
         
+        /* Стили уроков */
         .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -88,6 +89,7 @@
         .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
         
+        /* Стили игр */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -98,8 +100,8 @@
             border-radius: 30px;
             padding: 1.5rem;
             text-align: center;
-            border: 3px solid #e94560;
-            box-shadow: 0 10px 0 #8b1e3f;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
             cursor: pointer;
             transition: 0.1s;
             text-decoration: none;
@@ -107,10 +109,22 @@
             display: block;
         }
         .game-card:hover { transform: translateY(-2px); }
-        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #8b1e3f; }
-        .game-card .game-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .game-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
+        .game-card .game-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .game-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .game-card p { font-size: 0.85rem; color: #8B5A2B; }
+        
+        .game-tag {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
         
         footer {
             text-align: center;
@@ -122,9 +136,9 @@
             color: #A64B2A;
         }
         
-        @media (max-width: 600px) {
-            .lessons-list { grid-template-columns: 1fr; }
+        @media (max-width: 800px) {
             .games-grid { grid-template-columns: 1fr; }
+            .lessons-list { grid-template-columns: 1fr; }
             .hero h1 { font-size: 1.5rem; }
         }
     </style>
@@ -153,18 +167,22 @@
         <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
             <div class="speak-tip">
-                <span>🎮</span> Тренируй слова и пиньинь в игровой форме! <span>🎮</span>
+                <span>🎮</span> Тренируй слова в игровой форме! <span>🎮</span>
             </div>
             <div class="games-grid">
-                <a href="all-games.html" class="game-card">
+                <!-- Игра 1: Угадай слово -->
+                <a href="word-match.html" class="game-card">
                     <div class="game-icon">📚</div>
                     <h3>Угадай слово</h3>
                     <p>Иероглиф → пиньинь, перевод или на слух</p>
+                    <span class="game-tag">NEW</span>
                 </a>
-                <a href="all-games.html#dictant" class="game-card">
-                    <div class="game-icon">✍️</div>
-                    <h3>Пиньинь-диктант</h3>
-                    <p>Слушай фразу → пиши пиньинь</p>
+                
+                <!-- Игра 2: Собери фразу -->
+                <a href="#" class="game-card" onclick="alert('В разработке! 🚧')">
+                    <div class="game-icon">🧩</div>
+                    <h3>Собери фразу</h3>
+                    <p>Составь предложение из слов</p>
                 </a>
             </div>
         </div>
@@ -198,21 +216,25 @@
                 return numA - numB;
             });
             
-            for (const [key, lesson] of sortedLessons) {
-                const lessonCard = document.createElement('a');
-                lessonCard.href = `${key}.html`;
-                lessonCard.className = 'lesson-card';
-                lessonCard.innerHTML = `
-                    <h2>${lesson.icon} ${lesson.title}</h2>
-                    <p>${lesson.description}</p>
-                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                        ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
-                    </div>
-                `;
-                lessonsList.appendChild(lessonCard);
+            if (sortedLessons.length > 0) {
+                for (const [key, lesson] of sortedLessons) {
+                    const lessonCard = document.createElement('a');
+                    lessonCard.href = `${key}.html`;
+                    lessonCard.className = 'lesson-card';
+                    lessonCard.innerHTML = `
+                        <h2>${lesson.icon} ${lesson.title}</h2>
+                        <p>${lesson.description}</p>
+                        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
+                            ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
+                        </div>
+                    `;
+                    lessonsList.appendChild(lessonCard);
+                }
+            } else {
+                lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
             }
         } else {
-            lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
+            lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Подключите файл lessons-data.js</div>';
         }
     </script>
 </body>
