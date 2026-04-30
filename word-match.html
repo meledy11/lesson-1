@@ -231,31 +231,19 @@
                         word = raw.substring(0, firstSpace);
                         pinyinPart = raw.substring(firstSpace + 1).trim();
                     } else {
-                        // Нет пробела — example это само слово
                         word = raw;
-                        pinyinPart = tone.pinyin || '';
+                        pinyinPart = tone.pinyin;
                     }
                     
-                    // Только двусложные иероглифы
                     if (!word || !/^[\u4e00-\u9fff]+$/.test(word)) continue;
                     if (word.length < 2) continue;
-                    
-                    // Если пиньинь слитный (Yīngguó) — разделяем
-                    if (pinyinPart && !/\s/.test(pinyinPart) && /[A-Z]/.test(pinyinPart)) {
-                        pinyinPart = pinyinPart.replace(/([a-zà-ǜ])([A-Z])/g, '$1 $2').toLowerCase();
-                    }
-                    
-                    // Если пиньинь всё ещё нет — используем syllable + tone.pinyin
-                    if (!pinyinPart || !/[a-zA-Z]/.test(pinyinPart)) {
-                        pinyinPart = tone.pinyin + ' ' + syllable;
-                    }
                     
                     if (seen.has(word)) continue;
                     seen.add(word);
                     
                     allWords.push({
                         word: word,
-                        pinyin: pinyinPart.toLowerCase(),
+                        pinyin: pinyinPart,
                         meaning: tone.meaning || '',
                         example_ru: tone.example_ru || tone.meaning || '',
                         sound: word
@@ -263,7 +251,7 @@
                 }
             }
         }
-        allWords = allWords.sort(() => Math.random() - 0.5);
+        allWords.sort(() => Math.random() - 0.5);
     }
     
     // ========== ОЗВУЧКА ==========
@@ -287,7 +275,7 @@
     // ========== ИГРА 1: ИЕРОГЛИФ → ПИНЬИНЬ ==========
     function renderPinyinGame() {
         if (allWords.length === 0) {
-            document.getElementById('gameArea').innerHTML = '<p style="color:#ffb347;">⚠️ Нет загруженных слов</p>';
+            document.getElementById('gameArea').innerHTML = '<p style="color:#ffb347;">⚠️ Нет слов</p>';
             return;
         }
         const word = getRandomWord();
