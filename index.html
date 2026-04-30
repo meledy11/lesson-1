@@ -188,14 +188,30 @@
             margin-bottom: 0.7rem;
             border-left: 5px solid #FF8C42;
             transition: 0.1s;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
         .dict-item:hover { background: #FFF0E0; transform: translateX(5px); }
+        .dict-content {
+            flex: 1;
+            min-width: 180px;
+        }
         .dict-chinese {
             font-size: 1.5rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
             cursor: pointer;
             display: inline-block;
+            background: #FFF0E0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+        .dict-chinese:active {
+            background: #FFD699;
+            transform: scale(0.97);
         }
         .dict-pinyin {
             color: #FF8C42;
@@ -213,6 +229,27 @@
             border-radius: 15px;
             font-size: 0.7rem;
             margin-top: 0.5rem;
+        }
+        .speak-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-left: 0.8rem;
+            transition: 0.1s;
+            box-shadow: 0 3px 0 #C16F1A;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .speak-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #C16F1A;
         }
         .stats-info {
             background: #FFF1C1;
@@ -238,6 +275,21 @@
             .games-grid { grid-template-columns: 1fr; }
             .lessons-list { grid-template-columns: 1fr; }
             .hero h1 { font-size: 1.3rem; }
+            .dict-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .speak-btn {
+                margin-left: 0;
+                margin-top: 0.7rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+                align-self: flex-end;
+            }
+            .dict-chinese {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -245,7 +297,7 @@
     <div class="container">
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь с поиском 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь с поиском и озвучкой 🎧</p>
         </div>
         
         <!-- ВКЛАДКИ -->
@@ -300,7 +352,7 @@
         <!-- ВКЛАДКА: СЛОВАРЬ -->
         <div class="tab-content" id="tab-dictionary">
             <div class="speak-tip">
-                <span>🔍</span> Ищи по иероглифам, пиньиню или русскому переводу <span>🔍</span>
+                <span>🔊</span> Нажми на иероглиф или на кнопку 🔊 — слушай произношение! <span>🔊</span>
             </div>
             
             <div class="search-box">
@@ -327,7 +379,7 @@
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 🌟
+            🌟 Нажимай на иероглифы или на кнопку 🔊 — слушай правильное произношение! 🌟
         </footer>
     </div>
     
@@ -344,9 +396,13 @@
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
                 document.getElementById('tab-' + tabName).classList.add('active');
                 
-                // Обновляем статистику при открытии словаря
+                // Обновляем статистику и поиск при открытии словаря
                 if (tabName === 'dictionary') {
                     updateStats();
+                    // Автоматически показываем текущий поиск или все слова при открытии
+                    if (typeof phrasesDB !== 'undefined') {
+                        searchDictionary();
+                    }
                 }
             });
         });
@@ -386,6 +442,55 @@
         let currentLevel = 'all';
         let allPhrases = [];
         
+        // Глобальная функция для озвучивания китайской речи с улучшенной обработкой
+        window.speakChinese = function(text) {
+            if (!text || text.trim() === '') return;
+            
+            // Отменяем текущее произношение, чтобы не накладывалось
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            
+            // Небольшая задержка для корректного запуска после отмены
+            setTimeout(() => {
+                try {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'zh-CN';
+                    utterance.rate = 0.7;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+                    
+                    // Для некоторых браузеров нужно указывать голос явно (китайский)
+                    const setChineseVoice = () => {
+                        const voices = window.speechSynthesis.getVoices();
+                        const chineseVoice = voices.find(voice => voice.lang === 'zh-CN' || voice.lang === 'zh');
+                        if (chineseVoice) {
+                            utterance.voice = chineseVoice;
+                        }
+                        window.speechSynthesis.speak(utterance);
+                    };
+                    
+                    // Если голоса уже загружены
+                    if (window.speechSynthesis.getVoices().length > 0) {
+                        setChineseVoice();
+                    } else {
+                        // Ждем загрузки голосов
+                        window.speechSynthesis.onvoiceschanged = () => {
+                            setChineseVoice();
+                        };
+                        setChineseVoice(); // пробуем без ожидания
+                    }
+                } catch (e) {
+                    console.warn('Ошибка синтеза речи:', e);
+                    // Альтернативная попытка без указания голоса
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'zh-CN';
+                    utterance.rate = 0.7;
+                    window.speechSynthesis.speak(utterance);
+                }
+            }, 50);
+        };
+        
         function updateStats() {
             if (typeof phrasesDB !== 'undefined' && phrasesDB.length > 0) {
                 const statsDiv = document.getElementById('statsInfo');
@@ -400,15 +505,6 @@
             } else {
                 document.getElementById('statsInfo').innerHTML = '⚠️ База phrases-db.js не загружена!';
             }
-        }
-        
-        function speakChinese(text) {
-            if (!window.speechSynthesis) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.7;
-            setTimeout(() => window.speechSynthesis.speak(utterance), 100);
         }
         
         function searchDictionary() {
@@ -444,14 +540,19 @@
             let html = '';
             filtered.forEach(phrase => {
                 const stars = '⭐'.repeat(phrase.level);
+                // Экранируем кавычки для корректной передачи в onclick
+                const safeChinese = phrase.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 html += `
                     <div class="dict-item">
-                        <div>
-                            <div class="dict-chinese" onclick="speakChinese('${phrase.chinese}')">${phrase.chinese}</div>
-                            <span class="dict-pinyin">${phrase.pinyin}</span>
+                        <div class="dict-content">
+                            <div>
+                                <span class="dict-chinese" onclick="speakChinese('${safeChinese}')" title="Нажми, чтобы услышать">${phrase.chinese}</span>
+                                <span class="dict-pinyin">${phrase.pinyin}</span>
+                            </div>
+                            <div class="dict-russian">${phrase.russian}</div>
+                            <div class="dict-level">Уровень ${phrase.level} ${stars}</div>
                         </div>
-                        <div class="dict-russian">${phrase.russian}</div>
-                        <div class="dict-level">Уровень ${phrase.level} ${stars}</div>
+                        <button class="speak-btn" onclick="speakChinese('${safeChinese}')" title="Прослушать произношение">🔊</button>
                     </div>
                 `;
             });
@@ -475,22 +576,32 @@
         });
         
         // Поиск при нажатии Enter
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchDictionary();
-        });
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchDictionary();
+            });
+        }
         
-        // Инициализация
+        // Инициализация словаря
         if (typeof phrasesDB !== 'undefined') {
             allPhrases = phrasesDB;
             updateStats();
             // Показываем все фразы при загрузке
             setTimeout(() => {
                 searchDictionary();
-            }, 100);
+            }, 150);
         } else {
             console.error('phrasesDB не загружена! Проверьте файл phrases-db.js');
-            document.getElementById('statsInfo').innerHTML = '❌ Файл phrases-db.js не найден!';
+            document.getElementById('statsInfo').innerHTML = '❌ Файл phrases-db.js не найден! Убедитесь, что он в той же папке.';
+            document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Не удалось загрузить базу слов. Проверьте наличие файла phrases-db.js</div>';
+        }
+        
+        // Небольшое улучшение для мобильных устройств: обработка касаний без задержек
+        if ('ontouchstart' in window) {
+            document.body.style.touchAction = 'manipulation';
         }
     </script>
 </body>
 </html>
+```
