@@ -155,7 +155,28 @@ const pinyinFullDB = {
             }
         }
     },
-
+"HOM": {
+        desc: "Омонимы — те же слог и тон, но другие иероглифы",
+        ru_sound: "дополнительные значения к основным",
+        articulation: "",
+        sound: "",
+        syllables: {
+            ba: {
+                translation: "ба (омонимы)",
+                tones: [
+                    { tone: "1-й", pinyin: "bā", ru: "ба", char: "巴", meaning: "бар 🍸", example: "酒吧", example_ru: "бар", sound: "酒吧" },
+                    { tone: "4-й", pinyin: "bà", ru: "ба", char: "霸", meaning: "гегемон 👑", example: "霸王", example_ru: "деспот", sound: "霸王" }
+                ]
+            },
+            shi: {
+                translation: "ши (омонимы)",
+                tones: [
+                    { tone: "4-й", pinyin: "shì", ru: "ши", char: "事", meaning: "дело 📋", example: "事情", example_ru: "дело", sound: "事情" },
+                    { tone: "4-й", pinyin: "shì", ru: "ши", char: "市", meaning: "город 🏙️", example: "城市", example_ru: "город", sound: "城市" }
+                ]
+            }
+        }
+    },
     // ==================== P (ИСПРАВЛЕН) ====================
     p: {
         desc: "p [pʰ] — как «п» с сильным выдохом (положи руку перед ртом)",
