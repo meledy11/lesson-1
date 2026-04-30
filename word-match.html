@@ -1,40 +1,416 @@
-function loadWords() {
-    if (typeof pinyinFullDB === 'undefined') {
-        document.getElementById('gameArea').innerHTML = '<p style="color:#e94560;">❌ База не загружена!</p>';
-        return;
-    }
-    allWords = [];
-    const seen = new Set();
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📚 УГАДАЙ СЛОВО | Весёлый китайский</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            color: white;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #e94560, #c23152);
+            border-radius: 60px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 15px 0 #8b1e3f;
+        }
+        .hero h1 { font-size: 1.5rem; }
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: #e94560;
+            text-decoration: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 0 #ccc;
+        }
+        .back-btn:active { transform: translateY(2px); }
+        
+        .game-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .game-tab {
+            background: #2a2a4a;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.1s;
+        }
+        .game-tab.active {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            box-shadow: 0 4px 0 #8b1e3f;
+        }
+        .game-tab:active { transform: scale(0.96); }
+        
+        .score-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+        }
+        .score-bar span {
+            background: #1a1a3e;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+        }
+        
+        .game-area {
+            background: #2a2a4a;
+            border-radius: 40px;
+            padding: 1.5rem;
+            min-height: 300px;
+            box-shadow: 0 10px 0 #1a1a3e;
+            text-align: center;
+        }
+        
+        .word-display {
+            font-size: 3.5rem;
+            font-family: 'Noto Sans SC', monospace;
+            margin: 1rem 0;
+            background: #1a1a3e;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            letter-spacing: 0.2rem;
+        }
+        
+        .meaning-hint {
+            font-size: 1rem;
+            color: #ffb347;
+            margin: 0.3rem 0;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+        .option-btn {
+            background: #3a3a6a;
+            color: white;
+            border: 3px solid #5a5a8a;
+            padding: 1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.08s;
+            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        }
+        .option-btn:hover { background: #4a4a8a; }
+        .option-btn:active { transform: scale(0.95); }
+        .option-btn.correct { background: #4CAF50; border-color: #2E7D32; }
+        .option-btn.wrong { background: #e94560; border-color: #8b1e3f; }
+        .option-btn:disabled { cursor: default; opacity: 0.8; }
+        
+        .btn {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 0 #8b1e3f;
+            margin: 0.3rem;
+        }
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #8b1e3f; }
+        .btn.secondary { background: #ffb347; box-shadow: 0 4px 0 #b87a2b; }
+        
+        .play-btn {
+            background: #ffb347;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0.3rem;
+        }
+        .play-btn:active { transform: scale(0.95); }
+        
+        .result-msg {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            min-height: 1.8rem;
+        }
+        .result-msg.ok { color: #4CAF50; }
+        .result-msg.fail { color: #ff6b6b; }
+        
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .word-display { font-size: 2.5rem; }
+            .option-btn { font-size: 1rem; padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📚 УГАДАЙ СЛОВО</h1>
+        <a href="index.html" class="back-btn">🏠 На главную</a>
+    </div>
     
-    for (const [initial, data] of Object.entries(pinyinFullDB)) {
-        if (!data.syllables) continue;
-        for (const [syllable, sylData] of Object.entries(data.syllables)) {
-            if (!sylData.tones) continue;
-            for (const tone of sylData.tones) {
-                if (tone.char === '—' || !tone.char) continue;
-                if (!tone.example || tone.example === '—') continue;
-                
-                // Разбираем example: "一份 yī fèn" → слово="一份", пиньинь="yī fèn"
-                const parts = tone.example.split(/\s+/);
-                const word = parts[0];  // "一份"
-                const fullPinyin = parts.slice(1).join(' ');  // "yī fèn"
-                
-                // Проверяем что слово — иероглифы
-                if (!word || !/[\u4e00-\u9fff]/.test(word)) continue;
-                if (word.length < 2) continue;  // только двусложные
-                
-                if (seen.has(word)) continue;
-                seen.add(word);
-                
-                allWords.push({
-                    word: word,
-                    pinyin: fullPinyin || tone.pinyin,  // полный пиньинь слова
-                    meaning: tone.meaning || '',
-                    example_ru: tone.example_ru || tone.meaning || '',
-                    sound: word  // для озвучки — слово целиком
-                });
+    <div class="game-selector">
+        <button class="game-tab active" data-game="pinyin">🇨🇳 Иероглиф → Пиньинь</button>
+        <button class="game-tab" data-game="meaning">🇷🇺 Иероглиф → Перевод</button>
+        <button class="game-tab" data-game="listen">👂 Слух → Иероглиф</button>
+    </div>
+    
+    <div class="score-bar">
+        <span>🏆 <strong id="score">0</strong></span>
+        <span>✅ <strong id="correct">0</strong></span>
+        <span>❌ <strong id="wrong">0</strong></span>
+        <span>🔥 <strong id="streak">0</strong></span>
+    </div>
+    
+    <div class="game-area" id="gameArea">
+        <p style="padding:2rem; color:#ffb347;">Загружаю слова из базы...</p>
+    </div>
+    
+    <div style="text-align:center; margin-top:1rem;">
+        <button class="btn" onclick="nextQuestion()">▶ Следующее</button>
+        <button class="btn secondary" onclick="resetScore()">🔄 Сбросить</button>
+    </div>
+</div>
+
+<script src="pinyin-full-db.js"></script>
+<script>
+    let currentGame = 'pinyin';
+    let score = 0, correctCount = 0, wrongCount = 0, streak = 0;
+    let currentWord = null;
+    let allWords = [];
+    let answered = false;
+    
+    // ========== ЗАГРУЗКА СЛОВ ИЗ БАЗЫ ==========
+    function loadWords() {
+        if (typeof pinyinFullDB === 'undefined') {
+            document.getElementById('gameArea').innerHTML = '<p style="color:#e94560;">❌ База не загружена!</p>';
+            return;
+        }
+        allWords = [];
+        const seen = new Set();
+        
+        for (const [initial, data] of Object.entries(pinyinFullDB)) {
+            if (!data.syllables) continue;
+            for (const [syllable, sylData] of Object.entries(data.syllables)) {
+                if (!sylData.tones) continue;
+                for (const tone of sylData.tones) {
+                    if (tone.char === '—' || !tone.char) continue;
+                    if (!tone.example || tone.example === '—') continue;
+                    
+                    // Разбираем example: "一份 yī fèn" → слово="一份", пиньинь="yī fèn"
+                    const parts = tone.example.split(/\s+/);
+                    const word = parts[0];
+                    const fullPinyin = parts.slice(1).join(' ');
+                    
+                    // Только двусложные слова из иероглифов
+                    if (!word || !/[\u4e00-\u9fff]/.test(word)) continue;
+                    if (word.length < 2) continue;
+                    
+                    if (seen.has(word)) continue;
+                    seen.add(word);
+                    
+                    allWords.push({
+                        word: word,
+                        pinyin: fullPinyin || tone.pinyin,
+                        meaning: tone.meaning || '',
+                        example_ru: tone.example_ru || tone.meaning || '',
+                        sound: word
+                    });
+                }
             }
         }
+        allWords = allWords.sort(() => Math.random() - 0.5);
     }
-    allWords = allWords.sort(() => Math.random() - 0.5);
-}
+    
+    // ========== ОЗВУЧКА ==========
+    function speakWord(word) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(word);
+        u.lang = 'zh-CN';
+        u.rate = 0.7;
+        setTimeout(() => window.speechSynthesis.speak(u), 100);
+    }
+    
+    function getRandomWord() {
+        return allWords[Math.floor(Math.random() * allWords.length)];
+    }
+    
+    function getWrongOptions(correct, count) {
+        return allWords.filter(w => w.word !== correct.word).sort(() => Math.random() - 0.5).slice(0, count);
+    }
+    
+    // ========== ИГРА 1: ИЕРОГЛИФ → ПИНЬИНЬ ==========
+    function renderPinyinGame() {
+        const word = getRandomWord();
+        currentWord = word;
+        answered = false;
+        
+        const options = [word];
+        const added = new Set([word.pinyin]);
+        const wrongs = getWrongOptions(word, 5).filter(w => !added.has(w.pinyin));
+        for (const w of wrongs) {
+            if (!added.has(w.pinyin) && options.length < 4) { options.push(w); added.add(w.pinyin); }
+        }
+        const shuffled = options.sort(() => Math.random() - 0.5);
+        
+        document.getElementById('gameArea').innerHTML = `
+            <p style="color:#ffb347;">Как читается это слово?</p>
+            <div class="word-display">${word.word}</div>
+            <div class="meaning-hint">${word.meaning || ''}</div>
+            <div class="result-msg" id="resultMsg"></div>
+            <div class="options-grid">
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.pinyin.replace(/'/g, "\\'")}', '${word.pinyin.replace(/'/g, "\\'")}')">${w.pinyin}</button>`).join('')}
+            </div>
+            <button class="play-btn" onclick="speakWord('${word.word}')">🔊 Слушать</button>
+        `;
+    }
+    
+    // ========== ИГРА 2: ИЕРОГЛИФ → ПЕРЕВОД ==========
+    function renderMeaningGame() {
+        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—');
+        const pool = withRu.length >= 4 ? withRu : allWords;
+        const correct = pool[Math.floor(Math.random() * pool.length)];
+        currentWord = correct;
+        answered = false;
+        
+        const options = [correct];
+        const added = new Set([correct.example_ru]);
+        const wrongs = pool.filter(w => !added.has(w.example_ru)).sort(() => Math.random() - 0.5);
+        for (const w of wrongs) {
+            if (!added.has(w.example_ru) && options.length < 4) { options.push(w); added.add(w.example_ru); }
+        }
+        const shuffled = options.sort(() => Math.random() - 0.5);
+        
+        document.getElementById('gameArea').innerHTML = `
+            <p style="color:#ffb347;">Что значит это слово?</p>
+            <div class="word-display">${correct.word}</div>
+            <div class="result-msg" id="resultMsg"></div>
+            <div class="options-grid">
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.example_ru.replace(/'/g, "\\'")}', '${correct.example_ru.replace(/'/g, "\\'")}')" style="font-family:'Segoe UI',sans-serif; font-size:0.95rem;">${w.example_ru}</button>`).join('')}
+            </div>
+            <button class="play-btn" onclick="speakWord('${correct.word}')">🔊 Слушать</button>
+        `;
+    }
+    
+    // ========== ИГРА 3: СЛУХ → ИЕРОГЛИФ ==========
+    function renderListenGame() {
+        const word = getRandomWord();
+        currentWord = word;
+        answered = false;
+        
+        const options = [word];
+        const added = new Set([word.word]);
+        const wrongs = getWrongOptions(word, 5).filter(w => !added.has(w.word));
+        for (const w of wrongs) {
+            if (!added.has(w.word) && options.length < 4) { options.push(w); added.add(w.word); }
+        }
+        const shuffled = options.sort(() => Math.random() - 0.5);
+        
+        document.getElementById('gameArea').innerHTML = `
+            <p style="color:#ffb347;">Что вы услышали?</p>
+            <div class="word-display" style="font-size:4rem;">👂</div>
+            <div class="result-msg" id="resultMsg"></div>
+            <div class="options-grid">
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.word}', '${word.word}')">${w.word}</button>`).join('')}
+            </div>
+            <button class="play-btn" onclick="speakWord('${word.word}')">🔊 Прослушать ещё раз</button>
+        `;
+        
+        setTimeout(() => speakWord(word.word), 500);
+    }
+    
+    // ========== ПРОВЕРКА ==========
+    function checkAnswer(btn, selected, correct) {
+        if (answered) return;
+        answered = true;
+        
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => b.disabled = true);
+        const msgEl = document.getElementById('resultMsg');
+        
+        if (selected === correct) {
+            btn.classList.add('correct');
+            score += 10 + Math.min(streak, 10);
+            correctCount++;
+            streak++;
+            if (msgEl) { msgEl.textContent = '✅ Правильно!'; msgEl.className = 'result-msg ok'; }
+        } else {
+            btn.classList.add('wrong');
+            wrongCount++;
+            streak = 0;
+            buttons.forEach(b => { if (b.textContent.trim() === correct) b.classList.add('correct'); });
+            if (msgEl) { msgEl.textContent = '❌ Неверно! Правильно: ' + correct; msgEl.className = 'result-msg fail'; }
+        }
+        updateScore();
+    }
+    
+    function updateScore() {
+        document.getElementById('score').textContent = score;
+        document.getElementById('correct').textContent = correctCount;
+        document.getElementById('wrong').textContent = wrongCount;
+        document.getElementById('streak').textContent = streak;
+    }
+    
+    function nextQuestion() {
+        if (currentGame === 'pinyin') renderPinyinGame();
+        else if (currentGame === 'meaning') renderMeaningGame();
+        else if (currentGame === 'listen') renderListenGame();
+    }
+    
+    function resetScore() {
+        score = 0; correctCount = 0; wrongCount = 0; streak = 0;
+        updateScore();
+        nextQuestion();
+    }
+    
+    // ========== ПЕРЕКЛЮЧЕНИЕ ИГР ==========
+    document.querySelectorAll('.game-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentGame = this.dataset.game;
+            resetScore();
+        });
+    });
+    
+    // ========== ЗАПУСК ==========
+    window.addEventListener('DOMContentLoaded', () => {
+        const checkDB = setInterval(() => {
+            if (typeof pinyinFullDB !== 'undefined') {
+                clearInterval(checkDB);
+                loadWords();
+                document.getElementById('gameArea').innerHTML = '<p style="padding:2rem; color:#4CAF50;">✅ Загружено слов: <strong>' + allWords.length + '</strong></p>';
+                setTimeout(renderPinyinGame, 300);
+            }
+        }, 100);
+    });
+</script>
+</body>
+</html>
