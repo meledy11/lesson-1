@@ -223,12 +223,20 @@
                     if (tone.char === '—' || !tone.char) continue;
                     if (!tone.example || tone.example === '—') continue;
                     
-                    // Разбираем example: "一份 yī fèn" → слово="一份", пиньинь="yī fèn"
                     const parts = tone.example.split(/\s+/);
                     const word = parts[0];
-                    const fullPinyin = parts.slice(1).join(' ');
+                    let fullPinyin = parts.slice(1).join(' ');
                     
-                    // Только двусложные слова из иероглифов
+                    // Если пиньинь только один слог, а слово двусложное — 
+                    // пробуем добавить syllable как второй слог
+                    if (fullPinyin.split(/\s+/).length < 2 && word.length >= 2) {
+                        // Ищем второй слог в других тонах того же syllable
+                        const sylTones = sylData.tones || [];
+                        if (sylTones.length > 0) {
+                            fullPinyin = tone.pinyin + ' ' + syllable;
+                        }
+                    }
+                    
                     if (!word || !/[\u4e00-\u9fff]/.test(word)) continue;
                     if (word.length < 2) continue;
                     
