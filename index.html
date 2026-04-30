@@ -5,6 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📚 Весёлый китайский - Все уроки</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Стили для вкладок */
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .tab-btn {
+            background: #FFE0C0;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+        .tab-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Стили для игр */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .game-card {
+            background: white;
+            border-radius: 30px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            cursor: pointer;
+            transition: 0.1s;
+            text-decoration: none;
+            color: #A64B2A;
+        }
+        .game-card:active {
+            transform: translateY(3px);
+            box-shadow: 0 7px 0 #D98F33;
+        }
+        .game-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .game-card .game-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .game-card p {
+            font-size: 0.85rem;
+            color: #8B5A2B;
+        }
+        
+        @media (max-width: 600px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,11 +92,68 @@
             <p>🎧 Интерактивные уроки с озвучкой 🎧</p>
         </div>
         
-        <div class="speak-tip">
-            <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
+        <!-- ВКЛАДКИ -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+            <button class="tab-btn" data-tab="games">🎮 Игры</button>
+            <button class="tab-btn" data-tab="tools">🔧 Инструменты</button>
         </div>
         
-        <div class="lessons-list" id="lessonsList"></div>
+        <!-- ВКЛАДКА: УРОКИ -->
+        <div class="tab-content active" id="tab-lessons">
+            <div class="speak-tip">
+                <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
+            </div>
+            <div class="lessons-list" id="lessonsList"></div>
+        </div>
+        
+        <!-- ВКЛАДКА: ИГРЫ -->
+        <div class="tab-content" id="tab-games">
+            <div class="speak-tip">
+                <span>🎮</span> Тренируй слова, тоны и произношение! <span>🎮</span>
+            </div>
+            <div class="games-grid">
+                <a href="word-match.html" class="game-card">
+                    <div class="game-icon">📚</div>
+                    <h3>Угадай слово</h3>
+                    <p>Иероглиф → пиньинь, перевод или на слух</p>
+                </a>
+                <a href="majong-radicals.html" class="game-card">
+                    <div class="game-icon">🀄️</div>
+                    <h3>Маджонг радикалов</h3>
+                    <p>Соединяй радикал со словом (214 ключей)</p>
+                </a>
+                <a href="pinyin-table.html" class="game-card">
+                    <div class="game-icon">🎵</div>
+                    <h3>Таблица пиньиня</h3>
+                    <p>Все инициали и финали с тонами</p>
+                </a>
+                <a href="copybook.html" class="game-card">
+                    <div class="game-icon">✍️</div>
+                    <h3>Тетрадь прописей</h3>
+                    <p>Пиши иероглифы и слушай произношение</p>
+                </a>
+            </div>
+        </div>
+        
+        <!-- ВКЛАДКА: ИНСТРУМЕНТЫ -->
+        <div class="tab-content" id="tab-tools">
+            <div class="speak-tip">
+                <span>🔧</span> Полезные инструменты для изучения <span>🔧</span>
+            </div>
+            <div class="games-grid">
+                <a href="pinyin-table.html" class="game-card">
+                    <div class="game-icon">🔍</div>
+                    <h3>Поиск по пиньиню</h3>
+                    <p>Найди любой слог или иероглиф</p>
+                </a>
+                <a href="copybook.html" class="game-card">
+                    <div class="game-icon">✍️</div>
+                    <h3>Прописи</h3>
+                    <p>Тренируй написание иероглифов</p>
+                </a>
+            </div>
+        </div>
         
         <footer>
             🌟 Нажимай на иероглифы и фразы — слушай правильное произношение! 🌟
@@ -26,30 +162,42 @@
     
     <script src="lessons-data.js"></script>
     <script>
-        const lessonsList = document.getElementById('lessonsList');
-        
-        // Сортируем уроки: lesson0 первый, затем остальные по порядку
-        const sortedLessons = Object.entries(lessonsDB).sort((a, b) => {
-            const numA = parseInt(a[0].replace('lesson', '')) || 0;
-            const numB = parseInt(b[0].replace('lesson', '')) || 0;
-            return numA - numB;
+        // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById('tab-' + tabName).classList.add('active');
+            });
         });
         
-        for (const [key, lesson] of sortedLessons) {
-            const lessonCard = document.createElement('a');
-            lessonCard.href = `${key}.html`;
-            lessonCard.className = 'lesson-card';
-            lessonCard.innerHTML = `
-                <h2>${lesson.icon} ${lesson.title}</h2>
-                <p>${lesson.description}</p>
-                <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                    ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
-                </div>
-            `;
-            lessonsList.appendChild(lessonCard);
-        }
+        // ===== ЗАГРУЗКА УРОКОВ =====
+        const lessonsList = document.getElementById('lessonsList');
         
-        if (Object.keys(lessonsDB).length === 0) {
+        if (typeof lessonsDB !== 'undefined') {
+            const sortedLessons = Object.entries(lessonsDB).sort((a, b) => {
+                const numA = parseInt(a[0].replace('lesson', '')) || 0;
+                const numB = parseInt(b[0].replace('lesson', '')) || 0;
+                return numA - numB;
+            });
+            
+            for (const [key, lesson] of sortedLessons) {
+                const lessonCard = document.createElement('a');
+                lessonCard.href = `${key}.html`;
+                lessonCard.className = 'lesson-card';
+                lessonCard.innerHTML = `
+                    <h2>${lesson.icon} ${lesson.title}</h2>
+                    <p>${lesson.description}</p>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
+                        ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
+                    </div>
+                `;
+                lessonsList.appendChild(lessonCard);
+            }
+        } else {
             lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
         }
     </script>
