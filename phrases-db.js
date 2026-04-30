@@ -262,8 +262,8 @@ const phrasesDB = [
     { chinese: "欢迎来我家", pinyin: "huānyíng lái wǒ jiā", russian: "Добро пожаловать ко мне", level: 2, words: ["欢", "迎", "来", "我", "家"] },
     { chinese: "随便坐", pinyin: "suíbiàn zuò", russian: "Садись где хочешь", level: 2, words: ["随", "便", "坐"] },
     { chinese: "我去开门", pinyin: "wǒ qù kāi mén", russian: "Я открою дверь", level: 2, words: ["我", "去", "开", "门"] },
-    { chinese: "有人敲门", pinyin: "yǒu rén qiāo mén", russian: "Кто-то стучит", level: 2, words: ["有", "人", "敲", "门"] }
-];
+    { chinese: "有人敲门", pinyin: "yǒu rén qiāo mén", russian: "Кто-то стучит", level: 2, words: ["有", "人", "敲", "门"] },
+
 // ==================== УРОВЕНЬ 3 ⭐⭐⭐: РАБОТА, УЧЁБА, ЗДОРОВЬЕ (120 фраз) ====================
     // --- Работа (30) ---
     { chinese: "我上班去了", pinyin: "wǒ shàngbān qù le", russian: "Я пошёл на работу", level: 3, words: ["我", "上", "班", "去", "了"] },
@@ -488,8 +488,8 @@ const phrasesDB = [
     { chinese: "真没想到", pinyin: "zhēn méi xiǎng dào", russian: "Не ожидал", level: 4, words: ["真", "没", "想", "到"] },
     { chinese: "太可惜了", pinyin: "tài kěxī le", russian: "Очень жаль", level: 4, words: ["太", "可", "惜", "了"] },
     { chinese: "没事别担心", pinyin: "méi shì bié dānxīn", russian: "Всё в порядке, не переживай", level: 4, words: ["没", "事", "别", "担", "心"] },
-    { chinese: "一切都会好起来的", pinyin: "yíqiè dōu huì hǎo qǐlái de", russian: "Всё наладится", level: 4, words: ["一", "切", "都", "会", "好", "起", "来", "的"] }
-];
+    { chinese: "一切都会好起来的", pinyin: "yíqiè dōu huì hǎo qǐlái de", russian: "Всё наладится", level: 4, words: ["一", "切", "都", "会", "好", "起", "来", "的"] },
+
 // ==================== УРОВЕНЬ 5 ⭐⭐⭐⭐⭐: БИЗНЕС, ЭМОЦИИ, ПРАКТИКА (120 фраз) ====================
     // --- Бизнес и переговоры (30) ---
     { chinese: "很高兴和你见面", pinyin: "hěn gāoxìng hé nǐ jiànmiàn", russian: "Рад встрече с вами", level: 5, words: ["很", "高", "兴", "和", "你", "见", "面"] },
