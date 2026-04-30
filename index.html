@@ -28,6 +28,35 @@
         .hero h1 { font-size: 2rem; }
         .hero p { font-size: 1rem; margin-top: 0.5rem; }
         
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+            background: white;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #C16F1A; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
         .speak-tip {
             text-align: center;
             background: #FFF1C1;
@@ -59,24 +88,29 @@
         .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
         
-        .game-link {
-            display: block;
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .game-card {
+            background: white;
+            border-radius: 30px;
+            padding: 1.5rem;
             text-align: center;
-            margin-top: 1.5rem;
-        }
-        .game-link a {
-            display: inline-block;
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 8px 0 #8b1e3f;
+            border: 3px solid #e94560;
+            box-shadow: 0 10px 0 #8b1e3f;
+            cursor: pointer;
             transition: 0.1s;
+            text-decoration: none;
+            color: #A64B2A;
+            display: block;
         }
-        .game-link a:active { transform: translateY(3px); box-shadow: 0 5px 0 #8b1e3f; }
+        .game-card:hover { transform: translateY(-2px); }
+        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #8b1e3f; }
+        .game-card .game-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .game-card p { font-size: 0.85rem; color: #8B5A2B; }
         
         footer {
             text-align: center;
@@ -90,6 +124,7 @@
         
         @media (max-width: 600px) {
             .lessons-list { grid-template-columns: 1fr; }
+            .games-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 1.5rem; }
         }
     </style>
@@ -98,17 +133,40 @@
     <div class="container">
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Интерактивные уроки с озвучкой 🎧</p>
+            <p>🎧 Интерактивные уроки с озвучкой | Игры 🎧</p>
         </div>
         
-        <div class="speak-tip">
-            <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
+        <!-- ВКЛАДКИ -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+            <button class="tab-btn" data-tab="games">🎮 Игры</button>
         </div>
         
-        <div class="lessons-list" id="lessonsList"></div>
+        <!-- ВКЛАДКА: УРОКИ -->
+        <div class="tab-content active" id="tab-lessons">
+            <div class="speak-tip">
+                <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
+            </div>
+            <div class="lessons-list" id="lessonsList"></div>
+        </div>
         
-        <div class="game-link">
-            <a href="word-match.html">🎮 Игра: Угадай слово</a>
+        <!-- ВКЛАДКА: ИГРЫ -->
+        <div class="tab-content" id="tab-games">
+            <div class="speak-tip">
+                <span>🎮</span> Тренируй слова и пиньинь в игровой форме! <span>🎮</span>
+            </div>
+            <div class="games-grid">
+                <a href="all-games.html" class="game-card">
+                    <div class="game-icon">📚</div>
+                    <h3>Угадай слово</h3>
+                    <p>Иероглиф → пиньинь, перевод или на слух</p>
+                </a>
+                <a href="all-games.html#dictant" class="game-card">
+                    <div class="game-icon">✍️</div>
+                    <h3>Пиньинь-диктант</h3>
+                    <p>Слушай фразу → пиши пиньинь</p>
+                </a>
+            </div>
         </div>
         
         <footer>
@@ -118,6 +176,19 @@
     
     <script src="lessons-data.js"></script>
     <script>
+        // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById('tab-' + tabName).classList.add('active');
+            });
+        });
+        
+        // ===== ЗАГРУЗКА УРОКОВ =====
         const lessonsList = document.getElementById('lessonsList');
         
         if (typeof lessonsDB !== 'undefined') {
