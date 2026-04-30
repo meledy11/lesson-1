@@ -6,16 +6,38 @@
     <title>📚 Весёлый китайский - Все уроки</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Стили для вкладок */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
+            border-radius: 80px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 20px 0 #C16F1A;
+            color: white;
+        }
+        .hero h1 { font-size: 2rem; }
+        .hero p { font-size: 1rem; margin-top: 0.5rem; }
+        
         .tabs-nav {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 1rem 0;
+            margin-bottom: 1.5rem;
         }
         .tab-btn {
-            background: #FFE0C0;
+            background: white;
             color: #A64B2A;
             border: 3px solid #FFB347;
             padding: 0.7rem 1.5rem;
@@ -31,28 +53,53 @@
             color: white;
             box-shadow: 0 4px 0 #C16F1A;
         }
-        .tab-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #C16F1A;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
+        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #C16F1A; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .speak-tip {
+            text-align: center;
+            background: #FFF1C1;
+            padding: 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            border: 2px solid #FFB347;
         }
         
-        /* Стили для игр */
-        .games-grid {
+        /* Стили уроков */
+        .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin-top: 1rem;
+        }
+        .lesson-card {
+            background: white;
+            border-radius: 30px;
+            padding: 1.3rem;
+            text-decoration: none;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            transition: 0.1s;
+            display: block;
+        }
+        .lesson-card:hover { transform: translateY(-2px); }
+        .lesson-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
+        .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
+        
+        /* Стили игр */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
         }
         .game-card {
             background: white;
             border-radius: 30px;
-            padding: 1.5rem;
+            padding: 1.3rem;
             text-align: center;
             border: 3px solid #FFB347;
             box-shadow: 0 10px 0 #D98F33;
@@ -60,28 +107,68 @@
             transition: 0.1s;
             text-decoration: none;
             color: #A64B2A;
+            display: block;
         }
-        .game-card:active {
-            transform: translateY(3px);
-            box-shadow: 0 7px 0 #D98F33;
+        .game-card:hover { transform: translateY(-2px); }
+        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
+        .game-card .game-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-card h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+        .game-card p { font-size: 0.8rem; color: #8B5A2B; }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
-        .game-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+        .tool-card {
+            background: white;
+            border-radius: 30px;
+            padding: 1.3rem;
+            text-align: center;
+            border: 3px solid #4CAF50;
+            box-shadow: 0 10px 0 #2E7D32;
+            cursor: pointer;
+            transition: 0.1s;
+            text-decoration: none;
+            color: #2E7D32;
+            display: block;
         }
-        .game-card .game-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        .tool-card:hover { transform: translateY(-2px); }
+        .tool-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #2E7D32; }
+        .tool-card .tool-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .tool-card h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+        .tool-card p { font-size: 0.8rem; color: #555; }
+        
+        .game-tag {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
         }
-        .game-card p {
-            font-size: 0.85rem;
-            color: #8B5A2B;
+        .game-tag.new { background: #4CAF50; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #FFD699;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #A64B2A;
         }
         
-        @media (max-width: 600px) {
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 800px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+            .lessons-list { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.5rem; }
+        }
+        @media (max-width: 500px) {
+            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -89,7 +176,7 @@
     <div class="container">
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Интерактивные уроки с озвучкой 🎧</p>
+            <p>🎧 Интерактивные уроки с озвучкой | Игры | Прописи 🎧</p>
         </div>
         
         <!-- ВКЛАДКИ -->
@@ -110,28 +197,52 @@
         <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
             <div class="speak-tip">
-                <span>🎮</span> Тренируй слова, тоны и произношение! <span>🎮</span>
+                <span>🎮</span> Тренируй слова, радикалы и произношение в игровой форме! <span>🎮</span>
             </div>
             <div class="games-grid">
+                <!-- Игра 1: Угадай слово -->
                 <a href="word-match.html" class="game-card">
                     <div class="game-icon">📚</div>
                     <h3>Угадай слово</h3>
                     <p>Иероглиф → пиньинь, перевод или на слух</p>
+                    <span class="game-tag new">NEW</span>
                 </a>
+                
+                <!-- Игра 2: Маджонг радикалов -->
                 <a href="majong-radicals.html" class="game-card">
                     <div class="game-icon">🀄️</div>
                     <h3>Маджонг радикалов</h3>
                     <p>Соединяй радикал со словом (214 ключей)</p>
                 </a>
-                <a href="pinyin-table.html" class="game-card">
+                
+                <!-- Игра 3: Таблица пиньиня -->
+                <a href="lesson0.html" class="game-card">
                     <div class="game-icon">🎵</div>
                     <h3>Таблица пиньиня</h3>
-                    <p>Все инициали и финали с тонами</p>
+                    <p>Все инициали и финали с тонами и озвучкой</p>
                 </a>
+                
+                <!-- Игра 4: Тетрадь прописей -->
                 <a href="copybook.html" class="game-card">
                     <div class="game-icon">✍️</div>
                     <h3>Тетрадь прописей</h3>
                     <p>Пиши иероглифы и слушай произношение</p>
+                </a>
+                
+                <!-- Игра 5: Тоновая битва -->
+                <a href="tone-battle.html" class="game-card">
+                    <div class="game-icon">⚡</div>
+                    <h3>Тоновая битва</h3>
+                    <p>Угадай тон иероглифа на скорость</p>
+                    <span class="game-tag">СКОРО</span>
+                </a>
+                
+                <!-- Игра 6: Собери фразу -->
+                <a href="#" class="game-card" onclick="alert('В разработке! 🚧')">
+                    <div class="game-icon">🧩</div>
+                    <h3>Собери фразу</h3>
+                    <p>Составь предложение из слов</p>
+                    <span class="game-tag">СКОРО</span>
                 </a>
             </div>
         </div>
@@ -139,18 +250,28 @@
         <!-- ВКЛАДКА: ИНСТРУМЕНТЫ -->
         <div class="tab-content" id="tab-tools">
             <div class="speak-tip">
-                <span>🔧</span> Полезные инструменты для изучения <span>🔧</span>
+                <span>🔧</span> Полезные инструменты для изучения китайского <span>🔧</span>
             </div>
-            <div class="games-grid">
-                <a href="pinyin-table.html" class="game-card">
-                    <div class="game-icon">🔍</div>
+            <div class="tools-grid">
+                <a href="lesson0.html" class="tool-card">
+                    <div class="tool-icon">🔍</div>
                     <h3>Поиск по пиньиню</h3>
-                    <p>Найди любой слог или иероглиф</p>
+                    <p>Найди любой слог или иероглиф с переводом</p>
                 </a>
-                <a href="copybook.html" class="game-card">
-                    <div class="game-icon">✍️</div>
-                    <h3>Прописи</h3>
-                    <p>Тренируй написание иероглифов</p>
+                <a href="copybook.html" class="tool-card">
+                    <div class="tool-icon">✍️</div>
+                    <h3>Прописи иероглифов</h3>
+                    <p>Тренируй написание с озвучкой</p>
+                </a>
+                <a href="majong-radicals.html" class="tool-card">
+                    <div class="tool-icon">🀄️</div>
+                    <h3>Справочник радикалов</h3>
+                    <p>214 ключей китайских иероглифов</p>
+                </a>
+                <a href="#" class="tool-card" onclick="alert('В разработке! 🚧')">
+                    <div class="tool-icon">📊</div>
+                    <h3>Статистика обучения</h3>
+                    <p>Отслеживай свой прогресс</p>
                 </a>
             </div>
         </div>
@@ -184,21 +305,25 @@
                 return numA - numB;
             });
             
-            for (const [key, lesson] of sortedLessons) {
-                const lessonCard = document.createElement('a');
-                lessonCard.href = `${key}.html`;
-                lessonCard.className = 'lesson-card';
-                lessonCard.innerHTML = `
-                    <h2>${lesson.icon} ${lesson.title}</h2>
-                    <p>${lesson.description}</p>
-                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                        ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
-                    </div>
-                `;
-                lessonsList.appendChild(lessonCard);
+            if (sortedLessons.length > 0) {
+                for (const [key, lesson] of sortedLessons) {
+                    const lessonCard = document.createElement('a');
+                    lessonCard.href = `${key}.html`;
+                    lessonCard.className = 'lesson-card';
+                    lessonCard.innerHTML = `
+                        <h2>${lesson.icon} ${lesson.title}</h2>
+                        <p>${lesson.description}</p>
+                        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
+                            ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
+                        </div>
+                    `;
+                    lessonsList.appendChild(lessonCard);
+                }
+            } else {
+                lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
             }
         } else {
-            lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
+            lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Подключите файл lessons-data.js</div>';
         }
     </script>
 </body>
