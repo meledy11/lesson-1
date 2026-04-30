@@ -3187,8 +3187,7 @@ const pinyinFullDB = {
             }
         }
     },
-// ==================== HOM (ОМОНИМЫ К ОСНОВНЫМ ИНИЦИАЛЯМ) ====================
-    "HOM": {
+"HOM": {
         desc: "Омонимы — одинаковый звук+тон, разные иероглифы",
         ru_sound: "дополнительные иероглифы к уже имеющимся",
         articulation: "",
@@ -3197,163 +3196,163 @@ const pinyinFullDB = {
             ba: {
                 translation: "ба",
                 tones: [
-                    { tone: "1-й", pinyin: "bā", ru: "ба", char: "巴", meaning: "бар 🍸", example: "酒吧", example_ru: "бар", sound: "酒吧", homonyms: [] },
-                    { tone: "4-й", pinyin: "bà", ru: "ба", char: "霸", meaning: "гегемон 👑", example: "霸王", example_ru: "деспот", sound: "霸王", homonyms: [] }
+                    { tone: "1-й", pinyin: "bā", ru: "ба", char: "巴", meaning: "бар 🍸", example: "酒吧", example_ru: "бар", sound: "jiǔ bā", homonyms: [] },
+                    { tone: "4-й", pinyin: "bà", ru: "ба", char: "霸", meaning: "гегемон 👑", example: "霸王", example_ru: "деспот", sound: "bà wáng", homonyms: [] }
                 ]
             },
             shi: {
                 translation: "ши",
                 tones: [
-                    { tone: "4-й", pinyin: "shì", ru: "ши", char: "事", meaning: "дело 📋", example: "事情", example_ru: "дело", sound: "事情", homonyms: [] }
+                    { tone: "4-й", pinyin: "shì", ru: "ши", char: "事", meaning: "дело 📋", example: "事情", example_ru: "дело", sound: "shì qíng", homonyms: [] }
                 ]
             },
             ji: {
                 translation: "цзи",
                 tones: [
-                    { tone: "1-й", pinyin: "jī", ru: "цзи", char: "鸡", meaning: "курица 🐔", example: "鸡蛋", example_ru: "яйцо", sound: "鸡蛋", homonyms: [] },
-                    { tone: "4-й", pinyin: "jì", ru: "цзи", char: "季", meaning: "сезон 🌸", example: "季节", example_ru: "сезон", sound: "季节", homonyms: [] }
+                    { tone: "1-й", pinyin: "jī", ru: "цзи", char: "鸡", meaning: "курица 🐔", example: "鸡蛋", example_ru: "яйцо", sound: "jī dàn", homonyms: [] },
+                    { tone: "4-й", pinyin: "jì", ru: "цзи", char: "季", meaning: "сезон 🌸", example: "季节", example_ru: "сезон", sound: "jì jié", homonyms: [] }
                 ]
             },
             li: {
                 translation: "ли",
                 tones: [
-                    { tone: "4-й", pinyin: "lì", ru: "ли", char: "立", meaning: "стоять 🧍", example: "立刻", example_ru: "сразу", sound: "立刻", homonyms: [] }
+                    { tone: "4-й", pinyin: "lì", ru: "ли", char: "立", meaning: "стоять 🧍", example: "立刻", example_ru: "сразу", sound: "lì kè", homonyms: [] }
                 ]
             },
             yi: {
                 translation: "и",
                 tones: [
-                    { tone: "4-й", pinyin: "yì", ru: "и", char: "义", meaning: "долг ⚖️", example: "意义", example_ru: "смысл", sound: "意义", homonyms: [] }
+                    { tone: "4-й", pinyin: "yì", ru: "и", char: "义", meaning: "долг ⚖️", example: "意义", example_ru: "смысл", sound: "yì yì", homonyms: [] }
                 ]
             },
             yu: {
                 translation: "юй",
                 tones: [
-                    { tone: "4-й", pinyin: "yù", ru: "юй", char: "遇", meaning: "встречать 🤝", example: "遇到", example_ru: "встретить", sound: "遇到", homonyms: [] }
+                    { tone: "4-й", pinyin: "yù", ru: "юй", char: "遇", meaning: "встречать 🤝", example: "遇到", example_ru: "встретить", sound: "yù dào", homonyms: [] }
                 ]
             },
             zuo: {
                 translation: "цзо",
                 tones: [
-                    { tone: "4-й", pinyin: "zuò", ru: "цзо", char: "做", meaning: "делать 🔧", example: "做饭", example_ru: "готовить", sound: "做饭", homonyms: [] }
+                    { tone: "4-й", pinyin: "zuò", ru: "цзо", char: "做", meaning: "делать 🔧", example: "做饭", example_ru: "готовить", sound: "zuò fàn", homonyms: [] }
                 ]
             },
             he: {
                 translation: "хэ",
                 tones: [
-                    { tone: "2-й", pinyin: "hé", ru: "хэ", char: "河", meaning: "река 🏞️", example: "河流", example_ru: "река", sound: "河流", homonyms: [] }
+                    { tone: "2-й", pinyin: "hé", ru: "хэ", char: "河", meaning: "река 🏞️", example: "河流", example_ru: "река", sound: "hé liú", homonyms: [] }
                 ]
             },
             hua: {
                 translation: "хуа",
                 tones: [
-                    { tone: "4-й", pinyin: "huà", ru: "хуа", char: "画", meaning: "рисовать 🎨", example: "画画", example_ru: "рисовать", sound: "画画", homonyms: [] }
+                    { tone: "4-й", pinyin: "huà", ru: "хуа", char: "画", meaning: "рисовать 🎨", example: "画画", example_ru: "рисовать", sound: "huà huà", homonyms: [] }
                 ]
             },
             jia: {
                 translation: "цзя",
                 tones: [
-                    { tone: "1-й", pinyin: "jiā", ru: "цзя", char: "加", meaning: "добавлять ➕", example: "增加", example_ru: "увеличить", sound: "增加", homonyms: [] }
+                    { tone: "1-й", pinyin: "jiā", ru: "цзя", char: "加", meaning: "добавлять ➕", example: "增加", example_ru: "увеличить", sound: "zēng jiā", homonyms: [] }
                 ]
             },
             jian: {
                 translation: "цзянь",
                 tones: [
-                    { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "件", meaning: "штука 🔢", example: "一件", example_ru: "одна штука", sound: "一件", homonyms: [] }
+                    { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "件", meaning: "штука 🔢", example: "一件", example_ru: "одна штука", sound: "yī jiàn", homonyms: [] }
                 ]
             },
             jiu: {
                 translation: "цзю",
                 tones: [
-                    { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "久", meaning: "долгий ⏳", example: "好久", example_ru: "давно", sound: "好久", homonyms: [] }
+                    { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "久", meaning: "долгий ⏳", example: "好久", example_ru: "давно", sound: "hǎo jiǔ", homonyms: [] }
                 ]
             },
             qian: {
                 translation: "цянь",
                 tones: [
-                    { tone: "2-й", pinyin: "qián", ru: "цянь", char: "前", meaning: "перед ⬅️", example: "前面", example_ru: "впереди", sound: "前面", homonyms: [] }
+                    { tone: "2-й", pinyin: "qián", ru: "цянь", char: "前", meaning: "перед ⬅️", example: "前面", example_ru: "впереди", sound: "qián miàn", homonyms: [] }
                 ]
             },
             qing: {
                 translation: "цин",
                 tones: [
-                    { tone: "1-й", pinyin: "qīng", ru: "цин", char: "青", meaning: "сине-зелёный 🔵", example: "青年", example_ru: "молодёжь", sound: "青年", homonyms: [] }
+                    { tone: "1-й", pinyin: "qīng", ru: "цин", char: "青", meaning: "сине-зелёный 🔵", example: "青年", example_ru: "молодёжь", sound: "qīng nián", homonyms: [] }
                 ]
             },
             xi: {
                 translation: "си",
                 tones: [
-                    { tone: "1-й", pinyin: "xī", ru: "си", char: "希", meaning: "надеяться 🙏", example: "希望", example_ru: "надежда", sound: "希望", homonyms: [] }
+                    { tone: "1-й", pinyin: "xī", ru: "си", char: "希", meaning: "надеяться 🙏", example: "希望", example_ru: "надежда", sound: "xī wàng", homonyms: [] }
                 ]
             },
             xin: {
                 translation: "синь",
                 tones: [
-                    { tone: "1-й", pinyin: "xīn", ru: "синь", char: "新", meaning: "новый ✨", example: "新年", example_ru: "новый год", sound: "新年", homonyms: [] }
+                    { tone: "1-й", pinyin: "xīn", ru: "синь", char: "新", meaning: "новый ✨", example: "新年", example_ru: "новый год", sound: "xīn nián", homonyms: [] }
                 ]
             },
             zhi: {
                 translation: "чжи",
                 tones: [
-                    { tone: "4-й", pinyin: "zhì", ru: "чжи", char: "制", meaning: "изготавливать 🏭", example: "制造", example_ru: "производство", sound: "制造", homonyms: [] }
+                    { tone: "4-й", pinyin: "zhì", ru: "чжи", char: "制", meaning: "изготавливать 🏭", example: "制造", example_ru: "производство", sound: "zhì zào", homonyms: [] }
                 ]
             },
             shu: {
                 translation: "шу",
                 tones: [
-                    { tone: "4-й", pinyin: "shù", ru: "шу", char: "数", meaning: "число 🔢", example: "数学", example_ru: "математика", sound: "数学", homonyms: [] }
+                    { tone: "4-й", pinyin: "shù", ru: "шу", char: "数", meaning: "число 🔢", example: "数学", example_ru: "математика", sound: "shù xué", homonyms: [] }
                 ]
             },
             wu: {
                 translation: "у",
                 tones: [
-                    { tone: "4-й", pinyin: "wù", ru: "у", char: "误", meaning: "ошибка ❌", example: "错误", example_ru: "ошибка", sound: "错误", homonyms: [] }
+                    { tone: "4-й", pinyin: "wù", ru: "у", char: "误", meaning: "ошибка ❌", example: "错误", example_ru: "ошибка", sound: "cuò wù", homonyms: [] }
                 ]
             },
             mu: {
                 translation: "му",
                 tones: [
-                    { tone: "4-й", pinyin: "mù", ru: "му", char: "目", meaning: "глаз 👁️", example: "目光", example_ru: "взгляд", sound: "目光", homonyms: [] }
+                    { tone: "4-й", pinyin: "mù", ru: "му", char: "目", meaning: "глаз 👁️", example: "目光", example_ru: "взгляд", sound: "mù guāng", homonyms: [] }
                 ]
             },
             mo: {
                 translation: "мо",
                 tones: [
-                    { tone: "4-й", pinyin: "mò", ru: "мо", char: "墨", meaning: "чернила �", example: "墨水", example_ru: "чернила", sound: "墨水", homonyms: [] }
+                    { tone: "4-й", pinyin: "mò", ru: "мо", char: "墨", meaning: "чернила 🖋️", example: "墨水", example_ru: "чернила", sound: "mò shuǐ", homonyms: [] }
                 ]
             },
             fu: {
                 translation: "фу",
                 tones: [
-                    { tone: "4-й", pinyin: "fù", ru: "фу", char: "附", meaning: "прилагать 📎", example: "附近", example_ru: "рядом", sound: "附近", homonyms: [] }
+                    { tone: "4-й", pinyin: "fù", ru: "фу", char: "附", meaning: "прилагать 📎", example: "附近", example_ru: "рядом", sound: "fù jìn", homonyms: [] }
                 ]
             },
             nan: {
                 translation: "нань",
                 tones: [
-                    { tone: "2-й", pinyin: "nán", ru: "нань", char: "南", meaning: "юг 🧭", example: "南方", example_ru: "юг", sound: "南方", homonyms: [] }
+                    { tone: "2-й", pinyin: "nán", ru: "нань", char: "南", meaning: "юг 🧭", example: "南方", example_ru: "юг", sound: "nán fāng", homonyms: [] }
                 ]
             },
             bei: {
                 translation: "бэй",
                 tones: [
-                    { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "备", meaning: "готовить 📦", example: "准备", example_ru: "подготовка", sound: "准备", homonyms: [] }
+                    { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "备", meaning: "готовить 📦", example: "准备", example_ru: "подготовка", sound: "zhǔn bèi", homonyms: [] }
                 ]
             },
             di: {
                 translation: "ди",
                 tones: [
-                    { tone: "4-й", pinyin: "dì", ru: "ди", char: "第", meaning: "номер 🔢", example: "第一", example_ru: "первый", sound: "第一", homonyms: [] }
+                    { tone: "4-й", pinyin: "dì", ru: "ди", char: "第", meaning: "номер 🔢", example: "第一", example_ru: "первый", sound: "dì yī", homonyms: [] }
                 ]
             },
             gong: {
                 translation: "гун",
                 tones: [
-                    { tone: "1-й", pinyin: "gōng", ru: "гун", char: "功", meaning: "заслуга 🏆", example: "成功", example_ru: "успех", sound: "成功", homonyms: [] }
+                    { tone: "1-й", pinyin: "gōng", ru: "гун", char: "功", meaning: "заслуга 🏆", example: "成功", example_ru: "успех", sound: "chéng gōng", homonyms: [] }
                 ]
             }
         }
-    },       
+    },   
     // ==================== S ====================
     s: {
         desc: "s [s] — как русская «с»",
