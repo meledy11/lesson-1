@@ -3187,715 +3187,213 @@ const pinyinFullDB = {
             }
         }
     },
-    const HOMONYMS_DB = {
-    // ==================== B ====================
-    b: {
-        ba: {
-            1: [
-                { char: "巴", meaning: "бар 🍸", example: "酒吧", example_ru: "бар" },
-                { char: "疤", meaning: "шрам 🤕", example: "伤疤", example_ru: "шрам" },
-                { char: "吧", meaning: "звукоподражание 💥", example: "吧嗒", example_ru: "хлоп" },
-                { char: "笆", meaning: "изгородь 🎋", example: "篱笆", example_ru: "забор" }
-            ],
-            4: [
-                { char: "霸", meaning: "гегемон 👑", example: "霸王", example_ru: "деспот" },
-                { char: "罢", meaning: "прекращать 🛑", example: "罢工", example_ru: "забастовка" },
-                { char: "坝", meaning: "дамба 🏗️", example: "水坝", example_ru: "дамба" }
-            ]
-        },
-        bai: {
-            3: [
-                { char: "摆", meaning: "ставить 📍", example: "摆放", example_ru: "ставить" },
-                { char: "柏", meaning: "кипарис 🌲", example: "松柏", example_ru: "сосна и кипарис" }
-            ],
-            4: [
-                { char: "拜", meaning: "поклоняться 🙏", example: "拜拜", example_ru: "пока" },
-                { char: "稗", meaning: "плевел 🌾", example: "稗子", example_ru: "сорняк" }
-            ]
-        },
-        ban: {
-            1: [
-                { char: "搬", meaning: "перевозить 🚚", example: "搬家", example_ru: "переезжать" },
-                { char: "般", meaning: "вид 🔍", example: "一般", example_ru: "обычный" },
-                { char: "颁", meaning: "издавать 📜", example: "颁布", example_ru: "обнародовать" }
-            ],
-            3: [
-                { char: "版", meaning: "издание 📰", example: "出版", example_ru: "издавать" }
-            ],
-            4: [
-                { char: "半", meaning: "половина 🧩", example: "一半", example_ru: "половина" },
-                { char: "伴", meaning: "компаньон 👫", example: "伙伴", example_ru: "партнёр" },
-                { char: "扮", meaning: "наряжаться 🎭", example: "打扮", example_ru: "наряжаться" }
-            ]
-        },
-        bao: {
-            1: [
-                { char: "胞", meaning: "клетка 🔬", example: "细胞", example_ru: "клетка" },
-                { char: "褒", meaning: "хвалить 👏", example: "褒奖", example_ru: "похвала" }
-            ],
-            3: [
-                { char: "保", meaning: "защищать 🛡️", example: "保护", example_ru: "защита" },
-                { char: "宝", meaning: "сокровище 💎", example: "宝贝", example_ru: "сокровище" },
-                { char: "堡", meaning: "крепость 🏰", example: "城堡", example_ru: "замок" }
-            ],
-            4: [
-                { char: "抱", meaning: "обнимать 🤗", example: "拥抱", example_ru: "обнимать" },
-                { char: "暴", meaning: "жестокий 😡", example: "暴力", example_ru: "насилие" },
-                { char: "爆", meaning: "взрываться 💥", example: "爆炸", example_ru: "взрыв" }
-            ]
-        },
-        bei: {
-            1: [
-                { char: "悲", meaning: "грустный 😢", example: "悲伤", example_ru: "грусть" },
-                { char: "碑", meaning: "памятник 🪦", example: "石碑", example_ru: "стела" }
-            ],
-            4: [
-                { char: "备", meaning: "готовить 📦", example: "准备", example_ru: "подготовка" },
-                { char: "背", meaning: "спина 🔙", example: "背后", example_ru: "сзади" },
-                { char: "贝", meaning: "ракушка 🐚", example: "贝壳", example_ru: "раковина" },
-                { char: "倍", meaning: "раз ✖️", example: "一倍", example_ru: "вдвое" },
-                { char: "辈", meaning: "поколение 👨‍👦", example: "一辈子", example_ru: "вся жизнь" }
-            ]
-        },
-        bi: {
-            3: [
-                { char: "笔", meaning: "ручка 🖊️", example: "铅笔", example_ru: "карандаш" }
-            ],
-            4: [
-                { char: "必", meaning: "обязательно ✅", example: "必须", example_ru: "обязательно" },
-                { char: "毕", meaning: "заканчивать 🎓", example: "毕业", example_ru: "выпуск" },
-                { char: "闭", meaning: "закрывать 🚪", example: "关闭", example_ru: "закрыть" },
-                { char: "币", meaning: "монета 🪙", example: "货币", example_ru: "валюта" },
-                { char: "避", meaning: "избегать 🏃", example: "避免", example_ru: "избегать" },
-                { char: "壁", meaning: "стена 🧱", example: "墙壁", example_ru: "стена" }
-            ]
-        },
-        bian: {
-            1: [
-                { char: "编", meaning: "плести 🧶", example: "编织", example_ru: "вязать" },
-                { char: "鞭", meaning: "кнут 🏇", example: "鞭子", example_ru: "кнут" }
-            ],
-            4: [
-                { char: "便", meaning: "удобный 👍", example: "方便", example_ru: "удобный" },
-                { char: "遍", meaning: "везде 🌍", example: "一遍", example_ru: "один раз" },
-                { char: "辩", meaning: "спорить 🗣️", example: "辩论", example_ru: "дебаты" }
-            ]
-        },
-        bing: {
-            1: [
-                { char: "兵", meaning: "солдат 🪖", example: "士兵", example_ru: "солдат" }
-            ],
-            4: [
-                { char: "并", meaning: "объединять 🔗", example: "并且", example_ru: "к тому же" }
-            ]
-        },
-        bo: {
-            1: [
-                { char: "拨", meaning: "набирать 📞", example: "拨打", example_ru: "звонить" },
-                { char: "播", meaning: "вещать 📻", example: "广播", example_ru: "радио" }
-            ],
-            2: [
-                { char: "博", meaning: "обширный 📚", example: "博士", example_ru: "доктор" },
-                { char: "搏", meaning: "бороться 🥊", example: "搏斗", example_ru: "схватка" },
-                { char: "薄", meaning: "тонкий 📄", example: "薄弱", example_ru: "слабый" }
-            ]
-        },
-        bu: {
-            3: [
-                { char: "捕", meaning: "ловить 🎣", example: "捕捉", example_ru: "поймать" }
-            ],
-            4: [
-                { char: "部", meaning: "часть 📦", example: "部分", example_ru: "часть" },
-                { char: "布", meaning: "ткань 🧵", example: "布料", example_ru: "ткань" },
-                { char: "怖", meaning: "страх 😱", example: "恐怖", example_ru: "ужас" }
-            ]
+  // ==================== HOM (ПОЛНЫЕ ОМОНИМЫ) ====================
+    "HOM": {
+        desc: "Омонимы — те же слог и тон, но другие иероглифы",
+        ru_sound: "дополнительные значения к основным",
+        articulation: "",
+        sound: "",
+        syllables: {
+            // ===== B =====
+            ba: { translation: "ба", tones: [
+                { tone: "1-й", pinyin: "bā", ru: "ба", char: "巴", meaning: "бар 🍸", example: "酒吧", example_ru: "бар", sound: "酒吧" },
+                { tone: "1-й", pinyin: "bā", ru: "ба", char: "疤", meaning: "шрам 🤕", example: "伤疤", example_ru: "шрам", sound: "伤疤" },
+                { tone: "4-й", pinyin: "bà", ru: "ба", char: "霸", meaning: "гегемон 👑", example: "霸王", example_ru: "деспот", sound: "霸王" },
+                { tone: "4-й", pinyin: "bà", ru: "ба", char: "罢", meaning: "прекращать 🛑", example: "罢工", example_ru: "забастовка", sound: "罢工" },
+                { tone: "4-й", pinyin: "bà", ru: "ба", char: "坝", meaning: "дамба 🏗️", example: "水坝", example_ru: "дамба", sound: "水坝" }
+            ]},
+            bai: { translation: "бай", tones: [
+                { tone: "3-й", pinyin: "bǎi", ru: "бай", char: "摆", meaning: "ставить 📍", example: "摆放", example_ru: "ставить", sound: "摆放" },
+                { tone: "4-й", pinyin: "bài", ru: "бай", char: "拜", meaning: "поклоняться 🙏", example: "拜拜", example_ru: "пока", sound: "拜拜" }
+            ]},
+            ban: { translation: "бань", tones: [
+                { tone: "1-й", pinyin: "bān", ru: "бань", char: "搬", meaning: "перевозить 🚚", example: "搬家", example_ru: "переезжать", sound: "搬家" },
+                { tone: "4-й", pinyin: "bàn", ru: "бань", char: "半", meaning: "половина 🧩", example: "一半", example_ru: "половина", sound: "一半" },
+                { tone: "4-й", pinyin: "bàn", ru: "бань", char: "伴", meaning: "компаньон 👫", example: "伙伴", example_ru: "партнёр", sound: "伙伴" }
+            ]},
+            bao: { translation: "бао", tones: [
+                { tone: "1-й", pinyin: "bāo", ru: "бао", char: "胞", meaning: "клетка 🔬", example: "细胞", example_ru: "клетка", sound: "细胞" },
+                { tone: "3-й", pinyin: "bǎo", ru: "бао", char: "保", meaning: "защищать 🛡️", example: "保护", example_ru: "защита", sound: "保护" },
+                { tone: "3-й", pinyin: "bǎo", ru: "бао", char: "宝", meaning: "сокровище 💎", example: "宝贝", example_ru: "сокровище", sound: "宝贝" },
+                { tone: "4-й", pinyin: "bào", ru: "бао", char: "抱", meaning: "обнимать 🤗", example: "拥抱", example_ru: "обнимать", sound: "拥抱" },
+                { tone: "4-й", pinyin: "bào", ru: "бао", char: "暴", meaning: "жестокий 😡", example: "暴力", example_ru: "насилие", sound: "暴力" },
+                { tone: "4-й", pinyin: "bào", ru: "бао", char: "爆", meaning: "взрываться 💥", example: "爆炸", example_ru: "взрыв", sound: "爆炸" }
+            ]},
+            bei: { translation: "бэй", tones: [
+                { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "备", meaning: "готовить 📦", example: "准备", example_ru: "подготовка", sound: "准备" },
+                { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "背", meaning: "спина 🔙", example: "背后", example_ru: "сзади", sound: "背后" },
+                { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "倍", meaning: "раз ✖️", example: "一倍", example_ru: "вдвое", sound: "一倍" }
+            ]},
+            bi: { translation: "би", tones: [
+                { tone: "4-й", pinyin: "bì", ru: "би", char: "必", meaning: "обязательно ✅", example: "必须", example_ru: "обязательно", sound: "必须" },
+                { tone: "4-й", pinyin: "bì", ru: "би", char: "闭", meaning: "закрывать 🚪", example: "关闭", example_ru: "закрыть", sound: "关闭" },
+                { tone: "4-й", pinyin: "bì", ru: "би", char: "币", meaning: "монета 🪙", example: "货币", example_ru: "валюта", sound: "货币" }
+            ]},
+            bing: { translation: "бин", tones: [
+                { tone: "1-й", pinyin: "bīng", ru: "бин", char: "兵", meaning: "солдат 🪖", example: "士兵", example_ru: "солдат", sound: "士兵" }
+            ]},
+            bo: { translation: "бо", tones: [
+                { tone: "2-й", pinyin: "bó", ru: "бо", char: "博", meaning: "обширный 📚", example: "博士", example_ru: "доктор", sound: "博士" },
+                { tone: "2-й", pinyin: "bó", ru: "бо", char: "搏", meaning: "бороться 🥊", example: "搏斗", example_ru: "схватка", sound: "搏斗" }
+            ]},
+            bu: { translation: "бу", tones: [
+                { tone: "4-й", pinyin: "bù", ru: "бу", char: "部", meaning: "часть 📦", example: "部分", example_ru: "часть", sound: "部分" },
+                { tone: "4-й", pinyin: "bù", ru: "бу", char: "布", meaning: "ткань 🧵", example: "布料", example_ru: "ткань", sound: "布料" }
+            ]},
+            // ===== P =====
+            pai: { translation: "пай", tones: [
+                { tone: "2-й", pinyin: "pái", ru: "пай", char: "牌", meaning: "табличка 🃏", example: "牌子", example_ru: "бренд", sound: "牌子" }
+            ]},
+            ping: { translation: "пин", tones: [
+                { tone: "2-й", pinyin: "píng", ru: "пин", char: "评", meaning: "оценивать ⭐", example: "评价", example_ru: "оценка", sound: "评价" },
+                { tone: "2-й", pinyin: "píng", ru: "пин", char: "苹", meaning: "яблоко 🍎", example: "苹果", example_ru: "яблоко", sound: "苹果" },
+                { tone: "2-й", pinyin: "píng", ru: "пин", char: "瓶", meaning: "бутылка 🍾", example: "瓶子", example_ru: "бутылка", sound: "瓶子" }
+            ]},
+            // ===== M =====
+            ma: { translation: "ма", tones: [
+                { tone: "3-й", pinyin: "mǎ", ru: "ма", char: "码", meaning: "код 🔢", example: "号码", example_ru: "номер", sound: "号码" }
+            ]},
+            mao: { translation: "мао", tones: [
+                { tone: "2-й", pinyin: "máo", ru: "мао", char: "矛", meaning: "копьё 🗡️", example: "矛盾", example_ru: "противоречие", sound: "矛盾" }
+            ]},
+            mei: { translation: "мэй", tones: [
+                { tone: "2-й", pinyin: "méi", ru: "мэй", char: "梅", meaning: "слива 🌸", example: "梅花", example_ru: "цветок сливы", sound: "梅花" },
+                { tone: "2-й", pinyin: "méi", ru: "мэй", char: "煤", meaning: "уголь ⛽", example: "煤炭", example_ru: "уголь", sound: "煤炭" }
+            ]},
+            ming: { translation: "мин", tones: [
+                { tone: "2-й", pinyin: "míng", ru: "мин", char: "名", meaning: "имя 📛", example: "名字", example_ru: "имя", sound: "名字" },
+                { tone: "2-й", pinyin: "míng", ru: "мин", char: "鸣", meaning: "кричать 📣", example: "鸣叫", example_ru: "крик", sound: "鸣叫" }
+            ]},
+            mo: { translation: "мо", tones: [
+                { tone: "4-й", pinyin: "mò", ru: "мо", char: "墨", meaning: "чернила 🖋️", example: "墨水", example_ru: "чернила", sound: "墨水" },
+                { tone: "4-й", pinyin: "mò", ru: "мо", char: "默", meaning: "молча 🤐", example: "沉默", example_ru: "молчание", sound: "沉默" }
+            ]},
+            mu: { translation: "му", tones: [
+                { tone: "4-й", pinyin: "mù", ru: "му", char: "目", meaning: "глаз 👁️", example: "目光", example_ru: "взгляд", sound: "目光" },
+                { tone: "4-й", pinyin: "mù", ru: "му", char: "牧", meaning: "пасти 🐑", example: "牧场", example_ru: "пастбище", sound: "牧场" }
+            ]},
+            // ===== F =====
+            fu: { translation: "фу", tones: [
+                { tone: "4-й", pinyin: "fù", ru: "фу", char: "附", meaning: "прилагать 📎", example: "附近", example_ru: "рядом", sound: "附近" },
+                { tone: "4-й", pinyin: "fù", ru: "фу", char: "妇", meaning: "женщина 👩", example: "妇女", example_ru: "женщина", sound: "妇女" }
+            ]},
+            fei: { translation: "фэй", tones: [
+                { tone: "1-й", pinyin: "fēi", ru: "фэй", char: "非", meaning: "не ❌", example: "非常", example_ru: "очень", sound: "非常" }
+            ]},
+            // ===== D =====
+            dai: { translation: "дай", tones: [
+                { tone: "4-й", pinyin: "dài", ru: "дай", char: "代", meaning: "эпоха ⏳", example: "时代", example_ru: "эпоха", sound: "时代" },
+                { tone: "4-й", pinyin: "dài", ru: "дай", char: "袋", meaning: "мешок 🛍️", example: "口袋", example_ru: "карман", sound: "口袋" }
+            ]},
+            di: { translation: "ди", tones: [
+                { tone: "4-й", pinyin: "dì", ru: "ди", char: "第", meaning: "номер 🔢", example: "第一", example_ru: "первый", sound: "第一" },
+                { tone: "4-й", pinyin: "dì", ru: "ди", char: "弟", meaning: "брат 👦", example: "弟弟", example_ru: "младший брат", sound: "弟弟" }
+            ]},
+            du: { translation: "ду", tones: [
+                { tone: "2-й", pinyin: "dú", ru: "ду", char: "独", meaning: "одинокий 🧍", example: "独立", example_ru: "независимый", sound: "独立" }
+            ]},
+            // ===== T =====
+            tian: { translation: "тянь", tones: [
+                { tone: "1-й", pinyin: "tiān", ru: "тянь", char: "添", meaning: "добавлять ➕", example: "添加", example_ru: "добавить", sound: "添加" }
+            ]},
+            // ===== N =====
+            nan: { translation: "нань", tones: [
+                { tone: "2-й", pinyin: "nán", ru: "нань", char: "南", meaning: "юг 🧭", example: "南方", example_ru: "юг", sound: "南方" }
+            ]},
+            // ===== L =====
+            li: { translation: "ли", tones: [
+                { tone: "4-й", pinyin: "lì", ru: "ли", char: "立", meaning: "стоять 🧍", example: "立刻", example_ru: "сразу", sound: "立刻" },
+                { tone: "4-й", pinyin: "lì", ru: "ли", char: "利", meaning: "польза 💰", example: "利用", example_ru: "использовать", sound: "利用" },
+                { tone: "4-й", pinyin: "lì", ru: "ли", char: "例", meaning: "пример 📋", example: "例如", example_ru: "например", sound: "例如" }
+            ]},
+            // ===== G =====
+            gong: { translation: "гун", tones: [
+                { tone: "1-й", pinyin: "gōng", ru: "гун", char: "公", meaning: "общественный 🏛️", example: "公共", example_ru: "общественный", sound: "公共" },
+                { tone: "1-й", pinyin: "gōng", ru: "гун", char: "功", meaning: "заслуга 🏆", example: "成功", example_ru: "успех", sound: "成功" }
+            ]},
+            // ===== H =====
+            he: { translation: "хэ", tones: [
+                { tone: "2-й", pinyin: "hé", ru: "хэ", char: "河", meaning: "река 🏞️", example: "河流", example_ru: "река", sound: "河流" },
+                { tone: "2-й", pinyin: "hé", ru: "хэ", char: "合", meaning: "объединять 🤝", example: "合作", example_ru: "сотрудничество", sound: "合作" }
+            ]},
+            hua: { translation: "хуа", tones: [
+                { tone: "4-й", pinyin: "huà", ru: "хуа", char: "画", meaning: "рисовать 🎨", example: "画画", example_ru: "рисовать", sound: "画画" }
+            ]},
+            // ===== J =====
+            ji: { translation: "цзи", tones: [
+                { tone: "1-й", pinyin: "jī", ru: "цзи", char: "鸡", meaning: "курица 🐔", example: "鸡蛋", example_ru: "яйцо", sound: "鸡蛋" },
+                { tone: "1-й", pinyin: "jī", ru: "цзи", char: "基", meaning: "основа 🏗️", example: "基础", example_ru: "основа", sound: "基础" },
+                { tone: "4-й", pinyin: "jì", ru: "цзи", char: "季", meaning: "сезон 🌸", example: "季节", example_ru: "сезон", sound: "季节" },
+                { tone: "4-й", pinyin: "jì", ru: "цзи", char: "计", meaning: "считать 🧮", example: "计划", example_ru: "план", sound: "计划" }
+            ]},
+            jia: { translation: "цзя", tones: [
+                { tone: "1-й", pinyin: "jiā", ru: "цзя", char: "加", meaning: "добавлять ➕", example: "增加", example_ru: "увеличить", sound: "增加" }
+            ]},
+            jian: { translation: "цзянь", tones: [
+                { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "件", meaning: "штука 🔢", example: "一件", example_ru: "одна штука", sound: "一件" },
+                { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "建", meaning: "строить 🏗️", example: "建设", example_ru: "строительство", sound: "建设" }
+            ]},
+            jiu: { translation: "цзю", tones: [
+                { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "久", meaning: "долгий ⏳", example: "好久", example_ru: "давно", sound: "好久" },
+                { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "酒", meaning: "вино 🍷", example: "啤酒", example_ru: "пиво", sound: "啤酒" }
+            ]},
+            // ===== Q =====
+            qi: { translation: "ци", tones: [
+                { tone: "4-й", pinyin: "qì", ru: "ци", char: "汽", meaning: "пар ☁️", example: "汽车", example_ru: "автомобиль", sound: "汽车" }
+            ]},
+            qian: { translation: "цянь", tones: [
+                { tone: "2-й", pinyin: "qián", ru: "цянь", char: "前", meaning: "перед ⬅️", example: "前面", example_ru: "впереди", sound: "前面" }
+            ]},
+            qing: { translation: "цин", tones: [
+                { tone: "1-й", pinyin: "qīng", ru: "цин", char: "青", meaning: "сине-зелёный 🔵", example: "青年", example_ru: "молодёжь", sound: "青年" }
+            ]},
+            // ===== X =====
+            xi: { translation: "си", tones: [
+                { tone: "1-й", pinyin: "xī", ru: "си", char: "希", meaning: "надеяться 🙏", example: "希望", example_ru: "надежда", sound: "希望" }
+            ]},
+            xin: { translation: "синь", tones: [
+                { tone: "1-й", pinyin: "xīn", ru: "синь", char: "新", meaning: "новый ✨", example: "新年", example_ru: "новый год", sound: "新年" }
+            ]},
+            xing: { translation: "син", tones: [
+                { tone: "2-й", pinyin: "xíng", ru: "син", char: "形", meaning: "форма 📐", example: "形状", example_ru: "форма", sound: "形状" }
+            ]},
+            // ===== ZH =====
+            zhi: { translation: "чжи", tones: [
+                { tone: "4-й", pinyin: "zhì", ru: "чжи", char: "制", meaning: "изготавливать 🏭", example: "制造", example_ru: "производство", sound: "制造" },
+                { tone: "4-й", pinyin: "zhì", ru: "чжи", char: "治", meaning: "лечить 🏥", example: "治疗", example_ru: "лечение", sound: "治疗" }
+            ]},
+            // ===== SH =====
+            shi: { translation: "ши", tones: [
+                { tone: "4-й", pinyin: "shì", ru: "ши", char: "事", meaning: "дело 📋", example: "事情", example_ru: "дело", sound: "事情" },
+                { tone: "4-й", pinyin: "shì", ru: "ши", char: "市", meaning: "город 🏙️", example: "城市", example_ru: "город", sound: "城市" },
+                { tone: "4-й", pinyin: "shì", ru: "ши", char: "试", meaning: "пробовать 🧪", example: "考试", example_ru: "экзамен", sound: "考试" },
+                { tone: "4-й", pinyin: "shì", ru: "ши", char: "视", meaning: "смотреть 👀", example: "电视", example_ru: "телевизор", sound: "电视" },
+                { tone: "4-й", pinyin: "shì", ru: "ши", char: "室", meaning: "комната 🏠", example: "教室", example_ru: "класс", sound: "教室" }
+            ]},
+            shu: { translation: "шу", tones: [
+                { tone: "4-й", pinyin: "shù", ru: "шу", char: "数", meaning: "число 🔢", example: "数学", example_ru: "математика", sound: "数学" }
+            ]},
+            // ===== Z =====
+            zuo: { translation: "цзо", tones: [
+                { tone: "4-й", pinyin: "zuò", ru: "цзо", char: "做", meaning: "делать 🔧", example: "做饭", example_ru: "готовить", sound: "做饭" },
+                { tone: "4-й", pinyin: "zuò", ru: "цзо", char: "作", meaning: "создавать 🎨", example: "工作", example_ru: "работа", sound: "工作" }
+            ]},
+            // ===== Y =====
+            yi: { translation: "и", tones: [
+                { tone: "4-й", pinyin: "yì", ru: "и", char: "义", meaning: "долг ⚖️", example: "意义", example_ru: "смысл", sound: "意义" },
+                { tone: "4-й", pinyin: "yì", ru: "и", char: "易", meaning: "лёгкий 🪶", example: "容易", example_ru: "лёгкий", sound: "容易" }
+            ]},
+            yu: { translation: "юй", tones: [
+                { tone: "4-й", pinyin: "yù", ru: "юй", char: "遇", meaning: "встречать 🤝", example: "遇到", example_ru: "встретить", sound: "遇到" },
+                { tone: "4-й", pinyin: "yù", ru: "юй", char: "育", meaning: "воспитывать 🌱", example: "教育", example_ru: "образование", sound: "教育" }
+            ]},
+            // ===== W =====
+            wu: { translation: "у", tones: [
+                { tone: "4-й", pinyin: "wù", ru: "у", char: "误", meaning: "ошибка ❌", example: "错误", example_ru: "ошибка", sound: "homonyms: [] }
+                ]
+            }
         }
     },
-
-    // ==================== P ====================
-    p: {
-        pai: {
-            2: [
-                { char: "牌", meaning: "табличка 🃏", example: "牌子", example_ru: "бренд" }
-            ]
-        },
-        pan: {
-            4: [
-                { char: "盼", meaning: "надеяться 🙏", example: "盼望", example_ru: "ожидать" }
-            ]
-        },
-        pi: {
-            1: [
-                { char: "披", meaning: "накидывать 🧥", example: "披风", example_ru: "накидка" }
-            ]
-        },
-        ping: {
-            2: [
-                { char: "评", meaning: "оценивать ⭐", example: "评价", example_ru: "оценка" },
-                { char: "苹", meaning: "яблоко 🍎", example: "苹果", example_ru: "яблоко" },
-                { char: "瓶", meaning: "бутылка 🍾", example: "瓶子", example_ru: "бутылка" }
-            ]
-        }
-    },
-
-    // ==================== M ====================
-    m: {
-        ma: {
-            3: [
-                { char: "码", meaning: "код 🔢", example: "号码", example_ru: "номер" }
-            ]
-        },
-        man: {
-            2: [
-                { char: "慢", meaning: "медленный 🐢", example: "慢慢", example_ru: "медленно" }
-            ]
-        },
-        mang: {
-            2: [
-                { char: "盲", meaning: "слепой 🦯", example: "盲人", example_ru: "слепой" }
-            ]
-        },
-        mao: {
-            2: [
-                { char: "矛", meaning: "копьё 🗡️", example: "矛盾", example_ru: "противоречие" }
-            ],
-            4: [
-                { char: "贸", meaning: "торговля 🏪", example: "贸易", example_ru: "торговля" }
-            ]
-        },
-        mei: {
-            2: [
-                { char: "梅", meaning: "слива 🌸", example: "梅花", example_ru: "цветок сливы" },
-                { char: "煤", meaning: "уголь ⛽", example: "煤炭", example_ru: "уголь" }
-            ],
-            3: [
-                { char: "每", meaning: "каждый 🔄", example: "每天", example_ru: "каждый день" }
-            ]
-        },
-        mi: {
-            2: [
-                { char: "迷", meaning: "заблудиться 🤔", example: "迷路", example_ru: "заблудиться" },
-                { char: "谜", meaning: "загадка ❓", example: "谜语", example_ru: "загадка" }
-            ],
-            3: [
-                { char: "米", meaning: "рис 🍚", example: "米饭", example_ru: "рис" }
-            ],
-            4: [
-                { char: "密", meaning: "секретный 🤫", example: "秘密", example_ru: "секрет" },
-                { char: "蜜", meaning: "мёд 🍯", example: "蜂蜜", example_ru: "мёд" }
-            ]
-        },
-        ming: {
-            2: [
-                { char: "明", meaning: "яркий ☀️", example: "明天", example_ru: "завтра" },
-                { char: "名", meaning: "имя 📛", example: "名字", example_ru: "имя" },
-                { char: "鸣", meaning: "кричать 📣", example: "鸣叫", example_ru: "крик" }
-            ]
-        },
-        mo: {
-            1: [
-                { char: "摸", meaning: "трогать 🖐️", example: "摸黑", example_ru: "наощупь" }
-            ],
-            2: [
-                { char: "磨", meaning: "точить 🔪", example: "磨练", example_ru: "закаляться" },
-                { char: "魔", meaning: "демон 👹", example: "魔鬼", example_ru: "чёрт" }
-            ],
-            4: [
-                { char: "末", meaning: "конец 🏁", example: "周末", example_ru: "выходные" },
-                { char: "莫", meaning: "не надо 🚫", example: "莫非", example_ru: "неужели" },
-                { char: "墨", meaning: "чернила 🖋️", example: "墨水", example_ru: "чернила" },
-                { char: "默", meaning: "молча 🤐", example: "沉默", example_ru: "молчание" }
-            ]
-        },
-        mu: {
-            3: [
-                { char: "母", meaning: "мать 👩‍👧", example: "母亲", example_ru: "мать" }
-            ],
-            4: [
-                { char: "木", meaning: "дерево 🌳", example: "木头", example_ru: "дерево" },
-                { char: "目", meaning: "глаз 👁️", example: "目光", example_ru: "взгляд" },
-                { char: "牧", meaning: "пасти 🐑", example: "牧场", example_ru: "пастбище" }
-            ]
-        }
-    },
-
-    // ==================== F ====================
-    f: {
-        fa: {
-            1: [
-                { char: "发", meaning: "отправлять 📤", example: "发现", example_ru: "обнаружить" }
-            ],
-            4: [
-                { char: "法", meaning: "закон ⚖️", example: "法律", example_ru: "закон" }
-            ]
-        },
-        fan: {
-            1: [
-                { char: "翻", meaning: "переворачивать 📖", example: "翻译", example_ru: "перевод" }
-            ],
-            2: [
-                { char: "烦", meaning: "надоедать 😫", example: "麻烦", example_ru: "беспокоить" }
-            ],
-            4: [
-                { char: "饭", meaning: "еда 🍚", example: "吃饭", example_ru: "есть" },
-                { char: "犯", meaning: "нарушать 🚫", example: "犯罪", example_ru: "преступление" }
-            ]
-        },
-        fei: {
-            1: [
-                { char: "飞", meaning: "лететь ✈️", example: "飞机", example_ru: "самолёт" },
-                { char: "非", meaning: "не ❌", example: "非常", example_ru: "очень" }
-            ],
-            4: [
-                { char: "费", meaning: "тратить 💸", example: "费用", example_ru: "расходы" },
-                { char: "废", meaning: "отходы 🗑️", example: "废物", example_ru: "мусор" }
-            ]
-        },
-        fu: {
-            2: [
-                { char: "服", meaning: "одежда 👔", example: "衣服", example_ru: "одежда" },
-                { char: "福", meaning: "счастье 🧧", example: "幸福", example_ru: "счастье" }
-            ],
-            4: [
-                { char: "父", meaning: "отец 👨", example: "父亲", example_ru: "отец" },
-                { char: "附", meaning: "прилагать 📎", example: "附近", example_ru: "рядом" },
-                { char: "妇", meaning: "женщина 👩", example: "妇女", example_ru: "женщина" }
-            ]
-        }
-    },
-
-    // ==================== D ====================
-    d: {
-        da: {
-            1: [
-                { char: "答", meaning: "отвечать 💬", example: "回答", example_ru: "ответ" }
-            ],
-            3: [
-                { char: "打", meaning: "бить 👊", example: "打球", example_ru: "играть в мяч" }
-            ],
-            4: [
-                { char: "大", meaning: "большой 🐘", example: "大家", example_ru: "все" }
-            ]
-        },
-        dai: {
-            1: [
-                { char: "呆", meaning: "глупый 😶", example: "呆板", example_ru: "скованный" }
-            ],
-            4: [
-                { char: "带", meaning: "нести 🎒", example: "带来", example_ru: "принести" },
-                { char: "代", meaning: "эпоха ⏳", example: "时代", example_ru: "эпоха" },
-                { char: "待", meaning: "ждать ⏳", example: "等待", example_ru: "ожидать" },
-                { char: "袋", meaning: "мешок 🛍️", example: "口袋", example_ru: "карман" }
-            ]
-        },
-        dan: {
-            4: [
-                { char: "但", meaning: "но ⚠️", example: "但是", example_ru: "но" },
-                { char: "蛋", meaning: "яйцо 🥚", example: "鸡蛋", example_ru: "куриное яйцо" },
-                { char: "淡", meaning: "пресный 💧", example: "淡水", example_ru: "пресная вода" }
-            ]
-        },
-        di: {
-            1: [
-                { char: "低", meaning: "низкий 📉", example: "低头", example_ru: "опустить голову" }
-            ],
-            2: [
-                { char: "敌", meaning: "враг 👿", example: "敌人", example_ru: "враг" }
-            ],
-            4: [
-                { char: "地", meaning: "земля 🌍", example: "地方", example_ru: "место" },
-                { char: "第", meaning: "номер 🔢", example: "第一", example_ru: "первый" },
-                { char: "弟", meaning: "брат 👦", example: "弟弟", example_ru: "младший брат" }
-            ]
-        },
-        dian: {
-            3: [
-                { char: "点", meaning: "точка 🔹", example: "点心", example_ru: "закуска" }
-            ],
-            4: [
-                { char: "电", meaning: "электричество ⚡", example: "电话", example_ru: "телефон" },
-                { char: "店", meaning: "магазин 🏪", example: "商店", example_ru: "магазин" }
-            ]
-        },
-        ding: {
-            1: [
-                { char: "丁", meaning: "гвоздь 📌", example: "丁香", example_ru: "гвоздика" }
-            ],
-            4: [
-                { char: "定", meaning: "определять 📍", example: "一定", example_ru: "обязательно" },
-                { char: "订", meaning: "заказывать 📦", example: "订购", example_ru: "заказать" }
-            ]
-        },
-        du: {
-            1: [
-                { char: "都", meaning: "столица 🏙️", example: "首都", example_ru: "столица" }
-            ],
-            2: [
-                { char: "读", meaning: "читать 📖", example: "读书", example_ru: "учиться" },
-                { char: "独", meaning: "одинокий 🧍", example: "独立", example_ru: "независимый" }
-            ],
-            4: [
-                { char: "度", meaning: "градус 🌡️", example: "温度", example_ru: "температура" },
-                { char: "肚", meaning: "живот 🤰", example: "肚子", example_ru: "живот" }
-            ]
-        },
-        dui: {
-            4: [
-                { char: "对", meaning: "правильно ✅", example: "对不起", example_ru: "извините" },
-                { char: "队", meaning: "команда 👥", example: "队伍", example_ru: "отряд" }
-            ]
-        },
-        duo: {
-            1: [
-                { char: "多", meaning: "много 🔢", example: "多少", example_ru: "сколько" }
-            ],
-            4: [
-                { char: "朵", meaning: "цветок 🌺", example: "花朵", example_ru: "цветы" }
-            ]
-        }
-    },
-
-    // ==================== T ====================
-    t: {
-        tai: {
-            4: [
-                { char: "太", meaning: "слишком 🤯", example: "太阳", example_ru: "солнце" }
-            ]
-        },
-        ti: {
-            2: [
-                { char: "题", meaning: "тема 📝", example: "问题", example_ru: "вопрос" }
-            ],
-            4: [
-                { char: "替", meaning: "заменять 🔄", example: "代替", example_ru: "заменить" }
-            ]
-        },
-        tian: {
-            1: [
-                { char: "天", meaning: "небо ☁️", example: "天空", example_ru: "небо" },
-                { char: "添", meaning: "добавлять ➕", example: "添加", example_ru: "добавить" }
-            ]
-        },
-        tong: {
-            2: [
-                { char: "同", meaning: "одинаковый 👯", example: "同学", example_ru: "одноклассник" },
-                { char: "铜", meaning: "медь 🪙", example: "铜牌", example_ru: "медная медаль" }
-            ]
-        }
-    },
-
-    // ==================== N ====================
-    n: {
-        nan: {
-            2: [
-                { char: "男", meaning: "мужчина 👨", example: "男人", example_ru: "мужчина" },
-                { char: "难", meaning: "трудный 😰", example: "困难", example_ru: "трудность" },
-                { char: "南", meaning: "юг 🧭", example: "南方", example_ru: "юг" }
-            ]
-        }
-    },
-
-    // ==================== L ====================
-    l: {
-        li: {
-            4: [
-                { char: "力", meaning: "сила 💪", example: "力量", example_ru: "сила" },
-                { char: "立", meaning: "стоять 🧍", example: "立刻", example_ru: "сразу" },
-                { char: "利", meaning: "польза 💰", example: "利用", example_ru: "использовать" },
-                { char: "例", meaning: "пример 📋", example: "例如", example_ru: "например" }
-            ]
-        },
-        lian: {
-            2: [
-                { char: "连", meaning: "соединять 🔗", example: "连接", example_ru: "связь" }
-            ]
-        }
-    },
-
-    // ==================== G ====================
-    g: {
-        gan: {
-            3: [
-                { char: "敢", meaning: "сметь 💪", example: "勇敢", example_ru: "храбрый" },
-                { char: "感", meaning: "чувствовать 💖", example: "感谢", example_ru: "благодарить" }
-            ]
-        },
-        gong: {
-            1: [
-                { char: "工", meaning: "работа 🔧", example: "工作", example_ru: "работа" },
-                { char: "公", meaning: "общественный 🏛️", example: "公共", example_ru: "общественный" },
-                { char: "功", meaning: "заслуга 🏆", example: "成功", example_ru: "успех" }
-            ]
-        }
-    },
-
-    // ==================== H ====================
-    h: {
-        hao: {
-            3: [
-                { char: "好", meaning: "хороший 👍", example: "你好", example_ru: "привет" }
-            ],
-            4: [
-                { char: "号", meaning: "номер 🔢", example: "号码", example_ru: "номер" }
-            ]
-        },
-        he: {
-            2: [
-                { char: "和", meaning: "и 🔗", example: "和平", example_ru: "мир" },
-                { char: "河", meaning: "река 🏞️", example: "河流", example_ru: "река" },
-                { char: "合", meaning: "объединять 🤝", example: "合作", example_ru: "сотрудничество" }
-            ]
-        },
-        hua: {
-            1: [
-                { char: "花", meaning: "цветок 🌸", example: "花园", example_ru: "сад" }
-            ],
-            4: [
-                { char: "话", meaning: "речь 💬", example: "说话", example_ru: "говорить" },
-                { char: "画", meaning: "рисовать 🎨", example: "画画", example_ru: "рисовать" }
-            ]
-        }
-    },
-
-    // ==================== J ====================
-    j: {
-        ji: {
-            1: [
-                { char: "机", meaning: "машина ⚙️", example: "飞机", example_ru: "самолёт" },
-                { char: "鸡", meaning: "курица 🐔", example: "鸡蛋", example_ru: "яйцо" },
-                { char: "基", meaning: "основа 🏗️", example: "基础", example_ru: "основа" }
-            ],
-            4: [
-                { char: "记", meaning: "записывать 📝", example: "记得", example_ru: "помнить" },
-                { char: "季", meaning: "сезон 🌸", example: "季节", example_ru: "сезон" },
-                { char: "计", meaning: "считать 🧮", example: "计划", example_ru: "план" }
-            ]
-        },
-        jia: {
-            1: [
-                { char: "家", meaning: "дом 🏠", example: "家庭", example_ru: "семья" },
-                { char: "加", meaning: "добавлять ➕", example: "增加", example_ru: "увеличить" }
-            ]
-        },
-        jian: {
-            4: [
-                { char: "见", meaning: "видеть 👀", example: "再见", example_ru: "до свидания" },
-                { char: "件", meaning: "штука 🔢", example: "一件", example_ru: "одна штука" },
-                { char: "建", meaning: "строить 🏗️", example: "建设", example_ru: "строительство" }
-            ]
-        },
-        jiao: {
-            1: [
-                { char: "教", meaning: "учить 👨‍🏫", example: "教师", example_ru: "учитель" },
-                { char: "交", meaning: "передавать 🤝", example: "交通", example_ru: "транспорт" }
-            ]
-        },
-        jiu: {
-            3: [
-                { char: "九", meaning: "девять 9️⃣", example: "九月", example_ru: "сентябрь" },
-                { char: "久", meaning: "долгий ⏳", example: "好久", example_ru: "давно" },
-                { char: "酒", meaning: "вино 🍷", example: "啤酒", example_ru: "пиво" }
-            ]
-        }
-    },
-
-    // ==================== Q ====================
-    q: {
-        qi: {
-            2: [
-                { char: "奇", meaning: "странный 🤔", example: "奇怪", example_ru: "странный" },
-                { char: "骑", meaning: "ехать верхом 🏇", example: "骑马", example_ru: "скакать на лошади" }
-            ],
-            4: [
-                { char: "气", meaning: "воздух 💨", example: "天气", example_ru: "погода" },
-                { char: "汽", meaning: "пар ☁️", example: "汽车", example_ru: "автомобиль" }
-            ]
-        },
-        qian: {
-            2: [
-                { char: "钱", meaning: "деньги 💰", example: "金钱", example_ru: "деньги" },
-                { char: "前", meaning: "перед ⬅️", example: "前面", example_ru: "впереди" }
-            ]
-        },
-        qing: {
-            1: [
-                { char: "清", meaning: "чистый ✨", example: "清洁", example_ru: "чистота" },
-                { char: "青", meaning: "сине-зелёный 🔵", example: "青年", example_ru: "молодёжь" }
-            ],
-            3: [
-                { char: "请", meaning: "пожалуйста 🙏", example: "请问", example_ru: "спросить" }
-            ]
-        }
-    },
-
-    // ==================== X ====================
-    x: {
-        xi: {
-            1: [
-                { char: "西", meaning: "запад 🌅", example: "西方", example_ru: "запад" },
-                { char: "希", meaning: "надеяться 🙏", example: "希望", example_ru: "надежда" }
-            ],
-            3: [
-                { char: "喜", meaning: "радость 😊", example: "喜欢", example_ru: "нравиться" },
-                { char: "洗", meaning: "мыть 🧼", example: "洗手", example_ru: "мыть руки" }
-            ]
-        },
-        xian: {
-            4: [
-                { char: "现", meaning: "сейчас 🕐", example: "现在", example_ru: "сейчас" },
-                { char: "线", meaning: "линия 📏", example: "电线", example_ru: "провод" }
-            ]
-        },
-        xiao: {
-            3: [
-                { char: "小", meaning: "маленький 🐭", example: "小孩", example_ru: "ребёнок" }
-            ],
-            4: [
-                { char: "笑", meaning: "смеяться 😂", example: "大笑", example_ru: "хохотать" }
-            ]
-        },
-        xin: {
-            1: [
-                { char: "心", meaning: "сердце ❤️", example: "开心", example_ru: "радостный" },
-                { char: "新", meaning: "новый ✨", example: "新年", example_ru: "новый год" }
-            ]
-        },
-        xing: {
-            2: [
-                { char: "行", meaning: "идти 🚶", example: "旅行", example_ru: "путешествие" },
-                { char: "形", meaning: "форма 📐", example: "形状", example_ru: "форма" }
-            ]
-        }
-    },
-
-    // ==================== ZH ====================
-    zh: {
-        zhi: {
-            4: [
-                { char: "志", meaning: "воля 💪", example: "同志", example_ru: "товарищ" },
-                { char: "制", meaning: "изготавливать 🏭", example: "制造", example_ru: "производство" },
-                { char: "治", meaning: "лечить 🏥", example: "治疗", example_ru: "лечение" }
-            ]
-        },
-        zhong: {
-            1: [
-                { char: "中", meaning: "середина 🎯", example: "中国", example_ru: "Китай" },
-                { char: "钟", meaning: "часы 🕐", example: "分钟", example_ru: "минута" }
-            ]
-        }
-    },
-
-    // ==================== CH ====================
-    ch: {
-        chang: {
-            2: [
-                { char: "长", meaning: "длинный 📏", example: "长城", example_ru: "Великая стена" },
-                { char: "常", meaning: "часто 🔄", example: "经常", example_ru: "часто" }
-            ]
-        }
-    },
-
-    // ==================== SH ====================
-    sh: {
-        shi: {
-            4: [
-                { char: "是", meaning: "быть ✅", example: "不是", example_ru: "не быть" },
-                { char: "事", meaning: "дело 📋", example: "事情", example_ru: "дело" },
-                { char: "市", meaning: "город 🏙️", example: "城市", example_ru: "город" },
-                { char: "试", meaning: "пробовать 🧪", example: "考试", example_ru: "экзамен" },
-                { char: "视", meaning: "смотреть 👀", example: "电视", example_ru: "телевизор" },
-                { char: "室", meaning: "комната 🏠", example: "教室", example_ru: "класс" }
-            ]
-        },
-        shu: {
-            4: [
-                { char: "树", meaning: "дерево 🌳", example: "树木", example_ru: "деревья" },
-                { char: "数", meaning: "число 🔢", example: "数学", example_ru: "математика" }
-            ]
-        },
-        shui: {
-            3: [
-                { char: "水", meaning: "вода 💧", example: "喝水", example_ru: "пить воду" }
-            ],
-            4: [
-                { char: "睡", meaning: "спать 😴", example: "睡觉", example_ru: "спать" }
-            ]
-        }
-    },
-
-    // ==================== R ====================
-    r: {
-        ren: {
-            2: [
-                { char: "人", meaning: "человек 👤", example: "人民", example_ru: "народ" },
-                { char: "仁", meaning: "гуманность ❤️", example: "仁爱", example_ru: "человеколюбие" }
-            ]
-        }
-    },
-
-    // ==================== Z ====================
-    z: {
-        zi: {
-            4: [
-                { char: "字", meaning: "иероглиф 📝", example: "汉字", example_ru: "иероглиф" },
-                { char: "自", meaning: "сам 👤", example: "自己", example_ru: "сам" }
-            ]
-        },
-        zuo: {
-            4: [
-                { char: "坐", meaning: "сидеть 🪑", example: "请坐", example_ru: "садитесь" },
-                { char: "做", meaning: "делать 🔧", example: "做饭", example_ru: "готовить" },
-                { char: "作", meaning: "создавать 🎨", example: "工作", example_ru: "работа" }
-            ]
-        }
-    },
-
-    // ==================== C ====================
-    c: {
-        cai: {
-            4: [
-                { char: "菜", meaning: "овощи 🥬", example: "白菜", example_ru: "капуста" }
-            ]
-        }
-    },
-
-    // ==================== S ====================
-    s: {
-        si: {
-            4: [
-                { char: "四", meaning: "четыре 4️⃣", example: "四月", example_ru: "апрель" },
-                { char: "思", meaning: "думать 🤔", example: "思想", example_ru: "мысли" }
-            ]
-        }
-    },
-
-    // ==================== Y ====================
-    y: {
-        yi: {
-            4: [
-                { char: "意", meaning: "смысл 💡", example: "意思", example_ru: "значение" },
-                { char: "义", meaning: "долг ⚖️", example: "意义", example_ru: "смысл" },
-                { char: "易", meaning: "лёгкий 🪶", example: "容易", example_ru: "лёгкий" }
-            ]
-        },
-        yu: {
-            4: [
-                { char: "玉", meaning: "яшма 💎", example: "玉米", example_ru: "кукуруза" },
-                { char: "遇", meaning: "встречать 🤝", example: "遇到", example_ru: "встретить" }
-            ]
-        }
-    },
-
-    // ==================== W ====================
-    w: {
-        wu: {
-            4: [
-                { char: "物", meaning: "вещь 📦", example: "动物", example_ru: "животное" },
-                { char: "误", meaning: "ошибка ❌", example: "错误", example_ru: "ошибка" }
-            ]
-        }
-    }
-};           
     // ==================== S ====================
     s: {
         desc: "s [s] — как русская «с»",
