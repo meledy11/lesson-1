@@ -38,7 +38,6 @@
         }
         .back-btn:active { transform: translateY(2px); }
         
-        /* Главное меню */
         .game-menu {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -59,12 +58,7 @@
         .game-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
         .game-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
         .game-card p { font-size: 0.8rem; color: #aaa; }
-        .game-card.active-game {
-            border-color: #e94560;
-            box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);
-        }
         
-        /* Игровая зона */
         .game-section { display: none; }
         .game-section.active { display: block; }
         
@@ -176,7 +170,6 @@
         .option-btn.wrong { background: #e94560; border-color: #8b1e3f; }
         .option-btn:disabled { cursor: default; opacity: 0.8; }
         
-        /* Поле ввода для диктанта */
         .dictant-input {
             width: 100%;
             padding: 1rem;
@@ -251,6 +244,13 @@
             border-color: #ffb347;
         }
         
+        .loading-msg {
+            text-align: center;
+            padding: 2rem;
+            color: #ffb347;
+            font-size: 1.2rem;
+        }
+        
         @media (max-width: 600px) {
             .game-menu { grid-template-columns: 1fr; }
             .options-grid { grid-template-columns: 1fr; }
@@ -266,8 +266,11 @@
         <a href="index.html" class="back-btn">🏠 На главную</a>
     </div>
     
-    <!-- ГЛАВНОЕ МЕНЮ -->
-    <div class="game-menu" id="mainMenu">
+    <!-- СООБЩЕНИЕ ЗАГРУЗКИ -->
+    <div id="loadingMsg" class="loading-msg">⏳ Загружаю базы данных...</div>
+    
+    <!-- ГЛАВНОЕ МЕНЮ (скрыто пока базы не загружены) -->
+    <div class="game-menu" id="mainMenu" style="display:none;">
         <div class="game-card" onclick="openGame('word-match')">
             <div class="icon">📚</div>
             <h3>Угадай слово</h3>
@@ -301,7 +304,7 @@
         </div>
         
         <div class="game-area" id="wmGameArea">
-            <p style="padding:2rem; color:#ffb347;">Загружаю...</p>
+            <p style="padding:2rem; color:#ffb347;">Готово!</p>
         </div>
         
         <div style="text-align:center; margin-top:1rem;">
@@ -332,7 +335,7 @@
         </div>
         
         <div class="game-area" id="dcGameArea">
-            <p style="padding:2rem; color:#ffb347;">Загружаю фразы...</p>
+            <p style="padding:2rem; color:#ffb347;">Готово!</p>
         </div>
         
         <div style="text-align:center; margin-top:1rem;">
@@ -345,33 +348,60 @@
 <script src="pinyin-full-db.js"></script>
 <script src="phrases-db.js"></script>
 <script>
+    // ========== ОЖИДАНИЕ ЗАГРУЗКИ БАЗ ==========
+    function waitForBases(callback) {
+        let attempts = 0;
+        const maxAttempts = 50;
+        const checker = setInterval(function() {
+            attempts++;
+            if (typeof pinyinFullDB !== 'undefined' && typeof phrasesDB !== 'undefined') {
+                clearInterval(checker);
+                callback();
+                return;
+            }
+            if (attempts >= maxAttempts) {
+                clearInterval(checker);
+                document.getElementById('loadingMsg').innerHTML = 
+                    '<p style="color:#e94560;">❌ Ошибка загрузки баз!<br>Проверьте pinyin-full-db.js и phrases-db.js</p>';
+            }
+        }, 200);
+    }
+    
+    // ========== ЗАПУСК ПОСЛЕ ЗАГРУЗКИ ==========
+    waitForBases(function() {
+        document.getElementById('loadingMsg').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'grid';
+        loadWords();
+        filterPhrases();
+    });
+    
     // ========== НАВИГАЦИЯ ==========
     function openGame(game) {
-        document.querySelectorAll('.game-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.game-section').forEach(function(s) { s.classList.remove('active'); });
         if (game === 'menu') {
             document.getElementById('mainMenu').style.display = 'grid';
         } else {
             document.getElementById('mainMenu').style.display = 'none';
             document.getElementById('section-' + game).classList.add('active');
-            if (game === 'word-match') initWordMatch();
-            if (game === 'dictant') initDictant();
+            if (game === 'word-match') { initWordMatch(); }
+            if (game === 'dictant') { initDictant(); }
         }
     }
     
     // ==================== ИГРА 1: УГАДАЙ СЛОВО ====================
-    let wmMode = 'pinyin';
-    let wmScore = 0, wmCorrect = 0, wmWrong = 0, wmStreak = 0;
-    let wmCurrent = null, wmAnswered = false;
-    let allWords = [];
+    var wmMode = 'pinyin';
+    var wmScore = 0, wmCorrect = 0, wmWrong = 0, wmStreak = 0;
+    var wmCurrent = null, wmAnswered = false;
+    var allWords = [];
     
     function initWordMatch() {
         if (allWords.length === 0) loadWords();
         wmUpdateScore();
         wmNext();
         
-        document.querySelectorAll('#wordMatchTabs .game-tab').forEach(tab => {
+        document.querySelectorAll('#wordMatchTabs .game-tab').forEach(function(tab) {
             tab.onclick = function() {
-                document.querySelectorAll('#wordMatchTabs .game-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('#wordMatchTabs .game-tab').forEach(function(t) { t.classList.remove('active'); });
                 this.classList.add('active');
                 wmMode = this.dataset.mode;
                 wmReset();
@@ -382,19 +412,22 @@
     function loadWords() {
         if (typeof pinyinFullDB === 'undefined') return;
         allWords = [];
-        const seen = new Set();
+        var seen = {};
         
-        for (const [initial, data] of Object.entries(pinyinFullDB)) {
+        for (var initial in pinyinFullDB) {
+            var data = pinyinFullDB[initial];
             if (!data.syllables) continue;
-            for (const [syllable, sylData] of Object.entries(data.syllables)) {
+            for (var syllable in data.syllables) {
+                var sylData = data.syllables[syllable];
                 if (!sylData.tones) continue;
-                for (const tone of sylData.tones) {
+                for (var i = 0; i < sylData.tones.length; i++) {
+                    var tone = sylData.tones[i];
                     if (tone.char === '—' || !tone.char) continue;
                     if (!tone.example || tone.example === '—') continue;
                     
-                    const raw = tone.example.trim();
-                    const firstSpace = raw.indexOf(' ');
-                    let word, pinyinPart;
+                    var raw = tone.example.trim();
+                    var firstSpace = raw.indexOf(' ');
+                    var word, pinyinPart;
                     if (firstSpace > 0) {
                         word = raw.substring(0, firstSpace);
                         pinyinPart = raw.substring(firstSpace + 1).trim();
@@ -405,11 +438,12 @@
                     
                     if (!word || !/^[\u4e00-\u9fff]+$/.test(word)) continue;
                     if (word.length < 2) continue;
-                    if (seen.has(word)) continue;
-                    seen.add(word);
+                    if (seen[word]) continue;
+                    seen[word] = true;
                     
                     allWords.push({
-                        word, pinyin: pinyinPart,
+                        word: word,
+                        pinyin: pinyinPart,
                         meaning: tone.meaning || '',
                         example_ru: tone.example_ru || tone.meaning || '',
                         sound: word
@@ -417,15 +451,16 @@
                 }
             }
         }
-        allWords.sort(() => Math.random() - 0.5);
+        allWords.sort(function() { return Math.random() - 0.5; });
     }
     
     function speak(text) {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'zh-CN'; u.rate = 0.7;
-        setTimeout(() => window.speechSynthesis.speak(u), 100);
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'zh-CN';
+        u.rate = 0.7;
+        setTimeout(function() { window.speechSynthesis.speak(u); }, 100);
     }
     
     function wmRandom() { return allWords[Math.floor(Math.random() * allWords.length)]; }
@@ -438,86 +473,141 @@
     }
     
     function wmRenderPinyin() {
-        const word = wmRandom(); wmCurrent = word; wmAnswered = false;
-        const options = [word];
-        const added = new Set([word.pinyin]);
-        allWords.filter(w => w.word !== word.word && !added.has(w.pinyin)).sort(() => Math.random() - 0.5).slice(0, 3).forEach(w => {
-            if (!added.has(w.pinyin) && options.length < 4) { options.push(w); added.add(w.pinyin); }
-        });
-        const shuffled = options.sort(() => Math.random() - 0.5);
+        var word = wmRandom();
+        wmCurrent = word;
+        wmAnswered = false;
+        var options = [word];
+        var added = {};
+        added[word.pinyin] = true;
         
-        document.getElementById('wmGameArea').innerHTML = `
-            <p style="color:#ffb347;">Как читается это слово?</p>
-            <div class="word-display">${word.word}</div>
-            <div style="color:#ffb347;">${word.meaning || ''}</div>
-            <div class="result-msg" id="wmMsg"></div>
-            <div class="options-grid">
-                ${shuffled.map(w => `<button class="option-btn" onclick="wmCheck(this, '${w.pinyin.replace(/'/g, "\\'")}', '${word.pinyin.replace(/'/g, "\\'")}')">${w.pinyin}</button>`).join('')}
-            </div>
-            <button class="play-btn" onclick="speak('${word.word}')">🔊 Слушать</button>
-        `;
+        allWords.filter(function(w) { return w.word !== word.word && !added[w.pinyin]; })
+            .sort(function() { return Math.random() - 0.5; })
+            .slice(0, 3)
+            .forEach(function(w) {
+                if (!added[w.pinyin] && options.length < 4) {
+                    options.push(w);
+                    added[w.pinyin] = true;
+                }
+            });
+        
+        var shuffled = options.sort(function() { return Math.random() - 0.5; });
+        
+        var html = '<p style="color:#ffb347;">Как читается это слово?</p>';
+        html += '<div class="word-display">' + word.word + '</div>';
+        html += '<div style="color:#ffb347;">' + (word.meaning || '') + '</div>';
+        html += '<div class="result-msg" id="wmMsg"></div>';
+        html += '<div class="options-grid">';
+        
+        for (var i = 0; i < shuffled.length; i++) {
+            var w = shuffled[i];
+            html += '<button class="option-btn" onclick="wmCheck(this, \'' + w.pinyin.replace(/'/g, "\\'") + '\', \'' + word.pinyin.replace(/'/g, "\\'") + '\')">' + w.pinyin + '</button>';
+        }
+        
+        html += '</div>';
+        html += '<button class="play-btn" onclick="speak(\'' + word.word + '\')">🔊 Слушать</button>';
+        
+        document.getElementById('wmGameArea').innerHTML = html;
     }
     
     function wmRenderMeaning() {
-        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—');
-        const pool = withRu.length >= 4 ? withRu : allWords;
-        const correct = pool[Math.floor(Math.random() * pool.length)];
-        wmCurrent = correct; wmAnswered = false;
+        var withRu = allWords.filter(function(w) { return w.example_ru && w.example_ru !== '—'; });
+        var pool = withRu.length >= 4 ? withRu : allWords;
+        var correct = pool[Math.floor(Math.random() * pool.length)];
+        wmCurrent = correct;
+        wmAnswered = false;
         
-        const options = [correct];
-        const added = new Set([correct.example_ru]);
-        pool.filter(w => !added.has(w.example_ru)).sort(() => Math.random() - 0.5).slice(0, 3).forEach(w => {
-            if (!added.has(w.example_ru) && options.length < 4) { options.push(w); added.add(w.example_ru); }
-        });
-        const shuffled = options.sort(() => Math.random() - 0.5);
+        var options = [correct];
+        var added = {};
+        added[correct.example_ru] = true;
         
-        document.getElementById('wmGameArea').innerHTML = `
-            <p style="color:#ffb347;">Что значит это слово?</p>
-            <div class="word-display">${correct.word}</div>
-            <div class="result-msg" id="wmMsg"></div>
-            <div class="options-grid">
-                ${shuffled.map(w => `<button class="option-btn" onclick="wmCheck(this, '${w.example_ru.replace(/'/g, "\\'")}', '${correct.example_ru.replace(/'/g, "\\'")}')" style="font-family:'Segoe UI',sans-serif; font-size:0.95rem;">${w.example_ru}</button>`).join('')}
-            </div>
-            <button class="play-btn" onclick="speak('${correct.word}')">🔊 Слушать</button>
-        `;
+        pool.filter(function(w) { return !added[w.example_ru]; })
+            .sort(function() { return Math.random() - 0.5; })
+            .slice(0, 3)
+            .forEach(function(w) {
+                if (!added[w.example_ru] && options.length < 4) {
+                    options.push(w);
+                    added[w.example_ru] = true;
+                }
+            });
+        
+        var shuffled = options.sort(function() { return Math.random() - 0.5; });
+        
+        var html = '<p style="color:#ffb347;">Что значит это слово?</p>';
+        html += '<div class="word-display">' + correct.word + '</div>';
+        html += '<div class="result-msg" id="wmMsg"></div>';
+        html += '<div class="options-grid">';
+        
+        for (var i = 0; i < shuffled.length; i++) {
+            var w = shuffled[i];
+            html += '<button class="option-btn" onclick="wmCheck(this, \'' + w.example_ru.replace(/'/g, "\\'") + '\', \'' + correct.example_ru.replace(/'/g, "\\'") + '\')" style="font-family:\'Segoe UI\',sans-serif; font-size:0.95rem;">' + w.example_ru + '</button>';
+        }
+        
+        html += '</div>';
+        html += '<button class="play-btn" onclick="speak(\'' + correct.word + '\')">🔊 Слушать</button>';
+        
+        document.getElementById('wmGameArea').innerHTML = html;
     }
     
     function wmRenderListen() {
-        const word = wmRandom(); wmCurrent = word; wmAnswered = false;
-        const options = [word];
-        const added = new Set([word.word]);
-        allWords.filter(w => w.word !== word.word && !added.has(w.word)).sort(() => Math.random() - 0.5).slice(0, 3).forEach(w => {
-            if (!added.has(w.word) && options.length < 4) { options.push(w); added.add(w.word); }
-        });
-        const shuffled = options.sort(() => Math.random() - 0.5);
+        var word = wmRandom();
+        wmCurrent = word;
+        wmAnswered = false;
+        var options = [word];
+        var added = {};
+        added[word.word] = true;
         
-        document.getElementById('wmGameArea').innerHTML = `
-            <p style="color:#ffb347;">Что вы услышали?</p>
-            <div class="word-display">👂</div>
-            <div class="result-msg" id="wmMsg"></div>
-            <div class="options-grid">
-                ${shuffled.map(w => `<button class="option-btn" onclick="wmCheck(this, '${w.word}', '${word.word}')">${w.word}</button>`).join('')}
-            </div>
-            <button class="play-btn" onclick="speak('${word.word}')">🔊 Прослушать ещё раз</button>
-        `;
-        setTimeout(() => speak(word.word), 500);
+        allWords.filter(function(w) { return w.word !== word.word && !added[w.word]; })
+            .sort(function() { return Math.random() - 0.5; })
+            .slice(0, 3)
+            .forEach(function(w) {
+                if (!added[w.word] && options.length < 4) {
+                    options.push(w);
+                    added[w.word] = true;
+                }
+            });
+        
+        var shuffled = options.sort(function() { return Math.random() - 0.5; });
+        
+        var html = '<p style="color:#ffb347;">Что вы услышали?</p>';
+        html += '<div class="word-display">👂</div>';
+        html += '<div class="result-msg" id="wmMsg"></div>';
+        html += '<div class="options-grid">';
+        
+        for (var i = 0; i < shuffled.length; i++) {
+            var w = shuffled[i];
+            html += '<button class="option-btn" onclick="wmCheck(this, \'' + w.word + '\', \'' + word.word + '\')">' + w.word + '</button>';
+        }
+        
+        html += '</div>';
+        html += '<button class="play-btn" onclick="speak(\'' + word.word + '\')">🔊 Прослушать ещё раз</button>';
+        
+        document.getElementById('wmGameArea').innerHTML = html;
+        
+        setTimeout(function() { speak(word.word); }, 500);
     }
     
     function wmCheck(btn, selected, correct) {
         if (wmAnswered) return;
         wmAnswered = true;
-        const buttons = document.querySelectorAll('#wmGameArea .option-btn');
-        buttons.forEach(b => b.disabled = true);
-        const msgEl = document.getElementById('wmMsg');
+        
+        var buttons = document.querySelectorAll('#wmGameArea .option-btn');
+        for (var i = 0; i < buttons.length; i++) { buttons[i].disabled = true; }
+        
+        var msgEl = document.getElementById('wmMsg');
         
         if (selected === correct) {
             btn.classList.add('correct');
-            wmScore += 10 + Math.min(wmStreak, 10); wmCorrect++; wmStreak++;
+            wmScore += 10 + Math.min(wmStreak, 10);
+            wmCorrect++;
+            wmStreak++;
             if (msgEl) { msgEl.textContent = '✅ Правильно!'; msgEl.className = 'result-msg ok'; }
         } else {
             btn.classList.add('wrong');
-            wmWrong++; wmStreak = 0;
-            buttons.forEach(b => { if (b.textContent.trim() === correct) b.classList.add('correct'); });
+            wmWrong++;
+            wmStreak = 0;
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].textContent.trim() === correct) { buttons[i].classList.add('correct'); }
+            }
             if (msgEl) { msgEl.textContent = '❌ Неверно! Правильно: ' + correct; msgEl.className = 'result-msg fail'; }
         }
         wmUpdateScore();
@@ -537,19 +627,19 @@
     }
     
     // ==================== ИГРА 2: ПИНЬИНЬ-ДИКТАНТ ====================
-    let dcLevel = 1;
-    let dcScore = 0, dcCorrect = 0, dcWrong = 0, dcStreak = 0;
-    let dcCurrent = null, dcAnswered = false;
-    let dcPhrases = [];
+    var dcLevel = 1;
+    var dcScore = 0, dcCorrect = 0, dcWrong = 0, dcStreak = 0;
+    var dcCurrent = null, dcAnswered = false;
+    var dcPhrases = [];
     
     function initDictant() {
         filterPhrases();
         dcUpdateScore();
         dcNext();
         
-        document.querySelectorAll('#levelSelector .level-btn').forEach(btn => {
+        document.querySelectorAll('#levelSelector .level-btn').forEach(function(btn) {
             btn.onclick = function() {
-                document.querySelectorAll('#levelSelector .level-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('#levelSelector .level-btn').forEach(function(b) { b.classList.remove('active'); });
                 this.classList.add('active');
                 dcLevel = parseInt(this.dataset.level);
                 filterPhrases();
@@ -560,9 +650,12 @@
     
     function filterPhrases() {
         if (typeof phrasesDB === 'undefined') { dcPhrases = []; return; }
-        if (dcLevel === 0) dcPhrases = [...phrasesDB];
-        else dcPhrases = phrasesDB.filter(p => p.level === dcLevel);
-        dcPhrases.sort(() => Math.random() - 0.5);
+        if (dcLevel === 0) {
+            dcPhrases = phrasesDB.slice();
+        } else {
+            dcPhrases = phrasesDB.filter(function(p) { return p.level === dcLevel; });
+        }
+        dcPhrases.sort(function() { return Math.random() - 0.5; });
     }
     
     function dcNext() {
@@ -573,47 +666,48 @@
         dcCurrent = dcPhrases[Math.floor(Math.random() * dcPhrases.length)];
         dcAnswered = false;
         
-        document.getElementById('dcGameArea').innerHTML = `
-            <p style="color:#ffb347;">Напишите пиньинь для фразы:</p>
-            <div class="phrase-display">${dcCurrent.chinese}</div>
-            <p style="color:#aaa; font-size:0.9rem;">${dcCurrent.russian}</p>
-            <input type="text" class="dictant-input" id="dcInput" placeholder="Введите пиньинь..." autocomplete="off">
-            <div class="result-msg" id="dcMsg"></div>
-            <button class="btn" onclick="dcCheck()">✅ Проверить</button>
-            <button class="play-btn" onclick="speak('${dcCurrent.chinese}')">🔊 Слушать</button>
-        `;
+        var html = '<p style="color:#ffb347;">Напишите пиньинь для фразы:</p>';
+        html += '<div class="phrase-display">' + dcCurrent.chinese + '</div>';
+        html += '<p style="color:#aaa; font-size:0.9rem;">' + dcCurrent.russian + '</p>';
+        html += '<input type="text" class="dictant-input" id="dcInput" placeholder="Введите пиньинь..." autocomplete="off">';
+        html += '<div class="result-msg" id="dcMsg"></div>';
+        html += '<button class="btn" onclick="dcCheck()">✅ Проверить</button> ';
+        html += '<button class="play-btn" onclick="speak(\'' + dcCurrent.chinese + '\')">🔊 Слушать</button>';
+        
+        document.getElementById('dcGameArea').innerHTML = html;
         
         document.getElementById('dcInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') dcCheck();
         });
         
-        setTimeout(() => speak(dcCurrent.chinese), 500);
+        setTimeout(function() { speak(dcCurrent.chinese); }, 500);
     }
     
     function dcCheck() {
         if (dcAnswered || !dcCurrent) return;
-        const input = document.getElementById('dcInput');
-        const msgEl = document.getElementById('dcMsg');
+        var input = document.getElementById('dcInput');
+        var msgEl = document.getElementById('dcMsg');
         if (!input) return;
         
-        const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
-        const correctAnswer = dcCurrent.pinyin.toLowerCase().replace(/\s+/g, ' ');
+        var userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+        var correctAnswer = dcCurrent.pinyin.toLowerCase().replace(/\s+/g, ' ');
         
         dcAnswered = true;
         input.disabled = true;
         
-        // Сравниваем без тонов для большей лояльности
-        const userNoTone = userAnswer.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const correctNoTone = correctAnswer.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        var userNoTone = userAnswer.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        var correctNoTone = correctAnswer.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         
         if (userNoTone === correctNoTone || userAnswer === correctAnswer) {
             input.classList.add('correct');
             dcScore += 20 + Math.min(dcStreak, 15);
-            dcCorrect++; dcStreak++;
+            dcCorrect++;
+            dcStreak++;
             if (msgEl) { msgEl.textContent = '✅ Отлично! ' + correctAnswer; msgEl.className = 'result-msg ok'; }
         } else {
             input.classList.add('wrong');
-            dcWrong++; dcStreak = 0;
+            dcWrong++;
+            dcStreak = 0;
             if (msgEl) { msgEl.textContent = '❌ Правильно: ' + dcCurrent.pinyin; msgEl.className = 'result-msg fail'; }
         }
         dcUpdateScore();
