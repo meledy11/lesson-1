@@ -161,12 +161,6 @@
         .result-msg.ok { color: #4CAF50; }
         .result-msg.fail { color: #ff6b6b; }
         
-        .stats-box {
-            text-align: center;
-            padding: 1rem;
-            color: #ffb347;
-        }
-        
         @media (max-width: 600px) {
             .options-grid { grid-template-columns: 1fr; }
             .word-display { font-size: 2.5rem; }
@@ -195,7 +189,7 @@
     </div>
     
     <div class="game-area" id="gameArea">
-        <p class="stats-box">Загружаю слова из базы...</p>
+        <p style="padding:2rem; color:#ffb347;">Загружаю слова из базы...</p>
     </div>
     
     <div style="text-align:center; margin-top:1rem;">
@@ -212,54 +206,16 @@
     let allWords = [];
     let answered = false;
     
-    // ========== ОЧИСТКА ПИНЬИНЯ ==========
+    // ========== ОЧИСТКА EXAMPLE ==========
     function cleanExample(raw) {
         if (!raw) return '';
-        // Убираем всё после пробела (пиньинь в скобках или отдельно)
-        let cleaned = raw.split(/\s+/)[0];
-        // Убираем цифры тонов (если есть)
-        cleaned = cleaned.replace(/[0-9]/g, '');
-        return cleaned;
-    }
-    
-    // ========== ПРАВИЛЬНЫЙ ПИНЬИНЬ ДЛЯ ОТОБРАЖЕНИЯ ==========
-    function fixPinyinDisplay(pinyin) {
-        if (!pinyin) return '';
-        // Заменяем все проблемные символы
-        return pinyin
-            .replace(/T/g, 'ǐ')   // bT → bǐ
-            .replace(/Ť/g, 'ǐ')
-            .replace(/S/g, 'ǔ')   // sUn → sǔn
-            .replace(/Ǔ/g, 'ǔ')
-            .replace(/У/g, 'ī')   // shУ → shī
-            .replace(/й/g, 'ī')
-            .replace(/б/g, 'ā')
-            .replace(/в/g, 'á')
-            .replace(/г/g, 'ǎ')
-            .replace(/д/g, 'à')
-            .replace(/е/g, 'ē')
-            .replace(/ж/g, 'é')
-            .replace(/з/g, 'ě')
-            .replace(/и/g, 'è')
-            .replace(/к/g, 'ō')
-            .replace(/л/g, 'ó')
-            .replace(/м/g, 'ǒ')
-            .replace(/н/g, 'ò')
-            .replace(/т/g, 'ū')
-            .replace(/у/g, 'ú')
-            .replace(/ф/g, 'ǔ')
-            .replace(/х/g, 'ù')
-            .replace(/ц/g, 'ǖ')
-            .replace(/ч/g, 'ǘ')
-            .replace(/ш/g, 'ǚ')
-            .replace(/щ/g, 'ǜ');
+        return raw.split(/\s+/)[0].replace(/[0-9]/g, '');
     }
     
     // ========== ЗАГРУЗКА СЛОВ ==========
     function loadWords() {
         if (typeof pinyinFullDB === 'undefined') {
-            document.getElementById('gameArea').innerHTML = 
-                '<p style="color:#e94560;">❌ База pinyin-full-db.js не загружена!</p>';
+            document.getElementById('gameArea').innerHTML = '<p style="color:#e94560;">❌ База не загружена!</p>';
             return;
         }
         allWords = [];
@@ -272,42 +228,33 @@
                 for (const tone of sylData.tones) {
                     if (tone.char === '—' || !tone.char) continue;
                     
-                    // Берём ПРИМЕР (двусложное слово)
                     const exampleWord = cleanExample(tone.example);
-                    const exampleRu = tone.example_ru || tone.meaning || '';
-                    
-                    if (exampleWord && exampleWord.length >= 2) {
+                    if (exampleWord && exampleWord.length >= 2 && /[\u4e00-\u9fff]/.test(exampleWord)) {
                         const key = exampleWord;
                         if (seen.has(key)) continue;
                         seen.add(key);
                         
                         allWords.push({
                             word: exampleWord,
-                            char: tone.char,
-                            pinyin: fixPinyinDisplay(tone.pinyin),
-                            ru: tone.ru || '',
+                            pinyin: tone.pinyin,
                             meaning: tone.meaning || '',
-                            example_ru: exampleRu,
-                            sound: tone.sound || tone.example || exampleWord
+                            example_ru: tone.example_ru || tone.meaning || '',
+                            sound: exampleWord
                         });
                     }
                 }
             }
         }
-        
-        // Перемешиваем
         allWords = allWords.sort(() => Math.random() - 0.5);
     }
     
-    // ========== ОЗВУЧКА (СЛОВО ЦЕЛИКОМ) ==========
+    // ========== ОЗВУЧКА ==========
     function speakWord(word) {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(word);
         u.lang = 'zh-CN';
         u.rate = 0.7;
-        u.pitch = 1.0;
-        // Говорим слово целиком
         setTimeout(() => window.speechSynthesis.speak(u), 100);
     }
     
@@ -316,10 +263,7 @@
     }
     
     function getWrongOptions(correct, count) {
-        return allWords
-            .filter(w => w.word !== correct.word)
-            .sort(() => Math.random() - 0.5)
-            .slice(0, count);
+        return allWords.filter(w => w.word !== correct.word).sort(() => Math.random() - 0.5).slice(0, count);
     }
     
     // ========== ИГРА 1: ИЕРОГЛИФ → ПИНЬИНЬ ==========
@@ -332,10 +276,7 @@
         const added = new Set([word.pinyin]);
         const wrongs = getWrongOptions(word, 5).filter(w => !added.has(w.pinyin));
         for (const w of wrongs) {
-            if (!added.has(w.pinyin) && options.length < 4) {
-                options.push(w);
-                added.add(w.pinyin);
-            }
+            if (!added.has(w.pinyin) && options.length < 4) { options.push(w); added.add(w.pinyin); }
         }
         const shuffled = options.sort(() => Math.random() - 0.5);
         
@@ -345,11 +286,7 @@
             <div class="meaning-hint">${word.meaning || ''}</div>
             <div class="result-msg" id="resultMsg"></div>
             <div class="options-grid">
-                ${shuffled.map((w, i) => `
-                    <button class="option-btn" onclick="checkAnswer(this, '${w.pinyin.replace(/'/g, "\\'")}', '${word.pinyin.replace(/'/g, "\\'")}')">
-                        ${w.pinyin}
-                    </button>
-                `).join('')}
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.pinyin}', '${word.pinyin}')">${w.pinyin}</button>`).join('')}
             </div>
             <button class="play-btn" onclick="speakWord('${word.word}')">🔊 Слушать</button>
         `;
@@ -367,10 +304,7 @@
         const added = new Set([correct.example_ru]);
         const wrongs = pool.filter(w => !added.has(w.example_ru)).sort(() => Math.random() - 0.5);
         for (const w of wrongs) {
-            if (!added.has(w.example_ru) && options.length < 4) {
-                options.push(w);
-                added.add(w.example_ru);
-            }
+            if (!added.has(w.example_ru) && options.length < 4) { options.push(w); added.add(w.example_ru); }
         }
         const shuffled = options.sort(() => Math.random() - 0.5);
         
@@ -379,11 +313,7 @@
             <div class="word-display">${correct.word}</div>
             <div class="result-msg" id="resultMsg"></div>
             <div class="options-grid">
-                ${shuffled.map((w, i) => `
-                    <button class="option-btn" onclick="checkAnswer(this, '${w.example_ru.replace(/'/g, "\\'")}', '${correct.example_ru.replace(/'/g, "\\'")}')" style="font-family:'Segoe UI',sans-serif; font-size:0.95rem;">
-                        ${w.example_ru}
-                    </button>
-                `).join('')}
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.example_ru}', '${correct.example_ru}')" style="font-family:'Segoe UI',sans-serif; font-size:0.95rem;">${w.example_ru}</button>`).join('')}
             </div>
             <button class="play-btn" onclick="speakWord('${correct.word}')">🔊 Слушать</button>
         `;
@@ -399,10 +329,7 @@
         const added = new Set([word.word]);
         const wrongs = getWrongOptions(word, 5).filter(w => !added.has(w.word));
         for (const w of wrongs) {
-            if (!added.has(w.word) && options.length < 4) {
-                options.push(w);
-                added.add(w.word);
-            }
+            if (!added.has(w.word) && options.length < 4) { options.push(w); added.add(w.word); }
         }
         const shuffled = options.sort(() => Math.random() - 0.5);
         
@@ -411,16 +338,11 @@
             <div class="word-display" style="font-size:4rem;">👂</div>
             <div class="result-msg" id="resultMsg"></div>
             <div class="options-grid">
-                ${shuffled.map((w, i) => `
-                    <button class="option-btn" onclick="checkAnswer(this, '${w.word}', '${word.word}')">
-                        ${w.word}
-                    </button>
-                `).join('')}
+                ${shuffled.map(w => `<button class="option-btn" onclick="checkAnswer(this, '${w.word}', '${word.word}')">${w.word}</button>`).join('')}
             </div>
             <button class="play-btn" onclick="speakWord('${word.word}')">🔊 Прослушать ещё раз</button>
         `;
         
-        // Авто-озвучка слова целиком
         setTimeout(() => speakWord(word.word), 500);
     }
     
@@ -443,9 +365,7 @@
             btn.classList.add('wrong');
             wrongCount++;
             streak = 0;
-            buttons.forEach(b => {
-                if (b.textContent.trim() === correct) b.classList.add('correct');
-            });
+            buttons.forEach(b => { if (b.textContent.trim() === correct) b.classList.add('correct'); });
             if (msgEl) { msgEl.textContent = '❌ Неверно! Правильно: ' + correct; msgEl.className = 'result-msg fail'; }
         }
         updateScore();
@@ -459,12 +379,9 @@
     }
     
     function nextQuestion() {
-        switch (currentGame) {
-            case 'pinyin': renderPinyinGame(); break;
-            case 'meaning': renderMeaningGame(); break;
-            case 'listen': renderListenGame(); break;
-            default: renderPinyinGame();
-        }
+        if (currentGame === 'pinyin') renderPinyinGame();
+        else if (currentGame === 'meaning') renderMeaningGame();
+        else if (currentGame === 'listen') renderListenGame();
     }
     
     function resetScore() {
@@ -489,14 +406,8 @@
             if (typeof pinyinFullDB !== 'undefined') {
                 clearInterval(checkDB);
                 loadWords();
-                if (allWords.length === 0) {
-                    document.getElementById('gameArea').innerHTML = 
-                        '<p style="color:#ffb347;">⚠️ Нет слов с примерами. Проверьте поле example в базе.</p>';
-                } else {
-                    document.getElementById('gameArea').innerHTML = 
-                        '<p class="stats-box">✅ Загружено слов: <strong>' + allWords.length + '</strong></p>';
-                    setTimeout(renderPinyinGame, 300);
-                }
+                document.getElementById('gameArea').innerHTML = '<p style="padding:2rem; color:#4CAF50;">✅ Загружено слов: <strong>' + allWords.length + '</strong></p>';
+                setTimeout(renderPinyinGame, 300);
             }
         }, 100);
     });
