@@ -206,7 +206,7 @@
     let allWords = [];
     let answered = false;
     
-    // ========== ЗАГРУЗКА СЛОВ ИЗ БАЗЫ ==========
+    // ========== ЗАГРУЗКА СЛОВ ПРЯМО ИЗ EXAMPLE ==========
     function loadWords() {
         if (typeof pinyinFullDB === 'undefined') {
             document.getElementById('gameArea').innerHTML = '<p style="color:#e94560;">❌ База не загружена!</p>';
@@ -220,32 +220,37 @@
             for (const [syllable, sylData] of Object.entries(data.syllables)) {
                 if (!sylData.tones) continue;
                 for (const tone of sylData.tones) {
-                    if (tone.char === '—' || !tone.char) continue;
                     if (!tone.example || tone.example === '—') continue;
+                    if (tone.char === '—' || !tone.char) continue;
                     
-                    const parts = tone.example.split(/\s+/);
-                    const word = parts[0];
-                    let fullPinyin = parts.slice(1).join(' ');
+                    // Разбираем example: "安全 ān quán" → слово, пиньинь
+                    const raw = tone.example.trim();
+                    const firstSpace = raw.indexOf(' ');
                     
-                    // Если пиньинь только один слог, а слово двусложное — 
-                    // пробуем добавить syllable как второй слог
-                    if (fullPinyin.split(/\s+/).length < 2 && word.length >= 2) {
-                        // Ищем второй слог в других тонах того же syllable
-                        const sylTones = sylData.tones || [];
-                        if (sylTones.length > 0) {
-                            fullPinyin = tone.pinyin + ' ' + syllable;
-                        }
+                    let word, pinyinPart;
+                    if (firstSpace > 0) {
+                        word = raw.substring(0, firstSpace);
+                        pinyinPart = raw.substring(firstSpace + 1).trim();
+                    } else {
+                        word = raw;
+                        pinyinPart = tone.pinyin;
                     }
                     
-                    if (!word || !/[\u4e00-\u9fff]/.test(word)) continue;
+                    // Только слова из иероглифов, минимум 2 символа
+                    if (!word || !/^[\u4e00-\u9fff]+$/.test(word)) continue;
                     if (word.length < 2) continue;
+                    
+                    // Пиньинь должен содержать латиницу
+                    if (!/[a-zA-Z]/.test(pinyinPart)) {
+                        pinyinPart = tone.pinyin;
+                    }
                     
                     if (seen.has(word)) continue;
                     seen.add(word);
                     
                     allWords.push({
                         word: word,
-                        pinyin: fullPinyin || tone.pinyin,
+                        pinyin: pinyinPart,
                         meaning: tone.meaning || '',
                         example_ru: tone.example_ru || tone.meaning || '',
                         sound: word
@@ -302,7 +307,7 @@
     
     // ========== ИГРА 2: ИЕРОГЛИФ → ПЕРЕВОД ==========
     function renderMeaningGame() {
-        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—');
+        const withRu = allWords.filter(w => w.example_ru && w.example_ru !== '—' && w.example_ru !== w.meaning);
         const pool = withRu.length >= 4 ? withRu : allWords;
         const correct = pool[Math.floor(Math.random() * pool.length)];
         currentWord = correct;
