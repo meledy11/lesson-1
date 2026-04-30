@@ -3026,6 +3026,114 @@ const pinyinFullDB = {
             }
         }
     },
+    // ==================== Ø (НУЛЕВАЯ ИНИЦИАЛЬ / ЧИСТЫЕ ФИНАЛИ) ====================
+    "Ø": {
+        desc: "Ø — нулевая инициаль (слог начинается с гласной)",
+        ru_sound: "чистая гласная, без согласной в начале",
+        articulation: "🗣️ Голосовые связки работают сразу, без преграды во рту",
+        sound: "啊",
+        syllables: {
+            a: {
+                translation: "а",
+                tones: [
+                    { tone: "1-й", pinyin: "ā", ru: "а", char: "啊", meaning: "ах! 😮", example: "啊哈", example_ru: "ага!", sound: "啊哈" },
+                    { tone: "2-й", pinyin: "á", ru: "а", char: "啊", meaning: "что? 🤔", example: "啊?", example_ru: "а? что?", sound: "啊" },
+                    { tone: "3-й", pinyin: "ǎ", ru: "а", char: "啊", meaning: "хм...", example: "啊...", example_ru: "хм...", sound: "啊" },
+                    { tone: "4-й", pinyin: "à", ru: "а", char: "啊", meaning: "ох! 😧", example: "啊!", example_ru: "ой!", sound: "啊" }
+                ]
+            },
+            ai: {
+                translation: "ай",
+                tones: [
+                    { tone: "1-й", pinyin: "āi", ru: "ай", char: "哀", meaning: "печаль 😢", example: "悲哀", example_ru: "печаль", sound: "悲哀" },
+                    { tone: "2-й", pinyin: "ái", ru: "ай", char: "挨", meaning: "терпеть 😣", example: "挨打", example_ru: "получить удар", sound: "挨打" },
+                    { tone: "3-й", pinyin: "ǎi", ru: "ай", char: "矮", meaning: "низкий 📏", example: "矮人", example_ru: "карлик", sound: "矮人" },
+                    { tone: "4-й", pinyin: "ài", ru: "ай", char: "爱", meaning: "любить ❤️", example: "爱情", example_ru: "любовь", sound: "爱情" }
+                ]
+            },
+            an: {
+                translation: "ань",
+                tones: [
+                    { tone: "1-й", pinyin: "ān", ru: "ань", char: "安", meaning: "спокойный 😌", example: "安全", example_ru: "безопасность", sound: "安全" },
+                    { tone: "2-й", pinyin: "án", ru: "ань", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "安" },
+                    { tone: "3-й", pinyin: "ǎn", ru: "ань", char: "俺", meaning: "я (диал.)", example: "俺们", example_ru: "мы", sound: "俺们" },
+                    { tone: "4-й", pinyin: "àn", ru: "ань", char: "暗", meaning: "тёмный 🌑", example: "黑暗", example_ru: "темнота", sound: "黑暗" }
+                ]
+            },
+            ang: {
+                translation: "ан",
+                tones: [
+                    { tone: "1-й", pinyin: "āng", ru: "ан", char: "肮", meaning: "грязный", example: "肮脏", example_ru: "грязный", sound: "肮脏" },
+                    { tone: "2-й", pinyin: "áng", ru: "ан", char: "昂", meaning: "гордый 🦁", example: "昂贵", example_ru: "дорогой", sound: "昂贵" },
+                    { tone: "3-й", pinyin: "ǎng", ru: "ан", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "昂" },
+                    { tone: "4-й", pinyin: "àng", ru: "ан", char: "盎", meaning: "чаша", example: "盎然", example_ru: "полный жизни", sound: "盎然" }
+                ]
+            },
+            ao: {
+                translation: "ао",
+                tones: [
+                    { tone: "1-й", pinyin: "āo", ru: "ао", char: "凹", meaning: "впадина 🕳️", example: "凹陷", example_ru: "углубление", sound: "凹陷" },
+                    { tone: "2-й", pinyin: "áo", ru: "ао", char: "熬", meaning: "варить", example: "熬粥", example_ru: "варить кашу", sound: "熬粥" },
+                    { tone: "3-й", pinyin: "ǎo", ru: "ао", char: "袄", meaning: "куртка 🧥", example: "棉袄", example_ru: "ватник", sound: "棉袄" },
+                    { tone: "4-й", pinyin: "ào", ru: "ао", char: "奥", meaning: "тайна 🔮", example: "奥运", example_ru: "Олимпиада", sound: "奥运" }
+                ]
+            },
+            e: {
+                translation: "э",
+                tones: [
+                    { tone: "1-й", pinyin: "ē", ru: "э", char: "婀", meaning: "грациозная", example: "婀娜", example_ru: "изящная", sound: "婀娜" },
+                    { tone: "2-й", pinyin: "é", ru: "э", char: "鹅", meaning: "гусь 🦢", example: "天鹅", example_ru: "лебедь", sound: "天鹅" },
+                    { tone: "3-й", pinyin: "ě", ru: "э", char: "恶", meaning: "злой", example: "恶心", example_ru: "тошнота", sound: "恶心" },
+                    { tone: "4-й", pinyin: "è", ru: "э", char: "饿", meaning: "голодный 🍔", example: "饿了", example_ru: "голоден", sound: "饿了" }
+                ]
+            },
+            ei: {
+                translation: "эй",
+                tones: [
+                    { tone: "1-й", pinyin: "ēi", ru: "эй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "诶" },
+                    { tone: "2-й", pinyin: "éi", ru: "эй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "诶" },
+                    { tone: "3-й", pinyin: "ěi", ru: "эй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "诶" },
+                    { tone: "4-й", pinyin: "èi", ru: "эй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "诶" }
+                ]
+            },
+            en: {
+                translation: "энь",
+                tones: [
+                    { tone: "1-й", pinyin: "ēn", ru: "энь", char: "恩", meaning: "милость 🙏", example: "感恩", example_ru: "благодарность", sound: "感恩" },
+                    { tone: "2-й", pinyin: "én", ru: "энь", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "恩" },
+                    { tone: "3-й", pinyin: "ěn", ru: "энь", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "恩" },
+                    { tone: "4-й", pinyin: "èn", ru: "энь", char: "摁", meaning: "нажимать 👆", example: "摁住", example_ru: "нажать", sound: "摁住" }
+                ]
+            },
+            er: {
+                translation: "эр",
+                tones: [
+                    { tone: "1-й", pinyin: "ēr", ru: "эр", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "二" },
+                    { tone: "2-й", pinyin: "ér", ru: "эр", char: "儿", meaning: "ребёнок 👶", example: "儿子", example_ru: "сын", sound: "儿子" },
+                    { tone: "3-й", pinyin: "ěr", ru: "эр", char: "耳", meaning: "ухо 👂", example: "耳朵", example_ru: "ухо", sound: "耳朵" },
+                    { tone: "4-й", pinyin: "èr", ru: "эр", char: "二", meaning: "два 2️⃣", example: "二月", example_ru: "февраль", sound: "二月" }
+                ]
+            },
+            o: {
+                translation: "о",
+                tones: [
+                    { tone: "1-й", pinyin: "ō", ru: "о", char: "哦", meaning: "ох! 😮", example: "哦!", example_ru: "ох!", sound: "哦" },
+                    { tone: "2-й", pinyin: "ó", ru: "о", char: "哦", meaning: "вот как? 🤔", example: "哦?", example_ru: "вот как?", sound: "哦" },
+                    { tone: "3-й", pinyin: "ǒ", ru: "о", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "哦" },
+                    { tone: "4-й", pinyin: "ò", ru: "о", char: "哦", meaning: "понятно! 💡", example: "哦!", example_ru: "понятно!", sound: "哦" }
+                ]
+            },
+            ou: {
+                translation: "оу",
+                tones: [
+                    { tone: "1-й", pinyin: "ōu", ru: "оу", char: "欧", meaning: "Европа 🇪🇺", example: "欧洲", example_ru: "Европа", sound: "欧洲" },
+                    { tone: "2-й", pinyin: "óu", ru: "оу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "欧" },
+                    { tone: "3-й", pinyin: "ǒu", ru: "оу", char: "偶", meaning: "пара 👫", example: "偶然", example_ru: "случайно", sound: "偶然" },
+                    { tone: "4-й", pinyin: "òu", ru: "оу", char: "沤", meaning: "мочить 💧", example: "沤肥", example_ru: "компост", sound: "沤肥" }
+                ]
+            }
+        }
+    },
                
     // ==================== S ====================
     s: {
