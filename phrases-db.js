@@ -1,141 +1,110 @@
 // ==================== БАЗА ПРЕДЛОЖЕНИЙ ДЛЯ ДИКТАНТА ====================
 const phrasesDB = [
-    // Уровень 1: Простые фразы
-    {
-        chinese: "你好",
-        pinyin: "nǐ hǎo",
-        russian: "Привет",
-        level: 1,
-        words: ["你", "好"]
-    },
-    {
-        chinese: "谢谢",
-        pinyin: "xiè xie",
-        russian: "Спасибо",
-        level: 1,
-        words: ["谢", "谢"]
-    },
-    {
-        chinese: "对不起",
-        pinyin: "duì bu qǐ",
-        russian: "Извините",
-        level: 1,
-        words: ["对", "不", "起"]
-    },
-    {
-        chinese: "没关系",
-        pinyin: "méi guān xi",
-        russian: "Ничего страшного",
-        level: 1,
-        words: ["没", "关", "系"]
-    },
-    {
-        chinese: "我叫小明",
-        pinyin: "wǒ jiào Xiǎomíng",
-        russian: "Меня зовут Сяомин",
-        level: 1,
-        words: ["我", "叫", "小", "明"]
-    },
-    {
-        chinese: "你叫什么名字",
-        pinyin: "nǐ jiào shénme míngzi",
-        russian: "Как тебя зовут?",
-        level: 1,
-        words: ["你", "叫", "什", "么", "名", "字"]
-    },
-    {
-        chinese: "很高兴认识你",
-        pinyin: "hěn gāoxìng rènshi nǐ",
-        russian: "Приятно познакомиться",
-        level: 2,
-        words: ["很", "高", "兴", "认", "识", "你"]
-    },
-    
-    // Уровень 2: Повседневные фразы
-    {
-        chinese: "今天天气很好",
-        pinyin: "jīntiān tiānqì hěn hǎo",
-        russian: "Сегодня хорошая погода",
-        level: 2,
-        words: ["今", "天", "天", "气", "很", "好"]
-    },
-    {
-        chinese: "我想吃饭",
-        pinyin: "wǒ xiǎng chīfàn",
-        russian: "Я хочу есть",
-        level: 2,
-        words: ["我", "想", "吃", "饭"]
-    },
-    {
-        chinese: "他是我朋友",
-        pinyin: "tā shì wǒ péngyou",
-        russian: "Он мой друг",
-        level: 2,
-        words: ["他", "是", "我", "朋", "友"]
-    },
-    {
-        chinese: "我们去看电影吧",
-        pinyin: "wǒmen qù kàn diànyǐng ba",
-        russian: "Пойдём смотреть кино",
-        level: 2,
-        words: ["我", "们", "去", "看", "电", "影", "吧"]
-    },
-    {
-        chinese: "这个多少钱",
-        pinyin: "zhè ge duōshao qián",
-        russian: "Сколько это стоит?",
-        level: 2,
-        words: ["这", "个", "多", "少", "钱"]
-    },
-    {
-        chinese: "太贵了",
-        pinyin: "tài guì le",
-        russian: "Слишком дорого",
-        level: 2,
-        words: ["太", "贵", "了"]
-    },
-    {
-        chinese: "我不会说中文",
-        pinyin: "wǒ bú huì shuō zhōngwén",
-        russian: "Я не говорю по-китайски",
-        level: 2,
-        words: ["我", "不", "会", "说", "中", "文"]
-    },
-    
-    // Уровень 3: Посложнее
-    {
-        chinese: "明天我要去学校",
-        pinyin: "míngtiān wǒ yào qù xuéxiào",
-        russian: "Завтра я пойду в школу",
-        level: 3,
-        words: ["明", "天", "我", "要", "去", "学", "校"]
-    },
-    {
-        chinese: "我喜欢学习汉语",
-        pinyin: "wǒ xǐhuan xuéxí hànyǔ",
-        russian: "Мне нравится учить китайский",
-        level: 3,
-        words: ["我", "喜", "欢", "学", "习", "汉", "语"]
-    },
-    {
-        chinese: "请再说一遍",
-        pinyin: "qǐng zài shuō yí biàn",
-        russian: "Повторите ещё раз, пожалуйста",
-        level: 3,
-        words: ["请", "再", "说", "一", "遍"]
-    },
-    {
-        chinese: "我坐地铁去上班",
-        pinyin: "wǒ zuò dìtiě qù shàngbān",
-        russian: "Я еду на метро на работу",
-        level: 3,
-        words: ["我", "坐", "地", "铁", "去", "上", "班"]
-    },
-    {
-        chinese: "你的电话号码是多少",
-        pinyin: "nǐ de diànhuà hàomǎ shì duōshao",
-        russian: "Какой у тебя номер телефона?",
-        level: 3,
-        words: ["你", "的", "电", "话", "号", "码", "是", "多", "少"]
-    }
+    // ==================== УРОВЕНЬ 1: ПРОСТЫЕ ФРАЗЫ (25 фраз) ====================
+    { chinese: "你好", pinyin: "nǐ hǎo", russian: "Привет", level: 1, words: ["你", "好"] },
+    { chinese: "你们好", pinyin: "nǐmen hǎo", russian: "Всем привет", level: 1, words: ["你", "们", "好"] },
+    { chinese: "早上好", pinyin: "zǎoshang hǎo", russian: "Доброе утро", level: 1, words: ["早", "上", "好"] },
+    { chinese: "晚上好", pinyin: "wǎnshang hǎo", russian: "Добрый вечер", level: 1, words: ["晚", "上", "好"] },
+    { chinese: "谢谢", pinyin: "xiè xie", russian: "Спасибо", level: 1, words: ["谢", "谢"] },
+    { chinese: "多谢", pinyin: "duō xiè", russian: "Большое спасибо", level: 1, words: ["多", "谢"] },
+    { chinese: "对不起", pinyin: "duì bu qǐ", russian: "Извините", level: 1, words: ["对", "不", "起"] },
+    { chinese: "不好意思", pinyin: "bù hǎoyìsi", russian: "Извините (вежл.)", level: 1, words: ["不", "好", "意", "思"] },
+    { chinese: "没关系", pinyin: "méi guān xi", russian: "Ничего страшного", level: 1, words: ["没", "关", "系"] },
+    { chinese: "没问题", pinyin: "méi wèntí", russian: "Без проблем", level: 1, words: ["没", "问", "题"] },
+    { chinese: "再见", pinyin: "zài jiàn", russian: "До свидания", level: 1, words: ["再", "见"] },
+    { chinese: "拜拜", pinyin: "bài bài", russian: "Пока-пока", level: 1, words: ["拜", "拜"] },
+    { chinese: "明天见", pinyin: "míngtiān jiàn", russian: "Увидимся завтра", level: 1, words: ["明", "天", "见"] },
+    { chinese: "回头见", pinyin: "huítóu jiàn", russian: "Увидимся позже", level: 1, words: ["回", "头", "见"] },
+    { chinese: "请进", pinyin: "qǐng jìn", russian: "Входите, пожалуйста", level: 1, words: ["请", "进"] },
+    { chinese: "请坐", pinyin: "qǐng zuò", russian: "Садитесь, пожалуйста", level: 1, words: ["请", "坐"] },
+    { chinese: "等一下", pinyin: "děng yíxià", russian: "Подождите немного", level: 1, words: ["等", "一", "下"] },
+    { chinese: "慢慢来", pinyin: "màn man lái", russian: "Не спеши", level: 1, words: ["慢", "慢", "来"] },
+    { chinese: "不客气", pinyin: "bú kèqi", russian: "Пожалуйста (ответ)", level: 1, words: ["不", "客", "气"] },
+    { chinese: "没事", pinyin: "méi shì", russian: "Ничего / Всё в порядке", level: 1, words: ["没", "事"] },
+    { chinese: "我很好", pinyin: "wǒ hěn hǎo", russian: "У меня всё хорошо", level: 1, words: ["我", "很", "好"] },
+    { chinese: "还不错", pinyin: "hái búcuò", russian: "Неплохо", level: 1, words: ["还", "不", "错"] },
+    { chinese: "可以", pinyin: "kěyǐ", russian: "Можно / Ладно", level: 1, words: ["可", "以"] },
+    { chinese: "好的", pinyin: "hǎo de", russian: "Хорошо", level: 1, words: ["好", "的"] },
+    { chinese: "当然", pinyin: "dāngrán", russian: "Конечно", level: 1, words: ["当", "然"] },
+
+    // ==================== УРОВЕНЬ 2: ЗНАКОМСТВО И СЕМЬЯ (25 фраз) ====================
+    { chinese: "我叫小明", pinyin: "wǒ jiào Xiǎomíng", russian: "Меня зовут Сяомин", level: 2, words: ["我", "叫", "小", "明"] },
+    { chinese: "你叫什么名字", pinyin: "nǐ jiào shénme míngzi", russian: "Как тебя зовут?", level: 2, words: ["你", "叫", "什", "么", "名", "字"] },
+    { chinese: "您贵姓", pinyin: "nín guìxìng", russian: "Ваша фамилия? (вежл.)", level: 2, words: ["您", "贵", "姓"] },
+    { chinese: "我姓王", pinyin: "wǒ xìng Wáng", russian: "Моя фамилия Ван", level: 2, words: ["我", "姓", "王"] },
+    { chinese: "很高兴认识你", pinyin: "hěn gāoxìng rènshi nǐ", russian: "Приятно познакомиться", level: 2, words: ["很", "高", "兴", "认", "识", "你"] },
+    { chinese: "我是俄罗斯人", pinyin: "wǒ shì Éluósī rén", russian: "Я русский", level: 2, words: ["我", "是", "俄", "罗", "斯", "人"] },
+    { chinese: "他是中国人", pinyin: "tā shì Zhōngguó rén", russian: "Он китаец", level: 2, words: ["他", "是", "中", "国", "人"] },
+    { chinese: "她是美国人", pinyin: "tā shì Měiguó rén", russian: "Она американка", level: 2, words: ["她", "是", "美", "国", "人"] },
+    { chinese: "这是我妈妈", pinyin: "zhè shì wǒ māma", russian: "Это моя мама", level: 2, words: ["这", "是", "我", "妈", "妈"] },
+    { chinese: "那是我爸爸", pinyin: "nà shì wǒ bàba", russian: "Там мой папа", level: 2, words: ["那", "是", "我", "爸", "爸"] },
+    { chinese: "你有兄弟姐妹吗", pinyin: "nǐ yǒu xiōngdì jiěmèi ma", russian: "У тебя есть братья или сёстры?", level: 2, words: ["你", "有", "兄", "弟", "姐", "妹", "吗"] },
+    { chinese: "我有一个弟弟", pinyin: "wǒ yǒu yí ge dìdi", russian: "У меня есть младший брат", level: 2, words: ["我", "有", "一", "个", "弟", "弟"] },
+    { chinese: "我今年二十岁", pinyin: "wǒ jīnnián èrshí suì", russian: "Мне 20 лет", level: 2, words: ["我", "今", "年", "二", "十", "岁"] },
+    { chinese: "你多大了", pinyin: "nǐ duō dà le", russian: "Сколько тебе лет?", level: 2, words: ["你", "多", "大", "了"] },
+    { chinese: "我住在莫斯科", pinyin: "wǒ zhù zài Mòsīkē", russian: "Я живу в Москве", level: 2, words: ["我", "住", "在", "莫", "斯", "科"] },
+    { chinese: "你住在哪里", pinyin: "nǐ zhù zài nǎlǐ", russian: "Где ты живёшь?", level: 2, words: ["你", "住", "在", "哪", "里"] },
+    { chinese: "我是学生", pinyin: "wǒ shì xuésheng", russian: "Я студент", level: 2, words: ["我", "是", "学", "生"] },
+    { chinese: "他是我朋友", pinyin: "tā shì wǒ péngyou", russian: "Он мой друг", level: 2, words: ["他", "是", "我", "朋", "友"] },
+    { chinese: "我们认识很久了", pinyin: "wǒmen rènshi hěn jiǔ le", russian: "Мы знакомы давно", level: 2, words: ["我", "们", "认", "识", "很", "久", "了"] },
+    { chinese: "你家有几口人", pinyin: "nǐ jiā yǒu jǐ kǒu rén", russian: "Сколько человек в твоей семье?", level: 2, words: ["你", "家", "有", "几", "口", "人"] },
+    { chinese: "我家有四口人", pinyin: "wǒ jiā yǒu sì kǒu rén", russian: "В моей семье 4 человека", level: 2, words: ["我", "家", "有", "四", "口", "人"] },
+    { chinese: "这是我的名片", pinyin: "zhè shì wǒ de míngpiàn", russian: "Это моя визитка", level: 2, words: ["这", "是", "我", "的", "名", "片"] },
+    { chinese: "我们加个微信吧", pinyin: "wǒmen jiā ge Wēixìn ba", russian: "Давай добавимся в WeChat", level: 2, words: ["我", "们", "加", "个", "微", "信", "吧"] },
+    { chinese: "你结婚了吗", pinyin: "nǐ jiéhūn le ma", russian: "Ты женат/замужем?", level: 2, words: ["你", "结", "婚", "了", "吗"] },
+    { chinese: "我还没结婚", pinyin: "wǒ hái méi jiéhūn", russian: "Я ещё не женат/замужем", level: 2, words: ["我", "还", "没", "结", "婚"] },
+
+    // ==================== УРОВЕНЬ 3: ЕДА И ПОКУПКИ (25 фраз) ====================
+    { chinese: "我想吃饭", pinyin: "wǒ xiǎng chīfàn", russian: "Я хочу есть", level: 3, words: ["我", "想", "吃", "饭"] },
+    { chinese: "你饿了吗", pinyin: "nǐ è le ma", russian: "Ты голоден?", level: 3, words: ["你", "饿", "了", "吗"] },
+    { chinese: "我饿了", pinyin: "wǒ è le", russian: "Я голоден", level: 3, words: ["我", "饿", "了"] },
+    { chinese: "很好吃", pinyin: "hěn hǎochī", russian: "Очень вкусно", level: 3, words: ["很", "好", "吃"] },
+    { chinese: "这个很好吃", pinyin: "zhè ge hěn hǎochī", russian: "Это очень вкусно", level: 3, words: ["这", "个", "很", "好", "吃"] },
+    { chinese: "我要一杯水", pinyin: "wǒ yào yì bēi shuǐ", russian: "Я хочу стакан воды", level: 3, words: ["我", "要", "一", "杯", "水"] },
+    { chinese: "请给我菜单", pinyin: "qǐng gěi wǒ càidān", russian: "Дайте меню, пожалуйста", level: 3, words: ["请", "给", "我", "菜", "单"] },
+    { chinese: "我要点菜", pinyin: "wǒ yào diǎn cài", russian: "Я хочу заказать еду", level: 3, words: ["我", "要", "点", "菜"] },
+    { chinese: "这个多少钱", pinyin: "zhè ge duōshao qián", russian: "Сколько это стоит?", level: 3, words: ["这", "个", "多", "少", "钱"] },
+    { chinese: "太贵了", pinyin: "tài guì le", russian: "Слишком дорого", level: 3, words: ["太", "贵", "了"] },
+    { chinese: "便宜一点吧", pinyin: "piányi yìdiǎn ba", russian: "Немного дешевле", level: 3, words: ["便", "宜", "一", "点", "吧"] },
+    { chinese: "可以打折吗", pinyin: "kěyǐ dǎzhé ma", russian: "Можно скидку?", level: 3, words: ["可", "以", "打", "折", "吗"] },
+    { chinese: "我想买一件衣服", pinyin: "wǒ xiǎng mǎi yí jiàn yīfu", russian: "Я хочу купить одежду", level: 3, words: ["我", "想", "买", "一", "件", "衣", "服"] },
+    { chinese: "我可以试试吗", pinyin: "wǒ kěyǐ shì shì ma", russian: "Можно примерить?", level: 3, words: ["我", "可", "以", "试", "试", "吗"] },
+    { chinese: "有没有大一点的", pinyin: "yǒu méiyǒu dà yìdiǎn de", russian: "Есть побольше?", level: 3, words: ["有", "没", "有", "大", "一", "点", "的"] },
+    { chinese: "我要这个", pinyin: "wǒ yào zhè ge", russian: "Я возьму это", level: 3, words: ["我", "要", "这", "个"] },
+    { chinese: "可以刷卡吗", pinyin: "kěyǐ shuākǎ ma", russian: "Можно оплатить картой?", level: 3, words: ["可", "以", "刷", "卡", "吗"] },
+    { chinese: "我付现金", pinyin: "wǒ fù xiànjīn", russian: "Я заплачу наличными", level: 3, words: ["我", "付", "现", "金"] },
+    { chinese: "请给我发票", pinyin: "qǐng gěi wǒ fāpiào", russian: "Дайте чек, пожалуйста", level: 3, words: ["请", "给", "我", "发", "票"] },
+    { chinese: "洗手间在哪里", pinyin: "xǐshǒujiān zài nǎlǐ", russian: "Где туалет?", level: 3, words: ["洗", "手", "间", "在", "哪", "里"] },
+    { chinese: "我要一瓶啤酒", pinyin: "wǒ yào yì píng píjiǔ", russian: "Я хочу бутылку пива", level: 3, words: ["我", "要", "一", "瓶", "啤", "酒"] },
+    { chinese: "干杯", pinyin: "gān bēi", russian: "До дна!", level: 3, words: ["干", "杯"] },
+    { chinese: "你吃辣吗", pinyin: "nǐ chī là ma", russian: "Ты ешь острое?", level: 3, words: ["你", "吃", "辣", "吗"] },
+    { chinese: "我不吃肉", pinyin: "wǒ bù chī ròu", russian: "Я не ем мясо", level: 3, words: ["我", "不", "吃", "肉"] },
+    { chinese: "买单", pinyin: "mǎidān", russian: "Счёт, пожалуйста", level: 3, words: ["买", "单"] },
+
+    // ==================== УРОВЕНЬ 4: ТРАНСПОРТ И ПУТЕШЕСТВИЯ (25 фраз) ====================
+    { chinese: "我去北京", pinyin: "wǒ qù Běijīng", russian: "Я еду в Пекин", level: 4, words: ["我", "去", "北", "京"] },
+    { chinese: "怎么去火车站", pinyin: "zěnme qù huǒchēzhàn", russian: "Как пройти на вокзал?", level: 4, words: ["怎", "么", "去", "火", "车", "站"] },
+    { chinese: "地铁站在哪里", pinyin: "dìtiě zhàn zài nǎlǐ", russian: "Где станция метро?", level: 4, words: ["地", "铁", "站", "在", "哪", "里"] },
+    { chinese: "我坐地铁去上班", pinyin: "wǒ zuò dìtiě qù shàngbān", russian: "Я еду на метро на работу", level: 4, words: ["我", "坐", "地", "铁", "去", "上", "班"] },
+    { chinese: "请问附近有银行吗", pinyin: "qǐngwèn fùjìn yǒu yínháng ma", russian: "Рядом есть банк?", level: 4, words: ["请", "问", "附", "近", "有", "银", "行", "吗"] },
+    { chinese: "一直走然后右拐", pinyin: "yìzhí zǒu ránhòu yòu guǎi", russian: "Идите прямо, потом направо", level: 4, words: ["一", "直", "走", "然", "后", "右", "拐"] },
+    { chinese: "离这里远不远", pinyin: "lí zhèlǐ yuǎn bù yuǎn", russian: "Далеко отсюда?", level: 4, words: ["离", "这", "里", "远", "不", "远"] },
+    { chinese: "我迷路了", pinyin: "wǒ mílù le", russian: "Я заблудился", level: 4, words: ["我", "迷", "路", "了"] },
+    { chinese: "可以帮我拍照吗", pinyin: "kěyǐ bāng wǒ pāizhào ma", russian: "Можешь меня сфоткать?", level: 4, words: ["可", "以", "帮", "我", "拍", "照", "吗"] },
+    { chinese: "一张去上海的票", pinyin: "yì zhāng qù Shànghǎi de piào", russian: "Один билет до Шанхая", level: 4, words: ["一", "张", "去", "上", "海", "的", "票"] },
+    { chinese: "飞机几点起飞", pinyin: "fēijī jǐ diǎn qǐfēi", russian: "Во сколько вылет самолёта?", level: 4, words: ["飞", "机", "几", "点", "起", "飞"] },
+    { chinese: "请送我到机场", pinyin: "qǐng sòng wǒ dào jīchǎng", russian: "Отвезите меня в аэропорт", level: 4, words: ["请", "送", "我", "到", "机", "场"] },
+    { chinese: "这里可以停车吗", pinyin: "zhèlǐ kěyǐ tíngchē ma", russian: "Здесь можно парковаться?", level: 4, words: ["这", "里", "可", "以", "停", "车", "吗"] },
+    { chinese: "我要订一个房间", pinyin: "wǒ yào dìng yí ge fángjiān", russian: "Я хочу забронировать номер", level: 4, words: ["我", "要", "订", "一", "个", "房", "间"] },
+    { chinese: "有没有空房间", pinyin: "yǒu méiyǒu kòng fángjiān", russian: "Есть свободные номера?", level: 4, words: ["有", "没", "有", "空", "房", "间"] },
+    { chinese: "我要住两晚", pinyin: "wǒ yào zhù liǎng wǎn", russian: "Я останусь на две ночи", level: 4, words: ["我", "要", "住", "两", "晚"] },
+    { chinese: "这个城市很漂亮", pinyin: "zhè ge chéngshì hěn piàoliang", russian: "Этот город очень красивый", level: 4, words: ["这", "个", "城", "市", "很", "漂", "亮"] },
+    { chinese: "旅游旺季是什么时候", pinyin: "lǚyóu wàngjì shì shénme shíhou", russian: "Когда туристический сезон?", level: 4, words: ["旅", "游", "旺", "季", "是", "什", "么", "时", "候"] },
+    { chinese: "请给我一张地图", pinyin: "qǐng gěi wǒ yì zhāng dìtú", russian: "Дайте карту, пожалуйста", level: 4, words: ["请", "给", "我", "一", "张", "地", "图"] },
+    { chinese: "我来自俄罗斯", pinyin: "wǒ láizì Éluósī", russian: "Я из России", level: 4, words: ["我", "来", "自", "俄", "罗", "斯"] },
+    { chinese: "你会说英语吗", pinyin: "nǐ huì shuō Yīngyǔ ma", russian: "Ты говоришь по-английски?", level: 4, words: ["你", "会", "说", "英", "语", "吗"] },
+    { chinese: "我不会说中文", pinyin: "wǒ bú huì shuō zhōngwén", russian: "Я не говорю по-китайски", level: 4, words: ["我", "不", "会", "说", "中", "文"] },
+    { chinese: "请慢一点说", pinyin: "qǐng màn yìdiǎn shuō", russian: "Говорите медленнее", level: 4, words: ["请", "慢", "一", "点", "说"] },
+    { chinese: "这个用中文怎么说", pinyin: "zhè ge yòng zhōngwén zěnme shuō", russian: "Как это сказать по-китайски?", level: 4, words: ["这", "个", "用", "中", "文", "怎", "么", "说"] },
+    { chinese: "我听不懂", pinyin: "wǒ tīng bu dǒng", russian: "Я не понимаю на слух", level: 4, words: ["我", "听", "不", "懂"] }
 ];
