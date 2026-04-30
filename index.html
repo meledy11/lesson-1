@@ -124,6 +124,7 @@
             margin-top: 0.5rem;
             animation: pulse 2s infinite;
         }
+        .game-tag.blue { background: #2196F3; }
         @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
         
         footer {
@@ -167,7 +168,7 @@
         <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
             <div class="speak-tip">
-                <span>🎮</span> Тренируй слова в игровой форме! <span>🎮</span>
+                <span>🎮</span> Тренируй слова и фразы в игровой форме! <span>🎮</span>
             </div>
             <div class="games-grid">
                 <!-- Игра 1: Угадай слово -->
@@ -179,10 +180,19 @@
                 </a>
                 
                 <!-- Игра 2: Собери фразу -->
-                <a href="#" class="game-card" onclick="alert('В разработке! 🚧')">
+                <a href="phrase-builder.html" class="game-card">
                     <div class="game-icon">🧩</div>
                     <h3>Собери фразу</h3>
                     <p>Составь предложение из слов</p>
+                    <span class="game-tag blue">NEW</span>
+                </a>
+                
+                <!-- Игра 3: Пиньинь-диктант -->
+                <a href="dictant.html" class="game-card">
+                    <div class="game-icon">✍️</div>
+                    <h3>Пиньинь-диктант</h3>
+                    <p>Слушай фразу → пиши пиньинь</p>
+                    <span class="game-tag blue">NEW</span>
                 </a>
             </div>
         </div>
