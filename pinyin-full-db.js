@@ -3988,6 +3988,223 @@ suoyi_therefore: {
         { tone: "3-й", pinyin: "yǐ", ru: "и", char: "以", meaning: "поэтому", example: "所以 suǒ yǐ", example_ru: "поэтому", sound: "所以" }
     ]
 },
+            he_and: { 
+    translation: "хэ",
+    tones: [
+        { tone: "2-й", pinyin: "hé", ru: "хэ", char: "和", meaning: "и (соединяет слова) ➕", example: "我和你 wǒ hé nǐ", example_ru: "я и ты", sound: "我和你" }
+    ]
+},
+danshi_but: { 
+    translation: "даньши",
+    tones: [
+        { tone: "4-й", pinyin: "dàn", ru: "дань", char: "但", meaning: "но 🔄", example: "但是 dàn shì", example_ru: "но", sound: "但是" },
+        { tone: "4-й", pinyin: "shì", ru: "ши", char: "是", meaning: "быть, есть", example: "但是 dàn shì", example_ru: "но", sound: "但是" }
+    ]
+},
+suoyi_therefore: { 
+    translation: "сои",
+    tones: [
+        { tone: "3-й", pinyin: "suǒ", ru: "со", char: "所", meaning: "поэтому 🎯", example: "所以 suǒ yǐ", example_ru: "поэтому", sound: "所以" },
+        { tone: "3-й", pinyin: "yǐ", ru: "и", char: "以", meaning: "поэтому", example: "所以 suǒ yǐ", example_ru: "поэтому", sound: "所以" }
+    ]
+},
+yinwei_because: { 
+    translation: "иньвэй",
+    tones: [
+        { tone: "1-й", pinyin: "yīn", ru: "инь", char: "因", meaning: "потому что 🔄", example: "因为 yīn wèi", example_ru: "потому что", sound: "因为" },
+        { tone: "4-й", pinyin: "wèi", ru: "вэй", char: "为", meaning: "потому что", example: "因为 yīn wèi", example_ru: "потому что", sound: "因为" }
+    ]
+},
+ruguo_if: { 
+    translation: "жуго",
+    tones: [
+        { tone: "2-й", pinyin: "rú", ru: "жу", char: "如", meaning: "если 🤔", example: "如果 rú guǒ", example_ru: "если", sound: "如果" },
+        { tone: "3-й", pinyin: "guǒ", ru: "го", char: "果", meaning: "плод, результат", example: "如果 rú guǒ", example_ru: "если", sound: "如果" }
+    ]
+},
+jiushi_just: { 
+    translation: "цзюши",
+    tones: [
+        { tone: "4-й", pinyin: "jiù", ru: "цзю", char: "就", meaning: "именно, тогда ⏰", example: "就是 jiù shì", example_ru: "именно", sound: "就是" },
+        { tone: "4-й", pinyin: "shì", ru: "ши", char: "是", meaning: "быть", example: "就是 jiù shì", example_ru: "именно", sound: "就是" }
+    ]
+},
+huozhe_or: { 
+    translation: "хочжэ",
+    tones: [
+        { tone: "4-й", pinyin: "huò", ru: "хо", char: "或", meaning: "или 🤷", example: "或者 huò zhě", example_ru: "или", sound: "或者" },
+        { tone: "3-й", pinyin: "zhě", ru: "чжэ", char: "者", meaning: "тот, кто", example: "或者 huò zhě", example_ru: "или", sound: "或者" }
+    ]
+},
+buguo_however: { 
+    translation: "буго",
+    tones: [
+        { tone: "4-й", pinyin: "bù", ru: "бу", char: "不", meaning: "не", example: "不过 bù guò", example_ru: "однако", sound: "不过" },
+        { tone: "4-й", pinyin: "guò", ru: "го", char: "过", meaning: "проходить", example: "不过 bù guò", example_ru: "однако", sound: "不过" }
+    ]
+},
+suiran_although: { 
+    translation: "суйжань",
+    tones: [
+        { tone: "1-й", pinyin: "suī", ru: "суй", char: "虽", meaning: "хотя 🌥️", example: "虽然 suī rán", example_ru: "хотя", sound: "虽然" },
+        { tone: "2-й", pinyin: "rán", ru: "жань", char: "然", meaning: "так", example: "虽然 suī rán", example_ru: "хотя", sound: "虽然" }
+    ]
+},
+erqie_moreover: { 
+    translation: "эрце",
+    tones: [
+        { tone: "2-й", pinyin: "ér", ru: "эр", char: "而", meaning: "и, к тому же ➕", example: "而且 ér qiě", example_ru: "кроме того", sound: "而且" },
+        { tone: "3-й", pinyin: "qiě", ru: "це", char: "且", meaning: "к тому же", example: "而且 ér qiě", example_ru: "кроме того", sound: "而且" }
+    ]
+},
+le_particle: { 
+    translation: "лэ",
+    tones: [
+        { tone: "1-й", pinyin: "lē", ru: "лэ", char: "了", meaning: "изменение ситуации / завершение действия", example: "下雨了 xià yǔ le", example_ru: "пошёл дождь", sound: "下雨了" }
+    ]
+},
+zhe_particle: { 
+    translation: "чжэ",
+    tones: [
+        { tone: "4-й", pinyin: "zhe", ru: "чжэ", char: "着", meaning: "действие в процессе", example: "看着 kàn zhe", example_ru: "смотреть (в данный момент)", sound: "看着" }
+    ]
+},
+guo_particle: { 
+    translation: "го",
+    tones: [
+        { tone: "4-й", pinyin: "guò", ru: "го", char: "过", meaning: "иметь опыт", example: "去过 qù guò", example_ru: "бывал", sound: "去过" }
+    ]
+},
+ma_question: { 
+    translation: "ма",
+    tones: [
+        { tone: "5-й", pinyin: "ma", ru: "ма", char: "吗", meaning: "вопрос да/нет ❓", example: "好吗 hǎo ma", example_ru: "хорошо?", sound: "好吗" }
+    ]
+},
+ne_question: { 
+    translation: "нэ",
+    tones: [
+        { tone: "5-й", pinyin: "ne", ru: "нэ", char: "呢", meaning: "а...? / где? / как?", example: "我呢 wǒ ne", example_ru: "а я?", sound: "我呢" }
+    ]
+},
+ba_suggestion: { 
+    translation: "ба",
+    tones: [
+        { tone: "5-й", pinyin: "ba", ru: "ба", char: "吧", meaning: "предложение / мягкое указание", example: "走吧 zǒu ba", example_ru: "пойдём", sound: "走吧" }
+    ]
+},
+de_possessive: { 
+    translation: "дэ",
+    tones: [
+        { tone: "5-й", pinyin: "de", ru: "дэ", char: "的", meaning: "принадлежность / определение", example: "我的 wǒ de", example_ru: "мой", sound: "我的" }
+    ]
+},
+de_adverbial: { 
+    translation: "дэ",
+    tones: [
+        { tone: "5-й", pinyin: "de", ru: "дэ", char: "地", meaning: "наречие", example: "慢慢地 màn màn de", example_ru: "медленно", sound: "慢慢地" }
+    ]
+},
+de_complement: { 
+    translation: "дэ",
+    tones: [
+        { tone: "2-й", pinyin: "dé", ru: "дэ", char: "得", meaning: "степень / возможность", example: "跑得快 pǎo de kuài", example_ru: "быстро бегает", sound: "跑得快" }
+    ]
+},
+ge_measure: { 
+    translation: "гэ",
+    tones: [
+        { tone: "4-й", pinyin: "gè", ru: "гэ", char: "个", meaning: "универсальное счётное слово 🔢", example: "一个人 yī gè rén", example_ru: "один человек", sound: "一个人" }
+    ]
+},
+ben_measure: { 
+    translation: "бэнь",
+    tones: [
+        { tone: "3-й", pinyin: "běn", ru: "бэнь", char: "本", meaning: "для книг 📚", example: "一本书 yī běn shū", example_ru: "одна книга", sound: "一本书" }
+    ]
+},
+zhang_measure: { 
+    translation: "чжан",
+    tones: [
+        { tone: "1-й", pinyin: "zhāng", ru: "чжан", char: "张", meaning: "для плоских предметов 📄", example: "一张纸 yī zhāng zhǐ", example_ru: "один лист бумаги", sound: "一张纸" }
+    ]
+},
+tiao_measure: { 
+    translation: "тяо",
+    tones: [
+        { tone: "2-й", pinyin: "tiáo", ru: "тяо", char: "条", meaning: "для длинных предметов 🐟", example: "一条鱼 yī tiáo yú", example_ru: "одна рыба", sound: "一条鱼" }
+    ]
+},
+zhi_measure: { 
+    translation: "чжи",
+    tones: [
+        { tone: "1-й", pinyin: "zhī", ru: "чжи", char: "只", meaning: "для животных 🐱", example: "一只猫 yī zhī māo", example_ru: "одна кошка", sound: "一只猫" }
+    ]
+},
+liang_measure: { 
+    translation: "лян",
+    tones: [
+        { tone: "4-й", pinyin: "liàng", ru: "лян", char: "辆", meaning: "для транспорта 🚗", example: "一辆车 yī liàng chē", example_ru: "одна машина", sound: "一辆车" }
+    ]
+},
+jian_measure: { 
+    translation: "цзянь",
+    tones: [
+        { tone: "4-й", pinyin: "jiàn", ru: "цзянь", char: "件", meaning: "для вещей, одежды 👕", example: "一件事 yī jiàn shì", example_ru: "одно дело", sound: "一件事" }
+    ]
+},
+ci_measure: { 
+    translation: "цы",
+    tones: [
+        { tone: "4-й", pinyin: "cì", ru: "цы", char: "次", meaning: "для количества действий 🔁", example: "一次 yī cì", example_ru: "один раз", sound: "一次" }
+    ]
+},
+bei_measure: { 
+    translation: "бэй",
+    tones: [
+        { tone: "1-й", pinyin: "bēi", ru: "бэй", char: "杯", meaning: "чашка, стакан 🥛", example: "一杯水 yī bēi shuǐ", example_ru: "стакан воды", sound: "一杯水" }
+    ]
+},
+kuai_measure: { 
+    translation: "куай",
+    tones: [
+        { tone: "4-й", pinyin: "kuài", ru: "куай", char: "块", meaning: "кусок, юань 🧩", example: "一块钱 yī kuài qián", example_ru: "один юань", sound: "一块钱" }
+    ]
+},
+yijing_already: { 
+    translation: "ицзин",
+    tones: [
+        { tone: "3-й", pinyin: "yǐ", ru: "и", char: "已", meaning: "уже ⏰", example: "已经 yǐ jīng", example_ru: "уже", sound: "已经" },
+        { tone: "1-й", pinyin: "jīng", ru: "цзин", char: "经", meaning: "проходить", example: "已经 yǐ jīng", example_ru: "уже", sound: "已经" }
+    ]
+},
+gang_cai: { 
+    translation: "ганцай",
+    tones: [
+        { tone: "1-й", pinyin: "gāng", ru: "ган", char: "刚", meaning: "только что ⏱️", example: "刚才 gāng cái", example_ru: "только что", sound: "刚才" },
+        { tone: "2-й", pinyin: "cái", ru: "цай", char: "才", meaning: "только", example: "刚才 gāng cái", example_ru: "только что", sound: "刚才" }
+    ]
+},
+yizhi_always: { 
+    translation: "ичжи",
+    tones: [
+        { tone: "1-й", pinyin: "yī", ru: "и", char: "一", meaning: "один", example: "一直 yī zhí", example_ru: "всё время", sound: "一直" },
+        { tone: "2-й", pinyin: "zhí", ru: "чжи", char: "直", meaning: "прямо", example: "一直 yī zhí", example_ru: "всё время", sound: "一直" }
+    ]
+},
+changchang_often: { 
+    translation: "чанчан",
+    tones: [
+        { tone: "2-й", pinyin: "cháng", ru: "чан", char: "常", meaning: "часто 🔁", example: "常常 cháng cháng", example_ru: "часто", sound: "常常" }
+    ]
+},
+youshihou_sometimes: { 
+    translation: "юшихоу",
+    tones: [
+        { tone: "3-й", pinyin: "yǒu", ru: "ю", char: "有", meaning: "иметь", example: "有时候 yǒu shí hou", example_ru: "иногда", sound: "有时候" },
+        { tone: "2-й", pinyin: "shí", ru: "ши", char: "时", meaning: "время", example: "有时候 yǒu shí hou", example_ru: "иногда", sound: "有时候" }
+    ]
+},
             
             sun: { 
                 translation: "сунь",
