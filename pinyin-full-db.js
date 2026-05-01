@@ -1412,14 +1412,23 @@ const pinyinFullDB = {
                 ]
             },
             gui: { 
-                translation: "гуй",
-                tones: [
-                    { tone: "1-й", pinyin: "guī", ru: "гуй", char: "归", meaning: "возвращаться 🔙", example: "回来 huí lái", example_ru: "вернуться", sound: "回来" },
-                    { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "鬼" },
-                    { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "鬼", meaning: "призрак 👻", example: "鬼怪 guǐ guài", example_ru: "монстр", sound: "鬼怪" },
-                    { tone: "4-й", pinyin: "guì", ru: "гуй", char: "贵", meaning: "дорогой 💎", example: "贵宾 guì bīn", example_ru: "почётный гость", sound: "贵宾" }
-                ]
-            },
+    translation: "гуй",
+    tones: [
+        { tone: "1-й", pinyin: "guī", ru: "гуй", char: "归", meaning: "возвращаться 🔙", example: "回来 huí lái", example_ru: "вернуться", sound: "回来" },
+        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "鬼" },
+        { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "鬼", meaning: "призрак 👻", example: "鬼怪 guǐ guài", example_ru: "монстр", sound: "鬼怪" },
+        { tone: "4-й", pinyin: "guì", ru: "гуй", char: "贵", meaning: "дорогой 💎", example: "贵宾 guì bīn", example_ru: "почётный гость", sound: "贵宾" }
+    ]
+},
+gui_turtle: { 
+    translation: "гуй",
+    tones: [
+        { tone: "1-й", pinyin: "guī", ru: "гуй", char: "龟", meaning: "черепаха 🐢", example: "乌龟 wū guī", example_ru: "черепаха", sound: "乌龟" },
+        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "龟" },
+        { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "龟" },
+        { tone: "4-й", pinyin: "guì", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "龟" }
+    ]
+},
             guan: { 
                 translation: "гуань",
                 tones: [
