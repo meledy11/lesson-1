@@ -3535,7 +3535,12 @@ ce_ce2: {
         { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "贝", meaning: "раковина, сокровище 🐚💰", example: "贝壳 bèi ké", example_ru: "ракушка", sound: "贝壳" }
     ]
 },
-    
+    mei_eyebrow: { 
+    translation: "мэй",
+    tones: [
+        { tone: "2-й", pinyin: "méi", ru: "мэй", char: "眉", meaning: "бровь 👁️", example: "眉毛 méi mao", example_ru: "бровь", sound: "眉毛" }
+    ]
+},
             
             sun: { 
                 translation: "сунь",
