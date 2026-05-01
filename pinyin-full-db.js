@@ -3883,6 +3883,111 @@ le_past: {
         { tone: "1-й", pinyin: "lē", ru: "лэ", char: "了", meaning: "частица прошедшего времени ⏰", example: "吃了 chī le", example_ru: "съел", sound: "吃了" }
     ]
 },
+            shenme_what: { 
+    translation: "шэньмэ",
+    tones: [
+        { tone: "2-й", pinyin: "shén", ru: "шэнь", char: "什", meaning: "что ❓", example: "什么 shén me", example_ru: "что", sound: "什么" }
+    ]
+},
+shenme_me: { 
+    translation: "шэньмэ",
+    tones: [
+        { tone: "5-й", pinyin: "me", ru: "мэ", char: "么", meaning: "что (часть слова)", example: "什么 shén me", example_ru: "что", sound: "什么" }
+    ]
+},
+weishenme_why: { 
+    translation: "вэйшэньмэ",
+    tones: [
+        { tone: "4-й", pinyin: "wèi", ru: "вэй", char: "为", meaning: "почему (часть)", example: "为什么 wèi shén me", example_ru: "почему", sound: "为什么" }
+    ]
+},
+zenme_how: { 
+    translation: "цзэньмэ",
+    tones: [
+        { tone: "3-й", pinyin: "zěn", ru: "цзэнь", char: "怎", meaning: "как ❓", example: "怎么 zěn me", example_ru: "как", sound: "怎么" }
+    ]
+},
+duoshao_howmany: { 
+    translation: "дуошао",
+    tones: [
+        { tone: "1-й", pinyin: "duō", ru: "дуо", char: "多", meaning: "много 🔢", example: "多少 duō shǎo", example_ru: "сколько", sound: "多少" },
+        { tone: "3-й", pinyin: "shǎo", ru: "шао", char: "少", meaning: "мало 🔢", example: "多少 duō shǎo", example_ru: "сколько", sound: "多少" }
+    ]
+},
+zhidao_know: { 
+    translation: "чжидао",
+    tones: [
+        { tone: "1-й", pinyin: "zhī", ru: "чжи", char: "知", meaning: "знать 🧠", example: "知道 zhī dào", example_ru: "знать", sound: "知道" },
+        { tone: "4-й", pinyin: "dào", ru: "дао", char: "道", meaning: "путь, знать", example: "知道 zhī dào", example_ru: "знать", sound: "知道" }
+    ]
+},
+juede_feel: { 
+    translation: "цзюэдэ",
+    tones: [
+        { tone: "2-й", pinyin: "jué", ru: "цзюэ", char: "觉", meaning: "чувствовать, думать 💭", example: "觉得 jué de", example_ru: "думать", sound: "觉得" }
+    ]
+},
+neng_can: { 
+    translation: "нэн",
+    tones: [
+        { tone: "2-й", pinyin: "néng", ru: "нэн", char: "能", meaning: "мочь (физически) 💪", example: "能够 néng gòu", example_ru: "быть в состоянии", sound: "能够" }
+    ]
+},
+haochi_delicious: { 
+    translation: "хаочи",
+    tones: [
+        { tone: "3-й", pinyin: "hǎo", ru: "хао", char: "好", meaning: "хороший 👍", example: "好吃 hǎo chī", example_ru: "вкусный", sound: "好吃" },
+        { tone: "1-й", pinyin: "chī", ru: "чи", char: "吃", meaning: "есть 🍜", example: "好吃 hǎo chī", example_ru: "вкусный", sound: "好吃" }
+    ]
+},
+lei_tired: { 
+    translation: "лэй",
+    tones: [
+        { tone: "4-й", pinyin: "lèi", ru: "лэй", char: "累", meaning: "усталый 😩", example: "累了 lèi le", example_ru: "устал", sound: "累了" }
+    ]
+},
+jintian_today: { 
+    translation: "цзиньтянь",
+    tones: [
+        { tone: "1-й", pinyin: "jīn", ru: "цзинь", char: "今", meaning: "сегодня 📅", example: "今天 jīn tiān", example_ru: "сегодня", sound: "今天" },
+        { tone: "1-й", pinyin: "tiān", ru: "тянь", char: "天", meaning: "день, небо", example: "今天 jīn tiān", example_ru: "сегодня", sound: "今天" }
+    ]
+},
+mingtian_tomorrow: { 
+    translation: "минтянь",
+    tones: [
+        { tone: "2-й", pinyin: "míng", ru: "мин", char: "明", meaning: "завтра ☀️", example: "明天 míng tiān", example_ru: "завтра", sound: "明天" },
+        { tone: "1-й", pinyin: "tiān", ru: "тянь", char: "天", meaning: "день, небо", example: "明天 míng tiān", example_ru: "завтра", sound: "明天" }
+    ]
+},
+zuotian_yesterday: { 
+    translation: "цзотянь",
+    tones: [
+        { tone: "2-й", pinyin: "zuó", ru: "цзо", char: "昨", meaning: "вчера 📆", example: "昨天 zuó tiān", example_ru: "вчера", sound: "昨天" },
+        { tone: "1-й", pinyin: "tiān", ru: "тянь", char: "天", meaning: "день, небо", example: "昨天 zuó tiān", example_ru: "вчера", sound: "昨天" }
+    ]
+},
+xianzai_now: { 
+    translation: "сяньцзай",
+    tones: [
+        { tone: "4-й", pinyin: "xiàn", ru: "сянь", char: "现", meaning: "сейчас 🌟", example: "现在 xiàn zài", example_ru: "сейчас", sound: "现在" },
+        { tone: "4-й", pinyin: "zài", ru: "цзай", char: "在", meaning: "быть в", example: "现在 xiàn zài", example_ru: "сейчас", sound: "现在" }
+    ]
+},
+yinwei_because: { 
+    translation: "иньвэй",
+    tones: [
+        { tone: "1-й", pinyin: "yīn", ru: "инь", char: "因", meaning: "потому что 🔄", example: "因为 yīn wèi", example_ru: "потому что", sound: "因为" },
+        { tone: "4-й", pinyin: "wèi", ru: "вэй", char: "为", meaning: "потому что", example: "因为 yīn wèi", example_ru: "потому что", sound: "因为" }
+    ]
+},
+suoyi_therefore: { 
+    translation: "сои",
+    tones: [
+        { tone: "3-й", pinyin: "suǒ", ru: "со", char: "所", meaning: "поэтому 🎯", example: "所以 suǒ yǐ", example_ru: "поэтому", sound: "所以" },
+        { tone: "3-й", pinyin: "yǐ", ru: "и", char: "以", meaning: "поэтому", example: "所以 suǒ yǐ", example_ru: "поэтому", sound: "所以" }
+    ]
+},
             
             sun: { 
                 translation: "сунь",
