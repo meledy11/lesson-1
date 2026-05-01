@@ -3529,6 +3529,12 @@ ce_ce2: {
         { tone: "3-й", pinyin: "pǐn", ru: "пинь", char: "品", meaning: "продукт, товар 📦", example: "商品 shāng pǐn", example_ru: "товар", sound: "商品" }
     ]
 },
+            be_shell: { 
+    translation: "бэй",
+    tones: [
+        { tone: "4-й", pinyin: "bèi", ru: "бэй", char: "贝", meaning: "раковина, сокровище 🐚💰", example: "贝壳 bèi ké", example_ru: "ракушка", sound: "贝壳" }
+    ]
+},
     
             
             sun: { 
