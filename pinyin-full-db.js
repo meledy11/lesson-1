@@ -4204,7 +4204,173 @@ youshihou_sometimes: {
         { tone: "3-й", pinyin: "yǒu", ru: "ю", char: "有", meaning: "иметь", example: "有时候 yǒu shí hou", example_ru: "иногда", sound: "有时候" },
         { tone: "2-й", pinyin: "shí", ru: "ши", char: "时", meaning: "время", example: "有时候 yǒu shí hou", example_ru: "иногда", sound: "有时候" }
     ]
+},qingkuang_situation: { 
+    translation: "цинкуан",
+    tones: [
+        { tone: "2-й", pinyin: "qíng", ru: "цин", char: "情", meaning: "ситуация, обстановка 📊", example: "情况 qíng kuàng", example_ru: "ситуация", sound: "情况" },
+        { tone: "4-й", pinyin: "kuàng", ru: "куан", char: "况", meaning: "ситуация", example: "情况 qíng kuàng", example_ru: "ситуация", sound: "情况" }
+    ]
 },
+guanxi_relation: { 
+    translation: "гуаньси",
+    tones: [
+        { tone: "1-й", pinyin: "guān", ru: "гуань", char: "关", meaning: "отношение, связь 🔗", example: "关系 guān xì", example_ru: "отношение", sound: "关系" },
+        { tone: "4-й", pinyin: "xì", ru: "си", char: "系", meaning: "система", example: "关系 guān xì", example_ru: "отношение", sound: "关系" }
+    ]
+},
+ganjue_feeling: { 
+    translation: "ганьцзюэ",
+    tones: [
+        { tone: "3-й", pinyin: "gǎn", ru: "гань", char: "感", meaning: "чувство, ощущение 💭", example: "感觉 gǎn jué", example_ru: "чувствовать", sound: "感觉" },
+        { tone: "2-й", pinyin: "jué", ru: "цзюэ", char: "觉", meaning: "чувствовать", example: "感觉 gǎn jué", example_ru: "чувствовать", sound: "感觉" }
+    ]
+},
+shengqi_angry: { 
+    translation: "шэнци",
+    tones: [
+        { tone: "1-й", pinyin: "shēng", ru: "шэн", char: "生", meaning: "злиться 😠", example: "生气 shēng qì", example_ru: "злиться", sound: "生气" },
+        { tone: "4-й", pinyin: "qì", ru: "ци", char: "气", meaning: "воздух", example: "生气 shēng qì", example_ru: "злиться", sound: "生气" }
+    ]
+},
+danxin_worry: { 
+    translation: "даньсинь",
+    tones: [
+        { tone: "1-й", pinyin: "dān", ru: "дань", char: "担", meaning: "беспокоиться 😟", example: "担心 dān xīn", example_ru: "беспокоиться", sound: "担心" },
+        { tone: "1-й", pinyin: "xīn", ru: "синь", char: "心", meaning: "сердце", example: "担心 dān xīn", example_ru: "беспокоиться", sound: "担心" }
+    ]
+},
+zhaoji_nervous: { 
+    translation: "чжаоцзи",
+    tones: [
+        { tone: "2-й", pinyin: "zháo", ru: "чжао", char: "着", meaning: "нервничать 😰", example: "着急 zháo jí", example_ru: "нервничать", sound: "着急" },
+        { tone: "2-й", pinyin: "jí", ru: "цзи", char: "急", meaning: "спешить", example: "着急 zháo jí", example_ru: "нервничать", sound: "着急" }
+    ]
+},
+gongsi_company: { 
+    translation: "гунсы",
+    tones: [
+        { tone: "1-й", pinyin: "gōng", ru: "гун", char: "公", meaning: "компания 🏢", example: "公司 gōng sī", example_ru: "компания", sound: "公司" },
+        { tone: "1-й", pinyin: "sī", ru: "сы", char: "司", meaning: "управлять", example: "公司 gōng sī", example_ru: "компания", sound: "公司" }
+    ]
+},
+bangongshi_office: { 
+    translation: "баньгунши",
+    tones: [
+        { tone: "4-й", pinyin: "bàn", ru: "бань", char: "办", meaning: "офис 🖥️", example: "办公室 bàn gōng shì", example_ru: "офис", sound: "办公室" },
+        { tone: "1-й", pinyin: "gōng", ru: "гун", char: "公", meaning: "общественный", example: "办公室 bàn gōng shì", example_ru: "офис", sound: "办公室" },
+        { tone: "4-й", pinyin: "shì", ru: "ши", char: "室", meaning: "комната", example: "办公室 bàn gōng shì", example_ru: "офис", sound: "办公室" }
+    ]
+},
+kaoshi_exam: { 
+    translation: "каоши",
+    tones: [
+        { tone: "3-й", pinyin: "kǎo", ru: "као", char: "考", meaning: "экзамен 📝", example: "考试 kǎo shì", example_ru: "экзамен", sound: "考试" },
+        { tone: "4-й", pinyin: "shì", ru: "ши", char: "试", meaning: "проверять", example: "考试 kǎo shì", example_ru: "экзамен", sound: "考试" }
+    ]
+},
+feiji_plane: { 
+    translation: "фэйцзи",
+    tones: [
+        { tone: "1-й", pinyin: "fēi", ru: "фэй", char: "飞", meaning: "самолёт ✈️", example: "飞机 fēi jī", example_ru: "самолёт", sound: "飞机" },
+        { tone: "1-й", pinyin: "jī", ru: "цзи", char: "机", meaning: "машина", example: "飞机 fēi jī", example_ru: "самолёт", sound: "飞机" }
+    ]
+},
+huoche_train: { 
+    translation: "хочэ",
+    tones: [
+        { tone: "3-й", pinyin: "huǒ", ru: "хо", char: "火", meaning: "поезд 🚂", example: "火车 huǒ chē", example_ru: "поезд", sound: "火车" },
+        { tone: "1-й", pinyin: "chē", ru: "чэ", char: "车", meaning: "машина", example: "火车 huǒ chē", example_ru: "поезд", sound: "火车" }
+    ]
+},
+jiudian_hotel: { 
+    translation: "цзюдянь",
+    tones: [
+        { tone: "3-й", pinyin: "jiǔ", ru: "цзю", char: "酒", meaning: "гостиница 🏨", example: "酒店 jiǔ diàn", example_ru: "гостиница", sound: "酒店" },
+        { tone: "4-й", pinyin: "diàn", ru: "дянь", char: "店", meaning: "магазин", example: "酒店 jiǔ diàn", example_ru: "гостиница", sound: "酒店" }
+    ]
+},
+yiyuan_hospital: { 
+    translation: "июань",
+    tones: [
+        { tone: "1-й", pinyin: "yī", ru: "и", char: "医", meaning: "больница 🏥", example: "医院 yī yuàn", example_ru: "больница", sound: "医院" },
+        { tone: "4-й", pinyin: "yuàn", ru: "юань", char: "院", meaning: "учреждение", example: "医院 yī yuàn", example_ru: "больница", sound: "医院" }
+    ]
+},
+shengbing_ill: { 
+    translation: "шэнбин",
+    tones: [
+        { tone: "4-й", pinyin: "shēng", ru: "шэн", char: "生", meaning: "болеть 🤒", example: "生病 shēng bìng", example_ru: "заболеть", sound: "生病" },
+        { tone: "4-й", pinyin: "bìng", ru: "бин", char: "病", meaning: "болезнь", example: "生病 shēng bìng", example_ru: "заболеть", sound: "生病" }
+    ]
+},
+yao_medicine: { 
+    translation: "яо",
+    tones: [
+        { tone: "4-й", pinyin: "yào", ru: "яо", char: "药", meaning: "лекарство 💊", example: "吃药 chī yào", example_ru: "пить лекарство", sound: "吃药" }
+    ]
+},
+meiguanxi_nevermind: { 
+    translation: "мэйгуаньси",
+    tones: [
+        { tone: "2-й", pinyin: "méi", ru: "мэй", char: "没", meaning: "не", example: "没关系 méi guān xi", example_ru: "ничего страшного", sound: "没关系" },
+        { tone: "1-й", pinyin: "guān", ru: "гуань", char: "关", meaning: "отношение", example: "没关系 méi guān xi", example_ru: "ничего страшного", sound: "没关系" },
+        { tone: "4-й", pinyin: "xì", ru: "си", char: "系", meaning: "связь", example: "没关系 méi guān xi", example_ru: "ничего страшного", sound: "没关系" }
+    ]
+},
+meibanfa_nothing: { 
+    translation: "мэйбаньфа",
+    tones: [
+        { tone: "2-й", pinyin: "méi", ru: "мэй", char: "没", meaning: "не", example: "没办法 méi bàn fǎ", example_ru: "ничего не поделать", sound: "没办法" },
+        { tone: "4-й", pinyin: "bàn", ru: "бань", char: "办", meaning: "делать", example: "没办法 méi bàn fǎ", example_ru: "ничего не поделать", sound: "没办法" },
+        { tone: "3-й", pinyin: "fǎ", ru: "фа", char: "法", meaning: "способ", example: "没办法 méi bàn fǎ", example_ru: "ничего не поделать", sound: "没办法" }
+    ]
+},
+bixu_must: { 
+    translation: "бисюй",
+    tones: [
+        { tone: "4-й", pinyin: "bì", ru: "би", char: "必", meaning: "обязательно ⚠️", example: "必须 bì xū", example_ru: "должен", sound: "必须" },
+        { tone: "1-й", pinyin: "xū", ru: "сюй", char: "须", meaning: "нужно", example: "必须 bì xū", example_ru: "должен", sound: "必须" }
+    ]
+},
+yinggai_should: { 
+    translation: "ингай",
+    tones: [
+        { tone: "1-й", pinyin: "yīng", ru: "ин", char: "应", meaning: "следует ✅", example: "应该 yīng gāi", example_ru: "следует", sound: "应该" },
+        { tone: "1-й", pinyin: "gāi", ru: "гай", char: "该", meaning: "должен", example: "应该 yīng gāi", example_ru: "следует", sound: "应该" }
+    ]
+},
+keyi_can: { 
+    translation: "кэи",
+    tones: [
+        { tone: "3-й", pinyin: "kě", ru: "кэ", char: "可", meaning: "можно 👍", example: "可以 kě yǐ", example_ru: "можно", sound: "可以" },
+        { tone: "3-й", pinyin: "yǐ", ru: "и", char: "以", meaning: "использовать", example: "可以 kě yǐ", example_ru: "можно", sound: "可以" }
+    ]
+},
+xiang_want: { 
+    translation: "сян",
+    tones: [
+        { tone: "3-й", pinyin: "xiǎng", ru: "сян", char: "想", meaning: "хотеть 💖", example: "想要 xiǎng yào", example_ru: "хотеть", sound: "想要" }
+    ]
+},
+hui_can: { 
+    translation: "хуй",
+    tones: [
+        { tone: "4-й", pinyin: "huì", ru: "хуй", char: "会", meaning: "уметь, мочь 💪", example: "会英语 huì yīng yǔ", example_ru: "знать английский", sound: "会英语" }
+    ]
+},
+neng_can: { 
+    translation: "нэн",
+    tones: [
+        { tone: "2-й", pinyin: "néng", ru: "нэн", char: "能", meaning: "мочь (физически) 🦾", example: "能来 néng lái", example_ru: "мочь прийти", sound: "能来" }
+    ]
+},
+yao_want: { 
+    translation: "яо",
+    tones: [
+        { tone: "4-й", pinyin: "yào", ru: "яо", char: "要", meaning: "хотеть, собираться 💫", example: "要去 yào qù", example_ru: "собираться идти", sound: "要去" }
+    ]
+},
+            
             
             sun: { 
                 translation: "сунь",
