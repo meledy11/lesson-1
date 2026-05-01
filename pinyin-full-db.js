@@ -1927,6 +1927,15 @@ const pinyinFullDB = {
                     { tone: "4-й", pinyin: "cè", ru: "цэ", char: "测", meaning: "измерять 📏", example: "测试 cè shì", example_ru: "тест", sound: "测试" }
                 ]
             },
+            ce: { 
+                 translation: "цэ",
+                 tones: [
+                     { tone: "1-й", pinyin: "cē", ru: "цэ", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "册" },
+                     { tone: "2-й", pinyin: "cé", ru: "цэ", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "册" },
+                     { tone: "3-й", pinyin: "cě", ru: "цэ", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "册" },
+                     { tone: "4-й", pinyin: "cè", ru: "цэ", char: "册", meaning: "том, экземпляр 📘", example: "手册 shǒu cè", example_ru: "руководство", sound: "手册" }
+               ]
+            }，
             zai: { 
                 translation: "цзай",
                 tones: [
