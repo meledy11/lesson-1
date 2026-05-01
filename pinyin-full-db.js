@@ -1449,13 +1449,14 @@ gui_cinnamon: {
     ]
 },   
             guan: { 
-                translation: "гуань",
-                
-                    { tone: "2-й", pinyin: "guán", ru: "гуань", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "管" },
-                    { tone: "3-й", pinyin: "guǎn", ru: "гуань", char: "管", meaning: "труба 🔧", example: "管理 guǎn lǐ", example_ru: "управлять", sound: "管理" },
-                    { tone: "4-й", pinyin: "guàn", ru: "гуань", char: "惯", meaning: "привыкать 🔄", example: "习惯 xí guàn", example_ru: "привычка", sound: "习惯" }
-                ]
-            },
+    translation: "гуань",
+    tones: [
+        { tone: "1-й", pinyin: "guān", ru: "гуань", char: "关", meaning: "закрывать 🚪", example: "关系 guān xì", example_ru: "отношение", sound: "关系" },
+        { tone: "2-й", pinyin: "guán", ru: "гуань", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "3-й", pinyin: "guǎn", ru: "гуань", char: "管", meaning: "труба 🔧", example: "管理 guǎn lǐ", example_ru: "управлять", sound: "管理" },
+        { tone: "4-й", pinyin: "guàn", ru: "гуань", char: "惯", meaning: "привыкать 🔄", example: "习惯 xí guàn", example_ru: "привычка", sound: "习惯" }
+    ]
+},
             gun: { 
                 translation: "гунь",
                 tones: [
