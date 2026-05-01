@@ -3498,8 +3498,38 @@ ce_ce2: {
         { tone: "3-й", pinyin: "shǔ", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
         { tone: "4-й", pinyin: "shù", ru: "шу", char: "束", meaning: "связывать, пучок 🎀", example: "结束 jié shù", example_ru: "заканчивать", sound: "结束" }
     ]
-},        
-            
+},     
+    chuan_river: { 
+    translation: "чуань",
+    tones: [
+        { tone: "1-й", pinyin: "chuān", ru: "чуань", char: "川", meaning: "река 🌊", example: "四川 Sì chuān", example_ru: "Сычуань", sound: "四川" }
+    ]
+},
+    qi_air: { 
+    translation: "ци",
+    tones: [
+        { tone: "4-й", pinyin: "qì", ru: "ци", char: "气", meaning: "воздух, энергия 🌬️", example: "空气 kōng qì", example_ru: "воздух", sound: "空气" }
+    ]
+},
+        qi_tool: { 
+    translation: "ци",
+    tones: [
+        { tone: "4-й", pinyin: "qì", ru: "ци", char: "器", meaning: "инструмент, орган 🔧", example: "器官 qì guān", example_ru: "орган", sound: "器官" }
+    ]
+},
+    chao_nest: { 
+    translation: "чао",
+    tones: [
+        { tone: "2-й", pinyin: "cháo", ru: "чао", char: "巢", meaning: "гнездо 🪹", example: "鸟巢 niǎo cháo", example_ru: "птичье гнездо", sound: "鸟巢" }
+    ]
+},
+    pin_product: { 
+    translation: "пинь",
+    tones: [
+        { tone: "3-й", pinyin: "pǐn", ru: "пинь", char: "品", meaning: "продукт, товар 📦", example: "商品 shāng pǐn", example_ru: "товар", sound: "商品" }
+    ]
+},
+    
             
             sun: { 
                 translation: "сунь",
