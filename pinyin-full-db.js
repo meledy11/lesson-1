@@ -3464,6 +3464,43 @@ ce_ce2: {
                     { tone: "4-й", pinyin: "suàn", ru: "суань", char: "算", meaning: "считать 🧮", example: "算了 suàn le", example_ru: "ладно", sound: "算了" }
                 ]
             },
+            shu_loss: { 
+    translation: "шу",
+    tones: [
+        { tone: "1-й", pinyin: "shū", ru: "шу", char: "输", meaning: "проигрывать 😞", example: "输了 shū le", example_ru: "проиграл", sound: "输了" },
+        { tone: "2-й", pinyin: "shú", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "3-й", pinyin: "shǔ", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "4-й", pinyin: "shù", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" }
+    ]
+},
+            shu_comfort: { 
+    translation: "шу",
+    tones: [
+        { tone: "1-й", pinyin: "shū", ru: "шу", char: "舒", meaning: "комфортный 😌", example: "舒服 shū fu", example_ru: "комфортно", sound: "舒服" },
+        { tone: "2-й", pinyin: "shú", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "3-й", pinyin: "shǔ", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "4-й", pinyin: "shù", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" }
+    ]
+},shu_cooked: { 
+    translation: "шу",
+    tones: [
+        { tone: "1-й", pinyin: "shū", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "2-й", pinyin: "shú", ru: "шу", char: "熟", meaning: "спелый, готовый 🍳", example: "熟了 shú le", example_ru: "готово", sound: "熟了" },
+        { tone: "3-й", pinyin: "shǔ", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "4-й", pinyin: "shù", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" }
+    ]
+},
+  shu_bundle: { 
+    translation: "шу",
+    tones: [
+        { tone: "1-й", pinyin: "shū", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "2-й", pinyin: "shú", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "3-й", pinyin: "shǔ", ru: "шу", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
+        { tone: "4-й", pinyin: "shù", ru: "шу", char: "束", meaning: "связывать, пучок 🎀", example: "结束 jié shù", example_ru: "заканчивать", sound: "结束" }
+    ]
+},        
+            
+            
             sun: { 
                 translation: "сунь",
                 tones: [
