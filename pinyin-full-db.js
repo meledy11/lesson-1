@@ -1424,7 +1424,6 @@ gui_turtle: {
     translation: "гуй",
     tones: [
         { tone: "1-й", pinyin: "guī", ru: "гуй", char: "龟", meaning: "черепаха 🐢", example: "乌龟 wū guī", example_ru: "черепаха", sound: "乌龟" },
-        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
         { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "鬼", meaning: "призрак 👻", example: "鬼怪 guǐ guài", example_ru: "монстр", sound: "鬼怪" },
         { tone: "4-й", pinyin: "guì", ru: "гуй", char: "贵", meaning: "дорогой 💎", example: "贵宾 guì bīn", example_ru: "почётный гость", sound: "贵宾" }
     ]
@@ -1433,7 +1432,6 @@ gui_group: {
     translation: "гуй",
     tones: [
         { tone: "1-й", pinyin: "guī", ru: "гуй", char: "规", meaning: "правило 📐", example: "规则 guī zé", example_ru: "правила", sound: "规则" },
-        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
         { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "轨", meaning: "рельс 🛤️", example: "轨道 guǐ dào", example_ru: "орбита", sound: "轨道" },
         { tone: "4-й", pinyin: "guì", ru: "гуй", char: "柜", meaning: "шкаф 🗄️", example: "衣柜 yī guì", example_ru: "шкаф для одежды", sound: "衣柜" }
     ]
@@ -1441,22 +1439,15 @@ gui_group: {
 gui_kneel: { 
     translation: "гуй",
     tones: [
-        { tone: "1-й", pinyin: "guī", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
-        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
-        { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
         { tone: "4-й", pinyin: "guì", ru: "гуй", char: "跪", meaning: "стоять на коленях 🙇", example: "跪下 guì xià", example_ru: "встать на колени", sound: "跪下" }
     ]
 },
 gui_cinnamon: { 
     translation: "гуй",
     tones: [
-        { tone: "1-й", pinyin: "guī", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
-        { tone: "2-й", pinyin: "guí", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
-        { tone: "3-й", pinyin: "guǐ", ru: "гуй", char: "—", meaning: "—", example: "—", example_ru: "—", sound: "—" },
         { tone: "4-й", pinyin: "guì", ru: "гуй", char: "桂", meaning: "корица 🌸", example: "桂花 guì huā", example_ru: "цветы корицы", sound: "桂花" }
     ]
-},
-            
+},   
             guan: { 
                 translation: "гуань",
                 
