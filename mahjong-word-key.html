@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -29,18 +29,18 @@
             text-align: center;
             background: linear-gradient(135deg, #FFD966, #FFB347);
             border-radius: 40px;
-            padding: 0.8rem;
+            padding: 1rem;
             margin-bottom: 1rem;
             box-shadow: 0 8px 0 #C16F1A;
             color: #5a2e0e;
         }
 
         .hero h1 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         .hero p {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
         }
 
         .back-home {
@@ -48,17 +48,18 @@
             background: rgba(255,255,255,0.9);
             color: #A64B2A;
             text-decoration: none;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 0.7rem;
-            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            margin-left: 0.3rem;
         }
 
         .game-status {
             background: #2b4f3a;
             border-radius: 30px;
-            padding: 0.7rem;
+            padding: 0.8rem;
             margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
@@ -70,17 +71,17 @@
 
         .score-box {
             background: #1e3a2f;
-            padding: 0.2rem 0.7rem;
+            padding: 0.3rem 0.9rem;
             border-radius: 25px;
             text-align: center;
         }
 
         .score-box span:first-child {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
         }
 
         .score-box span:last-child {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #FFD966;
         }
@@ -89,7 +90,7 @@
             flex: 2;
             background: #1e3a2f;
             border-radius: 20px;
-            height: 10px;
+            height: 14px;
             overflow: hidden;
         }
 
@@ -102,20 +103,21 @@
 
         .message-box {
             background: #1e3a2f;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 0.65rem;
+            font-size: 0.8rem;
+            text-align: center;
         }
 
         .new-game-btn {
             background: #FFB347;
             border: none;
-            padding: 0.3rem 0.9rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             box-shadow: 0 3px 0 #C16F1A;
         }
 
@@ -134,7 +136,7 @@
         .tiles-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.7rem;
+            gap: 0.8rem;
         }
 
         @media (min-width: 500px) {
@@ -151,22 +153,19 @@
 
         .tile {
             background: linear-gradient(145deg, #FFF8E7, #FFE8C8);
-            border-radius: 18px;
-            padding: 0.8rem 0.2rem;
+            border-radius: 20px;
+            padding: 0.8rem 0.3rem;
             text-align: center;
-            font-size: 1.5rem;
-            font-family: 'Noto Sans SC', monospace;
-            font-weight: bold;
-            color: #A64B2A;
             cursor: pointer;
             transition: 0.05s linear;
             box-shadow: 0 5px 0 #B87C2E;
             border: 1px solid #FFD699;
-            aspect-ratio: 1 / 1;
+            min-height: 130px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 0.3rem;
         }
 
         .tile.selected {
@@ -188,27 +187,62 @@
             box-shadow: 0 2px 0 #B87C2E;
         }
 
+        .tile-char {
+            font-size: 2.2rem;
+            font-family: 'Noto Sans SC', monospace;
+            font-weight: bold;
+            color: #A64B2A;
+            line-height: 1.2;
+        }
+
+        .tile-pinyin {
+            font-size: 0.8rem;
+            color: #E67E22;
+            font-weight: 600;
+            background: rgba(255,255,255,0.7);
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
         .tile-label {
-            font-size: 0.5rem;
-            color: #8B5A2B;
+            font-size: 0.75rem;
+            color: #6B3A1A;
+            font-weight: 500;
             margin-top: 0.2rem;
+            background: rgba(255,245,220,0.8);
+            padding: 0.2rem 0.4rem;
+            border-radius: 15px;
+            max-width: 95%;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Для очень маленьких экранов уменьшаем текст, но сохраняем читаемость */
+        @media (max-width: 450px) {
+            .tile-char { font-size: 1.8rem; }
+            .tile-pinyin { font-size: 0.7rem; }
+            .tile-label { font-size: 0.65rem; white-space: normal; }
+            .tile { min-height: 110px; padding: 0.5rem 0.2rem; }
         }
 
         .level-selector {
             display: flex;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
+            flex-wrap: wrap;
             margin-bottom: 1rem;
         }
 
         .level-btn {
             background: #FFE0C0;
             border: 2px solid #FFB347;
-            padding: 0.3rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
 
         .level-btn.active {
@@ -219,12 +253,12 @@
         footer {
             text-align: center;
             margin-top: 1rem;
-            padding: 0.5rem;
+            padding: 0.6rem;
             background: #2b4f3a;
             border-radius: 40px;
             font-weight: bold;
             color: #FFD966;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
         }
     </style>
 </head>
@@ -234,16 +268,18 @@
     <div class="hero">
         <h1>🀄 Маджонг: найди часть слова 🀄</h1>
         <p>Сопоставь иероглиф с любой его составной частью (ключом, радикалом)</p>
-        <a href="index.html" class="back-home">🏠 На главную</a>
-        <a href="frequency-lesson.html" class="back-home">📖 Урок 50 слов</a>
-        <a href="copybook.html" class="back-home">✍️ Прописи</a>
+        <div>
+            <a href="index.html" class="back-home">🏠 На главную</a>
+            <a href="frequency-lesson.html" class="back-home">📖 Урок 50 слов</a>
+            <a href="copybook.html" class="back-home">✍️ Прописи</a>
+        </div>
     </div>
 
     <div class="level-selector">
         <button class="level-btn active" data-level="easy">🍃 6 слов</button>
         <button class="level-btn" data-level="medium">🌿 12 слов</button>
         <button class="level-btn" data-level="hard">🔥 20 слов</button>
-        <button class="level-btn" data-level="all">🏆 ВСЕ 50 слов</button>
+        <button class="level-btn" data-level="all">🏆 ВСЕ слова</button>
     </div>
 
     <div class="game-status">
@@ -263,8 +299,8 @@
     </div>
 
     <footer>
-        🀄 Правило: найди для иероглифа его составную часть (ключ).<br>
-        Например: <strong>你</strong> ←→ <strong>亻</strong> или <strong>尔</strong>
+        🀄 Найди для иероглифа его составную часть (ключ).<br>
+        Пример: <strong>你 (nǐ)</strong> ←→ <strong>亻 (rén)</strong> или <strong>尔 (ěr)</strong>
     </footer>
 </div>
 
@@ -281,6 +317,74 @@
     const messageBox = document.getElementById('messageBox');
     const progressFill = document.getElementById('progressFill');
     
+    // Словарь пиньиней и переводов для частей
+    const partDataMap = {
+        "亻": { pinyin: "rén", meaning: "человек" },
+        "女": { pinyin: "nǚ", meaning: "женщина" },
+        "口": { pinyin: "kǒu", meaning: "рот" },
+        "日": { pinyin: "rì", meaning: "солнце" },
+        "月": { pinyin: "yuè", meaning: "луна/мясо" },
+        "木": { pinyin: "mù", meaning: "дерево" },
+        "水": { pinyin: "shuǐ", meaning: "вода" },
+        "火": { pinyin: "huǒ", meaning: "огонь" },
+        "土": { pinyin: "tǔ", meaning: "земля" },
+        "金": { pinyin: "jīn", meaning: "металл" },
+        "心": { pinyin: "xīn", meaning: "сердце" },
+        "忄": { pinyin: "xīn", meaning: "сердце" },
+        "手": { pinyin: "shǒu", meaning: "рука" },
+        "扌": { pinyin: "shǒu", meaning: "рука" },
+        "足": { pinyin: "zú", meaning: "нога" },
+        "辶": { pinyin: "chuò", meaning: "движение" },
+        "讠": { pinyin: "yán", meaning: "речь" },
+        "饣": { pinyin: "shí", meaning: "еда" },
+        "阝": { pinyin: "yì", meaning: "город/холм" },
+        "宀": { pinyin: "mián", meaning: "крыша" },
+        "广": { pinyin: "guǎng", meaning: "здание" },
+        "厂": { pinyin: "hǎn", meaning: "утёс" },
+        "尸": { pinyin: "shī", meaning: "тело" },
+        "弓": { pinyin: "gōng", meaning: "лук" },
+        "戈": { pinyin: "gē", meaning: "копьё" },
+        "彳": { pinyin: "chì", meaning: "шаг" },
+        "彡": { pinyin: "shān", meaning: "волосы" },
+        "歹": { pinyin: "dǎi", meaning: "смерть" },
+        "门": { pinyin: "mén", meaning: "дверь" },
+        "马": { pinyin: "mǎ", meaning: "лошадь" },
+        "鸟": { pinyin: "niǎo", meaning: "птица" },
+        "鱼": { pinyin: "yú", meaning: "рыба" },
+        "虫": { pinyin: "chóng", meaning: "насекомое" },
+        "艹": { pinyin: "cǎo", meaning: "трава" },
+        "竹": { pinyin: "zhú", meaning: "бамбук" },
+        "米": { pinyin: "mǐ", meaning: "рис" },
+        "糸": { pinyin: "mì", meaning: "шёлк" },
+        "纟": { pinyin: "sī", meaning: "шёлк" },
+        "贝": { pinyin: "bèi", meaning: "раковина" },
+        "车": { pinyin: "chē", meaning: "машина" },
+        "走": { pinyin: "zǒu", meaning: "идти" },
+        "身": { pinyin: "shēn", meaning: "тело" },
+        "一": { pinyin: "yī", meaning: "один" },
+        "二": { pinyin: "èr", meaning: "два" },
+        "三": { pinyin: "sān", meaning: "три" },
+        "十": { pinyin: "shí", meaning: "десять" },
+        "八": { pinyin: "bā", meaning: "восемь" },
+        "人": { pinyin: "rén", meaning: "человек" },
+        "入": { pinyin: "rù", meaning: "входить" },
+        "几": { pinyin: "jǐ", meaning: "сколько" },
+        "又": { pinyin: "yòu", meaning: "снова" },
+        "厶": { pinyin: "sī", meaning: "частный" },
+        "尔": { pinyin: "ěr", meaning: "ты (древн.)" },
+        "京": { pinyin: "jīng", meaning: "столица" },
+        "尤": { pinyin: "yóu", meaning: "особенно" },
+        "者": { pinyin: "zhě", meaning: "тот, кто" },
+        "文": { pinyin: "wén", meaning: "текст" },
+        "正": { pinyin: "zhèng", meaning: "прямой" },
+        "白": { pinyin: "bái", meaning: "белый" },
+        "勺": { pinyin: "sháo", meaning: "ковш" },
+        "子": { pinyin: "zǐ", meaning: "ребёнок" },
+        "小": { pinyin: "xiǎo", meaning: "маленький" },
+        "大": { pinyin: "dà", meaning: "большой" },
+        "可": { pinyin: "kě", meaning: "можно" }
+    };
+    
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -289,7 +393,10 @@
         return arr;
     }
     
-    // Извлекаем из базы все пары "слово → его части"
+    function getPartData(partChar) {
+        return partDataMap[partChar] || { pinyin: "", meaning: "часть" };
+    }
+    
     function getAllPartPairs() {
         const allPairs = [];
         
@@ -297,24 +404,27 @@
             for (const word of frequencyDB) {
                 if (!word.parts || !word.parts.length) continue;
                 
-                // Для каждой части слова создаём отдельную пару
                 for (const part of word.parts) {
                     const partChar = part.char;
-                    if (partChar === word.char) continue; // избегаем одинаковых
+                    if (partChar === word.char) continue;
+                    if (partChar.length > 2) continue;
+                    
+                    const partInfo = getPartData(partChar);
                     
                     allPairs.push({
                         wordId: word.id,
                         wordChar: word.char,
+                        wordPinyin: word.pinyin,
                         wordMeaning: word.meaning,
                         partChar: partChar,
-                        partMeaning: part.meaning,
-                        type: 'part'
+                        partMeaning: partInfo.meaning,
+                        partPinyin: partInfo.pinyin
                     });
                 }
             }
         }
         
-        // Убираем дубликаты (если одна и та же часть встречается несколько раз)
+        // Убираем дубликаты
         const uniquePairs = [];
         const keySet = new Set();
         for (const pair of allPairs) {
@@ -330,17 +440,10 @@
     
     function getPairsForGame(limit) {
         const allPairs = getAllPartPairs();
-        
-        // Перемешиваем и берём нужное количество
         const shuffled = shuffleArray([...allPairs]);
-        let selected = shuffled.slice(0, limit);
         
-        // Если запрошено "все", но лимит больше доступных — берём все
-        if (limit === 'all' || limit > selected.length) {
-            selected = allPairs;
-        }
-        
-        return selected;
+        if (limit === 'all') return allPairs;
+        return shuffled.slice(0, limit);
     }
     
     function initGame() {
@@ -352,7 +455,7 @@
         const pairs = getPairsForGame(pairLimit);
         
         if (!pairs.length) {
-            messageBox.innerHTML = '❌ Нет данных для игры. Проверьте frequency-db.js';
+            messageBox.innerHTML = '❌ Нет данных. Проверьте frequency-db.js';
             return;
         }
         
@@ -364,25 +467,23 @@
         let idCounter = 0;
         
         for (const pair of pairs) {
-            // Плитка иероглифа
             newTiles.push({
                 id: idCounter++,
                 content: pair.wordChar,
+                pinyin: pair.wordPinyin,
                 type: 'word',
                 pairId: idCounter - 1,
                 displayText: pair.wordChar,
-                tooltip: pair.wordMeaning,
-                partChar: null
+                label: pair.wordMeaning
             });
-            // Плитка части (ключа)
             newTiles.push({
                 id: idCounter++,
                 content: pair.partChar,
+                pinyin: pair.partPinyin,
                 type: 'part',
                 pairId: idCounter - 2,
                 displayText: pair.partChar,
-                tooltip: pair.partMeaning,
-                expectedWordChar: pair.wordChar
+                label: pair.partMeaning
             });
         }
         
@@ -394,7 +495,6 @@
     
     function renderBoard() {
         if (!tilesGrid) return;
-        
         tilesGrid.innerHTML = '';
         
         tiles.forEach((tile, idx) => {
@@ -406,10 +506,10 @@
                 tileDiv.classList.add('selected');
             }
             
-            const labelText = tile.type === 'word' ? tile.tooltip : (tile.tooltip || 'часть');
             tileDiv.innerHTML = `
-                <span style="font-size:1.8rem; line-height:1;">${tile.displayText}</span>
-                <span class="tile-label">${labelText.substring(0, 12)}</span>
+                <div class="tile-char">${tile.displayText}</div>
+                <div class="tile-pinyin">${tile.pinyin || ''}</div>
+                <div class="tile-label">${tile.label || (tile.type === 'word' ? 'слово' : 'часть')}</div>
             `;
             tileDiv.onclick = (function(index) {
                 return function() { onTileClick(index); };
@@ -427,7 +527,8 @@
         if (selectedTileIndex === null) {
             selectedTileIndex = clickedIdx;
             renderBoard();
-            messageBox.innerHTML = `📌 Выбрано: ${clickedTile.displayText} (${clickedTile.type === 'word' ? 'слово' : 'часть'})`;
+            const tile = tiles[selectedTileIndex];
+            messageBox.innerHTML = `📌 Выбрано: ${tile.displayText} (${tile.type === 'word' ? 'слово' : 'часть'})`;
             return;
         }
         
@@ -441,7 +542,6 @@
         const selectedTile = tiles[selectedTileIndex];
         let isMatch = false;
         
-        // Проверяем пару в обе стороны
         if (selectedTile.type === 'word' && clickedTile.type === 'part') {
             isMatch = (selectedTile.pairId === clickedTile.pairId);
         } else if (selectedTile.type === 'part' && clickedTile.type === 'word') {
@@ -471,8 +571,7 @@
     }
     
     function updateProgress() {
-        const completedPairs = score;
-        const percent = totalPairs > 0 ? (completedPairs / totalPairs) * 100 : 0;
+        const percent = totalPairs > 0 ? (score / totalPairs) * 100 : 0;
         progressFill.style.width = percent + '%';
         scoreSpan.innerText = score;
     }
@@ -498,7 +597,6 @@
         btn.addEventListener('click', () => setLevel(btn.dataset.level));
     });
     
-    // Ждём загрузки базы
     const waitForDB = setInterval(() => {
         if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
             clearInterval(waitForDB);
