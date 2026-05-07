@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🔥 Урок: 30 частотных слов | Весёлый китайский</title>
+    <title>🔥 Урок: 50 частотных слов | Весёлый китайский</title>
     <style>
         * {
             margin: 0;
@@ -27,24 +27,23 @@
             text-align: center;
             background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
             border-radius: 80px;
-            padding: 1.8rem 1rem;
+            padding: 1.5rem 1rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 15px 0 #C16F1A;
             color: white;
         }
 
         .hero h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             background: rgba(255,255,255,0.95);
             display: inline-block;
-            padding: 0.4rem 1.5rem;
+            padding: 0.3rem 1.5rem;
             border-radius: 60px;
             color: #E67E22;
         }
 
         .hero p {
-            margin-top: 0.8rem;
-            font-size: 1rem;
+            margin-top: 0.5rem;
         }
 
         .back-buttons {
@@ -56,20 +55,19 @@
             background: rgba(255,255,255,0.9);
             color: #E67E22;
             text-decoration: none;
-            padding: 0.5rem 1.2rem;
+            padding: 0.4rem 1rem;
             border-radius: 50px;
             font-weight: bold;
             margin: 0 0.3rem;
-            box-shadow: 0 4px 0 #C16F1A;
-            transition: 0.08s linear;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 0 #C16F1A;
         }
 
         .back-home:active {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #C16F1A;
+            box-shadow: 0 1px 0 #C16F1A;
         }
 
-        /* прогресс-бар */
         .progress-section {
             background: white;
             border-radius: 60px;
@@ -83,7 +81,7 @@
             border-radius: 30px;
             height: 20px;
             overflow: hidden;
-            margin: 0.8rem 0;
+            margin: 0.5rem 0;
         }
 
         .progress-fill {
@@ -92,6 +90,13 @@
             height: 100%;
             border-radius: 30px;
             transition: width 0.2s;
+        }
+
+        .stats-info {
+            font-size: 0.8rem;
+            color: #A64B2A;
+            margin-top: 0.5rem;
+            text-align: center;
         }
 
         .controls {
@@ -124,7 +129,6 @@
             border: none;
         }
 
-        /* сетка слов */
         .words-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -155,7 +159,7 @@
         }
 
         .char-large {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: bold;
             font-family: 'Noto Sans SC', monospace;
             background: #FFF3E0;
@@ -185,7 +189,6 @@
             margin: 0.5rem 0;
         }
 
-        /* разбор */
         .analysis {
             background: #FFFBF5;
             border-radius: 24px;
@@ -226,15 +229,6 @@
             font-family: 'Noto Sans SC', monospace;
         }
 
-        .phonetic-badge {
-            display: inline-block;
-            background: #FFE0A3;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin: 0.2rem 0;
-        }
-
         .input-area {
             display: flex;
             gap: 0.6rem;
@@ -248,7 +242,7 @@
             border-radius: 50px;
             border: 2px solid #FFD699;
             font-family: monospace;
-            font-size: 0.9rem;
+            font-size: 1rem;
             outline: none;
         }
 
@@ -263,7 +257,7 @@
         }
 
         .check-result {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             margin-top: 0.4rem;
         }
 
@@ -274,12 +268,16 @@
             background: #F5DEB3;
             padding: 0.3rem 1rem;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-decoration: none;
             color: #A64B2A;
             margin-top: 0.6rem;
             cursor: pointer;
             width: fit-content;
+        }
+
+        .draw-link:active {
+            background: #E6C89B;
         }
 
         footer {
@@ -296,6 +294,9 @@
             .words-grid {
                 grid-template-columns: 1fr;
             }
+            .char-large {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -303,8 +304,8 @@
 
 <div class="container">
     <div class="hero">
-        <h1>🔥 30 самых частотных слов</h1>
-        <p>🎯 Слушай → пиши пиньинь → запоминай навсегда!</p>
+        <h1>🔥 50 самых частотных слов</h1>
+        <p>🎯 Слушай → пиши пиньинь (можно без тонов) → запоминай!</p>
         <div class="back-buttons">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson0.html" class="back-home">🎵 Таблица пиньиня</a>
@@ -318,7 +319,7 @@
             <span id="progressPercent">0%</span>
         </div>
         <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
-        <div style="font-size:0.75rem;">✅ Правильный пиньинь отмечает слово выученным</div>
+        <div class="stats-info">💡 Подсказка: пиньинь можно писать <strong>без тонов</strong> (например, "ni" вместо "nǐ")</div>
     </div>
 
     <div class="controls">
@@ -329,7 +330,7 @@
     </div>
 
     <div id="wordsGrid" class="words-grid"></div>
-    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Нажми «Пропись» → откроется рисовалка с этим иероглифом.</footer>
+    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Нажми «Пропись» → откроется рисовалка.</footer>
 </div>
 
 <script src="frequency-db.js"></script>
@@ -338,16 +339,14 @@
     let completedIds = new Set();
     let hideCompleted = false;
 
-    // Загрузка данных
     function loadData() {
-        if (typeof frequencyDB !== 'undefined') {
+        if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
             wordsData = JSON.parse(JSON.stringify(frequencyDB));
         } else {
             console.error('frequencyDB не загружена');
             wordsData = [];
         }
         
-        // Загружаем прогресс
         const saved = localStorage.getItem('frequencyProgress');
         if (saved) {
             completedIds = new Set(JSON.parse(saved));
@@ -369,7 +368,7 @@
     function saveProgress() {
         localStorage.setItem('frequencyProgress', JSON.stringify([...completedIds]));
         updateProgress();
-        renderWords(); // перерисовываем для обновления класса completed
+        renderWords();
     }
 
     function updateProgress() {
@@ -391,18 +390,32 @@
         window.open('copybook.html', '_blank');
     }
 
+    // Убираем тоны из пиньиня для сравнения (a1, a2, a3, a4, a5 → a)
+    function normalizePinyin(pinyin) {
+        if (!pinyin) return '';
+        return pinyin
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')  // убираем диакритические знаки (тоны)
+            .replace(/[0-5]/g, '')            // убираем цифры тонов (если есть)
+            .replace(/[^a-z]/g, '');           // оставляем только буквы
+    }
+
     function checkPinyin(wordId, userInput, correctPinyin) {
-        const normalizedUser = userInput.toLowerCase().trim().replace(/[^a-z]/g, '');
-        const normalizedCorrect = correctPinyin.toLowerCase().trim().replace(/[^a-z]/g, '');
+        const normalizedUser = normalizePinyin(userInput);
+        const normalizedCorrect = normalizePinyin(correctPinyin);
         
-        if (normalizedUser === normalizedCorrect) {
+        const isCorrect = (normalizedUser === normalizedCorrect);
+        
+        if (isCorrect) {
             if (!completedIds.has(wordId)) {
                 completedIds.add(wordId);
                 saveProgress();
             }
-            return true;
+            return { correct: true, message: `✅ Правильно! ${correctPinyin}` };
+        } else {
+            return { correct: false, message: `❌ Неправильно. Правильно: ${correctPinyin}` };
         }
-        return false;
     }
 
     function renderWords() {
@@ -427,8 +440,8 @@
             card.className = 'word-card' + (isCompleted ? ' completed' : '');
             card.dataset.id = word.id;
             
-            // Определяем наличие фонетика
-            const hasPhonetic = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note}` : '❌ НЕТ фонетика — это ' + word.type;
+            const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
+            const phoneticHtml = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
             
             card.innerHTML = `
                 <div class="word-header">
@@ -443,24 +456,19 @@
                     </div>
                     <div class="analysis-content">
                         <div><strong>🧩 Составные части:</strong></div>
-                        <div class="parts-list">
-                            ${word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('')}
-                        </div>
+                        <div class="parts-list">${partsHtml}</div>
                         <div style="margin-top: 0.5rem;">
-                            <strong>🎵 Фонетик:</strong> ${hasPhonetic}
+                            <strong>🎵 Фонетик:</strong> ${phoneticHtml}
                         </div>
                         <div style="margin-top: 0.3rem;">
-                            <strong>📖 Объяснение:</strong> ${word.explanation}
+                            <strong>📖 Объяснение:</strong> ${word.explanation || '—'}
                         </div>
-                        <div style="margin-top: 0.5rem;">
-                            <strong>📚 Примеры:</strong><br>
-                            ${word.examples.map((ex, i) => `${ex} — ${word.exampleMeanings[i]}`).join('<br>')}
-                        </div>
+                        ${word.examples ? `<div style="margin-top: 0.5rem;"><strong>📚 Примеры:</strong><br>${word.examples.map((ex, i) => `${ex} — ${word.exampleMeanings?.[i] || ''}`).join('<br>')}</div>` : ''}
                     </div>
                 </div>
                 
                 <div class="input-area">
-                    <input type="text" class="pinyin-input" placeholder="Введи пиньинь (без тонов)" data-id="${word.id}" data-correct="${word.pinyin}">
+                    <input type="text" class="pinyin-input" placeholder="Введи пиньинь (можно без тонов)" data-id="${word.id}" data-correct="${word.pinyin}">
                     <button class="check-btn" data-id="${word.id}">✅ Проверить</button>
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
@@ -473,7 +481,7 @@
             container.appendChild(card);
         });
         
-        // Добавляем обработчики после рендера
+        // Добавляем обработчики
         document.querySelectorAll('.check-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = parseInt(btn.dataset.id);
@@ -482,15 +490,16 @@
                 const word = wordsData.find(w => w.id === id);
                 const resultDiv = document.getElementById(`result-${id}`);
                 
-                if (checkPinyin(id, userValue, word.pinyin)) {
-                    resultDiv.innerHTML = '✅ Правильно! Слово выучено!';
-                    resultDiv.style.color = 'green';
+                if (!word) return;
+                
+                const result = checkPinyin(id, userValue, word.pinyin);
+                resultDiv.innerHTML = result.message;
+                resultDiv.style.color = result.correct ? 'green' : 'red';
+                
+                if (result.correct) {
                     btn.parentElement.parentElement.classList.add('completed');
                     updateProgress();
                     if (hideCompleted) renderWords();
-                } else {
-                    resultDiv.innerHTML = `❌ Неправильно. Правильно: ${word.pinyin}`;
-                    resultDiv.style.color = 'red';
                 }
             });
         });
@@ -512,7 +521,6 @@
         arrow.innerHTML = content.classList.contains('show') ? '▲' : '▼';
     }
     
-    // Кнопки управления
     document.getElementById('speakAllBtn')?.addEventListener('click', () => {
         const allChars = wordsData.map(w => w.char).join('');
         playChinese(allChars);
@@ -536,7 +544,6 @@
         renderWords();
     });
     
-    // Запуск
     loadData();
 </script>
 </body>
