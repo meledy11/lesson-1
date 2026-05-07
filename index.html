@@ -67,7 +67,6 @@
             border: 2px solid #FFB347;
         }
         
-        /* Стили уроков */
         .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -89,7 +88,6 @@
         .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
         
-        /* Стили игр */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -127,7 +125,6 @@
         .game-tag.green { background: #4CAF50; }
         .game-tag.orange { background: #FF8C42; }
         
-        /* Стили словаря */
         .search-box {
             background: white;
             border-radius: 50px;
@@ -257,7 +254,6 @@
             font-size: 0.85rem;
         }
         
-        /* Стили для вкладки Слоги (iframe) */
         .syllables-frame {
             width: 100%;
             height: 80vh;
@@ -303,7 +299,6 @@
             <p>🎧 Уроки | Игры | Словарь | Слоги 🎧</p>
         </div>
         
-        <!-- ВКЛАДКИ -->
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
@@ -316,7 +311,16 @@
             <div class="speak-tip">
                 <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
             </div>
-            <div class="lessons-list" id="lessonsList"></div>
+            <div class="lessons-list" id="lessonsList">
+                <!-- НОВЫЙ УРОК ДОБАВЛЕН СТАТИЧЕСКИ -->
+                <a href="frequency-lesson.html" class="lesson-card">
+                    <h2>🔥 30 частотных слов</h2>
+                    <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
+                        🎯 30 слов + разбор на части + есть/нет фонетик
+                    </div>
+                </a>
+            </div>
         </div>
         
         <!-- ВКЛАДКА: ИГРЫ -->
@@ -344,13 +348,7 @@
                     <h3>Таблица пиньиня</h3>
                     <p>Все инициали и финали с тонами</p>
                 </a>
-                <a href="frequency-lesson.html" class="lesson-card">
-    <h2>🔥 Урок 40: 30 частотных слов</h2>
-    <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
-    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-        🎯 30 слов + разбор на части + есть/нет фонетик
-    </div>
-</a>
+                
                 <a href="copybook.html" class="game-card">
                     <div class="game-icon">✍️</div>
                     <h3>Тетрадь прописей</h3>
@@ -388,7 +386,7 @@
             </div>
         </div>
         
-        <!-- ВКЛАДКА: СЛОГИ (загружает отдельный файл syllables.html) -->
+        <!-- ВКЛАДКА: СЛОГИ -->
         <div class="tab-content" id="tab-syllables">
             <div class="speak-tip">
                 <span>🎵</span> Все слоги китайского языка с примерами и озвучкой <span>🎵</span>
@@ -414,7 +412,6 @@
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
                 document.getElementById('tab-' + tabName).classList.add('active');
                 
-                // Обновляем статистику при открытии словаря
                 if (tabName === 'dictionary') {
                     updateStats();
                     searchDictionary();
@@ -422,7 +419,7 @@
             });
         });
         
-        // ===== ЗАГРУЗКА УРОКОВ =====
+        // ===== ЗАГРУЗКА УРОКОВ ИЗ lessons-data.js (ДОБАВЛЯЕМ К СУЩЕСТВУЮЩИМ) =====
         const lessonsList = document.getElementById('lessonsList');
         
         if (typeof lessonsDB !== 'undefined') {
@@ -433,6 +430,8 @@
             });
             
             if (sortedLessons.length > 0) {
+                // Очищаем только динамические уроки, но оставляем статический (frequency-lesson)
+                // Для простоты — добавим после существующего
                 for (const [key, lesson] of sortedLessons) {
                     const lessonCard = document.createElement('a');
                     lessonCard.href = `${key}.html`;
@@ -446,11 +445,9 @@
                     `;
                     lessonsList.appendChild(lessonCard);
                 }
-            } else {
-                lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Скоро здесь появятся новые уроки!</div>';
             }
         } else {
-            lessonsList.innerHTML = '<div style="text-align: center; padding: 2rem;">📖 Подключите файл lessons-data.js</div>';
+            console.log('lessons-data.js не загружен или пуст');
         }
         
         // ===== СЛОВАРЬ =====
@@ -537,7 +534,6 @@
             `;
         }
         
-        // Фильтры словаря
         document.querySelectorAll('#tab-dictionary .filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('#tab-dictionary .filter-btn').forEach(b => b.classList.remove('active'));
@@ -547,12 +543,10 @@
             });
         });
         
-        // Поиск при нажатии Enter
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') searchDictionary();
         });
         
-        // Инициализация словаря
         if (typeof phrasesDB !== 'undefined') {
             updateStats();
             setTimeout(() => {
