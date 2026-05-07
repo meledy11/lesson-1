@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🔥 Урок: 30 частотных слов | Весёлый китайский</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', 'Poppins', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
+            border-radius: 80px;
+            padding: 1.8rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 0 #C16F1A;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.95);
+            display: inline-block;
+            padding: 0.4rem 1.5rem;
+            border-radius: 60px;
+            color: #E67E22;
+        }
+
+        .hero p {
+            margin-top: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .back-buttons {
+            margin-top: 1rem;
+        }
+
+        .back-home {
+            display: inline-block;
+            background: rgba(255,255,255,0.9);
+            color: #E67E22;
+            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 0 0.3rem;
+            box-shadow: 0 4px 0 #C16F1A;
+            transition: 0.08s linear;
+        }
+
+        .back-home:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
+        }
+
+        /* прогресс-бар */
+        .progress-section {
+            background: white;
+            border-radius: 60px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 0 #FFB347;
+        }
+
+        .progress-bar-bg {
+            background: #FFE0C0;
+            border-radius: 30px;
+            height: 20px;
+            overflow: hidden;
+            margin: 0.8rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #FF6B35, #FFB347);
+            width: 0%;
+            height: 100%;
+            border-radius: 30px;
+            transition: width 0.2s;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .ctrl-btn {
+            background: white;
+            border: 2px solid #FFB347;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #D98F33;
+            transition: 0.05s;
+        }
+
+        .ctrl-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #D98F33;
+        }
+
+        .ctrl-btn.primary {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border: none;
+        }
+
+        /* сетка слов */
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .word-card {
+            background: white;
+            border-radius: 36px;
+            padding: 1.2rem;
+            border: 3px solid #FFD699;
+            transition: 0.1s;
+            box-shadow: 0 8px 0 #FFD699;
+        }
+
+        .word-card.completed {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+            box-shadow: 0 8px 0 #4CAF50;
+        }
+
+        .word-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .char-large {
+            font-size: 2.8rem;
+            font-weight: bold;
+            font-family: 'Noto Sans SC', monospace;
+            background: #FFF3E0;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.05s;
+        }
+
+        .char-large:active {
+            background: #FFD699;
+            transform: scale(0.96);
+        }
+
+        .pinyin-badge {
+            font-size: 1rem;
+            color: #FF8C42;
+            font-weight: bold;
+            background: #FFF0E0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .meaning {
+            color: #A64B2A;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        /* разбор */
+        .analysis {
+            background: #FFFBF5;
+            border-radius: 24px;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            font-size: 0.85rem;
+            border-left: 4px solid #FFB347;
+        }
+
+        .analysis-title {
+            font-weight: bold;
+            color: #E67E22;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .analysis-content {
+            display: none;
+        }
+
+        .analysis-content.show {
+            display: block;
+        }
+
+        .parts-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .part-item {
+            background: #FFE8CC;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-family: 'Noto Sans SC', monospace;
+        }
+
+        .phonetic-badge {
+            display: inline-block;
+            background: #FFE0A3;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin: 0.2rem 0;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .pinyin-input {
+            flex: 2;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            border: 2px solid #FFD699;
+            font-family: monospace;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .check-btn {
+            background: #FF8C42;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .check-result {
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .draw-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #F5DEB3;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            color: #A64B2A;
+            margin-top: 0.6rem;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #FFD699;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #A64B2A;
+        }
+
+        @media (max-width: 800px) {
+            .words-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>🔥 30 самых частотных слов</h1>
+        <p>🎯 Слушай → пиши пиньинь → запоминай навсегда!</p>
+        <div class="back-buttons">
+            <a href="index.html" class="back-home">🏠 На главную</a>
+            <a href="lesson0.html" class="back-home">🎵 Таблица пиньиня</a>
+            <a href="copybook.html" class="back-home">✍️ Тетрадь прописей</a>
+        </div>
+    </div>
+
+    <div class="progress-section">
+        <div style="display: flex; justify-content: space-between;">
+            <span>📊 Прогресс урока</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
+        <div style="font-size:0.75rem;">✅ Правильный пиньинь отмечает слово выученным</div>
+    </div>
+
+    <div class="controls">
+        <button class="ctrl-btn" id="speakAllBtn">🔊 Произнести всё</button>
+        <button class="ctrl-btn primary" id="resetProgressBtn">🔄 Сбросить прогресс</button>
+        <button class="ctrl-btn" id="hideCompletedBtn">✅ Скрыть выученные</button>
+        <button class="ctrl-btn" id="showAllBtn">👁️ Показать все</button>
+    </div>
+
+    <div id="wordsGrid" class="words-grid"></div>
+    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Нажми «Пропись» → откроется рисовалка с этим иероглифом.</footer>
+</div>
+
+<script src="frequency-db.js"></script>
+<script>
+    let wordsData = [];
+    let completedIds = new Set();
+    let hideCompleted = false;
+
+    // Загрузка данных
+    function loadData() {
+        if (typeof frequencyDB !== 'undefined') {
+            wordsData = JSON.parse(JSON.stringify(frequencyDB));
+        } else {
+            console.error('frequencyDB не загружена');
+            wordsData = [];
+        }
+        
+        // Загружаем прогресс
+        const saved = localStorage.getItem('frequencyProgress');
+        if (saved) {
+            completedIds = new Set(JSON.parse(saved));
+        }
+        
+        renderWords();
+        updateProgress();
+    }
+
+    function playChinese(text) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.7;
+        setTimeout(() => window.speechSynthesis.speak(utterance), 10);
+    }
+
+    function saveProgress() {
+        localStorage.setItem('frequencyProgress', JSON.stringify([...completedIds]));
+        updateProgress();
+        renderWords(); // перерисовываем для обновления класса completed
+    }
+
+    function updateProgress() {
+        const total = wordsData.length;
+        const completed = completedIds.size;
+        const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+        document.getElementById('progressPercent').innerText = percent + '%';
+        document.getElementById('progressFill').style.width = percent + '%';
+    }
+
+    function openDrawing(char, pinyin, meaning) {
+        const charData = {
+            char: char,
+            pinyin: pinyin,
+            meaning: meaning,
+            sound: char
+        };
+        localStorage.setItem('selectedCharacter', JSON.stringify(charData));
+        window.open('copybook.html', '_blank');
+    }
+
+    function checkPinyin(wordId, userInput, correctPinyin) {
+        const normalizedUser = userInput.toLowerCase().trim().replace(/[^a-z]/g, '');
+        const normalizedCorrect = correctPinyin.toLowerCase().trim().replace(/[^a-z]/g, '');
+        
+        if (normalizedUser === normalizedCorrect) {
+            if (!completedIds.has(wordId)) {
+                completedIds.add(wordId);
+                saveProgress();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    function renderWords() {
+        const container = document.getElementById('wordsGrid');
+        if (!container) return;
+        
+        let filtered = [...wordsData];
+        if (hideCompleted) {
+            filtered = filtered.filter(w => !completedIds.has(w.id));
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:3rem; background:white; border-radius:50px;">🎉 Поздравляю! Все слова выучены! 🎉</div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        filtered.forEach(word => {
+            const isCompleted = completedIds.has(word.id);
+            const card = document.createElement('div');
+            card.className = 'word-card' + (isCompleted ? ' completed' : '');
+            card.dataset.id = word.id;
+            
+            // Определяем наличие фонетика
+            const hasPhonetic = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note}` : '❌ НЕТ фонетика — это ' + word.type;
+            
+            card.innerHTML = `
+                <div class="word-header">
+                    <span class="char-large" onclick="playChinese('${word.char}')">${word.char}</span>
+                    <span class="pinyin-badge">${word.pinyin}</span>
+                </div>
+                <div class="meaning">📖 ${word.meaning}</div>
+                
+                <div class="analysis">
+                    <div class="analysis-title" onclick="toggleAnalysis(this)">
+                        🔍 Разбор иероглифа <span>▼</span>
+                    </div>
+                    <div class="analysis-content">
+                        <div><strong>🧩 Составные части:</strong></div>
+                        <div class="parts-list">
+                            ${word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('')}
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <strong>🎵 Фонетик:</strong> ${hasPhonetic}
+                        </div>
+                        <div style="margin-top: 0.3rem;">
+                            <strong>📖 Объяснение:</strong> ${word.explanation}
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <strong>📚 Примеры:</strong><br>
+                            ${word.examples.map((ex, i) => `${ex} — ${word.exampleMeanings[i]}`).join('<br>')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-area">
+                    <input type="text" class="pinyin-input" placeholder="Введи пиньинь (без тонов)" data-id="${word.id}" data-correct="${word.pinyin}">
+                    <button class="check-btn" data-id="${word.id}">✅ Проверить</button>
+                </div>
+                <div class="check-result" id="result-${word.id}"></div>
+                
+                <div class="draw-link" onclick="openDrawing('${word.char}', '${word.pinyin}', '${word.meaning}')">
+                    ✍️ Писать в тетради
+                </div>
+            `;
+            
+            container.appendChild(card);
+        });
+        
+        // Добавляем обработчики после рендера
+        document.querySelectorAll('.check-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                const input = btn.parentElement.querySelector('.pinyin-input');
+                const userValue = input.value;
+                const word = wordsData.find(w => w.id === id);
+                const resultDiv = document.getElementById(`result-${id}`);
+                
+                if (checkPinyin(id, userValue, word.pinyin)) {
+                    resultDiv.innerHTML = '✅ Правильно! Слово выучено!';
+                    resultDiv.style.color = 'green';
+                    btn.parentElement.parentElement.classList.add('completed');
+                    updateProgress();
+                    if (hideCompleted) renderWords();
+                } else {
+                    resultDiv.innerHTML = `❌ Неправильно. Правильно: ${word.pinyin}`;
+                    resultDiv.style.color = 'red';
+                }
+            });
+        });
+        
+        document.querySelectorAll('.pinyin-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const btn = input.parentElement.querySelector('.check-btn');
+                    if (btn) btn.click();
+                }
+            });
+        });
+    }
+    
+    function toggleAnalysis(titleEl) {
+        const content = titleEl.parentElement.querySelector('.analysis-content');
+        const arrow = titleEl.querySelector('span');
+        content.classList.toggle('show');
+        arrow.innerHTML = content.classList.contains('show') ? '▲' : '▼';
+    }
+    
+    // Кнопки управления
+    document.getElementById('speakAllBtn')?.addEventListener('click', () => {
+        const allChars = wordsData.map(w => w.char).join('');
+        playChinese(allChars);
+    });
+    
+    document.getElementById('resetProgressBtn')?.addEventListener('click', () => {
+        if (confirm('Сбросить весь прогресс?')) {
+            completedIds.clear();
+            saveProgress();
+            renderWords();
+        }
+    });
+    
+    document.getElementById('hideCompletedBtn')?.addEventListener('click', () => {
+        hideCompleted = true;
+        renderWords();
+    });
+    
+    document.getElementById('showAllBtn')?.addEventListener('click', () => {
+        hideCompleted = false;
+        renderWords();
+    });
+    
+    // Запуск
+    loadData();
+</script>
+</body>
+</html>
