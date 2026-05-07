@@ -312,9 +312,9 @@
                 <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
             </div>
             <div class="lessons-list" id="lessonsList">
-                <!-- НОВЫЙ УРОК ДОБАВЛЕН СТАТИЧЕСКИ -->
+                <!-- НОВЫЙ УРОК 30 ЧАСТОТНЫХ СЛОВ -->
                 <a href="frequency-lesson.html" class="lesson-card">
-                    <h2>🔥 30 частотных слов</h2>
+                    <h2>🔥 30 самых частотных слов</h2>
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
                     <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
                         🎯 30 слов + разбор на части + есть/нет фонетик
@@ -419,7 +419,7 @@
             });
         });
         
-        // ===== ЗАГРУЗКА УРОКОВ ИЗ lessons-data.js (ДОБАВЛЯЕМ К СУЩЕСТВУЮЩИМ) =====
+        // ===== ЗАГРУЗКА УРОКОВ ИЗ lessons-data.js =====
         const lessonsList = document.getElementById('lessonsList');
         
         if (typeof lessonsDB !== 'undefined') {
@@ -430,8 +430,6 @@
             });
             
             if (sortedLessons.length > 0) {
-                // Очищаем только динамические уроки, но оставляем статический (frequency-lesson)
-                // Для простоты — добавим после существующего
                 for (const [key, lesson] of sortedLessons) {
                     const lessonCard = document.createElement('a');
                     lessonCard.href = `${key}.html`;
