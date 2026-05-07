@@ -1,5 +1,3 @@
-// frequency-db.js — 30 самых частотных слов с полным разбором
-
 const frequencyDB = [
     {
         id: 1,
