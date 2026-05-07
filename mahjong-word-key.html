@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🀄 Маджонг: Слово + Ключ | Весёлый китайский</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a472a 0%, #2d6a4f 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', 'Poppins', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* шапка */
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #FFD966, #FFB347);
+            border-radius: 60px;
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 12px 0 #C16F1A;
+            color: #5a2e0e;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .hero p {
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .back-home {
+            display: inline-block;
+            background: rgba(255,255,255,0.9);
+            color: #A64B2A;
+            text-decoration: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            margin-top: 0.8rem;
+            margin-right: 0.5rem;
+            box-shadow: 0 3px 0 #C16F1A;
+        }
+
+        /* статус игры */
+        .game-status {
+            background: #2b4f3a;
+            border-radius: 40px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: #FFE0A3;
+        }
+
+        .score-box {
+            background: #1e3a2f;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .score-box span:first-child {
+            font-size: 0.8rem;
+        }
+
+        .score-box span:last-child {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFD966;
+        }
+
+        .message-box {
+            background: #1e3a2f;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        .new-game-btn {
+            background: #FFB347;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #5a2e0e;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+
+        .new-game-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
+        }
+
+        /* игровое поле */
+        .game-board {
+            background: #3d2a1a;
+            border-radius: 50px;
+            padding: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3), 0 15px 0 #2a1a0e;
+        }
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.8rem;
+        }
+
+        .tile {
+            background: linear-gradient(145deg, #FFF8E7, #FFE8C8);
+            border-radius: 20px;
+            padding: 0.8rem 0.2rem;
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: 'Noto Sans SC', monospace;
+            font-weight: bold;
+            color: #A64B2A;
+            cursor: pointer;
+            transition: 0.08s linear;
+            box-shadow: 0 6px 0 #B87C2E;
+            border: 1px solid #FFD699;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tile.selected {
+            background: linear-gradient(145deg, #FFE0A3, #FFD580);
+            box-shadow: 0 2px 0 #B87C2E;
+            transform: translateY(4px);
+            border: 2px solid #FF8C42;
+        }
+
+        .tile.removed {
+            visibility: hidden;
+            pointer-events: none;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .tile:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #B87C2E;
+        }
+
+        /* тип плитки (маленькая подсказка) */
+        .tile-type {
+            font-size: 0.55rem;
+            position: absolute;
+            margin-top: 2.5rem;
+            color: #8B5A2B;
+        }
+
+        .tile {
+            position: relative;
+        }
+
+        /* настройки уровня */
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-btn {
+            background: #FFE0C0;
+            border: 2px solid #FFB347;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .level-btn.active {
+            background: #FFB347;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            background: #2b4f3a;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #FFD966;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 700px) {
+            .tiles-grid {
+                gap: 0.5rem;
+            }
+            .tile {
+                font-size: 1.2rem;
+                padding: 0.4rem 0.1rem;
+            }
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <h1>🀄 Маджонг: Слово + Ключ 🀄</h1>
+        <p>Сопоставь иероглиф с его ключом (радикалом) — очисти поле!</p>
+        <div>
+            <a href="index.html" class="back-home">🏠 На главную</a>
+            <a href="frequency-lesson.html" class="back-home">📖 Урок частотных слов</a>
+            <a href="copybook.html" class="back-home">✍️ Тетрадь прописей</a>
+        </div>
+    </div>
+
+    <div class="level-selector">
+        <button class="level-btn active" data-level="easy">🍃 Лёгкий (6 пар)</button>
+        <button class="level-btn" data-level="medium">🌿 Средний (12 пар)</button>
+        <button class="level-btn" data-level="hard">🔥 Сложный (20 пар)</button>
+    </div>
+
+    <div class="game-status">
+        <div class="score-box">
+            <span>🎯 Найдено пар</span><br>
+            <span id="scoreCount">0</span>
+        </div>
+        <div class="score-box">
+            <span>🀄 Осталось</span><br>
+            <span id="remainingCount">0</span>
+        </div>
+        <div class="message-box" id="messageBox">
+            🎲 Нажми на плитку
+        </div>
+        <button class="new-game-btn" id="newGameBtn">🔄 Новая игра</button>
+    </div>
+
+    <div class="game-board">
+        <div class="tiles-grid" id="tilesGrid"></div>
+    </div>
+
+    <footer>
+        🀄 Правила: найди пару «иероглиф ↔ его ключ». Нажми на две плитки — если они подходят, они исчезнут. Очисти всё поле!
+    </footer>
+</div>
+
+<script src="frequency-db.js"></script>
+<script>
+    // Ждём загрузки базы данных
+    let currentLevel = 'easy';
+    let tiles = [];           // массив плиток { id, content, type, pairId, displayText }
+    let selectedTileIndex = null;
+    let score = 0;
+    let pairsCount = 0;
+    let remainingPairs = 0;
+    
+    // Элементы DOM
+    const tilesGrid = document.getElementById('tilesGrid');
+    const scoreSpan = document.getElementById('scoreCount');
+    const remainingSpan = document.getElementById('remainingCount');
+    const messageBox = document.getElementById('messageBox');
+    
+    // Извлекаем данные из frequencyDB
+    function getWordKeyPairs(limit) {
+        if (typeof frequencyDB === 'undefined' || !frequencyDB.length) {
+            console.warn('frequencyDB не загружена, использую тестовые данные');
+            return getTestPairs(limit);
+        }
+        
+        const pairs = [];
+        for (const word of frequencyDB) {
+            // Пропускаем, если нет ключа или ключ слишком длинный
+            if (!word.radical || !word.radical.char) continue;
+            const radicalChar = word.radical.char;
+            if (radicalChar.length > 2) continue;
+            if (radicalChar === word.char) continue; // избегаем одинаковых
+            
+            pairs.push({
+                wordChar: word.char,
+                radicalChar: radicalChar,
+                radicalName: word.radical.name || '',
+                wordMeaning: word.meaning || ''
+            });
+        }
+        
+        // Перемешиваем и берём нужное количество
+        const shuffled = shuffleArray([...pairs]);
+        return shuffled.slice(0, limit);
+    }
+    
+    // Тестовые данные на случай, если база не загрузилась
+    function getTestPairs(limit) {
+        const testPairs = [
+            { wordChar: "妈", radicalChar: "女", radicalName: "женщина", wordMeaning: "мама" },
+            { wordChar: "你", radicalChar: "亻", radicalName: "человек", wordMeaning: "ты" },
+            { wordChar: "他", radicalChar: "亻", radicalName: "человек", wordMeaning: "он" },
+            { wordChar: "她", radicalChar: "女", radicalName: "женщина", wordMeaning: "она" },
+            { wordChar: "说", radicalChar: "讠", radicalName: "речь", wordMeaning: "говорить" },
+            { wordChar: "吃", radicalChar: "口", radicalName: "рот", wordMeaning: "есть" },
+            { wordChar: "喝", radicalChar: "口", radicalName: "рот", wordMeaning: "пить" },
+            { wordChar: "想", radicalChar: "心", radicalName: "сердце", wordMeaning: "думать" },
+            { wordChar: "快", radicalChar: "忄", radicalName: "сердце", wordMeaning: "быстрый" },
+            { wordChar: "海", radicalChar: "氵", radicalName: "вода", wordMeaning: "море" },
+            { wordChar: "河", radicalChar: "氵", radicalName: "вода", wordMeaning: "река" },
+            { wordChar: "烧", radicalChar: "火", radicalName: "огонь", wordMeaning: "жечь" },
+            { wordChar: "烟", radicalChar: "火", radicalName: "огонь", wordMeaning: "дым" },
+            { wordChar: "朋", radicalChar: "月", radicalName: "луна", wordMeaning: "друг" },
+            { wordChar: "服", radicalChar: "月", radicalName: "луна/мясо", wordMeaning: "одежда" },
+            { wordChar: "打", radicalChar: "扌", radicalName: "рука", wordMeaning: "бить" },
+            { wordChar: "拉", radicalChar: "扌", radicalName: "рука", wordMeaning: "тянуть" },
+            { wordChar: "过", radicalChar: "辶", radicalName: "движение", wordMeaning: "проходить" },
+            { wordChar: "进", radicalChar: "辶", radicalName: "движение", wordMeaning: "входить" },
+            { wordChar: "饭", radicalChar: "饣", radicalName: "еда", wordMeaning: "рис" }
+        ];
+        const shuffled = shuffleArray([...testPairs]);
+        return shuffled.slice(0, limit);
+    }
+    
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+    
+    function initGame() {
+        // Определяем количество пар в зависимости от уровня
+        let pairLimit = 6;
+        if (currentLevel === 'medium') pairLimit = 12;
+        if (currentLevel === 'hard') pairLimit = 20;
+        
+        const pairs = getWordKeyPairs(pairLimit);
+        pairsCount = pairs.length;
+        remainingPairs = pairsCount;
+        score = 0;
+        selectedTileIndex = null;
+        
+        // Создаём плитки: для каждой пары — 2 плитки (слово и его ключ)
+        const newTiles = [];
+        let idCounter = 0;
+        
+        for (const pair of pairs) {
+            // Плитка иероглифа
+            newTiles.push({
+                id: idCounter++,
+                content: pair.wordChar,
+                type: 'word',
+                pairId: idCounter - 1,
+                displayText: pair.wordChar,
+                tooltip: pair.wordMeaning
+            });
+            // Плитка ключа
+            newTiles.push({
+                id: idCounter++,
+                content: pair.radicalChar,
+                type: 'radical',
+                pairId: idCounter - 2,
+                displayText: pair.radicalChar,
+                tooltip: pair.radicalName
+            });
+        }
+        
+        // Перемешиваем плитки
+        tiles = shuffleArray(newTiles);
+        
+        // Обновляем UI
+        updateScoreDisplay();
+        renderBoard();
+        messageBox.innerHTML = '🎲 Новая игра! Найди пары';
+    }
+    
+    function renderBoard() {
+        if (!tilesGrid) return;
+        
+        tilesGrid.innerHTML = '';
+        let visibleCount = 0;
+        
+        tiles.forEach((tile, idx) => {
+            if (!tile.removed) {
+                visibleCount++;
+                const tileDiv = document.createElement('div');
+                tileDiv.className = 'tile';
+                if (selectedTileIndex === idx) {
+                    tileDiv.classList.add('selected');
+                }
+                tileDiv.innerHTML = `
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                        <span style="font-size:1.8rem;">${tile.displayText}</span>
+                        <span style="font-size:0.6rem; color:#8B5A2B;">${tile.type === 'word' ? (tile.tooltip || 'слово') : (tile.tooltip || 'ключ')}</span>
+                    </div>
+                `;
+                tileDiv.onclick = (function(index) {
+                    return function() { onTileClick(index); };
+                })(idx);
+                tilesGrid.appendChild(tileDiv);
+            }
+        });
+        
+        remainingPairs = tiles.filter(t => !t.removed).length / 2;
+        updateScoreDisplay();
+    }
+    
+    function onTileClick(clickedIdx) {
+        const clickedTile = tiles[clickedIdx];
+        
+        // Если плитка уже убрана — игнорируем
+        if (clickedTile.removed) return;
+        
+        // Если ничего не выбрано
+        if (selectedTileIndex === null) {
+            // Снимаем выделение со всех
+            selectedTileIndex = clickedIdx;
+            renderBoard();
+            messageBox.innerHTML = `📌 Выбрано: ${clickedTile.displayText} (${clickedTile.type === 'word' ? 'слово' : 'ключ'})`;
+            return;
+        }
+        
+        // Если выбрана та же плитка — снимаем выделение
+        if (selectedTileIndex === clickedIdx) {
+            selectedTileIndex = null;
+            renderBoard();
+            messageBox.innerHTML = '🎲 Выбор сброшен';
+            return;
+        }
+        
+        // Проверяем пару
+        const selectedTile = tiles[selectedTileIndex];
+        
+        // Проверяем: подходят ли плитки (один pairId)
+        const isMatch = (selectedTile.pairId === clickedTile.pairId);
+        
+        if (isMatch) {
+            // Правильная пара — удаляем обе плитки
+            tiles[selectedTileIndex].removed = true;
+            tiles[clickedIdx].removed = true;
+            score++;
+            selectedTileIndex = null;
+            
+            const remainingActive = tiles.filter(t => !t.removed).length;
+            if (remainingActive === 0) {
+                messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Вы очистили всё поле!';
+                renderBoard();
+            } else {
+                messageBox.innerHTML = '✅ Правильная пара! +1 очко';
+                renderBoard();
+            }
+        } else {
+            // Неправильная пара
+            messageBox.innerHTML = `❌ Не пара: ${selectedTile.displayText} ≠ ${clickedTile.displayText}. Попробуй ещё!`;
+            selectedTileIndex = null;
+            renderBoard();
+        }
+    }
+    
+    function updateScoreDisplay() {
+        scoreSpan.innerText = score;
+        const remainingActive = tiles.filter(t => !t.removed).length;
+        remainingSpan.innerText = remainingActive / 2;
+    }
+    
+    function newGame() {
+        initGame();
+    }
+    
+    function setLevel(level) {
+        currentLevel = level;
+        // Обновляем активную кнопку
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            if (btn.dataset.level === level) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        newGame();
+    }
+    
+    // Обработчики событий
+    document.getElementById('newGameBtn')?.addEventListener('click', () => {
+        newGame();
+    });
+    
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setLevel(btn.dataset.level);
+        });
+    });
+    
+    // Ждём загрузки базы данных
+    const waitForDB = setInterval(() => {
+        if (typeof frequencyDB !== 'undefined' || performance.now() > 3000) {
+            clearInterval(waitForDB);
+            initGame();
+        }
+    }, 200);
+</script>
+</body>
+</html>
