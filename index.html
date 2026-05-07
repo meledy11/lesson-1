@@ -67,6 +67,7 @@
             border: 2px solid #FFB347;
         }
         
+        /* Стили уроков */
         .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -88,6 +89,7 @@
         .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
         
+        /* Стили игр */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -125,6 +127,7 @@
         .game-tag.green { background: #4CAF50; }
         .game-tag.orange { background: #FF8C42; }
         
+        /* Стили словаря — улучшенные */
         .search-box {
             background: white;
             border-radius: 50px;
@@ -167,10 +170,12 @@
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: bold;
+            transition: 0.1s;
         }
         .filter-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
+            border-color: #FF6B35;
         }
         .dict-results {
             background: white;
@@ -228,6 +233,15 @@
             font-size: 0.7rem;
             margin-top: 0.5rem;
         }
+        .source-badge {
+            display: inline-block;
+            background: #E8D5B5;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            margin-left: 0.5rem;
+            color: #8B5A2B;
+        }
         .speak-btn {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             border: none;
@@ -254,6 +268,7 @@
             font-size: 0.85rem;
         }
         
+        /* Стили для вкладки Слоги (iframe) */
         .syllables-frame {
             width: 100%;
             height: 80vh;
@@ -296,9 +311,10 @@
     <div class="container">
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь | Слоги 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь (слова + фразы) | Слоги 🎧</p>
         </div>
         
+        <!-- ВКЛАДКИ -->
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
@@ -312,12 +328,12 @@
                 <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
             </div>
             <div class="lessons-list" id="lessonsList">
-                <!-- НОВЫЙ УРОК 30 ЧАСТОТНЫХ СЛОВ -->
+                <!-- НОВЫЙ УРОК 50 ЧАСТОТНЫХ СЛОВ -->
                 <a href="frequency-lesson.html" class="lesson-card">
-                    <h2>🔥 30 самых частотных слов</h2>
+                    <h2>🔥 50 самых частотных слов</h2>
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
                     <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                        🎯 30 слов + разбор на части + есть/нет фонетик
+                        🎯 50 слов + разбор на части + есть/нет фонетик
                     </div>
                 </a>
             </div>
@@ -357,15 +373,15 @@
             </div>
         </div>
         
-        <!-- ВКЛАДКА: СЛОВАРЬ -->
+        <!-- ВКЛАДКА: СЛОВАРЬ с ПОИСКОМ ПО НОВОЙ БАЗЕ -->
         <div class="tab-content" id="tab-dictionary">
             <div class="speak-tip">
                 <span>🔍</span> Ищи по иероглифам, пиньиню или русскому переводу <span>🔍</span>
             </div>
             
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Например: 你好, nihao, привет..." autocomplete="off">
-                <button onclick="searchDictionary()">🔍 Поиск</button>
+                <input type="text" id="searchInput" placeholder="Например: 你好, nihao, привет, 的..." autocomplete="off">
+                <button id="searchBtn">🔍 Поиск</button>
             </div>
             
             <div class="filter-levels">
@@ -395,12 +411,15 @@
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 🌟
+            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + все фразы 🌟
         </footer>
     </div>
     
+    <!-- Подключаем все базы данных -->
+    <script src="frequency-db.js"></script>
     <script src="lessons-data.js"></script>
     <script src="phrases-db.js"></script>
+    
     <script>
         // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -448,9 +467,11 @@
             console.log('lessons-data.js не загружен или пуст');
         }
         
-        // ===== СЛОВАРЬ =====
+        // ===== СЛОВАРЬ С ПОИСКОМ ПО ДВУМ БАЗАМ =====
         let currentLevel = 'all';
+        let allDictionaryEntries = [];
         
+        // Функция озвучивания
         function speakChinese(text) {
             if (!text || !window.speechSynthesis) return;
             window.speechSynthesis.cancel();
@@ -462,40 +483,92 @@
             }, 50);
         }
         
-        function updateStats() {
-            if (typeof phrasesDB !== 'undefined' && phrasesDB.length > 0) {
-                const statsDiv = document.getElementById('statsInfo');
-                const levelCounts = {};
-                for (let i = 1; i <= 5; i++) levelCounts[i] = 0;
-                
-                phrasesDB.forEach(p => {
-                    if (levelCounts[p.level]) levelCounts[p.level]++;
-                });
-                
-                statsDiv.innerHTML = `📊 Всего фраз: ${phrasesDB.length} | ⭐${levelCounts[1] || 0} | ⭐⭐${levelCounts[2] || 0} | ⭐⭐⭐${levelCounts[3] || 0} | ⭐⭐⭐⭐${levelCounts[4] || 0} | ⭐⭐⭐⭐⭐${levelCounts[5] || 0}`;
-            } else {
-                document.getElementById('statsInfo').innerHTML = '⚠️ База phrases-db.js не загружена!';
+        // Сбор всех записей из phrasesDB и frequencyDB
+        function buildDictionaryEntries() {
+            const entries = [];
+            
+            // Добавляем фразы из phrasesDB
+            if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
+                for (const phrase of phrasesDB) {
+                    entries.push({
+                        chinese: phrase.chinese,
+                        pinyin: phrase.pinyin,
+                        russian: phrase.russian,
+                        level: phrase.level || 1,
+                        source: 'phrase',
+                        sourceIcon: '💬',
+                        sourceName: 'фраза'
+                    });
+                }
             }
+            
+            // Добавляем частотные слова из frequencyDB
+            if (typeof frequencyDB !== 'undefined' && Array.isArray(frequencyDB)) {
+                for (const word of frequencyDB) {
+                    // Проверяем, нет ли дубликата (чтобы не показывать одно слово дважды)
+                    const exists = entries.some(e => e.chinese === word.char && e.source === 'phrase');
+                    if (!exists) {
+                        entries.push({
+                            chinese: word.char,
+                            pinyin: word.pinyin,
+                            russian: word.meaning,
+                            level: word.level || 1,
+                            source: 'word',
+                            sourceIcon: '📖',
+                            sourceName: 'частотное слово'
+                        });
+                    } else {
+                        // Если уже есть как фраза, обновляем уровень если нужно
+                        const existing = entries.find(e => e.chinese === word.char);
+                        if (existing && existing.level > (word.level || 1)) {
+                            existing.level = word.level || 1;
+                        }
+                    }
+                }
+            }
+            
+            // Сортируем по китайскому иероглифу для удобства
+            entries.sort((a, b) => a.chinese.localeCompare(b.chinese));
+            return entries;
+        }
+        
+        function updateStats() {
+            const entries = buildDictionaryEntries();
+            const statsDiv = document.getElementById('statsInfo');
+            const levelCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+            
+            for (const entry of entries) {
+                const lvl = entry.level;
+                if (levelCounts[lvl] !== undefined) levelCounts[lvl]++;
+            }
+            
+            const phrasesCount = entries.filter(e => e.source === 'phrase').length;
+            const wordsCount = entries.filter(e => e.source === 'word').length;
+            
+            statsDiv.innerHTML = `📊 Всего: ${entries.length} (слова: ${wordsCount}, фразы: ${phrasesCount}) | ⭐${levelCounts[1]} | ⭐⭐${levelCounts[2]} | ⭐⭐⭐${levelCounts[3]} | ⭐⭐⭐⭐${levelCounts[4]} | ⭐⭐⭐⭐⭐${levelCounts[5]}`;
         }
         
         function searchDictionary() {
-            if (typeof phrasesDB === 'undefined') {
-                document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ База phrases-db.js не загружена!</div>';
+            const entries = buildDictionaryEntries();
+            if (entries.length === 0) {
+                document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Базы не загружены!</div>';
                 return;
             }
             
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            let filtered = [...phrasesDB];
+            let filtered = [...entries];
             
+            // Фильтр по уровню
             if (currentLevel !== 'all') {
-                filtered = filtered.filter(p => p.level === parseInt(currentLevel));
+                filtered = filtered.filter(entry => entry.level === parseInt(currentLevel));
             }
             
+            // Поиск по запросу
             if (query !== '') {
-                filtered = filtered.filter(p => {
-                    return p.chinese.toLowerCase().includes(query) ||
-                           p.pinyin.toLowerCase().includes(query) ||
-                           p.russian.toLowerCase().includes(query);
+                filtered = filtered.filter(entry => {
+                    return entry.chinese.includes(query) ||
+                           entry.pinyin.toLowerCase().includes(query) ||
+                           entry.russian.toLowerCase().includes(query);
                 });
             }
             
@@ -506,32 +579,34 @@
             }
             
             let html = '';
-            filtered.forEach(phrase => {
-                const stars = '⭐'.repeat(phrase.level);
-                const safeChinese = phrase.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            for (const entry of filtered) {
+                const stars = '⭐'.repeat(entry.level);
+                const safeChinese = entry.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 html += `
                     <div class="dict-item">
                         <div class="dict-content">
                             <div>
-                                <span class="dict-chinese" onclick="speakChinese('${safeChinese}')">${phrase.chinese}</span>
-                                <span class="dict-pinyin">${phrase.pinyin}</span>
+                                <span class="dict-chinese" onclick="speakChinese('${safeChinese}')">${entry.chinese}</span>
+                                <span class="dict-pinyin">${entry.pinyin}</span>
+                                <span class="source-badge" title="${entry.sourceName}">${entry.sourceIcon} ${entry.source === 'word' ? 'слово' : 'фраза'}</span>
                             </div>
-                            <div class="dict-russian">${phrase.russian}</div>
-                            <div class="dict-level">Уровень ${phrase.level} ${stars}</div>
+                            <div class="dict-russian">${entry.russian}</div>
+                            <div class="dict-level">Уровень ${entry.level} ${stars}</div>
                         </div>
                         <button class="speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
                     </div>
                 `;
-            });
+            }
             
             resultsDiv.innerHTML = `
                 <div style="margin-bottom:0.8rem; padding:0.5rem; background:#FFF8F0; border-radius:15px;">
-                    🔍 Найдено: ${filtered.length} фраз
+                    🔍 Найдено: ${filtered.length} записей
                 </div>
                 ${html}
             `;
         }
         
+        // Фильтры словаря
         document.querySelectorAll('#tab-dictionary .filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('#tab-dictionary .filter-btn').forEach(b => b.classList.remove('active'));
@@ -541,18 +616,46 @@
             });
         });
         
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchDictionary();
-        });
+        // Поиск при нажатии Enter и кнопки
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
         
-        if (typeof phrasesDB !== 'undefined') {
-            updateStats();
-            setTimeout(() => {
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchDictionary();
+            });
+        }
+        
+        if (searchBtn) {
+            searchBtn.addEventListener('click', function() {
                 searchDictionary();
-            }, 100);
-        } else {
-            console.error('phrasesDB не загружена!');
-            document.getElementById('statsInfo').innerHTML = '❌ Файл phrases-db.js не найден!';
+            });
+        }
+        
+        // Инициализация словаря после загрузки всех баз
+        function initDictionary() {
+            // Небольшая задержка, чтобы все скрипты точно загрузились
+            setTimeout(() => {
+                if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
+                    updateStats();
+                    searchDictionary();
+                    console.log('✅ Словарь инициализирован: частотные слова + фразы');
+                } else {
+                    document.getElementById('statsInfo').innerHTML = '⚠️ Базы данных не загружены! Проверьте файлы frequency-db.js и phrases-db.js';
+                    document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: базы данных не загружены</div>';
+                }
+            }, 200);
+        }
+        
+        // Запускаем словарь
+        initDictionary();
+        
+        // Выводим в консоль информацию о загруженных базах
+        if (typeof frequencyDB !== 'undefined') {
+            console.log(`📊 frequencyDB загружена: ${frequencyDB.length} частотных слов`);
+        }
+        if (typeof phrasesDB !== 'undefined') {
+            console.log(`📊 phrasesDB загружена: ${phrasesDB.length} фраз`);
         }
     </script>
 </body>
