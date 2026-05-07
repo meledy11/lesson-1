@@ -370,6 +370,14 @@
                     <h3>Тетрадь прописей</h3>
                     <p>Пиши иероглифы и слушай произношение</p>
                 </a>
+
+                <!-- НОВАЯ ИГРА МАДЖОНГ СЛОВО+КЛЮЧ -->
+                <a href="mahjong-word-key.html" class="game-card">
+                    <div class="game-icon">🀄</div>
+                    <h3>Маджонг: слово + ключ</h3>
+                    <p>Сопоставляй иероглифы с их радикалами</p>
+                    <span class="game-tag orange">память</span>
+                </a>
             </div>
         </div>
         
@@ -411,7 +419,7 @@
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + все фразы 🌟
+            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + все фразы. 🀄 Играй в маджонг для запоминания ключей!
         </footer>
     </div>
     
@@ -469,7 +477,6 @@
         
         // ===== СЛОВАРЬ С ПОИСКОМ ПО ДВУМ БАЗАМ =====
         let currentLevel = 'all';
-        let allDictionaryEntries = [];
         
         // Функция озвучивания
         function speakChinese(text) {
@@ -515,19 +522,14 @@
                             level: word.level || 1,
                             source: 'word',
                             sourceIcon: '📖',
-                            sourceName: 'частотное слово'
+                            sourceName: 'частотное слово',
+                            radical: word.radical?.char || ''
                         });
-                    } else {
-                        // Если уже есть как фраза, обновляем уровень если нужно
-                        const existing = entries.find(e => e.chinese === word.char);
-                        if (existing && existing.level > (word.level || 1)) {
-                            existing.level = word.level || 1;
-                        }
                     }
                 }
             }
             
-            // Сортируем по китайскому иероглифу для удобства
+            // Сортируем по китайскому иероглифу
             entries.sort((a, b) => a.chinese.localeCompare(b.chinese));
             return entries;
         }
@@ -582,6 +584,7 @@
             for (const entry of filtered) {
                 const stars = '⭐'.repeat(entry.level);
                 const safeChinese = entry.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const extraInfo = entry.radical ? ` (ключ: ${entry.radical})` : '';
                 html += `
                     <div class="dict-item">
                         <div class="dict-content">
@@ -590,7 +593,7 @@
                                 <span class="dict-pinyin">${entry.pinyin}</span>
                                 <span class="source-badge" title="${entry.sourceName}">${entry.sourceIcon} ${entry.source === 'word' ? 'слово' : 'фраза'}</span>
                             </div>
-                            <div class="dict-russian">${entry.russian}</div>
+                            <div class="dict-russian">${entry.russian}${extraInfo}</div>
                             <div class="dict-level">Уровень ${entry.level} ${stars}</div>
                         </div>
                         <button class="speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
@@ -634,7 +637,6 @@
         
         // Инициализация словаря после загрузки всех баз
         function initDictionary() {
-            // Небольшая задержка, чтобы все скрипты точно загрузились
             setTimeout(() => {
                 if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
                     updateStats();
@@ -647,10 +649,8 @@
             }, 200);
         }
         
-        // Запускаем словарь
         initDictionary();
         
-        // Выводим в консоль информацию о загруженных базах
         if (typeof frequencyDB !== 'undefined') {
             console.log(`📊 frequencyDB загружена: ${frequencyDB.length} частотных слов`);
         }
