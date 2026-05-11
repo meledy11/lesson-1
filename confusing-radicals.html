@@ -3,196 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>📖 Тетрадь: 80+ похожих радикалов</title>
+    <title>📖 Тетрадь: Похожие радикалы | Комплекты + линовка</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            touch-action: manipulation;
         }
 
         body {
-            background: #E5D5BC;
+            background: #C8B89A;
             font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             padding: 10px;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
         .container {
-            max-width: 850px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
-        .hero {
-            background: #B85C1A;
-            border-radius: 30px;
-            padding: 10px;
+        /* Шапка */
+        .header {
+            background: #8B4513;
+            border-radius: 25px;
+            padding: 8px 12px;
             text-align: center;
             color: white;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        .hero h1 { font-size: 1.2rem; }
-        .hero p { font-size: 0.6rem; opacity: 0.9; }
+        .header h1 { font-size: 1.2rem; }
+        .header p { font-size: 0.6rem; opacity: 0.9; }
 
-        /* Все радикалы (горизонтальный скролл) */
-        .all-radicals {
-            background: #FFF5E8;
-            border-radius: 28px;
+        /* КОМПЛЕКТЫ */
+        .groups-panel {
+            background: #F5E6D3;
+            border-radius: 25px;
             padding: 8px;
             margin-bottom: 10px;
-            border: 2px solid #E8954D;
-        }
-        .radicals-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 6px;
-            padding-bottom: 4px;
-            scrollbar-width: thin;
-        }
-        .radicals-scroll::-webkit-scrollbar { height: 3px; }
-        .radical-chip {
-            background: white;
-            border: 2px solid #E8954D;
-            border-radius: 35px;
-            padding: 4px 10px;
-            font-size: 1.3rem;
-            font-family: 'Noto Sans SC', monospace;
-            font-weight: bold;
-            color: #A14212;
-            cursor: pointer;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .radical-chip.active {
-            background: #E8954D;
-            color: white;
-            border-color: #B85C1A;
-        }
-        .radical-chip:active { transform: scale(0.96); background: #FFD9B5; }
-
-        /* Группы (комплекты) */
-        .groups-area {
-            background: #FFF5E8;
-            border-radius: 28px;
-            padding: 8px;
-            margin-bottom: 10px;
+            border: 2px solid #D2691E;
         }
         .groups-title {
-            font-size: 0.65rem;
-            color: #B45A22;
+            font-size: 0.7rem;
+            color: #8B4513;
             text-align: center;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
-        .group-buttons {
+        .groups-buttons {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 6px;
         }
         .group-btn {
             background: white;
-            border: 1.5px solid #E8954D;
+            border: 2px solid #D2691E;
             border-radius: 30px;
-            padding: 3px 10px;
-            font-size: 0.65rem;
+            padding: 4px 12px;
+            font-size: 0.7rem;
             font-weight: bold;
-            color: #B85C1A;
+            color: #8B4513;
             cursor: pointer;
+            transition: 0.05s;
+            touch-action: manipulation;
         }
-        .group-btn:active { background: #FFD9B5; transform: scale(0.96); }
+        .group-btn:active { transform: scale(0.96); background: #FFD9B5; }
+        .group-btn.active {
+            background: #D2691E;
+            color: white;
+        }
 
-        /* Основной блок: образец + тетрадь */
-        .practice-row {
+        /* Радикалы текущего комплекта */
+        .radicals-panel {
+            background: #F5E6D3;
+            border-radius: 25px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #D2691E;
+        }
+        .radicals-title {
+            font-size: 0.65rem;
+            color: #8B4513;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .radicals-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+        }
+        .radicals-scroll::-webkit-scrollbar { height: 4px; }
+        .radical-item {
+            background: white;
+            border: 2px solid #D2691E;
+            border-radius: 40px;
+            padding: 5px 15px;
+            font-size: 1.4rem;
+            font-family: 'Noto Sans SC', monospace;
+            font-weight: bold;
+            color: #8B4513;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .radical-item.active {
+            background: #D2691E;
+            color: white;
+        }
+        .radical-item:active { transform: scale(0.95); }
+
+        /* Основная область */
+        .work-area {
             display: flex;
             flex-direction: row;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 10px;
         }
 
-        .sample-card {
-            background: #FFF8F0;
+        /* Образец */
+        .sample-block {
+            background: #F5E6D3;
             border-radius: 35px;
-            padding: 12px;
+            padding: 15px;
             text-align: center;
-            border: 2px solid #E8954D;
+            border: 3px solid #D2691E;
             flex: 1;
-            min-width: 140px;
+            min-width: 160px;
         }
         .sample-label {
             font-size: 0.7rem;
-            color: #B45A22;
+            color: #8B4513;
+            background: #FFE4C4;
+            display: inline-block;
+            padding: 3px 15px;
+            border-radius: 25px;
+            margin-bottom: 10px;
         }
-        .sample-radical {
-            font-size: 4rem;
+        .sample-big-char {
+            font-size: 5rem;
             font-family: 'Noto Sans SC', 'KaiTi', monospace;
-            color: #A14212;
-            background: #FFF0E0;
-            border-radius: 30px;
-            padding: 5px;
-            margin: 8px 0;
+            color: #5C2E0A;
+            background: #FFF8F0;
+            border-radius: 35px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #D2691E;
             cursor: pointer;
+            touch-action: manipulation;
         }
         .sample-pinyin {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #D96C2B;
+            color: #D2691E;
         }
         .sample-meaning {
             font-size: 0.7rem;
-            color: #A54F1A;
+            color: #8B4513;
         }
-        .sample-speak {
-            background: #D96C2B;
+        .sample-sound {
+            background: #D2691E;
             border: none;
-            padding: 5px 12px;
+            padding: 6px 18px;
             border-radius: 30px;
             color: white;
-            font-size: 0.7rem;
-            margin-top: 8px;
+            font-size: 0.75rem;
+            margin-top: 10px;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
-        .copybook-card {
+        /* Тетрадь с линовкой */
+        .copybook-block {
             background: #FDF7E8;
             border-radius: 35px;
             padding: 12px;
-            border: 2px solid #E8954D;
+            border: 3px solid #D2691E;
             flex: 2;
-            min-width: 260px;
+            min-width: 280px;
         }
-        .canvas-wrap {
+        .canvas-container {
             display: flex;
             justify-content: center;
-            touch-action: none;
         }
         canvas {
-            background: #FFFEF5;
+            background: #FFFEF7;
             border-radius: 20px;
-            border: 2px solid #E8954D;
+            border: 2px solid #D2691E;
             width: 100%;
-            max-width: 360px;
+            max-width: 400px;
             height: auto;
             aspect-ratio: 1 / 1;
+            cursor: crosshair;
             touch-action: none;
         }
-        .tools-bar {
+        .tools {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             justify-content: center;
-            margin: 10px 0 5px;
+            margin: 12px 0 6px;
         }
         .tool-btn {
             background: #F2CCA0;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 30px;
             font-size: 0.7rem;
+            font-weight: bold;
             color: #5A2E0E;
             cursor: pointer;
+            touch-action: manipulation;
         }
         .model-status {
             background: #EEDDBB;
@@ -200,17 +227,17 @@
             padding: 5px;
             text-align: center;
             font-size: 0.6rem;
-            color: #A5521A;
+            color: #8B4513;
         }
 
         .back-link {
             display: inline-block;
             margin-top: 12px;
             background: #E8CAA0;
-            padding: 6px 16px;
-            border-radius: 35px;
+            padding: 6px 18px;
+            border-radius: 30px;
             text-decoration: none;
-            color: #9B4A1A;
+            color: #8B4513;
             font-weight: bold;
             font-size: 0.75rem;
         }
@@ -218,158 +245,124 @@
             text-align: center;
             margin-top: 10px;
             font-size: 0.55rem;
-            color: #B5672E;
+            color: #5A3A1A;
         }
 
-        @media (max-width: 550px) {
-            .practice-row { flex-direction: column; align-items: center; }
-            .sample-card { width: 100%; max-width: 280px; }
-            .copybook-card { width: 100%; }
-            .sample-radical { font-size: 3rem; }
+        @media (max-width: 600px) {
+            .work-area { flex-direction: column; align-items: center; }
+            .sample-block { width: 100%; max-width: 280px; }
+            .copybook-block { width: 100%; }
+            .sample-big-char { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="hero">
-        <h1>📖  Тетрадь: 80+ похожих радикалов</h1>
-        <p>Выбери радикал → смотри образец → рисуй в тетради</p>
+    <div class="header">
+        <h1>📖  Тетрадь: похожие радикалы</h1>
+        <p>Комплекты | Специальная линовка | Полупрозрачный образец</p>
     </div>
 
-    <!-- Все радикалы (горизонтально) -->
-    <div class="all-radicals">
-        <div class="radicals-scroll" id="radicalsScroll"></div>
-    </div>
-
-    <!-- Комплекты -->
-    <div class="groups-area">
+    <!-- КОМПЛЕКТЫ -->
+    <div class="groups-panel">
         <div class="groups-title">📌 КОМПЛЕКТЫ ПОХОЖИХ РАДИКАЛОВ:</div>
-        <div class="group-buttons" id="groupContainer"></div>
+        <div class="groups-buttons" id="groupsContainer"></div>
     </div>
 
-    <!-- Образец + тетрадь -->
-    <div class="practice-row">
-        <div class="sample-card">
+    <!-- РАДИКАЛЫ ВЫБРАННОГО КОМПЛЕКТА -->
+    <div class="radicals-panel">
+        <div class="radicals-title">🔽 РАДИКАЛЫ ЭТОГО КОМПЛЕКТА:</div>
+        <div class="radicals-scroll" id="radicalsContainer"></div>
+    </div>
+
+    <!-- ОБРАЗЕЦ + ТЕТРАДЬ -->
+    <div class="work-area">
+        <div class="sample-block">
             <div class="sample-label">🎯 ОБРАЗЕЦ ДЛЯ СРИСОВЫВАНИЯ</div>
-            <div class="sample-radical" id="sampleRadical">白</div>
+            <div class="sample-big-char" id="sampleChar">白</div>
             <div class="sample-pinyin" id="samplePinyin">bái</div>
             <div class="sample-meaning" id="sampleMeaning">белый</div>
-            <button class="sample-speak" id="speakSample">🔊 Озвучить</button>
+            <button class="sample-sound" id="speakBtn">🔊 Озвучить</button>
         </div>
 
-        <div class="copybook-card">
-            <div class="canvas-wrap">
-                <canvas id="radicalCanvas" width="400" height="400"></canvas>
+        <div class="copybook-block">
+            <div class="canvas-container">
+                <canvas id="writingCanvas" width="450" height="450"></canvas>
             </div>
-            <div class="tools-bar">
+            <div class="tools">
                 <button class="tool-btn" id="clearBtn">🧽 Очистить</button>
                 <button class="tool-btn" id="undoBtn">↩️ Отменить</button>
                 <button class="tool-btn" id="showModelBtn">📌 Показать образец</button>
-                <button class="tool-btn" id="hideModelBtn">👻 Скрыть</button>
+                <button class="tool-btn" id="hideModelBtn">👻 Скрыть образец</button>
             </div>
-            <div class="model-status" id="modelStatus">⚪ Образец выключен. Нажми «Показать»</div>
+            <div class="model-status" id="statusMsg">⚪ Образец выключен. Нажми «Показать образец»</div>
         </div>
     </div>
 
     <div style="text-align: center;">
         <a href="index.html" class="back-link">← На главную</a>
     </div>
-    <footer>✍️ Пиши пальцем. Сетка помогает. Нажми на большой иероглиф — услышишь произношение.</footer>
+    <footer>✍️ Пиши пальцем или мышкой. Нажми на иероглиф — услышишь произношение.</footer>
 </div>
 
 <script>
-    // ========== БОЛЬШАЯ БАЗА (80+ ПОХОЖИХ РАДИКАЛОВ) ==========
+    // ========== БОЛЬШАЯ БАЗА РАДИКАЛОВ ==========
     const radicalsDB = [
-        // ПАРА 1
         { char: "白", pinyin: "bái", meaning: "белый" },
         { char: "自", pinyin: "zì", meaning: "сам, себя" },
         { char: "臼", pinyin: "jiù", meaning: "ступа" },
         { char: "日", pinyin: "rì", meaning: "солнце, день" },
         { char: "曰", pinyin: "yuē", meaning: "сказать" },
-        // БЫК/ПОЛДЕНЬ
         { char: "午", pinyin: "wǔ", meaning: "полдень" },
-        { char: "牛", pinyin: "niú", meaning: "корова, бык" },
+        { char: "牛", pinyin: "niú", meaning: "корова" },
         { char: "年", pinyin: "nián", meaning: "год" },
         { char: "半", pinyin: "bàn", meaning: "половина" },
-        // ПОЛЕ/РАМКИ
-        { char: "由", pinyin: "yóu", meaning: "через, из-за" },
+        { char: "由", pinyin: "yóu", meaning: "через" },
         { char: "申", pinyin: "shēn", meaning: "объявлять" },
-        { char: "甲", pinyin: "jiǎ", meaning: "первый, панцирь" },
+        { char: "甲", pinyin: "jiǎ", meaning: "первый" },
         { char: "田", pinyin: "tián", meaning: "поле" },
         { char: "电", pinyin: "diàn", meaning: "электричество" },
         { char: "里", pinyin: "lǐ", meaning: "внутри" },
-        // БОЛЬШОЙ/СОБАКА/НЕБО
         { char: "大", pinyin: "dà", meaning: "большой" },
         { char: "太", pinyin: "tài", meaning: "слишком" },
         { char: "犬", pinyin: "quǎn", meaning: "собака" },
         { char: "天", pinyin: "tiān", meaning: "небо" },
         { char: "夫", pinyin: "fū", meaning: "муж" },
         { char: "失", pinyin: "shī", meaning: "терять" },
-        // КОНЕЦ/ЕЩЁ НЕ
         { char: "未", pinyin: "wèi", meaning: "ещё не" },
         { char: "末", pinyin: "mò", meaning: "конец" },
-        { char: "朱", pinyin: "zhū", meaning: "алый, красный" },
-        // ЧЕЛОВЕК/ВХОДИТЬ
+        { char: "朱", pinyin: "zhū", meaning: "алый" },
         { char: "人", pinyin: "rén", meaning: "человек" },
         { char: "入", pinyin: "rù", meaning: "входить" },
         { char: "八", pinyin: "bā", meaning: "восемь" },
-        // СЕБЯ/УЖЕ/ЗМЕЯ
         { char: "己", pinyin: "jǐ", meaning: "себя" },
         { char: "已", pinyin: "yǐ", meaning: "уже" },
         { char: "巳", pinyin: "sì", meaning: "змея" },
-        // ТЫСЯЧА/СУХОЙ/В
         { char: "千", pinyin: "qiān", meaning: "тысяча" },
-        { char: "干", pinyin: "gān", meaning: "сухой, делать" },
+        { char: "干", pinyin: "gān", meaning: "сухой" },
         { char: "于", pinyin: "yú", meaning: "в, на" },
         { char: "王", pinyin: "wáng", meaning: "король" },
         { char: "玉", pinyin: "yù", meaning: "нефрит" },
         { char: "主", pinyin: "zhǔ", meaning: "хозяин" },
-        // ВОСТОК/ТЕЛЕГА
         { char: "东", pinyin: "dōng", meaning: "восток" },
         { char: "车", pinyin: "chē", meaning: "машина" },
-        // ОТКРЫВАТЬ/КОЛОДЕЦ/ПОДНИМАТЬ
         { char: "开", pinyin: "kāi", meaning: "открывать" },
         { char: "井", pinyin: "jǐng", meaning: "колодец" },
         { char: "升", pinyin: "shēng", meaning: "подниматься" },
-        // ПРИКАЗ/СЕЙЧАС
         { char: "令", pinyin: "lìng", meaning: "приказ" },
         { char: "今", pinyin: "jīn", meaning: "сейчас" },
         { char: "冷", pinyin: "lěng", meaning: "холодный" },
-        // КРОЛИК/ИЗБЕГАТЬ
         { char: "兔", pinyin: "tù", meaning: "кролик" },
         { char: "免", pinyin: "miǎn", meaning: "избегать" },
-        // ЗЕМЛЯ/ВОИН
         { char: "土", pinyin: "tǔ", meaning: "земля" },
-        { char: "士", pinyin: "shì", meaning: "воин, учёный" },
-        // Я/ИСКАТЬ
+        { char: "士", pinyin: "shì", meaning: "воин" },
         { char: "我", pinyin: "wǒ", meaning: "я" },
         { char: "找", pinyin: "zhǎo", meaning: "искать" },
-        // СТАНОВИТЬСЯ/СОЛЁНЫЙ
         { char: "成", pinyin: "chéng", meaning: "становиться" },
-        { char: "咸", pinyin: "xián", meaning: "солёный" },
-        { char: "戎", pinyin: "róng", meaning: "оружие" },
-        { char: "戊", pinyin: "wù", meaning: "5-й ствол" },
-        { char: "戍", pinyin: "shù", meaning: "охранять" },
-        // ВЕЧЕР/ЗАМЕНА
-        { char: "晚", pinyin: "wǎn", meaning: "вечер" },
-        { char: "免", pinyin: "miǎn", meaning: "избегать" },
-        // РАБОТА
-        { char: "工", pinyin: "gōng", meaning: "работа" },
-        // ДОПОЛНИТЕЛЬНЫЕ ЧАСТЫЕ
-        { char: "贝", pinyin: "bèi", meaning: "раковина, деньги" },
-        { char: "见", pinyin: "jiàn", meaning: "видеть" },
-        { char: "几", pinyin: "jǐ", meaning: "несколько" },
-        { char: "凡", pinyin: "fán", meaning: "обычный" },
-        { char: "九", pinyin: "jiǔ", meaning: "девять" },
-        { char: "力", pinyin: "lì", meaning: "сила" },
-        { char: "刀", pinyin: "dāo", meaning: "нож" },
-        { char: "勺", pinyin: "sháo", meaning: "ложка" },
-        { char: "匀", pinyin: "yún", meaning: "ровный" },
-        { char: "勿", pinyin: "wù", meaning: "не делай" },
-        { char: "匆", pinyin: "cōng", meaning: "торопливый" }
+        { char: "咸", pinyin: "xián", meaning: "солёный" }
     ];
 
-    // Убираем дубликаты
+    // Уникальные радикалы
     const radicals = [];
     const seen = new Set();
     for (const r of radicalsDB) {
@@ -379,38 +372,63 @@
         }
     }
 
-    let currentIndex = 0;
+    // КОМПЛЕКТЫ (индексы радикалов)
+    const groups = [
+        { name: "白/自/臼/日/曰", indices: [0,1,2,3,4] },
+        { name: "午/牛/年/半", indices: [5,6,7,8] },
+        { name: "由/申/甲/田/电/里", indices: [9,10,11,12,13,14] },
+        { name: "大/太/犬/天/夫/失", indices: [15,16,17,18,19,20] },
+        { name: "未/末/朱", indices: [21,22,23] },
+        { name: "人/入/八", indices: [24,25,26] },
+        { name: "己/已/巳", indices: [27,28,29] },
+        { name: "千/干/于", indices: [30,31,32] },
+        { name: "王/玉/主", indices: [33,34,35] },
+        { name: "东/车", indices: [36,37] },
+        { name: "开/井/升", indices: [38,39,40] },
+        { name: "令/今/冷", indices: [41,42,43] },
+        { name: "兔/免", indices: [44,45] },
+        { name: "土/士", indices: [46,47] },
+        { name: "我/找", indices: [48,49] },
+        { name: "成/咸", indices: [50,51] }
+    ];
+
+    let currentGroupIndex = 0;
+    let currentRadicalIndexInGroup = 0;
+    let currentRadical = radicals[groups[0].indices[0]];
+
+    // Canvas и рисование
+    const canvas = document.getElementById("writingCanvas");
+    const ctx = canvas.getContext("2d");
     let historyStack = [];
     let modelActive = false;
     let modelImage = null;
 
     // DOM
-    const canvas = document.getElementById("radicalCanvas");
-    const ctx = canvas.getContext("2d");
-    const radicalsScroll = document.getElementById("radicalsScroll");
-    const groupContainer = document.getElementById("groupContainer");
-    const sampleRadical = document.getElementById("sampleRadical");
+    const groupsContainer = document.getElementById("groupsContainer");
+    const radicalsContainer = document.getElementById("radicalsContainer");
+    const sampleChar = document.getElementById("sampleChar");
     const samplePinyin = document.getElementById("samplePinyin");
     const sampleMeaning = document.getElementById("sampleMeaning");
-    const speakSample = document.getElementById("speakSample");
+    const speakBtn = document.getElementById("speakBtn");
     const clearBtn = document.getElementById("clearBtn");
     const undoBtn = document.getElementById("undoBtn");
     const showModelBtn = document.getElementById("showModelBtn");
     const hideModelBtn = document.getElementById("hideModelBtn");
-    const modelStatus = document.getElementById("modelStatus");
+    const statusMsg = document.getElementById("statusMsg");
 
-    // ========== СЕТКА ДЛЯ ИЕРОГЛИФОВ ==========
+    // ========== СПЕЦИАЛЬНАЯ ЛИНОВКА (КЛЕТКА) ==========
     function drawGrid() {
-        const w = canvas.width;
+        const w = canvas.width;   // 450
         const h = canvas.height;
-        ctx.fillStyle = "#FFFEF5";
+        ctx.fillStyle = "#FFFEF7";
         ctx.fillRect(0, 0, w, h);
         
         const cellW = w / 8;
         const cellH = h / 8;
+        
         ctx.beginPath();
-        ctx.strokeStyle = "#D4C0A0";
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#C8B088";
+        ctx.lineWidth = 1.2;
         for (let i = 0; i <= 8; i++) {
             ctx.moveTo(i * cellW, 0);
             ctx.lineTo(i * cellW, h);
@@ -418,12 +436,20 @@
             ctx.lineTo(w, i * cellH);
             ctx.stroke();
         }
-        // центральные линии
+        
         ctx.beginPath();
-        ctx.strokeStyle = "#C8B088";
-        ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
-        ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
-        ctx.stroke();
+        ctx.strokeStyle = "#E0CBA8";
+        ctx.lineWidth = 0.6;
+        ctx.setLineDash([3, 5]);
+        for (let i = 0; i <= 16; i++) {
+            const p = i * (cellW / 2);
+            ctx.moveTo(p, 0);
+            ctx.lineTo(p, h);
+            ctx.moveTo(0, p);
+            ctx.lineTo(w, p);
+            ctx.stroke();
+        }
+        ctx.setLineDash([]);
     }
 
     function saveHistory() {
@@ -435,7 +461,7 @@
     function clearCanvas() {
         drawGrid();
         saveHistory();
-        if (modelActive && modelImage) drawModel();
+        if (modelActive && modelImage) drawModelOverlay();
     }
 
     function undoLast() {
@@ -446,7 +472,7 @@
         historyStack.pop();
         const prev = historyStack[historyStack.length - 1];
         ctx.putImageData(prev, 0, 0);
-        if (modelActive && modelImage) drawModel();
+        if (modelActive && modelImage) drawModelOverlay();
     }
 
     // Генерация полупрозрачного образца
@@ -455,18 +481,18 @@
         off.width = canvas.width;
         off.height = canvas.height;
         const octx = off.getContext("2d");
-        octx.fillStyle = "#FFFEF5";
+        octx.fillStyle = "#FFFEF7";
         octx.fillRect(0, 0, off.width, off.height);
         const fontSize = canvas.width * 0.62;
         octx.font = `500 ${fontSize}px "Noto Sans SC", "KaiTi", "Segoe UI Emoji"`;
         octx.textAlign = "center";
         octx.textBaseline = "middle";
-        octx.fillStyle = "#AAAAAA";
+        octx.fillStyle = "#999999";
         octx.fillText(char, off.width/2, off.height/2);
         return off.getImageData(0, 0, off.width, off.height);
     }
 
-    function drawModel() {
+    function drawModelOverlay() {
         if (!modelActive || !modelImage) return;
         const current = ctx.getImageData(0, 0, canvas.width, canvas.height);
         ctx.putImageData(modelImage, 0, 0);
@@ -488,32 +514,23 @@
 
     function updateModel() {
         if (modelActive) {
-            modelImage = generateModelImage(radicals[currentIndex].char);
+            modelImage = generateModelImage(currentRadical.char);
             drawGrid();
             saveHistory();
-            drawModel();
+            drawModelOverlay();
         } else {
             drawGrid();
             saveHistory();
         }
     }
 
-    // Выбор радикала
-    function setRadical(index) {
-        currentIndex = (index + radicals.length) % radicals.length;
-        const r = radicals[currentIndex];
-        sampleRadical.textContent = r.char;
-        samplePinyin.textContent = r.pinyin;
-        sampleMeaning.textContent = r.meaning;
-        
-        // Обновляем активный класс в списке
-        document.querySelectorAll('.radical-chip').forEach((chip, i) => {
-            if (i === currentIndex) chip.classList.add('active');
-            else chip.classList.remove('active');
-        });
-        
+    // Обновить интерфейс при смене радикала
+    function updateUI() {
+        sampleChar.textContent = currentRadical.char;
+        samplePinyin.textContent = currentRadical.pinyin;
+        sampleMeaning.textContent = currentRadical.meaning;
         if (modelActive) {
-            modelImage = generateModelImage(r.char);
+            modelImage = generateModelImage(currentRadical.char);
             updateModel();
         } else {
             drawGrid();
@@ -521,18 +538,61 @@
         }
     }
 
+    // Переключение комплекта
+    function setGroup(index) {
+        currentGroupIndex = index;
+        // Обновляем активную кнопку комплекта
+        document.querySelectorAll('.group-btn').forEach((btn, i) => {
+            if (i === currentGroupIndex) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        
+        // Строим список радикалов этого комплекта
+        const group = groups[currentGroupIndex];
+        radicalsContainer.innerHTML = "";
+        group.indices.forEach((radIdx, idx) => {
+            const r = radicals[radIdx];
+            const chip = document.createElement("div");
+            chip.className = "radical-item";
+            if (idx === currentRadicalIndexInGroup) chip.classList.add("active");
+            chip.textContent = r.char;
+            chip.onclick = () => setRadicalInGroup(idx);
+            radicalsContainer.appendChild(chip);
+        });
+        
+        // Устанавливаем первый радикал комплекта
+        currentRadicalIndexInGroup = 0;
+        currentRadical = radicals[group.indices[0]];
+        updateUI();
+    }
+
+    function setRadicalInGroup(idx) {
+        currentRadicalIndexInGroup = idx;
+        const group = groups[currentGroupIndex];
+        currentRadical = radicals[group.indices[idx]];
+        
+        // Обновляем активный класс у радикалов
+        document.querySelectorAll('.radical-item').forEach((chip, i) => {
+            if (i === idx) chip.classList.add('active');
+            else chip.classList.remove('active');
+        });
+        updateUI();
+    }
+
+    // Озвучивание
     function speakCurrent() {
-        const r = radicals[currentIndex];
-        if (!r) return;
-        const utterance = new SpeechSynthesisUtterance(r.char);
+        if (!currentRadical) return;
+        const utterance = new SpeechSynthesisUtterance(currentRadical.char);
         utterance.lang = "zh-CN";
         utterance.rate = 0.7;
         window.speechSynthesis.cancel();
         setTimeout(() => window.speechSynthesis.speak(utterance), 50);
     }
 
-    // Рисование пальцем/мышкой
-    let drawing = false, lastX = 0, lastY = 0;
+    // ========== РИСОВАНИЕ (фикс дёргания экрана) ==========
+    let drawing = false;
+    let lastX = 0, lastY = 0;
+
     function getCoords(e) {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
@@ -552,18 +612,21 @@
         y = Math.min(Math.max(0, y), canvas.height);
         return { x, y };
     }
+
     function startDraw(e) {
         e.preventDefault();
         drawing = true;
         const pos = getCoords(e);
-        lastX = pos.x; lastY = pos.y;
+        lastX = pos.x;
+        lastY = pos.y;
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(lastX, lastY);
         ctx.stroke();
         saveHistory();
-        if (modelActive && modelImage) drawModel();
+        if (modelActive && modelImage) drawModelOverlay();
     }
+
     function drawMove(e) {
         if (!drawing) return;
         e.preventDefault();
@@ -576,60 +639,20 @@
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
-        lastX = pos.x; lastY = pos.y;
-        if (modelActive && modelImage) drawModel();
-    }
-    function endDraw() { drawing = false; saveHistory(); }
-
-    // Построение списка радикалов
-    function buildRadicalsList() {
-        radicalsScroll.innerHTML = "";
-        radicals.forEach((r, idx) => {
-            const chip = document.createElement("div");
-            chip.className = "radical-chip";
-            chip.textContent = r.char;
-            chip.onclick = () => setRadical(idx);
-            radicalsScroll.appendChild(chip);
-        });
+        lastX = pos.x;
+        lastY = pos.y;
+        if (modelActive && modelImage) drawModelOverlay();
     }
 
-    // Комплекты (группы)
-    const groups = [
-        { name: "白/自/臼/日/曰", indices: [0,1,2,3,4] },
-        { name: "午/牛/年/半", indices: [5,6,7,8] },
-        { name: "由/申/甲/田/电/里", indices: [9,10,11,12,13,14] },
-        { name: "大/太/犬/天/夫/失", indices: [15,16,17,18,19,20] },
-        { name: "未/末/朱", indices: [21,22,23] },
-        { name: "人/入/八", indices: [24,25,26] },
-        { name: "己/已/巳", indices: [27,28,29] },
-        { name: "千/干/于", indices: [30,31,32] },
-        { name: "王/玉/主", indices: [33,34,35] },
-        { name: "东/车", indices: [36,37] },
-        { name: "开/井/升", indices: [38,39,40] },
-        { name: "令/今/冷", indices: [41,42,43] },
-        { name: "兔/免", indices: [44,45] },
-        { name: "土/士", indices: [46,47] },
-        { name: "我/找", indices: [48,49] },
-        { name: "成/咸/戎/戊/戍", indices: [50,51,52,53,54] },
-        { name: "贝/见/几/凡", indices: [56,57,58,59] },
-        { name: "力/刀/勺/匀", indices: [61,62,63,64] }
-    ];
-
-    function buildGroups() {
-        groupContainer.innerHTML = "";
-        groups.forEach(g => {
-            const btn = document.createElement("button");
-            btn.className = "group-btn";
-            btn.textContent = g.name;
-            btn.onclick = () => setRadical(g.indices[0]);
-            groupContainer.appendChild(btn);
-        });
+    function endDraw() {
+        drawing = false;
+        saveHistory();
     }
 
     // Инициализация
     function init() {
-        canvas.width = 400;
-        canvas.height = 400;
+        canvas.width = 450;
+        canvas.height = 450;
         canvas.style.width = "100%";
         canvas.style.height = "auto";
         
@@ -637,32 +660,41 @@
         canvas.addEventListener("mousemove", drawMove);
         canvas.addEventListener("mouseup", endDraw);
         canvas.addEventListener("mouseleave", endDraw);
-        canvas.addEventListener("touchstart", startDraw);
-        canvas.addEventListener("touchmove", drawMove);
+        canvas.addEventListener("touchstart", startDraw, { passive: false });
+        canvas.addEventListener("touchmove", drawMove, { passive: false });
         canvas.addEventListener("touchend", endDraw);
         
         clearBtn.onclick = () => clearCanvas();
         undoBtn.onclick = () => undoLast();
         showModelBtn.onclick = () => {
             modelActive = true;
-            modelImage = generateModelImage(radicals[currentIndex].char);
+            modelImage = generateModelImage(currentRadical.char);
             updateModel();
-            modelStatus.textContent = "🟢 Полупрозрачный образец включён";
+            statusMsg.textContent = "🟢 Полупрозрачный образец включён";
         };
         hideModelBtn.onclick = () => {
             modelActive = false;
             modelImage = null;
             updateModel();
-            modelStatus.textContent = "⚪ Образец выключен";
+            statusMsg.textContent = "⚪ Образец выключен";
         };
-        speakSample.onclick = speakCurrent;
-        sampleRadical.onclick = speakCurrent;
+        speakBtn.onclick = speakCurrent;
+        sampleChar.onclick = speakCurrent;
         
-        buildRadicalsList();
-        buildGroups();
+        // Строим кнопки комплектов
+        groupsContainer.innerHTML = "";
+        groups.forEach((g, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "group-btn";
+            if (idx === 0) btn.classList.add("active");
+            btn.textContent = g.name;
+            btn.onclick = () => setGroup(idx);
+            groupsContainer.appendChild(btn);
+        });
+        
         drawGrid();
         saveHistory();
-        setRadical(0);
+        setGroup(0);
     }
     
     init();
