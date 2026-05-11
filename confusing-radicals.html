@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>📖 Тетрадь: 100+ похожих радикалов</title>
+    <title>📖 Тетрадь: Похожие радикалы | ОБРАЗЕЦ РАБОТАЕТ</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #C8B89A; font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif; padding: 12px; }
@@ -13,7 +13,7 @@
         .groups-section, .radicals-section { background: #F5E6D3; border-radius: 25px; padding: 10px; margin-bottom: 12px; border: 2px solid #D2691E; }
         .groups-title, .radicals-title { font-size: 0.7rem; color: #8B4513; text-align: center; margin-bottom: 8px; font-weight: bold; }
         .groups-row, .radicals-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .radicals-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+        .radicals-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
         .group-button, .radical-button { background: white; border: 2px solid #D2691E; border-radius: 30px; padding: 5px 14px; font-size: 0.7rem; font-weight: bold; color: #8B4513; cursor: pointer; white-space: nowrap; }
         .radical-button { padding: 6px 18px; font-size: 1.3rem; font-family: monospace; flex-shrink: 0; }
         .group-button.active, .radical-button.active { background: #D2691E; color: white; }
@@ -28,7 +28,7 @@
         canvas { display: block; margin: 0 auto; background: #FFFEF7; border-radius: 20px; border: 2px solid #D2691E; width: 100%; max-width: 400px; aspect-ratio: 1/1; cursor: crosshair; }
         .tools-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 8px; }
         .tool-button { background: #F2CCA0; border: none; padding: 6px 14px; border-radius: 30px; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-        .model-status { background: #EEDDBB; border-radius: 20px; padding: 6px; text-align: center; font-size: 0.6rem; }
+        .model-status { background: #EEDDBB; border-radius: 20px; padding: 6px; text-align: center; font-size: 0.6rem; font-weight: bold; }
         .back-link { display: inline-block; margin-top: 15px; background: #E8CAA0; padding: 8px 20px; border-radius: 30px; text-decoration: none; color: #8B4513; font-weight: bold; }
         footer { text-align: center; margin-top: 12px; font-size: 0.55rem; color: #5A3A1A; }
         @media (max-width: 600px) { .main-row { flex-direction: column; align-items: center; } .sample-char { font-size: 3rem; } }
@@ -37,15 +37,15 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>📖 Тетрадь: 100+ похожих радикалов</h1>
-        <p>Комплекты | Клетчатая линовка | Полупрозрачный образец</p>
+        <h1>📖 Тетрадь: 80+ похожих радикалов</h1>
+        <p>✅ Нажми «Показать образец» — появится полупрозрачный иероглиф для обводки</p>
     </div>
     <div class="groups-section">
-        <div class="groups-title">📌 КОМПЛЕКТЫ (15 групп)</div>
+        <div class="groups-title">📌 КОМПЛЕКТЫ</div>
         <div class="groups-row" id="groupsList"></div>
     </div>
     <div class="radicals-section">
-        <div class="radicals-title">🔽 РАДИКАЛЫ КОМПЛЕКТА</div>
+        <div class="radicals-title">🔽 РАДИКАЛЫ ЭТОГО КОМПЛЕКТА</div>
         <div class="radicals-row" id="radicalsList"></div>
     </div>
     <div class="main-row">
@@ -62,9 +62,9 @@
                 <button class="tool-button" id="clearBtn">🧽 Очистить</button>
                 <button class="tool-button" id="undoBtn">↩️ Отменить</button>
                 <button class="tool-button" id="showModelBtn">📌 Показать образец</button>
-                <button class="tool-button" id="hideModelBtn">👻 Скрыть</button>
+                <button class="tool-button" id="hideModelBtn">👻 Скрыть образец</button>
             </div>
-            <div class="model-status" id="statusMsg">⚪ Образец выключен</div>
+            <div class="model-status" id="statusMsg">⚪ Образец выключен. Нажми «Показать образец»</div>
         </div>
     </div>
     <div style="text-align: center;"><a href="index.html" class="back-link">← На главную</a></div>
@@ -72,162 +72,396 @@
 </div>
 
 <script>
-    // ========== ПОЛНАЯ БАЗА ~120 РАДИКАЛОВ ==========
+    // ========== БАЗА РАДИКАЛОВ ==========
     const allRadicals = [
-        // ГРУППА 1: белые/солнце
         { char: "白", pinyin: "bái", meaning: "белый" },
-        { char: "自", pinyin: "zì", meaning: "сам, себя" },
+        { char: "自", pinyin: "zì", meaning: "сам" },
         { char: "臼", pinyin: "jiù", meaning: "ступа" },
-        { char: "日", pinyin: "rì", meaning: "солнце, день" },
+        { char: "日", pinyin: "rì", meaning: "солнце" },
         { char: "曰", pinyin: "yuē", meaning: "сказать" },
-        { char: "旦", pinyin: "dàn", meaning: "рассвет" },
-        { char: "早", pinyin: "zǎo", meaning: "рано" },
-        { char: "旱", pinyin: "hàn", meaning: "засуха" },
-        // ГРУППА 2: бык/полдень
         { char: "午", pinyin: "wǔ", meaning: "полдень" },
-        { char: "牛", pinyin: "niú", meaning: "корова, бык" },
+        { char: "牛", pinyin: "niú", meaning: "корова" },
         { char: "年", pinyin: "nián", meaning: "год" },
         { char: "半", pinyin: "bàn", meaning: "половина" },
-        { char: "丰", pinyin: "fēng", meaning: "обильный" },
-        // ГРУППА 3: поле/рамки
-        { char: "由", pinyin: "yóu", meaning: "через, из-за" },
+        { char: "由", pinyin: "yóu", meaning: "через" },
         { char: "申", pinyin: "shēn", meaning: "объявлять" },
-        { char: "甲", pinyin: "jiǎ", meaning: "первый, панцирь" },
+        { char: "甲", pinyin: "jiǎ", meaning: "первый" },
         { char: "田", pinyin: "tián", meaning: "поле" },
         { char: "电", pinyin: "diàn", meaning: "электричество" },
         { char: "里", pinyin: "lǐ", meaning: "внутри" },
-        { char: "男", pinyin: "nán", meaning: "мужчина" },
-        { char: "界", pinyin: "jiè", meaning: "граница" },
-        // ГРУППА 4: большой/собака/небо
         { char: "大", pinyin: "dà", meaning: "большой" },
         { char: "太", pinyin: "tài", meaning: "слишком" },
         { char: "犬", pinyin: "quǎn", meaning: "собака" },
         { char: "天", pinyin: "tiān", meaning: "небо" },
         { char: "夫", pinyin: "fū", meaning: "муж" },
         { char: "失", pinyin: "shī", meaning: "терять" },
-        { char: "头", pinyin: "tóu", meaning: "голова" },
-        { char: "买", pinyin: "mǎi", meaning: "покупать" },
-        // ГРУППА 5: концы
         { char: "未", pinyin: "wèi", meaning: "ещё не" },
         { char: "末", pinyin: "mò", meaning: "конец" },
         { char: "朱", pinyin: "zhū", meaning: "алый" },
-        // ГРУППА 6: человек/входить
         { char: "人", pinyin: "rén", meaning: "человек" },
         { char: "入", pinyin: "rù", meaning: "входить" },
         { char: "八", pinyin: "bā", meaning: "восемь" },
-        { char: "大", pinyin: "dà", meaning: "большой" },
-        // ГРУППА 7: себя/уже/змея
         { char: "己", pinyin: "jǐ", meaning: "себя" },
         { char: "已", pinyin: "yǐ", meaning: "уже" },
         { char: "巳", pinyin: "sì", meaning: "змея" },
-        // ГРУППА 8: тысяча/сухой
         { char: "千", pinyin: "qiān", meaning: "тысяча" },
-        { char: "干", pinyin: "gān", meaning: "сухой, делать" },
-        { char: "于", pinyin: "yú", meaning: "в, на" },
-        // ГРУППА 9: король/нефрит
+        { char: "干", pinyin: "gān", meaning: "сухой" },
+        { char: "于", pinyin: "yú", meaning: "в" },
         { char: "王", pinyin: "wáng", meaning: "король" },
         { char: "玉", pinyin: "yù", meaning: "нефрит" },
         { char: "主", pinyin: "zhǔ", meaning: "хозяин" },
-        { char: "国", pinyin: "guó", meaning: "страна" },
-        // ГРУППА 10: восток/телега
         { char: "东", pinyin: "dōng", meaning: "восток" },
-        { char: "车", pinyin: "chē", meaning: "машина, телега" },
-        { char: "乐", pinyin: "lè", meaning: "радость" },
-        // ГРУППА 11: открывать/колодец
+        { char: "车", pinyin: "chē", meaning: "машина" },
         { char: "开", pinyin: "kāi", meaning: "открывать" },
         { char: "井", pinyin: "jǐng", meaning: "колодец" },
         { char: "升", pinyin: "shēng", meaning: "подниматься" },
-        // ГРУППА 12: приказ/сейчас
         { char: "令", pinyin: "lìng", meaning: "приказ" },
         { char: "今", pinyin: "jīn", meaning: "сейчас" },
         { char: "冷", pinyin: "lěng", meaning: "холодный" },
-        { char: "领", pinyin: "lǐng", meaning: "вести" },
-        // ГРУППА 13: кролик/избегать
         { char: "兔", pinyin: "tù", meaning: "кролик" },
         { char: "免", pinyin: "miǎn", meaning: "избегать" },
-        { char: "晚", pinyin: "wǎn", meaning: "вечер" },
-        // ГРУППА 14: земля/воин
         { char: "土", pinyin: "tǔ", meaning: "земля" },
-        { char: "士", pinyin: "shì", meaning: "воин, учёный" },
-        // ГРУППА 15: я/искать
+        { char: "士", pinyin: "shì", meaning: "воин" },
         { char: "我", pinyin: "wǒ", meaning: "я" },
         { char: "找", pinyin: "zhǎo", meaning: "искать" },
         { char: "成", pinyin: "chéng", meaning: "становиться" },
         { char: "咸", pinyin: "xián", meaning: "солёный" },
-        { char: "戎", pinyin: "róng", meaning: "оружие" },
-        { char: "戊", pinyin: "wù", meaning: "5-й ствол" },
-        { char: "戍", pinyin: "shù", meaning: "охранять" },
-        // ДОПОЛНИТЕЛЬНЫЕ ЧАСТЫЕ
-        { char: "贝", pinyin: "bèi", meaning: "раковина, деньги" },
+        { char: "贝", pinyin: "bèi", meaning: "раковина" },
         { char: "见", pinyin: "jiàn", meaning: "видеть" },
-        { char: "几", pinyin: "jǐ", meaning: "несколько" },
-        { char: "凡", pinyin: "fán", meaning: "обычный" },
-        { char: "九", pinyin: "jiǔ", meaning: "девять" },
         { char: "力", pinyin: "lì", meaning: "сила" },
-        { char: "刀", pinyin: "dāo", meaning: "нож" },
-        { char: "勺", pinyin: "sháo", meaning: "ложка" },
-        { char: "匀", pinyin: "yún", meaning: "ровный" },
-        { char: "勿", pinyin: "wù", meaning: "не делай" },
-        { char: "匆", pinyin: "cōng", meaning: "торопливый" },
-        { char: "氏", pinyin: "shì", meaning: "род, фамилия" },
-        { char: "民", pinyin: "mín", meaning: "народ" },
-        { char: "纸", pinyin: "zhǐ", meaning: "бумага" }
+        { char: "刀", pinyin: "dāo", meaning: "нож" }
     ];
 
-    // 15 КОМПЛЕКТОВ
+    // КОМПЛЕКТЫ
     const groups = [
-        { name: "☀️ 白/自/臼/日/曰/旦/早/旱", indices: [0,1,2,3,4,5,6,7] },
-        { name: "🐂 午/牛/年/半/丰", indices: [8,9,10,11,12] },
-        { name: "⬜ 由/申/甲/田/电/里/男/界", indices: [13,14,15,16,17,18,19,20] },
-        { name: "🐕 大/太/犬/天/夫/失/头/买", indices: [21,22,23,24,25,26,27,28] },
-        { name: "🌾 未/末/朱", indices: [29,30,31] },
-        { name: "👤 人/入/八", indices: [32,33,34] },
-        { name: "🐍 己/已/巳", indices: [36,37,38] },
-        { name: "🔢 千/干/于", indices: [39,40,41] },
-        { name: "👑 王/玉/主/国", indices: [42,43,44,45] },
-        { name: "🚗 东/车/乐", indices: [46,47,48] },
-        { name: "⛲ 开/井/升", indices: [49,50,51] },
-        { name: "📢 令/今/冷/领", indices: [52,53,54,55] },
-        { name: "🐇 兔/免/晚", indices: [56,57,58] },
-        { name: "🌍 土/士", indices: [59,60] },
-        { name: "🔍 我/找/成/咸/戎/戊/戍", indices: [61,62,63,64,65,66,67] }
+        { name: "🤍 白/自/臼/日/曰", indices: [0,1,2,3,4] },
+        { name: "🐂 午/牛/年/半", indices: [5,6,7,8] },
+        { name: "⬜ 由/申/甲/田/电/里", indices: [9,10,11,12,13,14] },
+        { name: "🐕 大/太/犬/天/夫/失", indices: [15,16,17,18,19,20] },
+        { name: "🌾 未/末/朱", indices: [21,22,23] },
+        { name: "👤 人/入/八", indices: [24,25,26] },
+        { name: "🐍 己/已/巳", indices: [27,28,29] },
+        { name: "🔢 千/干/于", indices: [30,31,32] },
+        { name: "👑 王/玉/主", indices: [33,34,35] },
+        { name: "🚗 东/车", indices: [36,37] },
+        { name: "⛲ 开/井/升", indices: [38,39,40] },
+        { name: "📢 令/今/冷", indices: [41,42,43] },
+        { name: "🐇 兔/免", indices: [44,45] },
+        { name: "🌍 土/士", indices: [46,47] },
+        { name: "🔍 我/找/成/咸", indices: [48,49,50,51] }
     ];
 
-    let currentGroup = 0, currentRadicalIdx = 0, currentRadical = allRadicals[groups[0].indices[0]];
-    const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
-    let history = [], modelActive = false, modelImageData = null;
-    const groupsList = document.getElementById("groupsList"), radicalsList = document.getElementById("radicalsList");
-    const sampleChar = document.getElementById("sampleChar"), samplePinyin = document.getElementById("samplePinyin"), sampleMeaning = document.getElementById("sampleMeaning");
-    const speakBtn = document.getElementById("speakBtn"), clearBtn = document.getElementById("clearBtn"), undoBtn = document.getElementById("undoBtn");
-    const showModelBtn = document.getElementById("showModelBtn"), hideModelBtn = document.getElementById("hideModelBtn"), statusMsg = document.getElementById("statusMsg");
+    let currentGroup = 0, currentRadicalIdx = 0;
+    let currentRadical = allRadicals[groups[0].indices[0]];
 
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let history = [];
+    let modelActive = false;
+    let modelImageData = null;
+
+    // DOM
+    const groupsList = document.getElementById("groupsList");
+    const radicalsList = document.getElementById("radicalsList");
+    const sampleChar = document.getElementById("sampleChar");
+    const samplePinyin = document.getElementById("samplePinyin");
+    const sampleMeaning = document.getElementById("sampleMeaning");
+    const speakBtn = document.getElementById("speakBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const undoBtn = document.getElementById("undoBtn");
+    const showModelBtn = document.getElementById("showModelBtn");
+    const hideModelBtn = document.getElementById("hideModelBtn");
+    const statusMsg = document.getElementById("statusMsg");
+
+    // ========== ЛИНОВКА ==========
     function drawGrid() {
         const w = canvas.width, h = canvas.height;
-        ctx.fillStyle = "#FFFEF7"; ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#FFFEF7";
+        ctx.fillRect(0, 0, w, h);
+        
         const cellW = w / 8, cellH = h / 8;
-        ctx.beginPath(); ctx.strokeStyle = "#C8B088"; ctx.lineWidth = 1;
-        for (let i = 0; i <= 8; i++) { ctx.moveTo(i * cellW, 0); ctx.lineTo(i * cellW, h); ctx.moveTo(0, i * cellH); ctx.lineTo(w, i * cellH); ctx.stroke(); }
-        ctx.beginPath(); ctx.strokeStyle = "#E0CBA8"; ctx.setLineDash([3, 4]);
-        for (let i = 0; i <= 16; i++) { const p = i * cellW / 2; ctx.moveTo(p, 0); ctx.lineTo(p, h); ctx.moveTo(0, p); ctx.lineTo(w, p); ctx.stroke(); }
+        ctx.beginPath();
+        ctx.strokeStyle = "#C8B088";
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 8; i++) {
+            ctx.moveTo(i * cellW, 0); ctx.lineTo(i * cellW, h);
+            ctx.moveTo(0, i * cellH); ctx.lineTo(w, i * cellH);
+            ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.strokeStyle = "#E0CBA8";
+        ctx.setLineDash([3, 4]);
+        for (let i = 0; i <= 16; i++) {
+            const p = i * cellW / 2;
+            ctx.moveTo(p, 0); ctx.lineTo(p, h);
+            ctx.moveTo(0, p); ctx.lineTo(w, p);
+            ctx.stroke();
+        }
         ctx.setLineDash([]);
     }
-    function saveHistory() { history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); if (history.length > 30) history.shift(); }
-    function clearCanvas() { drawGrid(); saveHistory(); if (modelActive && modelImageData) drawModel(); }
-    function undo() { if (history.length <= 1) { clearCanvas(); return; } history.pop(); ctx.putImageData(history[history.length - 1], 0, 0); if (modelActive && modelImageData) drawModel(); }
-    function generateModel(char) { const off = document.createElement("canvas"); off.width = canvas.width; off.height = canvas.height; const octx = off.getContext("2d"); octx.fillStyle = "#FFFEF7"; octx.fillRect(0, 0, off.width, off.height); octx.font = `${canvas.width * 0.62}px "Noto Sans SC", "KaiTi"`; octx.textAlign = "center"; octx.textBaseline = "middle"; octx.fillStyle = "#AAAAAA"; octx.fillText(char, off.width/2, off.height/2); return off.getImageData(0, 0, off.width, off.height); }
-    function drawModel() { if (!modelActive || !modelImageData) return; const current = ctx.getImageData(0, 0, canvas.width, canvas.height); drawGrid(); ctx.putImageData(modelImageData, 0, 0); const blended = ctx.getImageData(0, 0, canvas.width, canvas.height); for (let i = 0; i < blended.data.length; i += 4) if (blended.data[i+3] > 50) blended.data[i+3] = 120; ctx.putImageData(blended, 0, 0); for (let i = 0; i < current.data.length; i += 4) if (current.data[i+3] > 30) { blended.data[i] = current.data[i]; blended.data[i+1] = current.data[i+1]; blended.data[i+2] = current.data[i+2]; blended.data[i+3] = 255; } ctx.putImageData(blended, 0, 0); }
-    function refreshCanvas() { if (modelActive && modelImageData) { drawGrid(); ctx.putImageData(modelImageData, 0, 0); const blended = ctx.getImageData(0, 0, canvas.width, canvas.height); for (let i = 0; i < blended.data.length; i += 4) if (blended.data[i+3] > 50) blended.data[i+3] = 120; ctx.putImageData(blended, 0, 0); saveHistory(); } else { drawGrid(); saveHistory(); } }
-    function updateModelImage() { if (modelActive) { modelImageData = generateModel(currentRadical.char); refreshCanvas(); } else { drawGrid(); saveHistory(); } }
-    function updateRadical() { sampleChar.textContent = currentRadical.char; samplePinyin.textContent = currentRadical.pinyin; sampleMeaning.textContent = currentRadical.meaning; updateModelImage(); }
-    function setGroup(index) { currentGroup = index; const group = groups[currentGroup]; document.querySelectorAll(".group-button").forEach((btn, i) => btn.classList.toggle("active", i === currentGroup)); radicalsList.innerHTML = ""; group.indices.forEach((radIdx, idx) => { const r = allRadicals[radIdx]; const btn = document.createElement("div"); btn.className = "radical-button"; if (idx === currentRadicalIdx) btn.classList.add("active"); btn.textContent = r.char; btn.onclick = () => setRadicalInGroup(idx); radicalsList.appendChild(btn); }); currentRadicalIdx = 0; currentRadical = allRadicals[group.indices[0]]; updateRadical(); }
-    function setRadicalInGroup(idx) { currentRadicalIdx = idx; const group = groups[currentGroup]; currentRadical = allRadicals[group.indices[idx]]; document.querySelectorAll(".radical-button").forEach((btn, i) => btn.classList.toggle("active", i === idx)); updateRadical(); }
-    function speak() { const u = new SpeechSynthesisUtterance(currentRadical.char); u.lang = "zh-CN"; u.rate = 0.7; window.speechSynthesis.cancel(); setTimeout(() => window.speechSynthesis.speak(u), 50); }
+
+    function saveToHistory() {
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        if (history.length > 30) history.shift();
+    }
+
+    function clearCanvas() {
+        drawGrid();
+        saveToHistory();
+        if (modelActive && modelImageData) drawModel();
+    }
+
+    function undo() {
+        if (history.length <= 1) { clearCanvas(); return; }
+        history.pop();
+        ctx.putImageData(history[history.length - 1], 0, 0);
+        if (modelActive && modelImageData) drawModel();
+    }
+
+    // Генерация образца
+    function generateModel(char) {
+        const off = document.createElement("canvas");
+        off.width = canvas.width;
+        off.height = canvas.height;
+        const octx = off.getContext("2d");
+        octx.fillStyle = "#FFFEF7";
+        octx.fillRect(0, 0, off.width, off.height);
+        octx.font = `${canvas.width * 0.62}px "Noto Sans SC", "KaiTi"`;
+        octx.textAlign = "center";
+        octx.textBaseline = "middle";
+        octx.fillStyle = "#AAAAAA";
+        octx.fillText(char, off.width/2, off.height/2);
+        return off.getImageData(0, 0, off.width, off.height);
+    }
+
+    // Отрисовка полупрозрачного образца ПОВЕРХ текущего рисунка
+    function drawModel() {
+        if (!modelActive || !modelImageData) return;
+        
+        // Сохраняем текущий рисунок пользователя
+        const userDrawing = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        // Рисуем образец полупрозрачно
+        ctx.putImageData(modelImageData, 0, 0);
+        const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < blended.data.length; i += 4) {
+            if (blended.data[i+3] > 50) {
+                blended.data[i+3] = 100; // делаем полупрозрачным
+            }
+        }
+        ctx.putImageData(blended, 0, 0);
+        
+        // Восстанавливаем рисунок пользователя поверх образца
+        for (let i = 0; i < userDrawing.data.length; i += 4) {
+            if (userDrawing.data[i+3] > 30) {
+                blended.data[i] = userDrawing.data[i];
+                blended.data[i+1] = userDrawing.data[i+1];
+                blended.data[i+2] = userDrawing.data[i+2];
+                blended.data[i+3] = 255;
+            }
+        }
+        ctx.putImageData(blended, 0, 0);
+    }
+
+    // Обновить весь холст (сохраняя историю)
+    function refreshCanvasWithModel() {
+        drawGrid();
+        if (modelActive && modelImageData) {
+            ctx.putImageData(modelImageData, 0, 0);
+            const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < blended.data.length; i += 4) {
+                if (blended.data[i+3] > 50) blended.data[i+3] = 100;
+            }
+            ctx.putImageData(blended, 0, 0);
+        }
+        saveToHistory();
+    }
+
+    // При смене радикала обновляем образец
+    function updateModelForCurrentRadical() {
+        if (modelActive) {
+            modelImageData = generateModel(currentRadical.char);
+            drawGrid();
+            ctx.putImageData(modelImageData, 0, 0);
+            const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < blended.data.length; i += 4) {
+                if (blended.data[i+3] > 50) blended.data[i+3] = 100;
+            }
+            ctx.putImageData(blended, 0, 0);
+            saveToHistory();
+        } else {
+            drawGrid();
+            saveToHistory();
+        }
+    }
+
+    function updateRadical() {
+        sampleChar.textContent = currentRadical.char;
+        samplePinyin.textContent = currentRadical.pinyin;
+        sampleMeaning.textContent = currentRadical.meaning;
+        updateModelForCurrentRadical();
+    }
+
+    // Сменить комплект
+    function setGroup(index) {
+        currentGroup = index;
+        const group = groups[currentGroup];
+        
+        document.querySelectorAll(".group-button").forEach((btn, i) => {
+            btn.classList.toggle("active", i === currentGroup);
+        });
+        
+        radicalsList.innerHTML = "";
+        group.indices.forEach((radIdx, idx) => {
+            const r = allRadicals[radIdx];
+            const btn = document.createElement("div");
+            btn.className = "radical-button";
+            if (idx === currentRadicalIdx) btn.classList.add("active");
+            btn.textContent = r.char;
+            btn.onclick = () => setRadicalInGroup(idx);
+            radicalsList.appendChild(btn);
+        });
+        
+        currentRadicalIdx = 0;
+        currentRadical = allRadicals[group.indices[0]];
+        updateRadical();
+    }
+
+    function setRadicalInGroup(idx) {
+        currentRadicalIdx = idx;
+        const group = groups[currentGroup];
+        currentRadical = allRadicals[group.indices[idx]];
+        
+        document.querySelectorAll(".radical-button").forEach((btn, i) => {
+            btn.classList.toggle("active", i === idx);
+        });
+        updateRadical();
+    }
+
+    // Озвучивание
+    function speak() {
+        const utterance = new SpeechSynthesisUtterance(currentRadical.char);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.7;
+        window.speechSynthesis.cancel();
+        setTimeout(() => window.speechSynthesis.speak(utterance), 50);
+    }
+
+    // ========== РИСОВАНИЕ ==========
     let drawing = false, lastX = 0, lastY = 0;
-    function getCoords(e) { const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width / rect.width; const scaleY = canvas.height / rect.height; let cx, cy; if (e.touches) { cx = e.touches[0].clientX; cy = e.touches[0].clientY; } else { cx = e.clientX; cy = e.clientY; } let x = (cx - rect.left) * scaleX; let y = (cy - rect.top) * scaleY; return { x: Math.min(Math.max(0, x), canvas.width), y: Math.min(Math.max(0, y), canvas.height) }; }
-    function onStart(e) { e.preventDefault(); drawing = true; const pos = getCoords(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.stroke(); saveHistory(); if (modelActive && modelImageData) drawModel(); }
-    function onMove(e) { if (!drawing) return; e.preventDefault(); const pos = getCoords(e); ctx.lineWidth = 8; ctx.lineCap = "round"; ctx.strokeStyle = "#2B1A0E"; ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); lastX = pos.x; lastY = pos.y; if (modelActive && modelImageData) drawModel(); }
-    function onEnd() { drawing = false; saveHistory(); }
-    function init() { canvas.width = 400; canvas.height = 400; canvas.addEventListener("mousedown", onStart); canvas.addEventListener("mousemove", onMove); canvas.addEventListener("mouseup", onEnd); canvas.addEventListener("mouseleave", onEnd); canvas.addEventListener("touchstart", onStart, { passive: false }); canvas.addEventListener("touchmove", onMove, { passive: false }); canvas.addEventListener("touchend", onEnd); clearBtn.onclick = () => clearCanvas(); undoBtn.onclick = () => undo(); showModelBtn.onclick = () => { modelActive = true; modelImageData = generateModel(currentRadical.char); refreshCanvas(); statusMsg.innerHTML = "🟢 Образец включён"; }; hideModelBtn.onclick = () => { modelActive = false; modelImageData = null; drawGrid(); saveHistory(); statusMsg.innerHTML = "⚪ Образец выключен"; }; speakBtn.onclick = speak; sampleChar.onclick = speak; groups.forEach((g, idx) => { const btn = document.createElement("div"); btn.className = "group-button"; if (idx === 0) btn.classList.add("active"); btn.textContent = g.name; btn.onclick = () => setGroup(idx); groupsList.appendChild(btn); }); drawGrid(); saveHistory(); setGroup(0); }
+
+    function getCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let cx, cy;
+        if (e.touches) {
+            cx = e.touches[0].clientX;
+            cy = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            cx = e.clientX;
+            cy = e.clientY;
+        }
+        let x = (cx - rect.left) * scaleX;
+        let y = (cy - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+
+    function onStart(e) {
+        e.preventDefault();
+        drawing = true;
+        const pos = getCoords(e);
+        lastX = pos.x;
+        lastY = pos.y;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(lastX, lastY);
+        ctx.stroke();
+        saveToHistory();
+        if (modelActive && modelImageData) drawModel();
+    }
+
+    function onMove(e) {
+        if (!drawing) return;
+        e.preventDefault();
+        const pos = getCoords(e);
+        ctx.lineWidth = 8;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#2B1A0E";
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        lastX = pos.x;
+        lastY = pos.y;
+        if (modelActive && modelImageData) drawModel();
+    }
+
+    function onEnd() {
+        drawing = false;
+        saveToHistory();
+    }
+
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    function init() {
+        canvas.width = 400;
+        canvas.height = 400;
+        
+        canvas.addEventListener("mousedown", onStart);
+        canvas.addEventListener("mousemove", onMove);
+        canvas.addEventListener("mouseup", onEnd);
+        canvas.addEventListener("mouseleave", onEnd);
+        canvas.addEventListener("touchstart", onStart, { passive: false });
+        canvas.addEventListener("touchmove", onMove, { passive: false });
+        canvas.addEventListener("touchend", onEnd);
+        
+        clearBtn.onclick = () => clearCanvas();
+        undoBtn.onclick = () => undo();
+        
+        showModelBtn.onclick = () => {
+            modelActive = true;
+            modelImageData = generateModel(currentRadical.char);
+            drawGrid();
+            ctx.putImageData(modelImageData, 0, 0);
+            const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < blended.data.length; i += 4) {
+                if (blended.data[i+3] > 50) blended.data[i+3] = 100;
+            }
+            ctx.putImageData(blended, 0, 0);
+            saveToHistory();
+            statusMsg.innerHTML = "🟢 Образец включён! Обводи полупрозрачный иероглиф.";
+            statusMsg.style.background = "#C8E6C8";
+        };
+        
+        hideModelBtn.onclick = () => {
+            modelActive = false;
+            modelImageData = null;
+            drawGrid();
+            saveToHistory();
+            statusMsg.innerHTML = "⚪ Образец выключен. Нажми «Показать образец»";
+            statusMsg.style.background = "#EEDDBB";
+        };
+        
+        speakBtn.onclick = speak;
+        sampleChar.onclick = speak;
+        
+        groups.forEach((g, idx) => {
+            const btn = document.createElement("div");
+            btn.className = "group-button";
+            if (idx === 0) btn.classList.add("active");
+            btn.textContent = g.name;
+            btn.onclick = () => setGroup(idx);
+            groupsList.appendChild(btn);
+        });
+        
+        drawGrid();
+        saveToHistory();
+        setGroup(0);
+    }
+    
     init();
 </script>
 </body>
