@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>✍️ Тетрадь: Похожие радикалы | Китайский</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #F9E7D2 0%, #F5D5B3 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Шапка */
+        .hero {
+            background: linear-gradient(135deg, #D96C2B, #F28C48, #F4A261);
+            border-radius: 60px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 0 #A14212;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .hero p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Панель выбора радикала/пары */
+        .radical-panel {
+            background: #FFF3E5;
+            border-radius: 48px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border: 2px solid #F4A261;
+        }
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: #F4A261;
+            border: none;
+            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 3px 0 #B85C1A;
+            transition: 0.05s linear;
+        }
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #B85C1A;
+        }
+        .current-radical {
+            background: #FFE8D4;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            min-width: 150px;
+        }
+        .big-char {
+            font-size: 4rem;
+            font-family: 'Noto Sans SC', 'KaiTi', monospace;
+            font-weight: bold;
+            color: #A14212;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+        .big-char:active {
+            background: #FFD699;
+            transform: scale(0.95);
+        }
+        .radical-info {
+            font-size: 1rem;
+            color: #A45D2E;
+            margin: 0.5rem 0;
+        }
+        .pinyin-display {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #D96C2B;
+        }
+        .speak-btn {
+            background: #D96C2B;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #8B3A10;
+            margin-top: 0.5rem;
+        }
+        .speak-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Группы похожих радикалов */
+        .similar-group {
+            background: #FFE8D4;
+            border-radius: 40px;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .group-title {
+            font-size: 0.8rem;
+            color: #A45D2E;
+            margin-bottom: 0.5rem;
+        }
+        .group-chars {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .group-char {
+            font-size: 2rem;
+            font-family: monospace;
+            background: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #F4A261;
+            transition: 0.1s;
+        }
+        .group-char:active {
+            transform: scale(0.9);
+            background: #FFD699;
+        }
+
+        /* Тетрадь для прописи */
+        .copybook {
+            background: #FFFBF5;
+            border-radius: 40px;
+            padding: 1rem;
+            box-shadow: inset 0 0 0 2px #FFD9B5, 0 6px 12px rgba(0,0,0,0.05);
+        }
+        .canvas-area {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        canvas {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: crosshair;
+            background-image: radial-gradient(circle, #EEDDCC 1px, transparent 1px);
+            background-size: 20px 20px;
+            border: 3px solid #F4A261;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+        }
+        .canvas-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+        .tool-btn {
+            background: #F4C9A5;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #5A2E0E;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tool-btn:active {
+            transform: scale(0.96);
+        }
+        .writing-hint {
+            background: #FFE3C9;
+            border-radius: 30px;
+            padding: 0.6rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #A45D2E;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #FFD699;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #A14212;
+            font-weight: bold;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: #A45D2E;
+        }
+
+        @media (max-width: 500px) {
+            .big-char { font-size: 3rem; }
+            .group-char { font-size: 1.5rem; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>⚠️  Тетрадь: похожие радикалы  ✍️</h1>
+        <p>Нажми на иероглиф — слушай произношение | Пиши пальцем/мышкой в клетках</p>
+    </div>
+
+    <!-- Текущий радикал для прописи -->
+    <div class="radical-panel">
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn">◀</button>
+            <div class="current-radical">
+                <div class="big-char" id="currentChar">白</div>
+                <div class="radical-info">
+                    <span class="pinyin-display" id="currentPinyin">bái</span>
+                    <span id="currentMeaning"> — белый</span>
+                </div>
+            </div>
+            <button class="nav-btn" id="nextBtn">▶</button>
+        </div>
+        <button class="speak-btn" id="speakBtn">🔊 Озвучить радикал</button>
+    </div>
+
+    <!-- Группы похожих радикалов (быстрый переход) -->
+    <div class="similar-group">
+        <div class="group-title">📌 Похожие пары (нажми для перехода):</div>
+        <div class="group-chars" id="similarGroup"></div>
+    </div>
+
+    <!-- Тетрадь для прописи -->
+    <div class="copybook">
+        <div class="canvas-area">
+            <canvas id="radicalCanvas" width="400" height="400"></canvas>
+        </div>
+        <div class="canvas-tools">
+            <button class="tool-btn" id="clearBtn">🧽 Очистить</button>
+            <button class="tool-btn" id="undoBtn">↩️ Шаг назад</button>
+            <button class="tool-btn" id="showModelBtn">📌 Показать образец</button>
+            <button class="tool-btn" id="hideModelBtn">👻 Скрыть образец</button>
+        </div>
+        <div class="writing-hint">
+            💡 Пиши пальцем или мышкой в тетради. Образец поможет обводить!<br>
+            🎯 Попробуй написать: 白 (bái - белый) и 自 (zì - сам), 午 (wǔ - полдень) и 牛 (niú - корова)
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1rem;">
+        <a href="index.html" class="back-link">← Вернуться в главное меню</a>
+    </div>
+    <footer>
+        🔊 Тренируй руку и ухо: белый (白) ⇄ сам (自) | полдень (午) ⇄ корова (牛) | через (由) ⇄ первый (甲)
+    </footer>
+</div>
+
+<script>
+    // ========== БАЗА ДАННЫХ ПОХОЖИХ РАДИКАЛОВ ==========
+    // Все радикалы, которые легко перепутать
+    const radicalsList = [
+        { char: "白", pinyin: "bái", meaning: "белый" },
+        { char: "自", pinyin: "zì", meaning: "сам, себя" },
+        { char: "午", pinyin: "wǔ", meaning: "полдень" },
+        { char: "牛", pinyin: "niú", meaning: "корова, бык" },
+        { char: "由", pinyin: "yóu", meaning: "через, из-за" },
+        { char: "申", pinyin: "shēn", meaning: "объявлять, 9 циклический знак" },
+        { char: "甲", pinyin: "jiǎ", meaning: "первый, панцирь" },
+        { char: "大", pinyin: "dà", meaning: "большой" },
+        { char: "太", pinyin: "tài", meaning: "слишком, очень" },
+        { char: "犬", pinyin: "quǎn", meaning: "собака" },
+        { char: "未", pinyin: "wèi", meaning: "ещё не" },
+        { char: "末", pinyin: "mò", meaning: "конец" },
+        { char: "人", pinyin: "rén", meaning: "человек" },
+        { char: "入", pinyin: "rù", meaning: "входить" },
+        { char: "己", pinyin: "jǐ", meaning: "себя (6-й небесный ствол)" },
+        { char: "已", pinyin: "yǐ", meaning: "уже" },
+        { char: "巳", pinyin: "sì", meaning: "змея (6-й знак)" },
+        { char: "东", pinyin: "dōng", meaning: "восток" },
+        { char: "车", pinyin: "chē", meaning: "машина/телега" }
+    ];
+
+    let currentIndex = 0;
+    let history = []; // для отмены рисования
+    let modelVisible = false;
+    let modelImageData = null;
+
+    // DOM элементы
+    const currentCharEl = document.getElementById("currentChar");
+    const currentPinyinEl = document.getElementById("currentPinyin");
+    const currentMeaningEl = document.getElementById("currentMeaning");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const speakBtn = document.getElementById("speakBtn");
+    const similarGroup = document.getElementById("similarGroup");
+    const canvas = document.getElementById("radicalCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // ========== НАСТРОЙКА CANVAS И РИСОВАНИЕ ==========
+    let drawing = false;
+    let lastX = 0, lastY = 0;
+
+    function resizeAndSetupCanvas() {
+        const size = Math.min(window.innerWidth - 80, 400);
+        canvas.style.width = `${size}px`;
+        canvas.style.height = `${size}px`;
+        canvas.width = 400;
+        canvas.height = 400;
+        clearCanvas();
+    }
+
+    function clearCanvas() {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        saveToHistory();
+        if (modelVisible && modelImageData) {
+            drawModel();
+        }
+    }
+
+    function saveToHistory() {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        history.push(imageData);
+        if (history.length > 30) history.shift();
+    }
+
+    function undoLast() {
+        if (history.length <= 1) {
+            clearCanvas();
+            return;
+        }
+        history.pop();
+        const prevState = history[history.length - 1];
+        ctx.putImageData(prevState, 0, 0);
+        if (modelVisible && modelImageData) {
+            drawModel();
+        }
+    }
+
+    // Генерация образца радикала
+    function generateModelImage(char) {
+        const offCanvas = document.createElement("canvas");
+        offCanvas.width = canvas.width;
+        offCanvas.height = canvas.height;
+        const offCtx = offCanvas.getContext("2d");
+        offCtx.fillStyle = "white";
+        offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
+        
+        // Определяем размер шрифта в зависимости от сложности иероглифа
+        let fontSize = canvas.width * 0.68;
+        offCtx.font = `bold ${fontSize}px "Noto Sans SC", "KaiTi", "Segoe UI Emoji", "Microsoft YaHei"`;
+        offCtx.textAlign = "center";
+        offCtx.textBaseline = "middle";
+        offCtx.fillStyle = "#999999";
+        offCtx.fillText(char, offCanvas.width / 2, offCanvas.height / 2);
+        
+        return offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+    }
+
+    function drawModel() {
+        if (!modelImageData) return;
+        // Временно убираем модель, рисуем поверх текущего содержимого с прозрачностью
+        const currentImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.putImageData(modelImageData, 0, 0);
+        // Накладываем с прозрачностью
+        const tempData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < tempData.data.length; i += 4) {
+            if (tempData.data[i+3] > 0) {
+                // делаем полупрозрачным
+                tempData.data[i+3] = 100;
+            }
+        }
+        ctx.putImageData(tempData, 0, 0);
+        // восстанавливаем рисунок сверху (наложение)
+        for (let i = 0; i < currentImage.data.length; i += 4) {
+            if (currentImage.data[i+3] > 10) {
+                tempData.data[i] = currentImage.data[i];
+                tempData.data[i+1] = currentImage.data[i+1];
+                tempData.data[i+2] = currentImage.data[i+2];
+                tempData.data[i+3] = 255;
+            }
+        }
+        ctx.putImageData(tempData, 0, 0);
+    }
+
+    function showModel() {
+        if (!modelVisible) {
+            modelVisible = true;
+            modelImageData = generateModelImage(radicalsList[currentIndex].char);
+            drawModel();
+        }
+    }
+
+    function hideModel() {
+        if (modelVisible) {
+            modelVisible = false;
+            const lastState = history[history.length - 1];
+            if (lastState) {
+                ctx.putImageData(lastState, 0, 0);
+            } else {
+                clearCanvas();
+            }
+        }
+    }
+
+    function updateModelForCurrentChar() {
+        if (modelVisible) {
+            modelImageData = generateModelImage(radicalsList[currentIndex].char);
+            const lastState = history[history.length - 1];
+            if (lastState) {
+                ctx.putImageData(lastState, 0, 0);
+            } else {
+                clearCanvas();
+            }
+            drawModel();
+        }
+    }
+
+    // Обработчики рисования
+    function getCanvasCoordinates(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        let x = (clientX - rect.left) * scaleX;
+        let y = (clientY - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+
+    function startDrawing(e) {
+        drawing = true;
+        const pos = getCanvasCoordinates(e);
+        lastX = pos.x;
+        lastY = pos.y;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(lastX, lastY);
+        ctx.stroke();
+        saveToHistory();
+        if (modelVisible) {
+            drawModel();
+        }
+    }
+
+    function draw(e) {
+        if (!drawing) return;
+        const pos = getCanvasCoordinates(e);
+        const currentX = pos.x;
+        const currentY = pos.y;
+        ctx.lineWidth = 10;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = "#2C1810";
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+        lastX = currentX;
+        lastY = currentY;
+        if (modelVisible) {
+            drawModel();
+        }
+    }
+
+    function stopDrawing() {
+        drawing = false;
+        saveToHistory();
+    }
+
+    // Озвучивание
+    function speakChinese(text) {
+        if (!text || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.7;
+            window.speechSynthesis.speak(utterance);
+        }, 50);
+    }
+
+    // Обновление интерфейса при смене радикала
+    function updateRadicalDisplay() {
+        const radical = radicalsList[currentIndex];
+        currentCharEl.textContent = radical.char;
+        currentPinyinEl.textContent = radical.pinyin;
+        currentMeaningEl.textContent = " — " + radical.meaning;
+        
+        // Обновляем образец, если он активен
+        if (modelVisible) {
+            modelImageData = generateModelImage(radical.char);
+            const lastState = history[history.length - 1];
+            if (lastState) {
+                ctx.putImageData(lastState, 0, 0);
+            } else {
+                clearCanvas();
+            }
+            drawModel();
+        } else {
+            // просто обновляем холст, сохраняя рисунок
+            if (history.length === 0) clearCanvas();
+        }
+    }
+
+    function nextRadical() {
+        currentIndex = (currentIndex + 1) % radicalsList.length;
+        updateRadicalDisplay();
+    }
+
+    function prevRadical() {
+        currentIndex = (currentIndex - 1 + radicalsList.length) % radicalsList.length;
+        updateRadicalDisplay();
+    }
+
+    // Создаём группу быстрого выбора (только уникальные похожие пары)
+    function buildSimilarGroup() {
+        // Показываем все радикалы из списка для быстрого перехода
+        const uniqueRadicals = [...radicalsList];
+        similarGroup.innerHTML = uniqueRadicals.map((r, idx) => 
+            `<span class="group-char" data-index="${idx}">${r.char}</span>`
+        ).join("");
+        
+        document.querySelectorAll(".group-char").forEach(el => {
+            el.addEventListener("click", (e) => {
+                const idx = parseInt(e.currentTarget.dataset.index);
+                if (!isNaN(idx)) {
+                    currentIndex = idx;
+                    updateRadicalDisplay();
+                }
+            });
+        });
+    }
+
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    function init() {
+        resizeAndSetupCanvas();
+        
+        // События рисования
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDrawing);
+        canvas.addEventListener("mouseleave", stopDrawing);
+        canvas.addEventListener("touchstart", startDrawing);
+        canvas.addEventListener("touchmove", draw);
+        canvas.addEventListener("touchend", stopDrawing);
+        
+        document.getElementById("clearBtn").addEventListener("click", () => clearCanvas());
+        document.getElementById("undoBtn").addEventListener("click", () => undoLast());
+        document.getElementById("showModelBtn").addEventListener("click", () => showModel());
+        document.getElementById("hideModelBtn").addEventListener("click", () => hideModel());
+        
+        prevBtn.addEventListener("click", () => prevRadical());
+        nextBtn.addEventListener("click", () => nextRadical());
+        
+        speakBtn.addEventListener("click", () => {
+            const radical = radicalsList[currentIndex];
+            speakChinese(radical.char);
+        });
+        
+        currentCharEl.addEventListener("click", () => {
+            const radical = radicalsList[currentIndex];
+            speakChinese(radical.char);
+        });
+        
+        buildSimilarGroup();
+        updateRadicalDisplay();
+        clearCanvas();
+    }
+    
+    window.addEventListener("resize", () => {
+        resizeAndSetupCanvas();
+        if (modelVisible) {
+            modelImageData = generateModelImage(radicalsList[currentIndex].char);
+            drawModel();
+        }
+    });
+    
+    init();
+</script>
+</body>
+</html>
