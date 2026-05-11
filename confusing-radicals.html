@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>📖 Тетрадь: Похожие радикалы | Комплекты + линовка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>📖 Тетрадь похожих радикалов</title>
     <style>
         * {
             margin: 0;
@@ -14,35 +14,32 @@
         body {
             background: #C8B89A;
             font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-            padding: 10px;
+            padding: 12px;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
         }
 
         .container {
-            max-width: 950px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* Шапка */
         .header {
             background: #8B4513;
             border-radius: 25px;
-            padding: 8px 12px;
+            padding: 10px;
             text-align: center;
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .header h1 { font-size: 1.2rem; }
-        .header p { font-size: 0.6rem; opacity: 0.9; }
+        .header p { font-size: 0.65rem; }
 
-        /* КОМПЛЕКТЫ */
-        .groups-panel {
+        /* Комплекты */
+        .groups-section {
             background: #F5E6D3;
             border-radius: 25px;
-            padding: 8px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
             border: 2px solid #D2691E;
         }
         .groups-title {
@@ -52,36 +49,33 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
-        .groups-buttons {
+        .groups-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
-        .group-btn {
+        .group-button {
             background: white;
             border: 2px solid #D2691E;
             border-radius: 30px;
-            padding: 4px 12px;
+            padding: 5px 14px;
             font-size: 0.7rem;
             font-weight: bold;
             color: #8B4513;
             cursor: pointer;
-            transition: 0.05s;
-            touch-action: manipulation;
         }
-        .group-btn:active { transform: scale(0.96); background: #FFD9B5; }
-        .group-btn.active {
+        .group-button.active {
             background: #D2691E;
             color: white;
         }
 
-        /* Радикалы текущего комплекта */
-        .radicals-panel {
+        /* Радикалы выбранного комплекта */
+        .radicals-section {
             background: #F5E6D3;
             border-radius: 25px;
-            padding: 8px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
             border: 2px solid #D2691E;
         }
         .radicals-title {
@@ -90,45 +84,39 @@
             text-align: center;
             margin-bottom: 6px;
         }
-        .radicals-scroll {
+        .radicals-row {
             display: flex;
             overflow-x: auto;
             gap: 8px;
             padding-bottom: 4px;
-            scrollbar-width: thin;
         }
-        .radicals-scroll::-webkit-scrollbar { height: 4px; }
-        .radical-item {
+        .radical-button {
             background: white;
             border: 2px solid #D2691E;
             border-radius: 40px;
-            padding: 5px 15px;
-            font-size: 1.4rem;
-            font-family: 'Noto Sans SC', monospace;
+            padding: 6px 18px;
+            font-size: 1.3rem;
+            font-family: monospace;
             font-weight: bold;
             color: #8B4513;
             cursor: pointer;
             white-space: nowrap;
             flex-shrink: 0;
-            touch-action: manipulation;
         }
-        .radical-item.active {
+        .radical-button.active {
             background: #D2691E;
             color: white;
         }
-        .radical-item:active { transform: scale(0.95); }
 
-        /* Основная область */
-        .work-area {
+        /* Образец + тетрадь */
+        .main-row {
             display: flex;
-            flex-direction: row;
-            gap: 15px;
             flex-wrap: wrap;
+            gap: 15px;
             justify-content: center;
         }
 
-        /* Образец */
-        .sample-block {
+        .sample-box {
             background: #F5E6D3;
             border-radius: 35px;
             padding: 15px;
@@ -139,27 +127,24 @@
         }
         .sample-label {
             font-size: 0.7rem;
-            color: #8B4513;
             background: #FFE4C4;
             display: inline-block;
             padding: 3px 15px;
             border-radius: 25px;
             margin-bottom: 10px;
         }
-        .sample-big-char {
-            font-size: 5rem;
+        .sample-char {
+            font-size: 4.5rem;
             font-family: 'Noto Sans SC', 'KaiTi', monospace;
-            color: #5C2E0A;
             background: #FFF8F0;
             border-radius: 35px;
             padding: 15px;
             margin: 10px 0;
             border: 2px solid #D2691E;
             cursor: pointer;
-            touch-action: manipulation;
         }
         .sample-pinyin {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #D2691E;
         }
@@ -170,29 +155,24 @@
         .sample-sound {
             background: #D2691E;
             border: none;
-            padding: 6px 18px;
+            padding: 6px 20px;
             border-radius: 30px;
             color: white;
-            font-size: 0.75rem;
             margin-top: 10px;
             cursor: pointer;
-            touch-action: manipulation;
         }
 
-        /* Тетрадь с линовкой */
-        .copybook-block {
+        .copybook-box {
             background: #FDF7E8;
             border-radius: 35px;
-            padding: 12px;
+            padding: 15px;
             border: 3px solid #D2691E;
             flex: 2;
             min-width: 280px;
         }
-        .canvas-container {
-            display: flex;
-            justify-content: center;
-        }
         canvas {
+            display: block;
+            margin: 0 auto;
             background: #FFFEF7;
             border-radius: 20px;
             border: 2px solid #D2691E;
@@ -201,117 +181,106 @@
             height: auto;
             aspect-ratio: 1 / 1;
             cursor: crosshair;
-            touch-action: none;
         }
-        .tools {
+        .tools-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             justify-content: center;
-            margin: 12px 0 6px;
+            margin: 12px 0 8px;
         }
-        .tool-btn {
+        .tool-button {
             background: #F2CCA0;
             border: none;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 30px;
             font-size: 0.7rem;
             font-weight: bold;
-            color: #5A2E0E;
             cursor: pointer;
-            touch-action: manipulation;
         }
         .model-status {
             background: #EEDDBB;
             border-radius: 20px;
-            padding: 5px;
+            padding: 6px;
             text-align: center;
             font-size: 0.6rem;
-            color: #8B4513;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 12px;
+            margin-top: 15px;
             background: #E8CAA0;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 30px;
             text-decoration: none;
             color: #8B4513;
             font-weight: bold;
-            font-size: 0.75rem;
         }
         footer {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 0.55rem;
             color: #5A3A1A;
         }
 
         @media (max-width: 600px) {
-            .work-area { flex-direction: column; align-items: center; }
-            .sample-block { width: 100%; max-width: 280px; }
-            .copybook-block { width: 100%; }
-            .sample-big-char { font-size: 3.5rem; }
+            .main-row { flex-direction: column; align-items: center; }
+            .sample-box { width: 100%; max-width: 280px; }
+            .sample-char { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>📖  Тетрадь: похожие радикалы</h1>
-        <p>Комплекты | Специальная линовка | Полупрозрачный образец</p>
+        <h1>📖 Тетрадь: похожие радикалы</h1>
+        <p>Комплекты | Клетчатая линовка | Полупрозрачный образец</p>
     </div>
 
-    <!-- КОМПЛЕКТЫ -->
-    <div class="groups-panel">
-        <div class="groups-title">📌 КОМПЛЕКТЫ ПОХОЖИХ РАДИКАЛОВ:</div>
-        <div class="groups-buttons" id="groupsContainer"></div>
+    <div class="groups-section">
+        <div class="groups-title">📌 КОМПЛЕКТЫ</div>
+        <div class="groups-row" id="groupsList"></div>
     </div>
 
-    <!-- РАДИКАЛЫ ВЫБРАННОГО КОМПЛЕКТА -->
-    <div class="radicals-panel">
-        <div class="radicals-title">🔽 РАДИКАЛЫ ЭТОГО КОМПЛЕКТА:</div>
-        <div class="radicals-scroll" id="radicalsContainer"></div>
+    <div class="radicals-section">
+        <div class="radicals-title">🔽 РАДИКАЛЫ КОМПЛЕКТА</div>
+        <div class="radicals-row" id="radicalsList"></div>
     </div>
 
-    <!-- ОБРАЗЕЦ + ТЕТРАДЬ -->
-    <div class="work-area">
-        <div class="sample-block">
-            <div class="sample-label">🎯 ОБРАЗЕЦ ДЛЯ СРИСОВЫВАНИЯ</div>
-            <div class="sample-big-char" id="sampleChar">白</div>
+    <div class="main-row">
+        <div class="sample-box">
+            <div class="sample-label">🎯 ОБРАЗЕЦ</div>
+            <div class="sample-char" id="sampleChar">白</div>
             <div class="sample-pinyin" id="samplePinyin">bái</div>
             <div class="sample-meaning" id="sampleMeaning">белый</div>
             <button class="sample-sound" id="speakBtn">🔊 Озвучить</button>
         </div>
 
-        <div class="copybook-block">
-            <div class="canvas-container">
-                <canvas id="writingCanvas" width="450" height="450"></canvas>
+        <div class="copybook-box">
+            <canvas id="canvas" width="400" height="400"></canvas>
+            <div class="tools-row">
+                <button class="tool-button" id="clearBtn">🧽 Очистить</button>
+                <button class="tool-button" id="undoBtn">↩️ Отменить</button>
+                <button class="tool-button" id="showModelBtn">📌 Показать образец</button>
+                <button class="tool-button" id="hideModelBtn">👻 Скрыть</button>
             </div>
-            <div class="tools">
-                <button class="tool-btn" id="clearBtn">🧽 Очистить</button>
-                <button class="tool-btn" id="undoBtn">↩️ Отменить</button>
-                <button class="tool-btn" id="showModelBtn">📌 Показать образец</button>
-                <button class="tool-btn" id="hideModelBtn">👻 Скрыть образец</button>
-            </div>
-            <div class="model-status" id="statusMsg">⚪ Образец выключен. Нажми «Показать образец»</div>
+            <div class="model-status" id="statusMsg">⚪ Образец выключен</div>
         </div>
     </div>
 
     <div style="text-align: center;">
         <a href="index.html" class="back-link">← На главную</a>
     </div>
-    <footer>✍️ Пиши пальцем или мышкой. Нажми на иероглиф — услышишь произношение.</footer>
+    <footer>✍️ Пиши пальцем/мышкой. Нажми на иероглиф — услышишь произношение.</footer>
 </div>
 
 <script>
-    // ========== БОЛЬШАЯ БАЗА РАДИКАЛОВ ==========
-    const radicalsDB = [
+    // ========== БАЗА РАДИКАЛОВ ==========
+    const allRadicals = [
         { char: "白", pinyin: "bái", meaning: "белый" },
-        { char: "自", pinyin: "zì", meaning: "сам, себя" },
+        { char: "自", pinyin: "zì", meaning: "сам" },
         { char: "臼", pinyin: "jiù", meaning: "ступа" },
-        { char: "日", pinyin: "rì", meaning: "солнце, день" },
+        { char: "日", pinyin: "rì", meaning: "солнце" },
         { char: "曰", pinyin: "yuē", meaning: "сказать" },
         { char: "午", pinyin: "wǔ", meaning: "полдень" },
         { char: "牛", pinyin: "niú", meaning: "корова" },
@@ -340,72 +309,35 @@
         { char: "巳", pinyin: "sì", meaning: "змея" },
         { char: "千", pinyin: "qiān", meaning: "тысяча" },
         { char: "干", pinyin: "gān", meaning: "сухой" },
-        { char: "于", pinyin: "yú", meaning: "в, на" },
-        { char: "王", pinyin: "wáng", meaning: "король" },
-        { char: "玉", pinyin: "yù", meaning: "нефрит" },
-        { char: "主", pinyin: "zhǔ", meaning: "хозяин" },
-        { char: "东", pinyin: "dōng", meaning: "восток" },
-        { char: "车", pinyin: "chē", meaning: "машина" },
-        { char: "开", pinyin: "kāi", meaning: "открывать" },
-        { char: "井", pinyin: "jǐng", meaning: "колодец" },
-        { char: "升", pinyin: "shēng", meaning: "подниматься" },
-        { char: "令", pinyin: "lìng", meaning: "приказ" },
-        { char: "今", pinyin: "jīn", meaning: "сейчас" },
-        { char: "冷", pinyin: "lěng", meaning: "холодный" },
-        { char: "兔", pinyin: "tù", meaning: "кролик" },
-        { char: "免", pinyin: "miǎn", meaning: "избегать" },
-        { char: "土", pinyin: "tǔ", meaning: "земля" },
-        { char: "士", pinyin: "shì", meaning: "воин" },
-        { char: "我", pinyin: "wǒ", meaning: "я" },
-        { char: "找", pinyin: "zhǎo", meaning: "искать" },
-        { char: "成", pinyin: "chéng", meaning: "становиться" },
-        { char: "咸", pinyin: "xián", meaning: "солёный" }
+        { char: "于", pinyin: "yú", meaning: "в" }
     ];
 
-    // Уникальные радикалы
-    const radicals = [];
-    const seen = new Set();
-    for (const r of radicalsDB) {
-        if (!seen.has(r.char)) {
-            seen.add(r.char);
-            radicals.push(r);
-        }
-    }
-
-    // КОМПЛЕКТЫ (индексы радикалов)
+    // КОМПЛЕКТЫ (индексы)
     const groups = [
-        { name: "白/自/臼/日/曰", indices: [0,1,2,3,4] },
-        { name: "午/牛/年/半", indices: [5,6,7,8] },
-        { name: "由/申/甲/田/电/里", indices: [9,10,11,12,13,14] },
-        { name: "大/太/犬/天/夫/失", indices: [15,16,17,18,19,20] },
-        { name: "未/末/朱", indices: [21,22,23] },
-        { name: "人/入/八", indices: [24,25,26] },
-        { name: "己/已/巳", indices: [27,28,29] },
-        { name: "千/干/于", indices: [30,31,32] },
-        { name: "王/玉/主", indices: [33,34,35] },
-        { name: "东/车", indices: [36,37] },
-        { name: "开/井/升", indices: [38,39,40] },
-        { name: "令/今/冷", indices: [41,42,43] },
-        { name: "兔/免", indices: [44,45] },
-        { name: "土/士", indices: [46,47] },
-        { name: "我/找", indices: [48,49] },
-        { name: "成/咸", indices: [50,51] }
+        { name: "🤍 白/自/臼/日/曰", indices: [0,1,2,3,4] },
+        { name: "🐂 午/牛/年/半", indices: [5,6,7,8] },
+        { name: "⬜ 由/申/甲/田/电/里", indices: [9,10,11,12,13,14] },
+        { name: "🐕 大/太/犬/天/夫/失", indices: [15,16,17,18,19,20] },
+        { name: "🌾 未/末/朱", indices: [21,22,23] },
+        { name: "👤 人/入/八", indices: [24,25,26] },
+        { name: "🐍 己/已/巳", indices: [27,28,29] },
+        { name: "🔢 千/干/于", indices: [30,31,32] }
     ];
 
-    let currentGroupIndex = 0;
-    let currentRadicalIndexInGroup = 0;
-    let currentRadical = radicals[groups[0].indices[0]];
+    let currentGroup = 0;
+    let currentRadicalIdx = 0;
+    let currentRadical = allRadicals[groups[0].indices[0]];
 
-    // Canvas и рисование
-    const canvas = document.getElementById("writingCanvas");
+    // Canvas
+    const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-    let historyStack = [];
+    let history = [];
     let modelActive = false;
-    let modelImage = null;
+    let modelImageData = null;
 
     // DOM
-    const groupsContainer = document.getElementById("groupsContainer");
-    const radicalsContainer = document.getElementById("radicalsContainer");
+    const groupsList = document.getElementById("groupsList");
+    const radicalsList = document.getElementById("radicalsList");
     const sampleChar = document.getElementById("sampleChar");
     const samplePinyin = document.getElementById("samplePinyin");
     const sampleMeaning = document.getElementById("sampleMeaning");
@@ -416,86 +348,71 @@
     const hideModelBtn = document.getElementById("hideModelBtn");
     const statusMsg = document.getElementById("statusMsg");
 
-    // ========== СПЕЦИАЛЬНАЯ ЛИНОВКА (КЛЕТКА) ==========
+    // ========== ЛИНОВКА (КЛЕТКА 8x8) ==========
     function drawGrid() {
-        const w = canvas.width;   // 450
-        const h = canvas.height;
+        const w = canvas.width, h = canvas.height;
         ctx.fillStyle = "#FFFEF7";
         ctx.fillRect(0, 0, w, h);
         
-        const cellW = w / 8;
-        const cellH = h / 8;
-        
+        const cellW = w / 8, cellH = h / 8;
         ctx.beginPath();
         ctx.strokeStyle = "#C8B088";
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = 1;
         for (let i = 0; i <= 8; i++) {
-            ctx.moveTo(i * cellW, 0);
-            ctx.lineTo(i * cellW, h);
-            ctx.moveTo(0, i * cellH);
-            ctx.lineTo(w, i * cellH);
+            ctx.moveTo(i * cellW, 0); ctx.lineTo(i * cellW, h);
+            ctx.moveTo(0, i * cellH); ctx.lineTo(w, i * cellH);
             ctx.stroke();
         }
-        
         ctx.beginPath();
         ctx.strokeStyle = "#E0CBA8";
-        ctx.lineWidth = 0.6;
-        ctx.setLineDash([3, 5]);
+        ctx.setLineDash([3, 4]);
         for (let i = 0; i <= 16; i++) {
-            const p = i * (cellW / 2);
-            ctx.moveTo(p, 0);
-            ctx.lineTo(p, h);
-            ctx.moveTo(0, p);
-            ctx.lineTo(w, p);
+            const p = i * cellW / 2;
+            ctx.moveTo(p, 0); ctx.lineTo(p, h);
+            ctx.moveTo(0, p); ctx.lineTo(w, p);
             ctx.stroke();
         }
         ctx.setLineDash([]);
     }
 
-    function saveHistory() {
-        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        historyStack.push(img);
-        if (historyStack.length > 30) historyStack.shift();
+    function saveToHistory() {
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        if (history.length > 30) history.shift();
     }
 
     function clearCanvas() {
         drawGrid();
-        saveHistory();
-        if (modelActive && modelImage) drawModelOverlay();
+        saveToHistory();
+        if (modelActive && modelImageData) drawModel();
     }
 
-    function undoLast() {
-        if (historyStack.length <= 1) {
-            clearCanvas();
-            return;
-        }
-        historyStack.pop();
-        const prev = historyStack[historyStack.length - 1];
-        ctx.putImageData(prev, 0, 0);
-        if (modelActive && modelImage) drawModelOverlay();
+    function undo() {
+        if (history.length <= 1) { clearCanvas(); return; }
+        history.pop();
+        ctx.putImageData(history[history.length - 1], 0, 0);
+        if (modelActive && modelImageData) drawModel();
     }
 
-    // Генерация полупрозрачного образца
-    function generateModelImage(char) {
+    // Генерация образца
+    function generateModel(char) {
         const off = document.createElement("canvas");
         off.width = canvas.width;
         off.height = canvas.height;
         const octx = off.getContext("2d");
         octx.fillStyle = "#FFFEF7";
         octx.fillRect(0, 0, off.width, off.height);
-        const fontSize = canvas.width * 0.62;
-        octx.font = `500 ${fontSize}px "Noto Sans SC", "KaiTi", "Segoe UI Emoji"`;
+        octx.font = `${canvas.width * 0.62}px "Noto Sans SC", "KaiTi"`;
         octx.textAlign = "center";
         octx.textBaseline = "middle";
-        octx.fillStyle = "#999999";
+        octx.fillStyle = "#888";
         octx.fillText(char, off.width/2, off.height/2);
         return off.getImageData(0, 0, off.width, off.height);
     }
 
-    function drawModelOverlay() {
-        if (!modelActive || !modelImage) return;
+    function drawModel() {
+        if (!modelActive || !modelImageData) return;
         const current = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        ctx.putImageData(modelImage, 0, 0);
+        ctx.putImageData(modelImageData, 0, 0);
         const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < blended.data.length; i += 4) {
             if (blended.data[i+3] > 50) blended.data[i+3] = 100;
@@ -512,76 +429,65 @@
         ctx.putImageData(blended, 0, 0);
     }
 
-    function updateModel() {
-        if (modelActive) {
-            modelImage = generateModelImage(currentRadical.char);
-            drawGrid();
-            saveHistory();
-            drawModelOverlay();
-        } else {
-            drawGrid();
-            saveHistory();
-        }
+    function refreshCanvas() {
+        drawGrid();
+        saveToHistory();
+        if (modelActive && modelImageData) drawModel();
     }
 
     // Обновить интерфейс при смене радикала
-    function updateUI() {
+    function updateRadical() {
         sampleChar.textContent = currentRadical.char;
         samplePinyin.textContent = currentRadical.pinyin;
         sampleMeaning.textContent = currentRadical.meaning;
         if (modelActive) {
-            modelImage = generateModelImage(currentRadical.char);
-            updateModel();
+            modelImageData = generateModel(currentRadical.char);
+            refreshCanvas();
         } else {
-            drawGrid();
-            saveHistory();
+            refreshCanvas();
         }
     }
 
-    // Переключение комплекта
+    // Сменить комплект
     function setGroup(index) {
-        currentGroupIndex = index;
-        // Обновляем активную кнопку комплекта
-        document.querySelectorAll('.group-btn').forEach((btn, i) => {
-            if (i === currentGroupIndex) btn.classList.add('active');
-            else btn.classList.remove('active');
+        currentGroup = index;
+        const group = groups[currentGroup];
+        
+        // Обновить кнопки групп
+        document.querySelectorAll(".group-button").forEach((btn, i) => {
+            btn.classList.toggle("active", i === currentGroup);
         });
         
-        // Строим список радикалов этого комплекта
-        const group = groups[currentGroupIndex];
-        radicalsContainer.innerHTML = "";
+        // Построить список радикалов этого комплекта
+        radicalsList.innerHTML = "";
         group.indices.forEach((radIdx, idx) => {
-            const r = radicals[radIdx];
-            const chip = document.createElement("div");
-            chip.className = "radical-item";
-            if (idx === currentRadicalIndexInGroup) chip.classList.add("active");
-            chip.textContent = r.char;
-            chip.onclick = () => setRadicalInGroup(idx);
-            radicalsContainer.appendChild(chip);
+            const r = allRadicals[radIdx];
+            const btn = document.createElement("div");
+            btn.className = "radical-button";
+            if (idx === currentRadicalIdx) btn.classList.add("active");
+            btn.textContent = r.char;
+            btn.onclick = () => setRadicalInGroup(idx);
+            radicalsList.appendChild(btn);
         });
         
-        // Устанавливаем первый радикал комплекта
-        currentRadicalIndexInGroup = 0;
-        currentRadical = radicals[group.indices[0]];
-        updateUI();
+        currentRadicalIdx = 0;
+        currentRadical = allRadicals[group.indices[0]];
+        updateRadical();
     }
 
     function setRadicalInGroup(idx) {
-        currentRadicalIndexInGroup = idx;
-        const group = groups[currentGroupIndex];
-        currentRadical = radicals[group.indices[idx]];
+        currentRadicalIdx = idx;
+        const group = groups[currentGroup];
+        currentRadical = allRadicals[group.indices[idx]];
         
-        // Обновляем активный класс у радикалов
-        document.querySelectorAll('.radical-item').forEach((chip, i) => {
-            if (i === idx) chip.classList.add('active');
-            else chip.classList.remove('active');
+        document.querySelectorAll(".radical-button").forEach((btn, i) => {
+            btn.classList.toggle("active", i === idx);
         });
-        updateUI();
+        updateRadical();
     }
 
     // Озвучивание
-    function speakCurrent() {
-        if (!currentRadical) return;
+    function speak() {
         const utterance = new SpeechSynthesisUtterance(currentRadical.char);
         utterance.lang = "zh-CN";
         utterance.rate = 0.7;
@@ -589,9 +495,8 @@
         setTimeout(() => window.speechSynthesis.speak(utterance), 50);
     }
 
-    // ========== РИСОВАНИЕ (фикс дёргания экрана) ==========
-    let drawing = false;
-    let lastX = 0, lastY = 0;
+    // ========== РИСОВАНИЕ ==========
+    let drawing = false, lastX = 0, lastY = 0;
 
     function getCoords(e) {
         const rect = canvas.getBoundingClientRect();
@@ -601,7 +506,6 @@
         if (e.touches) {
             cx = e.touches[0].clientX;
             cy = e.touches[0].clientY;
-            e.preventDefault();
         } else {
             cx = e.clientX;
             cy = e.clientY;
@@ -613,7 +517,7 @@
         return { x, y };
     }
 
-    function startDraw(e) {
+    function onStart(e) {
         e.preventDefault();
         drawing = true;
         const pos = getCoords(e);
@@ -621,19 +525,17 @@
         lastY = pos.y;
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
-        ctx.lineTo(lastX, lastY);
         ctx.stroke();
-        saveHistory();
-        if (modelActive && modelImage) drawModelOverlay();
+        saveToHistory();
+        if (modelActive && modelImageData) drawModel();
     }
 
-    function drawMove(e) {
+    function onMove(e) {
         if (!drawing) return;
         e.preventDefault();
         const pos = getCoords(e);
         ctx.lineWidth = 8;
         ctx.lineCap = "round";
-        ctx.lineJoin = "round";
         ctx.strokeStyle = "#2B1A0E";
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
@@ -641,59 +543,56 @@
         ctx.stroke();
         lastX = pos.x;
         lastY = pos.y;
-        if (modelActive && modelImage) drawModelOverlay();
+        if (modelActive && modelImageData) drawModel();
     }
 
-    function endDraw() {
+    function onEnd() {
         drawing = false;
-        saveHistory();
+        saveToHistory();
     }
 
     // Инициализация
     function init() {
-        canvas.width = 450;
-        canvas.height = 450;
-        canvas.style.width = "100%";
-        canvas.style.height = "auto";
+        canvas.width = 400;
+        canvas.height = 400;
         
-        canvas.addEventListener("mousedown", startDraw);
-        canvas.addEventListener("mousemove", drawMove);
-        canvas.addEventListener("mouseup", endDraw);
-        canvas.addEventListener("mouseleave", endDraw);
-        canvas.addEventListener("touchstart", startDraw, { passive: false });
-        canvas.addEventListener("touchmove", drawMove, { passive: false });
-        canvas.addEventListener("touchend", endDraw);
+        canvas.addEventListener("mousedown", onStart);
+        canvas.addEventListener("mousemove", onMove);
+        canvas.addEventListener("mouseup", onEnd);
+        canvas.addEventListener("mouseleave", onEnd);
+        canvas.addEventListener("touchstart", onStart, { passive: false });
+        canvas.addEventListener("touchmove", onMove, { passive: false });
+        canvas.addEventListener("touchend", onEnd);
         
         clearBtn.onclick = () => clearCanvas();
-        undoBtn.onclick = () => undoLast();
+        undoBtn.onclick = () => undo();
         showModelBtn.onclick = () => {
             modelActive = true;
-            modelImage = generateModelImage(currentRadical.char);
-            updateModel();
-            statusMsg.textContent = "🟢 Полупрозрачный образец включён";
+            modelImageData = generateModel(currentRadical.char);
+            refreshCanvas();
+            statusMsg.innerHTML = "🟢 Образец включён (полупрозрачный)";
         };
         hideModelBtn.onclick = () => {
             modelActive = false;
-            modelImage = null;
-            updateModel();
-            statusMsg.textContent = "⚪ Образец выключен";
+            modelImageData = null;
+            refreshCanvas();
+            statusMsg.innerHTML = "⚪ Образец выключен";
         };
-        speakBtn.onclick = speakCurrent;
-        sampleChar.onclick = speakCurrent;
+        speakBtn.onclick = speak;
+        sampleChar.onclick = speak;
         
-        // Строим кнопки комплектов
-        groupsContainer.innerHTML = "";
+        // Создать кнопки групп
         groups.forEach((g, idx) => {
-            const btn = document.createElement("button");
-            btn.className = "group-btn";
+            const btn = document.createElement("div");
+            btn.className = "group-button";
             if (idx === 0) btn.classList.add("active");
             btn.textContent = g.name;
             btn.onclick = () => setGroup(idx);
-            groupsContainer.appendChild(btn);
+            groupsList.appendChild(btn);
         });
         
         drawGrid();
-        saveHistory();
+        saveToHistory();
         setGroup(0);
     }
     
