@@ -3,315 +3,619 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>✍️ Тетрадь: Похожие радикалы | Китайский</title>
+    <title>✍️ Тетрадь: Похожие радикалы | Большая база</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: linear-gradient(145deg, #F9E7D2 0%, #F5D5B3 100%);
+            background: linear-gradient(145deg, #E8DDD0 0%, #DDD0C0 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             padding: 1rem;
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 750px;
-            margin: 0 auto;
-        }
+        .container { max-width: 850px; margin: 0 auto; }
 
         .hero {
-            background: linear-gradient(135deg, #D96C2B, #F28C48, #F4A261);
-            border-radius: 60px;
-            padding: 1rem 1.2rem;
+            background: linear-gradient(135deg, #B85C1A, #D97A3A, #E8954D);
+            border-radius: 45px;
+            padding: 1rem;
             text-align: center;
             color: white;
-            box-shadow: 0 8px 0 #A14212;
-            margin-bottom: 1.2rem;
+            box-shadow: 0 6px 0 #8B3A10;
+            margin-bottom: 1rem;
         }
-        .hero h1 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .hero p {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
+        .hero h1 { font-size: 1.4rem; }
+        .hero p { font-size: 0.75rem; opacity: 0.95; }
 
-        .radical-panel {
-            background: #FFF3E5;
-            border-radius: 48px;
+        .radical-card {
+            background: #FFF8F0;
+            border-radius: 45px;
             padding: 1rem;
             margin-bottom: 1rem;
             text-align: center;
-            border: 2px solid #F4A261;
+            border: 2px solid #E8954D;
         }
-        .nav-controls {
+        .nav-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 0.8rem;
             flex-wrap: wrap;
+            margin-bottom: 0.8rem;
         }
         .nav-btn {
-            background: #F4A261;
+            background: #E8954D;
             border: none;
-            font-size: 1.5rem;
-            width: 48px;
-            height: 48px;
+            font-size: 1.6rem;
+            width: 50px;
+            height: 50px;
             border-radius: 40px;
             color: white;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 3px 0 #B85C1A;
-            transition: 0.05s linear;
+            box-shadow: 0 3px 0 #A84E12;
         }
-        .nav-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #B85C1A;
-        }
-        .current-radical {
-            background: #FFE8D4;
+        .nav-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #A84E12; }
+        .current-box {
+            background: #FFF0E0;
             padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            min-width: 150px;
+            border-radius: 50px;
+            min-width: 160px;
+            border: 1px solid #E8954D;
         }
-        .big-char {
+        .big-radical {
             font-size: 4rem;
             font-family: 'Noto Sans SC', 'KaiTi', monospace;
-            font-weight: bold;
             color: #A14212;
             cursor: pointer;
             display: inline-block;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            transition: 0.1s;
         }
-        .big-char:active {
-            background: #FFD699;
-            transform: scale(0.95);
-        }
-        .radical-info {
-            font-size: 1rem;
-            color: #A45D2E;
-            margin: 0.5rem 0;
-        }
-        .pinyin-display {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #D96C2B;
-        }
-        .speak-btn {
+        .big-radical:active { transform: scale(0.96); }
+        .info-line { font-size: 1rem; color: #A54F1A; margin-top: 0.2rem; }
+        .pinyin-text { font-size: 1.2rem; font-weight: bold; color: #D96C2B; }
+        .speak-main-btn {
             background: #D96C2B;
             border: none;
             padding: 0.5rem 1.5rem;
             border-radius: 40px;
             color: white;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 3px 0 #8B3A10;
-            margin-top: 0.5rem;
         }
-        .speak-btn:active {
-            transform: translateY(2px);
-        }
+        .speak-main-btn:active { transform: translateY(2px); }
 
-        .similar-group {
-            background: #FFE8D4;
-            border-radius: 40px;
+        .groups-area {
+            background: #FFF8F0;
+            border-radius: 35px;
             padding: 0.8rem;
-            margin-top: 0.5rem;
-        }
-        .group-title {
-            font-size: 0.8rem;
-            color: #A45D2E;
-            margin-bottom: 0.5rem;
-        }
-        .group-chars {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-        }
-        .group-char {
-            font-size: 1.6rem;
-            font-family: monospace;
-            background: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            cursor: pointer;
-            border: 1px solid #F4A261;
-            transition: 0.1s;
-        }
-        .group-char:active {
-            transform: scale(0.9);
-            background: #FFD699;
-        }
-
-        .copybook {
-            background: #FFFBF5;
-            border-radius: 40px;
-            padding: 1rem;
-            box-shadow: inset 0 0 0 2px #FFD9B5, 0 6px 12px rgba(0,0,0,0.05);
-        }
-        .canvas-area {
-            display: flex;
-            justify-content: center;
             margin-bottom: 1rem;
         }
-        canvas {
+        .groups-title {
+            font-size: 0.8rem;
+            color: #B45A22;
+            text-align: center;
+            margin-bottom: 0.6rem;
+        }
+        .group-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .group-btn {
             background: white;
-            border-radius: 28px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid #E8954D;
+            border-radius: 40px;
+            padding: 0.25rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #B85C1A;
+            cursor: pointer;
+        }
+        .group-btn:active { background: #FFD9B5; transform: scale(0.96); }
+        .quick-radicals {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 0.3rem;
+        }
+        .quick-char {
+            font-size: 1.5rem;
+            font-family: monospace;
+            background: white;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #E8954D;
+        }
+        .quick-char:active { transform: scale(0.92); background: #FFE3C9; }
+
+        .copybook {
+            background: #FDF7E8;
+            border-radius: 40px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border: 1px solid #E8C89A;
+        }
+        .canvas-wrapper { display: flex; justify-content: center; }
+        canvas {
+            background: #FFFEF5;
+            border-radius: 24px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
             cursor: crosshair;
-            background-image: radial-gradient(circle, #EEDDCC 1px, transparent 1px);
-            background-size: 20px 20px;
-            border: 3px solid #F4A261;
+            border: 3px solid #E8954D;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             height: auto;
             aspect-ratio: 1 / 1;
         }
-        .canvas-tools {
+        .tools-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.7rem;
             justify-content: center;
-            margin-bottom: 0.8rem;
+            margin: 1rem 0 0.6rem;
         }
         .tool-btn {
-            background: #F4C9A5;
+            background: #F2CCA0;
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 50px;
+            border-radius: 40px;
             font-weight: bold;
             font-size: 0.85rem;
             color: #5A2E0E;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .tool-btn:active {
-            transform: scale(0.96);
-        }
-        .writing-hint {
-            background: #FFE3C9;
+        .tool-btn:active { transform: scale(0.96); }
+        .model-status {
+            background: #EEDDBB;
             border-radius: 30px;
-            padding: 0.6rem;
+            padding: 0.5rem;
             text-align: center;
-            font-size: 0.75rem;
-            color: #A45D2E;
+            font-size: 0.7rem;
+            color: #A5521A;
         }
         .back-link {
             display: inline-block;
             margin-top: 1rem;
-            background: #FFD699;
-            padding: 0.5rem 1rem;
+            background: #E8CAA0;
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
             text-decoration: none;
-            color: #A14212;
+            color: #9B4A1A;
             font-weight: bold;
-            text-align: center;
         }
-        footer {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.7rem;
-            color: #A45D2E;
-        }
-
-        @media (max-width: 500px) {
-            .big-char { font-size: 3rem; }
-            .group-char { font-size: 1.3rem; }
-            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+        footer { text-align: center; margin-top: 1rem; font-size: 0.7rem; color: #B5672E; }
+        
+        @media (max-width: 550px) {
+            .big-radical { font-size: 3rem; }
+            .quick-char { font-size: 1.2rem; }
+            .nav-btn { width: 42px; height: 42px; font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="hero">
-        <h1>⚠️  Тетрадь: похожие радикалы  ✍️</h1>
-        <p>Нажми на иероглиф — слушай произношение | Пиши пальцем/мышкой в клетках</p>
+        <h1>📖  Тетрадь: все похожие радикалы</h1>
+        <p>50+ пар и групп | Специальная клетка | Образец для обводки | 🔊 Произношение</p>
     </div>
 
-    <div class="radical-panel">
-        <div class="nav-controls">
-            <button class="nav-btn" id="prevBtn">◀</button>
-            <div class="current-radical">
-                <div class="big-char" id="currentChar">白</div>
-                <div class="radical-info">
-                    <span class="pinyin-display" id="currentPinyin">bái</span>
+    <div class="radical-card">
+        <div class="nav-row">
+            <button class="nav-btn" id="prevRadical">◀</button>
+            <div class="current-box">
+                <div class="big-radical" id="currentRadical">白</div>
+                <div class="info-line">
+                    <span class="pinyin-text" id="currentPinyin">bái</span>
                     <span id="currentMeaning"> — белый</span>
                 </div>
             </div>
-            <button class="nav-btn" id="nextBtn">▶</button>
+            <button class="nav-btn" id="nextRadical">▶</button>
         </div>
-        <button class="speak-btn" id="speakBtn">🔊 Озвучить радикал</button>
+        <button class="speak-main-btn" id="speakRadical">🔊 Озвучить радикал</button>
     </div>
 
-    <div class="similar-group">
-        <div class="group-title">📌 Похожие радикалы (нажми для перехода):</div>
-        <div class="group-chars" id="similarGroup"></div>
+    <div class="groups-area">
+        <div class="groups-title">📌 КОМПЛЕКТЫ ПОХОЖИХ РАДИКАЛОВ:</div>
+        <div class="group-buttons" id="groupContainer"></div>
+        <div class="groups-title">🔽 ВСЕ РАДИКАЛЫ (нажми для выбора):</div>
+        <div class="quick-radicals" id="quickList"></div>
     </div>
 
     <div class="copybook">
-        <div class="canvas-area">
-            <canvas id="radicalCanvas" width="400" height="400"></canvas>
+        <div class="canvas-wrapper">
+            <canvas id="radicalCanvas" width="450" height="450"></canvas>
         </div>
-        <div class="canvas-tools">
-            <button class="tool-btn" id="clearBtn">🧽 Очистить</button>
-            <button class="tool-btn" id="undoBtn">↩️ Шаг назад</button>
-            <button class="tool-btn" id="showModelBtn">📌 Показать образец</button>
-            <button class="tool-btn" id="hideModelBtn">👻 Скрыть образец</button>
+        <div class="tools-bar">
+            <button class="tool-btn" id="clearCanvas">🧽 Очистить</button>
+            <button class="tool-btn" id="undoCanvas">↩️ Отменить</button>
+            <button class="tool-btn" id="showModel">📌 Показать образец</button>
+            <button class="tool-btn" id="hideModel">👻 Скрыть образец</button>
         </div>
-        <div class="writing-hint">
-            💡 Пиши пальцем или мышкой в тетради. Образец поможет обводить!
+        <div class="model-status" id="modelStatusMsg">
+            💡 Образец выключен. Нажми «Показать образец» — полупрозрачный иероглиф для обводки.
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 1rem;">
-        <a href="index.html" class="back-link">← Вернуться в главное меню</a>
+    <div style="text-align: center;">
+        <a href="index.html" class="back-link">← На главную</a>
     </div>
-    <footer>
-        🔊 Тренируй руку и ухо: белый (白) ⇄ сам (自) | полдень (午) ⇄ корова (牛) | через (由) ⇄ первый (甲)
-    </footer>
+    <footer>✍️ Пиши пальцем или мышкой. Сетка помогает соблюдать пропорции. Нажми на иероглиф — услышишь!</footer>
 </div>
 
 <script>
-    // ========== РАСШИРЕННАЯ БАЗА ПОХОЖИХ РАДИКАЛОВ ==========
+    // ========== БОЛЬШАЯ БАЗА ПОХОЖИХ РАДИКАЛОВ (50+ шт) ==========
     const radicalsList = [
-        // Базовые пары
+        // Пары и тройки, которые реально путают
         { char: "白", pinyin: "bái", meaning: "белый" },
         { char: "自", pinyin: "zì", meaning: "сам, себя" },
+        { char: "臼", pinyin: "jiù", meaning: "ступа" },
+        { char: "日", pinyin: "rì", meaning: "солнце, день" },
+        { char: "曰", pinyin: "yuē", meaning: "сказать" },
         { char: "午", pinyin: "wǔ", meaning: "полдень" },
         { char: "牛", pinyin: "niú", meaning: "корова, бык" },
+        { char: "年", pinyin: "nián", meaning: "год" },
         { char: "由", pinyin: "yóu", meaning: "через, из-за" },
         { char: "申", pinyin: "shēn", meaning: "объявлять, 9-й знак" },
         { char: "甲", pinyin: "jiǎ", meaning: "первый, панцирь" },
+        { char: "田", pinyin: "tián", meaning: "поле" },
         { char: "大", pinyin: "dà", meaning: "большой" },
         { char: "太", pinyin: "tài", meaning: "слишком, очень" },
         { char: "犬", pinyin: "quǎn", meaning: "собака" },
-        
-        // Ещё похожие
+        { char: "天", pinyin: "tiān", meaning: "небо" },
+        { char: "夫", pinyin: "fū", meaning: "муж, человек" },
         { char: "未", pinyin: "wèi", meaning: "ещё не" },
-        { char: "末", pinyin: "mò", meaning: "конец" },
+        { char: "末", pinyin: "mò", meaning: "конец, последний" },
         { char: "人", pinyin: "rén", meaning: "человек" },
         { char: "入", pinyin: "rù", meaning: "входить" },
-        { char: "己", pinyin: "jǐ", meaning: "себя (6-й ствол)" },
+        { char: "八", pinyin: "bā", meaning: "восемь" },
+        { char: "己", pinyin: "jǐ", meaning: "себя (небесный ствол)" },
         { char: "已", pinyin: "yǐ", meaning: "уже" },
-        { char: "巳", pinyin: "sì", meaning: "змея (6-й знак)" },
-        { char: "东", pinyin: "dōng", meaning: "восток" },
-        { char: "车", pinyin: "chē", meaning: "машина, телега" },
-        
-        // Путают часто
+        { char: "巳", pinyin: "sì", meaning: "змея" },
         { char: "千", pinyin: "qiān", meaning: "тысяча" },
         { char: "干", pinyin: "gān", meaning: "сухой, делать" },
-        { char: "于", pinyin: "yú", meaning
+        { char: "于", pinyin: "yú", meaning: "в, на" },
+        { char: "王", pinyin: "wáng", meaning: "король" },
+        { char: "玉", pinyin: "yù", meaning: "нефрит, яшма" },
+        { char: "主", pinyin: "zhǔ", meaning: "хозяин, главный" },
+        { char: "东", pinyin: "dōng", meaning: "восток" },
+        { char: "车", pinyin: "chē", meaning: "машина, телега" },
+        { char: "乐", pinyin: "lè", meaning: "радость, музыка" },
+        { char: "开", pinyin: "kāi", meaning: "открывать" },
+        { char: "井", pinyin: "jǐng", meaning: "колодец" },
+        { char: "升", pinyin: "shēng", meaning: "подниматься" },
+        { char: "开", pinyin: "kāi", meaning: "открывать" },
+        { char: "井", pinyin: "jǐng", meaning: "колодец" },
+        { char: "升", pinyin: "shēng", meaning: "подниматься" },
+        { char: "令", pinyin: "lìng", meaning: "приказ, заставлять" },
+        { char: "今", pinyin: "jīn", meaning: "сейчас, сегодня" },
+        { char: "冷", pinyin: "lěng", meaning: "холодный" },
+        { char: "兔", pinyin: "tù", meaning: "кролик" },
+        { char: "免", pinyin: "miǎn", meaning: "избегать, освобождать" },
+        { char: "晚", pinyin: "wǎn", meaning: "вечер" },
+        { char: "土", pinyin: "tǔ", meaning: "земля" },
+        { char: "士", pinyin: "shì", meaning: "воин, учёный" },
+        { char: "工", pinyin: "gōng", meaning: "работа, труд" },
+        { char: "土", pinyin: "tǔ", meaning: "земля" },
+        { char: "王", pinyin: "wáng", meaning: "король" },
+        { char: "玉", pinyin: "yù", meaning: "нефрит" },
+        { char: "我", pinyin: "wǒ", meaning: "я" },
+        { char: "找", pinyin: "zhǎo", meaning: "искать" },
+        { char: "成", pinyin: "chéng", meaning: "становиться" },
+        { char: "咸", pinyin: "xián", meaning: "солёный, весь" },
+        { char: "戎", pinyin: "róng", meaning: "оружие, военный" },
+        { char: "戊", pinyin: "wù", meaning: "5-й небесный ствол" },
+        { char: "戍", pinyin: "shù", meaning: "охранять, гарнизон" }
+    ];
+
+    // Убираем дубликаты, оставляем уникальные
+    const uniqueRadicals = [];
+    const seen = new Set();
+    for (const r of radicalsList) {
+        if (!seen.has(r.char)) {
+            seen.add(r.char);
+            uniqueRadicals.push(r);
+        }
+    }
+
+    let currentIndex = 0;
+    let historyStack = [];
+    let modelActive = false;
+    let currentModelImage = null;
+
+    // DOM
+    const canvas = document.getElementById("radicalCanvas");
+    const ctx = canvas.getContext("2d");
+    const currentRadicalSpan = document.getElementById("currentRadical");
+    const currentPinyinSpan = document.getElementById("currentPinyin");
+    const currentMeaningSpan = document.getElementById("currentMeaning");
+    const prevBtn = document.getElementById("prevRadical");
+    const nextBtn = document.getElementById("nextRadical");
+    const speakBtn = document.getElementById("speakRadical");
+    const clearBtn = document.getElementById("clearCanvas");
+    const undoBtn = document.getElementById("undoCanvas");
+    const showModelBtn = document.getElementById("showModel");
+    const hideModelBtn = document.getElementById("hideModel");
+    const modelStatusMsg = document.getElementById("modelStatusMsg");
+    const groupContainer = document.getElementById("groupContainer");
+    const quickList = document.getElementById("quickList");
+
+    // ========== ЛИНОВКА (специальная клетка для иероглифов) ==========
+    function drawGrid() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.save();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = "#FFFEF5";
+        ctx.fillRect(0, 0, w, h);
+        
+        // Основная сетка 8x8 (классическая для иероглифов)
+        const cellW = w / 8;
+        const cellH = h / 8;
+        ctx.beginPath();
+        ctx.strokeStyle = "#D4C0A0";
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 8; i++) {
+            ctx.moveTo(i * cellW, 0);
+            ctx.lineTo(i * cellW, h);
+            ctx.moveTo(0, i * cellH);
+            ctx.lineTo(w, i * cellH);
+            ctx.stroke();
+        }
+        // Центральные кресты
+        ctx.beginPath();
+        ctx.strokeStyle = "#C8B088";
+        ctx.lineWidth = 0.8;
+        ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
+        ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
+        ctx.stroke();
+        
+        // Диагональные ориентиры (опционально)
+        ctx.beginPath();
+        ctx.strokeStyle = "#E0CBA8";
+        ctx.setLineDash([4, 6]);
+        ctx.moveTo(0, 0); ctx.lineTo(w, h);
+        ctx.moveTo(w, 0); ctx.lineTo(0, h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+    }
+
+    function saveHistory() {
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        historyStack.push(imgData);
+        if (historyStack.length > 30) historyStack.shift();
+    }
+
+    function restoreHistory() {
+        if (historyStack.length <= 1) {
+            clearCanvasFull();
+            return;
+        }
+        historyStack.pop();
+        const prev = historyStack[historyStack.length - 1];
+        ctx.putImageData(prev, 0, 0);
+        if (modelActive && currentModelImage) overlayModel();
+    }
+
+    function clearCanvasFull() {
+        drawGrid();
+        saveHistory();
+        if (modelActive && currentModelImage) overlayModel();
+    }
+
+    function generateModel(radicalChar) {
+        const offCanvas = document.createElement("canvas");
+        offCanvas.width = canvas.width;
+        offCanvas.height = canvas.height;
+        const offCtx = offCanvas.getContext("2d");
+        offCtx.fillStyle = "#FFFEF5";
+        offCtx.fillRect(0, 0, offCanvas.width, offCanvas.height);
+        let fontSize = canvas.width * 0.62;
+        offCtx.font = `500 ${fontSize}px "Noto Sans SC", "KaiTi", "Segoe UI Emoji"`;
+        offCtx.textAlign = "center";
+        offCtx.textBaseline = "middle";
+        offCtx.fillStyle = "#888888";
+        offCtx.fillText(radicalChar, offCanvas.width/2, offCanvas.height/2);
+        return offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+    }
+
+    function overlayModel() {
+        if (!modelActive || !currentModelImage) return;
+        const currentDrawing = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.putImageData(currentModelImage, 0, 0);
+        const blended = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < blended.data.length; i += 4) {
+            if (blended.data[i+3] > 50) blended.data[i+3] = 100;
+        }
+        ctx.putImageData(blended, 0, 0);
+        for (let i = 0; i < currentDrawing.data.length; i += 4) {
+            if (currentDrawing.data[i+3] > 30) {
+                blended.data[i] = currentDrawing.data[i];
+                blended.data[i+1] = currentDrawing.data[i+1];
+                blended.data[i+2] = currentDrawing.data[i+2];
+                blended.data[i+3] = 255;
+            }
+        }
+        ctx.putImageData(blended, 0, 0);
+    }
+
+    function updateModel() {
+        if (modelActive) {
+            currentModelImage = generateModel(uniqueRadicals[currentIndex].char);
+            drawGrid();
+            saveHistory();
+            overlayModel();
+        } else {
+            drawGrid();
+            saveHistory();
+        }
+    }
+
+    function setRadical(index) {
+        currentIndex = (index + uniqueRadicals.length) % uniqueRadicals.length;
+        const r = uniqueRadicals[currentIndex];
+        currentRadicalSpan.textContent = r.char;
+        currentPinyinSpan.textContent = r.pinyin;
+        currentMeaningSpan.textContent = ` — ${r.meaning}`;
+        if (modelActive) {
+            currentModelImage = generateModel(r.char);
+        }
+        updateModel();
+    }
+
+    function nextRadical() { setRadical(currentIndex + 1); }
+    function prevRadical() { setRadical(currentIndex - 1); }
+
+    function speakCurrent() {
+        const r = uniqueRadicals[currentIndex];
+        if (!r || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(r.char);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.7;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Рисование
+    let drawing = false, lastX = 0, lastY = 0;
+    function getCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let cx, cy;
+        if (e.touches) {
+            cx = e.touches[0].clientX;
+            cy = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            cx = e.clientX;
+            cy = e.clientY;
+        }
+        let x = (cx - rect.left) * scaleX;
+        let y = (cy - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+    function startDraw(e) {
+        drawing = true;
+        const pos = getCoords(e);
+        lastX = pos.x; lastY = pos.y;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(lastX, lastY);
+        ctx.stroke();
+        saveHistory();
+        if (modelActive && currentModelImage) overlayModel();
+    }
+    function drawMove(e) {
+        if (!drawing) return;
+        const pos = getCoords(e);
+        ctx.lineWidth = 8;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = "#2B1A0E";
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        lastX = pos.x; lastY = pos.y;
+        if (modelActive && currentModelImage) overlayModel();
+    }
+    function endDraw() { drawing = false; saveHistory(); }
+
+    // Группы
+    const groups = [
+        { name: "白/自/臼", indices: [0,1,2] },
+        { name: "日/曰", indices: [3,4] },
+        { name: "午/牛/年", indices: [5,6,7] },
+        { name: "由/申/甲/田", indices: [8,9,10,11] },
+        { name: "大/太/犬/天/夫", indices: [12,13,14,15,16] },
+        { name: "未/末", indices: [17,18] },
+        { name: "人/入/八", indices: [19,20,21] },
+        { name: "己/已/巳", indices: [22,23,24] },
+        { name: "千/干/于", indices: [25,26,27] },
+        { name: "王/玉/主", indices: [28,29,30] },
+        { name: "东/车", indices: [31,32] },
+        { name: "开/井/升", indices: [34,35,36] },
+        { name: "令/今", indices: [38,39] },
+        { name: "兔/免", indices: [41,42] },
+        { name: "土/士", indices: [44,45] },
+        { name: "我/找", indices: [48,49] },
+        { name: "成/咸/戎/戊/戍", indices: [50,51,52,53,54] }
+    ];
+
+    function buildGroups() {
+        groupContainer.innerHTML = "";
+        groups.forEach(g => {
+            const btn = document.createElement("button");
+            btn.className = "group-btn";
+            btn.textContent = g.name;
+            btn.onclick = () => { if(g.indices.length) setRadical(g.indices[0]); };
+            groupContainer.appendChild(btn);
+        });
+    }
+
+    function buildQuickList() {
+        quickList.innerHTML = "";
+        uniqueRadicals.forEach((r, idx) => {
+            const span = document.createElement("span");
+            span.className = "quick-char";
+            span.textContent = r.char;
+            span.onclick = () => setRadical(idx);
+            quickList.appendChild(span);
+        });
+    }
+
+    // Инициализация
+    function init() {
+        canvas.width = 450; canvas.height = 450;
+        canvas.style.width = "100%"; canvas.style.height = "auto";
+        drawGrid();
+        saveHistory();
+        
+        canvas.addEventListener("mousedown", startDraw);
+        canvas.addEventListener("mousemove", drawMove);
+        canvas.addEventListener("mouseup", endDraw);
+        canvas.addEventListener("mouseleave", endDraw);
+        canvas.addEventListener("touchstart", startDraw);
+        canvas.addEventListener("touchmove", drawMove);
+        canvas.addEventListener("touchend", endDraw);
+        
+        prevBtn.onclick = prevRadical;
+        nextBtn.onclick = nextRadical;
+        speakBtn.onclick = speakCurrent;
+        currentRadicalSpan.onclick = speakCurrent;
+        clearBtn.onclick = () => { clearCanvasFull(); };
+        undoBtn.onclick = () => { restoreHistory(); if(modelActive && currentModelImage) overlayModel(); };
+        showModelBtn.onclick = () => {
+            modelActive = true;
+            currentModelImage = generateModel(uniqueRadicals[currentIndex].char);
+            updateModel();
+            modelStatusMsg.innerHTML = "🟢 Образец включён (полупрозрачный). Обводи!";
+        };
+        hideModelBtn.onclick = () => {
+            modelActive = false;
+            currentModelImage = null;
+            updateModel();
+            modelStatusMsg.innerHTML = "⚪ Образец выключен. Нажми «Показать образец».";
+        };
+        
+        buildGroups();
+        buildQuickList();
+        setRadical(0);
+    }
+    
+    init();
+</script>
+</body>
+</html>
