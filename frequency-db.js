@@ -428,7 +428,427 @@ const frequencyDB = [
         type: "идеограмма",
         explanation: "Солнце движется на дюйм → время",
         examples: ["时间", "小时"], exampleMeanings: ["время", "час"]
-    }
+    },
+   // ========== 51-60 ==========
+{
+    id: 51, char: "出", pinyin: "chū", meaning: "выходить",
+    parts: [{ char: "山", meaning: "гора" }, { char: "山", meaning: "гора" }],
+    radical: { char: "凵", name: "коробка" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Две горы → выходить наружу",
+    examples: ["出来", "出去"], exampleMeanings: ["выйти (сюда)", "выйти (туда)"]
+},
+{
+    id: 52, char: "见", pinyin: "jiàn", meaning: "видеть",
+    parts: [{ char: "目", meaning: "глаз" }, { char: "儿", meaning: "ноги" }],
+    radical: { char: "见", name: "видеть" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Глаз на ногах → видеть",
+    examples: ["看见", "见面"], exampleMeanings: ["увидеть", "встретиться"]
+},
+{
+    id: 53, char: "面", pinyin: "miàn", meaning: "лицо, сторона",
+    parts: [{ char: "一", meaning: "один" }, { char: "口", meaning: "рот" }, { char: "自", meaning: "сам" }],
+    radical: { char: "面", name: "лицо" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок лица с глазами и ртом",
+    examples: ["前面", "对面"], exampleMeanings: ["впереди", "напротив"]
+},
+{
+    id: 54, char: "车", pinyin: "chē", meaning: "машина, транспорт",
+    parts: [{ char: "车", meaning: "колесница" }],
+    radical: { char: "车", name: "машина" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Вид колесницы сверху → транспорт",
+    examples: ["汽车", "火车"], exampleMeanings: ["автомобиль", "поезд"]
+},
+{
+    id: 55, char: "路", pinyin: "lù", meaning: "дорога",
+    parts: [{ char: "足", meaning: "нога" }, { char: "各", meaning: "каждый" }],
+    radical: { char: "足", name: "нога" },
+    phonetic: { char: "各", reading: "gè", note: "gè → lù" },
+    type: "фонетический",
+    explanation: "Нога + каждый = дорога, по которой ходят все",
+    examples: ["马路", "走路"], exampleMeanings: ["улица", "идти по дороге"]
+},
+{
+    id: 56, char: "门", pinyin: "mén", meaning: "дверь",
+    parts: [{ char: "门", meaning: "дверь" }],
+    radical: { char: "门", name: "дверь" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок двухстворчатой двери",
+    examples: ["门口", "开门"], exampleMeanings: ["вход", "открыть дверь"]
+},
+{
+    id: 57, char: "开", pinyin: "kāi", meaning: "открывать",
+    parts: [{ char: "一", meaning: "один" }, { char: "廾", meaning: "две руки" }],
+    radical: { char: "廾", name: "две руки" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Две руки открывают засов → открывать",
+    examples: ["开门", "开始"], exampleMeanings: ["открыть дверь", "начинать"]
+},
+{
+    id: 58, char: "关", pinyin: "guān", meaning: "закрывать",
+    parts: [{ char: "丷", meaning: "восемь" }, { char: "天", meaning: "небо" }],
+    radical: { char: "丷", name: "восемь" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Дверь с засовом поперёк → закрывать",
+    examples: ["关门", "关心"], exampleMeanings: ["закрыть дверь", "заботиться"]
+},
+{
+    id: 59, char: "事", pinyin: "shì", meaning: "дело",
+    parts: [{ char: "一", meaning: "один" }, { char: "口", meaning: "рот" }, { char: "彐", meaning: "рука" }],
+    radical: { char: "亅", name: "крюк" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рука с инструментом → работа, дело",
+    examples: ["事情", "好事"], exampleMeanings: ["дело", "хорошее дело"]
+},
+{
+    id: 60, char: "情", pinyin: "qíng", meaning: "чувство",
+    parts: [{ char: "忄", meaning: "сердце" }, { char: "青", meaning: "зелёный" }],
+    radical: { char: "忄", name: "сердце" },
+    phonetic: { char: "青", reading: "qīng", note: "qīng → qíng" },
+    type: "фонетический",
+    explanation: "Сердце + зелёный = чувство, эмоция",
+    examples: ["感情", "心情"], exampleMeanings: ["чувства", "настроение"]
+},
+
+// ========== 61-70 ==========
+{
+    id: 61, char: "想", pinyin: "xiǎng", meaning: "думать, хотеть",
+    parts: [{ char: "相", meaning: "взаимный" }, { char: "心", meaning: "сердце" }],
+    radical: { char: "心", name: "сердце" },
+    phonetic: { char: "相", reading: "xiāng", note: "xiāng → xiǎng" },
+    type: "фонетический",
+    explanation: "Взаимный + сердце = думать, скучать",
+    examples: ["想家", "想法"], exampleMeanings: ["скучать по дому", "мысль"]
+},
+{
+    id: 62, char: "知", pinyin: "zhī", meaning: "знать",
+    parts: [{ char: "矢", meaning: "стрела" }, { char: "口", meaning: "рот" }],
+    radical: { char: "矢", name: "стрела" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Стрела изо рта → знание передаётся быстро",
+    examples: ["知道", "不知"], exampleMeanings: ["знать", "не знать"]
+},
+{
+    id: 63, char: "道", pinyin: "dào", meaning: "путь, говорить",
+    parts: [{ char: "辶", meaning: "движение" }, { char: "首", meaning: "голова" }],
+    radical: { char: "辶", name: "движение" },
+    phonetic: { char: "首", reading: "shǒu", note: "shǒu → dào" },
+    type: "фонетический",
+    explanation: "Движение + голова = путь, дорога, Дао",
+    examples: ["道路", "知道"], exampleMeanings: ["дорога", "знать"]
+},
+{
+    id: 64, char: "理", pinyin: "lǐ", meaning: "логика, управлять",
+    parts: [{ char: "王", meaning: "нефрит" }, { char: "里", meaning: "внутри" }],
+    radical: { char: "王", name: "нефрит" },
+    phonetic: { char: "里", reading: "lǐ", note: "идеограмма+фонетик" },
+    type: "фонетический",
+    explanation: "Нефрит + внутри = узор на нефрите → логика",
+    examples: ["理由", "道理"], exampleMeanings: ["причина", "принцип"]
+},
+{
+    id: 65, char: "解", pinyin: "jiě", meaning: "разъединять, понимать",
+    parts: [{ char: "角", meaning: "рог" }, { char: "刀", meaning: "нож" }, { char: "牛", meaning: "корова" }],
+    radical: { char: "角", name: "рог" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Нож разделывает корову по рогу → разбирать, понимать",
+    examples: ["解决", "了解"], exampleMeanings: ["решать", "понимать"]
+},
+{
+    id: 66, char: "意", pinyin: "yì", meaning: "смысл, намерение",
+    parts: [{ char: "音", meaning: "звук" }, { char: "心", meaning: "сердце" }],
+    radical: { char: "心", name: "сердце" },
+    phonetic: { char: "音", reading: "yīn", note: "yīn → yì" },
+    type: "фонетический",
+    explanation: "Звук + сердце = смысл, идея",
+    examples: ["意思", "意见"], exampleMeanings: ["значение", "мнение"]
+},
+{
+    id: 67, char: "思", pinyin: "sī", meaning: "мыслить",
+    parts: [{ char: "田", meaning: "поле" }, { char: "心", meaning: "сердце" }],
+    radical: { char: "心", name: "сердце" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Сердце размышляет над полем → думать",
+    examples: ["思考", "思想"], exampleMeanings: ["размышлять", "мысль"]
+},
+{
+    id: 68, char: "心", pinyin: "xīn", meaning: "сердце",
+    parts: [{ char: "心", meaning: "сердце" }],
+    radical: { char: "心", name: "сердце" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок сердца и сосудов",
+    examples: ["心里", "小心"], exampleMeanings: ["в душе", "осторожно"]
+},
+{
+    id: 69, char: "爱", pinyin: "ài", meaning: "любовь",
+    parts: [{ char: "爫", meaning: "рука" }, { char: "冖", meaning: "крыша" }, { char: "友", meaning: "друг" }],
+    radical: { char: "爫", name: "рука" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рука накрывает друга с любовью",
+    examples: ["爱情", "爱人"], exampleMeanings: ["любовь", "возлюбленный"]
+},
+{
+    id: 70, char: "友", pinyin: "yǒu", meaning: "друг",
+    parts: [{ char: "一", meaning: "один" }, { char: "又", meaning: "рука" }],
+    radical: { char: "又", name: "рука" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Две руки, пожимающие друг друга → друг",
+    examples: ["朋友", "友好"], exampleMeanings: ["друг", "дружелюбный"]
+},
+
+// ========== 71-80 ==========
+{
+    id: 71, char: "高", pinyin: "gāo", meaning: "высокий",
+    parts: [{ char: "亠", meaning: "крыша" }, { char: "口", meaning: "рот" }, { char: "冂", meaning: "рамка" }],
+    radical: { char: "高", name: "высокий" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок высокого здания с башней",
+    examples: ["高兴", "高大"], exampleMeanings: ["радостный", "высокий и большой"]
+},
+{
+    id: 72, char: "低", pinyin: "dī", meaning: "низкий",
+    parts: [{ char: "亻", meaning: "человек" }, { char: "氐", meaning: "основание" }],
+    radical: { char: "亻", name: "человек" },
+    phonetic: { char: "氐", reading: "dǐ", note: "dǐ → dī" },
+    type: "фонетический",
+    explanation: "Человек + основание = низкий рост",
+    examples: ["低头", "高低"], exampleMeanings: ["опустить голову", "высота"]
+},
+{
+    id: 73, char: "长", pinyin: "cháng", meaning: "длинный",
+    parts: [{ char: "长", meaning: "длинные волосы" }],
+    radical: { char: "长", name: "длинный" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Старик с длинными волосами → длинный",
+    examples: ["很长", "长跑"], exampleMeanings: ["очень длинный", "бег на длинную дистанцию"]
+},
+{
+    id: 74, char: "短", pinyin: "duǎn", meaning: "короткий",
+    parts: [{ char: "矢", meaning: "стрела" }, { char: "豆", meaning: "боб" }],
+    radical: { char: "矢", name: "стрела" },
+    phonetic: { char: "豆", reading: "dòu", note: "dòu → duǎn" },
+    type: "фонетический",
+    explanation: "Стрела + боб = короткий (боб короче стрелы)",
+    examples: ["很短", "短裤"], exampleMeanings: ["очень короткий", "шорты"]
+},
+{
+    id: 75, char: "新", pinyin: "xīn", meaning: "новый",
+    parts: [{ char: "亲", meaning: "родственник" }, { char: "斤", meaning: "топор" }],
+    radical: { char: "斤", name: "топор" },
+    phonetic: { char: "亲", reading: "qīn", note: "qīn → xīn" },
+    type: "фонетический",
+    explanation: "Топор рубит дерево для нового дома",
+    examples: ["新年", "新衣服"], exampleMeanings: ["Новый год", "новая одежда"]
+},
+{
+    id: 76, char: "旧", pinyin: "jiù", meaning: "старый",
+    parts: [{ char: "丨", meaning: "вертикаль" }, { char: "日", meaning: "день" }],
+    radical: { char: "日", name: "день" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Солнце, которое уже прошло → старый",
+    examples: ["旧书", "旧衣服"], exampleMeanings: ["старая книга", "старая одежда"]
+},
+{
+    id: 77, char: "老", pinyin: "lǎo", meaning: "старый (о людях)",
+    parts: [{ char: "耂", meaning: "старый" }, { char: "匕", meaning: "ложка" }],
+    radical: { char: "老", name: "старый" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Старик с палкой и волосами → старый",
+    examples: ["老师", "老人"], exampleMeanings: ["учитель", "старик"]
+},
+{
+    id: 78, char: "年", pinyin: "nián", meaning: "год",
+    parts: [{ char: "禾", meaning: "зерно" }, { char: "人", meaning: "человек" }],
+    radical: { char: "干", name: "сухой" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Человек несёт урожай → год (урожайный цикл)",
+    examples: ["今年", "明年"], exampleMeanings: ["в этом году", "в будущем году"]
+},
+{
+    id: 79, char: "月", pinyin: "yuè", meaning: "месяц, луна",
+    parts: [{ char: "月", meaning: "луна" }],
+    radical: { char: "月", name: "луна" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок полумесяца",
+    examples: ["月亮", "一个月"], exampleMeanings: ["луна", "один месяц"]
+},
+{
+    id: 80, char: "日", pinyin: "rì", meaning: "день, солнце",
+    parts: [{ char: "日", meaning: "солнце" }],
+    radical: { char: "日", name: "солнце" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Круг с точкой — древний рисунок солнца",
+    examples: ["日子", "星期日"], exampleMeanings: ["день", "воскресенье"]
+},
+
+// ========== 81-90 ==========
+{
+    id: 81, char: "天", pinyin: "tiān", meaning: "небо, день",
+    parts: [{ char: "一", meaning: "один" }, { char: "大", meaning: "большой" }],
+    radical: { char: "一", name: "один" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Великий один → небо",
+    examples: ["今天", "天气"], exampleMeanings: ["сегодня", "погода"]
+},
+{
+    id: 82, char: "地", pinyin: "dì", meaning: "земля",
+    parts: [{ char: "土", meaning: "земля" }, { char: "也", meaning: "тоже" }],
+    radical: { char: "土", name: "земля" },
+    phonetic: { char: "也", reading: "yě", note: "yě → dì" },
+    type: "фонетический",
+    explanation: "Земля + тоже = земля (основа всего)",
+    examples: ["地方", "大地"], exampleMeanings: ["место", "великая земля"]
+},
+{
+    id: 83, char: "上", pinyin: "shàng", meaning: "верх, на",
+    parts: [{ char: "一", meaning: "один" }, { char: "卜", meaning: "гадание" }],
+    radical: { char: "一", name: "один" }, phonetic: null,
+    type: "указательный",
+    explanation: "Короткая черта над длинной → сверху",
+    examples: ["上面", "上车"], exampleMeanings: ["сверху", "сесть в машину"]
+},
+{
+    id: 84, char: "下", pinyin: "xià", meaning: "низ, под",
+    parts: [{ char: "一", meaning: "один" }, { char: "卜", meaning: "гадание" }],
+    radical: { char: "一", name: "один" }, phonetic: null,
+    type: "указательный",
+    explanation: "Короткая черта под длинной → снизу",
+    examples: ["下面", "下车"], exampleMeanings: ["снизу", "выйти из машины"]
+},
+{
+    id: 85, char: "中", pinyin: "zhōng", meaning: "середина, в",
+    parts: [{ char: "口", meaning: "рот" }, { char: "丨", meaning: "вертикаль" }],
+    radical: { char: "丨", name: "вертикаль" }, phonetic: null,
+    type: "указательный",
+    explanation: "Вертикаль проходит через центр рта → середина",
+    examples: ["中国", "中午"], exampleMeanings: ["Китай", "полдень"]
+},
+{
+    id: 86, char: "里", pinyin: "lǐ", meaning: "внутри",
+    parts: [{ char: "日", meaning: "солнце" }, { char: "土", meaning: "земля" }],
+    radical: { char: "里", name: "внутри" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Солнце над землёй в деревне → внутри",
+    examples: ["里面", "这里"], exampleMeanings: ["внутри", "здесь"]
+},
+{
+    id: 87, char: "外", pinyin: "wài", meaning: "снаружи",
+    parts: [{ char: "夕", meaning: "вечер" }, { char: "卜", meaning: "гадание" }],
+    radical: { char: "夕", name: "вечер" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Вечернее гадание на улице → снаружи",
+    examples: ["外面", "外国"], exampleMeanings: ["снаружи", "заграница"]
+},
+{
+    id: 88, char: "前", pinyin: "qián", meaning: "перед, впереди",
+    parts: [{ char: "丷", meaning: "восемь" }, { char: "月", meaning: "луна" }, { char: "刂", meaning: "нож" }],
+    radical: { char: "刂", name: "нож" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Нож отрезает переднюю часть",
+    examples: ["前面", "前天"], exampleMeanings: ["впереди", "позавчера"]
+},
+{
+    id: 89, char: "后", pinyin: "hòu", meaning: "после, сзади",
+    parts: [{ char: "厂", meaning: "скала" }, { char: "口", meaning: "рот" }],
+    radical: { char: "厂", name: "скала" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Король, идущий позади → сзади, после",
+    examples: ["后面", "后天"], exampleMeanings: ["сзади", "послезавтра"]
+},
+{
+    id: 90, char: "左", pinyin: "zuǒ", meaning: "левый",
+    parts: [{ char: "工", meaning: "работа" }, { char: "手", meaning: "рука" }],
+    radical: { char: "工", name: "работа" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рука, помогающая при работе → левая рука",
+    examples: ["左边", "左右"], exampleMeanings: ["слева", "слева и справа"]
+},
+
+// ========== 91-100 ==========
+{
+    id: 91, char: "右", pinyin: "yòu", meaning: "правый",
+    parts: [{ char: "口", meaning: "рот" }, { char: "手", meaning: "рука" }],
+    radical: { char: "口", name: "рот" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рука у рта → правый (правой рукой едят)",
+    examples: ["右边", "右手"], exampleMeanings: ["справа", "правая рука"]
+},
+{
+    id: 92, char: "东", pinyin: "dōng", meaning: "восток",
+    parts: [{ char: "七", meaning: "семь" }, { char: "小", meaning: "маленький" }],
+    radical: { char: "木", name: "дерево" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок солнца за деревом → восток",
+    examples: ["东方", "东西"], exampleMeanings: ["восток", "вещь"]
+},
+{
+    id: 93, char: "西", pinyin: "xī", meaning: "запад",
+    parts: [{ char: "西", meaning: "запад" }],
+    radical: { char: "西", name: "запад" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Птица садится в гнездо на закате → запад",
+    examples: ["西方", "东西"], exampleMeanings: ["запад", "вещь"]
+},
+{
+    id: 94, char: "南", pinyin: "nán", meaning: "юг",
+    parts: [{ char: "十", meaning: "десять" }, { char: "门", meaning: "дверь" }, { char: "羊", meaning: "овца" }],
+    radical: { char: "十", name: "десять" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Растение, растущее на юге",
+    examples: ["南方", "南京"], exampleMeanings: ["юг", "Нанкин (южная столица)"]
+},
+{
+    id: 95, char: "北", pinyin: "běi", meaning: "север",
+    parts: [{ char: "匕", meaning: "ложка" }, { char: "匕", meaning: "ложка" }],
+    radical: { char: "匕", name: "ложка" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Два человека спиной друг к другу → север",
+    examples: ["北方", "北京"], exampleMeanings: ["север", "Пекин (северная столица)"]
+},
+{
+    id: 96, char: "水", pinyin: "shuǐ", meaning: "вода",
+    parts: [{ char: "水", meaning: "вода" }],
+    radical: { char: "水", name: "вода" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок текущей воды",
+    examples: ["水果", "水杯"], exampleMeanings: ["фрукты", "стакан воды"]
+},
+{
+    id: 97, char: "火", pinyin: "huǒ", meaning: "огонь",
+    parts: [{ char: "火", meaning: "огонь" }],
+    radical: { char: "火", name: "огонь" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок языка пламени",
+    examples: ["火车", "火锅"], exampleMeanings: ["поезд", "китайский фондю"]
+},
+{
+    id: 98, char: "风", pinyin: "fēng", meaning: "ветер",
+    parts: [{ char: "几", meaning: "несколько" }, { char: "乂", meaning: "резать" }],
+    radical: { char: "风", name: "ветер" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок ветра, дующего в парусе",
+    examples: ["大风", "风景"], exampleMeanings: ["сильный ветер", "пейзаж"]
+},
+{
+    id: 99, char: "雨", pinyin: "yǔ", meaning: "дождь",
+    parts: [{ char: "一", meaning: "один" }, { char: "门", meaning: "дверь" }, { char: "丨", meaning: "вертикаль" }],
+    radical: { char: "雨", name: "дождь" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок дождя с неба",
+    examples: ["下雨", "雨天"], exampleMeanings: ["идёт дождь", "дождливый день"]
+},
+{
+    id: 100, char: "雪", pinyin: "xuě", meaning: "снег",
+    parts: [{ char: "雨", meaning: "дождь" }, { char: "彐", meaning: "рука" }],
+    radical: { char: "雨", name: "дождь" },
+    phonetic: { char: "彐", reading: "jì", note: "связано с очисткой" },
+    type: "идеограмма",
+    explanation: "Дождь + рука метёт = снег (который метут)",
+    examples: ["大雪", "雪白"], exampleMeanings: ["большой снег", "белоснежный"]
+} 
 ];
 
 // Сохраняем в localStorage для использования в других файлах
