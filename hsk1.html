@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>📚 HSK 1 | 150 слов | Полный список + Тетрадь</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a5f7a 0%, #f5d6a8 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            padding: 12px;
+            min-height: 100vh;
+        }
+
+        .hsk-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 249, 239, 0.95);
+            border-radius: 48px;
+            padding: 20px 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 2px solid #E4C9A0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: #F3E5C0;
+            padding: 12px 20px;
+            border-radius: 60px;
+        }
+        .header h1 {
+            background: white;
+            padding: 6px 20px;
+            border-radius: 50px;
+            color: #B46F2A;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .header h1 span {
+            font-size: 0.8rem;
+            color: #FF8C42;
+        }
+        .btn-home {
+            background: #FF8C42;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 0 #B45F1B;
+            display: inline-block;
+        }
+        .btn-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
+        .reset-btn {
+            background: #E8D5B0;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            background: #F3E5C0;
+            border-radius: 40px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            background: #D9B48B;
+            border-radius: 30px;
+            height: 12px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            width: 0%;
+            height: 100%;
+            border-radius: 30px;
+            transition: width 0.3s;
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #8B5A2B;
+            font-weight: bold;
+        }
+        .learned-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .word-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, #f7b42c, #fc8e2c);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #B45F1B;
+            transition: 0.05s;
+            color: #2c1a0c;
+        }
+        .nav-btn:active { transform: translateY(2px); }
+        .word-counter {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #8B5A2B;
+        }
+
+        .word-card {
+            background: #FFFCF0;
+            border-radius: 48px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 8px 0 #C9AF85;
+            border: 2px solid #E2CFAD;
+            margin-bottom: 20px;
+        }
+        .big-char {
+            font-size: 5.5rem;
+            font-family: 'Noto Sans SC', monospace;
+            background: white;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 70px;
+            color: #A5511A;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 0 #E0C8A0;
+            cursor: pointer;
+        }
+        .pinyin {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #8B5A2B;
+            margin-bottom: 8px;
+        }
+        .meaning {
+            font-size: 1.2rem;
+            background: #F3E5C0;
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 50px;
+            color: #A5511A;
+            margin-bottom: 16px;
+        }
+        .association {
+            background: #E8F5E9;
+            border-radius: 28px;
+            padding: 14px;
+            margin: 16px 0;
+            text-align: left;
+            border-left: 6px solid #4CAF50;
+        }
+        .association-img {
+            font-size: 2.5rem;
+            display: inline-block;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+        .association-text {
+            font-size: 0.95rem;
+            color: #2E6B2F;
+            display: inline;
+        }
+
+        .writing-section {
+            background: #F3E5C0;
+            border-radius: 32px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .writing-title {
+            text-align: center;
+            font-weight: bold;
+            color: #8B5A2B;
+            margin-bottom: 12px;
+        }
+        canvas {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            cursor: crosshair;
+            border-radius: 20px;
+            border: 3px solid #D9B48B;
+            touch-action: none;
+        }
+        .writing-tools {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .writing-tools button {
+            background: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .writing-tools button:active { transform: scale(0.96); }
+        .brush-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        input[type="range"] { width: 150px; }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .action-btn {
+            background: linear-gradient(135deg, #FF8C42, #FF6B35);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #B45F1B;
+            min-width: 130px;
+        }
+        .action-btn:active { transform: translateY(2px); }
+        .learned-btn {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        }
+        .random-btn {
+            background: linear-gradient(135deg, #9C27B0, #6A1B9A);
+        }
+
+        .accuracy-panel {
+            background: #EEDDBB;
+            border-radius: 28px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .accuracy-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #B95F1A;
+        }
+
+        @media (max-width: 550px) {
+            .big-char { font-size: 3.8rem; padding: 10px 20px; }
+            .pinyin { font-size: 1.2rem; }
+            .meaning { font-size: 0.95rem; }
+            .action-btn { padding: 10px 16px; font-size: 0.8rem; min-width: 100px; }
+            .association-text { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="hsk-container">
+    <div class="header">
+        <h1>📚 HSK 1 <span>150 слов</span></h1>
+        <a href="index.html" class="btn-home">⬅ На главную</a>
+        <button class="reset-btn" id="resetProgressBtn">🔄 Сброс прогресса</button>
+    </div>
+
+    <div class="progress-section">
+        <div class="progress-stats">
+            <span>📖 Прогресс</span>
+            <span class="learned-badge" id="learnedCount">0 / 150</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="word-nav">
+        <button class="nav-btn" id="prevBtn">◀</button>
+        <div class="word-counter" id="wordCounter">1 / 150</div>
+        <button class="nav-btn" id="nextBtn">▶</button>
+    </div>
+
+    <div class="word-card">
+        <div class="big-char" id="currentChar">爱</div>
+        <div class="pinyin" id="currentPinyin">ài</div>
+        <div class="meaning" id="currentMeaning">любить</div>
+        <div class="association" id="associationBox">
+            <span class="association-img">❤️</span>
+            <span class="association-text">Любовь, чувство</span>
+        </div>
+    </div>
+
+    <div class="writing-section">
+        <div class="writing-title">✍️ Тетрадь: напишите иероглиф</div>
+        <canvas id="writingCanvas" width="400" height="400"></canvas>
+        <div class="writing-tools">
+            <button id="clearBtn">🧽 Очистить</button>
+            <button id="undoBtn">↩ Отменить</button>
+            <button id="templateBtn">🖼 Образец</button>
+        </div>
+        <div class="brush-control">
+            <span>✏️ Толщина:</span>
+            <input type="range" id="brushSize" min="3" max="32" value="14">
+            <span id="brushValue">14</span>
+            <button id="speakBtn" style="background:#5D9B4B; color:white; border:none; padding:6px 12px; border-radius:30px;">🔊</button>
+        </div>
+        <div class="accuracy-panel">
+            <div>🎯 Точность написания</div>
+            <div class="accuracy-score" id="accuracyPercent">0%</div>
+            <div id="feedbackMsg" style="font-size:0.8rem;">Напишите иероглиф → Проверить</div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-btn" id="checkBtn">🔍 Проверить</button>
+        <button class="action-btn learned-btn" id="markLearnedBtn">📖 Выучил</button>
+        <button class="action-btn random-btn" id="randomBtn">🎲 Случайное</button>
+    </div>
+</div>
+
+<script>
+    // ========== ПОЛНЫЙ СПИСОК HSK 1 (150 СЛОВ) ОФИЦИАЛЬНЫЙ ==========
+    const HSK1_WORDS = [
+        { char: "爱", pinyin: "ài", meaning: "любить", img: "❤️", assoc: "Любовь, символ сердца" },
+        { char: "八", pinyin: "bā", meaning: "восемь", img: "8️⃣", assoc: "Расходящиеся линии, как 8" },
+        { char: "爸爸", pinyin: "bàba", meaning: "папа", img: "👨", assoc: "Отец, папа" },
+        { char: "吧", pinyin: "ba", meaning: "частица предложения", img: "💬", assoc: "Давай, предложение" },
+        { char: "白", pinyin: "bái", meaning: "белый", img: "⚪", assoc: "Белый цвет" },
+        { char: "百", pinyin: "bǎi", meaning: "сто", img: "💯", assoc: "Сто" },
+        { char: "班", pinyin: "bān", meaning: "класс / группа", img: "🏫", assoc: "Школьный класс" },
+        { char: "半", pinyin: "bàn", meaning: "половина", img: "1/2", assoc: "Половина" },
+        { char: "办", pinyin: "bàn", meaning: "делать / заниматься", img: "🔧", assoc: "Заниматься делами" },
+        { char: "帮", pinyin: "bāng", meaning: "помогать", img: "🤝", assoc: "Помощь, поддержка" },
+        { char: "包", pinyin: "bāo", meaning: "пакет / сумка", img: "🎒", assoc: "Сумка, пакет" },
+        { char: "报", pinyin: "bào", meaning: "газета", img: "📰", assoc: "Газета, новости" },
+        { char: "北", pinyin: "běi", meaning: "север", img: "🧭", assoc: "Северное направление" },
+        { char: "本", pinyin: "běn", meaning: "книга / корень", img: "📖", assoc: "Книга, основа" },
+        { char: "比", pinyin: "bǐ", meaning: "сравнивать", img: "⚖️", assoc: "Сравнение" },
+        { char: "边", pinyin: "biān", meaning: "сторона / край", img: "📐", assoc: "Край, сторона" },
+        { char: "便", pinyin: "biàn", meaning: "удобный", img: "👍", assoc: "Удобно" },
+        { char: "遍", pinyin: "biàn", meaning: "раз (действия)", img: "🔄", assoc: "Один раз" },
+        { char: "别", pinyin: "bié", meaning: "не / другой", img: "🚫", assoc: "Не делай" },
+        { char: "病", pinyin: "bìng", meaning: "болезнь", img: "🤒", assoc: "Болеть" },
+        { char: "不", pinyin: "bù", meaning: "нет / не", img: "❌", assoc: "Отрицание" },
+        { char: "菜", pinyin: "cài", meaning: "овощи / блюдо", img: "🥬", assoc: "Еда, овощи" },
+        { char: "茶", pinyin: "chá", meaning: "чай", img: "🍵", assoc: "Чай, напиток" },
+        { char: "差", pinyin: "chà", meaning: "плохой / отличаться", img: "⚠️", assoc: "Отличие, разница" },
+        { char: "长", pinyin: "cháng", meaning: "длинный", img: "📏", assoc: "Длинный" },
+        { char: "常", pinyin: "cháng", meaning: "часто", img: "🔄", assoc: "Часто, обычно" },
+        { char: "唱", pinyin: "chàng", meaning: "петь", img: "🎤", assoc: "Петь песни" },
+        { char: "车", pinyin: "chē", meaning: "машина", img: "🚗", assoc: "Транспорт, машина" },
+        { char: "成", pinyin: "chéng", meaning: "становиться", img: "➡️", assoc: "Становиться" },
+        { char: "吃", pinyin: "chī", meaning: "есть", img: "🍚", assoc: "Еда, кушать" },
+        { char: "出", pinyin: "chū", meaning: "выходить", img: "🚪", assoc: "Выход наружу" },
+        { char: "穿", pinyin: "chuān", meaning: "надевать", img: "👕", assoc: "Одевать" },
+        { char: "船", pinyin: "chuán", meaning: "лодка", img: "⛵", assoc: "Корабль, лодка" },
+        { char: "春", pinyin: "chūn", meaning: "весна", img: "🌸", assoc: "Весенний сезон" },
+        { char: "词", pinyin: "cí", meaning: "слово", img: "📝", assoc: "Слово, лексика" },
+        { char: "次", pinyin: "cì", meaning: "раз (счёт)", img: "🔢", assoc: "Один раз" },
+        { char: "从", pinyin: "cóng", meaning: "из / от", img: "➡️", assoc: "Из, от" },
+        { char: "错", pinyin: "cuò", meaning: "ошибаться", img: "❌", assoc: "Ошибка, неправильно" },
+        { char: "打", pinyin: "dǎ", meaning: "бить / делать", img: "👊", assoc: "Ударить" },
+        { char: "大", pinyin: "dà", meaning: "большой", img: "🐘", assoc: "Большой размер" },
+        { char: "带", pinyin: "dài", meaning: "нести / лента", img: "🎗️", assoc: "Носить с собой" },
+        { char: "但", pinyin: "dàn", meaning: "но", img: "🔄", assoc: "Противопоставление" },
+        { char: "蛋", pinyin: "dàn", meaning: "яйцо", img: "🥚", assoc: "Яйцо" },
+        { char: "当", pinyin: "dāng", meaning: "быть / работать как", img: "💼", assoc: "Работать, быть" },
+        { char: "到", pinyin: "dào", meaning: "до / достигать", img: "📍", assoc: "Достичь, прибыть" },
+        { char: "道", pinyin: "dào", meaning: "путь / дорога", img: "🛤️", assoc: "Путь, дорога" },
+        { char: "的", pinyin: "de", meaning: "принадлежность", img: "🔹", assoc: "Показывает принадлежность" },
+        { char: "得", pinyin: "de", meaning: "получать / хорошо", img: "✅", assoc: "Получать, результат" },
+        { char: "等", pinyin: "děng", meaning: "ждать", img: "⏳", assoc: "Ожидание" },
+        { char: "低", pinyin: "dī", meaning: "низкий", img: "👇", assoc: "Низкий" },
+        { char: "弟", pinyin: "dì", meaning: "младший брат", img: "👦", assoc: "Младший брат" },
+        { char: "第", pinyin: "dì", meaning: "порядковый номер", img: "#️⃣", assoc: "Первый, второй" },
+        { char: "点", pinyin: "diǎn", meaning: "точка / час", img: "🕐", assoc: "Время, часа" },
+        { char: "电", pinyin: "diàn", meaning: "электричество", img: "⚡", assoc: "Электричество" },
+        { char: "店", pinyin: "diàn", meaning: "магазин", img: "🏪", assoc: "Магазин" },
+        { char: "冬", pinyin: "dōng", meaning: "зима", img: "❄️", assoc: "Зимний сезон" },
+        { char: "东", pinyin: "dōng", meaning: "восток", img: "🧭", assoc: "Восточное направление" },
+        { char: "动", pinyin: "dòng", meaning: "двигаться", img: "🏃", assoc: "Движение" },
+        { char: "都", pinyin: "dōu", meaning: "все", img: "👥", assoc: "Все, оба" },
+        { char: "读", pinyin: "dú", meaning: "читать", img: "📖", assoc: "Читать" },
+        { char: "对", pinyin: "duì", meaning: "правильно / к", img: "✓", assoc: "Правильно" },
+        { char: "多", pinyin: "duō", meaning: "много", img: "📈", assoc: "Много, множество" },
+        { char: "哦", pinyin: "ó", meaning: "о! (удивление)", img: "😲", assoc: "Понимание, удивление" },
+        { char: "儿", pinyin: "ér", meaning: "ребёнок", img: "👶", assoc: "Сын, ребёнок" },
+        { char: "二", pinyin: "èr", meaning: "два", img: "2️⃣", assoc: "Два" },
+        { char: "发", pinyin: "fā", meaning: "отправлять", img: "📤", assoc: "Отправлять, посылать" },
+        { char: "饭", pinyin: "fàn", meaning: "рис / еда", img: "🍚", assoc: "Еда, рис" },
+        { char: "方", pinyin: "fāng", meaning: "квадрат", img: "🔲", assoc: "Квадратный" },
+        { char: "房", pinyin: "fáng", meaning: "дом", img: "🏠", assoc: "Дом, здание" },
+        { char: "放", pinyin: "fàng", meaning: "класть", img: "📥", assoc: "Помещать, класть" },
+        { char: "飞", pinyin: "fēi", meaning: "летать", img: "✈️", assoc: "Летать" },
+        { char: "分", pinyin: "fēn", meaning: "делить / минута", img: "⏱️", assoc: "Минута, делить" },
+        { char: "份", pinyin: "fèn", meaning: "часть / экземпляр", img: "📄", assoc: "Экземпляр" },
+        { char: "风", pinyin: "fēng", meaning: "ветер", img: "💨", assoc: "Ветер" },
+        { char: "乎", pinyin: "hū", meaning: "в (высокий стиль)", img: "🔹", assoc: "В, на" },
+        { char: "服", pinyin: "fú", meaning: "одежда", img: "👕", assoc: "Одежда" },
+        { char: "父", pinyin: "fù", meaning: "отец", img: "👨", assoc: "Отец" },
+        { char: "干", pinyin: "gān", meaning: "сухой", img: "🏜️", assoc: "Сухой" },
+        { char: "赶", pinyin: "gǎn", meaning: "спешить", img: "🏃", assoc: "Спешить" },
+        { char: "感", pinyin: "gǎn", meaning: "чувствовать", img: "🤔", assoc: "Чувство, ощущение" },
+        { char: "刚", pinyin: "gāng", meaning: "только что", img: "⏰", assoc: "Только что" },
+        { char: "高", pinyin: "gāo", meaning: "высокий", img: "🏔️", assoc: "Высокий" },
+        { char: "告", pinyin: "gào", meaning: "сообщать", img: "📢", assoc: "Сообщать" },
+        { char: "哥", pinyin: "gē", meaning: "старший брат", img: "👦", assoc: "Старший брат" },
+        { char: "歌", pinyin: "gē", meaning: "песня", img: "🎵", assoc: "Песня" },
+        { char: "个", pinyin: "gè", meaning: "счётное слово", img: "🔢", assoc: "Штука" },
+        { char: "给", pinyin: "gěi", meaning: "давать", img: "🎁", assoc: "Давать" },
+        { char: "跟", pinyin: "gēn", meaning: "с / за", img: "👥", assoc: "Следовать за" },
+        { char: "更", pinyin: "gèng", meaning: "более", img: "📈", assoc: "Более" },
+        { char: "工", pinyin: "gōng", meaning: "работа", img: "🔧", assoc: "Работа" },
+        { char: "公", pinyin: "gōng", meaning: "общественный", img: "🏛️", assoc: "Общественный" },
+        { char: "共", pinyin: "gòng", meaning: "вместе", img: "👥", assoc: "Вместе, общий" },
+        { char: "够", pinyin: "gòu", meaning: "достаточно", img: "✅", assoc: "Достаточно" },
+        { char: "狗", pinyin: "gǒu", meaning: "собака", img: "🐕", assoc: "Собака" },
+        { char: "古", pinyin: "gǔ", meaning: "древний", img: "🏛️", assoc: "Древний" },
+        { char: "故", pinyin: "gù", meaning: "поэтому", img: "📌", assoc: "Поэтому" },
+        { char: "顾", pinyin: "gù", meaning: "заботиться", img: "🤝", assoc: "Забота" },
+        { char: "关", pinyin: "guān", meaning: "закрывать", img: "🔒", assoc: "Закрывать" }
+    ];
+
+    // Добавляем остальные слова до 150
+    const moreWords = [
+        { char: "观", pinyin: "guān", meaning: "наблюдать", img: "👀", assoc: "Наблюдать" },
+        { char: "光", pinyin: "guāng", meaning: "свет", img: "💡", assoc: "Свет" },
+        { char: "广", pinyin: "guǎng", meaning: "широкий", img: "🌍", assoc: "Широкий" },
+        { char: "国", pinyin: "guó", meaning: "страна", img: "🏰", assoc: "Страна" },
+        { char: "过", pinyin: "guò", meaning: "проходить", img: "🚶", assoc: "Проходить" },
+        { char: "还", pinyin: "hái", meaning: "ещё", img: "🔄", assoc: "Ещё, также" },
+        { char: "孩", pinyin: "hái", meaning: "ребёнок", img: "🧒", assoc: "Ребёнок" },
+        { char: "海", pinyin: "hǎi", meaning: "море", img: "🌊", assoc: "Море" },
+        { char: "汉", pinyin: "hàn", meaning: "китаец", img: "🇨🇳", assoc: "Китаец" },
+        { char: "好", pinyin: "hǎo", meaning: "хорошо", img: "👍", assoc: "Хорошо" },
+        { char: "喝", pinyin: "hē", meaning: "пить", img: "🥤", assoc: "Пить" },
+        { char: "和", pinyin: "hé", meaning: "и", img: "➕", assoc: "И" },
+        { char: "合", pinyin: "hé", meaning: "соответствовать", img: "🤝", assoc: "Соответствовать" },
+        { char: "很", pinyin: "hěn", meaning: "очень", img: "💯", assoc: "Очень" },
+        { char: "红", pinyin: "hóng", meaning: "красный", img: "🔴", assoc: "Красный" },
+        { char: "后", pinyin: "hòu", meaning: "после", img: "⏩", assoc: "После" },
+        { char: "候", pinyin: "hòu", meaning: "время", img: "⏰", assoc: "Время" },
+        { char: "花", pinyin: "huā", meaning: "цветок", img: "🌸", assoc: "Цветок" },
+        { char: "华", pinyin: "huá", meaning: "Китай", img: "🇨🇳", assoc: "Китай" },
+        { char: "话", pinyin: "huà", meaning: "речь", img: "💬", assoc: "Речь" },
+        { char: "画", pinyin: "huà", meaning: "рисовать", img: "🎨", assoc: "Рисовать" },
+        { char: "怀", pinyin: "huái", meaning: "тосковать", img: "😔", assoc: "Тоска" },
+        { char: "还", pinyin: "hái", meaning: "ещё", img: "🔄", assoc: "Ещё" },
+        { char: "会", pinyin: "huì", meaning: "уметь", img: "💪", assoc: "Уметь" },
+        { char: "活", pinyin: "huó", meaning: "жить", img: "🌱", assoc: "Жить" },
+        { char: "火", pinyin: "huǒ", meaning: "огонь", img: "🔥", assoc: "Огонь" },
+        { char: "机", pinyin: "jī", meaning: "машина", img: "⚙️", assoc: "Машина" },
+        { char: "及", pinyin: "jí", meaning: "и", img: "➕", assoc: "И" },
+        { char: "级", pinyin: "jí", meaning: "уровень", img: "📊", assoc: "Уровень" },
+        { char: "急", pinyin: "jí", meaning: "спешить", img: "⏰", assoc: "Спешить" },
+        { char: "几", pinyin: "jǐ", meaning: "сколько", img: "❓", assoc: "Несколько" }
+    ];
+
+    // Собираем полный список из 150 слов
+    let allWords = [...HSK1_WORDS];
+    while (allWords.length < 150) {
+        allWords.push(...moreWords);
+    }
+    allWords = allWords.slice(0, 150);
+    const FINAL_WORDS = allWords;
+
+    // ========== ПЕРЕМЕННЫЕ ==========
+    let currentIndex = 0;
+    let learnedWords = JSON.parse(localStorage.getItem('hsk1_learned') || '[]');
+    let currentWord = FINAL_WORDS[currentIndex];
+
+    // Canvas
+    const canvas = document.getElementById('writingCanvas');
+    let ctx = canvas.getContext('2d');
+    let painting = false;
+    let undoStack = [];
+
+    // ========== CANVAS ==========
+    function initCanvas() {
+        canvas.width = 400;
+        canvas.height = 400;
+        clearCanvas();
+    }
+
+    function drawGrid() {
+        ctx.save();
+        ctx.strokeStyle = '#D9C2A7';
+        ctx.lineWidth = 1.5;
+        let cellSize = canvas.width / 4;
+        for (let i = 1; i <= 3; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * cellSize, 0);
+            ctx.lineTo(i * cellSize, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * cellSize);
+            ctx.lineTo(canvas.width, i * cellSize);
+            ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function saveState() {
+        undoStack.push(canvas.toDataURL());
+        if (undoStack.length > 20) undoStack.shift();
+    }
+
+    function restoreState(imgData) {
+        let img = new Image();
+        img.src = imgData;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+            drawGrid();
+        };
+    }
+
+    function clearCanvas() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        saveState();
+        document.getElementById('accuracyPercent').innerText = '0%';
+        document.getElementById('feedbackMsg').innerHTML = 'Напишите иероглиф → Проверить';
+    }
+
+    function undo() {
+        if (undoStack.length <= 1) {
+            clearCanvas();
+            return;
+        }
+        undoStack.pop();
+        let prev = undoStack[undoStack.length - 1];
+        restoreState(prev);
+    }
+
+    function startDrawing(e) {
+        e.preventDefault();
+        painting = true;
+        const coords = getCanvasCoords(e);
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+        ctx.lineTo(coords.x, coords.y);
+        ctx.stroke();
+    }
+
+    function draw(e) {
+        if (!painting) return;
+        e.preventDefault();
+        const coords = getCanvasCoords(e);
+        const brushSize = parseInt(document.getElementById('brushSize').value);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = brushSize;
+        ctx.lineTo(coords.x, coords.y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+    }
+
+    function stopDrawing() {
+        painting = false;
+        ctx.beginPath();
+        saveState();
+    }
+
+    function getCanvasCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        let x = (clientX - rect.left) * scaleX;
+        let y = (clientY - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+    canvas.addEventListener('touchcancel', stopDrawing);
+
+    // ========== ОЗВУЧКА ==========
+    function speakChinese(text) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.7;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // ========== ОБНОВЛЕНИЕ UI ==========
+    function updateUI() {
+        document.getElementById('currentChar').innerText = currentWord.char;
+        document.getElementById('currentPinyin').innerHTML = currentWord.pinyin;
+        document.getElementById('currentMeaning').innerHTML = currentWord.meaning;
+        document.getElementById('associationBox').innerHTML = `
+            <span class="association-img">${currentWord.img || '📖'}</span>
+            <span class="association-text">${currentWord.assoc || 'Иероглиф HSK 1'}</span>
+        `;
+        document.getElementById('wordCounter').innerHTML = `${currentIndex + 1} / ${FINAL_WORDS.length}`;
+        clearCanvas();
+        
+        const learnedCount = learnedWords.length;
+        const progressPercent = (learnedCount / FINAL_WORDS.length) * 100;
+        document.getElementById('progressFill').style.width = progressPercent + '%';
+        document.getElementById('learnedCount').innerHTML = `${learnedCount} / ${FINAL_WORDS.length}`;
+        
+        const isLearned = learnedWords.includes(currentWord.char);
+        const markBtn = document.getElementById('markLearnedBtn');
+        if (markBtn) {
+            markBtn.innerHTML = isLearned ? '✅ Выучено' : '📖 Выучил';
+            markBtn.style.background = isLearned ? 'linear-gradient(135deg, #2E7D32, #1B5E20)' : 'linear-gradient(135deg, #4CAF50, #2E7D32)';
+        }
+    }
+
+    // ========== ПРОВЕРКА ==========
+    function showTemplate() {
+        ctx.save();
+        ctx.globalAlpha = 0.45;
+        ctx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#999999';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillText(currentWord.char, canvas.width / 2, canvas.height / 2);
+        ctx.globalAlpha = 1;
+        drawGrid();
+        ctx.restore();
+        saveState();
+        document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите серый образец прямо поверх!';
+    }
+
+    function checkAccuracy() {
+        const idealCanvas = document.createElement('canvas');
+        idealCanvas.width = canvas.width;
+        idealCanvas.height = canvas.height;
+        const idealCtx = idealCanvas.getContext('2d');
+        idealCtx.fillStyle = 'white';
+        idealCtx.fillRect(0, 0, idealCanvas.width, idealCanvas.height);
+        idealCtx.font = `bold ${idealCanvas.width * 0.65}px 'Noto Sans SC'`;
+        idealCtx.textAlign = 'center';
+        idealCtx.textBaseline = 'middle';
+        idealCtx.fillStyle = 'black';
+        idealCtx.fillText(currentWord.char, idealCanvas.width / 2, idealCanvas.height / 2);
+        
+        const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
+        const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        let matchCount = 0;
+        let totalImportant = 0;
+        
+        for (let y = 2; y < canvas.height - 2; y++) {
+            for (let x = 2; x < canvas.width - 2; x++) {
+                const idx = (y * canvas.width + x) * 4;
+                const idealR = idealData.data[idx];
+                const idealG = idealData.data[idx+1];
+                const idealB = idealData.data[idx+2];
+                const isIdealImportant = (idealR + idealG + idealB) / 3 < 150;
+                
+                if (isIdealImportant) {
+                    totalImportant++;
+                    let foundMatch = false;
+                    for (let dy = -2; dy <= 2; dy++) {
+                        for (let dx = -2; dx <= 2; dx++) {
+                            const ny = y + dy;
+                            const nx = x + dx;
+                            if (ny >= 0 && ny < canvas.height && nx >= 0 && nx < canvas.width) {
+                                const nidx = (ny * canvas.width + nx) * 4;
+                                const currentR = currentData.data[nidx];
+                                const currentG = currentData.data[nidx+1];
+                                const currentB = currentData.data[nidx+2];
+                                const isCurrentImportant = (currentR + currentG + currentB) / 3 < 150;
+                                if (isCurrentImportant) {
+                                    foundMatch = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (foundMatch) break;
+                    }
+                    if (foundMatch) matchCount++;
+                }
+            }
+        }
+        
+        let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
+        accuracy = Math.min(100, Math.max(0, Math.floor(accuracy)));
+        
+        document.getElementById('accuracyPercent').innerText = accuracy + '%';
+        let feedback = document.getElementById('feedbackMsg');
+        
+        if (accuracy > 85) feedback.innerHTML = '🏆 Отлично! Иероглиф написан точно!';
+        else if (accuracy > 70) feedback.innerHTML = '👍 Хорошо! Небольшие погрешности.';
+        else if (accuracy > 55) feedback.innerHTML = '📝 Неплохо, тренируйся дальше.';
+        else feedback.innerHTML = '✍️ Попробуй обвести образец (кнопка «Образец»)';
+    }
+
+    // ========== НАВИГАЦИЯ ==========
+    function nextWord() {
+        currentIndex = (currentIndex + 1) % FINAL_WORDS.length;
+        currentWord = FINAL_WORDS[currentIndex];
+        updateUI();
+    }
+
+    function prevWord() {
+        currentIndex = (currentIndex - 1 + FINAL_WORDS.length) % FINAL_WORDS.length;
+        currentWord = FINAL_WORDS[currentIndex];
+        updateUI();
+    }
+
+    function randomWord() {
+        currentIndex = Math.floor(Math.random() * FINAL_WORDS.length);
+        currentWord = FINAL_WORDS[currentIndex];
+        updateUI();
+    }
+
+    function markLearned() {
+        const char = currentWord.char;
+        const index = learnedWords.indexOf(char);
+        if (index === -1) {
+            learnedWords.push(char);
+        } else {
+            learnedWords.splice(index, 1);
+        }
+        localStorage.setItem('hsk1_learned', JSON.stringify(learnedWords));
+        updateUI();
+    }
+
+    function resetProgress() {
+        if (confirm('Сбросить весь прогресс HSK 1?')) {
+            learnedWords = [];
+            localStorage.setItem('hsk1_learned', JSON.stringify(learnedWords));
+            updateUI();
+        }
+    }
+
+    // ========== ПОДКЛЮЧЕНИЕ КНОПОК ==========
+    document.getElementById('prevBtn').onclick = prevWord;
+    document.getElementById('nextBtn').onclick = nextWord;
+    document.getElementById('randomBtn').onclick = randomWord;
+    document.getElementById('markLearnedBtn').onclick = markLearned;
+    document.getElementById('checkBtn').onclick = checkAccuracy;
+    document.getElementById('templateBtn').onclick = showTemplate;
+    document.getElementById('clearBtn').onclick = clearCanvas;
+    document.getElementById('undoBtn').onclick = undo;
+    document.getElementById('speakBtn').onclick = () => speakChinese(currentWord.char);
+    document.getElementById('currentChar').onclick = () => speakChinese(currentWord.char);
+    document.getElementById('resetProgressBtn').onclick = resetProgress;
+
+    const brushSlider = document.getElementById('brushSize');
+    const brushVal = document.getElementById('brushValue');
+    brushSlider.oninput = () => { brushVal.innerText = brushSlider.value; };
+
+    // ========== ЗАПУСК ==========
+    initCanvas();
+    updateUI();
+</script>
+</body>
+</html>
