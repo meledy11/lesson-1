@@ -396,7 +396,25 @@
             <div class="progress-fill" id="progressFill"></div>
         </div>
     </div>
+<!-- КНОПКА ПОИСКА -->
+    <div style="margin-bottom: 15px; text-align: center;">
+        <button id="searchToggleBtn" style="background: #FF8C42; border: none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor: pointer;">🔍 Поиск слов</button>
+    </div>
 
+    <!-- ПАНЕЛЬ ПОИСКА (скрыта по умолчанию) -->
+    <div id="searchSection" style="display: none;">
+        <div class="search-section">
+            <div class="search-header">
+                <h3>🔍 Поиск по 150 словам HSK 1</h3>
+                <button class="search-toggle" onclick="toggleSearch()">✖ Закрыть</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Иероглиф, пиньинь (ni, hao) или перевод..." autocomplete="off">
+                <button id="searchBtn">Найти</button>
+            </div>
+            <div id="searchResultsGrid"></div>
+        </div>
+    </div>
     <div class="word-nav">
         <button class="nav-btn" id="prevBtn">◀</button>
         <div class="word-counter" id="wordCounter">1 / 150</div>
