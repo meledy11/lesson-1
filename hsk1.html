@@ -321,9 +321,10 @@
         <div class="pinyin" id="currentPinyin">ài</div>
         <div class="meaning" id="currentMeaning">любить</div>
         <div class="association" id="associationBox">
-            <span class="association-img">❤️</span>
-            <span class="association-text">Любовь, чувство</span>
-        </div>
+    <div class="association-img" id="assocEmoji">❤️</div>
+    <div class="association-text" id="assocText">Любовь, чувство</div>
+    <div class="breakdown-details" id="breakdownDetails" style="margin-top: 12px; font-size: 0.85rem; color: #555;"></div>
+</div>
     </div>
 
     <div class="writing-section">
@@ -2585,28 +2586,55 @@ let undoStack = [];
 
     // ========== ОБНОВЛЕНИЕ UI ==========
     function updateUI() {
-        document.getElementById('currentChar').innerText = currentWord.char;
-        document.getElementById('currentPinyin').innerHTML = currentWord.pinyin;
-        document.getElementById('currentMeaning').innerHTML = currentWord.meaning;
-        document.getElementById('associationBox').innerHTML = `
-            <span class="association-img">${currentWord.img || '📖'}</span>
-            <span class="association-text">${currentWord.assoc || 'Иероглиф HSK 1'}</span>
-        `;
-        document.getElementById('wordCounter').innerHTML = `${currentIndex + 1} / ${FINAL_WORDS.length}`;
-        clearCanvas();
-        
-        const learnedCount = learnedWords.length;
-        const progressPercent = (learnedCount / FINAL_WORDS.length) * 100;
-        document.getElementById('progressFill').style.width = progressPercent + '%';
-        document.getElementById('learnedCount').innerHTML = `${learnedCount} / ${FINAL_WORDS.length}`;
-        
-        const isLearned = learnedWords.includes(currentWord.char);
-        const markBtn = document.getElementById('markLearnedBtn');
-        if (markBtn) {
-            markBtn.innerHTML = isLearned ? '✅ Выучено' : '📖 Выучил';
-            markBtn.style.background = isLearned ? 'linear-gradient(135deg, #2E7D32, #1B5E20)' : 'linear-gradient(135deg, #4CAF50, #2E7D32)';
+    document.getElementById('currentChar').innerText = currentWord.char;
+    document.getElementById('currentPinyin').innerHTML = currentWord.pinyin;
+    document.getElementById('currentMeaning').innerHTML = currentWord.meaning;
+    document.getElementById('assocEmoji').innerHTML = currentWord.emoji || '📖';
+    document.getElementById('assocText').innerHTML = currentWord.association || currentWord.meaning;
+    
+    // ========== ПОЛНЫЙ РАЗБОР ==========
+    let breakdownHtml = `
+        <div style="background:#FFF3E0; padding:12px; border-radius:16px; margin-top:8px;">
+            <strong>🔍 Разбор:</strong> ${currentWord.breakdown || '—'}<br>
+            <strong>📌 Ключ (радикал):</strong> ${currentWord.radical || '?'} 
+            ${currentWord.radicalMeaning ? '(' + currentWord.radicalMeaning + ')' : ''}<br>
+            <strong>🔊 Фонетик:</strong> ${currentWord.hasPhonetic ? (currentWord.phonetic + ' (' + currentWord.phoneticReading + ')') : 'нет'}<br>
+        </div>
+    `;
+    
+    // ========== ПРИМЕРЫ ==========
+    if (currentWord.examples && currentWord.examples.length > 0) {
+        breakdownHtml += `<div style="margin-top:12px;"><strong>📖 Примеры с озвучкой:</strong><br>`;
+        for (let i = 0; i < currentWord.examples.length; i++) {
+            const ex = currentWord.examples[i];
+            breakdownHtml += `
+                <div style="cursor:pointer; background:#FFF0E0; margin:8px 0; padding:8px; border-radius:12px; border-left:3px solid #FF8C42;" onclick="speakChinese('${ex.ch}')">
+                    <span style="font-weight:bold; font-size:1.1rem;">${ex.ch}</span> 
+                    <span style="color:#FF8C42;">(${ex.pinyin})</span><br>
+                    <span style="color:#6B4E2E;">— ${ex.ru}</span>
+                </div>
+            `;
         }
+        breakdownHtml += `</div>`;
     }
+    
+    document.getElementById('breakdownDetails').innerHTML = breakdownHtml;
+    document.getElementById('wordCounter').innerHTML = `${currentIndex + 1} / ${FINAL_WORDS.length}`;
+    clearCanvas();
+    
+    // ========== ПРОГРЕСС ==========
+    const learnedCount = learnedWords.length;
+    const progressPercent = (learnedCount / FINAL_WORDS.length) * 100;
+    document.getElementById('progressFill').style.width = progressPercent + '%';
+    document.getElementById('learnedCount').innerHTML = `${learnedCount} / ${FINAL_WORDS.length}`;
+    
+    const isLearned = learnedWords.includes(currentWord.char);
+    const markBtn = document.getElementById('markLearnedBtn');
+    if (markBtn) {
+        markBtn.innerHTML = isLearned ? '✅ Выучено' : '📖 Выучил';
+        markBtn.style.background = isLearned ? 'linear-gradient(135deg, #2E7D32, #1B5E20)' : 'linear-gradient(135deg, #4CAF50, #2E7D32)';
+    }
+}
 
     // ========== ПРОВЕРКА ==========
     function showTemplate() {
