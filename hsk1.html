@@ -2422,7 +2422,7 @@ const HSK1_DATA = [
         { ch: "坐下", pinyin: "zuò xià", ru: "сесть" },
         { ch: "坐车", pinyin: "zuò chē", ru: "ехать на транспорте" }
       ]},
-    { char: "做", pinyin: "zuò", meaning: "делать", emoji: "🔧",
+{ char: "做", pinyin: "zuò", meaning: "делать", emoji: "🔧",
       hasPhonetic: true, phonetic: "故", phoneticReading: "gù",
       radical: "亻", radicalMeaning: "человек",
       breakdown: "亻 (человек) + 故",
@@ -2432,25 +2432,20 @@ const HSK1_DATA = [
         { ch: "做饭", pinyin: "zuò fàn", ru: "готовить еду" }
       ]}
 ];
-            
-    // Собираем полный список из 150 слов
-    let allWords = [...HSK1_WORDS];
-    while (allWords.length < 150) {
-        allWords.push(...moreWords);
-    }
-    allWords = allWords.slice(0, 150);
-    const FINAL_WORDS = allWords;
 
-    // ========== ПЕРЕМЕННЫЕ ==========
-    let currentIndex = 0;
-    let learnedWords = JSON.parse(localStorage.getItem('hsk1_learned') || '[]');
-    let currentWord = FINAL_WORDS[currentIndex];
+// ========== СОЗДАЁМ FINAL_WORDS ИЗ HSK1_DATA ==========
+const FINAL_WORDS = HSK1_DATA;
 
-    // Canvas
-    const canvas = document.getElementById('writingCanvas');
-    let ctx = canvas.getContext('2d');
-    let painting = false;
-    let undoStack = [];
+// ========== ПЕРЕМЕННЫЕ ==========
+let currentIndex = 0;
+let learnedWords = JSON.parse(localStorage.getItem('hsk1_learned') || '[]');
+let currentWord = FINAL_WORDS[currentIndex];
+
+// Canvas
+const canvas = document.getElementById('writingCanvas');
+let ctx = canvas.getContext('2d');
+let painting = false;
+let undoStack = [];
 
     // ========== CANVAS ==========
     function initCanvas() {
