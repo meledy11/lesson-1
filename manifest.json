@@ -1,7 +1,7 @@
 {
   "name": "Китайский курс",
   "short_name": "Китайский",
-  "description": "Изучение китайского языка с нуля",
+  "description": "Изучение китайского языка",
   "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#FF6B35",
@@ -9,39 +9,10 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FF6B35'/%3E%3Cpath fill='white' d='M50 20 L20 35 L50 50 L80 35 Z'/%3E%3Crect x='45' y='48' width='10' height='25' fill='white'/%3E%3Crect x='35' y='68' width='30' height='6' fill='white'/%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
