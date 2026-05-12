@@ -848,7 +848,239 @@ const frequencyDB = [
     type: "идеограмма",
     explanation: "Дождь + рука метёт = снег (который метут)",
     examples: ["大雪", "雪白"], exampleMeanings: ["большой снег", "белоснежный"]
-} 
+},
+    // ========== Дополнительные иероглифы для ТОП-100 ==========
+
+{
+    id: 101, char: "把", pinyin: "bǎ", meaning: "брать; счётное слово для предметов с ручкой",
+    parts: [{ char: "扌", meaning: "рука" }, { char: "巴", meaning: "змея" }],
+    radical: { char: "扌", name: "рука" },
+    phonetic: { char: "巴", reading: "bā", note: "bā → bǎ" },
+    type: "фонетический",
+    explanation: "Рука + змея = держать, хватать",
+    examples: ["把门打开", "一把刀"], exampleMeanings: ["открыть дверь", "один нож"]
+},
+{
+    id: 102, char: "被", pinyin: "bèi", meaning: "пассивный показатель; одеяло",
+    parts: [{ char: "衤", meaning: "одежда" }, { char: "皮", meaning: "кожа" }],
+    radical: { char: "衤", name: "одежда" },
+    phonetic: { char: "皮", reading: "pí", note: "pí → bèi" },
+    type: "фонетический",
+    explanation: "Одежда + кожа = одеяло → показатель пассива",
+    examples: ["被打", "被子"], exampleMeanings: ["быть битым", "одеяло"]
+},
+{
+    id: 103, char: "之", pinyin: "zhī", meaning: "частица (книжн.), его",
+    parts: [{ char: "丶", meaning: "точка" }, { char: "乙", meaning: "изгиб" }],
+    radical: { char: "丶", name: "точка" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Нога, уходящая от земли → указка на предмет",
+    examples: ["之后", "之前"], exampleMeanings: ["после этого", "до этого"]
+},
+{
+    id: 104, char: "等", pinyin: "děng", meaning: "ждать; и так далее",
+    parts: [{ char: "⺮", meaning: "бамбук" }, { char: "寺", meaning: "храм" }],
+    radical: { char: "⺮", name: "бамбук" },
+    phonetic: { char: "寺", reading: "sì", note: "sì → děng" },
+    type: "фонетический",
+    explanation: "Бамбук + храм = ждать (бамбуковые палочки для счёта)",
+    examples: ["等等", "等一等"], exampleMeanings: ["подожди", "подожди немного"]
+},
+{
+    id: 105, char: "于", pinyin: "yú", meaning: "в, на, для (книжн.)",
+    parts: [{ char: "二", meaning: "два" }, { char: "亅", meaning: "крюк" }],
+    radical: { char: "二", name: "два" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Воздух, выходящий изо рта → предлог места",
+    examples: ["对于", "关于"], exampleMeanings: ["касательно", "относительно"]
+},
+{
+    id: 106, char: "由", pinyin: "yóu", meaning: "через, из-за, от",
+    parts: [{ char: "曰", meaning: "сказать" }, { char: "丨", meaning: "вертикаль" }],
+    radical: { char: "田", name: "поле" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Масло выходит из семян → происходить из",
+    examples: ["由于", "理由"], exampleMeanings: ["из-за", "причина"]
+},
+{
+    id: 107, char: "与", pinyin: "yǔ", meaning: "и, с (книжн.)",
+    parts: [{ char: "一", meaning: "один" }, { char: "勺", meaning: "ковш" }],
+    radical: { char: "一", name: "один" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Три руки, работающие вместе → соединение",
+    examples: ["与别人", "参与"], exampleMeanings: ["с другими", "участвовать"]
+},
+{
+    id: 108, char: "但", pinyin: "dàn", meaning: "но, однако",
+    parts: [{ char: "亻", meaning: "человек" }, { char: "旦", meaning: "рассвет" }],
+    radical: { char: "亻", name: "человек" },
+    phonetic: { char: "旦", reading: "dàn", note: "полное совпадение" },
+    type: "фонетический",
+    explanation: "Человек + рассвет = однако (смысл ослаб)",
+    examples: ["但是", "不但"], exampleMeanings: ["но", "не только"]
+},
+{
+    id: 109, char: "而", pinyin: "ér", meaning: "и, но (книжн.)",
+    parts: [{ char: "一", meaning: "один" }, { char: "丨", meaning: "вертикаль" }],
+    radical: { char: "而", name: "борода" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Рисунок бороды → связка (и, но)",
+    examples: ["然而", "而已"], exampleMeanings: ["однако", "и всё"]
+},
+{
+    id: 110, char: "如", pinyin: "rú", meaning: "как, подобно, если",
+    parts: [{ char: "女", meaning: "женщина" }, { char: "口", meaning: "рот" }],
+    radical: { char: "女", name: "женщина" },
+    phonetic: { char: "口", reading: "kǒu", note: "связь ослабла" },
+    type: "фонетический",
+    explanation: "Женщина + рот = слушаться → как, подобно",
+    examples: ["如果", "比如"], exampleMeanings: ["если", "например"]
+},
+{
+    id: 111, char: "间", pinyin: "jiān", meaning: "между, промежуток",
+    parts: [{ char: "门", meaning: "дверь" }, { char: "日", meaning: "солнце" }],
+    radical: { char: "门", name: "дверь" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Солнце в двери → промежуток, комната",
+    examples: ["时间", "房间"], exampleMeanings: ["время", "комната"]
+},
+{
+    id: 112, char: "得", pinyin: "de/dé/děi", meaning: "получать; суффикс; должен",
+    parts: [{ char: "彳", meaning: "шаг" }, { char: "日", meaning: "солнце" }, { char: "一寸", meaning: "дюйм" }],
+    radical: { char: "彳", name: "шаг" },
+    phonetic: { char: "㝵", reading: "dé", note: "фонетик" },
+    type: "фонетический",
+    explanation: "Шаг + солнце + дюйм = достигать, получать",
+    examples: ["得到", "很好得"], exampleMeanings: ["получить", "очень хорошо (суфф.)"]
+},
+{
+    id: 113, char: "着", pinyin: "zhe", meaning: "показатель длительного действия",
+    parts: [{ char: "羊", meaning: "овца" }, { char: "目", meaning: "глаз" }],
+    radical: { char: "羊", name: "овца" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Овца с глазами → состояние (как шерсть прилегает)",
+    examples: ["看着", "躺着"], exampleMeanings: ["смотрит", "лежит"]
+},
+{
+    id: 114, char: "起", pinyin: "qǐ", meaning: "подниматься",
+    parts: [{ char: "走", meaning: "идти" }, { char: "己", meaning: "сам" }],
+    radical: { char: "走", name: "идти" },
+    phonetic: { char: "己", reading: "jǐ", note: "jǐ → qǐ" },
+    type: "фонетический",
+    explanation: "Идти + сам = вставать, подниматься",
+    examples: ["起来", "起床"], exampleMeanings: ["вставать", "подняться с кровати"]
+},
+{
+    id: 115, char: "作", pinyin: "zuò", meaning: "делать, работать",
+    parts: [{ char: "亻", meaning: "человек" }, { char: "乍", meaning: "внезапно" }],
+    radical: { char: "亻", name: "человек" },
+    phonetic: { char: "乍", reading: "zhà", note: "zhà → zuò" },
+    type: "фонетический",
+    explanation: "Человек + внезапно = начинать работу",
+    examples: ["工作", "作家"], exampleMeanings: ["работа", "писатель"]
+},
+{
+    id: 116, char: "问", pinyin: "wèn", meaning: "спрашивать",
+    parts: [{ char: "门", meaning: "дверь" }, { char: "口", meaning: "рот" }],
+    radical: { char: "门", name: "дверь" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рот в дверях → спрашивать (стучаться)",
+    examples: ["问题", "请问"], exampleMeanings: ["вопрос", "разрешите спросить"]
+},
+{
+    id: 117, char: "答", pinyin: "dá", meaning: "отвечать",
+    parts: [{ char: "⺮", meaning: "бамбук" }, { char: "合", meaning: "соединять" }],
+    radical: { char: "⺮", name: "бамбук" },
+    phonetic: { char: "合", reading: "hé", note: "hé → dá" },
+    type: "фонетический",
+    explanation: "Бамбук + соединять = ответ (на бамбуковой табличке)",
+    examples: ["回答", "答案"], exampleMeanings: ["отвечать", "ответ"]
+},
+{
+    id: 118, char: "入", pinyin: "rù", meaning: "входить",
+    parts: [{ char: "人", meaning: "человек" }],
+    radical: { char: "入", name: "входить" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Остриё, входящее во что-то → входить",
+    examples: ["进入", "入口"], exampleMeanings: ["войти", "вход"]
+},
+{
+    id: 119, char: "进", pinyin: "jìn", meaning: "входить, продвигаться",
+    parts: [{ char: "辶", meaning: "движение" }, { char: "井", meaning: "колодец" }],
+    radical: { char: "辶", name: "движение" },
+    phonetic: { char: "井", reading: "jǐng", note: "jǐng → jìn" },
+    type: "фонетический",
+    explanation: "Движение + колодец = войти, двигаться вперёд",
+    examples: ["进来", "进步"], exampleMeanings: ["войти", "прогресс"]
+},
+{
+    id: 120, char: "坐", pinyin: "zuò", meaning: "сидеть",
+    parts: [{ char: "人", meaning: "человек" }, { char: "土", meaning: "земля" }],
+    radical: { char: "土", name: "земля" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Два человека на земле → сидеть",
+    examples: ["坐下", "请坐"], exampleMeanings: ["сесть", "садитесь"]
+},
+{
+    id: 121, char: "站", pinyin: "zhàn", meaning: "стоять, станция",
+    parts: [{ char: "立", meaning: "стоять" }, { char: "占", meaning: "занимать" }],
+    radical: { char: "立", name: "стоять" },
+    phonetic: { char: "占", reading: "zhān", note: "zhān → zhàn" },
+    type: "фонетический",
+    explanation: "Стоять + занимать = стоять, станция",
+    examples: ["车站", "站着"], exampleMeanings: ["станция", "стоять"]
+},
+{
+    id: 122, char: "放", pinyin: "fàng", meaning: "ставить, отпускать",
+    parts: [{ char: "方", meaning: "квадрат" }, { char: "攵", meaning: "рука с палкой" }],
+    radical: { char: "攵", name: "ударять" },
+    phonetic: { char: "方", reading: "fāng", note: "fāng → fàng" },
+    type: "фонетический",
+    explanation: "Квадрат + рука = отпускать, ставить",
+    examples: ["放学", "放心"], exampleMeanings: ["закончить школу", "расслабиться"]
+},
+{
+    id: 123, char: "拿", pinyin: "ná", meaning: "брать, держать",
+    parts: [{ char: "合", meaning: "соединять" }, { char: "手", meaning: "рука" }],
+    radical: { char: "手", name: "рука" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Соединить руку → брать",
+    examples: ["拿东西", "拿来"], exampleMeanings: ["взять вещь", "принести"]
+},
+{
+    id: 124, char: "给", pinyin: "gěi", meaning: "давать",
+    parts: [{ char: "纟", meaning: "шёлк" }, { char: "合", meaning: "соединять" }],
+    radical: { char: "纟", name: "шёлк" },
+    phonetic: { char: "合", reading: "hé", note: "hé → gěi" },
+    type: "фонетический",
+    explanation: "Шёлк + соединять = давать (как передавать связь)",
+    examples: ["给你", "送给"], exampleMeanings: ["дать тебе", "подарить"]
+},
+{
+    id: 125, char: "找", pinyin: "zhǎo", meaning: "искать",
+    parts: [{ char: "扌", meaning: "рука" }, { char: "戈", meaning: "копьё" }],
+    radical: { char: "扌", name: "рука" }, phonetic: null,
+    type: "идеограмма",
+    explanation: "Рука ищет копьё → искать",
+    examples: ["找到", "找工作"], exampleMeanings: ["найти", "искать работу"]
+},
+{
+    id: 126, char: "用", pinyin: "yòng", meaning: "использовать",
+    parts: [{ char: "用", meaning: "использовать" }],
+    radical: { char: "用", name: "использовать" }, phonetic: null,
+    type: "пиктограмма",
+    explanation: "Колокол → годный к использованию",
+    examples: ["用钱", "使用"], exampleMeanings: ["тратить деньги", "использовать"]
+},
+{
+    id: 127, char: "做", pinyin: "zuò", meaning: "делать",
+    parts: [{ char: "亻", meaning: "человек" }, { char: "故", meaning: "старый" }],
+    radical: { char: "亻", name: "человек" },
+    phonetic: { char: "故", reading: "gù", note: "gù → zuò" },
+    type: "фонетический",
+    explanation: "Человек делает что-то → делать",
+    examples: ["做工作", "做菜"], exampleMeanings: ["делать работу", "готовить еду"]
+}
 ];
 
 // Сохраняем в localStorage для использования в других файлах
