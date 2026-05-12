@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>⚠️ Тетрадь: Похожие радикалы | Полная база</title>
+    <title>📓 Тетрадь: Похожие радикалы | 70+ групп | Каллиграфия</title>
     <style>
         * {
             margin: 0;
@@ -45,7 +45,7 @@
             padding: 6px 20px;
             border-radius: 50px;
             color: #B46F2A;
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin: 0;
         }
         .btn-home {
@@ -270,14 +270,14 @@
             .btn { padding: 10px 16px; font-size: 0.8rem; min-width: 80px; }
             .group-btn { font-size: 0.6rem; padding: 4px 10px; }
             .radical-btn { font-size: 1.1rem; padding: 4px 12px; }
-            .header h1 { font-size: 0.8rem; }
+            .header h1 { font-size: 0.7rem; padding: 4px 12px; }
         }
     </style>
 </head>
 <body>
 <div class="copybook">
     <div class="header">
-        <h1>⚠️ Визуально похожие радикалы (полная база)</h1>
+        <h1>📓 Визуально похожие радикалы | 70+ групп | Каллиграфия</h1>
         <a href="index.html" class="btn-home">⬅ На главную</a>
     </div>
 
@@ -323,8 +323,7 @@
 </div>
 
 <script>
-    // ========== ПОЛНАЯ БАЗА ВИЗУАЛЬНО ПОХОЖИХ РАДИКАЛОВ ==========
-    // Оригинальные группы 1-34 + новые 35-50
+    // ========== ПОЛНАЯ БАЗА ВИЗУАЛЬНО ПОХОЖИХ РАДИКАЛОВ (70+ ГРУПП) ==========
     const allRadicals = [
         // ГРУППА 1: 又 и похожие
         { char: "又", pinyin: "yòu", meaning: "снова, опять" },
@@ -497,9 +496,7 @@
         { char: "鸟", pinyin: "niǎo", meaning: "птица" },
         { char: "乌", pinyin: "wū", meaning: "ворона, чёрный" },
         
-        // ========== НОВЫЕ ГРУППЫ 35-50 ==========
-        
-        // ГРУППА 35: 戊/戌/戍/成 (классическая путаница)
+        // ГРУППА 35: 戊/戌/戍/成
         { char: "戊", pinyin: "wù", meaning: "5-й небесный ствол" },
         { char: "戌", pinyin: "xū", meaning: "11-я земная ветвь" },
         { char: "戍", pinyin: "shù", meaning: "охранять" },
@@ -566,10 +563,132 @@
         // ГРУППА 50: 贝/见/页
         { char: "贝", pinyin: "bèi", meaning: "раковина" },
         { char: "见", pinyin: "jiàn", meaning: "видеть" },
-        { char: "页", pinyin: "yè", meaning: "страница/голова" }
+        { char: "页", pinyin: "yè", meaning: "страница/голова" },
+        
+        // ГРУППА 51: 云/去/会
+        { char: "云", pinyin: "yún", meaning: "облако" },
+        { char: "去", pinyin: "qù", meaning: "идти" },
+        { char: "会", pinyin: "huì", meaning: "уметь" },
+        
+        // ГРУППА 52: 元/无/天
+        { char: "元", pinyin: "yuán", meaning: "начало, юань" },
+        { char: "无", pinyin: "wú", meaning: "нет" },
+        { char: "天", pinyin: "tiān", meaning: "небо" },
+        
+        // ГРУППА 53: 开/井/升/并
+        { char: "开", pinyin: "kāi", meaning: "открывать" },
+        { char: "井", pinyin: "jǐng", meaning: "колодец" },
+        { char: "升", pinyin: "shēng", meaning: "подниматься" },
+        { char: "并", pinyin: "bìng", meaning: "объединять" },
+        
+        // ГРУППА 54: 午/牛/年/半/丰
+        { char: "午", pinyin: "wǔ", meaning: "полдень" },
+        { char: "牛", pinyin: "niú", meaning: "корова" },
+        { char: "年", pinyin: "nián", meaning: "год" },
+        { char: "半", pinyin: "bàn", meaning: "половина" },
+        { char: "丰", pinyin: "fēng", meaning: "изобилие" },
+        
+        // ГРУППА 55: 母/每
+        { char: "母", pinyin: "mǔ", meaning: "мать" },
+        { char: "每", pinyin: "měi", meaning: "каждый" },
+        
+        // ГРУППА 56: 青/清/情/晴
+        { char: "青", pinyin: "qīng", meaning: "синий" },
+        { char: "清", pinyin: "qīng", meaning: "чистый" },
+        { char: "情", pinyin: "qíng", meaning: "чувство" },
+        { char: "晴", pinyin: "qíng", meaning: "ясно" },
+        
+        // ГРУППА 57: 良/食
+        { char: "良", pinyin: "liáng", meaning: "хороший" },
+        { char: "食", pinyin: "shí", meaning: "еда" },
+        
+        // ГРУППА 58: 冫/氵/灬
+        { char: "冫", pinyin: "bīng", meaning: "лёд" },
+        { char: "氵", pinyin: "shuǐ", meaning: "вода (ключ)" },
+        { char: "灬", pinyin: "huǒ", meaning: "огонь (снизу)" },
+        
+        // ГРУППА 59: 讠/言
+        { char: "讠", pinyin: "yán", meaning: "речь (ключ)" },
+        { char: "言", pinyin: "yán", meaning: "слово, речь" },
+        
+        // ГРУППА 60: 阝/卩
+        { char: "阝", pinyin: "fù", meaning: "холм (ключ)" },
+        { char: "卩", pinyin: "jié", meaning: "печать" },
+        
+        // ГРУППА 61: 礻/衤
+        { char: "礻", pinyin: "shì", meaning: "дух (ключ)" },
+        { char: "衤", pinyin: "yī", meaning: "одежда (ключ)" },
+        
+        // ГРУППА 62: 辶/廴
+        { char: "辶", pinyin: "chuò", meaning: "движение" },
+        { char: "廴", pinyin: "yǐn", meaning: "длинный шаг" },
+        
+        // ГРУППА 63: 犭/犬
+        { char: "犭", pinyin: "quǎn", meaning: "собака (ключ)" },
+        { char: "犬", pinyin: "quǎn", meaning: "собака" },
+        
+        // ГРУППА 64: 饣/食
+        { char: "饣", pinyin: "shí", meaning: "еда (ключ)" },
+        { char: "食", pinyin: "shí", meaning: "еда" },
+        
+        // ГРУППА 65: 纟/糸
+        { char: "纟", pinyin: "sī", meaning: "шёлк (ключ)" },
+        { char: "糸", pinyin: "mì", meaning: "шёлк" },
+        
+        // ГРУППА 66: 钅/金
+        { char: "钅", pinyin: "jīn", meaning: "металл (ключ)" },
+        { char: "金", pinyin: "jīn", meaning: "золото, металл" },
+        
+        // ГРУППА 67: 门/闩/闩
+        { char: "门", pinyin: "mén", meaning: "дверь" },
+        { char: "闩", pinyin: "shuān", meaning: "задвижка" },
+        
+        // ГРУППА 68: 韦/卫
+        { char: "韦", pinyin: "wéi", meaning: "мягкая кожа" },
+        { char: "卫", pinyin: "wèi", meaning: "защищать" },
+        
+        // ГРУППА 69: 贝/见/页/具
+        { char: "贝", pinyin: "bèi", meaning: "раковина" },
+        { char: "见", pinyin: "jiàn", meaning: "видеть" },
+        { char: "页", pinyin: "yè", meaning: "страница" },
+        { char: "具", pinyin: "jù", meaning: "инструмент" },
+        
+        // ГРУППА 70: 艮/良/银
+        { char: "艮", pinyin: "gèn", meaning: "граница" },
+        { char: "良", pinyin: "liáng", meaning: "хороший" },
+        { char: "银", pinyin: "yín", meaning: "серебро" },
+        
+        // ГРУППА 71: 今/令/冷/领
+        { char: "今", pinyin: "jīn", meaning: "сейчас" },
+        { char: "令", pinyin: "lìng", meaning: "приказ" },
+        { char: "冷", pinyin: "lěng", meaning: "холодный" },
+        { char: "领", pinyin: "lǐng", meaning: "воротник" },
+        
+        // ГРУППА 72: 仓/创/苍
+        { char: "仓", pinyin: "cāng", meaning: "склад" },
+        { char: "创", pinyin: "chuàng", meaning: "создавать" },
+        { char: "苍", pinyin: "cāng", meaning: "серый" },
+        
+        // ГРУППА 73: 包/抱/饱/跑/泡
+        { char: "包", pinyin: "bāo", meaning: "пакет" },
+        { char: "抱", pinyin: "bào", meaning: "обнимать" },
+        { char: "饱", pinyin: "bǎo", meaning: "сытый" },
+        { char: "跑", pinyin: "pǎo", meaning: "бежать" },
+        { char: "泡", pinyin: "pào", meaning: "пузырь" },
+        
+        // ГРУППА 74: 工/土/士
+        { char: "工", pinyin: "gōng", meaning: "работа" },
+        { char: "土", pinyin: "tǔ", meaning: "земля" },
+        { char: "士", pinyin: "shì", meaning: "воин" },
+        
+        // ГРУППА 75: 已/己/巳/巴
+        { char: "已", pinyin: "yǐ", meaning: "уже" },
+        { char: "己", pinyin: "jǐ", meaning: "себя" },
+        { char: "巳", pinyin: "sì", meaning: "змея" },
+        { char: "巴", pinyin: "bā", meaning: "надеяться" }
     ];
 
-    // КОМПЛЕКТЫ (50 групп)
+    // КОМПЛЕКТЫ (75 групп)
     const groups = [
         { name: "✋ 又/叉/义/文/支", indices: [0,1,2,3,4] },
         { name: "☀️ 白/自/日/曰/旦", indices: [5,6,7,8,9] },
@@ -605,7 +724,6 @@
         { name: "🪨 石/右/后", indices: [93,94,95] },
         { name: "🚪 门/问/间/们", indices: [96,97,98,99] },
         { name: "🐎 马/鸟/乌", indices: [100,101,102] },
-        // НОВЫЕ ГРУППЫ 35-50
         { name: "⚔️ 戊/戌/戍/成", indices: [103,104,105,106] },
         { name: "⬅️ 左/右", indices: [107,108] },
         { name: "❌ 无/天", indices: [109,110] },
@@ -621,7 +739,32 @@
         { name: "🌬️ 几/凡/风", indices: [130,131,132] },
         { name: "🐉 龙/尤", indices: [133,134] },
         { name: "🍉 瓜/爪", indices: [135,136] },
-        { name: "📄 贝/见/页", indices: [137,138,139] }
+        { name: "📄 贝/见/页", indices: [137,138,139] },
+        { name: "☁️ 云/去/会", indices: [140,141,142] },
+        { name: "💰 元/无/天", indices: [143,144,145] },
+        { name: "⛲ 开/井/升/并", indices: [146,147,148,149] },
+        { name: "🐂 午/牛/年/半/丰", indices: [150,151,152,153,154] },
+        { name: "👩 母/每", indices: [155,156] },
+        { name: "💙 青/清/情/晴", indices: [157,158,159,160] },
+        { name: "🍚 良/食", indices: [161,162] },
+        { name: "❄️ 冫/氵/灬", indices: [163,164,165] },
+        { name: "💬 讠/言", indices: [166,167] },
+        { name: "⛰️ 阝/卩", indices: [168,169] },
+        { name: "🙏 礻/衤", indices: [170,171] },
+        { name: "🚶 辶/廴", indices: [172,173] },
+        { name: "🐕 犭/犬", indices: [174,175] },
+        { name: "🍜 饣/食", indices: [176,177] },
+        { name: "🧵 纟/糸", indices: [178,179] },
+        { name: "💰 钅/金", indices: [180,181] },
+        { name: "🚪 门/闩", indices: [182,183] },
+        { name: "🛡️ 韦/卫", indices: [184,185] },
+        { name: "📦 贝/见/页/具", indices: [186,187,188,189] },
+        { name: "🥈 艮/良/银", indices: [190,191,192] },
+        { name: "❄️ 今/令/冷/领", indices: [193,194,195,196] },
+        { name: "🏚️ 仓/创/苍", indices: [197,198,199] },
+        { name: "📦 包/抱/饱/跑/泡", indices: [200,201,202,203,204] },
+        { name: "🔧 工/土/士", indices: [205,206,207] },
+        { name: "🐍 已/己/巳/巴", indices: [208,209,210,211] }
     ];
 
     let currentGroup = 0;
