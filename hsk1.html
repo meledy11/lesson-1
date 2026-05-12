@@ -355,143 +355,2084 @@
 </div>
 
 <script>
-    // ========== ПОЛНЫЙ СПИСОК HSK 1 (150 СЛОВ) ОФИЦИАЛЬНЫЙ ==========
-    const HSK1_WORDS = [
-        { char: "爱", pinyin: "ài", meaning: "любить", img: "❤️", assoc: "Любовь, символ сердца" },
-        { char: "八", pinyin: "bā", meaning: "восемь", img: "8️⃣", assoc: "Расходящиеся линии, как 8" },
-        { char: "爸爸", pinyin: "bàba", meaning: "папа", img: "👨", assoc: "Отец, папа" },
-        { char: "吧", pinyin: "ba", meaning: "частица предложения", img: "💬", assoc: "Давай, предложение" },
-        { char: "白", pinyin: "bái", meaning: "белый", img: "⚪", assoc: "Белый цвет" },
-        { char: "百", pinyin: "bǎi", meaning: "сто", img: "💯", assoc: "Сто" },
-        { char: "班", pinyin: "bān", meaning: "класс / группа", img: "🏫", assoc: "Школьный класс" },
-        { char: "半", pinyin: "bàn", meaning: "половина", img: "1/2", assoc: "Половина" },
-        { char: "办", pinyin: "bàn", meaning: "делать / заниматься", img: "🔧", assoc: "Заниматься делами" },
-        { char: "帮", pinyin: "bāng", meaning: "помогать", img: "🤝", assoc: "Помощь, поддержка" },
-        { char: "包", pinyin: "bāo", meaning: "пакет / сумка", img: "🎒", assoc: "Сумка, пакет" },
-        { char: "报", pinyin: "bào", meaning: "газета", img: "📰", assoc: "Газета, новости" },
-        { char: "北", pinyin: "běi", meaning: "север", img: "🧭", assoc: "Северное направление" },
-        { char: "本", pinyin: "běn", meaning: "книга / корень", img: "📖", assoc: "Книга, основа" },
-        { char: "比", pinyin: "bǐ", meaning: "сравнивать", img: "⚖️", assoc: "Сравнение" },
-        { char: "边", pinyin: "biān", meaning: "сторона / край", img: "📐", assoc: "Край, сторона" },
-        { char: "便", pinyin: "biàn", meaning: "удобный", img: "👍", assoc: "Удобно" },
-        { char: "遍", pinyin: "biàn", meaning: "раз (действия)", img: "🔄", assoc: "Один раз" },
-        { char: "别", pinyin: "bié", meaning: "не / другой", img: "🚫", assoc: "Не делай" },
-        { char: "病", pinyin: "bìng", meaning: "болезнь", img: "🤒", assoc: "Болеть" },
-        { char: "不", pinyin: "bù", meaning: "нет / не", img: "❌", assoc: "Отрицание" },
-        { char: "菜", pinyin: "cài", meaning: "овощи / блюдо", img: "🥬", assoc: "Еда, овощи" },
-        { char: "茶", pinyin: "chá", meaning: "чай", img: "🍵", assoc: "Чай, напиток" },
-        { char: "差", pinyin: "chà", meaning: "плохой / отличаться", img: "⚠️", assoc: "Отличие, разница" },
-        { char: "长", pinyin: "cháng", meaning: "длинный", img: "📏", assoc: "Длинный" },
-        { char: "常", pinyin: "cháng", meaning: "часто", img: "🔄", assoc: "Часто, обычно" },
-        { char: "唱", pinyin: "chàng", meaning: "петь", img: "🎤", assoc: "Петь песни" },
-        { char: "车", pinyin: "chē", meaning: "машина", img: "🚗", assoc: "Транспорт, машина" },
-        { char: "成", pinyin: "chéng", meaning: "становиться", img: "➡️", assoc: "Становиться" },
-        { char: "吃", pinyin: "chī", meaning: "есть", img: "🍚", assoc: "Еда, кушать" },
-        { char: "出", pinyin: "chū", meaning: "выходить", img: "🚪", assoc: "Выход наружу" },
-        { char: "穿", pinyin: "chuān", meaning: "надевать", img: "👕", assoc: "Одевать" },
-        { char: "船", pinyin: "chuán", meaning: "лодка", img: "⛵", assoc: "Корабль, лодка" },
-        { char: "春", pinyin: "chūn", meaning: "весна", img: "🌸", assoc: "Весенний сезон" },
-        { char: "词", pinyin: "cí", meaning: "слово", img: "📝", assoc: "Слово, лексика" },
-        { char: "次", pinyin: "cì", meaning: "раз (счёт)", img: "🔢", assoc: "Один раз" },
-        { char: "从", pinyin: "cóng", meaning: "из / от", img: "➡️", assoc: "Из, от" },
-        { char: "错", pinyin: "cuò", meaning: "ошибаться", img: "❌", assoc: "Ошибка, неправильно" },
-        { char: "打", pinyin: "dǎ", meaning: "бить / делать", img: "👊", assoc: "Ударить" },
-        { char: "大", pinyin: "dà", meaning: "большой", img: "🐘", assoc: "Большой размер" },
-        { char: "带", pinyin: "dài", meaning: "нести / лента", img: "🎗️", assoc: "Носить с собой" },
-        { char: "但", pinyin: "dàn", meaning: "но", img: "🔄", assoc: "Противопоставление" },
-        { char: "蛋", pinyin: "dàn", meaning: "яйцо", img: "🥚", assoc: "Яйцо" },
-        { char: "当", pinyin: "dāng", meaning: "быть / работать как", img: "💼", assoc: "Работать, быть" },
-        { char: "到", pinyin: "dào", meaning: "до / достигать", img: "📍", assoc: "Достичь, прибыть" },
-        { char: "道", pinyin: "dào", meaning: "путь / дорога", img: "🛤️", assoc: "Путь, дорога" },
-        { char: "的", pinyin: "de", meaning: "принадлежность", img: "🔹", assoc: "Показывает принадлежность" },
-        { char: "得", pinyin: "de", meaning: "получать / хорошо", img: "✅", assoc: "Получать, результат" },
-        { char: "等", pinyin: "děng", meaning: "ждать", img: "⏳", assoc: "Ожидание" },
-        { char: "低", pinyin: "dī", meaning: "низкий", img: "👇", assoc: "Низкий" },
-        { char: "弟", pinyin: "dì", meaning: "младший брат", img: "👦", assoc: "Младший брат" },
-        { char: "第", pinyin: "dì", meaning: "порядковый номер", img: "#️⃣", assoc: "Первый, второй" },
-        { char: "点", pinyin: "diǎn", meaning: "точка / час", img: "🕐", assoc: "Время, часа" },
-        { char: "电", pinyin: "diàn", meaning: "электричество", img: "⚡", assoc: "Электричество" },
-        { char: "店", pinyin: "diàn", meaning: "магазин", img: "🏪", assoc: "Магазин" },
-        { char: "冬", pinyin: "dōng", meaning: "зима", img: "❄️", assoc: "Зимний сезон" },
-        { char: "东", pinyin: "dōng", meaning: "восток", img: "🧭", assoc: "Восточное направление" },
-        { char: "动", pinyin: "dòng", meaning: "двигаться", img: "🏃", assoc: "Движение" },
-        { char: "都", pinyin: "dōu", meaning: "все", img: "👥", assoc: "Все, оба" },
-        { char: "读", pinyin: "dú", meaning: "читать", img: "📖", assoc: "Читать" },
-        { char: "对", pinyin: "duì", meaning: "правильно / к", img: "✓", assoc: "Правильно" },
-        { char: "多", pinyin: "duō", meaning: "много", img: "📈", assoc: "Много, множество" },
-        { char: "哦", pinyin: "ó", meaning: "о! (удивление)", img: "😲", assoc: "Понимание, удивление" },
-        { char: "儿", pinyin: "ér", meaning: "ребёнок", img: "👶", assoc: "Сын, ребёнок" },
-        { char: "二", pinyin: "èr", meaning: "два", img: "2️⃣", assoc: "Два" },
-        { char: "发", pinyin: "fā", meaning: "отправлять", img: "📤", assoc: "Отправлять, посылать" },
-        { char: "饭", pinyin: "fàn", meaning: "рис / еда", img: "🍚", assoc: "Еда, рис" },
-        { char: "方", pinyin: "fāng", meaning: "квадрат", img: "🔲", assoc: "Квадратный" },
-        { char: "房", pinyin: "fáng", meaning: "дом", img: "🏠", assoc: "Дом, здание" },
-        { char: "放", pinyin: "fàng", meaning: "класть", img: "📥", assoc: "Помещать, класть" },
-        { char: "飞", pinyin: "fēi", meaning: "летать", img: "✈️", assoc: "Летать" },
-        { char: "分", pinyin: "fēn", meaning: "делить / минута", img: "⏱️", assoc: "Минута, делить" },
-        { char: "份", pinyin: "fèn", meaning: "часть / экземпляр", img: "📄", assoc: "Экземпляр" },
-        { char: "风", pinyin: "fēng", meaning: "ветер", img: "💨", assoc: "Ветер" },
-        { char: "乎", pinyin: "hū", meaning: "в (высокий стиль)", img: "🔹", assoc: "В, на" },
-        { char: "服", pinyin: "fú", meaning: "одежда", img: "👕", assoc: "Одежда" },
-        { char: "父", pinyin: "fù", meaning: "отец", img: "👨", assoc: "Отец" },
-        { char: "干", pinyin: "gān", meaning: "сухой", img: "🏜️", assoc: "Сухой" },
-        { char: "赶", pinyin: "gǎn", meaning: "спешить", img: "🏃", assoc: "Спешить" },
-        { char: "感", pinyin: "gǎn", meaning: "чувствовать", img: "🤔", assoc: "Чувство, ощущение" },
-        { char: "刚", pinyin: "gāng", meaning: "только что", img: "⏰", assoc: "Только что" },
-        { char: "高", pinyin: "gāo", meaning: "высокий", img: "🏔️", assoc: "Высокий" },
-        { char: "告", pinyin: "gào", meaning: "сообщать", img: "📢", assoc: "Сообщать" },
-        { char: "哥", pinyin: "gē", meaning: "старший брат", img: "👦", assoc: "Старший брат" },
-        { char: "歌", pinyin: "gē", meaning: "песня", img: "🎵", assoc: "Песня" },
-        { char: "个", pinyin: "gè", meaning: "счётное слово", img: "🔢", assoc: "Штука" },
-        { char: "给", pinyin: "gěi", meaning: "давать", img: "🎁", assoc: "Давать" },
-        { char: "跟", pinyin: "gēn", meaning: "с / за", img: "👥", assoc: "Следовать за" },
-        { char: "更", pinyin: "gèng", meaning: "более", img: "📈", assoc: "Более" },
-        { char: "工", pinyin: "gōng", meaning: "работа", img: "🔧", assoc: "Работа" },
-        { char: "公", pinyin: "gōng", meaning: "общественный", img: "🏛️", assoc: "Общественный" },
-        { char: "共", pinyin: "gòng", meaning: "вместе", img: "👥", assoc: "Вместе, общий" },
-        { char: "够", pinyin: "gòu", meaning: "достаточно", img: "✅", assoc: "Достаточно" },
-        { char: "狗", pinyin: "gǒu", meaning: "собака", img: "🐕", assoc: "Собака" },
-        { char: "古", pinyin: "gǔ", meaning: "древний", img: "🏛️", assoc: "Древний" },
-        { char: "故", pinyin: "gù", meaning: "поэтому", img: "📌", assoc: "Поэтому" },
-        { char: "顾", pinyin: "gù", meaning: "заботиться", img: "🤝", assoc: "Забота" },
-        { char: "关", pinyin: "guān", meaning: "закрывать", img: "🔒", assoc: "Закрывать" }
-    ];
+  // ========== HSK 1 ПОЛНЫЙ СПИСОК (150 СЛОВ) С РАЗБОРОМ ==========
+// ========== HSK 1 ПОЛНЫЙ СПИСОК (150 СЛОВ) С РАЗБОРОМ ==========
 
-    // Добавляем остальные слова до 150
-    const moreWords = [
-        { char: "观", pinyin: "guān", meaning: "наблюдать", img: "👀", assoc: "Наблюдать" },
-        { char: "光", pinyin: "guāng", meaning: "свет", img: "💡", assoc: "Свет" },
-        { char: "广", pinyin: "guǎng", meaning: "широкий", img: "🌍", assoc: "Широкий" },
-        { char: "国", pinyin: "guó", meaning: "страна", img: "🏰", assoc: "Страна" },
-        { char: "过", pinyin: "guò", meaning: "проходить", img: "🚶", assoc: "Проходить" },
-        { char: "还", pinyin: "hái", meaning: "ещё", img: "🔄", assoc: "Ещё, также" },
-        { char: "孩", pinyin: "hái", meaning: "ребёнок", img: "🧒", assoc: "Ребёнок" },
-        { char: "海", pinyin: "hǎi", meaning: "море", img: "🌊", assoc: "Море" },
-        { char: "汉", pinyin: "hàn", meaning: "китаец", img: "🇨🇳", assoc: "Китаец" },
-        { char: "好", pinyin: "hǎo", meaning: "хорошо", img: "👍", assoc: "Хорошо" },
-        { char: "喝", pinyin: "hē", meaning: "пить", img: "🥤", assoc: "Пить" },
-        { char: "和", pinyin: "hé", meaning: "и", img: "➕", assoc: "И" },
-        { char: "合", pinyin: "hé", meaning: "соответствовать", img: "🤝", assoc: "Соответствовать" },
-        { char: "很", pinyin: "hěn", meaning: "очень", img: "💯", assoc: "Очень" },
-        { char: "红", pinyin: "hóng", meaning: "красный", img: "🔴", assoc: "Красный" },
-        { char: "后", pinyin: "hòu", meaning: "после", img: "⏩", assoc: "После" },
-        { char: "候", pinyin: "hòu", meaning: "время", img: "⏰", assoc: "Время" },
-        { char: "花", pinyin: "huā", meaning: "цветок", img: "🌸", assoc: "Цветок" },
-        { char: "华", pinyin: "huá", meaning: "Китай", img: "🇨🇳", assoc: "Китай" },
-        { char: "话", pinyin: "huà", meaning: "речь", img: "💬", assoc: "Речь" },
-        { char: "画", pinyin: "huà", meaning: "рисовать", img: "🎨", assoc: "Рисовать" },
-        { char: "怀", pinyin: "huái", meaning: "тосковать", img: "😔", assoc: "Тоска" },
-        { char: "还", pinyin: "hái", meaning: "ещё", img: "🔄", assoc: "Ещё" },
-        { char: "会", pinyin: "huì", meaning: "уметь", img: "💪", assoc: "Уметь" },
-        { char: "活", pinyin: "huó", meaning: "жить", img: "🌱", assoc: "Жить" },
-        { char: "火", pinyin: "huǒ", meaning: "огонь", img: "🔥", assoc: "Огонь" },
-        { char: "机", pinyin: "jī", meaning: "машина", img: "⚙️", assoc: "Машина" },
-        { char: "及", pinyin: "jí", meaning: "и", img: "➕", assoc: "И" },
-        { char: "级", pinyin: "jí", meaning: "уровень", img: "📊", assoc: "Уровень" },
-        { char: "急", pinyin: "jí", meaning: "спешить", img: "⏰", assoc: "Спешить" },
-        { char: "几", pinyin: "jǐ", meaning: "сколько", img: "❓", assoc: "Несколько" }
-    ];
-
+const HSK1_DATA = [
+    // 1-10
+    { char: "爱", pinyin: "ài", meaning: "любить", emoji: "❤️",
+      hasPhonetic: false, radical: "心", radicalMeaning: "сердце",
+      breakdown: "爫 (рука) + 冖 (крыша) + 心 (сердце)",
+      association: "Взять сердце под крышу → заботиться, любить",
+      examples: [
+        { ch: "我爱你", pinyin: "wǒ ài nǐ", ru: "Я люблю тебя" },
+        { ch: "爱人", pinyin: "ài rén", ru: "любимый" }
+      ]},
+    { char: "八", pinyin: "bā", meaning: "восемь", emoji: "8️⃣",
+      hasPhonetic: false, radical: "八", radicalMeaning: "восемь",
+      breakdown: "Две расходящиеся линии",
+      association: "Две палочки расходятся → похоже на цифру 8",
+      examples: [
+        { ch: "八点", pinyin: "bā diǎn", ru: "8 часов" },
+        { ch: "八月", pinyin: "bā yuè", ru: "август" }
+      ]},
+    { char: "爸爸", pinyin: "bàba", meaning: "папа", emoji: "👨",
+      hasPhonetic: true, phonetic: "巴", phoneticReading: "bā",
+      radical: "父", radicalMeaning: "отец",
+      breakdown: "父 (отец) + 巴 (фонетик)",
+      association: "Отец + звук 'ба' → папа",
+      examples: [
+        { ch: "我爸爸", pinyin: "wǒ bàba", ru: "мой папа" },
+        { ch: "爸爸妈妈", pinyin: "bàba māma", ru: "папа и мама" }
+      ]},
+    { char: "吧", pinyin: "ba", meaning: "частица 'давай'", emoji: "💬",
+      hasPhonetic: true, phonetic: "巴", phoneticReading: "bā",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 巴 (фонетик)",
+      association: "Рот издаёт 'ба' → частица предложения",
+      examples: [
+        { ch: "走吧", pinyin: "zǒu ba", ru: "пойдём!" },
+        { ch: "好吧", pinyin: "hǎo ba", ru: "ладно" }
+      ]},
+    { char: "白", pinyin: "bái", meaning: "белый", emoji: "⚪",
+      hasPhonetic: false, radical: "白", radicalMeaning: "белый",
+      breakdown: "丶 (капля) + 日 (солнце)",
+      association: "Капля на солнце → белый свет",
+      examples: [
+        { ch: "白色", pinyin: "bái sè", ru: "белый цвет" },
+        { ch: "白天", pinyin: "bái tiān", ru: "день" }
+      ]},
+    { char: "百", pinyin: "bǎi", meaning: "сто", emoji: "💯",
+      hasPhonetic: false, radical: "白", radicalMeaning: "белый",
+      breakdown: "一 (один) + 白 (белый)",
+      association: "Одна белая сотня → 100",
+      examples: [
+        { ch: "一百", pinyin: "yī bǎi", ru: "сто" },
+        { ch: "百年", pinyin: "bǎi nián", ru: "век" }
+      ]},
+    { char: "班", pinyin: "bān", meaning: "класс", emoji: "🏫",
+      hasPhonetic: false, radical: "王", radicalMeaning: "нефрит",
+      breakdown: "王 + 刀 + 王",
+      association: "Два нефрита с ножом → разделять на группы",
+      examples: [
+        { ch: "上班", pinyin: "shàng bān", ru: "на работу" },
+        { ch: "班级", pinyin: "bān jí", ru: "класс" }
+      ]},
+    { char: "半", pinyin: "bàn", meaning: "половина", emoji: "1/2",
+      hasPhonetic: false, radical: "十", radicalMeaning: "десять",
+      breakdown: "丶 + 十 + 丨",
+      association: "Десять пополам → половина",
+      examples: [
+        { ch: "半天", pinyin: "bàn tiān", ru: "полдня" },
+        { ch: "一半", pinyin: "yī bàn", ru: "половина" }
+      ]},
+    { char: "办", pinyin: "bàn", meaning: "делать", emoji: "🔧",
+      hasPhonetic: false, radical: "力", radicalMeaning: "сила",
+      breakdown: "力 (сила) + 八",
+      association: "Приложить силу → заниматься делами",
+      examples: [
+        { ch: "办法", pinyin: "bàn fǎ", ru: "способ" },
+        { ch: "办公室", pinyin: "bàngōng shì", ru: "офис" }
+      ]},
+    { char: "帮", pinyin: "bāng", meaning: "помогать", emoji: "🤝",
+      hasPhonetic: true, phonetic: "邦", phoneticReading: "bāng",
+      radical: "巾", radicalMeaning: "платок",
+      breakdown: "邦 (страна) + 巾 (платок)",
+      association: "Платок стране → помогать",
+      examples: [
+        { ch: "帮助", pinyin: "bāng zhù", ru: "помощь" },
+        { ch: "帮忙", pinyin: "bāng máng", ru: "помочь" }
+      ]},
+      
+    // 11-20
+    { char: "包", pinyin: "bāo", meaning: "пакет", emoji: "🎒",
+      hasPhonetic: false, radical: "勹", radicalMeaning: "обхват",
+      breakdown: "勹 (оборачивать) + 巳",
+      association: "Обёртка вокруг → пакет, сумка",
+      examples: [
+        { ch: "书包", pinyin: "shū bāo", ru: "рюкзак" },
+        { ch: "包子", pinyin: "bāo zi", ru: "баоцзы" }
+      ]},
+    { char: "报", pinyin: "bào", meaning: "газета", emoji: "📰",
+      hasPhonetic: true, phonetic: "卩", phoneticReading: "jié",
+      radical: "扌", radicalMeaning: "рука",
+      breakdown: "扌 (рука) + 卩",
+      association: "Рука передаёт новости → газета",
+      examples: [
+        { ch: "报纸", pinyin: "bào zhǐ", ru: "газета" },
+        { ch: "报告", pinyin: "bào gào", ru: "доклад" }
+      ]},
+    { char: "北", pinyin: "běi", meaning: "север", emoji: "🧭",
+      hasPhonetic: false, radical: "匕", radicalMeaning: "ложка",
+      breakdown: "二人 (два человека) + 匕",
+      association: "Два человека спиной друг к другу → север",
+      examples: [
+        { ch: "北京", pinyin: "Běijīng", ru: "Пекин" },
+        { ch: "北方", pinyin: "běi fāng", ru: "север" }
+      ]},
+    { char: "本", pinyin: "běn", meaning: "книга", emoji: "📖",
+      hasPhonetic: false, radical: "木", radicalMeaning: "дерево",
+      breakdown: "木 (дерево) + 一",
+      association: "Черта у корня дерева → основа, книга",
+      examples: [
+        { ch: "书本", pinyin: "shū běn", ru: "книга" },
+        { ch: "日本", pinyin: "Rì běn", ru: "Япония" }
+      ]},
+    { char: "比", pinyin: "bǐ", meaning: "сравнивать", emoji: "⚖️",
+      hasPhonetic: false, radical: "比", radicalMeaning: "сравнение",
+      breakdown: "二 (два) + 匕",
+      association: "Два человека рядом → сравнивать",
+      examples: [
+        { ch: "比较", pinyin: "bǐ jiào", ru: "сравнивать" },
+        { ch: "比如", pinyin: "bǐ rú", ru: "например" }
+      ]},
+    { char: "边", pinyin: "biān", meaning: "сторона", emoji: "📐",
+      hasPhonetic: true, phonetic: "力", phoneticReading: "lì",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 (движение) + 力",
+      association: "Сила движения → край, сторона",
+      examples: [
+        { ch: "一边", pinyin: "yī biān", ru: "одна сторона" },
+        { ch: "旁边", pinyin: "páng biān", ru: "рядом" }
+      ]},
+    { char: "便", pinyin: "biàn", meaning: "удобный", emoji: "👍",
+      hasPhonetic: true, phonetic: "更", phoneticReading: "gèng",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 更",
+      association: "Человек, которому удобно",
+      examples: [
+        { ch: "方便", pinyin: "fāng biàn", ru: "удобно" },
+        { ch: "随便", pinyin: "suí biàn", ru: "как угодно" }
+      ]},
+    { char: "遍", pinyin: "biàn", meaning: "раз", emoji: "🔄",
+      hasPhonetic: true, phonetic: "扁", phoneticReading: "biǎn",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 (движение) + 扁",
+      association: "Пройти весь путь → один раз",
+      examples: [
+        { ch: "一遍", pinyin: "yī biàn", ru: "один раз" },
+        { ch: "读一遍", pinyin: "dú yī biàn", ru: "прочитать раз" }
+      ]},
+    { char: "别", pinyin: "bié", meaning: "не", emoji: "🚫",
+      hasPhonetic: true, phonetic: "另", phoneticReading: "lìng",
+      radical: "刂", radicalMeaning: "нож",
+      breakdown: "另 (другой) + 刂",
+      association: "Отделить ножом → не надо",
+      examples: [
+        { ch: "别走", pinyin: "bié zǒu", ru: "не уходи" },
+        { ch: "别人", pinyin: "bié rén", ru: "другой человек" }
+      ]},
+    { char: "病", pinyin: "bìng", meaning: "болеть", emoji: "🤒",
+      hasPhonetic: true, phonetic: "丙", phoneticReading: "bǐng",
+      radical: "疒", radicalMeaning: "болезнь",
+      breakdown: "疒 (болезнь) + 丙",
+      association: "Огонь в теле → болезнь, жар",
+      examples: [
+        { ch: "生病", pinyin: "shēng bìng", ru: "заболеть" },
+        { ch: "病人", pinyin: "bìng rén", ru: "больной" }
+      ]},
+      
+    // 21-30
+    { char: "不", pinyin: "bù", meaning: "не", emoji: "❌",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "丶 + 下",
+      association: "Птица улетает → отрицание",
+      examples: [
+        { ch: "不是", pinyin: "bù shì", ru: "не является" },
+        { ch: "不好", pinyin: "bù hǎo", ru: "нехорошо" },
+        { ch: "不要", pinyin: "bù yào", ru: "не хочу" }
+      ]},
+    { char: "菜", pinyin: "cài", meaning: "овощи", emoji: "🥬",
+      hasPhonetic: true, phonetic: "采", phoneticReading: "cǎi",
+      radical: "艹", radicalMeaning: "трава",
+      breakdown: "艹 (трава) + 采",
+      association: "Трава, которую собирают → овощи, еда",
+      examples: [
+        { ch: "蔬菜", pinyin: "shū cài", ru: "овощи" },
+        { ch: "菜单", pinyin: "cài dān", ru: "меню" }
+      ]},
+    { char: "茶", pinyin: "chá", meaning: "чай", emoji: "🍵",
+      hasPhonetic: true, phonetic: "余", phoneticReading: "yú",
+      radical: "艹", radicalMeaning: "трава",
+      breakdown: "艹 (трава) + 人 + 木",
+      association: "Трава между людьми и деревом → чай",
+      examples: [
+        { ch: "喝茶", pinyin: "hē chá", ru: "пить чай" },
+        { ch: "茶馆", pinyin: "chá guǎn", ru: "чайная" }
+      ]},
+    { char: "差", pinyin: "chà", meaning: "плохой", emoji: "⚠️",
+      hasPhonetic: true, phonetic: "工", phoneticReading: "gōng",
+      radical: "工", radicalMeaning: "работа",
+      breakdown: "羊 (овца) + 工",
+      association: "Овца работает плохо",
+      examples: [
+        { ch: "差点", pinyin: "chà diǎn", ru: "чуть не" },
+        { ch: "差不多", pinyin: "chà bu duō", ru: "почти одинаково" }
+      ]},
+    { char: "长", pinyin: "cháng", meaning: "длинный", emoji: "📏",
+      hasPhonetic: false, radical: "长", radicalMeaning: "длинный",
+      breakdown: "象形 (волосы)",
+      association: "Длинные волосы → длина",
+      examples: [
+        { ch: "长城", pinyin: "cháng chéng", ru: "Великая стена" },
+        { ch: "长久", pinyin: "cháng jiǔ", ru: "долгий" }
+      ]},
+    { char: "常", pinyin: "cháng", meaning: "часто", emoji: "🔄",
+      hasPhonetic: true, phonetic: "尚", phoneticReading: "shàng",
+      radical: "巾", radicalMeaning: "платок",
+      breakdown: "尚 + 巾",
+      association: "Часто носить платок",
+      examples: [
+        { ch: "常常", pinyin: "cháng cháng", ru: "часто" },
+        { ch: "正常", pinyin: "zhèng cháng", ru: "нормальный" }
+      ]},
+    { char: "唱", pinyin: "chàng", meaning: "петь", emoji: "🎤",
+      hasPhonetic: true, phonetic: "昌", phoneticReading: "chāng",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 昌",
+      association: "Рот поёт два солнца",
+      examples: [
+        { ch: "唱歌", pinyin: "chàng gē", ru: "петь песню" },
+        { ch: "合唱", pinyin: "hé chàng", ru: "хор" }
+      ]},
+    { char: "车", pinyin: "chē", meaning: "машина", emoji: "🚗",
+      hasPhonetic: false, radical: "车", radicalMeaning: "машина",
+      breakdown: "象形 (колесница)",
+      association: "Древняя колесница → транспорт",
+      examples: [
+        { ch: "汽车", pinyin: "qì chē", ru: "автомобиль" },
+        { ch: "火车", pinyin: "huǒ chē", ru: "поезд" }
+      ]},
+    { char: "成", pinyin: "chéng", meaning: "становиться", emoji: "➡️",
+      hasPhonetic: false, radical: "戈", radicalMeaning: "алебарда",
+      breakdown: "戊 + 丁",
+      association: "Алебарда достигает цели → становиться",
+      examples: [
+        { ch: "成为", pinyin: "chéng wéi", ru: "стать кем-то" },
+        { ch: "成功", pinyin: "chéng gōng", ru: "успех" }
+      ]},
+    { char: "吃", pinyin: "chī", meaning: "есть", emoji: "🍚",
+      hasPhonetic: true, phonetic: "乞", phoneticReading: "qǐ",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 乞",
+      association: "Рот просит еду",
+      examples: [
+        { ch: "吃饭", pinyin: "chī fàn", ru: "есть" },
+        { ch: "小吃", pinyin: "xiǎo chī", ru: "закуска" }
+      ]},
+      
+    // 31-40
+    { char: "出", pinyin: "chū", meaning: "выходить", emoji: "🚪",
+      hasPhonetic: false, radical: "凵", radicalMeaning: "яма",
+      breakdown: "两山 (две горы)",
+      association: "Выйти из горного ущелья",
+      examples: [
+        { ch: "出来", pinyin: "chū lái", ru: "выйти" },
+        { ch: "出去", pinyin: "chū qù", ru: "уйти" }
+      ]},
+    { char: "穿", pinyin: "chuān", meaning: "надевать", emoji: "👕",
+      hasPhonetic: true, phonetic: "川", phoneticReading: "chuān",
+      radical: "穴", radicalMeaning: "пещера",
+      breakdown: "穴 (пещера) + 牙",
+      association: "Носить одежду → как в пещеру",
+      examples: [
+        { ch: "穿衣服", pinyin: "chuān yīfu", ru: "одеваться" },
+        { ch: "穿鞋", pinyin: "chuān xié", ru: "надеть обувь" }
+      ]},
+    { char: "船", pinyin: "chuán", meaning: "лодка", emoji: "⛵",
+      hasPhonetic: true, phonetic: "㕣", phoneticReading: "yǎn",
+      radical: "舟", radicalMeaning: "лодка",
+      breakdown: "舟 (лодка) + 㕣",
+      association: "Лодка с трубой",
+      examples: [
+        { ch: "小船", pinyin: "xiǎo chuán", ru: "лодка" },
+        { ch: "坐船", pinyin: "zuò chuán", ru: "плыть на лодке" }
+      ]},
+    { char: "春", pinyin: "chūn", meaning: "весна", emoji: "🌸",
+      hasPhonetic: false, radical: "日", radicalMeaning: "солнце",
+      breakdown: "三人 + 日",
+      association: "Три человека под солнцем → весна",
+      examples: [
+        { ch: "春天", pinyin: "chūn tiān", ru: "весна" },
+        { ch: "春节", pinyin: "chūn jié", ru: "праздник весны" }
+      ]},
+    { char: "词", pinyin: "cí", meaning: "слово", emoji: "📝",
+      hasPhonetic: true, phonetic: "司", phoneticReading: "sī",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 司",
+      association: "Речь в управлении → слова",
+      examples: [
+        { ch: "词典", pinyin: "cí diǎn", ru: "словарь" },
+        { ch: "单词", pinyin: "dān cí", ru: "слово" }
+      ]},
+    { char: "次", pinyin: "cì", meaning: "раз", emoji: "🔢",
+      hasPhonetic: true, phonetic: "冫", phoneticReading: "bīng",
+      radical: "欠", radicalMeaning: "нехватка",
+      breakdown: "冫 (лёд) + 欠",
+      association: "Лёд с нехваткой → счёт",
+      examples: [
+        { ch: "一次", pinyin: "yī cì", ru: "один раз" },
+        { ch: "下次", pinyin: "xià cì", ru: "в следующий раз" }
+      ]},
+    { char: "从", pinyin: "cóng", meaning: "следовать", emoji: "👥",
+      hasPhonetic: false, radical: "人", radicalMeaning: "человек",
+      breakdown: "二人 (два человека)",
+      association: "Два человека друг за другом → следовать",
+      examples: [
+        { ch: "从来", pinyin: "cóng lái", ru: "всегда" },
+        { ch: "从前", pinyin: "cóng qián", ru: "раньше" }
+      ]},
+    { char: "错", pinyin: "cuò", meaning: "ошибка", emoji: "❌",
+      hasPhonetic: true, phonetic: "昔", phoneticReading: "xī",
+      radical: "钅", radicalMeaning: "металл",
+      breakdown: "钅 (металл) + 昔",
+      association: "Металл в прошлом → ошибка",
+      examples: [
+        { ch: "错误", pinyin: "cuò wù", ru: "ошибка" },
+        { ch: "不错", pinyin: "bù cuò", ru: "неплохо" }
+      ]},
+    { char: "打", pinyin: "dǎ", meaning: "бить", emoji: "👊",
+      hasPhonetic: true, phonetic: "丁", phoneticReading: "dīng",
+      radical: "扌", radicalMeaning: "рука",
+      breakdown: "扌 (рука) + 丁",
+      association: "Бить рукой",
+      examples: [
+        { ch: "打电话", pinyin: "dǎ diànhuà", ru: "звонить" },
+        { ch: "打车", pinyin: "dǎ chē", ru: "взять такси" }
+      ]},
+    { char: "大", pinyin: "dà", meaning: "большой", emoji: "🐘",
+      hasPhonetic: false, radical: "大", radicalMeaning: "большой",
+      breakdown: "人 (человек) с разведёнными руками",
+      association: "Человек широко раскинул руки → большой",
+      examples: [
+        { ch: "大学", pinyin: "dà xué", ru: "университет" },
+        { ch: "大人", pinyin: "dà rén", ru: "взрослый" }
+      ]},
+      
+    // 41-50
+    { char: "带", pinyin: "dài", meaning: "нести", emoji: "🎗️",
+      hasPhonetic: true, phonetic: "巾", phoneticReading: "jīn",
+      radical: "巾", radicalMeaning: "платок",
+      breakdown: "三 (три) + 巾",
+      association: "Три платка нести",
+      examples: [
+        { ch: "带路", pinyin: "dài lù", ru: "вести дорогу" },
+        { ch: "带领", pinyin: "dài lǐng", ru: "вести за собой" }
+      ]},
+    { char: "但", pinyin: "dàn", meaning: "но", emoji: "🔄",
+      hasPhonetic: true, phonetic: "旦", phoneticReading: "dàn",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 日 (солнце) + 一",
+      association: "Человек видит солнце, но...",
+      examples: [
+        { ch: "但是", pinyin: "dàn shì", ru: "но" },
+        { ch: "不但", pinyin: "bù dàn", ru: "не только" }
+      ]},
+    { char: "蛋", pinyin: "dàn", meaning: "яйцо", emoji: "🥚",
+      hasPhonetic: true, phonetic: "疋", phoneticReading: "shū",
+      radical: "疋", radicalMeaning: "рулон",
+      breakdown: "疋 + 虫",
+      association: "Червь в рулоне → яйцо",
+      examples: [
+        { ch: "鸡蛋", pinyin: "jī dàn", ru: "куриное яйцо" },
+        { ch: "蛋糕", pinyin: "dàn gāo", ru: "торт" }
+      ]},
+    { char: "当", pinyin: "dāng", meaning: "быть, как", emoji: "💼",
+      hasPhonetic: false, radical: "小", radicalMeaning: "маленький",
+      breakdown: "小 + 彐",
+      association: "Маленький с равным → быть как",
+      examples: [
+        { ch: "当然", pinyin: "dāng rán", ru: "конечно" },
+        { ch: "当时", pinyin: "dāng shí", ru: "в то время" }
+      ]},
+    { char: "到", pinyin: "dào", meaning: "достигать", emoji: "📍",
+      hasPhonetic: true, phonetic: "刂", phoneticReading: "dāo",
+      radical: "刂", radicalMeaning: "нож",
+      breakdown: "至 + 刂",
+      association: "Дойти ножом → достичь",
+      examples: [
+        { ch: "到达", pinyin: "dào dá", ru: "прибыть" },
+        { ch: "看到", pinyin: "kàn dào", ru: "увидеть" }
+      ]},
+    { char: "道", pinyin: "dào", meaning: "путь", emoji: "🛤️",
+      hasPhonetic: true, phonetic: "首", phoneticReading: "shǒu",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 (движение) + 首 (голова)",
+      association: "Голова идёт по пути",
+      examples: [
+        { ch: "道路", pinyin: "dào lù", ru: "дорога" },
+        { ch: "知道", pinyin: "zhī dào", ru: "знать" }
+      ]},
+    { char: "的", pinyin: "de", meaning: "принадлежность", emoji: "🔹",
+      hasPhonetic: true, phonetic: "勺", phoneticReading: "sháo",
+      radical: "白", radicalMeaning: "белый",
+      breakdown: "白 (белый) + 勺",
+      association: "Белая ложка → показывает принадлежность",
+      examples: [
+        { ch: "我的", pinyin: "wǒ de", ru: "моё" },
+        { ch: "你的", pinyin: "nǐ de", ru: "твоё" }
+      ]},
+    { char: "得", pinyin: "de", meaning: "получать", emoji: "✅",
+      hasPhonetic: true, phonetic: "日", phoneticReading: "rì",
+      radical: "彳", radicalMeaning: "шаг",
+      breakdown: "彳 (шаг) + 日 + 寸",
+      association: "Шаг к солнцу → получать",
+      examples: [
+        { ch: "得到", pinyin: "dé dào", ru: "получить" },
+        { ch: "觉得", pinyin: "jué de", ru: "чувствовать" }
+      ]},
+    { char: "等", pinyin: "děng", meaning: "ждать", emoji: "⏳",
+      hasPhonetic: true, phonetic: "寺", phoneticReading: "sì",
+      radical: "竹", radicalMeaning: "бамбук",
+      breakdown: "竹 (бамбук) + 寺",
+      association: "Бамбук у храма → ждать",
+      examples: [
+        { ch: "等待", pinyin: "děng dài", ru: "ждать" },
+        { ch: "等于", pinyin: "děng yú", ru: "равняться" }
+      ]},
+    { char: "低", pinyin: "dī", meaning: "низкий", emoji: "👇",
+      hasPhonetic: true, phonetic: "氐", phoneticReading: "dǐ",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 氐",
+      association: "Человек низко кланяется",
+      examples: [
+        { ch: "低头", pinyin: "dī tóu", ru: "опустить голову" },
+        { ch: "低音", pinyin: "dī yīn", ru: "низкий звук" }
+      ]},
+      
+    // 51-60 (продолжение)
+    { char: "弟", pinyin: "dì", meaning: "младший брат", emoji: "👦",
+      hasPhonetic: false, radical: "弓", radicalMeaning: "лук",
+      breakdown: "两点 + 弓 + 丨",
+      association: "Две точки и лук → младший брат",
+      examples: [
+        { ch: "弟弟", pinyin: "dì di", ru: "младший брат" },
+        { ch: "兄弟", pinyin: "xiōng dì", ru: "братья" }
+      ]},
+    { char: "第", pinyin: "dì", meaning: "порядок", emoji: "#️⃣",
+      hasPhonetic: true, phonetic: "弟", phoneticReading: "dì",
+      radical: "竹", radicalMeaning: "бамбук",
+      breakdown: "竹 (бамбук) + 弟",
+      association: "Бамбук как порядковый номер",
+      examples: [
+        { ch: "第一", pinyin: "dì yī", ru: "первый" },
+        { ch: "第二", pinyin: "dì èr", ru: "второй" }
+      ]},
+    { char: "点", pinyin: "diǎn", meaning: "точка", emoji: "🕐",
+      hasPhonetic: true, phonetic: "占", phoneticReading: "zhàn",
+      radical: "火", radicalMeaning: "огонь",
+      breakdown: "占 (занимать) + 火",
+      association: "Огонь на точке → время, час",
+      examples: [
+        { ch: "一点", pinyin: "yī diǎn", ru: "немного" },
+        { ch: "几点", pinyin: "jǐ diǎn", ru: "сколько часов" }
+      ]},
+    { char: "电", pinyin: "diàn", meaning: "электричество", emoji: "⚡",
+      hasPhonetic: false, radical: "田", radicalMeaning: "поле",
+      breakdown: "曰 + 乚",
+      association: "Молния на поле → электричество",
+      examples: [
+        { ch: "电话", pinyin: "diàn huà", ru: "телефон" },
+        { ch: "电脑", pinyin: "diàn nǎo", ru: "компьютер" }
+      ]},
+    { char: "店", pinyin: "diàn", meaning: "магазин", emoji: "🏪",
+      hasPhonetic: true, phonetic: "占", phoneticReading: "zhàn",
+      radical: "广", radicalMeaning: "здание",
+      breakdown: "广 (здание) + 占",
+      association: "Здание, где занимаются торговлей",
+      examples: [
+        { ch: "商店", pinyin: "shāng diàn", ru: "магазин" },
+        { ch: "饭店", pinyin: "fàn diàn", ru: "ресторан" }
+      ]},
+    { char: "冬", pinyin: "dōng", meaning: "зима", emoji: "❄️",
+      hasPhonetic: false, radical: "夂", radicalMeaning: "шаг",
+      breakdown: "夂 + 两点",
+      association: "Две точки холода → зима",
+      examples: [
+        { ch: "冬天", pinyin: "dōng tiān", ru: "зима" },
+        { ch: "冬至", pinyin: "dōng zhì", ru: "зимнее солнцестояние" }
+      ]},
+    { char: "东", pinyin: "dōng", meaning: "восток", emoji: "🧭",
+      hasPhonetic: false, radical: "木", radicalMeaning: "дерево",
+      breakdown: "七 + 小",
+      association: "Солнце встаёт за деревом → восток",
+      examples: [
+        { ch: "东方", pinyin: "dōng fāng", ru: "восток" },
+        { ch: "东西", pinyin: "dōng xi", ru: "вещь" }
+      ]},
+    { char: "动", pinyin: "dòng", meaning: "двигаться", emoji: "🏃",
+      hasPhonetic: true, phonetic: "云", phoneticReading: "yún",
+      radical: "力", radicalMeaning: "сила",
+      breakdown: "云 (облако) + 力",
+      association: "Сила движет облака",
+      examples: [
+        { ch: "动作", pinyin: "dòng zuò", ru: "движение" },
+        { ch: "动物", pinyin: "dòng wù", ru: "животное" }
+      ]},
+    { char: "都", pinyin: "dōu", meaning: "все", emoji: "👥",
+      hasPhonetic: true, phonetic: "日", phoneticReading: "rì",
+      radical: "阝", radicalMeaning: "город",
+      breakdown: "日 (солнце) + 阝",
+      association: "Солнце над городом → всё освещено",
+      examples: [
+        { ch: "都是", pinyin: "dōu shì", ru: "все являются" },
+        { ch: "都有", pinyin: "dōu yǒu", ru: "все имеют" }
+      ]},
+    { char: "读", pinyin: "dú", meaning: "читать", emoji: "📖",
+      hasPhonetic: true, phonetic: "卖", phoneticReading: "mài",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 卖",
+      association: "Читать вслух, как продавец",
+      examples: [
+        { ch: "读书", pinyin: "dú shū", ru: "читать книгу" },
+        { ch: "朗读", pinyin: "lǎng dú", ru: "читать вслух" }
+      ]},
+      
+    // 61-70
+    { char: "对", pinyin: "duì", meaning: "правильно", emoji: "✓",
+      hasPhonetic: true, phonetic: "寸", phoneticReading: "cùn",
+      radical: "寸", radicalMeaning: "дюйм",
+      breakdown: "又 + 寸",
+      association: "Рука с дюймом → правильно",
+      examples: [
+        { ch: "对话", pinyin: "duì huà", ru: "диалог" },
+        { ch: "对不起", pinyin: "duì bu qǐ", ru: "извините" }
+      ]},
+    { char: "多", pinyin: "duō", meaning: "много", emoji: "📈",
+      hasPhonetic: false, radical: "夕", radicalMeaning: "вечер",
+      breakdown: "两个夕",
+      association: "Два вечера → много времени",
+      examples: [
+        { ch: "多少", pinyin: "duō shǎo", ru: "сколько" },
+        { ch: "很多", pinyin: "hěn duō", ru: "очень много" }
+      ]},
+    { char: "哦", pinyin: "ó", meaning: "о!", emoji: "😲",
+      hasPhonetic: true, phonetic: "我", phoneticReading: "wǒ",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 我",
+      association: "Рот говорит 'о'",
+      examples: [
+        { ch: "哦", pinyin: "ó", ru: "о! понял" },
+        { ch: "哦是吗", pinyin: "ó shì ma", ru: "о, правда?" }
+      ]},
+    { char: "儿", pinyin: "ér", meaning: "ребёнок", emoji: "👶",
+      hasPhonetic: false, radical: "儿", radicalMeaning: "ребёнок",
+      breakdown: "象形 (человечек)",
+      association: "Человечек с ножками → ребёнок",
+      examples: [
+        { ch: "儿子", pinyin: "ér zi", ru: "сын" },
+        { ch: "女儿", pinyin: "nǚ ér", ru: "дочь" }
+      ]},
+    { char: "二", pinyin: "èr", meaning: "два", emoji: "2️⃣",
+      hasPhonetic: false, radical: "二", radicalMeaning: "два",
+      breakdown: "Две горизонтальные черты",
+      association: "Две палочки → два",
+      examples: [
+        { ch: "二十", pinyin: "èr shí", ru: "двадцать" },
+        { ch: "第二", pinyin: "dì èr", ru: "второй" }
+      ]},
+    { char: "发", pinyin: "fā", meaning: "отправлять", emoji: "📤",
+      hasPhonetic: false, radical: "又", radicalMeaning: "снова",
+      breakdown: "丿 + 一 + 又",
+      association: "Рука что-то посылает",
+      examples: [
+        { ch: "发生", pinyin: "fā shēng", ru: "случаться" },
+        { ch: "发现", pinyin: "fā xiàn", ru: "обнаружить" }
+      ]},
+    { char: "饭", pinyin: "fàn", meaning: "рис, еда", emoji: "🍚",
+      hasPhonetic: true, phonetic: "反", phoneticReading: "fǎn",
+      radical: "饣", radicalMeaning: "еда",
+      breakdown: "饣 (еда) + 反",
+      association: "Еда 'обратно' в рот",
+      examples: [
+        { ch: "吃饭", pinyin: "chī fàn", ru: "есть" },
+        { ch: "饭店", pinyin: "fàn diàn", ru: "ресторан" }
+      ]},
+    { char: "方", pinyin: "fāng", meaning: "квадрат", emoji: "🔲",
+      hasPhonetic: false, radical: "方", radicalMeaning: "квадрат",
+      breakdown: "丶 + 万",
+      association: "Точка в десяти тысячах → квадрат",
+      examples: [
+        { ch: "方法", pinyin: "fāng fǎ", ru: "метод" },
+        { ch: "地方", pinyin: "dì fāng", ru: "место" }
+      ]},
+    { char: "房", pinyin: "fáng", meaning: "дом", emoji: "🏠",
+      hasPhonetic: true, phonetic: "方", phoneticReading: "fāng",
+      radical: "户", radicalMeaning: "дверь",
+      breakdown: "户 (дверь) + 方",
+      association: "Квадратная дверь → дом",
+      examples: [
+        { ch: "房子", pinyin: "fáng zi", ru: "дом" },
+        { ch: "房间", pinyin: "fáng jiān", ru: "комната" }
+      ]},
+    { char: "放", pinyin: "fàng", meaning: "класть", emoji: "📥",
+      hasPhonetic: true, phonetic: "方", phoneticReading: "fāng",
+      radical: "攵", radicalMeaning: "бить",
+      breakdown: "方 + 攵",
+      association: "Положить квадрат",
+      examples: [
+        { ch: "放心", pinyin: "fàng xīn", ru: "не волноваться" },
+        { ch: "放学", pinyin: "fàng xué", ru: "закончить уроки" }
+      ]},
+    { char: "飞", pinyin: "fēi", meaning: "лететь", emoji: "✈️",
+      hasPhonetic: false, radical: "飞", radicalMeaning: "лететь",
+      breakdown: "象形 (крылья)",
+      association: "Птица с крыльями → полёт",
+      examples: [
+        { ch: "飞机", pinyin: "fēi jī", ru: "самолёт" },
+        { ch: "飞快", pinyin: "fēi kuài", ru: "быстро" }
+      ]},
+      
+    // 71-80
+    { char: "分", pinyin: "fēn", meaning: "делить", emoji: "⏱️",
+      hasPhonetic: false, radical: "刀", radicalMeaning: "нож",
+      breakdown: "八 + 刀",
+      association: "Нож делит на восемь частей",
+      examples: [
+        { ch: "分钟", pinyin: "fēn zhōng", ru: "минута" },
+        { ch: "分开", pinyin: "fēn kāi", ru: "разделить" }
+      ]},
+    { char: "份", pinyin: "fèn", meaning: "часть", emoji: "📄",
+      hasPhonetic: true, phonetic: "分", phoneticReading: "fēn",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 分",
+      association: "Человек в доле → часть",
+      examples: [
+        { ch: "一份", pinyin: "yī fèn", ru: "одна порция" },
+        { ch: "月份", pinyin: "yuè fèn", ru: "месяц" }
+      ]},
+    { char: "风", pinyin: "fēng", meaning: "ветер", emoji: "💨",
+      hasPhonetic: false, radical: "风", radicalMeaning: "ветер",
+      breakdown: "几 + 乂",
+      association: "Ветер в парусах",
+      examples: [
+        { ch: "风景", pinyin: "fēng jǐng", ru: "пейзаж" },
+        { ch: "台风", pinyin: "tái fēng", ru: "тайфун" }
+      ]},
+    { char: "乎", pinyin: "hū", meaning: "в (высокий стиль)", emoji: "🔹",
+      hasPhonetic: false, radical: "丿", radicalMeaning: "черта",
+      breakdown: "丿 + 平",
+      association: "Линия с точкой → частица",
+      examples: [
+        { ch: "几乎", pinyin: "jī hū", ru: "почти" },
+        { ch: "在乎", pinyin: "zài hu", ru: "заботиться" }
+      ]},
+    { char: "服", pinyin: "fú", meaning: "одежда", emoji: "👕",
+      hasPhonetic: true, phonetic: "卩", phoneticReading: "jié",
+      radical: "月", radicalMeaning: "луна/тело",
+      breakdown: "月 (тело) + 卩",
+      association: "Одежда на теле",
+      examples: [
+        { ch: "衣服", pinyin: "yī fu", ru: "одежда" },
+        { ch: "服务", pinyin: "fú wù", ru: "служба" }
+      ]},
+    { char: "父", pinyin: "fù", meaning: "отец", emoji: "👨",
+      hasPhonetic: false, radical: "父", radicalMeaning: "отец",
+      breakdown: "八 + 乂",
+      association: "Рука с палкой → отец",
+      examples: [
+        { ch: "父亲", pinyin: "fù qīn", ru: "отец" },
+        { ch: "父母", pinyin: "fù mǔ", ru: "родители" }
+      ]},
+    { char: "干", pinyin: "gān", meaning: "сухой", emoji: "🏜️",
+      hasPhonetic: false, radical: "干", radicalMeaning: "сухой",
+      breakdown: "一 + 十",
+      association: "Сухая палка",
+      examples: [
+        { ch: "干净", pinyin: "gān jìng", ru: "чистый" },
+        { ch: "干杯", pinyin: "gān bēi", ru: "сухой тост" }
+      ]},
+    { char: "赶", pinyin: "gǎn", meaning: "спешить", emoji: "🏃",
+      hasPhonetic: true, phonetic: "旱", phoneticReading: "hàn",
+      radical: "走", radicalMeaning: "ходить",
+      breakdown: "走 (ходить) + 旱",
+      association: "Спешить по сухой земле",
+      examples: [
+        { ch: "赶快", pinyin: "gǎn kuài", ru: "быстро" },
+        { ch: "赶路", pinyin: "gǎn lù", ru: "спешить в путь" }
+      ]},
+    { char: "感", pinyin: "gǎn", meaning: "чувствовать", emoji: "🤔",
+      hasPhonetic: true, phonetic: "咸", phoneticReading: "xián",
+      radical: "心", radicalMeaning: "сердце",
+      breakdown: "咸 + 心",
+      association: "Сердце чувствует соль",
+      examples: [
+        { ch: "感觉", pinyin: "gǎn jué", ru: "чувство" },
+        { ch: "感谢", pinyin: "gǎn xiè", ru: "благодарить" }
+      ]},
+    { char: "刚", pinyin: "gāng", meaning: "только что", emoji: "⏰",
+      hasPhonetic: true, phonetic: "冈", phoneticReading: "gāng",
+      radical: "刂", radicalMeaning: "нож",
+      breakdown: "冈 + 刂",
+      association: "Нож только что отрезал",
+      examples: [
+        { ch: "刚才", pinyin: "gāng cái", ru: "только что" },
+        { ch: "刚好", pinyin: "gāng hǎo", ru: "как раз" }
+      ]},
+      
+    // 81-90
+    { char: "高", pinyin: "gāo", meaning: "высокий", emoji: "🏔️",
+      hasPhonetic: false, radical: "高", radicalMeaning: "высокий",
+      breakdown: "亠 + 口 + 冂 + 口",
+      association: "Высокая башня",
+      examples: [
+        { ch: "高兴", pinyin: "gāo xìng", ru: "радостный" },
+        { ch: "高大", pinyin: "gāo dà", ru: "высокий" }
+      ]},
+    { char: "告", pinyin: "gào", meaning: "сообщать", emoji: "📢",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "牛 + 口",
+      association: "Корова говорит → сообщает",
+      examples: [
+        { ch: "告诉", pinyin: "gào su", ru: "рассказать" },
+        { ch: "广告", pinyin: "guǎng gào", ru: "реклама" }
+      ]},
+    { char: "哥", pinyin: "gē", meaning: "старший брат", emoji: "👦",
+      hasPhonetic: true, phonetic: "可", phoneticReading: "kě",
+      radical: "可", radicalMeaning: "можно",
+      breakdown: "两可",
+      association: "Два 'можно' → старший брат",
+      examples: [
+        { ch: "哥哥", pinyin: "gē ge", ru: "старший брат" },
+        { ch: "表哥", pinyin: "biǎo gē", ru: "двоюродный брат" }
+      ]},
+    { char: "歌", pinyin: "gē", meaning: "песня", emoji: "🎵",
+      hasPhonetic: true, phonetic: "哥", phoneticReading: "gē",
+      radical: "欠", radicalMeaning: "нехватка",
+      breakdown: "哥 + 欠",
+      association: "Брат поёт с нехваткой воздуха",
+      examples: [
+        { ch: "唱歌", pinyin: "chàng gē", ru: "петь" },
+        { ch: "歌曲", pinyin: "gē qǔ", ru: "песня" }
+      ]},
+    { char: "个", pinyin: "gè", meaning: "счётное слово", emoji: "🔢",
+      hasPhonetic: false, radical: "丨", radicalMeaning: "палка",
+      breakdown: "人 + 丨",
+      association: "Один человек",
+      examples: [
+        { ch: "一个", pinyin: "yī gè", ru: "один" },
+        { ch: "个人", pinyin: "gè rén", ru: "личный" }
+      ]},
+    { char: "给", pinyin: "gěi", meaning: "давать", emoji: "🎁",
+      hasPhonetic: true, phonetic: "合", phoneticReading: "hé",
+      radical: "纟", radicalMeaning: "шёлк",
+      breakdown: "纟 (шёлк) + 合",
+      association: "Дать шёлка, чтобы соединить",
+      examples: [
+        { ch: "给你", pinyin: "gěi nǐ", ru: "дать тебе" },
+        { ch: "送给", pinyin: "sòng gěi", ru: "подарить" }
+      ]},
+    { char: "跟", pinyin: "gēn", meaning: "с, за", emoji: "👥",
+      hasPhonetic: true, phonetic: "艮", phoneticReading: "gèn",
+      radical: "足", radicalMeaning: "нога",
+      breakdown: "足 (нога) + 艮",
+      association: "Нога идёт следом → следовать",
+      examples: [
+        { ch: "跟着", pinyin: "gēn zhe", ru: "следовать" },
+        { ch: "跟前", pinyin: "gēn qián", ru: "рядом" }
+      ]},
+    { char: "更", pinyin: "gèng", meaning: "более", emoji: "📈",
+      hasPhonetic: false, radical: "曰", radicalMeaning: "сказать",
+      breakdown: "一 + 曰 + 乂",
+      association: "Более того, говорю",
+      examples: [
+        { ch: "更好", pinyin: "gèng hǎo", ru: "лучше" },
+        { ch: "更加", pinyin: "gèng jiā", ru: "ещё более" }
+      ]},
+    { char: "工", pinyin: "gōng", meaning: "работа", emoji: "🔧",
+      hasPhonetic: false, radical: "工", radicalMeaning: "работа",
+      breakdown: "象形 (инструмент)",
+      association: "Инструмент для работы",
+      examples: [
+        { ch: "工作", pinyin: "gōng zuò", ru: "работать" },
+        { ch: "工人", pinyin: "gōng rén", ru: "рабочий" }
+      ]},
+    { char: "公", pinyin: "gōng", meaning: "общественный", emoji: "🏛️",
+      hasPhonetic: false, radical: "八", radicalMeaning: "восемь",
+      breakdown: "八 + 厶",
+      association: "Восемь частных → общее",
+      examples: [
+        { ch: "公共", pinyin: "gōng gòng", ru: "общественный" },
+        { ch: "公司", pinyin: "gōng sī", ru: "компания" }
+      ]},
+      
+    // 91-100
+    { char: "共", pinyin: "gòng", meaning: "вместе", emoji: "👥",
+      hasPhonetic: false, radical: "八", radicalMeaning: "восемь",
+      breakdown: "廿 + 八",
+      association: "Вместе двадцать и восемь",
+      examples: [
+        { ch: "共同", pinyin: "gòng tóng", ru: "общий" },
+        { ch: "一共", pinyin: "yī gòng", ru: "всего" }
+      ]},
+    { char: "够", pinyin: "gòu", meaning: "достаточно", emoji: "✅",
+      hasPhonetic: true, phonetic: "句", phoneticReading: "jù",
+      radical: "多", radicalMeaning: "много",
+      breakdown: "句 (фраза) + 多",
+      association: "Много фраз → достаточно",
+      examples: [
+        { ch: "足够", pinyin: "zú gòu", ru: "достаточно" },
+        { ch: "能够", pinyin: "néng gòu", ru: "мочь" }
+      ]},
+    { char: "狗", pinyin: "gǒu", meaning: "собака", emoji: "🐕",
+      hasPhonetic: true, phonetic: "句", phoneticReading: "jù",
+      radical: "犭", radicalMeaning: "собака",
+      breakdown: "犭 (собака) + 句",
+      association: "Собака, издающая звуки",
+      examples: [
+        { ch: "小狗", pinyin: "xiǎo gǒu", ru: "собачка" },
+        { ch: "狗肉", pinyin: "gǒu ròu", ru: "собачье мясо" }
+      ]},
+    { char: "古", pinyin: "gǔ", meaning: "древний", emoji: "🏛️",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "十 + 口",
+      association: "Десять ртов → древние истории",
+      examples: [
+        { ch: "古代", pinyin: "gǔ dài", ru: "древность" },
+        { ch: "古老", pinyin: "gǔ lǎo", ru: "древний" }
+      ]},
+    { char: "故", pinyin: "gù", meaning: "поэтому", emoji: "📌",
+      hasPhonetic: true, phonetic: "古", phoneticReading: "gǔ",
+      radical: "攵", radicalMeaning: "бить",
+      breakdown: "古 (древний) + 攵",
+      association: "Древние причины → поэтому",
+      examples: [
+        { ch: "所以", pinyin: "suǒ yǐ", ru: "поэтому" },
+        { ch: "故事", pinyin: "gù shì", ru: "история" }
+      ]},
+    { char: "顾", pinyin: "gù", meaning: "заботиться", emoji: "🤝",
+      hasPhonetic: true, phonetic: "雇", phoneticReading: "gù",
+      radical: "页", radicalMeaning: "голова",
+      breakdown: "雇 + 页",
+      association: "Голова заботится",
+      examples: [
+        { ch: "照顾", pinyin: "zhào gù", ru: "заботиться" },
+        { ch: "顾客", pinyin: "gù kè", ru: "клиент" }
+      ]},
+    { char: "关", pinyin: "guān", meaning: "закрывать", emoji: "🔒",
+      hasPhonetic: false, radical: "丷", radicalMeaning: "восемь",
+      breakdown: "丷 + 天",
+      association: "Две точки закрывают небо",
+      examples: [
+        { ch: "关门", pinyin: "guān mén", ru: "закрыть дверь" },
+        { ch: "关系", pinyin: "guān xì", ru: "отношение" }
+      ]},
+    { char: "观", pinyin: "guān", meaning: "наблюдать", emoji: "👀",
+      hasPhonetic: true, phonetic: "见", phoneticReading: "jiàn",
+      radical: "见", radicalMeaning: "видеть",
+      breakdown: "又 + 见",
+      association: "Снова видеть → наблюдать",
+      examples: [
+        { ch: "观看", pinyin: "guān kàn", ru: "смотреть" },
+        { ch: "观众", pinyin: "guān zhòng", ru: "зрители" }
+      ]},
+    { char: "光", pinyin: "guāng", meaning: "свет", emoji: "💡",
+      hasPhonetic: false, radical: "儿", radicalMeaning: "ребёнок",
+      breakdown: "⺌ + 儿",
+      association: "Ребёнок видит свет",
+      examples: [
+        { ch: "阳光", pinyin: "yáng guāng", ru: "солнечный свет" },
+        { ch: "光明", pinyin: "guāng míng", ru: "яркий" }
+      ]},
+    { char: "广", pinyin: "guǎng", meaning: "широкий", emoji: "🌍",
+      hasPhonetic: false, radical: "广", radicalMeaning: "широкий",
+      breakdown: "象形 (здание)",
+      association: "Широкое здание",
+      examples: [
+        { ch: "广场", pinyin: "guǎng chǎng", ru: "площадь" },
+        { ch: "广告", pinyin: "guǎng gào", ru: "реклама" }
+      ]},
+      
+    // 101-110
+    { char: "国", pinyin: "guó", meaning: "страна", emoji: "🏰",
+      hasPhonetic: true, phonetic: "玉", phoneticReading: "yù",
+      radical: "囗", radicalMeaning: "ограда",
+      breakdown: "囗 (ограда) + 玉 (нефрит)",
+      association: "Страна как драгоценность в ограде",
+      examples: [
+        { ch: "中国", pinyin: "Zhōng guó", ru: "Китай" },
+        { ch: "国家", pinyin: "guó jiā", ru: "государство" }
+      ]},
+    { char: "过", pinyin: "guò", meaning: "проходить", emoji: "🚶",
+      hasPhonetic: true, phonetic: "寸", phoneticReading: "cùn",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 (движение) + 寸",
+      association: "Проходить один дюйм",
+      examples: [
+        { ch: "过去", pinyin: "guò qù", ru: "прошлое" },
+        { ch: "经过", pinyin: "jīng guò", ru: "через" }
+      ]},
+    { char: "还", pinyin: "hái", meaning: "ещё", emoji: "🔄",
+      hasPhonetic: true, phonetic: "不", phoneticReading: "bù",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 + 不",
+      association: "Ещё не ушёл",
+      examples: [
+        { ch: "还有", pinyin: "hái yǒu", ru: "ещё есть" },
+        { ch: "还是", pinyin: "hái shì", ru: "всё ещё" }
+      ]},
+    { char: "孩", pinyin: "hái", meaning: "ребёнок", emoji: "🧒",
+      hasPhonetic: true, phonetic: "亥", phoneticReading: "hài",
+      radical: "子", radicalMeaning: "ребёнок",
+      breakdown: "子 (ребёнок) + 亥",
+      association: "Ребёнок родился",
+      examples: [
+        { ch: "孩子", pinyin: "hái zi", ru: "ребёнок" },
+        { ch: "小孩", pinyin: "xiǎo hái", ru: "маленький ребёнок" }
+      ]},
+    { char: "海", pinyin: "hǎi", meaning: "море", emoji: "🌊",
+      hasPhonetic: true, phonetic: "每", phoneticReading: "měi",
+      radical: "氵", radicalMeaning: "вода",
+      breakdown: "氵 (вода) + 每",
+      association: "Вода каждый день → море",
+      examples: [
+        { ch: "大海", pinyin: "dà hǎi", ru: "море" },
+        { ch: "上海", pinyin: "Shàng hǎi", ru: "Шанхай" }
+      ]},
+    { char: "汉", pinyin: "hàn", meaning: "китаец", emoji: "🇨🇳",
+      hasPhonetic: true, phonetic: "又", phoneticReading: "yòu",
+      radical: "氵", radicalMeaning: "вода",
+      breakdown: "氵 (вода) + 又",
+      association: "Вода династии Хань",
+      examples: [
+        { ch: "汉语", pinyin: "hàn yǔ", ru: "китайский язык" },
+        { ch: "汉字", pinyin: "hàn zì", ru: "китайские иероглифы" }
+      ]},
+    { char: "好", pinyin: "hǎo", meaning: "хорошо", emoji: "👍",
+      hasPhonetic: false, radical: "女", radicalMeaning: "женщина",
+      breakdown: "女 (женщина) + 子 (ребёнок)",
+      association: "Женщина с ребёнком → хорошо",
+      examples: [
+        { ch: "你好", pinyin: "nǐ hǎo", ru: "здравствуйте" },
+        { ch: "好吃", pinyin: "hǎo chī", ru: "вкусный" }
+      ]},
+    { char: "喝", pinyin: "hē", meaning: "пить", emoji: "🥤",
+      hasPhonetic: true, phonetic: "曷", phoneticReading: "hé",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 曷",
+      association: "Рот пьёт",
+      examples: [
+        { ch: "喝水", pinyin: "hē shuǐ", ru: "пить воду" },
+        { ch: "喝茶", pinyin: "hē chá", ru: "пить чай" }
+      ]},
+    { char: "和", pinyin: "hé", meaning: "и", emoji: "➕",
+      hasPhonetic: true, phonetic: "禾", phoneticReading: "hé",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "禾 (зерно) + 口",
+      association: "Рот и зерно вместе",
+      examples: [
+        { ch: "我和你", pinyin: "wǒ hé nǐ", ru: "я и ты" },
+        { ch: "和平", pinyin: "hé píng", ru: "мир" }
+      ]},
+    { char: "合", pinyin: "hé", meaning: "соответствовать", emoji: "🤝",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "人 + 一 + 口",
+      association: "Один рот с человеком → соответствие",
+      examples: [
+        { ch: "合作", pinyin: "hé zuò", ru: "сотрудничать" },
+        { ch: "合适", pinyin: "hé shì", ru: "подходящий" }
+      ]},
+      
+    // 111-120
+    { char: "很", pinyin: "hěn", meaning: "очень", emoji: "💯",
+      hasPhonetic: true, phonetic: "艮", phoneticReading: "gèn",
+      radical: "彳", radicalMeaning: "шаг",
+      breakdown: "彳 (шаг) + 艮",
+      association: "Шаг очень далеко",
+      examples: [
+        { ch: "很好", pinyin: "hěn hǎo", ru: "очень хорошо" },
+        { ch: "很多", pinyin: "hěn duō", ru: "очень много" }
+      ]},
+    { char: "红", pinyin: "hóng", meaning: "красный", emoji: "🔴",
+      hasPhonetic: true, phonetic: "工", phoneticReading: "gōng",
+      radical: "纟", radicalMeaning: "шёлк",
+      breakdown: "纟 (шёлк) + 工",
+      association: "Красный шёлк",
+      examples: [
+        { ch: "红色", pinyin: "hóng sè", ru: "красный цвет" },
+        { ch: "红包", pinyin: "hóng bāo", ru: "красный конверт" }
+      ]},
+    { char: "后", pinyin: "hòu", meaning: "после", emoji: "⏩",
+      hasPhonetic: false, radical: "厂", radicalMeaning: "обрыв",
+      breakdown: "厂 + 一 + 口",
+      association: "После рта идёт",
+      examples: [
+        { ch: "以后", pinyin: "yǐ hòu", ru: "после" },
+        { ch: "后面", pinyin: "hòu miàn", ru: "сзади" }
+      ]},
+    { char: "候", pinyin: "hòu", meaning: "время", emoji: "⏰",
+      hasPhonetic: true, phonetic: "侯", phoneticReading: "hóu",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 + 侯",
+      association: "Человек ждёт время",
+      examples: [
+        { ch: "时候", pinyin: "shí hòu", ru: "время" },
+        { ch: "候车", pinyin: "hòu chē", ru: "ждать транспорт" }
+      ]},
+    { char: "花", pinyin: "huā", meaning: "цветок", emoji: "🌸",
+      hasPhonetic: true, phonetic: "化", phoneticReading: "huà",
+      radical: "艹", radicalMeaning: "трава",
+      breakdown: "艹 (трава) + 化",
+      association: "Трава превращается → цветок",
+      examples: [
+        { ch: "花园", pinyin: "huā yuán", ru: "сад" },
+        { ch: "花朵", pinyin: "huā duǒ", ru: "цветок" }
+      ]},
+    { char: "华", pinyin: "huá", meaning: "Китай", emoji: "🇨🇳",
+      hasPhonetic: true, phonetic: "化", phoneticReading: "huà",
+      radical: "十", radicalMeaning: "десять",
+      breakdown: "化 + 十",
+      association: "Десять превращений → Китай",
+      examples: [
+        { ch: "中华", pinyin: "Zhōng huá", ru: "Китай" },
+        { ch: "华人", pinyin: "huá rén", ru: "китаец" }
+      ]},
+    { char: "话", pinyin: "huà", meaning: "речь", emoji: "💬",
+      hasPhonetic: true, phonetic: "舌", phoneticReading: "shé",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 舌",
+      association: "Речь языком",
+      examples: [
+        { ch: "说话", pinyin: "shuō huà", ru: "говорить" },
+        { ch: "电话", pinyin: "diàn huà", ru: "телефон" }
+      ]},
+    { char: "画", pinyin: "huà", meaning: "рисовать", emoji: "🎨",
+      hasPhonetic: false, radical: "田", radicalMeaning: "поле",
+      breakdown: "一 + 田 + 凵",
+      association: "Рисовать поле в рамке",
+      examples: [
+        { ch: "画画", pinyin: "huà huà", ru: "рисовать" },
+        { ch: "图画", pinyin: "tú huà", ru: "картина" }
+      ]},
+    { char: "怀", pinyin: "huái", meaning: "тосковать", emoji: "😔",
+      hasPhonetic: true, phonetic: "不", phoneticReading: "bù",
+      radical: "忄", radicalMeaning: "сердце",
+      breakdown: "忄 (сердце) + 不",
+      association: "Сердце не на месте → тоска",
+      examples: [
+        { ch: "怀念", pinyin: "huái niàn", ru: "тосковать" },
+        { ch: "怀抱", pinyin: "huái bào", ru: "объятия" }
+      ]},
+    { char: "坏", pinyin: "huài", meaning: "плохой", emoji: "👎",
+      hasPhonetic: true, phonetic: "不", phoneticReading: "bù",
+      radical: "土", radicalMeaning: "земля",
+      breakdown: "土 (земля) + 不",
+      association: "Плохая земля",
+      examples: [
+        { ch: "坏人", pinyin: "huài rén", ru: "плохой человек" },
+        { ch: "破坏", pinyin: "pò huài", ru: "разрушать" }
+      ]},
+      
+    // 121-130
+    { char: "欢", pinyin: "huān", meaning: "радостный", emoji: "😊",
+      hasPhonetic: true, phonetic: "欠", phoneticReading: "qiàn",
+      radical: "又", radicalMeaning: "снова",
+      breakdown: "又 + 欠",
+      association: "Снова не хватает → радость",
+      examples: [
+        { ch: "喜欢", pinyin: "xǐ huan", ru: "нравиться" },
+        { ch: "欢乐", pinyin: "huān lè", ru: "веселье" }
+      ]},
+    { char: "还", pinyin: "hái", meaning: "ещё", emoji: "🔄",
+      hasPhonetic: true, phonetic: "不", phoneticReading: "bù",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 + 不",
+      association: "Ещё не ушёл",
+      examples: [
+        { ch: "还有", pinyin: "hái yǒu", ru: "ещё есть" },
+        { ch: "还是", pinyin: "hái shì", ru: "всё ещё" }
+      ]},
+    { char: "会", pinyin: "huì", meaning: "уметь", emoji: "💪",
+      hasPhonetic: false, radical: "人", radicalMeaning: "человек",
+      breakdown: "人 + 云",
+      association: "Человек умеет говорить",
+      examples: [
+        { ch: "开会", pinyin: "kāi huì", ru: "собрание" },
+        { ch: "不会", pinyin: "bù huì", ru: "не уметь" }
+      ]},
+    { char: "活", pinyin: "huó", meaning: "жить", emoji: "🌱",
+      hasPhonetic: true, phonetic: "舌", phoneticReading: "shé",
+      radical: "氵", radicalMeaning: "вода",
+      breakdown: "氵 (вода) + 舌",
+      association: "Вода на языке → жизнь",
+      examples: [
+        { ch: "生活", pinyin: "shēng huó", ru: "жизнь" },
+        { ch: "活动", pinyin: "huó dòng", ru: "активность" }
+      ]},
+    { char: "火", pinyin: "huǒ", meaning: "огонь", emoji: "🔥",
+      hasPhonetic: false, radical: "火", radicalMeaning: "огонь",
+      breakdown: "象形 (языки пламени)",
+      association: "Языки пламени",
+      examples: [
+        { ch: "火车", pinyin: "huǒ chē", ru: "поезд" },
+        { ch: "火气", pinyin: "huǒ qì", ru: "гнев" }
+      ]},
+    { char: "机", pinyin: "jī", meaning: "машина", emoji: "⚙️",
+      hasPhonetic: true, phonetic: "几", phoneticReading: "jǐ",
+      radical: "木", radicalMeaning: "дерево",
+      breakdown: "木 (дерево) + 几",
+      association: "Деревянная машина",
+      examples: [
+        { ch: "飞机", pinyin: "fēi jī", ru: "самолёт" },
+        { ch: "机会", pinyin: "jī huì", ru: "шанс" }
+      ]},
+    { char: "及", pinyin: "jí", meaning: "и", emoji: "➕",
+      hasPhonetic: false, radical: "又", radicalMeaning: "снова",
+      breakdown: "象形 (рука)",
+      association: "Рука, которая соединяет",
+      examples: [
+        { ch: "以及", pinyin: "yǐ jí", ru: "а также" },
+        { ch: "及时", pinyin: "jí shí", ru: "вовремя" }
+      ]},
+    { char: "级", pinyin: "jí", meaning: "уровень", emoji: "📊",
+      hasPhonetic: true, phonetic: "及", phoneticReading: "jí",
+      radical: "纟", radicalMeaning: "шёлк",
+      breakdown: "纟 (шёлк) + 及",
+      association: "Уровень шёлка",
+      examples: [
+        { ch: "年级", pinyin: "nián jí", ru: "класс в школе" },
+        { ch: "高级", pinyin: "gāo jí", ru: "высокий уровень" }
+      ]},
+    { char: "急", pinyin: "jí", meaning: "спешить", emoji: "⏰",
+      hasPhonetic: true, phonetic: "及", phoneticReading: "jí",
+      radical: "心", radicalMeaning: "сердце",
+      breakdown: "心 (сердце) + 及",
+      association: "Сердце спешит",
+      examples: [
+        { ch: "着急", pinyin: "zháo jí", ru: "волноваться" },
+        { ch: "急忙", pinyin: "jí máng", ru: "поспешно" }
+      ]},
+    { char: "几", pinyin: "jǐ", meaning: "сколько", emoji: "❓",
+      hasPhonetic: false, radical: "几", radicalMeaning: "столик",
+      breakdown: "象形 (столик)",
+      association: "Сколько столиков?",
+      examples: [
+        { ch: "几个", pinyin: "jǐ gè", ru: "сколько штук" },
+        { ch: "几天", pinyin: "jǐ tiān", ru: "сколько дней" }
+      ]},
+      
+    // 131-140
+    { char: "家", pinyin: "jiā", meaning: "дом, семья", emoji: "🏠",
+      hasPhonetic: false, radical: "宀", radicalMeaning: "крыша",
+      breakdown: "宀 (крыша) + 豕 (свинья)",
+      association: "Свинья под крышей → дом",
+      examples: [
+        { ch: "家人", pinyin: "jiā rén", ru: "члены семьи" },
+        { ch: "国家", pinyin: "guó jiā", ru: "страна" }
+      ]},
+    { char: "间", pinyin: "jiān", meaning: "между", emoji: "🚪",
+      hasPhonetic: true, phonetic: "日", phoneticReading: "rì",
+      radical: "门", radicalMeaning: "дверь",
+      breakdown: "门 (дверь) + 日",
+      association: "Солнце между дверей",
+      examples: [
+        { ch: "时间", pinyin: "shí jiān", ru: "время" },
+        { ch: "房间", pinyin: "fáng jiān", ru: "комната" }
+      ]},
+    { char: "见", pinyin: "jiàn", meaning: "видеть", emoji: "👁️",
+      hasPhonetic: false, radical: "见", radicalMeaning: "видеть",
+      breakdown: "目 + 儿",
+      association: "Глаз ребёнка → видеть",
+      examples: [
+        { ch: "看见", pinyin: "kàn jiàn", ru: "увидеть" },
+        { ch: "再见", pinyin: "zài jiàn", ru: "до свидания" }
+      ]},
+    { char: "件", pinyin: "jiàn", meaning: "штука", emoji: "📦",
+      hasPhonetic: true, phonetic: "牛", phoneticReading: "niú",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 牛",
+      association: "Человек с коровой → одна вещь",
+      examples: [
+        { ch: "一件", pinyin: "yī jiàn", ru: "одна штука" },
+        { ch: "文件", pinyin: "wén jiàn", ru: "документ" }
+      ]},
+    { char: "见", pinyin: "jiàn", meaning: "видеть", emoji: "👁️",
+      hasPhonetic: false, radical: "见", radicalMeaning: "видеть",
+      breakdown: "目 + 儿",
+      association: "Глаз ребёнка → видеть",
+      examples: [
+        { ch: "看见", pinyin: "kàn jiàn", ru: "увидеть" },
+        { ch: "再见", pinyin: "zài jiàn", ru: "до свидания" }
+      ]},
+    { char: "问", pinyin: "wèn", meaning: "спрашивать", emoji: "❓",
+      hasPhonetic: true, phonetic: "口", phoneticReading: "kǒu",
+      radical: "门", radicalMeaning: "дверь",
+      breakdown: "门 (дверь) + 口",
+      association: "Рот у двери → спросить",
+      examples: [
+        { ch: "问题", pinyin: "wèn tí", ru: "вопрос" },
+        { ch: "请问", pinyin: "qǐng wèn", ru: "скажите пожалуйста" }
+      ]},
+    { char: "们", pinyin: "men", meaning: "мн.ч.", emoji: "👥",
+      hasPhonetic: true, phonetic: "门", phoneticReading: "mén",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 门",
+      association: "Люди у двери → много людей",
+      examples: [
+        { ch: "我们", pinyin: "wǒ men", ru: "мы" },
+        { ch: "你们", pinyin: "nǐ men", ru: "вы" }
+      ]},
+    { char: "名", pinyin: "míng", meaning: "имя", emoji: "📛",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "夕 (вечер) + 口",
+      association: "Назвать по имени вечером",
+      examples: [
+        { ch: "名字", pinyin: "míng zi", ru: "имя" },
+        { ch: "有名", pinyin: "yǒu míng", ru: "известный" }
+      ]},
+    { char: "那", pinyin: "nà", meaning: "тот", emoji: "👉",
+      hasPhonetic: false, radical: "阝", radicalMeaning: "город",
+      breakdown: "二 + 阝",
+      association: "Тот далёкий",
+      examples: [
+        { ch: "那个", pinyin: "nà ge", ru: "тот" },
+        { ch: "那里", pinyin: "nà lǐ", ru: "там" }
+      ]},
+    { char: "年", pinyin: "nián", meaning: "год", emoji: "📆",
+      hasPhonetic: false, radical: "干", radicalMeaning: "сухой",
+      breakdown: "人 + 干",
+      association: "Человек собирает урожай → год",
+      examples: [
+        { ch: "今年", pinyin: "jīn nián", ru: "этот год" },
+        { ch: "过年", pinyin: "guò nián", ru: "отмечать Новый год" }
+      ]},
+      
+    // 141-150
+    { char: "能", pinyin: "néng", meaning: "мочь", emoji: "🔋",
+      hasPhonetic: false, radical: "月", radicalMeaning: "тело",
+      breakdown: "厶 + 月 + 匕",
+      association: "Тело может",
+      examples: [
+        { ch: "能够", pinyin: "néng gòu", ru: "мочь" },
+        { ch: "能力", pinyin: "néng lì", ru: "способность" }
+      ]},
+    { char: "你", pinyin: "nǐ", meaning: "ты", emoji: "🧑",
+      hasPhonetic: false, radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 + 尔",
+      association: "Человек рядом → ты",
+      examples: [
+        { ch: "你好", pinyin: "nǐ hǎo", ru: "здравствуй" },
+        { ch: "你们", pinyin: "nǐ men", ru: "вы" }
+      ]},
+    { char: "年", pinyin: "nián", meaning: "год", emoji: "📆",
+      hasPhonetic: false, radical: "干", radicalMeaning: "сухой",
+      breakdown: "人 + 干",
+      association: "Человек собирает урожай → год",
+      examples: [
+        { ch: "今年", pinyin: "jīn nián", ru: "этот год" },
+        { ch: "过年", pinyin: "guò nián", ru: "отмечать Новый год" }
+      ]},
+    { char: "朋", pinyin: "péng", meaning: "друг", emoji: "👫",
+      hasPhonetic: false, radical: "月", radicalMeaning: "луна",
+      breakdown: "月 + 月",
+      association: "Две луны вместе → друзья",
+      examples: [
+        { ch: "朋友", pinyin: "péng you", ru: "друг" },
+        { ch: "朋党", pinyin: "péng dǎng", ru: "]},
+    { char: "日", pinyin: "rì", meaning: "солнце", emoji: "☀️",
+      hasPhonetic: false, radical: "日", radicalMeaning: "солнце",
+      breakdown: "象形 (круг с точкой)",
+      association: "Солнце в небе",
+      examples: [
+        { ch: "日子", pinyin: "rì zi", ru: "день" },
+        { ch: "日本", pinyin: "Rì běn", ru: "Япония" }
+      ]},
+    { char: "三", pinyin: "sān", meaning: "три", emoji: "3️⃣",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "Три горизонтальные черты",
+      association: "Три палочки → три",
+      examples: [
+        { ch: "三个", pinyin: "sān gè", ru: "три штуки" },
+        { ch: "三月", pinyin: "sān yuè", ru: "март" }
+      ]},
+    { char: "上", pinyin: "shàng", meaning: "верх", emoji: "⬆️",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "一 + 卜",
+      association: "Черта сверху → верх",
+      examples: [
+        { ch: "上面", pinyin: "shàng miàn", ru: "сверху" },
+        { ch: "上班", pinyin: "shàng bān", ru: "на работу" }
+      ]},
+    { char: "少", pinyin: "shǎo", meaning: "мало", emoji: "📉",
+      hasPhonetic: false, radical: "小", radicalMeaning: "маленький",
+      breakdown: "小 + 丿",
+      association: "Маленький и одна черта → мало",
+      examples: [
+        { ch: "多少", pinyin: "duō shǎo", ru: "сколько" },
+        { ch: "很少", pinyin: "hěn shǎo", ru: "очень мало" }
+      ]},
+    { char: "什", pinyin: "shén", meaning: "что", emoji: "❓",
+      hasPhonetic: true, phonetic: "十", phoneticReading: "shí",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 十",
+      association: "Человек с десятью вопросами → что",
+      examples: [
+        { ch: "什么", pinyin: "shén me", ru: "что" },
+        { ch: "为什么", pinyin: "wèi shén me", ru: "почему" }
+      ]},
+    { char: "生", pinyin: "shēng", meaning: "рождаться", emoji: "🌱",
+      hasPhonetic: false, radical: "生", radicalMeaning: "жизнь",
+      breakdown: "丿 + 青",
+      association: "Росток на земле → рождение",
+      examples: [
+        { ch: "生活", pinyin: "shēng huó", ru: "жизнь" },
+        { ch: "学生", pinyin: "xué shēng", ru: "ученик" }
+      ]},
+    { char: "师", pinyin: "shī", meaning: "учитель", emoji: "👨‍🏫",
+      hasPhonetic: false, radical: "巾", radicalMeaning: "платок",
+      breakdown: "丿 + 巾",
+      association: "Учитель с платком",
+      examples: [
+        { ch: "老师", pinyin: "lǎo shī", ru: "учитель" },
+        { ch: "师父", pinyin: "shī fu", ru: "мастер" }
+      ]},
+    { char: "十", pinyin: "shí", meaning: "десять", emoji: "🔟",
+      hasPhonetic: false, radical: "十", radicalMeaning: "десять",
+      breakdown: "Крест",
+      association: "Крест → десять",
+      examples: [
+        { ch: "十个", pinyin: "shí gè", ru: "десять штук" },
+        { ch: "十月", pinyin: "shí yuè", ru: "октябрь" }
+      ]},
+    { char: "时", pinyin: "shí", meaning: "время", emoji: "⏰",
+      hasPhonetic: true, phonetic: "寸", phoneticReading: "cùn",
+      radical: "日", radicalMeaning: "солнце",
+      breakdown: "日 (солнце) + 寸",
+      association: "Солнце по дюймам → время",
+      examples: [
+        { ch: "时间", pinyin: "shí jiān", ru: "время" },
+        { ch: "时候", pinyin: "shí hou", ru: "время, момент" }
+      ]},
+    { char: "识", pinyin: "shí", meaning: "знать", emoji: "💡",
+      hasPhonetic: true, phonetic: "只", phoneticReading: "zhǐ",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 只",
+      association: "Речь только для знающих",
+      examples: [
+        { ch: "认识", pinyin: "rèn shi", ru: "знать, быть знакомым" },
+        { ch: "知识", pinyin: "zhī shi", ru: "знания" }
+      ]},
+    { char: "是", pinyin: "shì", meaning: "быть", emoji: "✅",
+      hasPhonetic: false, radical: "日", radicalMeaning: "солнце",
+      breakdown: "日 + 正",
+      association: "Солнце правильно → быть",
+      examples: [
+        { ch: "是不是", pinyin: "shì bù shì", ru: "является или нет" },
+        { ch: "就是", pinyin: "jiù shì", ru: "именно" }
+      ]},
+    { char: "手", pinyin: "shǒu", meaning: "рука", emoji: "✋",
+      hasPhonetic: false, radical: "手", radicalMeaning: "рука",
+      breakdown: "象形 (рука с пальцами)",
+      association: "Кисть руки",
+      examples: [
+        { ch: "手机", pinyin: "shǒu jī", ru: "телефон" },
+        { ch: "手表", pinyin: "shǒu biǎo", ru: "часы" }
+      ]},
+    { char: "书", pinyin: "shū", meaning: "книга", emoji: "📚",
+      hasPhonetic: false, radical: "乛", radicalMeaning: "крюк",
+      breakdown: "乛 + 亅 + 丶",
+      association: "Рука пишущая книгу",
+      examples: [
+        { ch: "书包", pinyin: "shū bāo", ru: "рюкзак" },
+        { ch: "看书", pinyin: "kàn shū", ru: "читать книгу" }
+      ]},
+    { char: "水", pinyin: "shuǐ", meaning: "вода", emoji: "💧",
+      hasPhonetic: false, radical: "水", radicalMeaning: "вода",
+      breakdown: "象形 (текущая вода)",
+      association: "Три капли воды",
+      examples: [
+        { ch: "水果", pinyin: "shuǐ guǒ", ru: "фрукты" },
+        { ch: "喝水", pinyin: "hē shuǐ", ru: "пить воду" }
+      ]},
+    { char: "说", pinyin: "shuō", meaning: "говорить", emoji: "🗣️",
+      hasPhonetic: true, phonetic: "兑", phoneticReading: "duì",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 兑",
+      association: "Обмениваться речью → говорить",
+      examples: [
+        { ch: "说话", pinyin: "shuō huà", ru: "разговаривать" },
+        { ch: "说明", pinyin: "shuō míng", ru: "объяснять" }
+      ]},
+    { char: "四", pinyin: "sì", meaning: "четыре", emoji: "4️⃣",
+      hasPhonetic: false, radical: "囗", radicalMeaning: "ограда",
+      breakdown: "囗 + 儿",
+      association: "Четыре внутри ограды",
+      examples: [
+        { ch: "四个", pinyin: "sì gè", ru: "четыре штуки" },
+        { ch: "四月", pinyin: "sì yuè", ru: "апрель" }
+      ]},
+    { char: "岁", pinyin: "suì", meaning: "год, возраст", emoji: "🎂",
+      hasPhonetic: false, radical: "山", radicalMeaning: "гора",
+      breakdown: "山 + 夕",
+      association: "Гора вечером → возраст",
+      examples: [
+        { ch: "岁数", pinyin: "suì shu", ru: "возраст" },
+        { ch: "几岁", pinyin: "jǐ suì", ru: "сколько лет" }
+      ]},
+    { char: "他", pinyin: "tā", meaning: "он", emoji: "👨",
+      hasPhonetic: true, phonetic: "也", phoneticReading: "yě",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 + 也",
+      association: "Человек 'тоже' → он",
+      examples: [
+        { ch: "他们", pinyin: "tā men", ru: "они (мужчины)" },
+        { ch: "他的", pinyin: "tā de", ru: "его" }
+      ]},
+    { char: "她", pinyin: "tā", meaning: "она", emoji: "👩",
+      hasPhonetic: true, phonetic: "也", phoneticReading: "yě",
+      radical: "女", radicalMeaning: "женщина",
+      breakdown: "女 + 也",
+      association: "Женщина 'тоже' → она",
+      examples: [
+        { ch: "她们", pinyin: "tā men", ru: "они (женщины)" },
+        { ch: "她的", pinyin: "tā de", ru: "её" }
+      ]},
+    { char: "它", pinyin: "tā", meaning: "оно", emoji: "🪨",
+      hasPhonetic: true, phonetic: "也", phoneticReading: "yě",
+      radical: "宀", radicalMeaning: "крыша",
+      breakdown: "宀 + 匕",
+      association: "Предмет под крышей → оно",
+      examples: [
+        { ch: "它们", pinyin: "tā men", ru: "они (неодуш.)" },
+        { ch: "它的", pinyin: "tā de", ru: "его (предмета)" }
+      ]},
+    { char: "天", pinyin: "tiān", meaning: "небо", emoji: "🌤️",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "一 + 大",
+      association: "Один большой → небо",
+      examples: [
+        { ch: "今天", pinyin: "jīn tiān", ru: "сегодня" },
+        { ch: "天气", pinyin: "tiān qì", ru: "погода" }
+      ]},
+    { char: "听", pinyin: "tīng", meaning: "слушать", emoji: "👂",
+      hasPhonetic: true, phonetic: "斤", phoneticReading: "jīn",
+      radical: "口", radicalMeaning: "рот",
+      breakdown: "口 (рот) + 斤",
+      association: "Рот и топор → слушать",
+      examples: [
+        { ch: "听见", pinyin: "tīng jiàn", ru: "услышать" },
+        { ch: "听音乐", pinyin: "tīng yīn yuè", ru: "слушать музыку" }
+      ]},
+    { char: "同", pinyin: "tóng", meaning: "одинаковый", emoji: "🤝",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "冂 + 一 + 口",
+      association: "Один рот → одинаковый",
+      examples: [
+        { ch: "同学", pinyin: "tóng xué", ru: "одноклассник" },
+        { ch: "同事", pinyin: "tóng shì", ru: "коллега" }
+      ]},
+    { char: "外", pinyin: "wài", meaning: "снаружи", emoji: "🌍",
+      hasPhonetic: false, radical: "夕", radicalMeaning: "вечер",
+      breakdown: "夕 + 卜",
+      association: "Вечерняя гадалка на улице → снаружи",
+      examples: [
+        { ch: "外面", pinyin: "wài miàn", ru: "снаружи" },
+        { ch: "外国", pinyin: "wài guó", ru: "заграница" }
+      ]},
+    { char: "完", pinyin: "wán", meaning: "заканчивать", emoji: "✅",
+      hasPhonetic: false, radical: "宀", radicalMeaning: "крыша",
+      breakdown: "宀 + 元",
+      association: "Начало под крышей → закончить",
+      examples: [
+        { ch: "完成", pinyin: "wán chéng", ru: "завершить" },
+        { ch: "完全", pinyin: "wán quán", ru: "полностью" }
+      ]},
+    { char: "玩", pinyin: "wán", meaning: "играть", emoji: "🎮",
+      hasPhonetic: true, phonetic: "元", phoneticReading: "yuán",
+      radical: "王", radicalMeaning: "нефрит",
+      breakdown: "王 (нефрит) + 元",
+      association: "Играть с нефритом",
+      examples: [
+        { ch: "玩游戏", pinyin: "wán yóu xì", ru: "играть в игру" },
+        { ch: "玩具", pinyin: "wán jù", ru: "игрушка" }
+      ]},
+    { char: "晚", pinyin: "wǎn", meaning: "вечер", emoji: "🌙",
+      hasPhonetic: true, phonetic: "免", phoneticReading: "miǎn",
+      radical: "日", radicalMeaning: "солнце",
+      breakdown: "日 (солнце) + 免",
+      association: "Солнце уходит → вечер",
+      examples: [
+        { ch: "晚上", pinyin: "wǎn shang", ru: "вечером" },
+        { ch: "晚安", pinyin: "wǎn ān", ru: "спокойной ночи" }
+      ]},
+    { char: "王", pinyin: "wáng", meaning: "король", emoji: "👑",
+      hasPhonetic: false, radical: "王", radicalMeaning: "король",
+      breakdown: "一 + 土",
+      association: "Земля и небо → король",
+      examples: [
+        { ch: "国王", pinyin: "guó wáng", ru: "король" },
+        { ch: "王子", pinyin: "wáng zǐ", ru: "принц" }
+      ]},
+    { char: "为", pinyin: "wèi", meaning: "для, ради", emoji: "🎯",
+      hasPhonetic: false, radical: "丶", radicalMeaning: "точка",
+      breakdown: "力 + 丶",
+      association: "Сила и точка → для чего-то",
+      examples: [
+        { ch: "为什么", pinyin: "wèi shén me", ru: "почему" },
+        { ch: "为了", pinyin: "wèi le", ru: "ради" }
+      ]},
+    { char: "文", pinyin: "wén", meaning: "письменность", emoji: "📝",
+      hasPhonetic: false, radical: "文", radicalMeaning: "письменность",
+      breakdown: "亠 + 乂",
+      association: "Человек с письменностью",
+      examples: [
+        { ch: "中文", pinyin: "Zhōng wén", ru: "китайский язык" },
+        { ch: "文化", pinyin: "wén huà", ru: "культура" }
+      ]},
+    { char: "问", pinyin: "wèn", meaning: "спрашивать", emoji: "❓",
+      hasPhonetic: true, phonetic: "口", phoneticReading: "kǒu",
+      radical: "门", radicalMeaning: "дверь",
+      breakdown: "门 (дверь) + 口",
+      association: "Рот у двери → спросить",
+      examples: [
+        { ch: "问题", pinyin: "wèn tí", ru: "вопрос" },
+        { ch: "请问", pinyin: "qǐng wèn", ru: "скажите пожалуйста" }
+      ]},
+    { char: "我", pinyin: "wǒ", meaning: "я", emoji: "👤",
+      hasPhonetic: false, radical: "戈", radicalMeaning: "алебарда",
+      breakdown: "手 + 戈",
+      association: "Рука с алебардой → я",
+      examples: [
+        { ch: "我们", pinyin: "wǒ men", ru: "мы" },
+        { ch: "我的", pinyin: "wǒ de", ru: "мой" }
+      ]},
+    { char: "五", pinyin: "wǔ", meaning: "пять", emoji: "5️⃣",
+      hasPhonetic: false, radical: "二", radicalMeaning: "два",
+      breakdown: "二 + 乛",
+      association: "Два и крюк → пять",
+      examples: [
+        { ch: "五个", pinyin: "wǔ gè", ru: "пять штук" },
+        { ch: "五月", pinyin: "wǔ yuè", ru: "май" }
+      ]},
+    { char: "西", pinyin: "xī", meaning: "запад", emoji: "🧭",
+      hasPhonetic: false, radical: "西", radicalMeaning: "запад",
+      breakdown: "一 + 口 + 儿",
+      association: "Солнце в коробке → запад",
+      examples: [
+        { ch: "西方", pinyin: "xī fāng", ru: "запад" },
+        { ch: "西瓜", pinyin: "xī guā", ru: "арбуз" }
+      ]},
+    { char: "喜", pinyin: "xǐ", meaning: "радость", emoji: "😊",
+      hasPhonetic: false, radical: "口", radicalMeaning: "рот",
+      breakdown: "士 + 口 + 廿",
+      association: "Много ртов радуются",
+      examples: [
+        { ch: "喜欢", pinyin: "xǐ huan", ru: "нравиться" },
+        { ch: "喜悦", pinyin: "xǐ yuè", ru: "радость" }
+      ]},
+    { char: "下", pinyin: "xià", meaning: "низ", emoji: "⬇️",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "一 + 卜",
+      association: "Точка под чертой → внизу",
+      examples: [
+        { ch: "下面", pinyin: "xià miàn", ru: "внизу" },
+        { ch: "下班", pinyin: "xià bān", ru: "с работы" }
+      ]},
+    { char: "先", pinyin: "xiān", meaning: "сначала", emoji: "🥇",
+      hasPhonetic: false, radical: "儿", radicalMeaning: "ребёнок",
+      breakdown: "丿 + 土 + 儿",
+      association: "Ребёнок идёт первым",
+      examples: [
+        { ch: "先生", pinyin: "xiān sheng", ru: "господин" },
+        { ch: "首先", pinyin: "shǒu xiān", ru: "прежде всего" }
+      ]},
+    { char: "现", pinyin: "xiàn", meaning: "сейчас", emoji: "🔄",
+      hasPhonetic: true, phonetic: "见", phoneticReading: "jiàn",
+      radical: "王", radicalMeaning: "нефрит",
+      breakdown: "王 (нефрит) + 见",
+      association: "Видеть нефрит сейчас",
+      examples: [
+        { ch: "现在", pinyin: "xiàn zài", ru: "сейчас" },
+        { ch: "出现", pinyin: "chū xiàn", ru: "появляться" }
+      ]},
+    { char: "想", pinyin: "xiǎng", meaning: "думать", emoji: "💭",
+      hasPhonetic: true, phonetic: "相", phoneticReading: "xiāng",
+      radical: "心", radicalMeaning: "сердце",
+      breakdown: "相 (взаимно) + 心",
+      association: "Сердце обменивается мыслями",
+      examples: [
+        { ch: "想念", pinyin: "xiǎng niàn", ru: "скучать" },
+        { ch: "想法", pinyin: "xiǎng fǎ", ru: "мысль" }
+      ]},
+    { char: "小", pinyin: "xiǎo", meaning: "маленький", emoji: "🐭",
+      hasPhonetic: false, radical: "小", radicalMeaning: "маленький",
+      breakdown: "亅 + 八",
+      association: "Маленькие штрихи",
+      examples: [
+        { ch: "小孩", pinyin: "xiǎo hái", ru: "ребёнок" },
+        { ch: "小时", pinyin: "xiǎo shí", ru: "час" }
+      ]},
+    { char: "校", pinyin: "xiào", meaning: "школа", emoji: "🏫",
+      hasPhonetic: true, phonetic: "交", phoneticReading: "jiāo",
+      radical: "木", radicalMeaning: "дерево",
+      breakdown: "木 (дерево) + 交",
+      association: "Деревянная школа",
+      examples: [
+        { ch: "学校", pinyin: "xué xiào", ru: "школа" },
+        { ch: "校长", pinyin: "xiào zhǎng", ru: "директор" }
+      ]},
+    { char: "些", pinyin: "xiē", meaning: "несколько", emoji: "🔢",
+      hasPhonetic: false, radical: "二", radicalMeaning: "два",
+      breakdown: "此 + 二",
+      association: "Немного, несколько",
+      examples: [
+        { ch: "这些", pinyin: "zhè xiē", ru: "эти" },
+        { ch: "一些", pinyin: "yī xiē", ru: "немного" }
+      ]},
+    { char: "写", pinyin: "xiě", meaning: "писать", emoji: "✍️",
+      hasPhonetic: false, radical: "冖", radicalMeaning: "крышка",
+      breakdown: "冖 + 与",
+      association: "Писать под крышкой",
+      examples: [
+        { ch: "写字", pinyin: "xiě zì", ru: "писать иероглифы" },
+        { ch: "写作", pinyin: "xiě zuò", ru: "писать сочинение" }
+      ]},
+    { char: "心", pinyin: "xīn", meaning: "сердце", emoji: "❤️",
+      hasPhonetic: false, radical: "心", radicalMeaning: "сердце",
+      breakdown: "象形 (сердце)",
+      association: "Сердце с сосудами",
+      examples: [
+        { ch: "心里", pinyin: "xīn lǐ", ru: "в сердце" },
+        { ch: "开心", pinyin: "kāi xīn", ru: "радостный" }
+      ]},
+    { char: "新", pinyin: "xīn", meaning: "новый", emoji: "🆕",
+      hasPhonetic: true, phonetic: "亲", phoneticReading: "qīn",
+      radical: "斤", radicalMeaning: "топор",
+      breakdown: "亲 + 斤",
+      association: "Новый топор",
+      examples: [
+        { ch: "新年", pinyin: "xīn nián", ru: "Новый год" },
+        { ch: "新鲜", pinyin: "xīn xiān", ru: "свежий" }
+      ]},
+    { char: "星", pinyin: "xīng", meaning: "звезда", emoji: "⭐",
+      hasPhonetic: true, phonetic: "生", phoneticReading: "shēng",
+      radical: "日", radicalMeaning: "солнце",
+      breakdown: "日 (солнце) + 生",
+      association: "Рождённая солнцем → звезда",
+      examples: [
+        { ch: "星星", pinyin: "xīng xing", ru: "звёзды" },
+        { ch: "明星", pinyin: "míng xīng", ru: "звезда (знаменитость)" }
+      ]},
+    { char: "行", pinyin: "xíng", meaning: "идти", emoji: "🚶",
+      hasPhonetic: false, radical: "彳", radicalMeaning: "шаг",
+      breakdown: "彳 + 亍",
+      association: "Шаг вперёд",
+      examples: [
+        { ch: "行走", pinyin: "xíng zǒu", ru: "идти" },
+        { ch: "银行", pinyin: "yín háng", ru: "банк" }
+      ]},
+    { char: "兴", pinyin: "xìng", meaning: "интерес", emoji: "😊",
+      hasPhonetic: false, radical: "八", radicalMeaning: "восемь",
+      breakdown: "⺌ + 一 + 八",
+      association: "Восемь радостей → интерес",
+      examples: [
+        { ch: "高兴", pinyin: "gāo xìng", ru: "радостный" },
+        { ch: "兴趣", pinyin: "xìng qù", ru: "интерес" }
+      ]},
+    { char: "学", pinyin: "xué", meaning: "учиться", emoji: "📚",
+      hasPhonetic: false, radical: "子", radicalMeaning: "ребёнок",
+      breakdown: "⺌ + 冖 + 子",
+      association: "Ребёнок под крышей учится",
+      examples: [
+        { ch: "学习", pinyin: "xué xí", ru: "учиться" },
+        { ch: "学生", pinyin: "xué sheng", ru: "ученик" }
+      ]},
+    { char: "阳", pinyin: "yáng", meaning: "солнце, мужское", emoji: "☀️",
+      hasPhonetic: true, phonetic: "日", phoneticReading: "rì",
+      radical: "阝", radicalMeaning: "холм",
+      breakdown: "阝 (холм) + 日",
+      association: "Солнце на холме → мужское начало",
+      examples: [
+        { ch: "太阳", pinyin: "tài yáng", ru: "солнце" },
+        { ch: "阳光", pinyin: "yáng guāng", ru: "солнечный свет" }
+      ]},
+    { char: "要", pinyin: "yào", meaning: "хотеть", emoji: "💪",
+      hasPhonetic: false, radical: "覀", radicalMeaning: "запад",
+      breakdown: "覀 + 女",
+      association: "Хотеть женщину",
+      examples: [
+        { ch: "不要", pinyin: "bù yào", ru: "не хочу" },
+        { ch: "重要", pinyin: "zhòng yào", ru: "важный" }
+      ]},
+    { char: "也", pinyin: "yě", meaning: "тоже", emoji: "➕",
+      hasPhonetic: false, radical: "乛", radicalMeaning: "крюк",
+      breakdown: "乛 + 丨",
+      association: "Крюк и палка → тоже",
+      examples: [
+        { ch: "也是", pinyin: "yě shì", ru: "тоже является" },
+        { ch: "也许", pinyin: "yě xǔ", ru: "может быть" }
+      ]},
+    { char: "一", pinyin: "yī", meaning: "один", emoji: "1️⃣",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "Одна горизонтальная черта",
+      association: "Одна палочка → один",
+      examples: [
+        { ch: "一个", pinyin: "yī gè", ru: "один" },
+        { ch: "一起", pinyin: "yī qǐ", ru: "вместе" }
+      ]},
+    { char: "医", pinyin: "yī", meaning: "врач", emoji: "👨‍⚕️",
+      hasPhonetic: true, phonetic: "矢", phoneticReading: "shǐ",
+      radical: "匚", radicalMeaning: "ящик",
+      breakdown: "匚 + 矢",
+      association: "Стрела в ящике → врач лечит раны",
+      examples: [
+        { ch: "医生", pinyin: "yī shēng", ru: "врач" },
+        { ch: "医院", pinyin: "yī yuàn", ru: "больница" }
+      ]},
+    { char: "衣", pinyin: "yī", meaning: "одежда", emoji: "👕",
+      hasPhonetic: false, radical: "衣", radicalMeaning: "одежда",
+      breakdown: "亠 + 丶 + 𖧵",
+      association: "Воротник и рукава → одежда",
+      examples: [
+        { ch: "衣服", pinyin: "yī fu", ru: "одежда" },
+        { ch: "上衣", pinyin: "shàng yī", ru: "верхняя одежда" }
+      ]},
+    { char: "已", pinyin: "yǐ", meaning: "уже", emoji: "✅",
+      hasPhonetic: false, radical: "己", radicalMeaning: "себя",
+      breakdown: "象形 (змея)",
+      association: "Уже сделано",
+      examples: [
+        { ch: "已经", pinyin: "yǐ jīng", ru: "уже" },
+        { ch: "早已", pinyin: "zǎo yǐ", ru: "давно уже" }
+      ]},
+    { char: "以", pinyin: "yǐ", meaning: "чтобы, используя", emoji: "🔧",
+      hasPhonetic: false, radical: "人", radicalMeaning: "человек",
+      breakdown: "𠂉 + 丶",
+      association: "Человек с инструментом",
+      examples: [
+        { ch: "可以", pinyin: "kě yǐ", ru: "можно" },
+        { ch: "以前", pinyin: "yǐ qián", ru: "раньше" }
+      ]},
+    { char: "意", pinyin: "yì", meaning: "смысл", emoji: "💡",
+      hasPhonetic: true, phonetic: "音", phoneticReading: "yīn",
+      radical: "心", radicalMeaning: "сердце",
+      breakdown: "音 (звук) + 心",
+      association: "Звук сердца → смысл",
+      examples: [
+        { ch: "意思", pinyin: "yì si", ru: "значение" },
+        { ch: "意见", pinyin: "yì jiàn", ru: "мнение" }
+      ]},
+    { char: "因", pinyin: "yīn", meaning: "причина", emoji: "🔍",
+      hasPhonetic: false, radical: "囗", radicalMeaning: "ограда",
+      breakdown: "囗 + 大",
+      association: "Большая причина в ограде",
+      examples: [
+        { ch: "因为", pinyin: "yīn wèi", ru: "потому что" },
+        { ch: "原因", pinyin: "yuán yīn", ru: "причина" }
+      ]},
+    { char: "应", pinyin: "yīng", meaning: "должен", emoji: "⚠️",
+      hasPhonetic: true, phonetic: "兴", phoneticReading: "xìng",
+      radical: "广", radicalMeaning: "здание",
+      breakdown: "广 (здание) + 兴",
+      association: "Должен радоваться",
+      examples: [
+        { ch: "应该", pinyin: "yīng gāi", ru: "следует" },
+        { ch: "答应", pinyin: "dā ying", ru: "соглашаться" }
+      ]},
+    { char: "用", pinyin: "yòng", meaning: "использовать", emoji: "🔧",
+      hasPhonetic: false, radical: "用", radicalMeaning: "использовать",
+      breakdown: "冂 + 丨",
+      association: "Использовать",
+      examples: [
+        { ch: "使用", pinyin: "shǐ yòng", ru: "использовать" },
+        { ch: "有用", pinyin: "yǒu yòng", ru: "полезный" }
+      ]},
+    { char: "有", pinyin: "yǒu", meaning: "иметь", emoji: "💪",
+      hasPhonetic: false, radical: "月", radicalMeaning: "луна",
+      breakdown: "𠂇 + 月",
+      association: "Рука с луной → иметь",
+      examples: [
+        { ch: "没有", pinyin: "méi yǒu", ru: "не иметь" },
+        { ch: "只有", pinyin: "zhǐ yǒu", ru: "только иметь" }
+      ]},
+    { char: "又", pinyin: "yòu", meaning: "снова", emoji: "🔄",
+      hasPhonetic: false, radical: "又", radicalMeaning: "снова",
+      breakdown: "象形 (рука)",
+      association: "Рука делает снова",
+      examples: [
+        { ch: "又来了", pinyin: "yòu lái le", ru: "снова пришёл" },
+        { ch: "又一次", pinyin: "yòu yī cì", ru: "ещё раз" }
+      ]},
+    { char: "于", pinyin: "yú", meaning: "в, от", emoji: "📍",
+      hasPhonetic: false, radical: "二", radicalMeaning: "два",
+      breakdown: "一 + 十",
+      association: "От одного к десяти",
+      examples: [
+        { ch: "关于", pinyin: "guān yú", ru: "о, касательно" },
+        { ch: "对于", pinyin: "duì yú", ru: "по отношению к" }
+      ]},
+    { char: "与", pinyin: "yǔ", meaning: "и, с", emoji: "➕",
+      hasPhonetic: false, radical: "一", radicalMeaning: "один",
+      breakdown: "𠂊 + 一",
+      association: "Единица с крыльями",
+      examples: [
+        { ch: "与...不同", pinyin: "yǔ...bù tóng", ru: "отличаться от" },
+        { ch: "参与", pinyin: "cān yù", ru: "участвовать" }
+      ]},
+    { char: "雨", pinyin: "yǔ", meaning: "дождь", emoji: "🌧️",
+      hasPhonetic: false, radical: "雨", radicalMeaning: "дождь",
+      breakdown: "象形 (капли дождя)",
+      association: "Капли дождя",
+      examples: [
+        { ch: "下雨", pinyin: "xià yǔ", ru: "идёт дождь" },
+        { ch: "雨伞", pinyin: "yǔ sǎn", ru: "зонт" }
+      ]},
+    { char: "语", pinyin: "yǔ", meaning: "язык", emoji: "🗣️",
+      hasPhonetic: true, phonetic: "吾", phoneticReading: "wú",
+      radical: "讠", radicalMeaning: "речь",
+      breakdown: "讠 (речь) + 吾",
+      association: "Речь 'я' → язык",
+      examples: [
+        { ch: "语言", pinyin: "yǔ yán", ru: "язык" },
+        { ch: "英语", pinyin: "Yīng yǔ", ru: "английский язык" }
+      ]},
+    { char: "元", pinyin: "yuán", meaning: "начало", emoji: "🔰",
+      hasPhonetic: false, radical: "二", radicalMeaning: "два",
+      breakdown: "二 + 儿",
+      association: "Два ребёнка → начало",
+      examples: [
+        { ch: "元月", pinyin: "yuán yuè", ru: "январь" },
+        { ch: "一元", pinyin: "yī yuán", ru: "один юань" }
+      ]},
+    { char: "远", pinyin: "yuǎn", meaning: "далёкий", emoji: "📏",
+      hasPhonetic: true, phonetic: "元", phoneticReading: "yuán",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 (движение) + 元",
+      association: "Долгий путь → далёкий",
+      examples: [
+        { ch: "远处", pinyin: "yuǎn chù", ru: "вдалеке" },
+        { ch: "永远", pinyin: "yǒng yuǎn", ru: "навсегда" }
+      ]},
+    { char: "院", pinyin: "yuàn", meaning: "двор, учреждение", emoji: "🏥",
+      hasPhonetic: true, phonetic: "完", phoneticReading: "wán",
+      radical: "阝", radicalMeaning: "холм",
+      breakdown: "阝 (холм) + 完",
+      association: "Завершённое место → учреждение",
+      examples: [
+        { ch: "医院", pinyin: "yī yuàn", ru: "больница" },
+        { ch: "学院", pinyin: "xué yuàn", ru: "институт" }
+      ]},
+    { char: "月", pinyin: "yuè", meaning: "луна, месяц", emoji: "🌙",
+      hasPhonetic: false, radical: "月", radicalMeaning: "луна",
+      breakdown: "象形 (луна)",
+      association: "Полумесяц",
+      examples: [
+        { ch: "月亮", pinyin: "yuè liang", ru: "луна" },
+        { ch: "一月", pinyin: "yī yuè", ru: "январь" }
+      ]},
+    { char: "再", pinyin: "zài", meaning: "снова", emoji: "🔄",
+      hasPhonetic: false, radical: "冂", radicalMeaning: "далёкий",
+      breakdown: "一 + 冂 + 土",
+      association: "Снова вдаль",
+      examples: [
+        { ch: "再见", pinyin: "zài jiàn", ru: "до свидания" },
+        { ch: "再次", pinyin: "zài cì", ru: "ещё раз" }
+      ]},
+    { char: "在", pinyin: "zài", meaning: "находиться", emoji: "📍",
+      hasPhonetic: false, radical: "土", radicalMeaning: "земля",
+      breakdown: "𠂇 + 土",
+      association: "Рука на земле → находиться",
+      examples: [
+        { ch: "在家", pinyin: "zài jiā", ru: "дома" },
+        { ch: "在哪儿", pinyin: "zài nǎr", ru: "где" }
+      ]},
+    { char: "怎", pinyin: "zěn", meaning: "как", emoji: "❓",
+      hasPhonetic: true, phonetic: "乍", phoneticReading: "zhà",
+      radical: "心", radicalMeaning: "сердце",
+      breakdown: "乍 + 心",
+      association: "Сердце спрашивает как",
+      examples: [
+        { ch: "怎么", pinyin: "zěn me", ru: "как" },
+        { ch: "怎样", pinyin: "zěn yàng", ru: "как, каким образом" }
+      ]},
+    { char: "长", pinyin: "zhǎng", meaning: "расти", emoji: "📈",
+      hasPhonetic: false, radical: "长", radicalMeaning: "длинный",
+      breakdown: "象形 (волосы растут)",
+      association: "Волосы растут",
+      examples: [
+        { ch: "长大", pinyin: "zhǎng dà", ru: "вырасти" },
+        { ch: "生长", pinyin: "shēng zhǎng", ru: "расти" }
+      ]},
+    { char: "找", pinyin: "zhǎo", meaning: "искать", emoji: "🔍",
+      hasPhonetic: true, phonetic: "戈", phoneticReading: "gē",
+      radical: "扌", radicalMeaning: "рука",
+      breakdown: "扌 (рука) + 戈",
+      association: "Рука с алебардой ищет",
+      examples: [
+        { ch: "找到", pinyin: "zhǎo dào", ru: "найти" },
+        { ch: "寻找", pinyin: "xún zhǎo", ru: "искать" }
+      ]},
+    { char: "这", pinyin: "zhè", meaning: "этот", emoji: "👉",
+      hasPhonetic: true, phonetic: "文", phoneticReading: "wén",
+      radical: "辶", radicalMeaning: "движение",
+      breakdown: "辶 + 文",
+      association: "Это письмо движется",
+      examples: [
+        { ch: "这个", pinyin: "zhè ge", ru: "этот" },
+        { ch: "这里", pinyin: "zhè lǐ", ru: "здесь" }
+      ]},
+    { char: "着", pinyin: "zhe", meaning: "процесс", emoji: "⏳",
+      hasPhonetic: false, radical: "羊", radicalMeaning: "овца",
+      breakdown: "羊 + 目",
+      association: "Овца смотрит → длительный процесс",
+      examples: [
+        { ch: "看着", pinyin: "kàn zhe", ru: "смотреть (в процессе)" },
+        { ch: "等着", pinyin: "děng zhe", ru: "ждать (в процессе)" }
+      ]},
+    { char: "真", pinyin: "zhēn", meaning: "правда", emoji: "💯",
+      hasPhonetic: false, radical: "目", radicalMeaning: "глаз",
+      breakdown: "直 + 八",
+      association: "Прямой взгляд → правда",
+      examples: [
+        { ch: "真的", pinyin: "zhēn de", ru: "правда" },
+        { ch: "认真", pinyin: "rèn zhēn", ru: "серьёзный" }
+      ]},
+    { char: "正", pinyin: "zhèng", meaning: "правильный", emoji: "✓",
+      hasPhonetic: false, radical: "止", radicalMeaning: "остановка",
+      breakdown: "一 + 止",
+      association: "Остановиться на правильном",
+      examples: [
+        { ch: "正确", pinyin: "zhèng què", ru: "правильный" },
+        { ch: "正在", pinyin: "zhèng zài", ru: "как раз сейчас" }
+      ]},
+    { char: "知", pinyin: "zhī", meaning: "знать", emoji: "💡",
+      hasPhonetic: true, phonetic: "口", phoneticReading: "kǒu",
+      radical: "矢", radicalMeaning: "стрела",
+      breakdown: "矢 (стрела) + 口",
+      association: "Стрела изо рта → знание",
+      examples: [
+        { ch: "知道", pinyin: "zhī dào", ru: "знать" },
+        { ch: "知识", pinyin: "zhī shi", ru: "знания" }
+      ]},
+    { char: "中", pinyin: "zhōng", meaning: "середина", emoji: "🎯",
+      hasPhonetic: false, radical: "丨", radicalMeaning: "вертикаль",
+      breakdown: "口 + 丨",
+      association: "Палка в центре рта → середина",
+      examples: [
+        { ch: "中国", pinyin: "Zhōng guó", ru: "Китай" },
+        { ch: "中心", pinyin: "zhōng xīn", ru: "центр" }
+      ]},
+    { char: "种", pinyin: "zhǒng", meaning: "вид, сорт", emoji: "🌱",
+      hasPhonetic: true, phonetic: "中", phoneticReading: "zhōng",
+      radical: "禾", radicalMeaning: "зерно",
+      breakdown: "禾 (зерно) + 中",
+      association: "Зерно из центра → вид",
+      examples: [
+        { ch: "一种", pinyin: "yī zhǒng", ru: "один вид" },
+        { ch: "种类", pinyin: "zhǒng lèi", ru: "вид, сорт" }
+      ]},
+    { char: "众", pinyin: "zhòng", meaning: "толпа", emoji: "👥",
+      hasPhonetic: false, radical: "人", radicalMeaning: "человек",
+      breakdown: "三人",
+      association: "Три человека → толпа",
+      examples: [
+        { ch: "众多", pinyin: "zhòng duō", ru: "многочисленный" },
+        { ch: "观众", pinyin: "guān zhòng", ru: "зрители" }
+      ]},
+    { char: "重", pinyin: "zhòng", meaning: "тяжёлый", emoji: "🏋️",
+      hasPhonetic: false, radical: "千", radicalMeaning: "тысяча",
+      breakdown: "千 + 里",
+      association: "Тысяча ли → тяжело",
+      examples: [
+        { ch: "重要", pinyin: "zhòng yào", ru: "важный" },
+        { ch: "体重", pinyin: "tǐ zhòng", ru: "вес тела" }
+      ]},
+    { char: "住", pinyin: "zhù", meaning: "жить", emoji: "🏠",
+      hasPhonetic: true, phonetic: "主", phoneticReading: "zhǔ",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 主",
+      association: "Человек-хозяин → жить",
+      examples: [
+        { ch: "住址", pinyin: "zhù zhǐ", ru: "адрес" },
+        { ch: "居住", pinyin: "jū zhù", ru: "проживать" }
+      ]},
+    { char: "祝", pinyin: "zhù", meaning: "желать", emoji: "🎉",
+      hasPhonetic: true, phonetic: "兄", phoneticReading: "xiōng",
+      radical: "礻", radicalMeaning: "дух",
+      breakdown: "礻 (дух) + 兄",
+      association: "Дух брата желает",
+      examples: [
+        { ch: "祝福", pinyin: "zhù fú", ru: "благословлять" },
+        { ch: "祝贺", pinyin: "zhù hè", ru: "поздравлять" }
+      ]},
+    { char: "住", pinyin: "zhù", meaning: "жить", emoji: "🏠",
+      hasPhonetic: true, phonetic: "主", phoneticReading: "zhǔ",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 主",
+      association: "Человек-хозяин → жить",
+      examples: [
+        { ch: "住址", pinyin: "zhù zhǐ", ru: "адрес" },
+        { ch: "居住", pinyin: "jū zhù", ru: "проживать" }
+      ]},
+    { char: "字", pinyin: "zì", meaning: "иероглиф", emoji: "🀄",
+      hasPhonetic: true, phonetic: "子", phoneticReading: "zǐ",
+      radical: "宀", radicalMeaning: "крыша",
+      breakdown: "宀 (крыша) + 子",
+      association: "Ребёнок под крышей учит иероглифы",
+      examples: [
+        { ch: "汉字", pinyin: "hàn zì", ru: "китайские иероглифы" },
+        { ch: "写字", pinyin: "xiě zì", ru: "писать иероглифы" }
+      ]},
+    { char: "自", pinyin: "zì", meaning: "сам", emoji: "👤",
+      hasPhonetic: false, radical: "自", radicalMeaning: "сам",
+      breakdown: "丿 + 目",
+      association: "Свой нос → сам",
+      examples: [
+        { ch: "自己", pinyin: "zì jǐ", ru: "сам" },
+        { ch: "自然", pinyin: "zì rán", ru: "природа" }
+      ]},
+    { char: "走", pinyin: "zǒu", meaning: "идти", emoji: "🚶",
+      hasPhonetic: false, radical: "走", radicalMeaning: "ходить",
+      breakdown: "土 + 止",
+      association: "Земля и остановка → идти",
+      examples: [
+        { ch: "走路", pinyin: "zǒu lù", ru: "идти пешком" },
+        { ch: "走开", pinyin: "zǒu kāi", ru: "уйти" }
+      ]},
+    { char: "最", pinyin: "zuì", meaning: "самый", emoji: "🥇",
+      hasPhonetic: false, radical: "曰", radicalMeaning: "сказать",
+      breakdown: "曰 + 取",
+      association: "Взять первое место → самый",
+      examples: [
+        { ch: "最好", pinyin: "zuì hǎo", ru: "лучший" },
+        { ch: "最多", pinyin: "zuì duō", ru: "больше всего" }
+      ]},
+    { char: "昨", pinyin: "zuó", meaning: "вчера", emoji: "📅",
+      hasPhonetic: true, phonetic: "乍", phoneticReading: "zhà",
+      radical: "日", radicalMeaning: "солнце",
+      breakdown: "日 (солнце) + 乍",
+      association: "Солнце вчера",
+      examples: [
+        { ch: "昨天", pinyin: "zuó tiān", ru: "вчера" },
+        { ch: "昨晚", pinyin: "zuó wǎn", ru: "вчера вечером" }
+      ]},
+    { char: "左", pinyin: "zuǒ", meaning: "левый", emoji: "⬅️",
+      hasPhonetic: false, radical: "工", radicalMeaning: "работа",
+      breakdown: "𠂇 + 工",
+      association: "Левая рука работает",
+      examples: [
+        { ch: "左边", pinyin: "zuǒ biān", ru: "левая сторона" },
+        { ch: "左右", pinyin: "zuǒ yòu", ru: "лево-право" }
+      ]},
+    { char: "坐", pinyin: "zuò", meaning: "сидеть", emoji: "💺",
+      hasPhonetic: false, radical: "土", radicalMeaning: "земля",
+      breakdown: "人人 + 土",
+      association: "Два человека на земле → сидят",
+      examples: [
+        { ch: "坐下", pinyin: "zuò xià", ru: "сесть" },
+        { ch: "坐车", pinyin: "zuò chē", ru: "ехать на транспорте" }
+      ]},
+    { char: "做", pinyin: "zuò", meaning: "делать", emoji: "🔧",
+      hasPhonetic: true, phonetic: "故", phoneticReading: "gù",
+      radical: "亻", radicalMeaning: "человек",
+      breakdown: "亻 (человек) + 故",
+      association: "Человек делает историю",
+      examples: [
+        { ch: "做事", pinyin: "zuò shì", ru: "делать дело" },
+        { ch: "做饭", pinyin: "zuò fàn", ru: "готовить еду" }
+      ]}
+];
+            
     // Собираем полный список из 150 слов
     let allWords = [...HSK1_WORDS];
     while (allWords.length < 150) {
