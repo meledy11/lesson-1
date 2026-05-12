@@ -290,6 +290,93 @@
             .action-btn { padding: 10px 16px; font-size: 0.8rem; min-width: 100px; }
             .association-text { font-size: 0.85rem; }
         }
+        /* ========== ПОИСК ========== */
+.search-section {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: #FFF8F0;
+    border-radius: 40px;
+    border: 2px solid #FFB347;
+}
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.search-header h3 {
+    color: #A5511A;
+}
+.search-toggle {
+    background: #FF8C42;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.search-box input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 2px solid #D9B48B;
+    border-radius: 50px;
+    outline: none;
+    font-family: inherit;
+}
+.search-box button {
+    background: linear-gradient(135deg, #f7b42c, #fc8e2c);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+.search-item {
+    background: white;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.1s;
+    border: 2px solid #E2CFAD;
+}
+.search-item:active {
+    transform: scale(0.96);
+    background: #FFF0E0;
+}
+.search-char {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #A5511A;
+}
+.search-pinyin {
+    font-size: 0.75rem;
+    color: #FF8C42;
+}
+.search-meaning {
+    font-size: 0.7rem;
+    color: #6B4E2E;
+}
+.search-hint {
+    text-align: center;
+    padding: 12px;
+    color: #8B5A2B;
+    font-size: 0.8rem;
+}
     </style>
 </head>
 <body>
@@ -2440,6 +2527,109 @@ const HSK1_DATA = [
 // ========== СОЗДАЁМ FINAL_WORDS ИЗ HSK1_DATA ==========
 const FINAL_WORDS = HSK1_DATA;
 
+    // ========== ПОИСК ПО СЛОВАМ ==========
+let searchQuery = '';
+
+function normalizePinyin(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+        .replace(/[āáǎà]/g, 'a')
+        .replace(/[ēéěè]/g, 'e')
+        .replace(/[īíǐì]/g, 'i')
+        .replace(/[ōóǒò]/g, 'o')
+        .replace(/[ūúǔù]/g, 'u')
+        .replace(/[ǖǘǚǜ]/g, 'u')
+        .replace(/[ü]/g, 'u');
+}
+
+function searchWords() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    searchQuery = query;
+    
+    if (query === '') {
+        renderAllWords();
+        return;
+    }
+    
+    const results = FINAL_WORDS.filter(word => {
+        // Поиск по иероглифу
+        if (word.char.toLowerCase().includes(query)) return true;
+        // Поиск по пиньинь (без тонов)
+        if (normalizePinyin(word.pinyin).includes(normalizePinyin(query))) return true;
+        // Поиск по русскому переводу
+        if (word.meaning.toLowerCase().includes(query)) return true;
+        return false;
+    });
+    
+    renderSearchResults(results);
+}
+
+function renderAllWords() {
+    const container = document.getElementById('searchResultsGrid');
+    if (!container) return;
+    
+    // Показываем первые 20 слов сеткой
+    const displayWords = FINAL_WORDS.slice(0, 50);
+    container.innerHTML = `
+        <div class="search-hint">📖 Всего слов: ${FINAL_WORDS.length}. Используйте поиск выше</div>
+        <div class="search-grid">
+            ${displayWords.map(word => `
+                <div class="search-item" onclick="selectWordByChar('${word.char}')">
+                    <div class="search-char">${word.char}</div>
+                    <div class="search-pinyin">${word.pinyin}</div>
+                    <div class="search-meaning">${word.meaning}</div>
+                </div>
+            `).join('')}
+        </div>
+        ${FINAL_WORDS.length > 50 ? '<div class="search-hint">... и ещё ' + (FINAL_WORDS.length - 50) + ' слов. Введите запрос для поиска</div>' : ''}
+    `;
+}
+
+function renderSearchResults(results) {
+    const container = document.getElementById('searchResultsGrid');
+    if (!container) return;
+    
+    if (results.length === 0) {
+        container.innerHTML = '<div class="search-hint">😔 Ничего не найдено. Попробуйте другой запрос.</div>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="search-hint">🔍 Найдено ${results.length} слов</div>
+        <div class="search-grid">
+            ${results.map(word => `
+                <div class="search-item" onclick="selectWordByChar('${word.char}')">
+                    <div class="search-char">${word.char}</div>
+                    <div class="search-pinyin">${word.pinyin}</div>
+                    <div class="search-meaning">${word.meaning}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function selectWordByChar(char) {
+    const wordIndex = FINAL_WORDS.findIndex(w => w.char === char);
+    if (wordIndex !== -1) {
+        currentIndex = wordIndex;
+        currentWord = FINAL_WORDS[currentIndex];
+        updateUI();
+        // Закрываем поиск
+        document.getElementById('searchSection').style.display = 'none';
+        document.getElementById('searchInput').value = '';
+    }
+}
+
+function toggleSearch() {
+    const searchSection = document.getElementById('searchSection');
+    if (searchSection.style.display === 'none') {
+        searchSection.style.display = 'block';
+        renderAllWords();
+    } else {
+        searchSection.style.display = 'none';
+    }
+}
+
 // ========== ПЕРЕМЕННЫЕ ==========
 let currentIndex = 0;
 let learnedWords = JSON.parse(localStorage.getItem('hsk1_learned') || '[]');
@@ -2759,7 +2949,122 @@ let undoStack = [];
             updateUI();
         }
     }
-
+// ========== ПОИСК ПО СЛОВАМ ==========
+    let searchQuery = '';
+    
+    function normalizePinyin(str) {
+        if (!str) return '';
+        return str.toLowerCase()
+            .replace(/[āáǎà]/g, 'a')
+            .replace(/[ēéěè]/g, 'e')
+            .replace(/[īíǐì]/g, 'i')
+            .replace(/[ōóǒò]/g, 'o')
+            .replace(/[ūúǔù]/g, 'u')
+            .replace(/[ǖǘǚǜ]/g, 'u')
+            .replace(/ü/g, 'u');
+    }
+    
+    function renderAllWords() {
+        const container = document.getElementById('searchResultsGrid');
+        if (!container) return;
+        
+        const displayWords = FINAL_WORDS.slice(0, 50);
+        container.innerHTML = `
+            <div class="search-hint">📖 Всего слов: ${FINAL_WORDS.length}. Используйте поиск выше</div>
+            <div class="search-grid">
+                ${displayWords.map(word => `
+                    <div class="search-item" onclick="selectWordByChar('${word.char.replace(/'/g, "\\'")}')">
+                        <div class="search-char">${word.char}</div>
+                        <div class="search-pinyin">${word.pinyin}</div>
+                        <div class="search-meaning">${word.meaning}</div>
+                    </div>
+                `).join('')}
+            </div>
+            ${FINAL_WORDS.length > 50 ? '<div class="search-hint">... и ещё ' + (FINAL_WORDS.length - 50) + ' слов. Введите запрос для поиска</div>' : ''}
+        `;
+    }
+    
+    function searchWords() {
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
+        searchQuery = query;
+        
+        if (query === '') {
+            renderAllWords();
+            return;
+        }
+        
+        const results = FINAL_WORDS.filter(word => {
+            if (word.char.toLowerCase().includes(query)) return true;
+            if (normalizePinyin(word.pinyin).includes(normalizePinyin(query))) return true;
+            if (word.meaning.toLowerCase().includes(query)) return true;
+            return false;
+        });
+        
+        const container = document.getElementById('searchResultsGrid');
+        if (results.length === 0) {
+            container.innerHTML = '<div class="search-hint">😔 Ничего не найдено</div>';
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="search-hint">🔍 Найдено ${results.length} слов</div>
+            <div class="search-grid">
+                ${results.map(word => `
+                    <div class="search-item" onclick="selectWordByChar('${word.char.replace(/'/g, "\\'")}')">
+                        <div class="search-char">${word.char}</div>
+                        <div class="search-pinyin">${word.pinyin}</div>
+                        <div class="search-meaning">${word.meaning}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    function selectWordByChar(char) {
+        const wordIndex = FINAL_WORDS.findIndex(w => w.char === char);
+        if (wordIndex !== -1) {
+            currentIndex = wordIndex;
+            currentWord = FINAL_WORDS[currentIndex];
+            updateUI();
+            const searchSection = document.getElementById('searchSection');
+            if (searchSection) searchSection.style.display = 'none';
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.value = '';
+        }
+    }
+    
+    function toggleSearch() {
+        const searchSection = document.getElementById('searchSection');
+        if (searchSection.style.display === 'none') {
+            searchSection.style.display = 'block';
+            renderAllWords();
+        } else {
+            searchSection.style.display = 'none';
+        }
+    }
+    
+    // ========== НАСТРОЙКА ПОИСКА ==========
+    const searchToggleBtn = document.getElementById('searchToggleBtn');
+    const searchSection = document.getElementById('searchSection');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    
+    if (searchToggleBtn) {
+        searchToggleBtn.onclick = toggleSearch;
+    }
+    
+    if (searchBtn) {
+        searchBtn.onclick = searchWords;
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchWords();
+        });
+    }
+    
+    // Закрываем поиск при старте
+    if (searchSection) searchSection.style.display = 'none';
     // ========== ПОДКЛЮЧЕНИЕ КНОПОК ==========
     document.getElementById('prevBtn').onclick = prevWord;
     document.getElementById('nextBtn').onclick = nextWord;
