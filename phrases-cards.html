@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📚 Карточки фраз | Китайский язык | Разбор иероглифов</title>
+    <title>📚 Карточки фраз | Китайский | Переворот + Разбор</title>
     <style>
         * {
             margin: 0;
@@ -19,36 +19,66 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* Шапка */
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .header h1 {
             background: linear-gradient(135deg, #FFD966, #FFB347);
             display: inline-block;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 60px;
             color: #5a2e0e;
-            font-size: 1.6rem;
-            box-shadow: 0 6px 0 #C16F1A;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 0 #C16F1A;
         }
         .header p {
             color: #FFE0A3;
-            margin-top: 10px;
-            font-size: 0.9rem;
+            margin-top: 8px;
+            font-size: 0.8rem;
         }
 
-        /* Панель управления */
+        /* Поиск и фильтры */
+        .search-section {
+            background: #2b4f3a;
+            border-radius: 50px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            outline: none;
+            background: white;
+        }
+        .search-btn, .clear-btn {
+            background: #FFB347;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #5a2e0e;
+            transition: 0.1s;
+        }
+        .clear-btn { background: #A64B2A; color: white; }
+        .search-btn:active, .clear-btn:active { transform: scale(0.96);}
+
         .controls {
             background: #2b4f3a;
             border-radius: 50px;
             padding: 12px 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -63,12 +93,11 @@
         .level-btn {
             background: #FFE0C0;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.1s;
+            font-size: 0.75rem;
         }
         .level-btn.active {
             background: #FFB347;
@@ -77,7 +106,8 @@
         }
         .nav-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: center;
         }
         .nav-btn {
             background: #FFB347;
@@ -94,61 +124,107 @@
             border-radius: 30px;
             color: #FFD966;
             font-weight: bold;
+            font-size: 0.9rem;
         }
 
-        /* КАРТОЧКА */
-        .card {
-            background: #FFFDF5;
-            border-radius: 48px;
-            padding: 30px 25px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+        /* КАРТОЧКА С ПЕРЕВОРОТОМ */
+        .card-container {
+            perspective: 1000px;
             margin-bottom: 25px;
-            transition: 0.2s;
+            cursor: pointer;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 40px;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .card-front {
+            background: linear-gradient(145deg, #FFF8E7, #FFE8C8);
+            border: 3px solid #FFB347;
+        }
+        .card-back {
+            background: linear-gradient(145deg, #FFB347, #FF8C42);
+            transform: rotateY(180deg);
+            color: white;
+            border: 3px solid #FFF0C0;
         }
         .chinese-main {
-            text-align: center;
-            font-size: 4.2rem;
+            font-size: 4rem;
             font-family: 'Noto Sans SC', monospace;
             font-weight: bold;
             color: #A64B2A;
-            letter-spacing: 8px;
-            margin-bottom: 15px;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
             word-break: break-word;
         }
         .pinyin-badge {
-            text-align: center;
-            background: #FFE8D0;
-            display: inline-block;
-            width: 100%;
-            padding: 12px;
-            border-radius: 60px;
-            font-size: 1.5rem;
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1.3rem;
             color: #E67E22;
             font-weight: bold;
-            margin-bottom: 20px;
+        }
+        .card-back .chinese-main {
+            color: white;
+            font-size: 3rem;
+        }
+        .card-back .pinyin-badge {
+            background: rgba(255,255,255,0.3);
+            color: white;
         }
         .russian-meaning {
-            text-align: center;
-            font-size: 1.4rem;
-            color: #2d6a4f;
+            font-size: 1.5rem;
             font-weight: bold;
-            background: #E8F5E9;
-            padding: 12px;
-            border-radius: 40px;
-            margin-bottom: 25px;
+            margin-top: 20px;
+            color: #FFF0C0;
+        }
+        .flip-hint {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: #B87C2E;
+            background: rgba(255,255,255,0.6);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .card-back .flip-hint {
+            color: #FFE0A3;
+            background: rgba(0,0,0,0.3);
         }
 
         /* Разбор иероглифов */
         .char-breakdown {
             background: #FFF3E0;
             border-radius: 32px;
-            padding: 20px;
+            padding: 18px;
             margin-top: 10px;
         }
         .char-breakdown h3 {
             color: #B45F1B;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -156,43 +232,39 @@
         .char-items {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            max-height: 250px;
+            overflow-y: auto;
         }
         .char-item {
             background: white;
-            border-radius: 24px;
-            padding: 12px 16px;
+            border-radius: 20px;
+            padding: 10px 14px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 12px;
-            border-left: 6px solid #FFB347;
+            border-left: 5px solid #FFB347;
         }
         .char-symbol {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-family: 'Noto Sans SC', monospace;
             background: #FFF0D0;
-            padding: 5px 15px;
-            border-radius: 30px;
-            min-width: 80px;
+            padding: 5px 12px;
+            border-radius: 25px;
+            min-width: 70px;
             text-align: center;
         }
         .char-details {
             flex: 1;
         }
-        .char-pinyin {
-            font-weight: bold;
-            color: #E67E22;
-            font-size: 0.9rem;
-        }
-        .char-meaning {
-            color: #6B3A1A;
-            font-size: 0.85rem;
-        }
-        .char-components {
+        .char-detail {
             font-size: 0.8rem;
-            color: #888;
-            margin-top: 4px;
+            color: #6B3A1A;
+            margin: 2px 0;
+        }
+        .char-detail strong {
+            color: #E67E22;
         }
         .emoji-badge {
             font-size: 1.3rem;
@@ -201,24 +273,25 @@
         /* Кнопки действий */
         .action-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
         .action-btn {
             background: #5D9B4B;
             border: none;
-            padding: 14px 25px;
+            padding: 12px 22px;
             border-radius: 50px;
             color: white;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: 0.05s linear;
-            box-shadow: 0 4px 0 #2E6B2F;
+            box-shadow: 0 3px 0 #2E6B2F;
         }
         .action-btn:active {
             transform: translateY(2px);
@@ -226,25 +299,35 @@
         }
         .action-btn.speak {
             background: #FF8C42;
-            box-shadow: 0 4px 0 #B45F1B;
+            box-shadow: 0 3px 0 #B45F1B;
         }
         .action-btn.notebook {
             background: #2196F3;
-            box-shadow: 0 4px 0 #0b5e7e;
+            box-shadow: 0 3px 0 #0b5e7e;
+        }
+        .action-btn.random {
+            background: #9C27B0;
+            box-shadow: 0 3px 0 #6a1b9a;
         }
 
-        footer {
+        .stats-info {
+            background: #1e3a2f;
+            border-radius: 30px;
+            padding: 8px 15px;
+            margin-top: 15px;
             text-align: center;
             color: #FFD966;
-            padding: 20px;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 550px) {
-            .chinese-main { font-size: 2.5rem; letter-spacing: 4px; }
-            .pinyin-badge { font-size: 1.1rem; }
+        @media (max-width: 600px) {
+            .card { height: 280px; }
+            .chinese-main { font-size: 2.5rem; letter-spacing: 3px; }
+            .pinyin-badge { font-size: 1rem; }
+            .card-back .chinese-main { font-size: 2rem; }
             .russian-meaning { font-size: 1.1rem; }
-            .char-symbol { font-size: 1.6rem; min-width: 60px; }
+            .char-symbol { font-size: 1.4rem; min-width: 55px; }
+            .action-btn { padding: 8px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -252,11 +335,20 @@
 <div class="container">
     <div class="header">
         <h1>📚 Карточки китайских фраз</h1>
-        <p>🎯 Разбор иероглифов | 🔊 Озвучка | ✍️ Тетрадь для прописи</p>
+        <p>🎯 Нажми на карточку — переворот | 🔊 Озвучка | ✍️ Тетрадь для прописи</p>
     </div>
 
+    <!-- Поиск -->
+    <div class="search-section">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по китайски, пиньинь или русски...">
+        <button id="searchBtn" class="search-btn">🔍 Найти</button>
+        <button id="clearSearchBtn" class="clear-btn">✖ Сброс</button>
+    </div>
+
+    <!-- Управление -->
     <div class="controls">
-        <div class="level-buttons">
+        <div class="level-buttons" id="levelButtons">
+            <button class="level-btn active" data-level="all">🎯 Все</button>
             <button class="level-btn" data-level="1">⭐ Уровень 1</button>
             <button class="level-btn" data-level="2">⭐⭐ Уровень 2</button>
             <button class="level-btn" data-level="3">⭐⭐⭐ Уровень 3</button>
@@ -265,29 +357,47 @@
         </div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">◀</button>
-            <span class="counter" id="counter">1 / 0</span>
+            <span class="counter" id="counter">0 / 0</span>
             <button class="nav-btn" id="nextBtn">▶</button>
         </div>
     </div>
 
-    <div class="card" id="card">
-        <div class="chinese-main" id="chineseText">你好</div>
-        <div class="pinyin-badge" id="pinyinText">nǐ hǎo</div>
-        <div class="russian-meaning" id="russianText">Привет</div>
-        
-        <div class="char-breakdown">
-            <h3>📖 Разбор иероглифов <span>🔍</span></h3>
-            <div class="char-items" id="breakdownList"></div>
-        </div>
-        
-        <div class="action-buttons">
-            <button class="action-btn speak" id="speakBtn">🔊 Озвучить фразу</button>
-            <button class="action-btn notebook" id="studyBtn">✍️ Учить в тетради</button>
+    <!-- Карточка с переворотом -->
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <div class="card-front">
+                <div class="chinese-main" id="chineseText">你好</div>
+                <div class="pinyin-badge" id="pinyinText">nǐ hǎo</div>
+                <div class="flip-hint">🖱️ Нажми, чтобы перевернуть</div>
+            </div>
+            <div class="card-back">
+                <div class="chinese-main" id="chineseBack">你好</div>
+                <div class="pinyin-badge" id="pinyinBack">nǐ hǎo</div>
+                <div class="russian-meaning" id="russianText">Привет</div>
+                <div class="flip-hint">🖱️ Нажми, чтобы вернуть</div>
+            </div>
         </div>
     </div>
-    <footer>💡 Каждый иероглиф разобран: радикал → фонетика → смысл | Нажми «Учить в тетради» — откроется пропись</footer>
+
+    <!-- Разбор иероглифов -->
+    <div class="char-breakdown">
+        <h3>📖 Разбор иероглифов <span>🔍</span></h3>
+        <div class="char-items" id="breakdownList"></div>
+    </div>
+
+    <!-- Кнопки действий -->
+    <div class="action-buttons">
+        <button class="action-btn speak" id="speakBtn">🔊 Озвучить фразу</button>
+        <button class="action-btn notebook" id="studyBtn">✍️ Учить в тетради</button>
+        <button class="action-btn random" id="randomBtn">🎲 Случайная карточка</button>
+    </div>
+
+    <div class="stats-info" id="statsInfo">
+        📊 Всего фраз: загрузка...
+    </div>
 </div>
 
+<script src="phrases-db.js"></script>
 <script>
     // ==================== БАЗА РАДИКАЛОВ ДЛЯ РАЗБОРА ====================
     const radicalMap = {
@@ -371,23 +481,35 @@
         "快": { radical: "忄", radicalMeaning: "сердце", phonetic: "夬", meaning: "быстрый, радость" },
         "乐": { radical: "丿", radicalMeaning: "черта", phonetic: "", meaning: "радость, музыка" },
         "新": { radical: "斤", radicalMeaning: "топор", phonetic: "亲", meaning: "новый" },
-        "年": { radical: "干", radicalMeaning: "сухой", phonetic: "", meaning: "год" }
+        "年": { radical: "干", radicalMeaning: "сухой", phonetic: "", meaning: "год" },
+        "是": { radical: "日", radicalMeaning: "солнце", phonetic: "正", meaning: "быть" },
+        "有": { radical: "月", radicalMeaning: "мясо", phonetic: "又", meaning: "иметь" },
+        "在": { radical: "土", radicalMeaning: "земля", phonetic: "", meaning: "находиться" },
+        "去": { radical: "土", radicalMeaning: "земля", phonetic: "厶", meaning: "идти" },
+        "来": { radical: "木", radicalMeaning: "дерево", phonetic: "米", meaning: "приходить" },
+        "说": { radical: "讠", radicalMeaning: "речь", phonetic: "兑", meaning: "говорить" },
+        "吃": { radical: "口", radicalMeaning: "рот", phonetic: "乞", meaning: "есть" },
+        "人": { radical: "人", radicalMeaning: "человек", phonetic: "", meaning: "человек" },
+        "这": { radical: "辶", radicalMeaning: "движение", phonetic: "文", meaning: "этот" },
+        "那": { radical: "阝", radicalMeaning: "город", phonetic: "", meaning: "тот" },
+        "哪": { radical: "口", radicalMeaning: "рот", phonetic: "那", meaning: "который" },
+        "她": { radical: "女", radicalMeaning: "женщина", phonetic: "也", meaning: "она" },
+        "他": { radical: "亻", radicalMeaning: "человек", phonetic: "也", meaning: "он" }
     };
 
-    // Функция получения разбора иероглифа
     function getCharBreakdown(char) {
         if (radicalMap[char]) {
             const data = radicalMap[char];
-            let componentsText = [];
-            if (data.radical) componentsText.push(`🗿 радикал: ${data.radical} (${data.radicalMeaning})`);
-            if (data.phonetic) componentsText.push(`🔊 фонетика: ${data.phonetic}`);
-            if (data.meaning) componentsText.push(`📖 значение: ${data.meaning}`);
+            let parts = [];
+            if (data.radical) parts.push(`🗿 радикал: ${data.radical} (${data.radicalMeaning})`);
+            if (data.phonetic) parts.push(`🔊 фонетика: ${data.phonetic}`);
+            if (data.meaning) parts.push(`📖 значение: ${data.meaning}`);
             return {
                 radical: data.radical,
                 radicalMeaning: data.radicalMeaning,
                 phonetic: data.phonetic,
                 meaning: data.meaning,
-                components: componentsText.join(' · ')
+                parts: parts.join(' · ')
             };
         }
         return {
@@ -395,63 +517,8 @@
             radicalMeaning: "неизвестно",
             phonetic: "",
             meaning: "—",
-            components: "📖 информация отсутствует"
+            parts: "📖 информация отсутствует"
         };
-    }
-
-    // База фраз
-    const phrasesDB = window.phrasesDB || [];
-
-    // Состояние
-    let currentLevel = 1;
-    let currentIndex = 0;
-    let filteredPhrases = [];
-
-    // Загрузка фраз из глобальной переменной (если определена)
-    function loadPhrasesFromGlobal() {
-        if (typeof window.phrasesDB !== 'undefined' && window.phrasesDB.length) {
-            return window.phrasesDB;
-        }
-        return [];
-    }
-
-    function filterByLevel(level) {
-        const all = loadPhrasesFromGlobal();
-        return all.filter(p => p.level === level);
-    }
-
-    function updateCard() {
-        if (!filteredPhrases.length) {
-            document.getElementById('chineseText').innerText = 'Нет фраз';
-            document.getElementById('pinyinText').innerText = '';
-            document.getElementById('russianText').innerText = 'Добавьте phrasesDB';
-            document.getElementById('breakdownList').innerHTML = '<div class="char-item">⚠️ База фраз не загружена</div>';
-            document.getElementById('counter').innerText = `0 / 0`;
-            return;
-        }
-        const phrase = filteredPhrases[currentIndex];
-        document.getElementById('chineseText').innerText = phrase.chinese;
-        document.getElementById('pinyinText').innerText = phrase.pinyin;
-        document.getElementById('russianText').innerText = phrase.russian;
-        document.getElementById('counter').innerText = `${currentIndex + 1} / ${filteredPhrases.length}`;
-
-        // Разбор иероглифов
-        const chars = phrase.chinese.split('');
-        const breakdownHtml = chars.map(char => {
-            const breakdown = getCharBreakdown(char);
-            return `
-                <div class="char-item">
-                    <div class="char-symbol">${char}</div>
-                    <div class="char-details">
-                        <div class="char-pinyin">${breakdown.radical ? `🔹 ${breakdown.radical} (${breakdown.radicalMeaning})` : ''} ${breakdown.phonetic ? `🎵 ${breakdown.phonetic}` : ''}</div>
-                        <div class="char-meaning">📖 ${breakdown.meaning}</div>
-                        <div class="char-components">${breakdown.components}</div>
-                    </div>
-                    <div class="emoji-badge">${getEmojiForChar(char)}</div>
-                </div>
-            `;
-        }).join('');
-        document.getElementById('breakdownList').innerHTML = breakdownHtml;
     }
 
     function getEmojiForChar(char) {
@@ -466,20 +533,115 @@
         return emojiMap[char] || "🀄";
     }
 
-    function changeLevel(level) {
-        currentLevel = level;
-        filteredPhrases = filterByLevel(currentLevel);
-        currentIndex = 0;
-        if (filteredPhrases.length) updateCard();
-        document.querySelectorAll('.level-btn').forEach(btn => {
-            if (parseInt(btn.dataset.level) === level) btn.classList.add('active');
-            else btn.classList.remove('active');
-        });
+    // Состояние
+    let allPhrases = [];
+    let filteredPhrases = [];
+    let currentIndex = 0;
+    let currentLevel = "all";
+    let currentSearchQuery = "";
+    let isFlipped = false;
+
+    // Загрузка фраз
+    function loadPhrases() {
+        if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
+            allPhrases = phrasesDB;
+            document.getElementById('statsInfo').innerHTML = `📊 Всего фраз: ${allPhrases.length} | ⭐1: ${allPhrases.filter(p=>p.level===1).length} | ⭐⭐2: ${allPhrases.filter(p=>p.level===2).length} | ⭐⭐⭐3: ${allPhrases.filter(p=>p.level===3).length} | ⭐⭐⭐⭐4: ${allPhrases.filter(p=>p.level===4).length} | ⭐⭐⭐⭐⭐5: ${allPhrases.filter(p=>p.level===5).length}`;
+            applyFilters();
+        } else {
+            console.error("phrasesDB не загружена");
+            document.getElementById('statsInfo').innerHTML = "⚠️ База фраз не загружена! Проверьте phrases-db.js";
+            // Демо-данные
+            allPhrases = [
+                { chinese: "你好", pinyin: "nǐ hǎo", russian: "Привет", level: 1 },
+                { chinese: "你好吗", pinyin: "nǐ hǎo ma", russian: "Как дела?", level: 1 },
+                { chinese: "谢谢", pinyin: "xiè xie", russian: "Спасибо", level: 1 }
+            ];
+            applyFilters();
+        }
+    }
+
+    function applyFilters() {
+        let result = [...allPhrases];
+        
+        // Фильтр по уровню
+        if (currentLevel !== "all") {
+            result = result.filter(p => p.level === parseInt(currentLevel));
+        }
+        
+        // Фильтр по поиску
+        if (currentSearchQuery.trim() !== "") {
+            const query = currentSearchQuery.trim().toLowerCase();
+            result = result.filter(p => 
+                p.chinese.toLowerCase().includes(query) ||
+                p.pinyin.toLowerCase().includes(query) ||
+                p.russian.toLowerCase().includes(query)
+            );
+        }
+        
+        filteredPhrases = result;
+        
+        if (filteredPhrases.length === 0) {
+            document.getElementById('counter').innerText = `0 / 0`;
+            document.getElementById('chineseText').innerText = "😔";
+            document.getElementById('pinyinText').innerText = "";
+            document.getElementById('chineseBack').innerText = "😔";
+            document.getElementById('pinyinBack').innerText = "";
+            document.getElementById('russianText').innerText = "Ничего не найдено";
+            document.getElementById('breakdownList').innerHTML = '<div class="char-item">Ничего не найдено</div>';
+            return;
+        }
+        
+        if (currentIndex >= filteredPhrases.length) currentIndex = 0;
+        updateCard();
+        updateCounter();
+    }
+
+    function updateCard() {
+        if (!filteredPhrases.length) return;
+        
+        const phrase = filteredPhrases[currentIndex];
+        document.getElementById('chineseText').innerText = phrase.chinese;
+        document.getElementById('pinyinText').innerText = phrase.pinyin;
+        document.getElementById('chineseBack').innerText = phrase.chinese;
+        document.getElementById('pinyinBack').innerText = phrase.pinyin;
+        document.getElementById('russianText').innerText = phrase.russian;
+        
+        // Разбор иероглифов
+        const chars = phrase.chinese.split('');
+        const breakdownHtml = chars.map(char => {
+            const breakdown = getCharBreakdown(char);
+            return `
+                <div class="char-item">
+                    <div class="char-symbol">${char}</div>
+                    <div class="char-details">
+                        <div class="char-detail"><strong>🔹 Радикал:</strong> ${breakdown.radical} (${breakdown.radicalMeaning})</div>
+                        ${breakdown.phonetic ? `<div class="char-detail"><strong>🎵 Фонетика:</strong> ${breakdown.phonetic}</div>` : ''}
+                        <div class="char-detail"><strong>📖 Значение:</strong> ${breakdown.meaning}</div>
+                        <div class="char-detail">${breakdown.parts}</div>
+                    </div>
+                    <div class="emoji-badge">${getEmojiForChar(char)}</div>
+                </div>
+            `;
+        }).join('');
+        document.getElementById('breakdownList').innerHTML = breakdownHtml;
+        
+        // Сбрасываем переворот
+        if (isFlipped) {
+            document.getElementById('card').classList.remove('flipped');
+            isFlipped = false;
+        }
+    }
+
+    function updateCounter() {
+        document.getElementById('counter').innerText = `${filteredPhrases.length ? currentIndex + 1 : 0} / ${filteredPhrases.length}`;
     }
 
     function nextPhrase() {
         if (filteredPhrases.length && currentIndex < filteredPhrases.length - 1) {
             currentIndex++;
+            updateCard();
+        } else if (filteredPhrases.length) {
+            currentIndex = 0;
             updateCard();
         }
     }
@@ -488,12 +650,22 @@
         if (filteredPhrases.length && currentIndex > 0) {
             currentIndex--;
             updateCard();
+        } else if (filteredPhrases.length) {
+            currentIndex = filteredPhrases.length - 1;
+            updateCard();
+        }
+    }
+
+    function randomPhrase() {
+        if (filteredPhrases.length) {
+            currentIndex = Math.floor(Math.random() * filteredPhrases.length);
+            updateCard();
         }
     }
 
     function speakPhrase() {
         const chinese = document.getElementById('chineseText').innerText;
-        if (window.speechSynthesis) {
+        if (window.speechSynthesis && chinese && chinese !== "😔") {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(chinese);
             utterance.lang = "zh-CN";
@@ -503,27 +675,66 @@
     }
 
     function studyInNotebook() {
-        const chinese = document.getElementById('chineseText').innerText;
-        const pinyin = document.getElementById('pinyinText').innerText;
-        const russian = document.getElementById('russianText').innerText;
-        // Сохраняем первое слово фразы для изучения
-        const firstChar = chinese[0];
-        const wordData = { char: firstChar, pinyin: pinyin.split(' ')[0], meaning: russian };
+        const phrase = filteredPhrases[currentIndex];
+        if (!phrase) return;
+        const firstChar = phrase.chinese[0];
+        const wordData = { char: firstChar, pinyin: phrase.pinyin.split(' ')[0], meaning: phrase.russian };
         localStorage.setItem('selected_character', JSON.stringify(wordData));
         window.location.href = 'phrases-notebook.html';
     }
 
-    // Инициализация
-    document.querySelectorAll('.level-btn').forEach(btn => {
-        btn.addEventListener('click', () => changeLevel(parseInt(btn.dataset.level)));
-    });
+    function setLevel(level) {
+        currentLevel = level;
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            if (btn.dataset.level === level) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        currentIndex = 0;
+        applyFilters();
+    }
+
+    function searchPhrases() {
+        currentSearchQuery = document.getElementById('searchInput').value;
+        currentIndex = 0;
+        applyFilters();
+    }
+
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        currentSearchQuery = '';
+        currentIndex = 0;
+        applyFilters();
+    }
+
+    function flipCard() {
+        isFlipped = !isFlipped;
+        if (isFlipped) {
+            document.getElementById('card').classList.add('flipped');
+        } else {
+            document.getElementById('card').classList.remove('flipped');
+        }
+    }
+
+    // Event listeners
     document.getElementById('prevBtn').addEventListener('click', prevPhrase);
     document.getElementById('nextBtn').addEventListener('click', nextPhrase);
+    document.getElementById('randomBtn').addEventListener('click', randomPhrase);
     document.getElementById('speakBtn').addEventListener('click', speakPhrase);
     document.getElementById('studyBtn').addEventListener('click', studyInNotebook);
+    document.getElementById('searchBtn').addEventListener('click', searchPhrases);
+    document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
+    document.getElementById('cardContainer').addEventListener('click', flipCard);
+    
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLevel(btn.dataset.level));
+    });
+    
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchPhrases();
+    });
 
-    // Загружаем фразы и стартуем
-    changeLevel(1);
+    // Инициализация
+    loadPhrases();
 </script>
 </body>
 </html>
