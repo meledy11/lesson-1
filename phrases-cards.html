@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📚 Карточки фраз | Китайский | Переворот + Прогресс</title>
+    <title>📚 Карточки фраз | Китайский | Полный разбор иероглифов</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -48,4 +48,778 @@
             color: #FFD966;
             font-size: 1.1rem;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .progress-stats {
+            background: rgba(0,0,0,0.5);
+            border-radius: 40px;
+            padding: 5px 18px;
+            color: #FFD966;
+            font-weight: bold;
+        }
+
+        .search-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 60px;
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .search-input {
+            flex: 1;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            background: #FFF8F0;
+            font-family: inherit;
+            border: 2px solid #FFB347;
+        }
+        .search-btn, .clear-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.1s;
+            font-size: 0.9rem;
+        }
+        .clear-btn { background: #A64B2A; }
+        .search-btn:active, .clear-btn:active { transform: scale(0.96);}
+
+        .controls {
+            background: rgba(255,255,255,0.95);
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .level-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .level-btn {
+            background: #FFF0D0;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.1s;
+        }
+        .level-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 3px 0 #C16F1A;
+            transform: translateY(-2px);
+        }
+        .hide-learned-btn {
+            background: #2196F3;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 0.85rem;
+            transition: 0.1s;
+            box-shadow: 0 3px 0 #0b5e7e;
+        }
+        .hide-learned-btn.active {
+            background: #FF8C42;
+            box-shadow: 0 3px 0 #B45F1B;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: 0 4px 0 #B45F1B;
+        }
+        .nav-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
+        .counter {
+            background: #1e3a2f;
+            padding: 10px 22px;
+            border-radius: 50px;
+            color: #FFD966;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .card-wrapper {
+            perspective: 1500px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            min-height: 480px;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            min-height: 480px;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 50px;
+        }
+        .card.flipped { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            min-height: 480px;
+            backface-visibility: hidden;
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 25px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.4);
+        }
+        .card-front {
+            background: linear-gradient(145deg, #FFFDF0, #FFF5E0);
+            border: 4px solid #FFB347;
+        }
+        .card-back {
+            background: linear-gradient(145deg, #FFB347, #FF8C42);
+            transform: rotateY(180deg);
+            color: white;
+            border: 4px solid #FFE0A3;
+        }
+        .learned-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4CAF50;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .chinese-main {
+            font-size: 5rem;
+            font-family: 'Noto Sans SC', monospace;
+            font-weight: bold;
+            color: #A64B2A;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+        .pinyin-badge {
+            background: rgba(255,255,255,0.9);
+            padding: 12px 25px;
+            border-radius: 60px;
+            font-size: 1.6rem;
+            color: #E67E22;
+            font-weight: bold;
+        }
+        .card-back .chinese-main { color: white; font-size: 3.5rem; }
+        .card-back .pinyin-badge { background: rgba(255,255,255,0.25); color: white; }
+        .russian-meaning { font-size: 1.8rem; font-weight: bold; margin-top: 20px; color: #FFF8E7; }
+        .flip-hint { position: absolute; bottom: 15px; left: 0; right: 0; text-align: center; font-size: 0.8rem; color: #B87C2E; background: rgba(255,255,255,0.8); padding: 5px 12px; border-radius: 30px; width: fit-content; margin: 0 auto; }
+        .card-back .flip-hint { color: #FFE0A3; background: rgba(0,0,0,0.3); }
+
+        .char-breakdown {
+            background: rgba(255,248,240,0.98);
+            border-radius: 40px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .char-breakdown h3 {
+            color: #B45F1B;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .char-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            background: #FFE8D0;
+            padding: 12px 20px;
+            border-radius: 60px;
+        }
+        .char-nav-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .char-nav-btn:active { transform: scale(0.95); }
+        .current-char {
+            font-size: 3rem;
+            font-family: 'Noto Sans SC', monospace;
+            background: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .char-counter {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+            font-weight: bold;
+        }
+        .char-details-card {
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            margin-top: 10px;
+            border-left: 8px solid #FFB347;
+        }
+        .char-detail-line {
+            font-size: 1.1rem;
+            margin: 12px 0;
+            padding: 10px;
+            background: #FFF8F0;
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+        .char-detail-line strong { color: #E67E22; min-width: 100px; }
+        .clickable-part {
+            background: #FFE8D0;
+            padding: 5px 16px;
+            border-radius: 35px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .clickable-part:active { transform: scale(0.95); background: #FFD699; }
+        .clickable-part .part-pinyin { font-size: 0.8rem; color: #FF8C42; }
+        .to-notebook-btn {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+        .to-notebook-btn:active { transform: scale(0.98); }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.05s linear;
+            box-shadow: 0 4px 0 #2E6B2F;
+        }
+        .action-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #2E6B2F; }
+        .action-btn.speak { background: linear-gradient(135deg, #FF8C42, #FF6B35); box-shadow: 0 4px 0 #B45F1B; }
+        .action-btn.notebook { background: linear-gradient(135deg, #2196F3, #1976D2); box-shadow: 0 4px 0 #0b5e7e; }
+        .action-btn.random { background: linear-gradient(135deg, #9C27B0, #7B1FA2); box-shadow: 0 4px 0 #4a148c; }
+        .action-btn.learned { background: linear-gradient(135deg, #4CAF50, #388E3C); box-shadow: 0 4px 0 #1B5E20; }
+
+        .stats-info {
+            background: rgba(30, 58, 47, 0.9);
+            border-radius: 50px;
+            padding: 12px 20px;
+            margin-top: 20px;
+            text-align: center;
+            color: #FFD966;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .chinese-main { font-size: 2.8rem; letter-spacing: 5px; }
+            .pinyin-badge { font-size: 1.2rem; padding: 8px 18px; }
+            .card-back .chinese-main { font-size: 2.2rem; }
+            .russian-meaning { font-size: 1.3rem; }
+            .current-char { font-size: 2rem; padding: 5px 18px; }
+            .action-btn { padding: 10px 18px; font-size: 0.85rem; }
+            .card-front, .card-back { min-height: 380px; }
+            .card-wrapper { min-height: 380px; }
+            .char-detail-line { font-size: 0.9rem; flex-direction: column; align-items: flex-start; }
+            .char-detail-line strong { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <button class="back-btn" onclick="history.back()">← Назад</button>
+        <span class="title">📚 КИТАЙСКИЕ ФРАЗЫ | ПОЛНЫЙ РАЗБОР</span>
+        <div class="progress-stats" id="progressStats">📊 0 / 0</div>
+        <a href="index.html" class="menu-btn">🏠 В меню</a>
+    </div>
+
+    <div class="search-section">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по китайски, пиньинь или русски...">
+        <button id="searchBtn" class="search-btn">🔍 Найти</button>
+        <button id="clearSearchBtn" class="clear-btn">✖ Сброс</button>
+    </div>
+
+    <div class="controls">
+        <div class="level-buttons" id="levelButtons">
+            <button class="level-btn active" data-level="all">🎯 Все</button>
+            <button class="level-btn" data-level="1">⭐ Уровень 1</button>
+            <button class="level-btn" data-level="2">⭐⭐ Уровень 2</button>
+            <button class="level-btn" data-level="3">⭐⭐⭐ Уровень 3</button>
+            <button class="level-btn" data-level="4">⭐⭐⭐⭐ Уровень 4</button>
+            <button class="level-btn" data-level="5">⭐⭐⭐⭐⭐ Уровень 5</button>
+        </div>
+        <button class="hide-learned-btn" id="hideLearnedBtn">🙈 Скрыть выученные</button>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn">◀</button>
+            <span class="counter" id="counter">0 / 0</span>
+            <button class="nav-btn" id="nextBtn">▶</button>
+        </div>
+    </div>
+
+    <div class="card-wrapper" id="cardWrapper">
+        <div class="card" id="card">
+            <div class="card-front">
+                <div class="learned-badge" id="learnedBadge" style="display: none;">✅ ВЫУЧЕНО</div>
+                <div class="chinese-main" id="chineseText">你好</div>
+                <div class="pinyin-badge" id="pinyinText">nǐ hǎo</div>
+                <div class="flip-hint">🖱️ Нажми на карточку → переворот</div>
+            </div>
+            <div class="card-back">
+                <div class="chinese-main" id="chineseBack">你好</div>
+                <div class="pinyin-badge" id="pinyinBack">nǐ hǎo</div>
+                <div class="russian-meaning" id="russianText">Привет</div>
+                <div class="flip-hint">🖱️ Нажми, чтобы вернуть</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="char-breakdown">
+        <h3>📖 ПОЛНЫЙ РАЗБОР ИЕРОГЛИФОВ ФРАЗЫ <span>🔍</span></h3>
+        <div class="char-navigation">
+            <button class="char-nav-btn" id="prevCharBtn">◀</button>
+            <div class="current-char" id="currentCharSymbol">你</div>
+            <button class="char-nav-btn" id="nextCharBtn">▶</button>
+            <span class="char-counter" id="charCounter">1 / 2</span>
+        </div>
+        <div class="char-details-card" id="charDetails">
+            <div class="char-detail-line"><strong>🔤 Иероглиф:</strong> <span id="detailChar" style="font-size:2rem; font-family:'Noto Sans SC';">你</span></div>
+            <div class="char-detail-line"><strong>🗿 Радикал (ключ):</strong> <span class="clickable-part" id="charRadicalClick" onclick="speakText('亻')">亻 (rén)</span> — <span id="radicalMeaning">человек</span></div>
+            <div class="char-detail-line"><strong>🔊 Фонетик (звук):</strong> <span class="clickable-part" id="charPhoneticClick" onclick="speakText('尔')">尔 (ěr)</span> — даёт произношение <span id="phoneticNote">nǐ</span></div>
+            <div class="char-detail-line"><strong>📖 Смысловая часть:</strong> <span id="semanticMeaning">человек + ты = местоимение "ты"</span></div>
+            <div class="char-detail-line"><strong>💡 Значение:</strong> <span id="charMeaning">ты</span></div>
+            <div class="char-detail-line"><strong>📝 Примеры:</strong> <span id="charExamples">你好 (привет), 你们 (вы)</span></div>
+            <button class="to-notebook-btn" id="sendToNotebookBtn">✍️ Учить этот иероглиф в тетради</button>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-btn speak" id="speakBtn">🔊 Озвучить фразу</button>
+        <button class="action-btn learned" id="learnedBtn">✅ Выучил</button>
+        <button class="action-btn random" id="randomBtn">🎲 Случайная</button>
+    </div>
+
+    <div class="stats-info" id="statsInfo">📊 Загрузка...</div>
+
+    <script src="phrases-db.js"></script>
+    <script>
+        // ==================== ПОЛНАЯ БАЗА ДАННЫХ ИЕРОГЛИФОВ ====================
+        // Каждый иероглиф содержит: radical, radicalPinyin, phonetic, phoneticPinyin, 
+        // semantic, meaning, examples, emoji
+        const fullCharData = {
+            // ========== УРОВЕНЬ 1 - БАЗОВЫЕ ==========
+            "你": { radical: "亻", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "尔", phoneticPinyin: "ěr", semantic: "человек + ты", meaning: "ты", examples: "你好 (привет), 你们 (вы)", emoji: "👤" },
+            "我": { radical: "戈", radicalPinyin: "gē", radicalMeaning: "копьё", phonetic: "", phoneticPinyin: "", semantic: "рука с копьём", meaning: "я", examples: "我们 (мы), 我的 (моё)", emoji: "🙋" },
+            "他": { radical: "亻", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "也", phoneticPinyin: "yě", semantic: "человек + тоже", meaning: "он", examples: "他们 (они), 他的 (его)", emoji: "👨" },
+            "她": { radical: "女", radicalPinyin: "nǚ", radicalMeaning: "женщина", phonetic: "也", phoneticPinyin: "yě", semantic: "женщина + тоже", meaning: "она", examples: "她们 (они, жен.), 她的 (её)", emoji: "👩" },
+            "它": { radical: "宀", radicalPinyin: "mián", radicalMeaning: "крыша", phonetic: "匕", phoneticPinyin: "bǐ", semantic: "змея под крышей", meaning: "оно", examples: "它们 (они, о неодуш.)", emoji: "🐍" },
+            "们": { radical: "亻", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "门", phoneticPinyin: "mén", semantic: "человек + дверь", meaning: "суффикс мн.ч.", examples: "我们 (мы), 你们 (вы)", emoji: "👥" },
+            "您": { radical: "心", radicalPinyin: "xīn", radicalMeaning: "сердце", phonetic: "你", phoneticPinyin: "nǐ", semantic: "ты + сердце", meaning: "Вы (вежл.)", examples: "您好 (здравствуйте)", emoji: "🙏" },
+            "人": { radical: "人", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "", phoneticPinyin: "", semantic: "фигура человека", meaning: "человек", examples: "中国人 (китаец), 大人 (взрослый)", emoji: "👤" },
+            "好": { radical: "女", radicalPinyin: "nǚ", radicalMeaning: "женщина", phonetic: "子", phoneticPinyin: "zǐ", semantic: "женщина с ребёнком", meaning: "хорошо", examples: "很好 (очень хорошо), 好吗? (хорошо?)", emoji: "👍" },
+            "不": { radical: "一", radicalPinyin: "yī", radicalMeaning: "один", phonetic: "", phoneticPinyin: "", semantic: "птица улетает вверх", meaning: "не", examples: "不是 (не является), 不好 (плохо)", emoji: "🚫" },
+            "是": { radical: "日", radicalPinyin: "rì", radicalMeaning: "солнце", phonetic: "正", phoneticPinyin: "zhèng", semantic: "солнце идёт прямо", meaning: "быть", examples: "我是 (я есть), 不是 (не является)", emoji: "✅" },
+            "有": { radical: "月", radicalPinyin: "yuè", radicalMeaning: "мясо/луна", phonetic: "又", phoneticPinyin: "yòu", semantic: "рука держит мясо", meaning: "иметь", examples: "我有 (у меня есть), 没有 (нет)", emoji: "🔑" },
+            "没": { radical: "氵", radicalPinyin: "shuǐ", radicalMeaning: "вода", phonetic: "殳", phoneticPinyin: "shū", semantic: "вода + ударять = утонуть", meaning: "нет, не иметь", examples: "没有 (нет), 没来 (не пришёл)", emoji: "🚫" },
+            "去": { radical: "土", radicalPinyin: "tǔ", radicalMeaning: "земля", phonetic: "厶", phoneticPinyin: "sī", semantic: "человек уходит от земли", meaning: "идти (туда)", examples: "去北京 (ехать в Пекин)", emoji: "🏃" },
+            "来": { radical: "木", radicalPinyin: "mù", radicalMeaning: "дерево", phonetic: "米", phoneticPinyin: "mǐ", semantic: "пшеница", meaning: "приходить", examples: "来北京 (приехать в Пекин)", emoji: "🚶" },
+            "回": { radical: "囗", radicalPinyin: "wéi", radicalMeaning: "ограда", phonetic: "", phoneticPinyin: "", semantic: "спираль", meaning: "возвращаться", examples: "回家 (вернуться домой)", emoji: "🔄" },
+            "走": { radical: "走", radicalPinyin: "zǒu", radicalMeaning: "идти", phonetic: "", phoneticPinyin: "", semantic: "человек с трясущимися ногами", meaning: "идти пешком", examples: "走路 (идти), 走吧 (пойдём)", emoji: "🚶" },
+            "看": { radical: "目", radicalPinyin: "mù", radicalMeaning: "глаз", phonetic: "", phoneticPinyin: "", semantic: "рука над глазом", meaning: "смотреть", examples: "看书 (читать), 看电视 (смотреть TV)", emoji: "👀" },
+            "听": { radical: "口", radicalPinyin: "kǒu", radicalMeaning: "рот", phonetic: "斤", phoneticPinyin: "jīn", semantic: "ухо + сердце (упрощ.)", meaning: "слушать", examples: "听音乐 (слушать музыку)", emoji: "👂" },
+            "说": { radical: "讠", radicalPinyin: "yán", radicalMeaning: "речь", phonetic: "兑", phoneticPinyin: "duì", semantic: "речь + обменивать", meaning: "говорить", examples: "说话 (говорить), 说中文 (говорить по-китайски)", emoji: "💬" },
+            "吃": { radical: "口", radicalPinyin: "kǒu", radicalMeaning: "рот", phonetic: "乞", phoneticPinyin: "qǐ", semantic: "рот + просить", meaning: "есть", examples: "吃饭 (есть еду), 好吃 (вкусно)", emoji: "🍜" },
+            "喝": { radical: "口", radicalPinyin: "kǒu", radicalMeaning: "рот", phonetic: "曷", phoneticPinyin: "hé", semantic: "рот + жажда", meaning: "пить", examples: "喝水 (пить воду)", emoji: "🥤" },
+            "谢": { radical: "讠", radicalPinyin: "yán", radicalMeaning: "речь", phonetic: "射", phoneticPinyin: "shè", semantic: "речь + стрелять", meaning: "благодарить", examples: "谢谢 (спасибо)", emoji: "🙏" },
+            "对": { radical: "寸", radicalPinyin: "cùn", radicalMeaning: "дюйм", phonetic: "", phoneticPinyin: "", semantic: "рука отмеряет дюймы", meaning: "правильный, к", examples: "对了 (правильно), 对不起 (извините)", emoji: "✅" },
+            "起": { radical: "走", radicalPinyin: "zǒu", radicalMeaning: "идти", phonetic: "己", phoneticPinyin: "jǐ", semantic: "идти + сам", meaning: "вставать", examples: "起来 (вставать), 起床 (подняться с кровати)", emoji: "⬆️" },
+            "请": { radical: "讠", radicalPinyin: "yán", radicalMeaning: "речь", phonetic: "青", phoneticPinyin: "qīng", semantic: "речь + зелёный", meaning: "пожалуйста", examples: "请坐 (садитесь), 请问 (разрешите спросить)", emoji: "🙇" },
+            "进": { radical: "辶", radicalPinyin: "chuò", radicalMeaning: "движение", phonetic: "井", phoneticPinyin: "jǐng", semantic: "движение + колодец", meaning: "входить", examples: "进来 (войти), 进步 (прогресс)", emoji: "🚪" },
+            "坐": { radical: "土", radicalPinyin: "tǔ", radicalMeaning: "земля", phonetic: "", phoneticPinyin: "", semantic: "два человека на земле", meaning: "сидеть", examples: "坐下 (сесть), 请坐 (садитесь)", emoji: "🪑" },
+            "等": { radical: "⺮", radicalPinyin: "zhú", radicalMeaning: "бамбук", phonetic: "寺", phoneticPinyin: "sì", semantic: "бамбук + храм", meaning: "ждать", examples: "等等 (подожди), 等一等 (подожди немного)", emoji: "⏰" },
+            "帮": { radical: "巾", radicalPinyin: "jīn", radicalMeaning: "платок", phonetic: "邦", phoneticPinyin: "bāng", semantic: "платок + страна", meaning: "помогать", examples: "帮忙 (помочь)", emoji: "🤝" },
+            "给": { radical: "纟", radicalPinyin: "sī", radicalMeaning: "шёлк", phonetic: "合", phoneticPinyin: "hé", semantic: "шёлк + соединять", meaning: "давать", examples: "给你 (дать тебе)", emoji: "🎁" },
+            "找": { radical: "扌", radicalPinyin: "shǒu", radicalMeaning: "рука", phonetic: "戈", phoneticPinyin: "gē", semantic: "рука ищет копьё", meaning: "искать", examples: "找到 (найти), 找工作 (искать работу)", emoji: "🔍" },
+            "用": { radical: "用", radicalPinyin: "yòng", radicalMeaning: "использовать", phonetic: "", phoneticPinyin: "", semantic: "колокол → годный к использованию", meaning: "использовать", examples: "用钱 (тратить деньги)", emoji: "🔧" },
+            "做": { radical: "亻", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "故", phoneticPinyin: "gù", semantic: "человек + старый", meaning: "делать", examples: "做工作 (делать работу), 做菜 (готовить еду)", emoji: "🔨" },
+            "会": { radical: "人", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "云", phoneticPinyin: "yún", semantic: "человек + облако", meaning: "уметь, встреча", examples: "我会 (я умею), 开会 (собрание)", emoji: "💪" },
+            "能": { radical: "月", radicalPinyin: "yuè", radicalMeaning: "мясо", phonetic: "", phoneticPinyin: "", semantic: "медведь → сила", meaning: "мочь", examples: "我能 (я могу), 能力 (способность)", emoji: "⚡" },
+            "要": { radical: "女", radicalPinyin: "nǚ", radicalMeaning: "женщина", phonetic: "西", phoneticPinyin: "xī", semantic: "женщина на западе", meaning: "хотеть", examples: "我要 (я хочу), 重要 (важный)", emoji: "💭" },
+            "可": { radical: "口", radicalPinyin: "kǒu", radicalMeaning: "рот", phonetic: "丁", phoneticPinyin: "dīng", semantic: "гвоздь + рот", meaning: "можно", examples: "可以 (можно), 可是 (но)", emoji: "✅" },
+            "以": { radical: "人", radicalPinyin: "rén", radicalMeaning: "человек", phonetic: "", phoneticPinyin: "", semantic: "древний плуг", meaning: "чтобы, с помощью", examples: "可以 (можно), 以前 (раньше)", emoji: "➡️" },
+            "到": { radical: "刂", radicalPinyin: "dāo", radicalMeaning: "нож", phonetic: "至", phoneticPinyin: "zhì", semantic: "нож + достигать", meaning: "достигать, до", examples: "到了 (прибыл), 到哪儿? (куда?)", emoji: "📍" },
+            
+            // ========== ДОПОЛНИТЕЛЬНЫЕ ==========
+            "大": { radical: "大", radicalPinyin: "dà", radicalMeaning: "большой", phonetic: "", phoneticPinyin: "", semantic: "человек с раскинутыми руками", meaning: "большой", examples: "大人 (взрослый), 大学 (университет)", emoji: "🐘" },
+            "小": { radical: "小", radicalPinyin: "xiǎo", radicalMeaning: "маленький", phonetic: "", phoneticPinyin: "", semantic: "три маленькие точки", meaning: "маленький", examples: "小孩 (ребёнок), 小时 (час)", emoji: "🐭" },
+            "多": { radical: "夕", radicalPinyin: "xī", radicalMeaning: "вечер", phonetic: "", phoneticPinyin: "", semantic: "два вечера", meaning: "много", examples: "很多 (очень много), 多少 (сколько)", emoji: "🔢" },
+            "少": { radical: "小", radicalPinyin: "xiǎo", radicalMeaning: "маленький", phonetic: "", phoneticPinyin: "", semantic: "маленький + черта", meaning: "мало", examples: "很少 (очень мало)", emoji: "🔢" },
+            "天": { radical: "一", radicalPinyin: "yī", radicalMeaning: "один", phonetic: "", phoneticPinyin: "", semantic: "великий один → небо", meaning: "небо, день", examples: "今天 (сегодня), 天气 (погода)", emoji: "☀️" },
+            "地": { radical: "土", radicalPinyin: "tǔ", radicalMeaning: "земля", phonetic: "也", phoneticPinyin: "yě", semantic: "земля + тоже", meaning: "земля", examples: "地方 (место), 大地 (великая земля)", emoji: "🌍" },
+            "上": { radical: "一", radicalPinyin: "yī", radicalMeaning: "один", phonetic: "", phoneticPinyin: "", semantic: "короткая черта над длинной", meaning: "верх, на", examples: "上面 (сверху), 上车 (сесть в машину)", emoji: "⬆️" },
+            "下": { radical: "一", radicalPinyin: "yī", radicalMeaning: "один", phonetic: "", phoneticPinyin: "", semantic: "короткая черта под длинной", meaning: "низ, под", examples: "下面 (снизу), 下车 (выйти из машины)", emoji: "⬇️" },
+            "中": { radical: "丨", radicalPinyin: "gǔn", radicalMeaning: "вертикаль", phonetic: "", phoneticPinyin: "", semantic: "вертикаль через центр рта", meaning: "середина, в", examples: "中国 (Китай), 中午 (полдень)", emoji: "🎯" },
+            "里": { radical: "里", radicalPinyin: "lǐ", radicalMeaning: "внутри", phonetic: "", phoneticPinyin: "", semantic: "солнце над землёй в деревне", meaning: "внутри", examples: "里面 (внутри), 这里 (здесь)", emoji: "📦" },
+            "家": { radical: "宀", radicalPinyin: "mián", radicalMeaning: "крыша", phonetic: "豕", phoneticPinyin: "shǐ", semantic: "крыша над свиньёй", meaning: "дом, семья", examples: "我家 (мой дом), 回家 (вернуться домой)", emoji: "🏠" },
+            "学": { radical: "子", radicalPinyin: "zǐ", radicalMeaning: "ребёнок", phonetic: "", phoneticPinyin: "", semantic: "ребёнок в доме учится", meaning: "учиться", examples: "学习 (учиться), 学校 (школа)", emoji: "📚" },
+            "生": { radical: "生", radicalPinyin: "shēng", radicalMeaning: "жизнь", phonetic: "", phoneticPinyin: "", semantic: "росток, растущий из земли", meaning: "рождаться, жизнь", examples: "生日 (день рождения), 学生 (студент)", emoji: "🌱" },
+            "老": { radical: "老", radicalPinyin: "lǎo", radicalMeaning: "старый", phonetic: "", phoneticPinyin: "", semantic: "старик с палкой и волосами", meaning: "старый (о людях)", examples: "老师 (учитель), 老人 (старик)", emoji: "👴" },
+            "师": { radical: "巾", radicalPinyin: "jīn", radicalMeaning: "платок", phonetic: "", phoneticPinyin: "", semantic: "учитель с платком", meaning: "учитель", examples: "老师 (учитель)", emoji: "👩‍🏫" },
+            "朋": { radical: "月", radicalPinyin: "yuè", radicalMeaning: "луна/мясо", phonetic: "", phoneticPinyin: "", semantic: "две луны рядом", meaning: "друг", examples: "朋友 (друг)", emoji: "👫" },
+            "友": { radical: "又", radicalPinyin: "yòu", radicalMeaning: "рука", phonetic: "", phoneticPinyin: "", semantic: "две пожимающиеся руки", meaning: "друг", examples: "朋友 (друг), 友好 (дружелюбный)", emoji: "🤝" },
+            "爱": { radical: "爫", radicalPinyin: "zhǎo", radicalMeaning: "рука", phonetic: "", phoneticPinyin: "", semantic: "рука накрывает друга с любовью", meaning: "любовь", examples: "爱情 (любовь), 爱人 (возлюбленный)", emoji: "❤️" },
+            "心": { radical: "心", radicalPinyin: "xīn", radicalMeaning: "сердце", phonetic: "", phoneticPinyin: "", semantic: "рисунок сердца и сосудов", meaning: "сердце", examples: "心里 (в душе), 小心 (осторожно)", emoji: "💖" },
+            
+            // ========== ЕЩЁ ВАЖНЫЕ ==========
+            "加": { radical: "力", radicalPinyin: "lì", radicalMeaning: "сила", phonetic: "口", phoneticPinyin: "kǒu", semantic: "сила + рот", meaning: "добавлять, плюс", examples: "加法 (сложение), 参加 (участвовать)", emoji: "➕" },
+            "减": { radical: "氵", radicalPinyin: "shuǐ", radicalMeaning: "вода", phonetic: "咸", phoneticPinyin: "xián", semantic: "вода + солёный", meaning: "вычитать", examples: "减法 (вычитание)", emoji: "➖" },
+            "乘": { radical: "丿", radicalPinyin: "piě", radicalMeaning: "черта", phonetic: "", phoneticPinyin: "", semantic: "человек на дереве", meaning: "умножать, ехать", examples: "乘法 (умножение), 乘车 (ехать на транспорте)", emoji: "✖️" },
+            "除": { radical: "阝", radicalPinyin: "yì", radicalMeaning: "город", phonetic: "余", phoneticPinyin: "yú", semantic: "город + остаток", meaning: "делить", examples: "除法 (деление)", emoji: "➗" },
+            "等": { radical: "⺮", radicalPinyin: "zhú", radicalMeaning: "бамбук", phonetic: "寺", phoneticPinyin: "sì", semantic: "бамбук + храм", meaning: "равно, ждать", examples: "等于 (равняется), 等等 (подожди)", emoji: "=" },
+            "还": { radical: "辶", radicalPinyin: "chuò", radicalMeaning: "движение", phonetic: "不", phoneticPinyin: "bù", semantic: "не уходить", meaning: "ещё, возвращать", examples: "还好 (ещё неплохо), 还钱 (вернуть деньги)", emoji: "🔄" },
+            "就": { radical: "京", radicalPinyin: "jīng", radicalMeaning: "столица", phonetic: "尤", phoneticPinyin: "yóu", semantic: "столица + особенно", meaning: "именно, сразу", examples: "就是 (именно), 就要 (сразу хочу)", emoji: "🎯" },
+            "都": { radical: "阝", radicalPinyin: "yì", radicalMeaning: "город", phonetic: "者", phoneticPinyin: "zhě", semantic: "город + тот, кто", meaning: "все, оба", examples: "都是 (все являются), 都好 (всё хорошо)", emoji: "🔢" },
+            "也": { radical: "乙", radicalPinyin: "yǐ", radicalMeaning: "крюк", phonetic: "", phoneticPinyin: "", semantic: "древний рисунок змеи", meaning: "тоже", examples: "我也是 (я тоже)", emoji: "➕" },
+            "只": { radical: "口", radicalPinyin: "kǒu", radicalMeaning: "рот", phonetic: "八", phoneticPinyin: "bā", semantic: "рот + восемь", meaning: "только", examples: "只有 (только есть)", emoji: "🔒" },
+            "最": { radical: "曰", radicalPinyin: "yuē", radicalMeaning: "говорить", phonetic: "取", phoneticPinyin: "qǔ", semantic: "брать + говорить", meaning: "самый", examples: "最好 (самый хороший)", emoji: "👑" },
+            "很": { radical: "彳", radicalPinyin: "chì", radicalMeaning: "шаг", phonetic: "艮", phoneticPinyin: "gèn", semantic: "шаг + граница", meaning: "очень", examples: "很好 (очень хорошо)", emoji: "💯" },
+            "太": { radical: "大", radicalPinyin: "dà", radicalMeaning: "большой", phonetic: "", phoneticPinyin: "", semantic: "большой + точка", meaning: "слишком", examples: "太大 (слишком большой)", emoji: "📈" }
+        };
+
+        function getCharData(char) {
+            if (fullCharData[char]) {
+                return fullCharData[char];
+            }
+            // Автоопределение радикала для неизвестных
+            let detectedRadical = "?";
+            let detectedRadicalPinyin = "?";
+            let detectedRadicalMeaning = "неизвестно";
+            const commonRadicals = [
+                { char: "亻", pinyin: "rén", meaning: "человек" }, { char: "口", pinyin: "kǒu", meaning: "рот" },
+                { char: "日", pinyin: "rì", meaning: "солнце" }, { char: "月", pinyin: "yuè", meaning: "луна" },
+                { char: "木", pinyin: "mù", meaning: "дерево" }, { char: "氵", pinyin: "shuǐ", meaning: "вода" },
+                { char: "火", pinyin: "huǒ", meaning: "огонь" }, { char: "土", pinyin: "tǔ", meaning: "земля" },
+                { char: "钅", pinyin: "jīn", meaning: "металл" }, { char: "女", pinyin: "nǚ", meaning: "женщина" },
+                { char: "刂", pinyin: "dāo", meaning: "нож" }, { char: "辶", pinyin: "chuò", meaning: "движение" }
+            ];
+            for (const r of commonRadicals) {
+                if (char.includes(r.char)) {
+                    detectedRadical = r.char;
+                    detectedRadicalPinyin = r.pinyin;
+                    detectedRadicalMeaning = r.meaning;
+                    break;
+                }
+            }
+            return {
+                radical: detectedRadical,
+                radicalPinyin: detectedRadicalPinyin,
+                radicalMeaning: detectedRadicalMeaning,
+                phonetic: "?",
+                phoneticPinyin: "?",
+                semantic: `иероглиф "${char}"`,
+                meaning: `иероглиф "${char}"`,
+                examples: "—",
+                emoji: "🀄"
+            };
+        }
+
+        function speakText(text, lang = "zh-CN") {
+            if (!text || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+        }
+
+        // Хранение выученных фраз
+        let learnedPhrases = new Set();
+        
+        function loadLearnedFromStorage() {
+            const stored = localStorage.getItem('learned_chinese_phrases');
+            if (stored) {
+                try { learnedPhrases = new Set(JSON.parse(stored)); } catch(e) {}
+            }
+            updateProgressStats();
+        }
+        
+        function saveLearnedToStorage() {
+            localStorage.setItem('learned_chinese_phrases', JSON.stringify([...learnedPhrases]));
+            updateProgressStats();
+        }
+        
+        function getPhraseId(phrase) { return `${phrase.chinese}|${phrase.pinyin}`; }
+        
+        function toggleLearned() {
+            if (!filteredPhrases.length) return;
+            const phrase = filteredPhrases[currentIndex];
+            const phraseId = getPhraseId(phrase);
+            if (learnedPhrases.has(phraseId)) {
+                learnedPhrases.delete(phraseId);
+                showToast(`🔄 Отмечено как невыученное: ${phrase.chinese}`, 1500);
+            } else {
+                learnedPhrases.add(phraseId);
+                showToast(`✅ Отлично! "${phrase.chinese}" добавлено в выученные! 🎉`, 2000);
+            }
+            saveLearnedToStorage();
+            updateCard();
+        }
+        
+        function updateProgressStats() {
+            const total = allPhrases.length;
+            const learned = learnedPhrases.size;
+            document.getElementById('progressStats').innerHTML = `📊 ${learned} / ${total} выучено`;
+            if (filteredPhrases.length && currentIndex < filteredPhrases.length) {
+                const currentId = getPhraseId(filteredPhrases[currentIndex]);
+                const badge = document.getElementById('learnedBadge');
+                if (badge) badge.style.display = learnedPhrases.has(currentId) ? 'block' : 'none';
+                const learnedBtn = document.getElementById('learnedBtn');
+                if (learnedBtn) {
+                    if (learnedPhrases.has(currentId)) {
+                        learnedBtn.innerHTML = '🔄 Отменить';
+                        learnedBtn.style.background = 'linear-gradient(135deg, #757575, #616161)';
+                    } else {
+                        learnedBtn.innerHTML = '✅ Выучил';
+                        learnedBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+                    }
+                }
+            }
+        }
+        
+        function showToast(msg, duration = 2000) {
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.style.cssText = `position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.85); color:#FFD966; padding:12px 24px; border-radius:50px; font-weight:bold; z-index:1000; backdrop-filter:blur(10px); font-size:1rem; white-space:nowrap;`;
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', duration);
+        }
+
+        let allPhrases = [], filteredPhrases = [], currentIndex = 0, currentLevel = "all", currentSearchQuery = "", hideLearned = false, isFlipped = false;
+        let currentCharsList = [], currentCharIndex = 0;
+
+        function loadPhrases() {
+            if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
+                allPhrases = phrasesDB;
+                loadLearnedFromStorage();
+                const levelCounts = {1:0,2:0,3:0,4:0,5:0};
+                allPhrases.forEach(p => { if(levelCounts[p.level]) levelCounts[p.level]++; });
+                document.getElementById('statsInfo').innerHTML = `📊 Всего: ${allPhrases.length} фраз | ⭐1: ${levelCounts[1]} | ⭐⭐2: ${levelCounts[2]} | ⭐⭐⭐3: ${levelCounts[3]} | ⭐⭐⭐⭐4: ${levelCounts[4]} | ⭐⭐⭐⭐⭐5: ${levelCounts[5]}`;
+                applyFilters();
+            } else {
+                console.error("phrasesDB не загружена");
+                allPhrases = [
+                    { chinese: "你好", pinyin: "nǐ hǎo", russian: "Привет", level: 1 }
+                ];
+                applyFilters();
+            }
+        }
+
+        function applyFilters() {
+            let result = [...allPhrases];
+            if (currentLevel !== "all") result = result.filter(p => p.level === parseInt(currentLevel));
+            if (currentSearchQuery.trim() !== "") {
+                const q = currentSearchQuery.trim().toLowerCase();
+                result = result.filter(p => p.chinese.toLowerCase().includes(q) || p.pinyin.toLowerCase().includes(q) || p.russian.toLowerCase().includes(q));
+            }
+            if (hideLearned) result = result.filter(p => !learnedPhrases.has(getPhraseId(p)));
+            filteredPhrases = result;
+            if (!filteredPhrases.length) { updateEmptyState(); return; }
+            if (currentIndex >= filteredPhrases.length) currentIndex = 0;
+            updateCard();
+            updateCounter();
+            updateProgressStats();
+        }
+
+        function updateEmptyState() {
+            document.getElementById('counter').innerText = `0 / 0`;
+            document.getElementById('chineseText').innerText = "🎉";
+            document.getElementById('pinyinText').innerText = "";
+            document.getElementById('chineseBack').innerText = "🎉";
+            document.getElementById('pinyinBack').innerText = "";
+            document.getElementById('russianText').innerText = hideLearned ? "Все фразы выучены! 🎉" : "Ничего не найдено";
+            document.getElementById('currentCharSymbol').innerText = "🎉";
+            document.getElementById('charCounter').innerText = "0 / 0";
+        }
+
+        function updateCard() {
+            if (!filteredPhrases.length) return;
+            const p = filteredPhrases[currentIndex];
+            document.getElementById('chineseText').innerText = p.chinese;
+            document.getElementById('pinyinText').innerText = p.pinyin;
+            document.getElementById('chineseBack').innerText = p.chinese;
+            document.getElementById('pinyinBack').innerText = p.pinyin;
+            document.getElementById('russianText').innerText = p.russian;
+            
+            currentCharsList = p.chinese.split('');
+            currentCharIndex = 0;
+            updateCharDisplay();
+            
+            const isLearned = learnedPhrases.has(getPhraseId(p));
+            document.getElementById('learnedBadge').style.display = isLearned ? 'block' : 'none';
+            const learnedBtn = document.getElementById('learnedBtn');
+            if (isLearned) {
+                learnedBtn.innerHTML = '🔄 Отменить';
+                learnedBtn.style.background = 'linear-gradient(135deg, #757575, #616161)';
+            } else {
+                learnedBtn.innerHTML = '✅ Выучил';
+                learnedBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+            }
+            
+            if (isFlipped) { document.getElementById('card').classList.remove('flipped'); isFlipped = false; }
+        }
+
+        function updateCharDisplay() {
+            if (!currentCharsList.length) return;
+            const char = currentCharsList[currentCharIndex];
+            const data = getCharData(char);
+            
+            document.getElementById('currentCharSymbol').innerText = char;
+            document.getElementById('detailChar').innerText = char;
+            document.getElementById('charCounter').innerText = `${currentCharIndex + 1} / ${currentCharsList.length}`;
+            
+            // Радикал
+            const radicalElem = document.getElementById('charRadicalClick');
+            radicalElem.innerHTML = `${data.radical} (${data.radicalPinyin})`;
+            radicalElem.setAttribute('onclick', `speakText('${data.radical}')`);
+            document.getElementById('radicalMeaning').innerText = data.radicalMeaning || "часть";
+            
+            // Фонетик
+            const phoneticElem = document.getElementById('charPhoneticClick');
+            if (data.phonetic && data.phonetic !== "?") {
+                phoneticElem.innerHTML = `${data.phonetic} (${data.phoneticPinyin})`;
+                phoneticElem.setAttribute('onclick', `speakText('${data.phonetic}')`);
+                document.getElementById('phoneticNote').innerText = `даёт произношение ${data.phoneticPinyin || '?'} → ${char}`;
+            } else {
+                phoneticElem.innerHTML = `— (нет фонетика)`;
+                phoneticElem.removeAttribute('onclick');
+                document.getElementById('phoneticNote').innerText = `нет фонетической части`;
+            }
+            
+            document.getElementById('semanticMeaning').innerText = data.semantic || `${data.radical} + ...`;
+            document.getElementById('charMeaning').innerText = data.meaning;
+            document.getElementById('charExamples').innerHTML = data.examples || "—";
+            
+            const sendBtn = document.getElementById('sendToNotebookBtn');
+            sendBtn.onclick = () => {
+                const wordData = { char: char, pinyin: data.radicalPinyin || char, meaning: data.meaning, fullPhrase: filteredPhrases[currentIndex].chinese };
+                localStorage.setItem('selected_character', JSON.stringify(wordData));
+                window.location.href = 'phrases-notebook.html';
+            };
+        }
+
+        function updateCounter() { 
+            document.getElementById('counter').innerText = `${filteredPhrases.length ? currentIndex + 1 : 0} / ${filteredPhrases.length}`; 
+        }
+        
+        function nextPhrase() { if (filteredPhrases.length) { currentIndex = (currentIndex + 1) % filteredPhrases.length; updateCard(); } }
+        function prevPhrase() { if (filteredPhrases.length) { currentIndex = (currentIndex - 1 + filteredPhrases.length) % filteredPhrases.length; updateCard(); } }
+        function randomPhrase() { if (filteredPhrases.length) { currentIndex = Math.floor(Math.random() * filteredPhrases.length); updateCard(); } }
+        function speakPhrase() { const chinese = document.getElementById('chineseText').innerText; if (chinese && chinese !== "🎉") speakText(chinese); }
+        function nextChar() { if (currentCharsList.length && currentCharIndex < currentCharsList.length - 1) { currentCharIndex++; updateCharDisplay(); } }
+        function prevChar() { if (currentCharsList.length && currentCharIndex > 0) { currentCharIndex--; updateCharDisplay(); } }
+        
+        function setLevel(level) {
+            currentLevel = level;
+            document.querySelectorAll('.level-btn').forEach(btn => { if (btn.dataset.level === level) btn.classList.add('active'); else btn.classList.remove('active'); });
+            currentIndex = 0; applyFilters();
+        }
+        
+        function searchPhrases() { currentSearchQuery = document.getElementById('searchInput').value; currentIndex = 0; applyFilters(); }
+        function clearSearch() { document.getElementById('searchInput').value = ''; currentSearchQuery = ''; currentIndex = 0; applyFilters(); }
+        function flipCard() { isFlipped = !isFlipped; if (isFlipped) document.getElementById('card').classList.add('flipped'); else document.getElementById('card').classList.remove('flipped'); }
+        function toggleHideLearned() { hideLearned = !hideLearned; const btn = document.getElementById('hideLearnedBtn'); if (hideLearned) { btn.innerHTML = '🙈 Показать все'; btn.classList.add('active'); } else { btn.innerHTML = '🙈 Скрыть выученные'; btn.classList.remove('active'); } currentIndex = 0; applyFilters(); }
+
+        document.getElementById('prevBtn').addEventListener('click', prevPhrase);
+        document.getElementById('nextBtn').addEventListener('click', nextPhrase);
+        document.getElementById('randomBtn').addEventListener('click', randomPhrase);
+        document.getElementById('speakBtn').addEventListener('click', speakPhrase);
+        document.getElementById('learnedBtn').addEventListener('click', toggleLearned);
+        document.getElementById('searchBtn').addEventListener('click', searchPhrases);
+        document.getElementById('clearSearchBtn').addEventListener('click', clearSearch);
+        document.getElementById('cardWrapper').addEventListener('click', flipCard);
+        document.getElementById('hideLearnedBtn').addEventListener('click', toggleHideLearned);
+        document.getElementById('prevCharBtn').addEventListener('click', prevChar);
+        document.getElementById('nextCharBtn').addEventListener('click', nextChar);
+        document.querySelectorAll('.level-btn').forEach(btn => { btn.addEventListener('click', () => setLevel(btn.dataset.level)); });
+        document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchPhrases(); });
+
+        window.speakText = speakText;
+        loadPhrases();
+    </script>
+</body>
+</html>
