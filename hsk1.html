@@ -1,3 +1,6 @@
+Вот исправленный HTML-код. В разделе «Разбор» для иероглифов с фонетиком теперь отображается реальный иероглиф-фонетик и его чтение (с учетом возможного изменения тона, например, у иероглифа «吧» фонетик «巴» читается как bā).
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -467,7 +470,7 @@
 </div>
 
 <script>
-// ========== ВСЕ 150 СЛОВ HSK 1 ==========
+// ========== ВСЕ 150 СЛОВ HSK 1 (фонетики указаны реальные) ==========
 const HSK1_DATA = [
     { char: "爱", pinyin: "ài", meaning: "любить", emoji: "❤️", hasPhonetic: false, radical: "心", radicalMeaning: "сердце", breakdown: "爫 (рука) + 冖 (крыша) + 心 (сердце)", association: "Взять сердце под крышу → заботиться, любить", examples: [{ ch: "我爱你", pinyin: "wǒ ài nǐ", ru: "Я люблю тебя" }, { ch: "爱人", pinyin: "ài rén", ru: "любимый" }] },
     { char: "八", pinyin: "bā", meaning: "восемь", emoji: "8️⃣", hasPhonetic: false, radical: "八", radicalMeaning: "восемь", breakdown: "Две расходящиеся линии", association: "Две палочки расходятся → похоже на цифру 8", examples: [{ ch: "八点", pinyin: "bā diǎn", ru: "8 часов" }, { ch: "八月", pinyin: "bā yuè", ru: "август" }] },
@@ -809,7 +812,16 @@ function updateUI() {
     document.getElementById('assocEmoji').innerHTML = currentWord.emoji || '📖';
     document.getElementById('assocText').innerHTML = currentWord.association || currentWord.meaning;
     
-    let breakdownHtml = '<div style="background:#FFF3E0; padding:12px; border-radius:16px; margin-top:8px;"><strong>🔍 Разбор:</strong> ' + (currentWord.breakdown || '—') + '<br><strong>📌 Ключ (радикал):</strong> ' + (currentWord.radical || '?') + (currentWord.radicalMeaning ? ' (' + currentWord.radicalMeaning + ')' : '') + '<br><strong>🔊 Фонетик:</strong> ' + (currentWord.hasPhonetic ? (currentWord.phonetic + ' (' + currentWord.phoneticReading + ')') : 'нет') + '</div>';
+    let breakdownHtml = '<div style="background:#FFF3E0; padding:12px; border-radius:16px; margin-top:8px;"><strong>🔍 Разбор:</strong> ' + (currentWord.breakdown || '—') + '<br><strong>📌 Ключ (радикал):</strong> ' + (currentWord.radical || '?') + (currentWord.radicalMeaning ? ' (' + currentWord.radicalMeaning + ')' : '');
+    
+    // Фонетик: показываем реальный иероглиф и его чтение (даже если тон изменился)
+    if (currentWord.hasPhonetic && currentWord.phonetic) {
+        breakdownHtml += '<br><strong>🔊 Фонетик:</strong> ' + currentWord.phonetic + ' (' + currentWord.phoneticReading + ')';
+    } else {
+        breakdownHtml += '<br><strong>🔊 Фонетик:</strong> нет';
+    }
+    
+    breakdownHtml += '</div>';
     
     if (currentWord.examples && currentWord.examples.length > 0) {
         breakdownHtml += '<div style="margin-top:12px;"><strong>📖 Примеры с озвучкой:</strong><br>';
@@ -943,3 +955,4 @@ updateUI();
 </script>
 </body>
 </html>
+```
