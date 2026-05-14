@@ -278,6 +278,16 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         
+        /* Стили для вкладки Карточек фраз */
+        .phrases-frame {
+            width: 100%;
+            height: 85vh;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -301,7 +311,7 @@
                 margin-top: 0.7rem;
                 align-self: flex-end;
             }
-            .syllables-frame {
+            .syllables-frame, .phrases-frame {
                 height: 70vh;
             }
         }
@@ -318,7 +328,7 @@
     <div class="container">
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь (слова + фразы) | Слоги 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз 🎧</p>
         </div>
         
         <!-- ВКЛАДКИ -->
@@ -328,6 +338,7 @@
             <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
             <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
             <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
+            <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
         </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
@@ -335,7 +346,6 @@
             <div class="speak-tip">      <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
             </div>
             <div class="lessons-list" id="lessonsList">
-                <!-- НОВЫЙ УРОК 50 ЧАСТОТНЫХ СЛОВ -->
                 <a href="frequency-lesson.html" class="lesson-card">
                     <h2>🔥 50 самых частотных слов</h2>
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
@@ -385,7 +395,6 @@
                  <span class="game-tag orange">пропись + аудио</span>
                  </a>
 
-                <!-- НОВАЯ ИГРА МАДЖОНГ СЛОВО+КЛЮЧ -->
                 <a href="mahjong-word-key.html" class="game-card">
                     <div class="game-icon">🀄</div>
                     <h3>Маджонг: слово + ключ</h3>
@@ -440,8 +449,16 @@
             <iframe src="syllables.html" class="syllables-frame" title="Популярные слоги китайского"></iframe>
         </div>
         
+        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (НОВАЯ) -->
+        <div class="tab-content" id="tab-phrases">
+            <div class="speak-tip">
+                <span>📇</span> 600 фраз с разбором иероглифов | Нажми «Учить в тетради» — открывай пропись! <span>✍️</span>
+            </div>
+            <iframe src="phrases-cards.html" class="phrases-frame" title="Карточки китайских фраз с разбором"></iframe>
+        </div>
+        
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + все фразы. 🀄 Играй в маджонг для запоминания ключей!
+            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + 600 фраз. 🀄 Играй в маджонг для запоминания ключей! 📇 Карточки фраз — учи целые предложения!
         </footer>
     </div>
     
@@ -500,7 +517,6 @@
         // ===== СЛОВАРЬ С ПОИСКОМ ПО ДВУМ БАЗАМ =====
         let currentLevel = 'all';
         
-        // Функция озвучивания
         function speakChinese(text) {
             if (!text || !window.speechSynthesis) return;
             window.speechSynthesis.cancel();
@@ -512,11 +528,11 @@
             }, 50);
         }
         
-        // Сбор всех записей из phrasesDB и frequencyDB
+        window.speakChinese = speakChinese;
+        
         function buildDictionaryEntries() {
             const entries = [];
             
-            // Добавляем фразы из phrasesDB
             if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
                 for (const phrase of phrasesDB) {
                     entries.push({
@@ -531,10 +547,8 @@
                 }
             }
             
-            // Добавляем частотные слова из frequencyDB
             if (typeof frequencyDB !== 'undefined' && Array.isArray(frequencyDB)) {
                 for (const word of frequencyDB) {
-                    // Проверяем, нет ли дубликата (чтобы не показывать одно слово дважды)
                     const exists = entries.some(e => e.chinese === word.char && e.source === 'phrase');
                     if (!exists) {
                         entries.push({
@@ -551,7 +565,6 @@
                 }
             }
             
-            // Сортируем по китайскому иероглифу
             entries.sort((a, b) => a.chinese.localeCompare(b.chinese));
             return entries;
         }
@@ -582,12 +595,10 @@
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
             let filtered = [...entries];
             
-            // Фильтр по уровню
             if (currentLevel !== 'all') {
                 filtered = filtered.filter(entry => entry.level === parseInt(currentLevel));
             }
             
-            // Поиск по запросу
             if (query !== '') {
                 filtered = filtered.filter(entry => {
                     return entry.chinese.includes(query) ||
@@ -631,7 +642,6 @@
             `;
         }
         
-        // Фильтры словаря
         document.querySelectorAll('#tab-dictionary .filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('#tab-dictionary .filter-btn').forEach(b => b.classList.remove('active'));
@@ -641,7 +651,6 @@
             });
         });
         
-        // Поиск при нажатии Enter и кнопки
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
         
@@ -657,7 +666,6 @@
             });
         }
         
-        // Инициализация словаря после загрузки всех баз
         function initDictionary() {
             setTimeout(() => {
                 if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
