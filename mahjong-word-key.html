@@ -1,12 +1,9 @@
-Вот обновлённая страница с игрой «Маджонг», которая теперь озвучивает иероглифы и позволяет добавлять выученные слова в тетрадь прописей для закрепления материала.
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🀄 Маджонг: части слов + Тетрадь | Весёлый китайский</title>
+    <title>🀄 Маджонг: все части слов | Весёлый китайский</title>
     <style>
         * {
             margin: 0;
@@ -24,7 +21,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -57,9 +54,7 @@
             font-size: 0.75rem;
             margin-top: 0.5rem;
             margin-left: 0.3rem;
-            transition: 0.1s ease;
         }
-        .back-home:active { transform: scale(0.96);}
 
         .game-status {
             background: #2b4f3a;
@@ -269,44 +264,6 @@
             color: white;
         }
 
-        .copybook-panel {
-            background: #f7e9cf;
-            border-radius: 40px;
-            margin-top: 1rem;
-            padding: 0.7rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            border: 2px solid #FFC785;
-        }
-        .copybook-btn {
-            background: #5D9B4B;
-            border: none;
-            padding: 0.7rem 1.6rem;
-            border-radius: 60px;
-            color: white;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 3px 0 #2E6B2F;
-            transition: 0.05s linear;
-        }
-        .copybook-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #2E6B2F;
-        }
-        .words-badge {
-            background: #A64B2A;
-            border-radius: 50px;
-            padding: 0.3rem 1rem;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #FFE0A3;
-        }
         footer {
             text-align: center;
             margin-top: 1rem;
@@ -324,10 +281,11 @@
 <div class="container">
     <div class="hero">
         <h1>🀄 Маджонг: найди часть слова 🀄</h1>
-        <p>Сопоставь иероглиф с его составной частью | 🔊 Озвучка | ✏️ Тетрадь прописей</p>
+        <p>Сопоставь иероглиф с любой его составной частью | 🔊 Озвучка | ✍️ Авто-тетрадь</p>
         <div>
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="frequency-lesson.html" class="back-home">📖 Урок 50 слов</a>
+            <a href="copybook.html" class="back-home">✍️ Открыть тетрадь</a>
         </div>
     </div>
 
@@ -354,15 +312,9 @@
         <div class="tiles-grid" id="tilesGrid"></div>
     </div>
 
-    <div class="copybook-panel">
-        <div class="words-badge" id="studiedWordsBadge">📚 В тетради: 0 слов</div>
-        <button class="copybook-btn" id="openCopybookBtn">✍️ Открыть тетрадь прописей</button>
-        <button class="copybook-btn" id="addToCopybookBtn" style="background:#FF8C42;">➕ Добавить слово в тетрадь</button>
-    </div>
-
     <footer>
-        🀄 Найди пару: иероглиф ⇄ его ключ/часть. <br>
-        🖱️ Нажми на 🔊 чтобы услышать произношение. ✏️ Добавляй слова в тетрадь — тренируй написание!
+        🀄 Найди для иероглифа его составную часть (ключ).<br>
+        🎯 При каждой угаданной паре → слово АВТОМАТИЧЕСКИ отправляется в тетрадь и открывается для прописи!
     </footer>
 </div>
 
@@ -373,171 +325,12 @@
     let selectedTileIndex = null;
     let score = 0;
     let totalPairs = 0;
-    // Хранилище для тетради: список объектов {char, pinyin, meaning}
-    let copybookWords = [];
-
-    // Загрузка тетради из localStorage
-    function loadCopybook() {
-        const stored = localStorage.getItem('chinese_copybook_words');
-        if (stored) {
-            try {
-                copybookWords = JSON.parse(stored);
-                if (!Array.isArray(copybookWords)) copybookWords = [];
-            } catch(e) { copybookWords = []; }
-        }
-        updateCopybookBadge();
-    }
-    function saveCopybook() {
-        localStorage.setItem('chinese_copybook_words', JSON.stringify(copybookWords));
-        updateCopybookBadge();
-    }
-    function updateCopybookBadge() {
-        const badge = document.getElementById('studiedWordsBadge');
-        if (badge) badge.innerHTML = `📚 В тетради: ${copybookWords.length} слов`;
-    }
-
-    // Добавление слова в тетрадь
-    function addWordToCopybook(char, pinyin, meaning) {
-        if (!char) return false;
-        const alreadyExists = copybookWords.some(w => w.char === char);
-        if (alreadyExists) {
-            showMessage(`⚠️ Слово "${char}" уже есть в тетради!`, 1500);
-            return false;
-        }
-        copybookWords.push({ char, pinyin, meaning });
-        saveCopybook();
-        showMessage(`✅ "${char}" добавлено в тетрадь прописей!`, 1500);
-        return true;
-    }
-
-    function openCopybook() {
-        if (!copybookWords.length) {
-            showMessage(`📖 Тетрадь пуста. Добавьте слова после угадывания пар!`, 1800);
-            return;
-        }
-        // Формируем HTML для окошка (или можно открыть новую вкладку, но лучше модальное окно)
-        let wordsHtml = copybookWords.map((w, idx) => `
-            <div style="background: #FFF2DF; margin: 8px; padding: 10px 16px; border-radius: 60px; display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                <span style="font-size:1.8rem; font-family:'Noto Sans SC';">${w.char}</span>
-                <span>${w.pinyin}</span>
-                <span style="color:#A64B2A;">${w.meaning}</span>
-                <button class="copybook-speak" data-char="${w.char}" data-pinyin="${w.pinyin}" style="background:#FFB347; border:none; border-radius:30px; padding:6px 12px;">🔊 Озвучить</button>
-                <button class="copybook-delete" data-char="${w.char}" style="background:#C16F1A; color:white; border:none; border-radius:30px; padding:6px 12px;">🗑 Удалить</button>
-            </div>
-        `).join('');
-        const modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '0'; modal.style.left = '0'; modal.style.width = '100%'; modal.style.height = '100%';
-        modal.style.background = 'rgba(0,0,0,0.8)';
-        modal.style.zIndex = '1000';
-        modal.style.display = 'flex';
-        modal.style.alignItems = 'center';
-        modal.style.justifyContent = 'center';
-        modal.style.backdropFilter = 'blur(4px)';
-        const content = document.createElement('div');
-        content.style.background = '#FFF9EF';
-        content.style.maxWidth = '500px';
-        content.style.width = '90%';
-        content.style.borderRadius = '48px';
-        content.style.padding = '20px';
-        content.style.maxHeight = '80vh';
-        content.style.overflowY = 'auto';
-        content.innerHTML = `
-            <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
-                <h2 style="color:#A64B2A;">📖 Моя тетрадь прописей</h2>
-                <button id="closeCopybookModal" style="background:#D9B48B; border:none; border-radius:50px; padding:6px 16px;">✖ Закрыть</button>
-            </div>
-            <div id="copybookWordsList">${wordsHtml || '<p style="padding:20px;">Нет добавленных слов</p>'}</div>
-            <div style="margin-top:20px; text-align:center;">
-                <button id="clearAllCopybook" style="background:#C16F1A; color:white; border:none; border-radius:40px; padding:10px 20px;">🧹 Очистить всю тетрадь</button>
-            </div>
-        `;
-        modal.appendChild(content);
-        document.body.appendChild(modal);
-
-        // Закрытие
-        document.getElementById('closeCopybookModal')?.addEventListener('click', () => modal.remove());
-        modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
-
-        // Обработчики для кнопок озвучки и удаления
-        const attachEvents = () => {
-            document.querySelectorAll('.copybook-speak').forEach(btn => {
-                btn.removeEventListener('click', speakHandler);
-                btn.addEventListener('click', speakHandler);
-            });
-            document.querySelectorAll('.copybook-delete').forEach(btn => {
-                btn.removeEventListener('click', deleteHandler);
-                btn.addEventListener('click', deleteHandler);
-            });
-        };
-        const speakHandler = (e) => {
-            const btn = e.currentTarget;
-            const char = btn.getAttribute('data-char');
-            speakChinese(char);
-        };
-        const deleteHandler = (e) => {
-            const btn = e.currentTarget;
-            const char = btn.getAttribute('data-char');
-            copybookWords = copybookWords.filter(w => w.char !== char);
-            saveCopybook();
-            // обновить список в модалке
-            const listDiv = document.getElementById('copybookWordsList');
-            if (listDiv) {
-                let newHtml = copybookWords.map((w, idx) => `
-                    <div style="background: #FFF2DF; margin: 8px; padding: 10px 16px; border-radius: 60px; display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <span style="font-size:1.8rem; font-family:'Noto Sans SC';">${w.char}</span>
-                        <span>${w.pinyin}</span>
-                        <span style="color:#A64B2A;">${w.meaning}</span>
-                        <button class="copybook-speak" data-char="${w.char}" data-pinyin="${w.pinyin}" style="background:#FFB347; border:none; border-radius:30px; padding:6px 12px;">🔊 Озвучить</button>
-                        <button class="copybook-delete" data-char="${w.char}" style="background:#C16F1A; color:white; border:none; border-radius:30px; padding:6px 12px;">🗑 Удалить</button>
-                    </div>
-                `).join('');
-                if (newHtml === '') newHtml = '<p style="padding:20px;">Нет добавленных слов</p>';
-                listDiv.innerHTML = newHtml;
-                attachEvents();
-            }
-        };
-        attachEvents();
-        document.getElementById('clearAllCopybook')?.addEventListener('click', () => {
-            if(confirm('Удалить все слова из тетради?')) {
-                copybookWords = [];
-                saveCopybook();
-                const listDiv = document.getElementById('copybookWordsList');
-                if(listDiv) listDiv.innerHTML = '<p style="padding:20px;">Тетрадь пуста</p>';
-                modal.remove();
-                showMessage('📕 Тетрадь полностью очищена', 1200);
-            }
-        });
-    }
-
-    // Озвучка
-    function speakChinese(text) {
-        if (!window.speechSynthesis) {
-            showMessage("❌ Браузер не поддерживает речь", 1000);
-            return;
-        }
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "zh-CN";
-        utterance.rate = 0.7;
-        window.speechSynthesis.speak(utterance);
-    }
-
-    function showMessage(msg, duration = 1800) {
-        const msgBox = document.getElementById('messageBox');
-        if (msgBox) {
-            msgBox.innerHTML = msg;
-            setTimeout(() => {
-                if (document.getElementById('messageBox') && msg === document.getElementById('messageBox').innerHTML)
-                    document.getElementById('messageBox').innerHTML = '🎴 Играйте дальше!';
-            }, duration);
-        }
-    }
-
+    
     const tilesGrid = document.getElementById('tilesGrid');
     const scoreSpan = document.getElementById('scoreCount');
+    const messageBox = document.getElementById('messageBox');
     const progressFill = document.getElementById('progressFill');
-
+    
     const partDataMap = {
         "亻": { pinyin: "rén", meaning: "человек" }, "女": { pinyin: "nǚ", meaning: "женщина" }, "口": { pinyin: "kǒu", meaning: "рот" },
         "日": { pinyin: "rì", meaning: "солнце" }, "月": { pinyin: "yuè", meaning: "луна/мясо" }, "木": { pinyin: "mù", meaning: "дерево" },
@@ -562,7 +355,7 @@
         "子": { pinyin: "zǐ", meaning: "ребёнок" }, "小": { pinyin: "xiǎo", meaning: "маленький" }, "大": { pinyin: "dà", meaning: "большой" },
         "可": { pinyin: "kě", meaning: "можно" }
     };
-
+    
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -570,11 +363,11 @@
         }
         return arr;
     }
-
+    
     function getPartData(partChar) {
         return partDataMap[partChar] || { pinyin: "", meaning: "часть" };
     }
-
+    
     function getAllPartPairs() {
         const allPairs = [];
         if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
@@ -608,14 +401,33 @@
         }
         return uniquePairs;
     }
-
+    
     function getPairsForGame(limit) {
         const allPairs = getAllPartPairs();
         const shuffled = shuffleArray([...allPairs]);
         if (limit === 'all') return allPairs;
         return shuffled.slice(0, limit);
     }
-
+    
+    function addToCopybookAndOpen(char, pinyin, meaning) {
+        if (!char) return;
+        let copybookWords = [];
+        const stored = localStorage.getItem('copybook_words');
+        if (stored) {
+            try {
+                copybookWords = JSON.parse(stored);
+                if (!Array.isArray(copybookWords)) copybookWords = [];
+            } catch(e) { copybookWords = []; }
+        }
+        const alreadyExists = copybookWords.some(w => w.char === char);
+        if (!alreadyExists) {
+            copybookWords.unshift({ char, pinyin, meaning, timestamp: Date.now() });
+            localStorage.setItem('copybook_words', JSON.stringify(copybookWords));
+        }
+        localStorage.setItem('selected_character', JSON.stringify({ char, pinyin, meaning }));
+        window.location.href = 'copybook.html';
+    }
+    
     function initGame() {
         let pairLimit = 6;
         if (currentLevel === 'medium') pairLimit = 12;
@@ -640,7 +452,7 @@
                 pairId: idCounter - 1,
                 displayText: pair.wordChar,
                 label: pair.wordMeaning,
-                wordObj: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning }
+                wordData: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning }
             });
             newTiles.push({
                 id: idCounter++,
@@ -650,15 +462,15 @@
                 pairId: idCounter - 2,
                 displayText: pair.partChar,
                 label: pair.partMeaning,
-                wordObj: null
+                wordData: null
             });
         }
         tiles = shuffleArray(newTiles);
         updateProgress();
         renderBoard();
-        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар!`;
+        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! При угадывании → сразу в тетрадь!`;
     }
-
+    
     function renderBoard() {
         if (!tilesGrid) return;
         tilesGrid.innerHTML = '';
@@ -676,16 +488,26 @@
             const soundBtn = tileDiv.querySelector('.sound-badge');
             soundBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                speakChinese(tile.content);
+                const text = tile.content;
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = "zh-CN";
+                    utterance.rate = 0.7;
+                    window.speechSynthesis.speak(utterance);
+                }
             });
             tileDiv.onclick = (function(index) {
-                return function(e) { if(e.target.classList.contains('sound-badge')) return; onTileClick(index); };
+                return function(e) { 
+                    if(e.target.classList && e.target.classList.contains('sound-badge')) return;
+                    onTileClick(index); 
+                };
             })(idx);
             tilesGrid.appendChild(tileDiv);
         });
         updateProgress();
     }
-
+    
     function onTileClick(clickedIdx) {
         const clickedTile = tiles[clickedIdx];
         if (clickedTile.removed) return;
@@ -703,27 +525,21 @@
             return;
         }
         const selectedTile = tiles[selectedTileIndex];
-        let isMatch = (selectedTile.type !== clickedTile.type && selectedTile.pairId === clickedTile.pairId);
+        let isMatch = false;
+        if (selectedTile.type === 'word' && clickedTile.type === 'part') {
+            isMatch = (selectedTile.pairId === clickedTile.pairId);
+        } else if (selectedTile.type === 'part' && clickedTile.type === 'word') {
+            isMatch = (selectedTile.pairId === clickedTile.pairId);
+        }
         if (isMatch) {
+            let matchedWord = null;
+            if (selectedTile.type === 'word') matchedWord = selectedTile.wordData;
+            else if (clickedTile.type === 'word') matchedWord = clickedTile.wordData;
             tiles[selectedTileIndex].removed = true;
             tiles[clickedIdx].removed = true;
             score++;
             selectedTileIndex = null;
             const remainingPairs = tiles.filter(t => !t.removed && t.type === 'word').length;
-            // Находим слово-победитель из совпавшей пары
-            let matchedWord = null;
-            if(selectedTile.type === 'word') matchedWord = selectedTile.wordObj;
-            else if(clickedTile.type === 'word') matchedWord = clickedTile.wordObj;
-            
-            if(matchedWord) {
-                // После успешной пары предлагаем добавить в тетрадь
-                setTimeout(() => {
-                    if(confirm(`🎉 Вы угадали слово "${matchedWord.char}" (${matchedWord.pinyin})! Добавить его в тетрадь прописей?`)) {
-                        addWordToCopybook(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
-                    }
-                }, 100);
-            }
-            
             if (remainingPairs === 0) {
                 messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты выучил все пары!';
                 renderBoard();
@@ -731,19 +547,25 @@
                 messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remainingPairs})`;
                 renderBoard();
             }
+            if (matchedWord && matchedWord.char) {
+                messageBox.innerHTML = `✅ +1! Открываю тетрадь для "${matchedWord.char}"...`;
+                setTimeout(() => {
+                    addToCopybookAndOpen(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
+                }, 300);
+            }
         } else {
             messageBox.innerHTML = `❌ ${selectedTile.displayText} ≠ ${clickedTile.displayText}. Попробуй ещё!`;
             selectedTileIndex = null;
             renderBoard();
         }
     }
-
+    
     function updateProgress() {
         const percent = totalPairs > 0 ? (score / totalPairs) * 100 : 0;
         progressFill.style.width = percent + '%';
         scoreSpan.innerText = score;
     }
-
+    
     function newGame() { initGame(); }
     function setLevel(level) {
         currentLevel = level;
@@ -753,23 +575,12 @@
         });
         newGame();
     }
-
+    
     document.getElementById('newGameBtn')?.addEventListener('click', () => newGame());
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => setLevel(btn.dataset.level));
     });
-    document.getElementById('openCopybookBtn')?.addEventListener('click', openCopybook);
-    document.getElementById('addToCopybookBtn')?.addEventListener('click', () => {
-        // Можно вручную добавить последнее угаданное слово, но проще показать сообщение
-        const lastPairTile = tiles.find(t => !t.removed && t.type === 'word');
-        if (lastPairTile && lastPairTile.wordObj) {
-            addWordToCopybook(lastPairTile.wordObj.char, lastPairTile.wordObj.pinyin, lastPairTile.wordObj.meaning);
-        } else {
-            showMessage('Сначала найдите пару, чтобы добавить слово!', 1500);
-        }
-    });
-
-    loadCopybook();
+    
     const waitForDB = setInterval(() => {
         if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
             clearInterval(waitForDB);
@@ -779,4 +590,3 @@
 </script>
 </body>
 </html>
-```
