@@ -766,45 +766,7 @@ function getCharData(char) {
     };
 }
 
-        // Функция получения данных (с фолбэком)
-        function getCharData(char) {
-            if (fullCharData[char]) {
-                return fullCharData[char];
-            }
-            // Автоопределение радикала для неизвестных
-            let detectedRadical = "?";
-            let detectedRadicalPinyin = "?";
-            let detectedRadicalMeaning = "неизвестно";
-            const commonRadicals = [
-                { char: "亻", pinyin: "rén", meaning: "человек" }, { char: "口", pinyin: "kǒu", meaning: "рот" },
-                { char: "日", pinyin: "rì", meaning: "солнце" }, { char: "月", pinyin: "yuè", meaning: "луна" },
-                { char: "木", pinyin: "mù", meaning: "дерево" }, { char: "氵", pinyin: "shuǐ", meaning: "вода" },
-                { char: "火", pinyin: "huǒ", meaning: "огонь" }, { char: "土", pinyin: "tǔ", meaning: "земля" },
-                { char: "钅", pinyin: "jīn", meaning: "металл" }, { char: "女", pinyin: "nǚ", meaning: "женщина" },
-                { char: "刂", pinyin: "dāo", meaning: "нож" }, { char: "辶", pinyin: "chuò", meaning: "движение" }
-            ];
-            for (const r of commonRadicals) {
-                if (char.includes(r.char)) {
-                    detectedRadical = r.char;
-                    detectedRadicalPinyin = r.pinyin;
-                    detectedRadicalMeaning = r.meaning;
-                    break;
-                }
-            }
-            return {
-                char: char,
-                pinyin: "?",
-                radical: detectedRadical,
-                radicalPinyin: detectedRadicalPinyin,
-                radicalMeaning: detectedRadicalMeaning,
-                phonetic: "?",
-                phoneticPinyin: "?",
-                semantic: `иероглиф "${char}"`,
-                meaning: `иероглиф "${char}"`,
-                examples: "—",
-                emoji: "🀄"
-            };
-        }
+
 
         function speakText(text, lang = "zh-CN") {
             if (!text || !window.speechSynthesis) return;
