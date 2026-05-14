@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>📝 Тетрадь прописей | Китайские иероглифы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #D9C8A9;
+            font-family: 'Segoe UI', 'Poppins', 'Noto Sans SC', monospace;
+            padding: 16px;
+            min-height: 100vh;
+        }
+
+        .notebook {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #FFFDF5;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFC48A;
+        }
+        .header h1 {
+            background: linear-gradient(135deg, #FFB347, #FF8C42);
+            padding: 8px 28px;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.4rem;
+        }
+        .back-btn {
+            background: #5D9B4B;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        /* Крупный иероглиф */
+        .big-character {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .big-character span {
+            font-size: 8rem;
+            font-family: 'Noto Sans SC', monospace;
+            background: #FFF2E0;
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 60px;
+            color: #A5511A;
+            box-shadow: 0 8px 0 #E0C8A0;
+        }
+
+        .info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #8B5A2B;
+        }
+
+        /* Канвас для рисования — крупный! */
+        .canvas-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        canvas {
+            background: white;
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            cursor: crosshair;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 3px solid #D9B48B;
+            touch-action: none;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #E8D5B0;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.05s linear;
+            min-width: 100px;
+        }
+        .btn-primary { background: #4CAF50; color: white; }
+        .btn-warning { background: #FF8C42; color: white; }
+        .btn-secondary { background: #C7A56B; color: white; }
+
+        .brush-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input[type="range"] { width: 200px; }
+
+        .accuracy {
+            background: #EEDDBB;
+            border-radius: 32px;
+            padding: 15px;
+            text-align: center;
+        }
+        .accuracy-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #B95F1A;
+        }
+    </style>
+</head>
+<body>
+<div class="notebook">
+    <div class="header">
+        <h1>✍️ Тетрадь прописей</h1>
+        <a href="phrases-cards.html" class="back-btn">⬅ К карточкам</a>
+    </div>
+
+    <div class="big-character">
+        <span id="currentChar">八</span>
+    </div>
+    <div class="info">
+        <span id="currentPinyin">bā</span> | <span id="currentMeaning">восемь</span>
+    </div>
+
+    <div class="canvas-wrapper">
+        <canvas id="writingCanvas" width="500" height="500"></canvas>
+    </div>
+
+    <div class="toolbar">
+        <button class="btn btn-warning" id="clearBtn">🧽 Очистить</button>
+        <button class="btn" id="undoBtn">↩ Отменить</button>
+        <button class="btn btn-secondary" id="templateBtn">🖼 Образец</button>
+        <button class="btn btn-primary" id="checkBtn">🔍 Проверить</button>
+        <button class="btn" id="speakBtn" style="background:#5D9B4B; color:white;">🔊 Озвучить</button>
+    </div>
+
+    <div class="brush-control">
+        <span>✏️ Толщина:</span>
+        <input type="range" id="brushSize" min="3" max="35" value="14" step="1">
+        <span id="brushValue">14</span>
+    </div>
+
+    <div class="accuracy">
+        <div>🎯 Точность написания</div>
+        <div class="accuracy-score" id="accuracyPercent">0%</div>
+        <div id="feedbackMsg">Напишите иероглиф, затем нажмите «Проверить»</div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('writingCanvas');
+    let ctx = canvas.getContext('2d');
+    let painting = false;
+    let undoStack = [];
+    let currentChar = "八";
+    let currentPinyin = "bā";
+    let currentMeaning = "восемь";
+
+    function initCanvas() {
+        canvas.width = 500;
+        canvas.height = 500;
+        clearCanvas();
+    }
+
+    function drawGrid() {
+        ctx.save();
+        ctx.strokeStyle = '#D9C2A7';
+        ctx.lineWidth = 2;
+        let cellSize = canvas.width / 4;
+        for (let i = 1; i <= 3; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * cellSize, 0);
+            ctx.lineTo(i * cellSize, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * cellSize);
+            ctx.lineTo(canvas.width, i * cellSize);
+            ctx.stroke();
+        }
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function saveState() {
+        undoStack.push(canvas.toDataURL());
+        if (undoStack.length > 20) undoStack.shift();
+    }
+
+    function restoreState(imgData) {
+        let img = new Image();
+        img.src = imgData;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+            drawGrid();
+        };
+    }
+
+    function clearCanvas() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+        saveState();
+        document.getElementById('accuracyPercent').innerText = '0%';
+        document.getElementById('feedbackMsg').innerHTML = 'Холст очищен';
+    }
+
+    function undo() {
+        if (undoStack.length <= 1) {
+            clearCanvas();
+            return;
+        }
+        undoStack.pop();
+        restoreState(undoStack[undoStack.length - 1]);
+    }
+
+    function startDrawing(e) {
+        e.preventDefault();
+        painting = true;
+        const coords = getCanvasCoords(e);
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+        ctx.lineTo(coords.x, coords.y);
+        ctx.stroke();
+    }
+
+    function draw(e) {
+        if (!painting) return;
+        e.preventDefault();
+        const coords = getCanvasCoords(e);
+        const brushSize = parseInt(document.getElementById('brushSize').value);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = brushSize;
+        ctx.lineTo(coords.x, coords.y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+    }
+
+    function stopDrawing() {
+        painting = false;
+        ctx.beginPath();
+        saveState();
+    }
+
+    function getCanvasCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        let x = (clientX - rect.left) * scaleX;
+        let y = (clientY - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+
+    document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+    document.getElementById('undoBtn').addEventListener('click', undo);
+    document.getElementById('brushSize').addEventListener('input', (e) => {
+        document.getElementById('brushValue').innerText = e.target.value;
+    });
+
+    function showTemplate() {
+        ctx.save();
+        ctx.globalAlpha = 0.4;
+        ctx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#999999';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillText(currentChar, canvas.width / 2, canvas.height / 2);
+        ctx.globalAlpha = 1;
+        drawGrid();
+        ctx.restore();
+        saveState();
+    }
+
+    function checkAccuracy() {
+        const idealCanvas = document.createElement('canvas');
+        idealCanvas.width = canvas.width;
+        idealCanvas.height = canvas.height;
+        const idealCtx = idealCanvas.getContext('2d');
+        idealCtx.fillStyle = 'white';
+        idealCtx.fillRect(0, 0, idealCanvas.width, idealCanvas.height);
+        idealCtx.font = `bold ${idealCanvas.width * 0.65}px 'Noto Sans SC'`;
+        idealCtx.textAlign = 'center';
+        idealCtx.textBaseline = 'middle';
+        idealCtx.fillStyle = 'black';
+        idealCtx.fillText(currentChar, idealCanvas.width / 2, idealCanvas.height / 2);
+        
+        const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
+        const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        let matchCount = 0, totalImportant = 0;
+        for (let y = 2; y < canvas.height - 2; y++) {
+            for (let x = 2; x < canvas.width - 2; x++) {
+                const idx = (y * canvas.width + x) * 4;
+                const brightness = (idealData.data[idx] + idealData.data[idx+1] + idealData.data[idx+2]) / 3;
+                if (brightness < 150) {
+                    totalImportant++;
+                    let found = false;
+                    for (let dy = -2; dy <= 2; dy++) {
+                        for (let dx = -2; dx <= 2; dx++) {
+                            const ny = y + dy, nx = x + dx;
+                            if (ny >= 0 && ny < canvas.height && nx >= 0 && nx < canvas.width) {
+                                const nidx = (ny * canvas.width + nx) * 4;
+                                const curBright = (currentData.data[nidx] + currentData.data[nidx+1] + currentData.data[nidx+2]) / 3;
+                                if (curBright < 150) { found = true; break; }
+                            }
+                        }
+                        if (found) break;
+                    }
+                    if (found) matchCount++;
+                }
+            }
+        }
+        let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
+        accuracy = Math.min(100, Math.floor(accuracy));
+        document.getElementById('accuracyPercent').innerText = accuracy + '%';
+        let feedback = document.getElementById('feedbackMsg');
+        if (accuracy > 80) feedback.innerHTML = '🏆 Отлично! Иероглиф написан точно!';
+        else if (accuracy > 60) feedback.innerHTML = '👍 Хорошо! Небольшие погрешности.';
+        else if (accuracy > 40) feedback.innerHTML = '📝 Попробуй обвести образец (кнопка «Образец»)';
+        else feedback.innerHTML = '✍️ Начни с обведения образца. Пиши увереннее!';
+    }
+
+    function speakChinese() {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(currentChar);
+            utterance.lang = "zh-CN";
+            utterance.rate = 0.6;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    function loadFromGame() {
+        const saved = localStorage.getItem('selected_character');
+        if (saved) {
+            try {
+                const obj = JSON.parse(saved);
+                if (obj && obj.char) {
+                    currentChar = obj.char;
+                    currentPinyin = obj.pinyin || '';
+                    currentMeaning = obj.meaning || '';
+                    document.getElementById('currentChar').innerText = currentChar;
+                    document.getElementById('currentPinyin').innerText = currentPinyin;
+                    document.getElementById('currentMeaning').innerText = currentMeaning;
+                    clearCanvas();
+                    localStorage.removeItem('selected_character');
+                    return true;
+                }
+            } catch(e) {}
+        }
+        return false;
+    }
+
+    document.getElementById('templateBtn').addEventListener('click', showTemplate);
+    document.getElementById('checkBtn').addEventListener('click', checkAccuracy);
+    document.getElementById('speakBtn').addEventListener('click', speakChinese);
+
+    initCanvas();
+    if (!loadFromGame()) {
+        currentChar = "八";
+        currentPinyin = "bā";
+        currentMeaning = "восемь";
+        document.getElementById('currentChar').innerText = currentChar;
+        document.getElementById('currentPinyin').innerText = currentPinyin;
+        document.getElementById('currentMeaning').innerText = currentMeaning;
+        clearCanvas();
+    }
+</script>
+</body>
+</html>
