@@ -265,6 +265,35 @@
         example: "八个 bā ge"
     };
 
+    // ========== НОВЫЙ КОД: приём слова из игры ==========
+    function loadWordFromGame() {
+        const savedChar = localStorage.getItem('selected_character');
+        if (savedChar) {
+            try {
+                const charObj = JSON.parse(savedChar);
+                if (charObj && charObj.char) {
+                    currentCharData = {
+                        char: charObj.char,
+                        pinyin: charObj.pinyin || '',
+                        meaning: charObj.meaning || '',
+                        sound: charObj.char,
+                        example: `${charObj.char} ${charObj.pinyin || ''}`
+                    };
+                    // Обновляем интерфейс
+                    document.getElementById('currentChar').innerText = currentCharData.char;
+                    document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
+                    document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
+                    document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
+                    clearCanvas();
+                    localStorage.removeItem('selected_character');
+                    return true;
+                }
+            } catch(e) {}
+        }
+        return false;
+    }
+    // ========== КОНЕЦ НОВОГО КОДА ==========
+
     function initCanvas() {
         canvas.width = 400;
         canvas.height = 400;
@@ -416,9 +445,7 @@
         document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите серый образец прямо поверх!';
     }
 
-    // Новая, более точная проверка
     function checkAccuracy() {
-        // Получаем идеальное изображение иероглифа
         const idealCanvas = document.createElement('canvas');
         idealCanvas.width = canvas.width;
         idealCanvas.height = canvas.height;
@@ -434,20 +461,12 @@
         const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
         const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         
-        // Нормализация: размытие для учёта разной толщины линий
-        function normalizePixel(r, g, b) {
-            return (r + g + b) / 3 < 200 ? 0 : 255;
-        }
-        
         let matchCount = 0;
         let totalImportant = 0;
         
-        // Проходим по каждому пикселю, но с учётом соседей (для терпимости к толщине)
         for (let y = 2; y < canvas.height - 2; y++) {
             for (let x = 2; x < canvas.width - 2; x++) {
                 const idx = (y * canvas.width + x) * 4;
-                
-                // Проверяем, есть ли в идеале значимый пиксель
                 const idealR = idealData.data[idx];
                 const idealG = idealData.data[idx+1];
                 const idealB = idealData.data[idx+2];
@@ -455,8 +474,6 @@
                 
                 if (isIdealImportant) {
                     totalImportant++;
-                    
-                    // Ищем в текущем рисунке чёрный пиксель в области 3x3
                     let foundMatch = false;
                     for (let dy = -2; dy <= 2; dy++) {
                         for (let dx = -2; dx <= 2; dx++) {
@@ -476,17 +493,14 @@
                         }
                         if (foundMatch) break;
                     }
-                    
                     if (foundMatch) matchCount++;
                 }
             }
         }
         
-        // Процент совпадения важных областей
         let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
         accuracy = Math.min(100, Math.max(0, Math.floor(accuracy)));
         
-        // Дополнительная проверка: центр масс
         let sumX = 0, sumY = 0, blackCount = 0;
         for (let y = 0; y < canvas.height; y++) {
             for (let x = 0; x < canvas.width; x++) {
@@ -508,7 +522,6 @@
             const offset = Math.sqrt(Math.pow(centerX - idealCenter, 2) + Math.pow(centerY - idealCenter, 2));
             const maxOffset = canvas.width / 4;
             centerBonus = Math.max(0, 100 - (offset / maxOffset) * 50);
-            // Корректируем точность с учётом центра
             accuracy = Math.floor(accuracy * 0.8 + centerBonus * 0.2);
         }
         
@@ -542,61 +555,25 @@
         window.speechSynthesis.speak(utterance);
     }
 
-    function updateUI() {
-        document.getElementById('currentChar').innerText = currentCharData.char;
-        document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
-        document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
-        document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
-        clearCanvas();
-    }
-
-    function loadCharacterFromLesson() {
-        const savedChar = localStorage.getItem('selectedCharacter');
-        if (savedChar) {
-            try {
-                const charObj = JSON.parse(savedChar);
-                if (charObj && charObj.char) {
-                    currentCharData = charObj;
-                    updateUI();
-                    localStorage.removeItem('selectedCharacter');
-                    return true;
-                }
-            } catch(e) {}
-        }
-        
-        if (typeof pinyinFullDB !== 'undefined' && pinyinFullDB) {
-            for (let [initial, data] of Object.entries(pinyinFullDB)) {
-                if (data.syllables) {
-                    for (let [syl, sylData] of Object.entries(data.syllables)) {
-                        if (sylData.tones && sylData.tones.length) {
-                            const tone = sylData.tones[0];
-                            currentCharData = {
-                                char: tone.char,
-                                pinyin: tone.pinyin,
-                                meaning: tone.meaning || tone.ru || '',
-                                sound: tone.sound || tone.char,
-                                example: tone.example || ''
-                            };
-                            updateUI();
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个", example: "八个" };
-        updateUI();
-        return true;
-    }
-
     document.getElementById('templateBtn').addEventListener('click', showTemplate);
     document.getElementById('checkBtn').addEventListener('click', checkAccuracy);
     document.getElementById('speakBtn').addEventListener('click', () => {
         speakChinese(currentCharData.sound || currentCharData.char);
     });
 
+    // ========== ИНИЦИАЛИЗАЦИЯ С ПОДДЕРЖКОЙ ИГРЫ ==========
     initCanvas();
-    loadCharacterFromLesson();
+    
+    // Пробуем загрузить слово из игры, если нет - оставляем "八"
+    if (!loadWordFromGame()) {
+        // Оставляем стандартный иероглиф
+        currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个", example: "八个 bā ge" };
+        document.getElementById('currentChar').innerText = currentCharData.char;
+        document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
+        document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
+        document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
+        clearCanvas();
+    }
 </script>
 </body>
 </html>
