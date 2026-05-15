@@ -26,7 +26,7 @@
             background: #FFF9EF;
             border-radius: 40px;
             box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-            padding: 20px 16px 120px 16px;
+            padding: 20px 16px 40px 16px;
             border: 2px solid #E4C9A0;
         }
 
@@ -62,6 +62,21 @@
             display: inline-block;
         }
         .btn-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
+        
+        /* Новая кнопка возврата в игру */
+        .btn-game {
+            background: #9C27B0;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 0 #6A1B9A;
+            transition: 0.05s linear;
+            display: inline-block;
+        }
+        .btn-game:active { transform: translateY(2px); box-shadow: 0 1px 0 #6A1B9A; }
 
         .current-info {
             text-align: center;
@@ -201,7 +216,7 @@
         }
 
         @media (max-width: 550px) {
-            .copybook { padding: 12px 12px 140px 12px; }
+            .copybook { padding: 12px 12px 40px 12px; }
             .big-char { font-size: 4rem; padding: 10px 25px; }
             .pinyin-info { font-size: 1.2rem; }
             .btn { padding: 12px 18px; font-size: 0.9rem; min-width: 85px; }
@@ -214,7 +229,10 @@
 <div class="copybook">
     <div class="header">
         <h1>✍️ Тетрадь прописей</h1>
-        <a href="lesson0.html" class="btn-home">⬅ К уроку 0</a>
+        <div style="display: flex; gap: 10px;">
+            <a href="lesson0.html" class="btn-home">⬅ К уроку 0</a>
+            <a href="mahjong-word-key.html" class="btn-game">🀄 Вернуться в игру</a>
+        </div>
     </div>
 
     <div class="current-info">
@@ -265,7 +283,7 @@
         example: "八个 bā ge"
     };
 
-    // ========== НОВЫЙ КОД: приём слова из игры ==========
+    // ========== ПРИЁМ СЛОВА ИЗ ИГРЫ ==========
     function loadWordFromGame() {
         const savedChar = localStorage.getItem('selected_character');
         if (savedChar) {
@@ -277,7 +295,7 @@
                         pinyin: charObj.pinyin || '',
                         meaning: charObj.meaning || '',
                         sound: charObj.char,
-                        example: `${charObj.char} ${charObj.pinyin || ''}`
+                        example: `${charObj.char} ${charObj.pinyin || ''} — ${charObj.meaning || ''}`
                     };
                     // Обновляем интерфейс
                     document.getElementById('currentChar').innerText = currentCharData.char;
