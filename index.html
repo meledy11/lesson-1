@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>📚 Весёлый китайский - Все уроки</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,6 +27,31 @@
         }
         .hero h1 { font-size: 1.8rem; }
         .hero p { font-size: 0.9rem; margin-top: 0.3rem; }
+        
+        .install-banner {
+            background: #2d6a4f;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 20px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            display: none;
+        }
+        .install-banner.show { display: flex; }
+        .install-banner button {
+            background: #FF8C42;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .install-banner button:active { transform: scale(0.96); }
         
         .tabs-nav {
             display: flex;
@@ -67,7 +92,6 @@
             border: 2px solid #FFB347;
         }
         
-        /* Стили уроков */
         .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -89,7 +113,6 @@
         .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
         
-        /* Стили игр */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -127,7 +150,6 @@
         .game-tag.green { background: #4CAF50; }
         .game-tag.orange { background: #FF8C42; }
         
-        /* Стили словаря — улучшенные */
         .search-box {
             background: white;
             border-radius: 50px;
@@ -268,7 +290,6 @@
             font-size: 0.85rem;
         }
         
-        /* Стили для вкладки Слоги (iframe) */
         .syllables-frame {
             width: 100%;
             height: 80vh;
@@ -316,6 +337,12 @@
 </head>
 <body>
     <div class="container">
+        <!-- Баннер для установки PWA -->
+        <div class="install-banner" id="installBanner">
+            <span>📱 Установите приложение на телефон</span>
+            <button id="installBtn">⬇️ Установить</button>
+        </div>
+        
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
             <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз 🎧</p>
@@ -394,7 +421,7 @@
             </div>
         </div>
         
-        <!-- ВКЛАДКА: СЛОВАРЬ с ПОИСКОМ ПО НОВОЙ БАЗЕ -->
+        <!-- ВКЛАДКА: СЛОВАРЬ -->
         <div class="tab-content" id="tab-dictionary">
             <div class="speak-tip">
                 <span>🔍</span> Ищи по иероглифам, пиньиню или русскому переводу <span>🔍</span>
@@ -439,7 +466,7 @@
             <iframe src="syllables.html" class="syllables-frame" title="Популярные слоги китайского"></iframe>
         </div>
         
-        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (ПОЛНОЭКРАННЫЕ) -->
+        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ -->
         <div class="tab-content" id="tab-phrases">
             <div class="speak-tip">
                 <span>📇</span> 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов <span>🔊</span>
@@ -471,6 +498,35 @@
     <script src="phrases-db.js"></script>
     
     <script>
+        // ===== PWA УСТАНОВКА НА ANDROID =====
+        let deferredPrompt = null;
+        const installBanner = document.getElementById('installBanner');
+        const installBtn = document.getElementById('installBtn');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.classList.add('show');
+            console.log('✅ PWA установка доступна');
+        });
+        
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`Результат установки: ${outcome}`);
+                    deferredPrompt = null;
+                    installBanner.classList.remove('show');
+                }
+            });
+        }
+        
+        window.addEventListener('appinstalled', () => {
+            console.log('🎉 Приложение установлено!');
+            installBanner.classList.remove('show');
+        });
+        
         // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -517,7 +573,7 @@
             console.log('lessons-data.js не загружен или пуст');
         }
         
-        // ===== СЛОВАРЬ С ПОИСКОМ ПО ДВУМ БАЗАМ =====
+        // ===== СЛОВАРЬ С ПОИСКОМ =====
         let currentLevel = 'all';
         
         function speakChinese(text) {
