@@ -631,7 +631,7 @@
         if (currentModalSound) playChinese(currentModalSound);
     }
 
-    // Функция отправки иероглифа в тетрадь
+    // Функция отправки иероглифа в тетрадь (ИСПРАВЛЕНА — правильный ключ)
     function sendToCopybook() {
         const charData = {
             char: currentModalChar,
@@ -639,7 +639,8 @@
             meaning: currentModalMeaning,
             sound: currentModalSound
         };
-        localStorage.setItem('selectedCharacter', JSON.stringify(charData));
+        // Используем тот же ключ, что и в маджонге!
+        localStorage.setItem('selected_character', JSON.stringify(charData));
         window.location.href = 'copybook.html';
     }
 
@@ -690,7 +691,7 @@
         return data.sound;
     }
 
-    // ========== НОВАЯ ФУНКЦИЯ ДЛЯ УДАЛЕНИЯ ТОНОВ ИЗ ПИНЬИНЯ ==========
+    // Функция для удаления тонов из пиньиня (для поиска)
     function removeToneMarks(pinyin) {
         if (!pinyin) return '';
         return pinyin
@@ -699,7 +700,7 @@
             .toLowerCase();
     }
 
-    // ========== ПОИСК (ИСПРАВЛЕНАЯ ВЕРСИЯ) ==========
+    // ========== ПОИСК ==========
     let allTonesCache = [];
 
     function buildAllTonesCache() {
@@ -728,45 +729,24 @@
         const results = [];
         
         for (const tone of allTonesCache) {
-            // Нормализуем пиньинь (убираем тоны)
             const cleanPinyin = removeToneMarks(tone.pinyin);
             const cleanSyllable = removeToneMarks(tone.syllable);
             
             let matched = false;
-            
-            // 1. Поиск по иероглифу (точное совпадение)
             if (tone.char && tone.char === query) matched = true;
-            
-            // 2. Поиск по пиньиню без тонов
             else if (cleanPinyin.includes(lowerQuery)) matched = true;
-            
-            // 3. Поиск по слогу без тонов
             else if (cleanSyllable.includes(lowerQuery)) matched = true;
-            
-            // 4. Поиск по русскому переводу
             else if (tone.meaning && tone.meaning.toLowerCase().includes(lowerQuery)) matched = true;
-            
-            // 5. Поиск по русской транскрипции
             else if (tone.ru && tone.ru.toLowerCase().includes(lowerQuery)) matched = true;
-            
-            // 6. Поиск по примеру (иероглифы)
             else if (tone.example && tone.example.includes(query)) matched = true;
-            
-            // 7. Поиск по переводу примера
             else if (tone.example_ru && tone.example_ru.toLowerCase().includes(lowerQuery)) matched = true;
-            
-            // 8. Оригинальный пиньинь (с тонами) - частичное совпадение
             else if (tone.pinyin && tone.pinyin.toLowerCase().includes(lowerQuery)) matched = true;
             
-            if (matched) {
-                results.push(tone);
-            }
+            if (matched) results.push(tone);
         }
-        
         return results;
     }
 
-    // Функция отображения результатов поиска (С ДВУМЯ КОЛОНКАМИ)
     function renderSearchResults(results, originalDB) {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
@@ -779,17 +759,13 @@
         
         if (statsDiv) statsDiv.innerHTML = `🔍 Найдено: ${results.length} слов`;
         
-        // Группируем результаты по инициалям
         const grouped = {};
         for (const item of results) {
             if (!grouped[item.initial]) grouped[item.initial] = [];
             grouped[item.initial].push(item);
         }
         
-        // Очищаем контейнер
         container.innerHTML = '';
-        
-        // Получаем список инициалей и делим на две колонки
         const initialsList = Object.keys(grouped);
         const mid = Math.ceil(initialsList.length / 2);
         const leftCol = document.createElement('div');
@@ -800,7 +776,6 @@
             const card = document.createElement('div');
             card.className = 'initial-card';
             
-            // Шапка инициали
             const header = document.createElement('div');
             header.className = 'initial-header';
             const soundToPlay = originalDB[initial] ? getInitialSound(originalDB[initial]) : tones[0]?.sound;
@@ -808,7 +783,6 @@
             header.innerHTML = `<div class="big-pinyin">${initial}</div><div class="sound-desc">${originalDB[initial]?.desc || ''}</div>`;
             card.appendChild(header);
             
-            // Артикуляция
             if (originalDB[initial]?.articulation) {
                 const artDiv = document.createElement('div');
                 artDiv.className = 'articulation';
@@ -816,14 +790,12 @@
                 card.appendChild(artDiv);
             }
             
-            // Группируем тоны по слогам
             const bySyllable = {};
             for (const tone of tones) {
                 if (!bySyllable[tone.syllable]) bySyllable[tone.syllable] = [];
                 bySyllable[tone.syllable].push(tone);
             }
             
-            // Рисуем строки для каждого слога
             for (const [syllable, syllableTones] of Object.entries(bySyllable)) {
                 const sylRow = document.createElement('div');
                 sylRow.className = 'syllable-row';
@@ -838,7 +810,6 @@
                 const tonesGrid = document.createElement('div');
                 tonesGrid.className = 'tones-grid';
                 
-                // Показываем все 4 тона, но подсвечиваем только те, что есть в результатах
                 for (let i = 1; i <= 4; i++) {
                     const existingTone = syllableTones.find(t => t.tone === `${i}-й`);
                     if (existingTone) {
@@ -855,7 +826,6 @@
                         `;
                         tonesGrid.appendChild(toneCard);
                     } else {
-                        // Пустая карточка для тона, которого нет в результатах
                         const emptyCard = document.createElement('div');
                         emptyCard.className = 'tone-card';
                         emptyCard.style.opacity = '0.4';
@@ -873,19 +843,15 @@
                 card.appendChild(sylRow);
             }
             
-            // Распределяем по колонкам
-            if (idx < mid) {
-                leftCol.appendChild(card);
-            } else {
-                rightCol.appendChild(card);
-            }
+            if (idx < mid) leftCol.appendChild(card);
+            else rightCol.appendChild(card);
         });
         
         container.appendChild(leftCol);
         container.appendChild(rightCol);
     }
 
-    // ОРИГИНАЛЬНАЯ ФУНКЦИЯ renderTable (БЕЗ ИЗМЕНЕНИЙ)
+    // ОРИГИНАЛЬНАЯ ФУНКЦИЯ renderTable
     function renderTable() {
         const container = document.getElementById('initials-container');
         const statsDiv = document.getElementById('searchStats');
@@ -944,11 +910,8 @@
                     const firstToneWord = getFirstToneWord(sylData);
                     sylName.onclick = (e) => {
                         e.stopPropagation();
-                        if (firstToneWord) {
-                            playChinese(firstToneWord);
-                        } else {
-                            playChinese(syllable);
-                        }
+                        if (firstToneWord) playChinese(firstToneWord);
+                        else playChinese(syllable);
                     };
                     sylRow.appendChild(sylName);
                     
@@ -1000,11 +963,8 @@
                 }
             }
             
-            if (idx < mid) {
-                leftCol.appendChild(card);
-            } else {
-                rightCol.appendChild(card);
-            }
+            if (idx < mid) leftCol.appendChild(card);
+            else rightCol.appendChild(card);
         });
         
         container.appendChild(leftCol);
