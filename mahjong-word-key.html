@@ -274,6 +274,54 @@
             color: #FFD966;
             font-size: 0.7rem;
         }
+
+        /* Стили для модального окна подтверждения */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #FFF8F0;
+            border-radius: 40px;
+            padding: 24px;
+            text-align: center;
+            max-width: 300px;
+            margin: 20px;
+            border: 3px solid #FFB347;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #A64B2A;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .modal-btn.yes {
+            background: #4CAF50;
+            color: white;
+        }
+        .modal-btn.no {
+            background: #FF6B35;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -314,8 +362,20 @@
 
     <footer>
         🀄 Найди для иероглифа его составную часть (ключ).<br>
-        🎯 При каждой угаданной паре → слово АВТОМАТИЧЕСКИ отправляется в тетрадь и открывается для прописи!
+        🎯 При каждой угаданной паре → слово АВТОМАТИЧЕСКИ отправляется в тетрадь!
     </footer>
+</div>
+
+<!-- Модальное окно для подтверждения возврата -->
+<div id="returnModal" class="modal">
+    <div class="modal-content">
+        <p>✍️ Слово добавлено в тетрадь!</p>
+        <p style="font-size: 0.9rem;" id="modalWordText"></p>
+        <div class="modal-buttons">
+            <button class="modal-btn yes" id="modalContinueBtn">🎮 Продолжить игру</button>
+            <button class="modal-btn no" id="modalCopybookBtn">📖 Открыть тетрадь</button>
+        </div>
+    </div>
 </div>
 
 <script src="frequency-db.js"></script>
@@ -325,11 +385,14 @@
     let selectedTileIndex = null;
     let score = 0;
     let totalPairs = 0;
+    let pendingWord = null; // Храним слово для модального окна
     
     const tilesGrid = document.getElementById('tilesGrid');
     const scoreSpan = document.getElementById('scoreCount');
     const messageBox = document.getElementById('messageBox');
     const progressFill = document.getElementById('progressFill');
+    const modal = document.getElementById('returnModal');
+    const modalWordText = document.getElementById('modalWordText');
     
     const partDataMap = {
         "亻": { pinyin: "rén", meaning: "человек" }, "女": { pinyin: "nǚ", meaning: "женщина" }, "口": { pinyin: "kǒu", meaning: "рот" },
@@ -409,8 +472,9 @@
         return shuffled.slice(0, limit);
     }
     
-    function addToCopybookAndOpen(char, pinyin, meaning) {
-        if (!char) return;
+    // Функция добавления слова в тетрадь (БЕЗ автоматического перехода)
+    function addToCopybookOnly(char, pinyin, meaning) {
+        if (!char) return false;
         let copybookWords = [];
         const stored = localStorage.getItem('copybook_words');
         if (stored) {
@@ -423,7 +487,13 @@
         if (!alreadyExists) {
             copybookWords.unshift({ char, pinyin, meaning, timestamp: Date.now() });
             localStorage.setItem('copybook_words', JSON.stringify(copybookWords));
+            return true; // слово добавлено
         }
+        return false; // уже было
+    }
+    
+    // Переход в тетрадь с сохранением выбранного слова
+    function openCopybookWithWord(char, pinyin, meaning) {
         localStorage.setItem('selected_character', JSON.stringify({ char, pinyin, meaning }));
         window.location.href = 'copybook.html';
     }
@@ -441,6 +511,7 @@
         totalPairs = pairs.length;
         score = 0;
         selectedTileIndex = null;
+        pendingWord = null;
         const newTiles = [];
         let idCounter = 0;
         for (const pair of pairs) {
@@ -468,7 +539,7 @@
         tiles = shuffleArray(newTiles);
         updateProgress();
         renderBoard();
-        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! При угадывании → сразу в тетрадь!`;
+        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! При угадывании → слово в тетрадь!`;
     }
     
     function renderBoard() {
@@ -535,11 +606,13 @@
             let matchedWord = null;
             if (selectedTile.type === 'word') matchedWord = selectedTile.wordData;
             else if (clickedTile.type === 'word') matchedWord = clickedTile.wordData;
+            
             tiles[selectedTileIndex].removed = true;
             tiles[clickedIdx].removed = true;
             score++;
             selectedTileIndex = null;
             const remainingPairs = tiles.filter(t => !t.removed && t.type === 'word').length;
+            
             if (remainingPairs === 0) {
                 messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты выучил все пары!';
                 renderBoard();
@@ -547,11 +620,13 @@
                 messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remainingPairs})`;
                 renderBoard();
             }
+            
+            // Добавляем слово в тетрадь и показываем модальное окно
             if (matchedWord && matchedWord.char) {
-                messageBox.innerHTML = `✅ +1! Открываю тетрадь для "${matchedWord.char}"...`;
-                setTimeout(() => {
-                    addToCopybookAndOpen(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
-                }, 300);
+                const isNew = addToCopybookOnly(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
+                pendingWord = matchedWord;
+                modalWordText.innerHTML = `"${matchedWord.char} — ${matchedWord.meaning}" ${isNew ? 'добавлено в тетрадь!' : 'уже было в тетради!'}`;
+                modal.style.display = 'flex';
             }
         } else {
             messageBox.innerHTML = `❌ ${selectedTile.displayText} ≠ ${clickedTile.displayText}. Попробуй ещё!`;
@@ -566,7 +641,11 @@
         scoreSpan.innerText = score;
     }
     
-    function newGame() { initGame(); }
+    function newGame() { 
+        pendingWord = null;
+        initGame(); 
+    }
+    
     function setLevel(level) {
         currentLevel = level;
         document.querySelectorAll('.level-btn').forEach(btn => {
@@ -576,9 +655,33 @@
         newGame();
     }
     
+    // Закрыть модальное окно и продолжить игру
+    function closeModalAndContinue() {
+        modal.style.display = 'none';
+        pendingWord = null;
+    }
+    
+    // Открыть тетрадь с текущим словом
+    function openCopybook() {
+        if (pendingWord) {
+            openCopybookWithWord(pendingWord.char, pendingWord.pinyin, pendingWord.meaning);
+        } else {
+            window.location.href = 'copybook.html';
+        }
+    }
+    
     document.getElementById('newGameBtn')?.addEventListener('click', () => newGame());
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => setLevel(btn.dataset.level));
+    });
+    
+    // Кнопки модального окна
+    document.getElementById('modalContinueBtn')?.addEventListener('click', closeModalAndContinue);
+    document.getElementById('modalCopybookBtn')?.addEventListener('click', openCopybook);
+    
+    // Клик вне модального окна (на фон) — продолжает игру
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) closeModalAndContinue();
     });
     
     const waitForDB = setInterval(() => {
