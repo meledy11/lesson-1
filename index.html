@@ -466,14 +466,12 @@
             <iframe src="syllables.html" class="syllables-frame" title="Популярные слоги китайского"></iframe>
         </div>
         
-        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (ОТКРЫВАЮТСЯ В ЭТОЙ ЖЕ ВКЛАДКЕ) -->
+        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (открываются внутри приложения) -->
         <div class="tab-content" id="tab-phrases">
             <div class="speak-tip">
                 <span>📇</span> 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов <span>🔊</span>
             </div>
-            <div style="text-align: center; padding: 20px;">
-                <iframe src="phrases-cards.html" style="width:100%; height:85vh; border:none; border-radius:30px; background:white; box-shadow:0 5px 20px rgba(0,0,0,0.1);"></iframe>
-            </div>
+            <iframe src="phrases-cards.html" style="width:100%; height:85vh; border:none; border-radius:30px; background:white; box-shadow:0 5px 20px rgba(0,0,0,0.1);"></iframe>
         </div>
         
         <footer>
@@ -735,6 +733,15 @@
         if (typeof phrasesDB !== 'undefined') {
             console.log(`📊 phrasesDB загружена: ${phrasesDB.length} фраз`);
         }
+        
+        // Обработка переходов для PWA — все ссылки открываются в том же окне
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.href && link.href.startsWith(window.location.origin)) {
+                e.preventDefault();
+                window.location.href = link.href;
+            }
+        });
     </script>
 </body>
 </html>
