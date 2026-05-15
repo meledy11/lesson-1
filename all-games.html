@@ -3,386 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🎮 ДИКТАНТ + СОБЕРИ ФРАЗУ | Весёлый китайский</title>
+    <title>🎯 Диктант пиньиня | Весёлый китайский</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(145deg, #1a472a 0%, #2d6a4f 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
-            padding: 1rem; min-height: 100vh; color: white;
+            padding: 1rem; min-height: 100vh;
         }
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 800px; margin: 0 auto; }
         .hero {
             text-align: center;
-            background: linear-gradient(135deg, #e94560, #c23152);
+            background: linear-gradient(135deg, #FFD966, #FFB347);
             border-radius: 60px; padding: 1.2rem; margin-bottom: 1rem;
-            box-shadow: 0 15px 0 #8b1e3f;
+            box-shadow: 0 15px 0 #C16F1A; color: #5a2e0e;
         }
         .hero h1 { font-size: 1.5rem; }
+        .hero p { font-size: 0.8rem; margin-top: 0.3rem; }
         .back-btn {
-            display: inline-block; background: white; color: #e94560;
+            display: inline-block; background: white; color: #e67e22;
             text-decoration: none; padding: 0.4rem 1.2rem; border-radius: 40px;
             font-weight: bold; margin-top: 0.5rem; font-size: 0.85rem;
-            box-shadow: 0 4px 0 #ccc;
+            box-shadow: 0 4px 0 #ccc; transition: 0.05s;
         }
         .back-btn:active { transform: translateY(2px); }
-        .game-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-        .game-card {
-            background: #2a2a4a; border-radius: 30px; padding: 1.5rem;
-            text-align: center; cursor: pointer; border: 3px solid #5a5a8a;
+        
+        .level-selector {
+            display: flex; gap: 0.5rem; justify-content: center;
+            margin-bottom: 1rem; flex-wrap: wrap;
         }
-        .game-card:hover { background: #3a3a6a; }
-        .game-card:active { transform: scale(0.97); }
-        .game-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
-        .game-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-        .game-card p { font-size: 0.8rem; color: #aaa; }
-        .game-section { display: none; }
-        .game-section.active { display: block; }
-        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .game-header button {
-            background: #2a2a4a; color: white; border: none;
-            padding: 0.5rem 1rem; border-radius: 30px; cursor: pointer; font-size: 0.8rem;
-        }
-        .score-bar { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.8rem; }
-        .score-bar span { background: #1a1a3e; padding: 0.3rem 0.8rem; border-radius: 30px; }
-        .game-area {
-            background: #2a2a4a; border-radius: 40px; padding: 1.5rem;
-            min-height: 300px; box-shadow: 0 10px 0 #1a1a3e; text-align: center;
-        }
-        .phrase-display {
-            font-size: 3rem; font-family: 'Noto Sans SC', monospace; margin: 1.5rem 0;
-            background: #1a1a3e; display: inline-block; padding: 1rem 2rem;
-            border-radius: 30px; letter-spacing: 0.3rem; font-weight: bold;
-        }
-        .dictant-input {
-            width: 100%; padding: 1rem; font-size: 1.5rem; border-radius: 20px;
-            border: 3px solid #5a5a8a; background: #1a1a3e; color: white;
-            text-align: center; font-family: 'Noto Sans SC', monospace; margin: 1rem 0; outline: none;
-        }
-        .dictant-input:focus { border-color: #ffb347; }
-        .dictant-input.correct { border-color: #4CAF50; background: #1a3e1a; }
-        .dictant-input.wrong { border-color: #e94560; background: #3e1a1a; }
-        .builder-slots {
-            display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;
-            min-height: 70px; padding: 1rem; background: #1a1a3e;
-            border-radius: 20px; margin: 1rem 0; border: 2px dashed #5a5a8a;
-        }
-        .builder-slot {
-            background: #3a3a6a; color: white; padding: 0.8rem 1.2rem;
-            border-radius: 15px; font-size: 1.8rem; font-family: 'Noto Sans SC', monospace;
-            cursor: pointer; font-weight: bold; min-width: 55px; text-align: center;
-        }
-        .builder-slot.filled { background: #ffb347; color: #1a1a2e; }
-        .builder-slot.empty { background: #2a2a4a; border: 2px dashed #5a5a8a; color: #aaa; }
-        .builder-words { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin: 1rem 0; }
-        .builder-word {
-            background: #3a3a6a; color: white; padding: 0.8rem 1.2rem;
-            border-radius: 15px; font-size: 1.8rem; cursor: pointer;
-            font-family: 'Noto Sans SC', monospace; border: 2px solid #5a5a8a;
-            font-weight: bold; min-width: 55px; text-align: center;
-        }
-        .builder-word:hover { background: #4a4a8a; }
-        .builder-word.used { opacity: 0.3; cursor: default; }
-        .level-selector { display: flex; gap: 0.4rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
         .level-btn {
-            background: #2a2a4a; color: white; border: 2px solid #5a5a8a;
-            padding: 0.4rem 0.8rem; border-radius: 20px; cursor: pointer; font-size: 0.75rem;
+            background: #2b4f3a; color: #FFE0A3; border: 2px solid #FFB347;
+            padding: 0.4rem 1rem; border-radius: 30px; cursor: pointer;
+            font-weight: bold; font-size: 0.8rem;
         }
-        .level-btn.active { background: #ffb347; color: #1a1a2e; border-color: #ffb347; }
+        .level-btn.active {
+            background: #FFB347; color: #1a472a;
+        }
+        
+        .score-bar {
+            display: flex; justify-content: center; gap: 1rem;
+            margin-bottom: 1rem; flex-wrap: wrap;
+        }
+        .score-card {
+            background: #2b4f3a; padding: 0.4rem 1rem; border-radius: 30px;
+            color: #FFE0A3; font-weight: bold;
+        }
+        .score-card span { color: #FFD966; font-size: 1.3rem; margin-left: 0.3rem; }
+        
+        .game-area {
+            background: #3d2a1a; border-radius: 40px; padding: 1.5rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 10px 0 #2a1a0e;
+            min-height: 350px;
+        }
+        
+        .question-box {
+            text-align: center; padding: 1rem;
+        }
+        .question-char {
+            font-size: 5rem; font-family: 'Noto Sans SC', monospace;
+            background: white; display: inline-block; padding: 0.5rem 1.5rem;
+            border-radius: 60px; color: #A64B2A; margin: 0.5rem 0;
+            box-shadow: 0 6px 0 #D98F33; cursor: pointer;
+        }
+        .question-meaning {
+            font-size: 1.2rem; background: #FFE0C0; display: inline-block;
+            padding: 0.3rem 1.2rem; border-radius: 40px; margin: 0.5rem 0;
+            color: #A64B2A;
+        }
+        
+        .dictant-input {
+            width: 100%; max-width: 300px; padding: 0.8rem 1rem;
+            font-size: 1.2rem; text-align: center; border-radius: 50px;
+            border: 3px solid #FFB347; background: white; outline: none;
+            margin: 1rem auto; display: block; font-family: monospace;
+        }
+        .dictant-input:focus { border-color: #4CAF50; }
+        .dictant-input.correct { border-color: #4CAF50; background: #e8f5e9; }
+        .dictant-input.wrong { border-color: #e94560; background: #ffebee; }
+        
+        .result-box {
+            background: #2b4f3a; border-radius: 30px; padding: 1rem;
+            margin: 1rem 0; text-align: center;
+        }
+        .result-correct {
+            font-size: 1.3rem; color: #FFD966; margin-bottom: 0.5rem;
+        }
+        .result-pinyin {
+            font-size: 1.8rem; font-weight: bold; color: #FFB347;
+            font-family: monospace;
+        }
+        .buttons {
+            display: flex; justify-content: center; gap: 1rem;
+            flex-wrap: wrap; margin-top: 1rem;
+        }
         .btn {
-            background: linear-gradient(135deg, #e94560, #ff6b6b); color: white;
-            border: none; padding: 0.7rem 1.3rem; border-radius: 40px;
-            font-weight: bold; cursor: pointer; font-size: 0.85rem;
-            box-shadow: 0 4px 0 #8b1e3f; margin: 0.3rem;
+            background: linear-gradient(135deg, #FF8C42, #FF6B35);
+            border: none; padding: 0.7rem 1.5rem; border-radius: 40px;
+            font-weight: bold; color: white; cursor: pointer;
+            box-shadow: 0 4px 0 #B45F1B; transition: 0.05s;
         }
-        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #8b1e3f; }
-        .btn.secondary { background: #ffb347; box-shadow: 0 4px 0 #b87a2b; }
-        .play-btn {
-            background: #ffb347; border: none; padding: 0.5rem 1.5rem;
-            border-radius: 25px; cursor: pointer; font-size: 1rem; font-weight: bold; margin: 0.3rem;
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #B45F1B; }
+        .btn.secondary { background: #4CAF50; box-shadow: 0 4px 0 #2E7D32; }
+        
+        .speak-btn {
+            background: #5D9B4B; border: none; padding: 0.5rem 1rem;
+            border-radius: 40px; cursor: pointer; font-size: 1rem;
+            box-shadow: 0 3px 0 #3A6B2E; margin-left: 0.5rem;
         }
-        .play-btn:active { transform: scale(0.95); }
-        .result-msg { font-size: 1.2rem; font-weight: bold; margin: 0.5rem 0; min-height: 2rem; }
-        .result-msg.ok { color: #4CAF50; }
-        .result-msg.fail { color: #ff6b6b; }
-        @media (max-width: 600px) {
-            .game-menu { grid-template-columns: 1fr; }
-            .phrase-display { font-size: 2rem; }
-            .builder-word, .builder-slot { font-size: 1.4rem; }
+        .message { text-align: center; margin-top: 0.5rem; color: #FFD966; }
+        
+        @media (max-width: 550px) {
+            .question-char { font-size: 3.5rem; }
+            .result-pinyin { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="hero">
-        <h1>✍️🧩 ДИКТАНТ + СОБЕРИ ФРАЗУ</h1>
+        <h1>🎯 Диктант пиньиня</h1>
+        <p>Напиши пиньинь без тонов → узнай правильный с тонами + озвучка</p>
         <a href="index.html" class="back-btn">🏠 На главную</a>
     </div>
     
-    <div class="game-menu" id="mainMenu">
-        <div class="game-card" onclick="openGame('dictant')">
-            <div class="icon">✍️</div>
-            <h3>иероглифы-диктант</h3>
-            <p>Слушай фразу → пиши иероглифы</p>
-        </div>
-        <div class="game-card" onclick="openGame('builder')">
-            <div class="icon">🧩</div>
-            <h3>Собери фразу</h3>
-            <p>Расставь слова в правильном порядке</p>
-        </div>
+    <div class="level-selector" id="levelSelector">
+        <button class="level-btn active" data-level="1">🍃 6 слов</button>
+        <button class="level-btn" data-level="2">🌿 12 слов</button>
+        <button class="level-btn" data-level="3">🔥 20 слов</button>
+        <button class="level-btn" data-level="0">🏆 ВСЕ слова</button>
     </div>
     
-    <!-- ДИКТАНТ (русский → иероглифы) -->
-    <div class="game-section" id="section-dictant">
-        <div class="game-header">
-            <strong>✍️ Иероглиф-диктант</strong>
-            <button onclick="openGame('menu')">↩ Назад</button>
-        </div>
-        <div class="level-selector" id="dcLevelSelector">
-            <button class="level-btn active" data-level="1">⭐</button>
-            <button class="level-btn" data-level="2">⭐⭐</button>
-            <button class="level-btn" data-level="3">⭐⭐⭐</button>
-            <button class="level-btn" data-level="4">⭐⭐⭐⭐</button>
-            <button class="level-btn" data-level="5">⭐⭐⭐⭐⭐</button>
-            <button class="level-btn" data-level="0">🎯</button>
-        </div>
-        <div class="score-bar">
-            <span>🏆 <strong id="dcScore">0</strong></span>
-            <span>✅ <strong id="dcCorrect">0</strong></span>
-            <span>❌ <strong id="dcWrong">0</strong></span>
-            <span>🔥 <strong id="dcStreak">0</strong></span>
-        </div>
-        <div class="game-area" id="dcGameArea"><p style="padding:2rem;">Готово!</p></div>
-        <div style="text-align:center;margin-top:1rem;">
-            <button class="btn" onclick="dcNext()">▶</button>
-            <button class="btn secondary" onclick="dcReset()">🔄</button>
-        </div>
+    <div class="score-bar">
+        <div class="score-card">🏆 Счёт: <span id="scoreValue">0</span></div>
+        <div class="score-card">✅ Верно: <span id="correctValue">0</span></div>
+        <div class="score-card">❌ Ошибок: <span id="wrongValue">0</span></div>
+        <div class="score-card">🔥 Серия: <span id="streakValue">0</span></div>
     </div>
     
-    <!-- СОБЕРИ ФРАЗУ (без изменений) -->
-    <div class="game-section" id="section-builder">
-        <div class="game-header">
-            <strong>🧩 Собери фразу</strong>
-            <button onclick="openGame('menu')">↩ Назад</button>
-        </div>
-        <div class="level-selector" id="pbLevelSelector">
-            <button class="level-btn active" data-level="1">⭐</button>
-            <button class="level-btn" data-level="2">⭐⭐</button>
-            <button class="level-btn" data-level="3">⭐⭐⭐</button>
-            <button class="level-btn" data-level="4">⭐⭐⭐⭐</button>
-            <button class="level-btn" data-level="5">⭐⭐⭐⭐⭐</button>
-            <button class="level-btn" data-level="0">🎯</button>
-        </div>
-        <div class="score-bar">
-            <span>🏆 <strong id="pbScore">0</strong></span>
-            <span>✅ <strong id="pbCorrect">0</strong></span>
-            <span>❌ <strong id="pbWrong">0</strong></span>
-            <span>🔥 <strong id="pbStreak">0</strong></span>
-        </div>
-        <div class="game-area" id="pbGameArea"><p style="padding:2rem;">Готово!</p></div>
-        <div style="text-align:center;margin-top:1rem;">
-            <button class="btn" onclick="pbNext()">▶</button>
-            <button class="btn secondary" onclick="pbReset()">🔄</button>
-        </div>
+    <div class="game-area" id="gameArea">
+        <div class="question-box" id="questionBox"></div>
     </div>
+    
+    <div class="buttons">
+        <button class="btn" id="nextBtn">▶ Следующее</button>
+        <button class="btn secondary" id="resetBtn">🔄 Сброс</button>
+    </div>
+    <div class="message" id="message"></div>
 </div>
 
-<script src="phrases-db.js"></script>
+<script src="frequency-db.js"></script>
 <script>
-    if (typeof phrasesDB === 'undefined') {
-        document.body.innerHTML = '<div style="text-align:center;padding:3rem;color:#e94560;"><h2>❌ Ошибка!</h2><p>Файл <b>phrases-db.js</b> не найден.</p><a href="index.html" style="color:#ffb347;">На главную</a></div>';
-    } else {
-
-    function openGame(game) {
-        document.querySelectorAll('.game-section').forEach(function(s) { s.classList.remove('active'); });
-        if (game === 'menu') {
-            document.getElementById('mainMenu').style.display = 'grid';
-        } else {
-            document.getElementById('mainMenu').style.display = 'none';
-            document.getElementById('section-' + game).classList.add('active');
-            if (game === 'dictant') initDictant();
-            if (game === 'builder') initBuilder();
-        }
+    // ========== ДАННЫЕ ДЛЯ ИГРЫ ==========
+    let gameWords = [];        // массив слов для текущего уровня
+    let currentWord = null;    // текущее слово
+    let answered = false;       // отвечено ли на текущий вопрос
+    let currentLevel = 1;       // текущий уровень (1,2,3,0 - все)
+    
+    // Статистика
+    let totalScore = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let streak = 0;
+    
+    // DOM элементы
+    const gameArea = document.getElementById('gameArea');
+    const scoreValue = document.getElementById('scoreValue');
+    const correctValue = document.getElementById('correctValue');
+    const wrongValue = document.getElementById('wrongValue');
+    const streakValue = document.getElementById('streakValue');
+    const nextBtn = document.getElementById('nextBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('message');
+    
+    // ========== ФУНКЦИЯ УДАЛЕНИЯ ТОНОВ ==========
+    function removeTones(pinyin) {
+        if (!pinyin) return '';
+        return pinyin
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/ü/g, 'u');
     }
-
-    function speak(text) {
+    
+    // ========== ПОЛУЧЕНИЕ СЛОВ ИЗ БАЗЫ ==========
+    function getAllWordsFromDB() {
+        const words = [];
+        if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
+            for (const word of frequencyDB) {
+                if (word.char && word.pinyin && word.meaning) {
+                    words.push({
+                        char: word.char,
+                        pinyin: word.pinyin,
+                        meaning: word.meaning,
+                        pinyinNoTones: removeTones(word.pinyin)
+                    });
+                }
+            }
+        }
+        return words;
+    }
+    
+    function getWordsForLevel(level) {
+        const allWords = getAllWordsFromDB();
+        if (level === 0) return allWords;
+        const limits = { 1: 6, 2: 12, 3: 20 };
+        const limit = limits[level] || 6;
+        // Перемешиваем и берём первые limit слов
+        const shuffled = [...allWords];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, limit);
+    }
+    
+    // ========== ОЗВУЧКА ==========
+    function speakChinese(text) {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
-        var u = new SpeechSynthesisUtterance(text);
-        u.lang = 'zh-CN'; u.rate = 0.7;
-        setTimeout(function() { window.speechSynthesis.speak(u); }, 100);
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.7;
+        window.speechSynthesis.speak(utterance);
     }
-
-    function getPhrases(level) {
-        if (level === 0) return phrasesDB.slice();
-        return phrasesDB.filter(function(p) { return p.level === level; });
+    
+    // ========== ОБНОВЛЕНИЕ СТАТИСТИКИ ==========
+    function updateStats() {
+        scoreValue.textContent = totalScore;
+        correctValue.textContent = correctCount;
+        wrongValue.textContent = wrongCount;
+        streakValue.textContent = streak;
     }
-
-    // ===== ДИКТАНТ (русский → иероглифы) =====
-    var dcLevel = 1, dcScore = 0, dcCorrect = 0, dcWrong = 0, dcStreak = 0;
-    var dcCurrent = null, dcAnswered = false, dcPhrases = [];
-
-    function initDictant() {
-        dcPhrases = getPhrases(dcLevel); dcUpdateScore(); dcNext();
-        document.querySelectorAll('#dcLevelSelector .level-btn').forEach(function(btn) {
-            btn.onclick = function() {
-                document.querySelectorAll('#dcLevelSelector .level-btn').forEach(function(b) { b.classList.remove('active'); });
-                this.classList.add('active');
-                dcLevel = parseInt(this.dataset.level);
-                dcPhrases = getPhrases(dcLevel); dcReset();
-            };
-        });
-    }
-
-    function dcNext() {
-        if (dcPhrases.length === 0) { document.getElementById('dcGameArea').innerHTML = '<p style="padding:2rem;">⚠️ Нет фраз</p>'; return; }
-        dcCurrent = dcPhrases[Math.floor(Math.random() * dcPhrases.length)];
-        dcAnswered = false;
-        document.getElementById('dcGameArea').innerHTML = 
-            '<p style="color:#ffb347;">📝 Напишите иероглифами:</p>' +
-            '<div class="phase-display" style="font-size:1.8rem;">' + dcCurrent.russian + '</div>' +
-            '<input type="text" class="dictant-input" id="dcInput" placeholder="введите иероглифы..." autocomplete="off">' +
-            '<div class="result-msg" id="dcMsg"></div>' +
-            '<button class="btn" onclick="dcCheck()">✅ Проверить</button> ' +
-            '<button class="play-btn" id="dcPlayBtn" style="display:none;" onclick="speak(\'' + dcCurrent.chinese + '\')">🔊 Прослушать</button>';
-        var inp = document.getElementById('dcInput');
-        if (inp) { inp.focus(); inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') dcCheck(); }); }
-    }
-
-    function dcCheck() {
-        if (dcAnswered || !dcCurrent) return;
-        var inp = document.getElementById('dcInput'); if (!inp) return;
-        var userAnswer = inp.value.trim();
-        var correctAnswer = dcCurrent.chinese;
-        dcAnswered = true; inp.disabled = true;
-        var ok = (userAnswer === correctAnswer);
-        inp.classList.add(ok ? 'correct' : 'wrong');
-        if (ok) { 
-            dcScore += 20 + Math.min(dcStreak, 15); 
-            dcCorrect++; 
-            dcStreak++; 
-        } else { 
-            dcWrong++; 
-            dcStreak = 0; 
+    
+    // ========== ПОКАЗ СЛЕДУЮЩЕГО СЛОВА ==========
+    function nextWord() {
+        if (!gameWords.length) {
+            gameArea.innerHTML = '<div class="question-box"><p style="color:#FFD966; text-align:center;">⚠️ Нет слов в базе! Проверьте frequency-db.js</p></div>';
+            return;
         }
-        document.getElementById('dcMsg').textContent = ok ? '✅ Правильно! ' + correctAnswer : '❌ Правильный ответ: ' + correctAnswer;
-        document.getElementById('dcMsg').className = 'result-msg ' + (ok ? 'ok' : 'fail');
-        dcUpdateScore();
         
-        // Показываем кнопку прослушивания после ответа
-        var playBtn = document.getElementById('dcPlayBtn');
-        if (playBtn) playBtn.style.display = 'inline-block';
-    }
-
-    function dcUpdateScore() {
-        document.getElementById('dcScore').textContent = dcScore;
-        document.getElementById('dcCorrect').textContent = dcCorrect;
-        document.getElementById('dcWrong').textContent = dcWrong;
-        document.getElementById('dcStreak').textContent = dcStreak;
-    }
-
-    function dcReset() { dcScore = dcCorrect = dcWrong = dcStreak = 0; dcUpdateScore(); dcNext(); }
-
-    // ===== СОБЕРИ ФРАЗУ (БЕЗ ИЗМЕНЕНИЙ) =====
-    var pbLevel = 1, pbScore = 0, pbCorrect = 0, pbWrong = 0, pbStreak = 0;
-    var pbCurrent = null, pbAnswered = false, pbPhrases = [], pbSlots = [];
-
-    function initBuilder() {
-        pbPhrases = getPhrases(pbLevel); pbUpdateScore(); pbNext();
-        document.querySelectorAll('#pbLevelSelector .level-btn').forEach(function(btn) {
-            btn.onclick = function() {
-                document.querySelectorAll('#pbLevelSelector .level-btn').forEach(function(b) { b.classList.remove('active'); });
-                this.classList.add('active');
-                pbLevel = parseInt(this.dataset.level);
-                pbPhrases = getPhrases(pbLevel); pbReset();
-            };
-        });
-    }
-
-    function pbNext() {
-        if (pbPhrases.length === 0) { document.getElementById('pbGameArea').innerHTML = '<p style="padding:2rem;">⚠️ Нет фраз</p>'; return; }
-        pbCurrent = pbPhrases[Math.floor(Math.random() * pbPhrases.length)];
-        pbAnswered = false;
-        pbSlots = new Array(pbCurrent.words.length).fill(null);
-        var words = pbCurrent.words.slice().sort(function() { return Math.random() - 0.5; });
-        var h = '<p style="color:#ffb347;">Соберите: ' + pbCurrent.russian + '</p>';
-        h += '<div class="builder-slots" id="pbSlots">';
-        for (var i = 0; i < pbCurrent.words.length; i++) {
-            h += '<div class="builder-slot empty" onclick="pbRemoveSlot(' + i + ')" id="pbSlot' + i + '">_</div>';
+        // Выбираем случайное слово из списка
+        const randomIndex = Math.floor(Math.random() * gameWords.length);
+        currentWord = { ...gameWords[randomIndex] };
+        answered = false;
+        
+        // Отрисовываем вопрос
+        gameArea.innerHTML = `
+            <div class="question-box">
+                <div class="question-char" onclick="speakChinese('${currentWord.char}')">${currentWord.char}</div>
+                <div class="question-meaning">${currentWord.meaning}</div>
+                <input type="text" class="dictant-input" id="pinyinInput" 
+                       placeholder="введите пиньинь без тонов..." autocomplete="off">
+                <div class="result-box" id="resultBox" style="display:none;"></div>
+                <div class="buttons" style="margin-top:0.5rem;">
+                    <button class="btn" id="checkBtn">✅ Проверить</button>
+                </div>
+            </div>
+        `;
+        
+        const input = document.getElementById('pinyinInput');
+        const checkBtn = document.getElementById('checkBtn');
+        
+        if (input) {
+            input.focus();
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !answered) checkAnswer();
+            });
         }
-        h += '</div><div class="result-msg" id="pbMsg"></div><div class="builder-words" id="pbWords">';
-        for (var j = 0; j < words.length; j++) {
-            h += '<div class="builder-word" onclick="pbPlaceWord(\'' + words[j] + '\',this)" id="pbWord' + j + '">' + words[j] + '</div>';
-        }
-        h += '</div><button class="btn" onclick="pbCheck()">✅</button> ';
-        h += '<button class="btn secondary" onclick="pbClear()">🔄</button> ';
-        h += '<button class="play-btn" onclick="speak(\'' + pbCurrent.chinese + '\')">🔊</button>';
-        document.getElementById('pbGameArea').innerHTML = h;
+        if (checkBtn) checkBtn.onclick = () => checkAnswer();
+        
+        // Скрываем сообщение
+        messageDiv.textContent = '';
     }
-
-    function pbPlaceWord(word, btn) {
-        if (pbAnswered) return;
-        for (var i = 0; i < pbSlots.length; i++) {
-            if (pbSlots[i] === null) {
-                pbSlots[i] = word; btn.classList.add('used');
-                var s = document.getElementById('pbSlot' + i);
-                s.textContent = word; s.classList.remove('empty'); s.classList.add('filled');
-                return;
+    
+    // ========== ПРОВЕРКА ОТВЕТА ==========
+    function checkAnswer() {
+        if (answered || !currentWord) return;
+        
+        const input = document.getElementById('pinyinInput');
+        if (!input) return;
+        
+        const userAnswer = input.value.trim().toLowerCase();
+        const correctAnswer = currentWord.pinyinNoTones;
+        const isCorrect = (userAnswer === correctAnswer);
+        
+        answered = true;
+        input.disabled = true;
+        
+        // Подсвечиваем поле ввода
+        if (isCorrect) {
+            input.classList.add('correct');
+            // Начисляем очки
+            const points = 10 + Math.min(streak, 15);
+            totalScore += points;
+            correctCount++;
+            streak++;
+            messageDiv.textContent = `✅ Правильно! +${points} очков!`;
+            messageDiv.style.color = '#4CAF50';
+        } else {
+            input.classList.add('wrong');
+            wrongCount++;
+            streak = 0;
+            messageDiv.textContent = `❌ Неправильно. Правильный ответ: ${correctAnswer}`;
+            messageDiv.style.color = '#e94560';
+        }
+        
+        updateStats();
+        
+        // Показываем результат с тонами и озвучкой
+        const resultBox = document.getElementById('resultBox');
+        if (resultBox) {
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `
+                <div class="result-correct">${isCorrect ? '🎉 Верно!' : '📖 Правильный ответ:'}</div>
+                <div class="result-pinyin">${currentWord.pinyin}</div>
+                <div style="margin-top: 0.5rem;">
+                    <button class="speak-btn" id="speakResultBtn">🔊 Слушать</button>
+                    <button class="speak-btn" id="speakCharBtn" style="background:#FF8C42;">🔊 Иероглиф</button>
+                </div>
+            `;
+            const speakResultBtn = document.getElementById('speakResultBtn');
+            const speakCharBtn = document.getElementById('speakCharBtn');
+            if (speakResultBtn) speakResultBtn.onclick = () => speakChinese(currentWord.pinyin);
+            if (speakCharBtn) speakCharBtn.onclick = () => speakChinese(currentWord.char);
+        }
+    }
+    
+    // ========== СБРОС ИГРЫ ==========
+    function resetGame() {
+        totalScore = 0;
+        correctCount = 0;
+        wrongCount = 0;
+        streak = 0;
+        answered = false;
+        updateStats();
+        gameWords = getWordsForLevel(currentLevel);
+        if (gameWords.length === 0) {
+            gameArea.innerHTML = '<div class="question-box"><p style="color:#FFD966;">⚠️ База данных не загружена. Проверьте файл frequency-db.js</p></div>';
+            return;
+        }
+        nextWord();
+    }
+    
+    // ========== СМЕНА УРОВНЯ ==========
+    function setLevel(level) {
+        currentLevel = level;
+        // Обновляем активную кнопку
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            if (parseInt(btn.dataset.level) === level) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
             }
-        }
-    }
-
-    function pbRemoveSlot(idx) {
-        if (pbAnswered || pbSlots[idx] === null) return;
-        var w = pbSlots[idx]; pbSlots[idx] = null;
-        var s = document.getElementById('pbSlot' + idx);
-        s.textContent = '_'; s.classList.add('empty'); s.classList.remove('filled');
-        document.querySelectorAll('#pbWords .builder-word').forEach(function(b) {
-            if (b.textContent === w) b.classList.remove('used');
         });
+        resetGame();
     }
-
-    function pbClear() {
-        if (pbAnswered) return;
-        for (var i = 0; i < pbSlots.length; i++) {
-            if (pbSlots[i] !== null) { var w = pbSlots[i]; pbSlots[i] = null;
-                var s = document.getElementById('pbSlot' + i);
-                s.textContent = '_'; s.classList.add('empty'); s.classList.remove('filled');
-                document.querySelectorAll('#pbWords .builder-word').forEach(function(b) {
-                    if (b.textContent === w) b.classList.remove('used');
-                });
-            }
+    
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    function initGame() {
+        // Проверяем загрузку базы
+        if (typeof frequencyDB === 'undefined') {
+            gameArea.innerHTML = '<div class="question-box"><p style="color:#FFD966;">❌ Ошибка: frequency-db.js не загружен!</p></div>';
+            return;
         }
-    }
-
-    function pbCheck() {
-        if (pbAnswered || !pbCurrent) return;
-        for (var i = 0; i < pbSlots.length; i++) { if (pbSlots[i] === null) { alert('Заполните все слоты!'); return; } }
-        pbAnswered = true;
-        var ua = pbSlots.join(''), ca = pbCurrent.chinese;
-        document.querySelectorAll('#pbWords .builder-word').forEach(function(b) { b.style.pointerEvents = 'none'; });
-        for (var j = 0; j < pbSlots.length; j++) {
-            document.getElementById('pbSlot' + j).style.background = (pbSlots[j] === pbCurrent.words[j]) ? '#4CAF50' : '#e94560';
+        
+        gameWords = getWordsForLevel(currentLevel);
+        if (gameWords.length === 0) {
+            gameArea.innerHTML = '<div class="question-box"><p style="color:#FFD966;">⚠️ Нет слов в базе данных</p></div>';
+            return;
         }
-        var ok = (ua === ca);
-        if (ok) { pbScore += 20 + Math.min(pbStreak, 15); pbCorrect++; pbStreak++; }
-        else { pbWrong++; pbStreak = 0; }
-        var m = document.getElementById('pbMsg');
-        m.textContent = ok ? '✅ ' + ca : '❌ ' + ca;
-        m.className = 'result-msg ' + (ok ? 'ok' : 'fail');
-        pbUpdateScore();
+        
+        nextWord();
     }
-
-    function pbUpdateScore() {
-        document.getElementById('pbScore').textContent = pbScore;
-        document.getElementById('pbCorrect').textContent = pbCorrect;
-        document.getElementById('pbWrong').textContent = pbWrong;
-        document.getElementById('pbStreak').textContent = pbStreak;
-    }
-
-    function pbReset() { pbScore = pbCorrect = pbWrong = pbStreak = 0; pbUpdateScore(); pbNext(); }
-
-    } // КОНЕЦ ПРОВЕРКИ БАЗЫ
+    
+    // ========== ПОДКЛЮЧЕНИЕ ОБРАБОТЧИКОВ ==========
+    nextBtn.onclick = () => {
+        if (!answered) {
+            messageDiv.textContent = '⚠️ Сначала проверьте текущий ответ!';
+            setTimeout(() => { if (messageDiv) messageDiv.textContent = ''; }, 1500);
+            return;
+        }
+        nextWord();
+    };
+    resetBtn.onclick = () => resetGame();
+    
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.onclick = () => setLevel(parseInt(btn.dataset.level));
+    });
+    
+    // Запускаем игру
+    const waitForDB = setInterval(() => {
+        if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
+            clearInterval(waitForDB);
+            initGame();
+        }
+    }, 150);
 </script>
 </body>
 </html>
