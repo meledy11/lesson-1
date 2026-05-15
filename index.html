@@ -82,6 +82,32 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
+        /* Стиль для полноэкранного режима (скрывает всё меню) */
+        body.fullscreen-mode .container > .hero,
+        body.fullscreen-mode .tabs-nav,
+        body.fullscreen-mode .tab-content:not(.fullscreen-active),
+        body.fullscreen-mode footer {
+            display: none;
+        }
+        body.fullscreen-mode .tab-content.fullscreen-active {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            background: #0d2818;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        body.fullscreen-mode .tab-content.fullscreen-active iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         .speak-tip {
             text-align: center;
             background: #FFF1C1;
@@ -466,17 +492,32 @@
             <iframe src="syllables.html" class="syllables-frame" title="Популярные слоги китайского"></iframe>
         </div>
         
-        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (открываются внутри приложения) -->
+        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (ПОЛНОЭКРАННО) -->
         <div class="tab-content" id="tab-phrases">
             <div class="speak-tip">
                 <span>📇</span> 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов <span>🔊</span>
             </div>
-            <iframe src="phrases-cards.html" style="width:100%; height:85vh; border:none; border-radius:30px; background:white; box-shadow:0 5px 20px rgba(0,0,0,0.1);"></iframe>
+            <div style="text-align: center; padding: 20px;">
+                <button onclick="openFullscreenPhrases()" style="background: linear-gradient(135deg, #FF6B35, #FF8C42); color: white; border: none; padding: 18px 40px; border-radius: 60px; font-weight: bold; font-size: 1.2rem; cursor: pointer; box-shadow: 0 6px 0 #C16F1A;">
+                    🃏 Открыть карточки на весь экран
+                </button>
+                <p style="margin-top: 20px; color: #5a2e0e; font-size: 0.9rem;">
+                    ✨ Карточки переворачиваются | Есть поиск и уровни | Кликай на радикалы — слушай произношение ✨
+                </p>
+            </div>
         </div>
         
         <footer>
             🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + 600 фраз. 🀄 Играй в маджонг для запоминания ключей! 📇 Карточки фраз — учи целые предложения!
         </footer>
+    </div>
+    
+    <!-- Скрытый iframe для полноэкранного режима -->
+    <div id="fullscreenContainer" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1001; background: #0d2818;">
+        <button onclick="closeFullscreen()" style="position: absolute; top: 20px; left: 20px; z-index: 1002; background: #FF6B35; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #C16F1A;">
+            ← Назад к меню
+        </button>
+        <iframe id="fullscreenIframe" src="phrases-cards.html" style="width: 100%; height: 100%; border: none;"></iframe>
     </div>
     
     <!-- Подключаем все базы данных -->
@@ -485,6 +526,17 @@
     <script src="phrases-db.js"></script>
     
     <script>
+        // ===== ПОЛНОЭКРАННЫЙ РЕЖИМ ДЛЯ КАРТОЧЕК =====
+        function openFullscreenPhrases() {
+            document.getElementById('fullscreenContainer').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeFullscreen() {
+            document.getElementById('fullscreenContainer').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
         // ===== PWA УСТАНОВКА НА ANDROID =====
         let deferredPrompt = null;
         const installBanner = document.getElementById('installBanner');
@@ -737,7 +789,7 @@
         // Обработка переходов для PWA — все ссылки открываются в том же окне
         document.addEventListener('click', function(e) {
             const link = e.target.closest('a');
-            if (link && link.href && link.href.startsWith(window.location.origin)) {
+            if (link && link.href && link.href.startsWith(window.location.origin) && !link.hasAttribute('data-no-pwa')) {
                 e.preventDefault();
                 window.location.href = link.href;
             }
