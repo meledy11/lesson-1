@@ -379,6 +379,49 @@
             color: #FFD966;
             font-size: 0.9rem;
         }
+        
+        /* Стили для отчёта о недостающих иероглифах */
+        .missing-report {
+            background: rgba(0,0,0,0.8);
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #FFD966;
+            font-size: 0.8rem;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        .missing-report.show {
+            display: block;
+        }
+        .missing-report h4 {
+            color: #FF8C42;
+            margin-bottom: 10px;
+        }
+        .missing-report .missing-char {
+            background: rgba(255,255,255,0.1);
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 10px;
+            font-family: monospace;
+        }
+        .missing-report .char-symbol {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+        .toggle-report-btn {
+            background: #9C27B0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
         #toast {
             position: fixed;
             bottom: 30px;
@@ -481,6 +524,12 @@
         <button class="action-btn speak" id="speakBtn">🔊 Озвучить фразу</button>
         <button class="action-btn learned" id="learnedBtn">✅ Выучил</button>
         <button class="action-btn random" id="randomBtn">🎲 Случайная</button>
+        <button class="toggle-report-btn" id="toggleReportBtn">📋 Показать отчёт о базе иероглифов</button>
+    </div>
+
+    <div class="missing-report" id="missingReport">
+        <h4>📊 ОТЧЁТ О БАЗЕ ИЕРОГЛИФОВ</h4>
+        <div id="reportContent"></div>
     </div>
 
     <div class="stats-info" id="statsInfo">📊 Загрузка...</div>
@@ -491,6 +540,102 @@
     <script src="characters-db.js"></script>
     
     <script>
+    // ==================== ПРОВЕРКА НЕДОСТАЮЩИХ ИЕРОГЛИФОВ ====================
+
+    let missingCharsList = [];
+
+    function checkMissingCharacters() {
+        if (!allPhrases || !allPhrases.length) {
+            console.log("⏳ Фразы ещё не загружены, проверка отложена...");
+            setTimeout(checkMissingCharacters, 500);
+            return;
+        }
+        
+        if (typeof fullCharData === 'undefined') {
+            console.log("⏳ База иероглифов ещё не загружена, проверка отложена...");
+            setTimeout(checkMissingCharacters, 500);
+            return;
+        }
+        
+        console.log("🔍 ========== ПРОВЕРКА БАЗЫ ИЕРОГЛИФОВ ==========");
+        
+        // Собираем все уникальные иероглифы из фраз
+        const uniqueChars = new Set();
+        for (const phrase of allPhrases) {
+            for (const char of phrase.chinese) {
+                if (char.trim() && !/[\d\s]/.test(char)) {
+                    uniqueChars.add(char);
+                }
+            }
+        }
+        
+        // Проверяем, каких иероглифов нет в базе
+        const missingChars = [];
+        const existingCount = [];
+        
+        for (const char of uniqueChars) {
+            if (fullCharData[char]) {
+                existingCount.push(char);
+            } else {
+                missingChars.push(char);
+            }
+        }
+        
+        missingCharsList = missingChars;
+        
+        // Выводим статистику в консоль
+        console.log(`📊 Всего уникальных иероглифов во фразах: ${uniqueChars.size}`);
+        console.log(`✅ Есть в базе: ${existingCount.length}`);
+        console.log(`❌ НЕТ в базе: ${missingChars.length}`);
+        
+        if (missingChars.length > 0) {
+            console.log("\n⚠️ НЕДОСТАЮЩИЕ ИЕРОГЛИФЫ:");
+            console.log("========================================");
+            
+            // Группируем по фразам для удобства
+            const missingWithContext = [];
+            for (const char of missingChars) {
+                const phrasesWithChar = [];
+                for (const phrase of allPhrases) {
+                    if (phrase.chinese.includes(char)) {
+                        phrasesWithChar.push(`${phrase.chinese} (${phrase.russian})`);
+                    }
+                }
+                missingWithContext.push({
+                    char: char,
+                    phrases: phrasesWithChar.slice(0, 3)
+                });
+                
+                // Выводим в консоль
+                console.log(`\n❌ "${char}" — встречается во фразах:`);
+                for (const p of phrasesWithChar.slice(0, 3)) {
+                    console.log(`     → ${p}`);
+                }
+            }
+            
+            // Формируем HTML для отчёта
+            let reportHtml = `<p style="color:#FF8C42;">⚠️ НАЙДЕНО ${missingChars.length} НЕДОСТАЮЩИХ ИЕРОГЛИФОВ:</p>`;
+            for (const item of missingWithContext) {
+                reportHtml += `<div class="missing-char">
+                    <span class="char-symbol">"${item.char}"</span> — встречается во фразах:<br>
+                    <span style="font-size:0.75rem; color:#ccc;">→ ${item.phrases.join('<br>→ ')}</span>
+                </div>`;
+            }
+            reportHtml += `<p style="margin-top:10px; font-size:0.7rem; color:#aaa;">💡 Чтобы добавить иероглиф в базу, откройте файл characters-db.js и добавьте запись в формате:<br>
+            "${missingChars[0] || '?'}": { char: "${missingChars[0] || '?'}", pinyin: "...", radical: "...", radicalPinyin: "...", radicalMeaning: "...", phonetic: "...", phoneticPinyin: "...", semantic: "...", meaning: "...", examples: "...", emoji: "..." }</p>`;
+            
+            document.getElementById('reportContent').innerHTML = reportHtml;
+        } else {
+            console.log("🎉 ПОЗДРАВЛЯЮ! Все иероглифы из фраз есть в базе!");
+            document.getElementById('reportContent').innerHTML = '<p style="color:#4CAF50;">🎉 ПОЗДРАВЛЯЮ! Все иероглифы из фраз есть в базе!</p><p>✅ База полная, можно спокойно использовать приложение.</p>';
+        }
+        
+        // Показываем отчёт на странице, если есть недостающие
+        if (missingChars.length > 0) {
+            document.getElementById('missingReport').classList.add('show');
+        }
+    }
+
     // Функция озвучивания текста
     function speakText(text, lang = "zh-CN") {
         if (!text || !window.speechSynthesis) return;
@@ -580,6 +725,9 @@
             allPhrases.forEach(p => { if(levelCounts[p.level]) levelCounts[p.level]++; });
             document.getElementById('statsInfo').innerHTML = `📊 Всего: ${allPhrases.length} фраз | ⭐1: ${levelCounts[1]} | ⭐⭐2: ${levelCounts[2]} | ⭐⭐⭐3: ${levelCounts[3]} | ⭐⭐⭐⭐4: ${levelCounts[4]} | ⭐⭐⭐⭐⭐5: ${levelCounts[5]}`;
             applyFilters();
+            
+            // Запускаем проверку базы иероглифов
+            setTimeout(checkMissingCharacters, 100);
         } else {
             console.error("phrasesDB не загружена");
             allPhrases = [
@@ -708,6 +856,17 @@
     function clearSearch() { document.getElementById('searchInput').value = ''; currentSearchQuery = ''; currentIndex = 0; applyFilters(); }
     function flipCard() { isFlipped = !isFlipped; if (isFlipped) document.getElementById('card').classList.add('flipped'); else document.getElementById('card').classList.remove('flipped'); }
     function toggleHideLearned() { hideLearned = !hideLearned; const btn = document.getElementById('hideLearnedBtn'); if (hideLearned) { btn.innerHTML = '🙈 Показать все'; btn.classList.add('active'); } else { btn.innerHTML = '🙈 Скрыть выученные'; btn.classList.remove('active'); } currentIndex = 0; applyFilters(); }
+    function toggleReport() {
+        const report = document.getElementById('missingReport');
+        const btn = document.getElementById('toggleReportBtn');
+        if (report.classList.contains('show')) {
+            report.classList.remove('show');
+            btn.innerHTML = '📋 Показать отчёт о базе иероглифов';
+        } else {
+            report.classList.add('show');
+            btn.innerHTML = '📋 Скрыть отчёт';
+        }
+    }
 
     document.getElementById('prevBtn').addEventListener('click', prevPhrase);
     document.getElementById('nextBtn').addEventListener('click', nextPhrase);
@@ -720,6 +879,7 @@
     document.getElementById('hideLearnedBtn').addEventListener('click', toggleHideLearned);
     document.getElementById('prevCharBtn').addEventListener('click', prevChar);
     document.getElementById('nextCharBtn').addEventListener('click', nextChar);
+    document.getElementById('toggleReportBtn').addEventListener('click', toggleReport);
     document.querySelectorAll('.level-btn').forEach(btn => { btn.addEventListener('click', () => setLevel(btn.dataset.level)); });
     document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchPhrases(); });
 
