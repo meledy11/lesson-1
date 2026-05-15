@@ -108,7 +108,6 @@
             border-radius: 40px;
             padding: 1.5rem;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 10px 0 #2a1a0e;
-            transition: all 0.2s ease;
         }
         
         .question-box {
@@ -178,11 +177,34 @@
             background: #ffebee;
         }
         
-        .hint-text {
-            font-size: 0.7rem;
-            color: #FFE0A3;
-            margin-top: 0.3rem;
+        .dictant-input:disabled {
             opacity: 0.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .check-btn {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #1B5E20;
+            transition: 0.05s linear;
+            font-size: 1rem;
+        }
+        
+        .check-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1B5E20;
         }
         
         .result-box {
@@ -212,10 +234,17 @@
         }
         
         .result-pinyin {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #FFB347;
             font-family: monospace;
+            margin: 0.5rem 0;
+        }
+        
+        .user-answer {
+            font-size: 1.2rem;
+            color: #FFE0A3;
+            margin-top: 0.5rem;
         }
         
         .speak-btn {
@@ -224,7 +253,7 @@
             padding: 0.5rem 1rem;
             border-radius: 40px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin: 0.3rem;
             color: white;
             font-weight: bold;
@@ -237,7 +266,7 @@
             box-shadow: 0 1px 0 #3A6B2E;
         }
         
-        .buttons {
+        .bottom-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -268,10 +297,9 @@
             box-shadow: 0 4px 0 #2E7D32;
         }
         
-        .btn:disabled {
-            opacity: 0.5;
-            transform: none;
-            cursor: not-allowed;
+        .btn.dont-know {
+            background: linear-gradient(135deg, #888, #666);
+            box-shadow: 0 4px 0 #444;
         }
         
         .message {
@@ -284,8 +312,11 @@
         
         @media (max-width: 550px) {
             .question-char { font-size: 3.5rem; }
-            .result-pinyin { font-size: 1.3rem; }
+            .result-pinyin { font-size: 1.2rem; }
             .dictant-input { font-size: 1rem; padding: 0.8rem 1rem; }
+            .check-btn { padding: 0.5rem 1.2rem; font-size: 0.9rem; }
+            .btn { padding: 0.5rem 1rem; font-size: 0.9rem; }
+            .speak-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -293,7 +324,7 @@
 <div class="container">
     <div class="hero">
         <h1>🎯 Диктант пиньиня</h1>
-        <p>Введи пиньинь без тонов → Enter или пауза 0.5 сек</p>
+        <p>Напиши пиньинь без тонов → нажми ✅ Проверить</p>
         <div class="back-btn" onclick="window.location.href='index.html'">🏠 На главную</div>
     </div>
     
@@ -313,7 +344,8 @@
     
     <div class="game-area" id="gameArea"></div>
     
-    <div class="buttons">
+    <div class="bottom-buttons">
+        <button class="btn dont-know" id="dontKnowBtn">🤷 Не знаю</button>
         <button class="btn" id="nextBtn">▶ Следующее</button>
         <button class="btn secondary" id="resetBtn">🔄 Сброс</button>
     </div>
@@ -327,7 +359,7 @@
     let currentWord = null;
     let answered = false;
     let currentLevel = 1;
-    let checkTimeout = null;
+    let lastUserAnswer = ''; // запоминаем последний ответ пользователя
     
     let totalScore = 0;
     let correctCount = 0;
@@ -335,7 +367,47 @@
     let streak = 0;
     
     // DOM элементы
-    let gameArea, scoreValue, correctValue, wrongValue, streakValue, nextBtn, resetBtn, messageDiv;
+    let gameArea, scoreValue, correctValue, wrongValue, streakValue, nextBtn, resetBtn, dontKnowBtn, messageDiv;
+    
+    // ========== ОЗВУЧКА ПОСЛОГОВАЯ ==========
+    function speakChinese(text) {
+        if (!text || text.trim() === '') return;
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        
+        const syllables = text.trim().split(/\s+/);
+        
+        if (syllables.length === 1) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.7;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            let index = 0;
+            function speakNext() {
+                if (index >= syllables.length) return;
+                const utterance = new SpeechSynthesisUtterance(syllables[index]);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.7;
+                utterance.onend = () => {
+                    index++;
+                    setTimeout(speakNext, 100);
+                };
+                window.speechSynthesis.speak(utterance);
+            }
+            speakNext();
+        }
+    }
+    
+    // ========== ОЗВУЧКА ИЕРОГЛИФА ==========
+    function speakChar(char) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(char);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.7;
+        window.speechSynthesis.speak(utterance);
+    }
     
     // ========== ФУНКЦИЯ УДАЛЕНИЯ ТОНОВ ==========
     function removeTones(pinyin) {
@@ -380,16 +452,6 @@
         return shuffled.slice(0, Math.min(limit, shuffled.length));
     }
     
-    // ========== ОЗВУЧКА ==========
-    function speakChinese(text) {
-        if (!window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN';
-        utterance.rate = 0.8;
-        window.speechSynthesis.speak(utterance);
-    }
-    
     // ========== ОБНОВЛЕНИЕ СТАТИСТИКИ ==========
     function updateStats() {
         if (scoreValue) scoreValue.textContent = totalScore;
@@ -398,27 +460,25 @@
         if (streakValue) streakValue.textContent = streak;
     }
     
-    // ========== ПРОВЕРКА ОТВЕТА ==========
-    function performCheck() {
-        if (answered || !currentWord) return false;
+    // ========== ПОКАЗАТЬ РЕЗУЛЬТАТ ==========
+    function showResult(isCorrect, userAnswer, correctAnswer) {
+        answered = true;
+        lastUserAnswer = userAnswer;
         
         const input = document.getElementById('pinyinInput');
-        if (!input) return false;
-        
-        const userAnswer = input.value.trim().toLowerCase();
-        const correctAnswer = currentWord.pinyinNoTones;
-        const isCorrect = (userAnswer === correctAnswer);
-        
-        answered = true;
-        input.disabled = true;
-        
-        if (checkTimeout) {
-            clearTimeout(checkTimeout);
-            checkTimeout = null;
+        if (input) {
+            input.disabled = true;
+            if (isCorrect) {
+                input.classList.add('correct');
+            } else {
+                input.classList.add('wrong');
+            }
         }
         
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn) checkBtn.disabled = true;
+        
         if (isCorrect) {
-            input.classList.add('correct');
             const points = 10 + Math.min(streak, 15);
             totalScore += points;
             correctCount++;
@@ -428,11 +488,10 @@
                 messageDiv.style.color = '#4CAF50';
             }
         } else {
-            input.classList.add('wrong');
             wrongCount++;
             streak = 0;
             if (messageDiv) {
-                messageDiv.textContent = `❌ Неправильно. Правильный ответ: ${correctAnswer}`;
+                messageDiv.textContent = `❌ Неправильно`;
                 messageDiv.style.color = '#e94560';
             }
         }
@@ -445,18 +504,94 @@
             resultBox.innerHTML = `
                 <div class="result-correct">${isCorrect ? '🎉 Верно!' : '📖 Правильный ответ:'}</div>
                 <div class="result-pinyin">${currentWord.pinyin}</div>
-                <div style="margin-top: 0.5rem;">
-                    <button class="speak-btn" id="speakResultBtn">🔊 Слушать пиньинь</button>
-                    <button class="speak-btn" id="speakCharBtn" style="background:#FF8C42;">🔊 Иероглиф</button>
+                ${!isCorrect ? `<div class="user-answer">📝 Ваш ответ: ${userAnswer || '(пусто)'}</div>` : ''}
+                <div style="margin-top: 0.8rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="speak-btn" id="speakMyAnswerBtn">🔊 Мой ответ</button>
+                    <button class="speak-btn" id="speakCorrectBtn" style="background:#FF8C42;">🔊 Правильный</button>
+                    <button class="speak-btn" id="speakCharBtn" style="background:#5D9B4B;">🔊 Иероглиф</button>
                 </div>
             `;
-            const speakResultBtn = document.getElementById('speakResultBtn');
+            
+            const speakMyAnswerBtn = document.getElementById('speakMyAnswerBtn');
+            const speakCorrectBtn = document.getElementById('speakCorrectBtn');
             const speakCharBtn = document.getElementById('speakCharBtn');
-            if (speakResultBtn) speakResultBtn.onclick = () => speakChinese(currentWord.pinyin);
-            if (speakCharBtn) speakCharBtn.onclick = () => speakChinese(currentWord.char);
+            
+            if (speakMyAnswerBtn) {
+                speakMyAnswerBtn.onclick = () => speakChinese(userAnswer);
+            }
+            if (speakCorrectBtn) {
+                speakCorrectBtn.onclick = () => speakChinese(currentWord.pinyin);
+            }
+            if (speakCharBtn) {
+                speakCharBtn.onclick = () => speakChar(currentWord.char);
+            }
+        }
+    }
+    
+    // ========== ПРОВЕРКА ОТВЕТА ==========
+    function checkAnswer() {
+        if (answered || !currentWord) return;
+        
+        const input = document.getElementById('pinyinInput');
+        if (!input) return;
+        
+        const userAnswer = input.value.trim().toLowerCase();
+        const correctAnswer = currentWord.pinyinNoTones;
+        const isCorrect = (userAnswer === correctAnswer);
+        
+        showResult(isCorrect, userAnswer, correctAnswer);
+    }
+    
+    // ========== НЕ ЗНАЮ ==========
+    function dontKnow() {
+        if (answered || !currentWord) return;
+        
+        const input = document.getElementById('pinyinInput');
+        const userAnswer = input ? input.value.trim().toLowerCase() : '';
+        
+        if (input) {
+            input.disabled = true;
+            input.classList.add('wrong');
         }
         
-        return true;
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn) checkBtn.disabled = true;
+        
+        wrongCount++;
+        streak = 0;
+        updateStats();
+        
+        if (messageDiv) {
+            messageDiv.textContent = `📖 Правильный ответ: ${currentWord.pinyinNoTones}`;
+            messageDiv.style.color = '#FFD966';
+        }
+        
+        const resultBox = document.getElementById('resultBox');
+        if (resultBox) {
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `
+                <div class="result-correct">📖 Правильный ответ:</div>
+                <div class="result-pinyin">${currentWord.pinyin}</div>
+                ${userAnswer ? `<div class="user-answer">📝 Ваш ответ: ${userAnswer}</div>` : ''}
+                <div style="margin-top: 0.8rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                    ${userAnswer ? `<button class="speak-btn" id="speakMyAnswerBtn">🔊 Мой ответ</button>` : ''}
+                    <button class="speak-btn" id="speakCorrectBtn" style="background:#FF8C42;">🔊 Правильный</button>
+                    <button class="speak-btn" id="speakCharBtn" style="background:#5D9B4B;">🔊 Иероглиф</button>
+                </div>
+            `;
+            
+            if (userAnswer) {
+                const speakMyAnswerBtn = document.getElementById('speakMyAnswerBtn');
+                if (speakMyAnswerBtn) speakMyAnswerBtn.onclick = () => speakChinese(userAnswer);
+            }
+            const speakCorrectBtn = document.getElementById('speakCorrectBtn');
+            const speakCharBtn = document.getElementById('speakCharBtn');
+            
+            if (speakCorrectBtn) speakCorrectBtn.onclick = () => speakChinese(currentWord.pinyin);
+            if (speakCharBtn) speakCharBtn.onclick = () => speakChar(currentWord.char);
+        }
+        
+        answered = true;
     }
     
     // ========== ПОКАЗ СЛЕДУЮЩЕГО СЛОВА ==========
@@ -468,52 +603,42 @@
             return;
         }
         
-        if (checkTimeout) {
-            clearTimeout(checkTimeout);
-            checkTimeout = null;
-        }
-        
         const randomIndex = Math.floor(Math.random() * gameWords.length);
         currentWord = { ...gameWords[randomIndex] };
         answered = false;
+        lastUserAnswer = '';
         
         if (gameArea) {
             gameArea.innerHTML = `
                 <div class="question-box">
-                    <div class="question-char" onclick="speakChinese('${currentWord.char.replace(/'/g, "\\'")}')">${currentWord.char}</div>
+                    <div class="question-char" onclick="speakChar('${currentWord.char.replace(/'/g, "\\'")}')">${currentWord.char}</div>
                     <div class="question-meaning">${currentWord.meaning}</div>
                     <div class="input-wrapper">
                         <input type="text" class="dictant-input" id="pinyinInput" 
                                placeholder="введите пиньинь..." autocomplete="off">
-                        <div class="hint-text">⏎ Enter или пауза → авто-проверка</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="check-btn" id="checkBtn">✅ Проверить</button>
                     </div>
                     <div class="result-box" id="resultBox" style="display:none;"></div>
                 </div>
             `;
             
             const input = document.getElementById('pinyinInput');
+            const checkBtn = document.getElementById('checkBtn');
+            
             if (input) {
                 input.focus();
-                
-                input.addEventListener('input', function() {
-                    if (answered) return;
-                    if (checkTimeout) clearTimeout(checkTimeout);
-                    checkTimeout = setTimeout(() => {
-                        performCheck();
-                        checkTimeout = null;
-                    }, 500);
-                });
-                
-                input.addEventListener('keydown', function(e) {
+                input.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' && !answered) {
                         e.preventDefault();
-                        if (checkTimeout) {
-                            clearTimeout(checkTimeout);
-                            checkTimeout = null;
-                        }
-                        performCheck();
+                        checkAnswer();
                     }
                 });
+            }
+            
+            if (checkBtn) {
+                checkBtn.onclick = () => checkAnswer();
             }
         }
         
@@ -527,11 +652,6 @@
         wrongCount = 0;
         streak = 0;
         answered = false;
-        
-        if (checkTimeout) {
-            clearTimeout(checkTimeout);
-            checkTimeout = null;
-        }
         
         updateStats();
         gameWords = getWordsForLevel(currentLevel);
@@ -567,6 +687,7 @@
         streakValue = document.getElementById('streakValue');
         nextBtn = document.getElementById('nextBtn');
         resetBtn = document.getElementById('resetBtn');
+        dontKnowBtn = document.getElementById('dontKnowBtn');
         messageDiv = document.getElementById('message');
         
         if (typeof frequencyDB === 'undefined') {
@@ -587,7 +708,7 @@
         if (nextBtn) nextBtn.onclick = () => {
             if (!answered) {
                 if (messageDiv) {
-                    messageDiv.textContent = '⚠️ Сначала введите ответ (Enter или пауза)';
+                    messageDiv.textContent = '⚠️ Сначала проверьте ответ или нажмите "Не знаю"';
                     messageDiv.style.color = '#FFD966';
                     setTimeout(() => { if (messageDiv) messageDiv.textContent = ''; }, 1500);
                 }
@@ -597,6 +718,7 @@
         };
         
         if (resetBtn) resetBtn.onclick = () => resetGame();
+        if (dontKnowBtn) dontKnowBtn.onclick = () => dontKnow();
         
         document.querySelectorAll('.level-btn').forEach(btn => {
             btn.onclick = () => setLevel(parseInt(btn.dataset.level));
@@ -605,7 +727,7 @@
         nextWord();
     }
     
-    // Ждём загрузку DB
+    // Запускаем игру
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initGame);
     } else {
