@@ -1178,78 +1178,9 @@
     document.querySelectorAll('.level-btn').forEach(btn => { btn.addEventListener('click', () => setLevel(btn.dataset.level)); });
     document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchPhrases(); });
 
-window.speakText = speakText;
-loadPhrases();
-
-// 🔹 🔹 🔹 ВСТАВЬТЕ ФУНКЦИЮ СЮДА 🔹 🔹 🔹
-function runCharCheck() {
-    if (typeof phrasesDB === 'undefined' || typeof fullCharData === 'undefined') {
-        alert('❌ Данные ещё не загружены! Подождите немного.');
-        return;
-    }
-    
-    const missing = new Map();
-    const checked = new Set();
-    
-    for (const phrase of phrasesDB) {
-        for (const char of phrase.chinese) {
-            if (/[\u4e00-\u9fff]/.test(char) && !checked.has(char)) {
-                checked.add(char);
-                if (!fullCharData[char]) {
-                    missing.set(char, phrase);
-                }
-            }
-        }
-        if (phrase.words) {
-            for (const word of phrase.words) {
-                for (const char of word) {
-                    if (/[\u4e00-\u9fff]/.test(char) && !checked.has(char)) {
-                        checked.add(char);
-                        if (!fullCharData[char]) {
-                            missing.set(char, phrase);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    let msg = `🔍 Проверка завершена!\n\n`;
-    msg += `• Иероглифов проверено: ${checked.size}\n`;
-    msg += `• В базе fullCharData: ${Object.keys(fullCharData).length}\n`;
-    msg += `• ❌ Отсутствует: ${missing.size}\n\n`;
-    
-    if (missing.size > 0) {
-        msg += `📋 Найдены пропуски:\n`;
-        let i = 1;
-        for (const [char, phrase] of missing) {
-            msg += `${i}. ${char} — "${phrase.chinese}" (${phrase.russian}) [L${phrase.level}]\n`;
-            i++;
-            if (i > 10) { msg += `... и ещё ${missing.size - 10}\n`; break; }
-        }
-        msg += `\n💡 Скопируйте этот список и добавьте иероглифы в fullCharData!`;
-    } else {
-        msg += `✅ ВСЕ ИЕРОГЛИФЫ ЕСТЬ! Отличная работа! 🎉`;
-    }
-    
-    alert(msg);
-    console.log('📋 Полный отчёт в консоли:');
-    for (const [char, phrase] of missing) {
-        console.log(`❌ ${char} — ${phrase.chinese} | ${phrase.russian} | L${phrase.level}`);
-    }
-}
-// 🔹 🔹 🔹 КОНЕЦ ФУНКЦИИ 🔹 🔹 🔹
-
-</script>  ← закрывающий тег скрипта
-
-<!-- 🔹 🔹 🔹 ВСТАВЬТЕ КНОПКУ СЮДА 🔹 🔹 🔹 -->
-<div id="debugPanel" style="position:fixed;bottom:20px;right:20px;z-index:9999;">
-    <button onclick="runCharCheck()" style="
-        background:#FF6B35;color:white;border:none;
-        padding:12px 20px;border-radius:50px;
-        font-weight:bold;font-size:14px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.3);">🔍 Проверить</button>
-</div>
+    window.speakText = speakText;
+    loadPhrases();
+</script>  <!-- конец скрипта -->
 
 </body>
 </html>
