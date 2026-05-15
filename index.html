@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📚 Весёлый китайский — Все уроки и игры</title>
+    <title>📚 Весёлый китайский - Все уроки</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -82,6 +82,32 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
+        /* Стиль для полноэкранного режима (скрывает всё меню) */
+        body.fullscreen-mode .container > .hero,
+        body.fullscreen-mode .tabs-nav,
+        body.fullscreen-mode .tab-content:not(.fullscreen-active),
+        body.fullscreen-mode footer {
+            display: none;
+        }
+        body.fullscreen-mode .tab-content.fullscreen-active {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            background: #0d2818;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        body.fullscreen-mode .tab-content.fullscreen-active iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         .speak-tip {
             text-align: center;
             background: #FFF1C1;
@@ -92,12 +118,12 @@
             border: 2px solid #FFB347;
         }
         
-        .lessons-list, .games-grid {
+        .lessons-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
-        .lesson-card, .game-card {
+        .lesson-card {
             background: white;
             border-radius: 30px;
             padding: 1.3rem;
@@ -108,11 +134,35 @@
             transition: 0.1s;
             display: block;
         }
-        .lesson-card:hover, .game-card:hover { transform: translateY(-2px); }
-        .lesson-card:active, .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
-        .lesson-card h2, .game-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
-        .lesson-card p, .game-card p { font-size: 0.85rem; color: #8B5A2B; }
+        .lesson-card:hover { transform: translateY(-2px); }
+        .lesson-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
+        .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .game-card {
+            background: white;
+            border-radius: 30px;
+            padding: 1.2rem;
+            text-align: center;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            cursor: pointer;
+            transition: 0.1s;
+            text-decoration: none;
+            color: #A64B2A;
+            display: block;
+        }
+        .game-card:hover { transform: translateY(-2px); }
+        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
         .game-card .game-icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
+        .game-card h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .game-card p { font-size: 0.75rem; color: #8B5A2B; }
+        
         .game-tag {
             display: inline-block;
             background: #4CAF50;
@@ -266,6 +316,15 @@
             font-size: 0.85rem;
         }
         
+        .syllables-frame {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -289,6 +348,9 @@
                 margin-top: 0.7rem;
                 align-self: flex-end;
             }
+            .syllables-frame {
+                height: 70vh;
+            }
         }
     </style>
     <meta name="theme-color" content="#FF6B35">
@@ -309,7 +371,7 @@
         
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь | Карточки фраз 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз 🎧</p>
         </div>
         
         <!-- ВКЛАДКИ -->
@@ -317,25 +379,31 @@
             <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
             <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
+            <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
             <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
             <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
         </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
         <div class="tab-content active" id="tab-lessons">
-            <div class="speak-tip">🌟 Выбери урок и начинай учить иероглифы с удовольствием! 🌟</div>
+            <div class="speak-tip">      <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
+            </div>
             <div class="lessons-list" id="lessonsList">
                 <a href="frequency-lesson.html" class="lesson-card">
                     <h2>🔥 127 самых частотных слов</h2>
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
-                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">🎯 127 слов + разбор на части + есть/нет фонетик</div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
+                        🎯 127 слов + разбор на части + есть/нет фонетик
+                    </div>
                 </a>
             </div>
         </div>
         
-        <!-- ВКЛАДКА: ИГРЫ (все карточки, никаких iframe) -->
+        <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
-            <div class="speak-tip">🎮 Тренируй слова и фразы в игровой форме! 🎮</div>
+            <div class="speak-tip">
+                <span>🎮</span> Тренируй слова и фразы в игровой форме! <span>🎮</span>
+            </div>
             <div class="games-grid">
                 <a href="word-match.html" class="game-card">
                     <div class="game-icon">📚</div>
@@ -366,9 +434,9 @@
                 <a href="confusing-radicals.html" class="game-card">
                     <div class="game-icon">⚠️</div>
                     <h3>Похожие радикалы</h3>
-                    <p>Тренируй 白/自, 午/牛, 由/申/甲 и другие</p>
-                    <span class="game-tag orange">пропись + аудио</span>
-                </a>
+                  <p>Тренируй 白/自, 午/牛, 由/申/甲 и другие</p>
+                 <span class="game-tag orange">пропись + аудио</span>
+                 </a>
 
                 <a href="mahjong-word-key.html" class="game-card">
                     <div class="game-icon">🀄</div>
@@ -381,7 +449,9 @@
         
         <!-- ВКЛАДКА: СЛОВАРЬ -->
         <div class="tab-content" id="tab-dictionary">
-            <div class="speak-tip">🔍 Ищи по иероглифам, пиньиню или русскому переводу 🔍</div>
+            <div class="speak-tip">
+                <span>🔍</span> Ищи по иероглифам, пиньиню или русскому переводу <span>🔍</span>
+            </div>
             
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Например: 你好, nihao, привет, 的..." autocomplete="off">
@@ -397,34 +467,56 @@
                 <button class="filter-btn" data-level="5">⭐⭐⭐⭐⭐ Уровень 5</button>
             </div>
             
-            <div class="stats-info" id="statsInfo">📊 Загрузка словаря...</div>
+            <div class="stats-info" id="statsInfo">
+                📊 Загрузка словаря...
+            </div>
+            
             <div class="dict-results" id="dictResults">
                 <div style="text-align:center; padding:2rem;">📖 Начните поиск или выберите уровень</div>
             </div>
         </div>
         
-        <!-- ВКЛАДКА: HSK 1 — теперь карточка, как маджонг (без iframe) -->
-        <div class="tab-content" id="tab-hsk1">
-            <div class="speak-tip">📘 Все 150 слов HSK 1 с разбором, озвучкой и тетрадью ✍️</div>
+        <!-- ВКЛАДКА: СЛОГИ (убрал iframe, сделал карточку) -->
+        <div class="tab-content" id="tab-syllables">
+            <div class="speak-tip">
+                <span>🎵</span> Все слоги китайского языка с примерами и озвучкой <span>🎵</span>
+            </div>
             <div class="games-grid">
-                <a href="hsk1.html" class="game-card">
-                    <div class="game-icon">📘</div>
-                    <h3>HSK 1 — 150 слов</h3>
-                    <p>Полный курс начального уровня: разбор, пропись, озвучка</p>
-                    <span class="game-tag green">весь HSK 1</span>
+                <a href="syllables.html" class="game-card">
+                    <div class="game-icon">🎵</div>
+                    <h3>Таблица слогов</h3>
+                    <p>Все инициали и финали с тонами, озвучка, примеры</p>
+                    <span class="game-tag blue">фонетика</span>
                 </a>
             </div>
         </div>
         
-        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ — теперь карточка, как маджонг (без iframe) -->
+        <!-- ВКЛАДКА: HSK 1 (убрал iframe, сделал карточку) -->
+        <div class="tab-content" id="tab-hsk1">
+            <div class="speak-tip">
+                <span>📘</span> Все 150 слов HSK 1 с разбором, озвучкой и тетрадью <span>✍️</span>
+            </div>
+            <div class="games-grid">
+                <a href="hsk1.html" class="game-card">
+                    <div class="game-icon">📘</div>
+                    <h3>HSK 1 — 150 слов</h3>
+                    <p>Все слова начального уровня с разбором, прописью и озвучкой</p>
+                    <span class="game-tag green">полный курс</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ (убрал iframe и полноэкранный костыль, сделал карточку) -->
         <div class="tab-content" id="tab-phrases">
-            <div class="speak-tip">📇 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов 🔊</div>
+            <div class="speak-tip">
+                <span>📇</span> 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов <span>🔊</span>
+            </div>
             <div class="games-grid">
                 <a href="phrases-cards.html" class="game-card">
                     <div class="game-icon">🃏</div>
                     <h3>600 фраз — карточки</h3>
-                    <p>Переворот, поиск, уровни. Кликай на радикалы — слушай произношение</p>
-                    <span class="game-tag blue">полноэкранные карточки</span>
+                    <p>Карточки переворачиваются | Есть поиск и уровни | Кликай на радикалы — слушай произношение</p>
+                    <span class="game-tag orange">переворот + аудио</span>
                 </a>
             </div>
         </div>
@@ -434,7 +526,7 @@
         </footer>
     </div>
     
-    <!-- Подключаем базы данных -->
+    <!-- Подключаем все базы данных -->
     <script src="frequency-db.js"></script>
     <script src="lessons-data.js"></script>
     <script src="phrases-db.js"></script>
@@ -515,7 +607,7 @@
             console.log('lessons-data.js не загружен или пуст');
         }
         
-        // ===== СЛОВАРЬ С ПОИСКОМ (без iframe, работает напрямую) =====
+        // ===== СЛОВАРЬ С ПОИСКОМ =====
         let currentLevel = 'all';
         
         function speakChinese(text) {
