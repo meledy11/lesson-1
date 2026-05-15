@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📚 HSK 1 | 150 слов | Полный разбор + Тетрадь</title>
+    <!-- Настройки для полноэкранного режима как PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="full-screen" content="yes">
+    <title>📚 HSK 1 | 150 слов | Тетрадь</title>
     <style>
         * {
             margin: 0;
@@ -12,54 +17,72 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Полноэкранный режим */
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
         body {
             background: linear-gradient(145deg, #1a5f7a 0%, #f5d6a8 100%);
             font-family: 'Segoe UI', 'Poppins', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-            padding: 12px;
+            padding: 0;
+            margin: 0;
             min-height: 100vh;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
         }
 
+        /* Контейнер на весь экран */
         .hsk-container {
-            max-width: 950px;
-            margin: 0 auto;
+            width: 100%;
+            min-height: 100%;
             background: rgba(255, 249, 239, 0.95);
-            border-radius: 48px;
-            padding: 20px 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: 2px solid #E4C9A0;
+            padding: 16px;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
         }
 
+        /* Заголовок компактный */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 16px;
             background: #F3E5C0;
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 60px;
         }
         .header h1 {
             background: white;
-            padding: 6px 20px;
+            padding: 6px 16px;
             border-radius: 50px;
             color: #B46F2A;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin: 0;
         }
         .header h1 span {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #FF8C42;
         }
         .btn-home {
             background: #FF8C42;
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 40px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             box-shadow: 0 3px 0 #B45F1B;
             display: inline-block;
         }
@@ -78,7 +101,7 @@
             background: #F3E5C0;
             border-radius: 40px;
             padding: 12px 16px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .progress-bar {
             background: #D9B48B;
@@ -113,7 +136,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .nav-btn {
             background: linear-gradient(135deg, #f7b42c, #fc8e2c);
@@ -138,65 +161,65 @@
 
         .word-card {
             background: #FFFCF0;
-            border-radius: 48px;
-            padding: 24px 20px;
+            border-radius: 32px;
+            padding: 20px 16px;
             text-align: center;
             box-shadow: 0 8px 0 #C9AF85;
             border: 2px solid #E2CFAD;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .big-char {
-            font-size: 5.5rem;
+            font-size: 5rem;
             font-family: 'Noto Sans SC', monospace;
             background: white;
             display: inline-block;
-            padding: 15px 30px;
+            padding: 12px 24px;
             border-radius: 70px;
             color: #A5511A;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             box-shadow: 0 6px 0 #E0C8A0;
             cursor: pointer;
         }
         .pinyin {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #8B5A2B;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .meaning {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             background: #F3E5C0;
             display: inline-block;
             padding: 6px 20px;
             border-radius: 50px;
             color: #A5511A;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .association {
             background: #E8F5E9;
-            border-radius: 28px;
-            padding: 14px;
-            margin: 16px 0;
+            border-radius: 24px;
+            padding: 12px;
+            margin: 12px 0;
             text-align: left;
             border-left: 6px solid #4CAF50;
         }
         .association-img {
-            font-size: 2.5rem;
+            font-size: 2rem;
             display: inline-block;
-            margin-right: 12px;
+            margin-right: 10px;
             vertical-align: middle;
         }
         .association-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #2E6B2F;
             display: inline;
         }
 
         .writing-section {
             background: #F3E5C0;
-            border-radius: 32px;
-            padding: 16px;
-            margin-bottom: 20px;
+            border-radius: 28px;
+            padding: 14px;
+            margin-bottom: 16px;
         }
         .writing-title {
             text-align: center;
@@ -210,7 +233,7 @@
             margin: 0 auto;
             width: 100%;
             height: auto;
-            max-width: 400px;
+            max-width: 350px;
             aspect-ratio: 1 / 1;
             cursor: crosshair;
             border-radius: 20px;
@@ -222,12 +245,12 @@
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
-            margin: 15px 0;
+            margin: 12px 0;
         }
         .writing-tools button {
             background: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
@@ -238,29 +261,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 12px;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
         }
-        input[type="range"] { width: 150px; }
+        input[type="range"] { width: 130px; }
 
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin: 20px 0;
+            margin: 16px 0;
         }
         .action-btn {
             background: linear-gradient(135deg, #FF8C42, #FF6B35);
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: white;
             cursor: pointer;
             box-shadow: 0 3px 0 #B45F1B;
-            min-width: 130px;
+            min-width: 110px;
         }
         .action-btn:active { transform: translateY(2px); }
         .learned-btn {
@@ -272,22 +296,22 @@
 
         .accuracy-panel {
             background: #EEDDBB;
-            border-radius: 28px;
-            padding: 12px;
+            border-radius: 24px;
+            padding: 10px;
             text-align: center;
-            margin-top: 16px;
+            margin-top: 12px;
         }
         .accuracy-score {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #B95F1A;
         }
 
         .search-section {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             padding: 12px;
             background: #FFF8F0;
-            border-radius: 40px;
+            border-radius: 32px;
             border: 2px solid #FFB347;
         }
         .search-header {
@@ -299,6 +323,7 @@
         .search-header h3 {
             color: #A5511A;
             margin: 0;
+            font-size: 0.9rem;
         }
         .search-toggle {
             background: #FF8C42;
@@ -312,12 +337,12 @@
         .search-box {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .search-box input {
             flex: 1;
-            padding: 12px 16px;
-            font-size: 1rem;
+            padding: 10px 14px;
+            font-size: 0.9rem;
             border: 2px solid #D9B48B;
             border-radius: 50px;
             outline: none;
@@ -326,7 +351,7 @@
         .search-box button {
             background: linear-gradient(135deg, #f7b42c, #fc8e2c);
             border: none;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
@@ -334,16 +359,16 @@
         }
         .search-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 12px;
-            max-height: 300px;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            max-height: 280px;
             overflow-y: auto;
             padding: 5px;
         }
         .search-item {
             background: white;
             border-radius: 20px;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             cursor: pointer;
             transition: 0.1s;
@@ -354,23 +379,23 @@
             background: #FFF0E0;
         }
         .search-char {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #A5511A;
         }
         .search-pinyin {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #FF8C42;
         }
         .search-meaning {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #6B4E2E;
         }
         .search-hint {
             text-align: center;
-            padding: 12px;
+            padding: 10px;
             color: #8B5A2B;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         .phonetic-regular {
@@ -382,12 +407,16 @@
             font-weight: bold;
         }
 
+        /* Мобильная адаптация */
         @media (max-width: 550px) {
-            .big-char { font-size: 3.8rem; padding: 10px 20px; }
-            .pinyin { font-size: 1.2rem; }
-            .meaning { font-size: 0.95rem; }
-            .action-btn { padding: 10px 16px; font-size: 0.8rem; min-width: 100px; }
-            .association-text { font-size: 0.85rem; }
+            .hsk-container { padding: 12px; }
+            .big-char { font-size: 3.5rem; padding: 8px 16px; }
+            .pinyin { font-size: 1.1rem; }
+            .meaning { font-size: 0.9rem; }
+            .action-btn { padding: 8px 14px; font-size: 0.8rem; min-width: 90px; }
+            .association-text { font-size: 0.8rem; }
+            .nav-btn { width: 42px; height: 42px; font-size: 1.2rem; }
+            .word-counter { padding: 8px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -396,12 +425,12 @@
     <div class="header">
         <h1>📚 HSK 1 <span>150 слов</span></h1>
         <a href="index.html" class="btn-home">⬅ На главную</a>
-        <button class="reset-btn" id="resetProgressBtn">🔄 Сброс прогресса</button>
+        <button class="reset-btn" id="resetProgressBtn">🔄 Сброс</button>
     </div>
 
     <div class="progress-section">
         <div class="progress-stats">
-            <span>📖 Прогресс изучения</span>
+            <span>📖 Прогресс</span>
             <span class="learned-badge" id="learnedCount">0 / 150</span>
         </div>
         <div class="progress-bar">
@@ -409,18 +438,18 @@
         </div>
     </div>
 
-    <div style="margin-bottom: 15px; text-align: center;">
-        <button id="searchToggleBtn" style="background: #FF8C42; border: none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; color: white;">🔍 Поиск слов (150)</button>
+    <div style="margin-bottom: 12px; text-align: center;">
+        <button id="searchToggleBtn" style="background: #FF8C42; border: none; padding: 8px 18px; border-radius: 40px; font-weight: bold; cursor: pointer; color: white;">🔍 Поиск</button>
     </div>
 
     <div id="searchSection" style="display: none;">
         <div class="search-section">
             <div class="search-header">
-                <h3>🔍 Быстрый поиск по всем 150 словам</h3>
+                <h3>🔍 Быстрый поиск</h3>
                 <button class="search-toggle" id="searchCloseBtn">✖ Закрыть</button>
             </div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Иероглиф, пиньинь или перевод..." autocomplete="off">
+                <input type="text" id="searchInput" placeholder="Иероглиф, пиньинь, перевод..." autocomplete="off">
                 <button id="searchBtn">Найти</button>
             </div>
             <div id="searchResultsGrid"></div>
@@ -440,7 +469,7 @@
         <div class="association" id="associationBox">
             <div class="association-img" id="assocEmoji">❤️</div>
             <div class="association-text" id="assocText">Любовь, чувство</div>
-            <div class="breakdown-details" id="breakdownDetails" style="margin-top: 12px; font-size: 0.9rem;"></div>
+            <div class="breakdown-details" id="breakdownDetails" style="margin-top: 10px; font-size: 0.85rem;"></div>
         </div>
     </div>
 
@@ -459,9 +488,9 @@
             <button id="speakBtn" style="background:#5D9B4B; color:white; border:none; padding:6px 12px; border-radius:30px;">🔊 Озвучить</button>
         </div>
         <div class="accuracy-panel">
-            <div>🎯 Точность написания</div>
+            <div>🎯 Точность</div>
             <div class="accuracy-score" id="accuracyPercent">0%</div>
-            <div id="feedbackMsg" style="font-size:0.8rem;">Напишите иероглиф → Проверить</div>
+            <div id="feedbackMsg" style="font-size:0.75rem;">Напишите → Проверить</div>
         </div>
     </div>
 
@@ -716,7 +745,7 @@ function clearCanvas() {
     drawGrid();
     saveState();
     document.getElementById('accuracyPercent').innerText = '0%';
-    document.getElementById('feedbackMsg').innerHTML = 'Напишите иероглиф → Проверить';
+    document.getElementById('feedbackMsg').innerHTML = 'Напишите → Проверить';
 }
 
 function undo() {
@@ -799,26 +828,26 @@ function updateUI() {
     if (currentWord.hasPhonetic && currentWord.phonetic) {
         const isRegular = isPhoneticRegular(currentWord.pinyin, currentWord.phoneticReading);
         if (isRegular) {
-            phoneticHtml = `<br><strong>🔊 Фонетик (регулярный):</strong> <span class="phonetic-regular">${currentWord.phonetic} (${currentWord.phoneticReading})</span> → читается похоже, только тон мог измениться`;
+            phoneticHtml = `<br><strong>🔊 Фонетик:</strong> <span class="phonetic-regular">${currentWord.phonetic} (${currentWord.phoneticReading})</span> → читается похоже`;
         } else {
-            phoneticHtml = `<br><strong>🔊 Фонетик (нерегулярный):</strong> <span class="phonetic-irregular">${currentWord.phonetic} (${currentWord.phoneticReading})</span> → читается не по правилам, запомните особо!`;
+            phoneticHtml = `<br><strong>🔊 Фонетик:</strong> <span class="phonetic-irregular">${currentWord.phonetic} (${currentWord.phoneticReading})</span> → читается не по правилам!`;
         }
     } else {
-        phoneticHtml = `<br><strong>🔊 Фонетик:</strong> нет (иероглиф не содержит звукового компонента)`;
+        phoneticHtml = `<br><strong>🔊 Фонетик:</strong> нет`;
     }
     
     let breakdownHtml = `<div style="background:#FFF3E0; padding:12px; border-radius:16px; margin-top:8px;">
-        <strong>🔍 Состав (разбор):</strong> ${currentWord.breakdown || '—'}<br>
-        <strong>📌 Ключ (радикал):</strong> ${currentWord.radical || '?'} ${currentWord.radicalMeaning ? '(' + currentWord.radicalMeaning + ')' : ''}
+        <strong>🔍 Состав:</strong> ${currentWord.breakdown || '—'}<br>
+        <strong>📌 Ключ:</strong> ${currentWord.radical || '?'} ${currentWord.radicalMeaning ? '(' + currentWord.radicalMeaning + ')' : ''}
         ${phoneticHtml}
     </div>`;
     
     if (currentWord.examples && currentWord.examples.length > 0) {
-        breakdownHtml += '<div style="margin-top:12px;"><strong>📖 Примеры (нажмите для озвучки):</strong><br>';
+        breakdownHtml += '<div style="margin-top:12px;"><strong>📖 Примеры:</strong><br>';
         for (let i = 0; i < currentWord.examples.length; i++) {
             const ex = currentWord.examples[i];
             breakdownHtml += `<div style="cursor:pointer; background:#FFF0E0; margin:8px 0; padding:8px; border-radius:12px; border-left:3px solid #FF8C42;" onclick="speakChinese('${ex.ch}')">
-                <span style="font-weight:bold; font-size:1.1rem;">${ex.ch}</span> <span style="color:#FF8C42;">(${ex.pinyin})</span><br>
+                <span style="font-weight:bold;">${ex.ch}</span> <span style="color:#FF8C42;">(${ex.pinyin})</span><br>
                 <span style="color:#6B4E2E;">— ${ex.ru}</span>
             </div>`;
         }
@@ -852,7 +881,7 @@ function showTemplate() {
     drawGrid();
     ctx.restore();
     saveState();
-    document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите серый образец прямо поверх!';
+    document.getElementById('feedbackMsg').innerHTML = '✏️ Обводите образец поверх!';
 }
 
 function checkAccuracy() {
@@ -897,10 +926,10 @@ function checkAccuracy() {
     accuracy = Math.min(100, Math.max(0, accuracy));
     document.getElementById('accuracyPercent').innerText = accuracy + '%';
     let feedback = document.getElementById('feedbackMsg');
-    if (accuracy > 85) feedback.innerHTML = '🏆 Отлично! Иероглиф узнаваем.';
-    else if (accuracy > 70) feedback.innerHTML = '👍 Хорошо! Но можно точнее.';
-    else if (accuracy > 55) feedback.innerHTML = '📝 Неплохо, попробуйте обвести образец.';
-    else feedback.innerHTML = '✍️ Трудно узнать. Нажмите «Образец» и обведите.';
+    if (accuracy > 85) feedback.innerHTML = '🏆 Отлично!';
+    else if (accuracy > 70) feedback.innerHTML = '👍 Хорошо!';
+    else if (accuracy > 55) feedback.innerHTML = '📝 Неплохо';
+    else feedback.innerHTML = '✍️ Нажмите «Образец» и обведите';
 }
 
 function nextWord() { currentIndex = (currentIndex + 1) % FINAL_WORDS.length; currentWord = FINAL_WORDS[currentIndex]; updateUI(); }
@@ -913,7 +942,7 @@ function markLearned() {
     localStorage.setItem('hsk1_learned', JSON.stringify(learnedWords));
     updateUI();
 }
-function resetProgress() { if (confirm('Сбросить весь прогресс HSK 1?')) { learnedWords = []; localStorage.setItem('hsk1_learned', JSON.stringify(learnedWords)); updateUI(); } }
+function resetProgress() { if (confirm('Сбросить прогресс?')) { learnedWords = []; localStorage.setItem('hsk1_learned', JSON.stringify(learnedWords)); updateUI(); } }
 
 // ========== ПОИСК ==========
 function normalizePinyin(str) {
@@ -930,7 +959,7 @@ function normalizePinyin(str) {
 function renderAllWords() {
     const container = document.getElementById('searchResultsGrid');
     if (!container) return;
-    container.innerHTML = `<div class="search-hint">📖 Всего слов: ${FINAL_WORDS.length}. Используйте поиск выше</div>
+    container.innerHTML = `<div class="search-hint">📖 Всего слов: ${FINAL_WORDS.length}</div>
     <div class="search-grid">${FINAL_WORDS.map(word => `
         <div class="search-item" onclick="selectWordByChar('${word.char}')">
             <div class="search-char">${word.char}</div>
@@ -949,7 +978,7 @@ function searchWords() {
     );
     const container = document.getElementById('searchResultsGrid');
     if (results.length === 0) { container.innerHTML = '<div class="search-hint">😔 Ничего не найдено</div>'; return; }
-    container.innerHTML = `<div class="search-hint">🔍 Найдено ${results.length} слов</div>
+    container.innerHTML = `<div class="search-hint">🔍 Найдено ${results.length}</div>
     <div class="search-grid">${results.map(word => `
         <div class="search-item" onclick="selectWordByChar('${word.char}')">
             <div class="search-char">${word.char}</div>
@@ -983,7 +1012,6 @@ document.getElementById('currentChar').onclick = () => speakChinese(currentWord.
 document.getElementById('resetProgressBtn').onclick = resetProgress;
 
 const searchToggleBtn = document.getElementById('searchToggleBtn');
-const searchSection = document.getElementById('searchSection');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const searchCloseBtn = document.getElementById('searchCloseBtn');
@@ -992,7 +1020,7 @@ if (searchToggleBtn) searchToggleBtn.onclick = toggleSearch;
 if (searchCloseBtn) searchCloseBtn.onclick = toggleSearch;
 if (searchBtn) searchBtn.onclick = searchWords;
 if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchWords(); });
-if (searchSection) searchSection.style.display = 'none';
+document.getElementById('searchSection').style.display = 'none';
 
 const brushSlider = document.getElementById('brushSize');
 const brushVal = document.getElementById('brushValue');
