@@ -797,5 +797,25 @@
             }
         });
     </script>
+    <!-- Регистрация Service Worker для офлайн-режима -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const repoName = 'lesson-1';
+                const swPath = `/${repoName}/sw.js`;
+                const scopePath = `/${repoName}/`;
+                
+                navigator.serviceWorker.register(swPath, { scope: scopePath })
+                    .then(function(reg) {
+                        console.log('✅ Service Worker зарегистрирован:', reg);
+                    })
+                    .catch(function(err) {
+                        console.log('❌ Ошибка регистрации SW:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
 </body>
 </html>
