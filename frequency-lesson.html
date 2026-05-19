@@ -274,10 +274,12 @@
             margin-top: 0.6rem;
             cursor: pointer;
             width: fit-content;
+            border: none;
         }
 
         .draw-link:active {
             background: #E6C89B;
+            transform: scale(0.96);
         }
 
         footer {
@@ -350,8 +352,10 @@
         
         const saved = localStorage.getItem('frequencyProgress');
         if (saved) {
-            completedIds = new Set(JSON.parse(saved));
-            console.log('📊 Загружен прогресс:', completedIds.size, 'слов выучено');
+            try {
+                completedIds = new Set(JSON.parse(saved));
+                console.log('📊 Загружен прогресс:', completedIds.size, 'слов выучено');
+            } catch(e) {}
         }
         
         renderWords();
@@ -381,22 +385,31 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // Функция для отправки слова в тетрадь (copybook.html)
-    function openDrawing(char, pinyin, meaning, fullData) {
-        // Сохраняем полные данные в localStorage
-        const charData = {
+    // ========== ОТПРАВКА В ТЕТРАДЬ (ИСПРАВЛЕНО) ==========
+    function openDrawing(char, pinyin, meaning) {
+        console.log('📤 Отправляем в тетрадь:', { char, pinyin, meaning });
+        
+        const wordData = {
             char: char,
             pinyin: pinyin,
             meaning: meaning,
-            sound: char,
-            // Сохраняем весь объект для полного разбора
-            fullData: fullData || null
+            fullPhrase: char
         };
-        localStorage.setItem('selectedCharacter', JSON.stringify(charData));
-        console.log('📤 Отправлено в тетрадь:', char, pinyin, meaning);
         
-        // Открываем тетрадь в новой вкладке
-        window.open('copybook.html', '_blank');
+        try {
+            localStorage.setItem('selected_character', JSON.stringify(wordData));
+            console.log('✅ Данные сохранены в localStorage');
+            
+            // Проверяем, что сохранилось
+            const saved = localStorage.getItem('selected_character');
+            console.log('🔍 Проверка сохранения:', saved);
+            
+            // Открываем тетрадь
+            window.location.href = 'copybook.html';
+        } catch(e) {
+            console.error('❌ Ошибка сохранения:', e);
+            alert('Ошибка при открытии тетради');
+        }
     }
 
     // Убираем тоны из пиньиня для сравнения
@@ -487,9 +500,9 @@
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
                 
-                <div class="draw-link" onclick="openDrawing('${safeChar}', '${safePinyin}', '${safeMeaning}', ${JSON.stringify(word).replace(/</g, '\\u003c')})">
+                <button class="draw-link" onclick='openDrawing("${safeChar}", "${safePinyin}", "${safeMeaning}")'>
                     ✍️ Писать в тетради
-                </div>
+                </button>
             `;
             
             container.appendChild(card);
