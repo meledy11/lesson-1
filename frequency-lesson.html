@@ -131,7 +131,7 @@
 
         .words-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
             gap: 1.2rem;
         }
 
@@ -261,22 +261,66 @@
             margin-top: 0.4rem;
         }
 
-        .copybook-btn {
-            background: #F5DEB3;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            color: #A64B2A;
-            margin-top: 0.6rem;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
-            width: 100%;
+        /* ВСТРОЕННАЯ ТЕТРАДЬ */
+        .practice-area {
+            margin-top: 1rem;
+            background: #FFF8F0;
+            border-radius: 24px;
+            padding: 0.8rem;
+            border: 2px solid #FFD699;
         }
-
-        .copybook-btn:active {
-            background: #E6C89B;
-            transform: scale(0.96);
+        
+        .practice-title {
+            font-size: 0.8rem;
+            color: #8B5A2B;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mini-canvas {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            cursor: crosshair;
+            border-radius: 16px;
+            border: 2px solid #D9B48B;
+            touch-action: none;
+        }
+        
+        .practice-tools {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .practice-btn {
+            background: #E8D5B0;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .practice-btn:active {
+            transform: scale(0.95);
+            background: #DDC79E;
+        }
+        
+        .practice-accuracy {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 0.4rem;
+            color: #A64B2A;
         }
 
         footer {
@@ -304,11 +348,10 @@
 <div class="container">
     <div class="hero">
         <h1>🔥 127 самых частотных слов</h1>
-        <p>🎯 Слушай → пиши пиньинь (можно без тонов) → запоминай!</p>
+        <p>🎯 Слушай → пиши пиньинь → рисуй иероглиф → запоминай!</p>
         <div class="back-buttons">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson0.html" class="back-home">🎵 Таблица пиньиня</a>
-            <a href="copybook.html" class="back-home">✍️ Тетрадь прописей</a>
         </div>
     </div>
 
@@ -329,7 +372,7 @@
     </div>
 
     <div id="wordsGrid" class="words-grid"></div>
-    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Нажми «Пропись» → откроется рисовалка.</footer>
+    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Рисуй прямо в уроке!</footer>
 </div>
 
 <script src="frequency-db.js"></script>
@@ -337,6 +380,9 @@
     let wordsData = [];
     let completedIds = new Set();
     let hideCompleted = false;
+    
+    // Хранилище для canvas и их состояния
+    let canvasInstances = new Map();
 
     function loadData() {
         if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
@@ -382,32 +428,6 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // ========== ОТПРАВКА В ТЕТРАДЬ ==========
-    function sendToCopybook(char, pinyin, meaning) {
-        console.log('📤 Отправляем в тетрадь:', { char, pinyin, meaning });
-        
-        if (!char) {
-            alert('Ошибка: не удалось получить иероглиф');
-            return;
-        }
-        
-        const wordData = {
-            char: char,
-            pinyin: pinyin || '',
-            meaning: meaning || '',
-            fullPhrase: char
-        };
-        
-        try {
-            localStorage.setItem('selected_character', JSON.stringify(wordData));
-            console.log('✅ Сохранено в localStorage');
-            window.location.href = 'copybook.html';
-        } catch(e) {
-            console.error('❌ Ошибка:', e);
-            alert('Ошибка при сохранении');
-        }
-    }
-
     // Убираем тоны из пиньиня для сравнения
     function normalizePinyin(pinyin) {
         if (!pinyin) return '';
@@ -435,7 +455,216 @@
             return { correct: false, message: `❌ Неправильно. Правильно: ${correctPinyin}` };
         }
     }
-
+    
+    // ========== ФУНКЦИИ ДЛЯ ВСТРОЕННОЙ ТЕТРАДИ ==========
+    
+    function initMiniCanvas(canvasId, char) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return null;
+        
+        canvas.width = 200;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        let painting = false;
+        let undoStack = [];
+        
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = '#D9C2A7';
+            ctx.lineWidth = 1;
+            let cellSize = canvas.width / 4;
+            for (let i = 1; i <= 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * cellSize, 0);
+                ctx.lineTo(i * cellSize, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i * cellSize);
+                ctx.lineTo(canvas.width, i * cellSize);
+                ctx.stroke();
+            }
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(canvas.width, 0);
+            ctx.lineTo(0, canvas.height);
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function clearCanvas() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            saveState();
+            updateAccuracyDisplay(canvasId, 0);
+        }
+        
+        function saveState() {
+            undoStack.push(canvas.toDataURL());
+            if (undoStack.length > 10) undoStack.shift();
+        }
+        
+        function startDrawing(e) {
+            e.preventDefault();
+            painting = true;
+            const coords = getCoords(e);
+            ctx.beginPath();
+            ctx.moveTo(coords.x, coords.y);
+            ctx.lineTo(coords.x, coords.y);
+            ctx.stroke();
+        }
+        
+        function draw(e) {
+            if (!painting) return;
+            e.preventDefault();
+            const coords = getCoords(e);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 8;
+            ctx.lineTo(coords.x, coords.y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(coords.x, coords.y);
+        }
+        
+        function stopDrawing() {
+            painting = false;
+            ctx.beginPath();
+            saveState();
+        }
+        
+        function getCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let clientX, clientY;
+            
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            let x = (clientX - rect.left) * scaleX;
+            let y = (clientY - rect.top) * scaleY;
+            x = Math.min(Math.max(0, x), canvas.width);
+            y = Math.min(Math.max(0, y), canvas.height);
+            return { x, y };
+        }
+        
+        function showTemplate() {
+            ctx.save();
+            ctx.globalAlpha = 0.4;
+            ctx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#999999';
+            ctx.fillText(char, canvas.width / 2, canvas.height / 2);
+            ctx.globalAlpha = 1;
+            drawGrid();
+            ctx.restore();
+            saveState();
+        }
+        
+        function checkAccuracy() {
+            const idealCanvas = document.createElement('canvas');
+            idealCanvas.width = canvas.width;
+            idealCanvas.height = canvas.height;
+            const idealCtx = idealCanvas.getContext('2d');
+            idealCtx.fillStyle = 'white';
+            idealCtx.fillRect(0, 0, idealCanvas.width, idealCanvas.height);
+            idealCtx.font = `bold ${idealCanvas.width * 0.65}px 'Noto Sans SC'`;
+            idealCtx.textAlign = 'center';
+            idealCtx.textBaseline = 'middle';
+            idealCtx.fillStyle = 'black';
+            idealCtx.fillText(char, idealCanvas.width / 2, idealCanvas.height / 2);
+            
+            const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
+            const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            let matchCount = 0;
+            let totalImportant = 0;
+            
+            for (let y = 2; y < canvas.height - 2; y++) {
+                for (let x = 2; x < canvas.width - 2; x++) {
+                    const idx = (y * canvas.width + x) * 4;
+                    const idealR = idealData.data[idx];
+                    const idealG = idealData.data[idx+1];
+                    const idealB = idealData.data[idx+2];
+                    const isIdealImportant = (idealR + idealG + idealB) / 3 < 150;
+                    
+                    if (isIdealImportant) {
+                        totalImportant++;
+                        let foundMatch = false;
+                        for (let dy = -2; dy <= 2; dy++) {
+                            for (let dx = -2; dx <= 2; dx++) {
+                                const ny = y + dy;
+                                const nx = x + dx;
+                                if (ny >= 0 && ny < canvas.height && nx >= 0 && nx < canvas.width) {
+                                    const nidx = (ny * canvas.width + nx) * 4;
+                                    const currentR = currentData.data[nidx];
+                                    const currentG = currentData.data[nidx+1];
+                                    const currentB = currentData.data[nidx+2];
+                                    const isCurrentImportant = (currentR + currentG + currentB) / 3 < 150;
+                                    if (isCurrentImportant) {
+                                        foundMatch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (foundMatch) break;
+                        }
+                        if (foundMatch) matchCount++;
+                    }
+                }
+            }
+            
+            let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
+            accuracy = Math.min(100, Math.max(0, Math.floor(accuracy)));
+            
+            updateAccuracyDisplay(canvasId, accuracy);
+            return accuracy;
+        }
+        
+        function updateAccuracyDisplay(canvasId, accuracy) {
+            const accuracySpan = document.getElementById(`accuracy-${canvasId}`);
+            if (accuracySpan) {
+                accuracySpan.innerText = accuracy + '%';
+                if (accuracy > 80) {
+                    accuracySpan.style.color = '#4CAF50';
+                } else if (accuracy > 50) {
+                    accuracySpan.style.color = '#FF8C42';
+                } else {
+                    accuracySpan.style.color = '#A64B2A';
+                }
+            }
+        }
+        
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchcancel', stopDrawing);
+        
+        clearCanvas();
+        
+        return {
+            clear: clearCanvas,
+            template: showTemplate,
+            check: checkAccuracy
+        };
+    }
+    
     function renderWords() {
         const container = document.getElementById('wordsGrid');
         if (!container) return;
@@ -451,20 +680,20 @@
         }
         
         container.innerHTML = '';
+        canvasInstances.clear();
         
         filtered.forEach(word => {
             const isCompleted = completedIds.has(word.id);
             const card = document.createElement('div');
             card.className = 'word-card' + (isCompleted ? ' completed' : '');
             card.dataset.id = word.id;
+            const canvasId = `canvas-${word.id}`;
             
             const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
             const phoneticHtml = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
             
-            // Безопасное экранирование
             const safeChar = word.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const safePinyin = word.pinyin.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const safeMeaning = word.meaning.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
             card.innerHTML = `
                 <div class="word-header">
@@ -496,15 +725,32 @@
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
                 
-                <button class="copybook-btn" data-char="${safeChar}" data-pinyin="${safePinyin}" data-meaning="${safeMeaning}">
-                    ✍️ Писать в тетради
-                </button>
+                <div class="practice-area">
+                    <div class="practice-title">
+                        <span>✍️ Пропись: ${word.char}</span>
+                        <span>Точность: <span id="accuracy-${canvasId}">0%</span></span>
+                    </div>
+                    <canvas id="${canvasId}" class="mini-canvas"></canvas>
+                    <div class="practice-tools">
+                        <button class="practice-btn" data-canvas="${canvasId}" data-action="clear">🧽 Очистить</button>
+                        <button class="practice-btn" data-canvas="${canvasId}" data-action="template">🖼 Образец</button>
+                        <button class="practice-btn" data-canvas="${canvasId}" data-action="check">🔍 Проверить</button>
+                    </div>
+                </div>
             `;
             
             container.appendChild(card);
+            
+            // Инициализируем canvas
+            setTimeout(() => {
+                const canvasControl = initMiniCanvas(canvasId, word.char);
+                if (canvasControl) {
+                    canvasInstances.set(canvasId, canvasControl);
+                }
+            }, 10);
         });
         
-        // Добавляем обработчики для кнопок проверки
+        // Обработчики для кнопок проверки пиньиня
         document.querySelectorAll('.check-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -529,23 +775,27 @@
             });
         });
         
-        // Добавляем обработчики для кнопок "Писать в тетради" через data-атрибуты
-        document.querySelectorAll('.copybook-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const char = btn.getAttribute('data-char');
-                const pinyin = btn.getAttribute('data-pinyin');
-                const meaning = btn.getAttribute('data-meaning');
-                sendToCopybook(char, pinyin, meaning);
-            });
-        });
-        
         // Обработчики для Enter в поле ввода
         document.querySelectorAll('.pinyin-input').forEach(input => {
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     const btn = input.parentElement.querySelector('.check-btn');
                     if (btn) btn.click();
+                }
+            });
+        });
+        
+        // Обработчики для кнопок тетради (делегирование)
+        document.querySelectorAll('.practice-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const canvasId = btn.dataset.canvas;
+                const action = btn.dataset.action;
+                const canvasControl = canvasInstances.get(canvasId);
+                if (canvasControl) {
+                    if (action === 'clear') canvasControl.clear();
+                    if (action === 'template') canvasControl.template();
+                    if (action === 'check') canvasControl.check();
                 }
             });
         });
