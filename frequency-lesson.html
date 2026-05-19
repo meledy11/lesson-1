@@ -262,9 +262,7 @@
         }
 
         .draw-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
+            display: inline-block;
             background: #F5DEB3;
             padding: 0.3rem 1rem;
             border-radius: 40px;
@@ -273,8 +271,8 @@
             color: #A64B2A;
             margin-top: 0.6rem;
             cursor: pointer;
-            width: fit-content;
             border: none;
+            font-weight: bold;
         }
 
         .draw-link:active {
@@ -385,24 +383,34 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // ========== ОТПРАВКА В ТЕТРАДЬ ==========
+    // ========== ОТПРАВКА В ТЕТРАДЬ (УЛУЧШЕННАЯ) ==========
     function openDrawing(char, pinyin, meaning) {
-        console.log('📤 Отправляем в тетрадь:', { char, pinyin, meaning });
+        console.log('📤 Кнопка нажата! Иероглиф:', char);
+        
+        if (!char) {
+            console.error('❌ Нет иероглифа');
+            alert('Ошибка: не удалось получить иероглиф');
+            return;
+        }
         
         const wordData = {
             char: char,
-            pinyin: pinyin,
-            meaning: meaning,
+            pinyin: pinyin || '',
+            meaning: meaning || '',
             fullPhrase: char
         };
         
         try {
             localStorage.setItem('selected_character', JSON.stringify(wordData));
-            console.log('✅ Данные сохранены');
-            window.location.href = 'copybook.html';
+            console.log('✅ Сохранено в localStorage:', wordData);
+            
+            // Небольшая задержка для гарантии записи
+            setTimeout(() => {
+                window.location.href = 'copybook.html';
+            }, 50);
         } catch(e) {
-            console.error('❌ Ошибка:', e);
-            alert('Ошибка при открытии тетради');
+            console.error('❌ Ошибка сохранения:', e);
+            alert('Ошибка при сохранении');
         }
     }
 
@@ -459,7 +467,7 @@
             const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
             const phoneticHtml = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
             
-            // Безопасное экранирование для передачи в функцию
+            // Безопасное экранирование
             const safeChar = word.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const safePinyin = word.pinyin.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const safeMeaning = word.meaning.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -494,7 +502,7 @@
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
                 
-                <button class="draw-link" onclick='openDrawing("${safeChar}", "${safePinyin}", "${safeMeaning}")'>
+                <button class="draw-link" onclick="openDrawing('${safeChar}', '${safePinyin}', '${safeMeaning}')">
                     ✍️ Писать в тетради
                 </button>
             `;
