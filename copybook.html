@@ -282,8 +282,8 @@
         example: "八个 bā ge"
     };
 
-    // ========== ПРИЁМ СЛОВА ИЗ УРОКА (ИСПРАВЛЕНО) ==========
-    function loadWordFromGame() {
+    // ========== ПРИЁМ СЛОВА ИЗ УРОКА ==========
+    function loadWordFromLesson() {
         const savedChar = localStorage.getItem('selected_character');
         console.log('🔍 Читаем из localStorage:', savedChar);
         
@@ -291,7 +291,7 @@
             try {
                 const charObj = JSON.parse(savedChar);
                 if (charObj && charObj.char) {
-                    console.log('✅ Загружен иероглиф из урока:', charObj.char);
+                    console.log('✅ Загружен иероглиф:', charObj.char);
                     currentCharData = {
                         char: charObj.char,
                         pinyin: charObj.pinyin || '',
@@ -299,13 +299,14 @@
                         sound: charObj.char,
                         example: `${charObj.char} ${charObj.pinyin || ''} — ${charObj.meaning || ''}`
                     };
+                    
                     // Обновляем интерфейс
                     document.getElementById('currentChar').innerText = currentCharData.char;
                     document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
                     document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
                     document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
                     
-                    // Очищаем localStorage, чтобы при следующем открытии без выбора показывался стандартный иероглиф
+                    // Очищаем localStorage
                     localStorage.removeItem('selected_character');
                     
                     clearCanvas();
@@ -314,8 +315,6 @@
             } catch(e) {
                 console.error('❌ Ошибка парсинга:', e);
             }
-        } else {
-            console.log('ℹ️ Нет сохранённого иероглифа, показываем стандартный');
         }
         return false;
     }
@@ -590,15 +589,9 @@
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
     initCanvas();
     
-    // Пробуем загрузить слово из урока, если нет - оставляем "八"
-    if (!loadWordFromGame()) {
+    // Пробуем загрузить слово из урока
+    if (!loadWordFromLesson()) {
         console.log('ℹ️ Используем иероглиф по умолчанию: 八');
-        // Оставляем стандартный иероглиф
-        currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个", example: "八个 bā ge" };
-        document.getElementById('currentChar').innerText = currentCharData.char;
-        document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
-        document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
-        document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
         clearCanvas();
     }
 </script>
