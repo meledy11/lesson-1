@@ -261,21 +261,20 @@
             margin-top: 0.4rem;
         }
 
-        .draw-link {
-            display: inline-block;
+        .copybook-btn {
             background: #F5DEB3;
             padding: 0.3rem 1rem;
             border-radius: 40px;
             font-size: 0.8rem;
-            text-decoration: none;
             color: #A64B2A;
             margin-top: 0.6rem;
             cursor: pointer;
             border: none;
             font-weight: bold;
+            width: 100%;
         }
 
-        .draw-link:active {
+        .copybook-btn:active {
             background: #E6C89B;
             transform: scale(0.96);
         }
@@ -383,12 +382,11 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // ========== ОТПРАВКА В ТЕТРАДЬ (УЛУЧШЕННАЯ) ==========
-    function openDrawing(char, pinyin, meaning) {
-        console.log('📤 Кнопка нажата! Иероглиф:', char);
+    // ========== ОТПРАВКА В ТЕТРАДЬ ==========
+    function sendToCopybook(char, pinyin, meaning) {
+        console.log('📤 Отправляем в тетрадь:', { char, pinyin, meaning });
         
         if (!char) {
-            console.error('❌ Нет иероглифа');
             alert('Ошибка: не удалось получить иероглиф');
             return;
         }
@@ -402,14 +400,10 @@
         
         try {
             localStorage.setItem('selected_character', JSON.stringify(wordData));
-            console.log('✅ Сохранено в localStorage:', wordData);
-            
-            // Небольшая задержка для гарантии записи
-            setTimeout(() => {
-                window.location.href = 'copybook.html';
-            }, 50);
+            console.log('✅ Сохранено в localStorage');
+            window.location.href = 'copybook.html';
         } catch(e) {
-            console.error('❌ Ошибка сохранения:', e);
+            console.error('❌ Ошибка:', e);
             alert('Ошибка при сохранении');
         }
     }
@@ -502,7 +496,7 @@
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
                 
-                <button class="draw-link" onclick="openDrawing('${safeChar}', '${safePinyin}', '${safeMeaning}')">
+                <button class="copybook-btn" data-char="${safeChar}" data-pinyin="${safePinyin}" data-meaning="${safeMeaning}">
                     ✍️ Писать в тетради
                 </button>
             `;
@@ -532,6 +526,17 @@
                     updateProgress();
                     if (hideCompleted) renderWords();
                 }
+            });
+        });
+        
+        // Добавляем обработчики для кнопок "Писать в тетради" через data-атрибуты
+        document.querySelectorAll('.copybook-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const char = btn.getAttribute('data-char');
+                const pinyin = btn.getAttribute('data-pinyin');
+                const meaning = btn.getAttribute('data-meaning');
+                sendToCopybook(char, pinyin, meaning);
             });
         });
         
