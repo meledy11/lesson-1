@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>🔥 Урок: 127 частотных слов | Весёлый китайский</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
@@ -18,10 +14,7 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1400px; margin: 0 auto; }
 
         .hero {
             text-align: center;
@@ -42,13 +35,9 @@
             color: #E67E22;
         }
 
-        .hero p {
-            margin-top: 0.5rem;
-        }
+        .hero p { margin-top: 0.5rem; }
 
-        .back-buttons {
-            margin-top: 1rem;
-        }
+        .back-buttons { margin-top: 1rem; }
 
         .back-home {
             display: inline-block;
@@ -63,10 +52,7 @@
             box-shadow: 0 3px 0 #C16F1A;
         }
 
-        .back-home:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #C16F1A;
-        }
+        .back-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #C16F1A; }
 
         .progress-section {
             background: white;
@@ -115,24 +101,15 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 3px 0 #D98F33;
-            transition: 0.05s;
         }
 
-        .ctrl-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #D98F33;
-        }
-
-        .ctrl-btn.primary {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            color: white;
-            border: none;
-        }
+        .ctrl-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #D98F33; }
+        .ctrl-btn.primary { background: linear-gradient(135deg, #FF6B35, #FF8C42); color: white; border: none; }
 
         .words-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
         }
 
         .word-card {
@@ -140,15 +117,13 @@
             border-radius: 36px;
             padding: 1.2rem;
             border: 3px solid #FFD699;
-            transition: 0.1s;
             box-shadow: 0 8px 0 #FFD699;
+            cursor: pointer;
+            transition: 0.1s;
         }
 
-        .word-card.completed {
-            background: #E8F5E9;
-            border-color: #4CAF50;
-            box-shadow: 0 8px 0 #4CAF50;
-        }
+        .word-card:active { transform: translateY(2px); box-shadow: 0 4px 0 #FFD699; }
+        .word-card.completed { background: #E8F5E9; border-color: #4CAF50; box-shadow: 0 8px 0 #4CAF50; }
 
         .word-header {
             display: flex;
@@ -165,13 +140,6 @@
             background: #FFF3E0;
             padding: 0.1rem 0.8rem;
             border-radius: 40px;
-            cursor: pointer;
-            transition: 0.05s;
-        }
-
-        .char-large:active {
-            background: #FFD699;
-            transform: scale(0.96);
         }
 
         .pinyin-badge {
@@ -183,145 +151,7 @@
             border-radius: 30px;
         }
 
-        .meaning {
-            color: #A64B2A;
-            font-size: 1rem;
-            margin: 0.5rem 0;
-        }
-
-        .analysis {
-            background: #FFFBF5;
-            border-radius: 24px;
-            padding: 0.8rem;
-            margin: 0.8rem 0;
-            font-size: 0.85rem;
-            border-left: 4px solid #FFB347;
-        }
-
-        .analysis-title {
-            font-weight: bold;
-            color: #E67E22;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .analysis-content {
-            display: none;
-        }
-
-        .analysis-content.show {
-            display: block;
-        }
-
-        .parts-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .part-item {
-            background: #FFE8CC;
-            padding: 0.2rem 0.6rem;
-            border-radius: 30px;
-            font-family: 'Noto Sans SC', monospace;
-        }
-
-        .input-area {
-            display: flex;
-            gap: 0.6rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .pinyin-input {
-            flex: 2;
-            padding: 0.6rem 1rem;
-            border-radius: 50px;
-            border: 2px solid #FFD699;
-            font-family: monospace;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .check-btn {
-            background: #FF8C42;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .check-result {
-            font-size: 0.85rem;
-            margin-top: 0.4rem;
-        }
-
-        /* ВСТРОЕННАЯ ТЕТРАДЬ */
-        .practice-area {
-            margin-top: 1rem;
-            background: #FFF8F0;
-            border-radius: 24px;
-            padding: 0.8rem;
-            border: 2px solid #FFD699;
-        }
-        
-        .practice-title {
-            font-size: 0.8rem;
-            color: #8B5A2B;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .mini-canvas {
-            background: white;
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            aspect-ratio: 1 / 1;
-            cursor: crosshair;
-            border-radius: 16px;
-            border: 2px solid #D9B48B;
-            touch-action: none;
-        }
-        
-        .practice-tools {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .practice-btn {
-            background: #E8D5B0;
-            border: none;
-            padding: 0.3rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .practice-btn:active {
-            transform: scale(0.95);
-            background: #DDC79E;
-        }
-        
-        .practice-accuracy {
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 0.4rem;
-            color: #A64B2A;
-        }
+        .meaning { color: #A64B2A; font-size: 1rem; margin: 0.5rem 0; }
 
         footer {
             text-align: center;
@@ -333,13 +163,197 @@
             color: #A64B2A;
         }
 
-        @media (max-width: 800px) {
-            .words-grid {
-                grid-template-columns: 1fr;
-            }
-            .char-large {
-                font-size: 2rem;
-            }
+        /* ========== ПОЛНОЭКРАННЫЙ РЕЖИМ ========== */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFF9EF;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 1rem;
+            display: none;
+        }
+
+        .fullscreen.show { display: block; }
+
+        .fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .back-to-list {
+            background: #FF8C42;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #B45F1B;
+        }
+
+        .back-to-list:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
+
+        .fullscreen-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fullscreen-char {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .fullscreen-char .big-char {
+            font-size: 5rem;
+            font-family: 'Noto Sans SC', monospace;
+            background: white;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 70px;
+            color: #A5511A;
+            box-shadow: 0 6px 0 #E0C8A0;
+            cursor: pointer;
+        }
+
+        .fullscreen-pinyin {
+            font-size: 1.8rem;
+            color: #FF8C42;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+
+        .fullscreen-meaning {
+            font-size: 1.3rem;
+            color: #A64B2A;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Разбор иероглифа */
+        .full-analysis {
+            background: #FFFBF5;
+            border-radius: 30px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid #FFB347;
+        }
+
+        .analysis-title {
+            font-weight: bold;
+            color: #E67E22;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .analysis-details { display: block; } /* ОТКРЫТ ПО УМОЛЧАНИЮ */
+        .analysis-details.show { display: block; }
+
+        .parts-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .part-item {
+            background: #FFE8CC;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-family: 'Noto Sans SC', monospace;
+        }
+
+        /* КРУПНАЯ ТЕТРАДЬ */
+        .full-canvas-area {
+            background: #FFFCF0;
+            border-radius: 32px;
+            padding: 1rem;
+            box-shadow: 0 8px 0 #C9AF85;
+            border: 2px solid #E2CFAD;
+            margin-bottom: 1rem;
+        }
+
+        .full-canvas {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            cursor: crosshair;
+            border-radius: 20px;
+            border: 2px solid #D9B48B;
+            touch-action: none;
+        }
+
+        .full-tools {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .full-btn {
+            background: #E8D5B0;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .full-btn:active { transform: scale(0.96); background: #DDC79E; }
+        .full-btn.primary { background: #4CAF50; color: white; }
+        .full-btn.warning { background: #FF8C42; color: white; }
+
+        .brush-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .accuracy-result {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #A64B2A;
+        }
+
+        .input-area-full {
+            display: flex;
+            gap: 0.6rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .pinyin-input-full {
+            flex: 2;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            border: 2px solid #FFD699;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        @media (max-width: 600px) {
+            .fullscreen-char .big-char { font-size: 3.5rem; }
+            .fullscreen-pinyin { font-size: 1.3rem; }
+            .fullscreen-meaning { font-size: 1rem; }
+            .full-canvas { max-width: 100%; }
         }
     </style>
 </head>
@@ -348,7 +362,7 @@
 <div class="container">
     <div class="hero">
         <h1>🔥 127 самых частотных слов</h1>
-        <p>🎯 Слушай → пиши пиньинь → рисуй иероглиф → запоминай!</p>
+        <p>🎯 Нажми на слово → откроется разбор + крупная тетрадь на весь экран!</p>
         <div class="back-buttons">
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="lesson0.html" class="back-home">🎵 Таблица пиньиня</a>
@@ -361,7 +375,7 @@
             <span id="progressPercent">0%</span>
         </div>
         <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="stats-info">💡 Подсказка: пиньинь можно писать <strong>без тонов</strong> (например, "ni" вместо "nǐ")</div>
+        <div class="stats-info">💡 Нажми на слово → учи иероглиф с разбором и крупной прописью!</div>
     </div>
 
     <div class="controls">
@@ -372,7 +386,59 @@
     </div>
 
     <div id="wordsGrid" class="words-grid"></div>
-    <footer>🔊 Нажми на иероглиф → услышь произношение. ✏️ Рисуй прямо в уроке!</footer>
+    <footer>🔊 Нажми на иероглиф → услышь произношение. 🖌️ Нажми на слово → откроется крупная тетрадь!</footer>
+</div>
+
+<!-- ПОЛНОЭКРАННЫЙ РЕЖИМ -->
+<div id="fullscreen" class="fullscreen">
+    <div class="fullscreen-content">
+        <div class="fullscreen-header">
+            <button class="back-to-list" id="closeFullscreen">← Назад к списку</button>
+            <button id="markLearnedBtn" style="background:#4CAF50; color:white; border:none; padding:0.8rem 1.5rem; border-radius:50px; font-weight:bold; cursor:pointer;">✅ Выучил</button>
+        </div>
+
+        <div class="fullscreen-char">
+            <div class="big-char" id="fsChar" onclick="playChinese(document.getElementById('fsChar').innerText)">你</div>
+            <div class="fullscreen-pinyin" id="fsPinyin">nǐ</div>
+            <div class="fullscreen-meaning" id="fsMeaning">ты</div>
+        </div>
+
+        <div class="full-analysis">
+            <div class="analysis-title" onclick="toggleFullAnalysis(this)">
+                🔍 Полный разбор иероглифа <span>▲</span>
+            </div>
+            <div class="analysis-details show" id="fsAnalysis">
+                <div><strong>🧩 Составные части:</strong></div>
+                <div class="parts-list" id="fsParts"></div>
+                <div style="margin-top: 0.5rem;"><strong>🎵 Фонетик:</strong> <span id="fsPhonetic"></span></div>
+                <div style="margin-top: 0.3rem;"><strong>📖 Объяснение:</strong> <span id="fsExplanation"></span></div>
+                <div style="margin-top: 0.5rem;"><strong>📚 Примеры:</strong> <span id="fsExamples"></span></div>
+            </div>
+        </div>
+
+        <div class="input-area-full">
+            <input type="text" id="fsPinyinInput" class="pinyin-input-full" placeholder="Введи пиньинь (можно без тонов)">
+            <button id="fsCheckBtn" class="check-btn">✅ Проверить</button>
+        </div>
+        <div id="fsCheckResult" style="font-size:0.85rem; margin-bottom:0.5rem;"></div>
+
+        <div class="full-canvas-area">
+            <canvas id="fullCanvas" class="full-canvas" width="500" height="500"></canvas>
+            <div class="full-tools">
+                <button class="full-btn warning" id="fullClearBtn">🧽 Очистить</button>
+                <button class="full-btn" id="fullUndoBtn">↩ Отменить</button>
+                <button class="full-btn" id="fullTemplateBtn">🖼 Образец</button>
+                <button class="full-btn primary" id="fullCheckBtn">🔍 Проверить точность</button>
+            </div>
+            <div class="brush-control">
+                <span>✏️ Толщина:</span>
+                <input type="range" id="fullBrushSize" min="3" max="28" value="16" step="1">
+                <span id="fullBrushValue">16</span>
+                <button class="full-btn" id="fullSpeakBtn" style="background:#5D9B4B; color:white;">🔊 Озвучить</button>
+            </div>
+            <div class="accuracy-result" id="fullAccuracy">🎯 Точность: 0%</div>
+        </div>
+    </div>
 </div>
 
 <script src="frequency-db.js"></script>
@@ -381,26 +447,24 @@
     let completedIds = new Set();
     let hideCompleted = false;
     
-    // Хранилище для canvas и их состояния
-    let canvasInstances = new Map();
+    // Переменные для полноэкранного режима
+    let currentWord = null;
+    let fullCanvas = null;
+    let fullCtx = null;
+    let fullUndoStack = [];
+    let fullPainting = false;
 
     function loadData() {
         if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
             wordsData = JSON.parse(JSON.stringify(frequencyDB));
             console.log('✅ Загружено слов:', wordsData.length);
         } else {
-            console.error('❌ frequencyDB не загружена');
             wordsData = [];
         }
-        
         const saved = localStorage.getItem('frequencyProgress');
         if (saved) {
-            try {
-                completedIds = new Set(JSON.parse(saved));
-                console.log('📊 Загружен прогресс:', completedIds.size, 'слов выучено');
-            } catch(e) {}
+            try { completedIds = new Set(JSON.parse(saved)); } catch(e) {}
         }
-        
         renderWords();
         updateProgress();
     }
@@ -428,122 +492,163 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // Убираем тоны из пиньиня для сравнения
     function normalizePinyin(pinyin) {
         if (!pinyin) return '';
-        return pinyin
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[0-5]/g, '')
-            .replace(/[^a-z]/g, '');
+        return pinyin.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[0-5]/g, '').replace(/[^a-z]/g, '');
     }
 
-    function checkPinyin(wordId, userInput, correctPinyin) {
-        const normalizedUser = normalizePinyin(userInput);
-        const normalizedCorrect = normalizePinyin(correctPinyin);
+    function renderWords() {
+        const container = document.getElementById('wordsGrid');
+        if (!container) return;
         
-        const isCorrect = (normalizedUser === normalizedCorrect);
+        let filtered = [...wordsData];
+        if (hideCompleted) filtered = filtered.filter(w => !completedIds.has(w.id));
         
-        if (isCorrect) {
-            if (!completedIds.has(wordId)) {
-                completedIds.add(wordId);
-                saveProgress();
-            }
-            return { correct: true, message: `✅ Правильно! ${correctPinyin}` };
-        } else {
-            return { correct: false, message: `❌ Неправильно. Правильно: ${correctPinyin}` };
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:3rem; background:white; border-radius:50px;">🎉 Поздравляю! Все слова выучены! 🎉</div>';
+            return;
         }
+        
+        container.innerHTML = '';
+        
+        filtered.forEach(word => {
+            const isCompleted = completedIds.has(word.id);
+            const card = document.createElement('div');
+            card.className = 'word-card' + (isCompleted ? ' completed' : '');
+            card.onclick = () => openFullscreen(word);
+            
+            card.innerHTML = `
+                <div class="word-header">
+                    <span class="char-large" onclick="event.stopPropagation(); playChinese('${word.char}')">${word.char}</span>
+                    <span class="pinyin-badge">${word.pinyin}</span>
+                </div>
+                <div class="meaning">📖 ${word.meaning}</div>
+            `;
+            container.appendChild(card);
+        });
     }
     
-    // ========== ФУНКЦИИ ДЛЯ ВСТРОЕННОЙ ТЕТРАДИ ==========
+    // ========== ПОЛНОЭКРАННЫЙ РЕЖИМ ==========
     
-    function initMiniCanvas(canvasId, char) {
-        const canvas = document.getElementById(canvasId);
-        if (!canvas) return null;
+    function openFullscreen(word) {
+        currentWord = word;
         
-        canvas.width = 200;
-        canvas.height = 200;
-        const ctx = canvas.getContext('2d');
+        // Заполняем данные
+        document.getElementById('fsChar').innerText = word.char;
+        document.getElementById('fsPinyin').innerText = word.pinyin;
+        document.getElementById('fsMeaning').innerText = word.meaning;
         
-        let painting = false;
-        let undoStack = [];
+        // Разбор
+        const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
+        document.getElementById('fsParts').innerHTML = partsHtml;
+        
+        const phoneticHtml = word.phonetic ? `${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
+        document.getElementById('fsPhonetic').innerHTML = phoneticHtml;
+        document.getElementById('fsExplanation').innerHTML = word.explanation || '—';
+        
+        const examplesHtml = word.examples ? word.examples.map((ex, i) => `${ex} — ${word.exampleMeanings?.[i] || ''}`).join('<br>') : '—';
+        document.getElementById('fsExamples').innerHTML = examplesHtml;
+        
+        // Очищаем поле ввода и результат
+        document.getElementById('fsPinyinInput').value = '';
+        document.getElementById('fsCheckResult').innerHTML = '';
+        
+        // Показываем полноэкранный режим
+        document.getElementById('fullscreen').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Инициализируем canvas
+        initFullCanvas(word.char);
+    }
+    
+    function closeFullscreen() {
+        document.getElementById('fullscreen').classList.remove('show');
+        document.body.style.overflow = 'auto';
+        currentWord = null;
+    }
+    
+    function initFullCanvas(char) {
+        const canvas = document.getElementById('fullCanvas');
+        canvas.width = 500;
+        canvas.height = 500;
+        fullCtx = canvas.getContext('2d');
+        fullUndoStack = [];
         
         function drawGrid() {
-            ctx.save();
-            ctx.strokeStyle = '#D9C2A7';
-            ctx.lineWidth = 1;
+            fullCtx.save();
+            fullCtx.strokeStyle = '#D9C2A7';
+            fullCtx.lineWidth = 2;
             let cellSize = canvas.width / 4;
             for (let i = 1; i <= 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * cellSize, 0);
-                ctx.lineTo(i * cellSize, canvas.height);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(0, i * cellSize);
-                ctx.lineTo(canvas.width, i * cellSize);
-                ctx.stroke();
+                fullCtx.beginPath();
+                fullCtx.moveTo(i * cellSize, 0);
+                fullCtx.lineTo(i * cellSize, canvas.height);
+                fullCtx.stroke();
+                fullCtx.beginPath();
+                fullCtx.moveTo(0, i * cellSize);
+                fullCtx.lineTo(canvas.width, i * cellSize);
+                fullCtx.stroke();
             }
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(canvas.width, 0);
-            ctx.lineTo(0, canvas.height);
-            ctx.stroke();
-            ctx.restore();
+            fullCtx.beginPath();
+            fullCtx.moveTo(0, 0);
+            fullCtx.lineTo(canvas.width, canvas.height);
+            fullCtx.stroke();
+            fullCtx.beginPath();
+            fullCtx.moveTo(canvas.width, 0);
+            fullCtx.lineTo(0, canvas.height);
+            fullCtx.stroke();
+            fullCtx.restore();
         }
         
         function clearCanvas() {
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            fullCtx.fillStyle = 'white';
+            fullCtx.fillRect(0, 0, canvas.width, canvas.height);
             drawGrid();
-            saveState();
-            updateAccuracyDisplay(canvasId, 0);
+            saveFullState();
+            document.getElementById('fullAccuracy').innerHTML = '🎯 Точность: 0%';
         }
         
-        function saveState() {
-            undoStack.push(canvas.toDataURL());
-            if (undoStack.length > 10) undoStack.shift();
+        function saveFullState() {
+            fullUndoStack.push(canvas.toDataURL());
+            if (fullUndoStack.length > 20) fullUndoStack.shift();
         }
         
         function startDrawing(e) {
             e.preventDefault();
-            painting = true;
-            const coords = getCoords(e);
-            ctx.beginPath();
-            ctx.moveTo(coords.x, coords.y);
-            ctx.lineTo(coords.x, coords.y);
-            ctx.stroke();
+            fullPainting = true;
+            const coords = getFullCoords(e);
+            fullCtx.beginPath();
+            fullCtx.moveTo(coords.x, coords.y);
+            fullCtx.lineTo(coords.x, coords.y);
+            fullCtx.stroke();
         }
         
         function draw(e) {
-            if (!painting) return;
+            if (!fullPainting) return;
             e.preventDefault();
-            const coords = getCoords(e);
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.strokeStyle = '#1a1a1a';
-            ctx.lineWidth = 8;
-            ctx.lineTo(coords.x, coords.y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(coords.x, coords.y);
+            const coords = getFullCoords(e);
+            const brushSize = parseInt(document.getElementById('fullBrushSize').value);
+            fullCtx.lineCap = 'round';
+            fullCtx.lineJoin = 'round';
+            fullCtx.strokeStyle = '#1a1a1a';
+            fullCtx.lineWidth = brushSize;
+            fullCtx.lineTo(coords.x, coords.y);
+            fullCtx.stroke();
+            fullCtx.beginPath();
+            fullCtx.moveTo(coords.x, coords.y);
         }
         
         function stopDrawing() {
-            painting = false;
-            ctx.beginPath();
-            saveState();
+            fullPainting = false;
+            fullCtx.beginPath();
+            saveFullState();
         }
         
-        function getCoords(e) {
+        function getFullCoords(e) {
             const rect = canvas.getBoundingClientRect();
             const scaleX = canvas.width / rect.width;
             const scaleY = canvas.height / rect.height;
             let clientX, clientY;
-            
             if (e.touches) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -551,7 +656,6 @@
                 clientX = e.clientX;
                 clientY = e.clientY;
             }
-            
             let x = (clientX - rect.left) * scaleX;
             let y = (clientY - rect.top) * scaleY;
             x = Math.min(Math.max(0, x), canvas.width);
@@ -560,17 +664,17 @@
         }
         
         function showTemplate() {
-            ctx.save();
-            ctx.globalAlpha = 0.4;
-            ctx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#999999';
-            ctx.fillText(char, canvas.width / 2, canvas.height / 2);
-            ctx.globalAlpha = 1;
+            fullCtx.save();
+            fullCtx.globalAlpha = 0.35;
+            fullCtx.font = `bold ${canvas.width * 0.65}px 'Noto Sans SC'`;
+            fullCtx.textAlign = 'center';
+            fullCtx.textBaseline = 'middle';
+            fullCtx.fillStyle = '#999999';
+            fullCtx.fillText(char, canvas.width / 2, canvas.height / 2);
+            fullCtx.globalAlpha = 1;
             drawGrid();
-            ctx.restore();
-            saveState();
+            fullCtx.restore();
+            saveFullState();
         }
         
         function checkAccuracy() {
@@ -587,7 +691,7 @@
             idealCtx.fillText(char, idealCanvas.width / 2, idealCanvas.height / 2);
             
             const idealData = idealCtx.getImageData(0, 0, idealCanvas.width, idealCanvas.height);
-            const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const currentData = fullCtx.getImageData(0, 0, canvas.width, canvas.height);
             
             let matchCount = 0;
             let totalImportant = 0;
@@ -629,23 +733,57 @@
             let accuracy = totalImportant > 0 ? (matchCount / totalImportant) * 100 : 0;
             accuracy = Math.min(100, Math.max(0, Math.floor(accuracy)));
             
-            updateAccuracyDisplay(canvasId, accuracy);
+            let sumX = 0, sumY = 0, blackCount = 0;
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const idx = (y * canvas.width + x) * 4;
+                    const brightness = (currentData.data[idx] + currentData.data[idx+1] + currentData.data[idx+2]) / 3;
+                    if (brightness < 150) {
+                        sumX += x;
+                        sumY += y;
+                        blackCount++;
+                    }
+                }
+            }
+            
+            if (blackCount > 0) {
+                const centerX = sumX / blackCount;
+                const centerY = sumY / blackCount;
+                const idealCenter = canvas.width / 2;
+                const offset = Math.sqrt(Math.pow(centerX - idealCenter, 2) + Math.pow(centerY - idealCenter, 2));
+                const maxOffset = canvas.width / 4;
+                const centerBonus = Math.max(0, 100 - (offset / maxOffset) * 50);
+                accuracy = Math.floor(accuracy * 0.8 + centerBonus * 0.2);
+            }
+            
+            document.getElementById('fullAccuracy').innerHTML = `🎯 Точность: ${accuracy}%`;
             return accuracy;
         }
         
-        function updateAccuracyDisplay(canvasId, accuracy) {
-            const accuracySpan = document.getElementById(`accuracy-${canvasId}`);
-            if (accuracySpan) {
-                accuracySpan.innerText = accuracy + '%';
-                if (accuracy > 80) {
-                    accuracySpan.style.color = '#4CAF50';
-                } else if (accuracy > 50) {
-                    accuracySpan.style.color = '#FF8C42';
-                } else {
-                    accuracySpan.style.color = '#A64B2A';
-                }
+        function undo() {
+            if (fullUndoStack.length <= 1) {
+                clearCanvas();
+                return;
             }
+            fullUndoStack.pop();
+            let prev = fullUndoStack[fullUndoStack.length - 1];
+            let img = new Image();
+            img.src = prev;
+            img.onload = () => {
+                fullCtx.clearRect(0, 0, canvas.width, canvas.height);
+                fullCtx.drawImage(img, 0, 0);
+                drawGrid();
+            };
         }
+        
+        canvas.removeEventListener('mousedown', startDrawing);
+        canvas.removeEventListener('mousemove', draw);
+        canvas.removeEventListener('mouseup', stopDrawing);
+        canvas.removeEventListener('mouseleave', stopDrawing);
+        canvas.removeEventListener('touchstart', startDrawing);
+        canvas.removeEventListener('touchmove', draw);
+        canvas.removeEventListener('touchend', stopDrawing);
+        canvas.removeEventListener('touchcancel', stopDrawing);
         
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
@@ -656,159 +794,68 @@
         canvas.addEventListener('touchend', stopDrawing);
         canvas.addEventListener('touchcancel', stopDrawing);
         
+        // Кнопки
+        document.getElementById('fullClearBtn').onclick = clearCanvas;
+        document.getElementById('fullUndoBtn').onclick = undo;
+        document.getElementById('fullTemplateBtn').onclick = showTemplate;
+        document.getElementById('fullCheckBtn').onclick = () => checkAccuracy();
+        
         clearCanvas();
-        
-        return {
-            clear: clearCanvas,
-            template: showTemplate,
-            check: checkAccuracy
-        };
     }
     
-    function renderWords() {
-        const container = document.getElementById('wordsGrid');
-        if (!container) return;
-        
-        let filtered = [...wordsData];
-        if (hideCompleted) {
-            filtered = filtered.filter(w => !completedIds.has(w.id));
-        }
-        
-        if (filtered.length === 0) {
-            container.innerHTML = '<div style="text-align:center; padding:3rem; background:white; border-radius:50px;">🎉 Поздравляю! Все слова выучены! 🎉</div>';
-            return;
-        }
-        
-        container.innerHTML = '';
-        canvasInstances.clear();
-        
-        filtered.forEach(word => {
-            const isCompleted = completedIds.has(word.id);
-            const card = document.createElement('div');
-            card.className = 'word-card' + (isCompleted ? ' completed' : '');
-            card.dataset.id = word.id;
-            const canvasId = `canvas-${word.id}`;
-            
-            const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
-            const phoneticHtml = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
-            
-            const safeChar = word.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const safePinyin = word.pinyin.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            
-            card.innerHTML = `
-                <div class="word-header">
-                    <span class="char-large" onclick="playChinese('${safeChar}')">${word.char}</span>
-                    <span class="pinyin-badge">${word.pinyin}</span>
-                </div>
-                <div class="meaning">📖 ${word.meaning}</div>
-                
-                <div class="analysis">
-                    <div class="analysis-title" onclick="toggleAnalysis(this)">
-                        🔍 Разбор иероглифа <span>▼</span>
-                    </div>
-                    <div class="analysis-content">
-                        <div><strong>🧩 Составные части:</strong></div>
-                        <div class="parts-list">${partsHtml}</div>
-                        <div style="margin-top: 0.5rem;">
-                            <strong>🎵 Фонетик:</strong> ${phoneticHtml}
-                        </div>
-                        <div style="margin-top: 0.3rem;">
-                            <strong>📖 Объяснение:</strong> ${word.explanation || '—'}
-                        </div>
-                        ${word.examples ? `<div style="margin-top: 0.5rem;"><strong>📚 Примеры:</strong><br>${word.examples.map((ex, i) => `${ex} — ${word.exampleMeanings?.[i] || ''}`).join('<br>')}</div>` : ''}
-                    </div>
-                </div>
-                
-                <div class="input-area">
-                    <input type="text" class="pinyin-input" placeholder="Введи пиньинь (можно без тонов)" data-id="${word.id}" data-correct="${word.pinyin}">
-                    <button class="check-btn" data-id="${word.id}">✅ Проверить</button>
-                </div>
-                <div class="check-result" id="result-${word.id}"></div>
-                
-                <div class="practice-area">
-                    <div class="practice-title">
-                        <span>✍️ Пропись: ${word.char}</span>
-                        <span>Точность: <span id="accuracy-${canvasId}">0%</span></span>
-                    </div>
-                    <canvas id="${canvasId}" class="mini-canvas"></canvas>
-                    <div class="practice-tools">
-                        <button class="practice-btn" data-canvas="${canvasId}" data-action="clear">🧽 Очистить</button>
-                        <button class="practice-btn" data-canvas="${canvasId}" data-action="template">🖼 Образец</button>
-                        <button class="practice-btn" data-canvas="${canvasId}" data-action="check">🔍 Проверить</button>
-                    </div>
-                </div>
-            `;
-            
-            container.appendChild(card);
-            
-            // Инициализируем canvas
-            setTimeout(() => {
-                const canvasControl = initMiniCanvas(canvasId, word.char);
-                if (canvasControl) {
-                    canvasInstances.set(canvasId, canvasControl);
-                }
-            }, 10);
-        });
-        
-        // Обработчики для кнопок проверки пиньиня
-        document.querySelectorAll('.check-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = parseInt(btn.dataset.id);
-                const input = btn.parentElement.querySelector('.pinyin-input');
-                const userValue = input.value;
-                const word = wordsData.find(w => w.id === id);
-                const resultDiv = document.getElementById(`result-${id}`);
-                
-                if (!word) return;
-                
-                const result = checkPinyin(id, userValue, word.pinyin);
-                resultDiv.innerHTML = result.message;
-                resultDiv.style.color = result.correct ? 'green' : 'red';
-                
-                if (result.correct) {
-                    const card = btn.closest('.word-card');
-                    if (card) card.classList.add('completed');
-                    updateProgress();
-                    if (hideCompleted) renderWords();
-                }
-            });
-        });
-        
-        // Обработчики для Enter в поле ввода
-        document.querySelectorAll('.pinyin-input').forEach(input => {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const btn = input.parentElement.querySelector('.check-btn');
-                    if (btn) btn.click();
-                }
-            });
-        });
-        
-        // Обработчики для кнопок тетради (делегирование)
-        document.querySelectorAll('.practice-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const canvasId = btn.dataset.canvas;
-                const action = btn.dataset.action;
-                const canvasControl = canvasInstances.get(canvasId);
-                if (canvasControl) {
-                    if (action === 'clear') canvasControl.clear();
-                    if (action === 'template') canvasControl.template();
-                    if (action === 'check') canvasControl.check();
-                }
-            });
-        });
-    }
-    
-    function toggleAnalysis(titleEl) {
-        const content = titleEl.parentElement.querySelector('.analysis-content');
+    function toggleFullAnalysis(titleEl) {
+        const content = titleEl.parentElement.querySelector('.analysis-details');
         const arrow = titleEl.querySelector('span');
         content.classList.toggle('show');
         arrow.innerHTML = content.classList.contains('show') ? '▲' : '▼';
     }
     
-    // Кнопки управления
+    // Обработчики
+    document.getElementById('closeFullscreen').addEventListener('click', closeFullscreen);
+    
+    document.getElementById('markLearnedBtn').addEventListener('click', () => {
+        if (currentWord && !completedIds.has(currentWord.id)) {
+            completedIds.add(currentWord.id);
+            saveProgress();
+            renderWords();
+            alert(`✅ "${currentWord.char}" добавлено в выученные!`);
+        } else if (currentWord) {
+            alert(`"${currentWord.char}" уже было в выученных`);
+        }
+    });
+    
+    document.getElementById('fsCheckBtn').addEventListener('click', () => {
+        if (!currentWord) return;
+        const userInput = document.getElementById('fsPinyinInput').value;
+        const isCorrect = normalizePinyin(userInput) === normalizePinyin(currentWord.pinyin);
+        const resultDiv = document.getElementById('fsCheckResult');
+        if (isCorrect) {
+            resultDiv.innerHTML = `✅ Правильно! ${currentWord.pinyin}`;
+            resultDiv.style.color = 'green';
+            if (!completedIds.has(currentWord.id)) {
+                completedIds.add(currentWord.id);
+                saveProgress();
+                renderWords();
+            }
+        } else {
+            resultDiv.innerHTML = `❌ Неправильно. Правильно: ${currentWord.pinyin}`;
+            resultDiv.style.color = 'red';
+        }
+    });
+    
+    document.getElementById('fsPinyinInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('fsCheckBtn').click();
+    });
+    
+    document.getElementById('fullSpeakBtn').addEventListener('click', () => {
+        if (currentWord) playChinese(currentWord.char);
+    });
+    
+    document.getElementById('fullBrushSize').addEventListener('input', (e) => {
+        document.getElementById('fullBrushValue').innerText = e.target.value;
+    });
+    
+    // Кнопки управления списком
     document.getElementById('speakAllBtn')?.addEventListener('click', () => {
         const allChars = wordsData.map(w => w.char).join('');
         playChinese(allChars);
@@ -832,7 +879,6 @@
         renderWords();
     });
     
-    // Запуск загрузки
     loadData();
 </script>
 </body>
