@@ -374,7 +374,7 @@
     function saveProgress() {
         localStorage.setItem('frequencyProgress', JSON.stringify([...completedIds]));
         updateProgress();
-        renderWords();
+        if (hideCompleted) renderWords();
     }
 
     function updateProgress() {
@@ -385,7 +385,7 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    // ========== ОТПРАВКА В ТЕТРАДЬ (ИСПРАВЛЕНО) ==========
+    // ========== ОТПРАВКА В ТЕТРАДЬ ==========
     function openDrawing(char, pinyin, meaning) {
         console.log('📤 Отправляем в тетрадь:', { char, pinyin, meaning });
         
@@ -398,16 +398,10 @@
         
         try {
             localStorage.setItem('selected_character', JSON.stringify(wordData));
-            console.log('✅ Данные сохранены в localStorage');
-            
-            // Проверяем, что сохранилось
-            const saved = localStorage.getItem('selected_character');
-            console.log('🔍 Проверка сохранения:', saved);
-            
-            // Открываем тетрадь
+            console.log('✅ Данные сохранены');
             window.location.href = 'copybook.html';
         } catch(e) {
-            console.error('❌ Ошибка сохранения:', e);
+            console.error('❌ Ошибка:', e);
             alert('Ошибка при открытии тетради');
         }
     }
@@ -511,6 +505,7 @@
         // Добавляем обработчики для кнопок проверки
         document.querySelectorAll('.check-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const id = parseInt(btn.dataset.id);
                 const input = btn.parentElement.querySelector('.pinyin-input');
                 const userValue = input.value;
