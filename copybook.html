@@ -63,7 +63,6 @@
         }
         .btn-home:active { transform: translateY(2px); box-shadow: 0 1px 0 #B45F1B; }
         
-        /* Новая кнопка возврата в игру */
         .btn-game {
             background: #9C27B0;
             color: white;
@@ -283,13 +282,16 @@
         example: "八个 bā ge"
     };
 
-    // ========== ПРИЁМ СЛОВА ИЗ ИГРЫ ==========
+    // ========== ПРИЁМ СЛОВА ИЗ УРОКА (ИСПРАВЛЕНО) ==========
     function loadWordFromGame() {
         const savedChar = localStorage.getItem('selected_character');
+        console.log('🔍 Читаем из localStorage:', savedChar);
+        
         if (savedChar) {
             try {
                 const charObj = JSON.parse(savedChar);
                 if (charObj && charObj.char) {
+                    console.log('✅ Загружен иероглиф из урока:', charObj.char);
                     currentCharData = {
                         char: charObj.char,
                         pinyin: charObj.pinyin || '',
@@ -302,15 +304,21 @@
                     document.getElementById('currentPinyin').innerHTML = currentCharData.pinyin;
                     document.getElementById('currentMeaning').innerHTML = currentCharData.meaning;
                     document.getElementById('exampleText').innerHTML = `${currentCharData.char} (${currentCharData.pinyin}) — ${currentCharData.meaning}`;
-                    clearCanvas();
+                    
+                    // Очищаем localStorage, чтобы при следующем открытии без выбора показывался стандартный иероглиф
                     localStorage.removeItem('selected_character');
+                    
+                    clearCanvas();
                     return true;
                 }
-            } catch(e) {}
+            } catch(e) {
+                console.error('❌ Ошибка парсинга:', e);
+            }
+        } else {
+            console.log('ℹ️ Нет сохранённого иероглифа, показываем стандартный');
         }
         return false;
     }
-    // ========== КОНЕЦ НОВОГО КОДА ==========
 
     function initCanvas() {
         canvas.width = 400;
@@ -579,11 +587,12 @@
         speakChinese(currentCharData.sound || currentCharData.char);
     });
 
-    // ========== ИНИЦИАЛИЗАЦИЯ С ПОДДЕРЖКОЙ ИГРЫ ==========
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
     initCanvas();
     
-    // Пробуем загрузить слово из игры, если нет - оставляем "八"
+    // Пробуем загрузить слово из урока, если нет - оставляем "八"
     if (!loadWordFromGame()) {
+        console.log('ℹ️ Используем иероглиф по умолчанию: 八');
         // Оставляем стандартный иероглиф
         currentCharData = { char: "八", pinyin: "bā", meaning: "восемь 🧮", sound: "八个", example: "八个 bā ge" };
         document.getElementById('currentChar').innerText = currentCharData.char;
