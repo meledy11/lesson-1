@@ -342,14 +342,16 @@
     function loadData() {
         if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
             wordsData = JSON.parse(JSON.stringify(frequencyDB));
+            console.log('✅ Загружено слов:', wordsData.length);
         } else {
-            console.error('frequencyDB не загружена');
+            console.error('❌ frequencyDB не загружена');
             wordsData = [];
         }
         
         const saved = localStorage.getItem('frequencyProgress');
         if (saved) {
             completedIds = new Set(JSON.parse(saved));
+            console.log('📊 Загружен прогресс:', completedIds.size, 'слов выучено');
         }
         
         renderWords();
@@ -379,26 +381,33 @@
         document.getElementById('progressFill').style.width = percent + '%';
     }
 
-    function openDrawing(char, pinyin, meaning) {
+    // Функция для отправки слова в тетрадь (copybook.html)
+    function openDrawing(char, pinyin, meaning, fullData) {
+        // Сохраняем полные данные в localStorage
         const charData = {
             char: char,
             pinyin: pinyin,
             meaning: meaning,
-            sound: char
+            sound: char,
+            // Сохраняем весь объект для полного разбора
+            fullData: fullData || null
         };
         localStorage.setItem('selectedCharacter', JSON.stringify(charData));
+        console.log('📤 Отправлено в тетрадь:', char, pinyin, meaning);
+        
+        // Открываем тетрадь в новой вкладке
         window.open('copybook.html', '_blank');
     }
 
-    // Убираем тоны из пиньиня для сравнения (a1, a2, a3, a4, a5 → a)
+    // Убираем тоны из пиньиня для сравнения
     function normalizePinyin(pinyin) {
         if (!pinyin) return '';
         return pinyin
             .toLowerCase()
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')  // убираем диакритические знаки (тоны)
-            .replace(/[0-5]/g, '')            // убираем цифры тонов (если есть)
-            .replace(/[^a-z]/g, '');           // оставляем только буквы
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[0-5]/g, '')
+            .replace(/[^a-z]/g, '');
     }
 
     function checkPinyin(wordId, userInput, correctPinyin) {
@@ -443,9 +452,14 @@
             const partsHtml = word.parts ? word.parts.map(p => `<span class="part-item">${p.char} (${p.meaning})</span>`).join('') : '<span class="part-item">—</span>';
             const phoneticHtml = word.phonetic ? `✅ Есть фонетик: ${word.phonetic.char} (${word.phonetic.reading})<br>📝 ${word.phonetic.note || ''}` : '❌ НЕТ фонетика — это ' + (word.type || 'идеограмма/пиктограмма');
             
+            // Безопасное экранирование для передачи в функцию
+            const safeChar = word.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safePinyin = word.pinyin.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeMeaning = word.meaning.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            
             card.innerHTML = `
                 <div class="word-header">
-                    <span class="char-large" onclick="playChinese('${word.char}')">${word.char}</span>
+                    <span class="char-large" onclick="playChinese('${safeChar}')">${word.char}</span>
                     <span class="pinyin-badge">${word.pinyin}</span>
                 </div>
                 <div class="meaning">📖 ${word.meaning}</div>
@@ -473,7 +487,7 @@
                 </div>
                 <div class="check-result" id="result-${word.id}"></div>
                 
-                <div class="draw-link" onclick="openDrawing('${word.char}', '${word.pinyin}', '${word.meaning}')">
+                <div class="draw-link" onclick="openDrawing('${safeChar}', '${safePinyin}', '${safeMeaning}', ${JSON.stringify(word).replace(/</g, '\\u003c')})">
                     ✍️ Писать в тетради
                 </div>
             `;
@@ -481,7 +495,7 @@
             container.appendChild(card);
         });
         
-        // Добавляем обработчики
+        // Добавляем обработчики для кнопок проверки
         document.querySelectorAll('.check-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = parseInt(btn.dataset.id);
@@ -497,13 +511,15 @@
                 resultDiv.style.color = result.correct ? 'green' : 'red';
                 
                 if (result.correct) {
-                    btn.parentElement.parentElement.classList.add('completed');
+                    const card = btn.closest('.word-card');
+                    if (card) card.classList.add('completed');
                     updateProgress();
                     if (hideCompleted) renderWords();
                 }
             });
         });
         
+        // Обработчики для Enter в поле ввода
         document.querySelectorAll('.pinyin-input').forEach(input => {
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -521,13 +537,14 @@
         arrow.innerHTML = content.classList.contains('show') ? '▲' : '▼';
     }
     
+    // Кнопки управления
     document.getElementById('speakAllBtn')?.addEventListener('click', () => {
         const allChars = wordsData.map(w => w.char).join('');
         playChinese(allChars);
     });
     
     document.getElementById('resetProgressBtn')?.addEventListener('click', () => {
-        if (confirm('Сбросить весь прогресс?')) {
+        if (confirm('Сбросить весь прогресс изучения слов?')) {
             completedIds.clear();
             saveProgress();
             renderWords();
@@ -544,6 +561,7 @@
         renderWords();
     });
     
+    // Запуск загрузки
     loadData();
 </script>
 </body>
