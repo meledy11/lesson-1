@@ -82,32 +82,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Стиль для полноэкранного режима (скрывает всё меню) */
-        body.fullscreen-mode .container > .hero,
-        body.fullscreen-mode .tabs-nav,
-        body.fullscreen-mode .tab-content:not(.fullscreen-active),
-        body.fullscreen-mode footer {
-            display: none;
-        }
-        body.fullscreen-mode .tab-content.fullscreen-active {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            background: #0d2818;
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-        body.fullscreen-mode .tab-content.fullscreen-active iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
         .speak-tip {
             text-align: center;
             background: #FFF1C1;
@@ -116,6 +90,42 @@
             margin-bottom: 1rem;
             font-size: 0.85rem;
             border: 2px solid #FFB347;
+        }
+        
+        /* ЯРКИЙ БАННЕР ДЛЯ НОВОЙ ИГРЫ */
+        .new-game-banner {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            border-radius: 60px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 0 #6A1B9A;
+            text-decoration: none;
+            display: block;
+            transition: 0.1s;
+            animation: pulse-glow 2s infinite;
+        }
+        .new-game-banner:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #6A1B9A;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
+            50% { box-shadow: 0 8px 0 #6A1B9A, 0 0 20px 5px rgba(156,39,176,0.7); }
+            100% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
+        }
+        .new-game-banner .banner-icon { font-size: 2.5rem; }
+        .new-game-banner .banner-title { font-weight: bold; font-size: 1.3rem; margin: 0.3rem 0; }
+        .new-game-banner .banner-desc { font-size: 0.8rem; opacity: 0.9; }
+        .new-game-banner .banner-button {
+            display: inline-block;
+            margin-top: 0.5rem;
+            background: rgba(255,255,255,0.25);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
         
         .lessons-list {
@@ -317,15 +327,6 @@
             font-size: 0.85rem;
         }
         
-        .syllables-frame {
-            width: 100%;
-            height: 80vh;
-            border: none;
-            border-radius: 30px;
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -349,9 +350,8 @@
                 margin-top: 0.7rem;
                 align-self: flex-end;
             }
-            .syllables-frame {
-                height: 70vh;
-            }
+            .new-game-banner .banner-title { font-size: 1rem; }
+            .new-game-banner .banner-icon { font-size: 1.8rem; }
         }
     </style>
     <meta name="theme-color" content="#FF6B35">
@@ -364,7 +364,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Баннер для установки PWA -->
         <div class="install-banner" id="installBanner">
             <span>📱 Установите приложение на телефон</span>
             <button id="installBtn">⬇️ Установить</button>
@@ -375,7 +374,6 @@
             <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз 🎧</p>
         </div>
         
-        <!-- ВКЛАДКИ -->
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
@@ -387,21 +385,26 @@
         
         <!-- ВКЛАДКА: УРОКИ -->
         <div class="tab-content active" id="tab-lessons">
-            <div class="speak-tip">      <span>🌟</span> Выбери урок и начинай учить иероглифы с удовольствием! <span>🌟</span>
-            </div>
+            <div class="speak-tip">🌟 Выбери урок и начинай учить иероглифы с удовольствием! 🌟</div>
             <div class="lessons-list" id="lessonsList">
                 <a href="frequency-lesson.html" class="lesson-card">
                     <h2>🔥 127 самых частотных слов</h2>
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
-                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                        🎯 127 слов + разбор на части + есть/нет фонетик
-                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">🎯 127 слов + разбор на части</div>
                 </a>
             </div>
         </div>
         
         <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
+            <!-- ===== ЯРКИЙ БАННЕР НОВОЙ ИГРЫ ===== -->
+            <a href="majongsborka.html" class="new-game-banner">
+                <div class="banner-icon">🀄 🔑➕🔑 🀄</div>
+                <div class="banner-title">НОВАЯ ИГРА! Маджонг: собери слово из ключей</div>
+                <div class="banner-desc">Найди ВСЕ радикалы (ключи), из которых состоит иероглиф → слово отправится в тетрадь!</div>
+                <div class="banner-button">👉 ИГРАТЬ СЕЙЧАС 👈</div>
+            </a>
+            
             <div class="speak-tip">
                 <span>🎮</span> Тренируй слова и фразы в игровой форме! <span>🎮</span>
             </div>
@@ -420,7 +423,6 @@
                     <span class="game-tag blue">2 игры</span>
                 </a>
                 
-                <!-- НОВАЯ ИГРА: ДИКТАНТ ПИНЬИНЯ -->
                 <a href="pinyin-dictation.html" class="game-card">
                     <div class="game-icon">🎯</div>
                     <h3>Диктант пиньиня</h3>
@@ -453,28 +455,16 @@
                     <p>Сопоставляй иероглифы с их радикалами</p>
                     <span class="game-tag orange">память</span>
                 </a>
-
-                <!-- НОВАЯ ИГРА: МАДЖОНГ 2 - СОБЕРИ СЛОВО ИЗ КЛЮЧЕЙ -->
-                <a href="majongsborka.html" class="game-card">
-                    <div class="game-icon">🔑➕🔑</div>
-                    <h3>Маджонг: ключ + ключ = слово</h3>
-                    <p>Найди два или три ключа, из которых состоит иероглиф</p>
-                    <span class="game-tag purple">сборка слов</span>
-                </a>
             </div>
         </div>
         
         <!-- ВКЛАДКА: СЛОВАРЬ -->
         <div class="tab-content" id="tab-dictionary">
-            <div class="speak-tip">
-                <span>🔍</span> Ищи по иероглифам, пиньиню или русскому переводу <span>🔍</span>
-            </div>
-            
+            <div class="speak-tip">🔍 Ищи по иероглифам, пиньиню или русскому переводу 🔍</div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Например: 你好, nihao, привет, 的..." autocomplete="off">
                 <button id="searchBtn">🔍 Поиск</button>
             </div>
-            
             <div class="filter-levels">
                 <button class="filter-btn active" data-level="all">🎯 Все уровни</button>
                 <button class="filter-btn" data-level="1">⭐ Уровень 1</button>
@@ -483,21 +473,13 @@
                 <button class="filter-btn" data-level="4">⭐⭐⭐⭐ Уровень 4</button>
                 <button class="filter-btn" data-level="5">⭐⭐⭐⭐⭐ Уровень 5</button>
             </div>
-            
-            <div class="stats-info" id="statsInfo">
-                📊 Загрузка словаря...
-            </div>
-            
-            <div class="dict-results" id="dictResults">
-                <div style="text-align:center; padding:2rem;">📖 Начните поиск или выберите уровень</div>
-            </div>
+            <div class="stats-info" id="statsInfo">📊 Загрузка словаря...</div>
+            <div class="dict-results" id="dictResults"><div style="text-align:center; padding:2rem;">📖 Начните поиск или выберите уровень</div></div>
         </div>
         
         <!-- ВКЛАДКА: СЛОГИ -->
         <div class="tab-content" id="tab-syllables">
-            <div class="speak-tip">
-                <span>🎵</span> Все слоги китайского языка с примерами и озвучкой <span>🎵</span>
-            </div>
+            <div class="speak-tip">🎵 Все слоги китайского языка с примерами и озвучкой 🎵</div>
             <div class="games-grid">
                 <a href="syllables.html" class="game-card">
                     <div class="game-icon">🎵</div>
@@ -510,9 +492,7 @@
         
         <!-- ВКЛАДКА: HSK 1 -->
         <div class="tab-content" id="tab-hsk1">
-            <div class="speak-tip">
-                <span>📘</span> Все 150 слов HSK 1 с разбором, озвучкой и тетрадью <span>✍️</span>
-            </div>
+            <div class="speak-tip">📘 Все 150 слов HSK 1 с разбором, озвучкой и тетрадью ✍️</div>
             <div class="games-grid">
                 <a href="hsk1.html" class="game-card">
                     <div class="game-icon">📘</div>
@@ -525,9 +505,7 @@
         
         <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ -->
         <div class="tab-content" id="tab-phrases">
-            <div class="speak-tip">
-                <span>📇</span> 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов <span>🔊</span>
-            </div>
+            <div class="speak-tip">📇 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов 🔊</div>
             <div class="games-grid">
                 <a href="phrases-cards.html" class="game-card">
                     <div class="game-icon">🃏</div>
@@ -539,17 +517,15 @@
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 📖 В словаре теперь 50 частотных слов + 600 фраз. 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов! 📇 Карточки фраз — учи целые предложения!
+            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов!
         </footer>
     </div>
     
-    <!-- Подключаем все базы данных -->
     <script src="frequency-db.js"></script>
     <script src="lessons-data.js"></script>
     <script src="phrases-db.js"></script>
     
     <script>
-        // ===== PWA УСТАНОВКА НА ANDROID =====
         let deferredPrompt = null;
         const installBanner = document.getElementById('installBanner');
         const installBtn = document.getElementById('installBtn');
@@ -558,7 +534,6 @@
             e.preventDefault();
             deferredPrompt = e;
             installBanner.classList.add('show');
-            console.log('✅ PWA установка доступна');
         });
         
         if (installBtn) {
@@ -566,45 +541,30 @@
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
-                    console.log(`Результат установки: ${outcome}`);
                     deferredPrompt = null;
                     installBanner.classList.remove('show');
                 }
             });
         }
         
-        window.addEventListener('appinstalled', () => {
-            console.log('🎉 Приложение установлено!');
-            installBanner.classList.remove('show');
-        });
-        
-        // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
                 const tabName = this.dataset.tab;
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
                 document.getElementById('tab-' + tabName).classList.add('active');
-                
-                if (tabName === 'dictionary') {
-                    updateStats();
-                    searchDictionary();
-                }
+                if (tabName === 'dictionary') { updateStats(); searchDictionary(); }
             });
         });
         
-        // ===== ЗАГРУЗКА УРОКОВ ИЗ lessons-data.js =====
         const lessonsList = document.getElementById('lessonsList');
-        
         if (typeof lessonsDB !== 'undefined') {
             const sortedLessons = Object.entries(lessonsDB).sort((a, b) => {
                 const numA = parseInt(a[0].replace('lesson', '')) || 0;
                 const numB = parseInt(b[0].replace('lesson', '')) || 0;
                 return numA - numB;
             });
-            
             if (sortedLessons.length > 0) {
                 for (const [key, lesson] of sortedLessons) {
                     const lessonCard = document.createElement('a');
@@ -613,20 +573,14 @@
                     lessonCard.innerHTML = `
                         <h2>${lesson.icon} ${lesson.title}</h2>
                         <p>${lesson.description}</p>
-                        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">
-                            ${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}
-                        </div>
+                        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}</div>
                     `;
                     lessonsList.appendChild(lessonCard);
                 }
             }
-        } else {
-            console.log('lessons-data.js не загружен или пуст');
         }
         
-        // ===== СЛОВАРЬ С ПОИСКОМ =====
         let currentLevel = 'all';
-        
         function speakChinese(text) {
             if (!text || !window.speechSynthesis) return;
             window.speechSynthesis.cancel();
@@ -637,44 +591,23 @@
                 window.speechSynthesis.speak(utterance);
             }, 50);
         }
-        
         window.speakChinese = speakChinese;
         
         function buildDictionaryEntries() {
             const entries = [];
-            
             if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
                 for (const phrase of phrasesDB) {
-                    entries.push({
-                        chinese: phrase.chinese,
-                        pinyin: phrase.pinyin,
-                        russian: phrase.russian,
-                        level: phrase.level || 1,
-                        source: 'phrase',
-                        sourceIcon: '💬',
-                        sourceName: 'фраза'
-                    });
+                    entries.push({ chinese: phrase.chinese, pinyin: phrase.pinyin, russian: phrase.russian, level: phrase.level || 1, source: 'phrase', sourceIcon: '💬', sourceName: 'фраза' });
                 }
             }
-            
             if (typeof frequencyDB !== 'undefined' && Array.isArray(frequencyDB)) {
                 for (const word of frequencyDB) {
                     const exists = entries.some(e => e.chinese === word.char && e.source === 'phrase');
                     if (!exists) {
-                        entries.push({
-                            chinese: word.char,
-                            pinyin: word.pinyin,
-                            russian: word.meaning,
-                            level: word.level || 1,
-                            source: 'word',
-                            sourceIcon: '📖',
-                            sourceName: 'частотное слово',
-                            radical: word.radical?.char || ''
-                        });
+                        entries.push({ chinese: word.char, pinyin: word.pinyin, russian: word.meaning, level: word.level || 1, source: 'word', sourceIcon: '📖', sourceName: 'частотное слово', radical: word.radical?.char || '' });
                     }
                 }
             }
-            
             entries.sort((a, b) => a.chinese.localeCompare(b.chinese));
             return entries;
         }
@@ -683,15 +616,9 @@
             const entries = buildDictionaryEntries();
             const statsDiv = document.getElementById('statsInfo');
             const levelCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-            
-            for (const entry of entries) {
-                const lvl = entry.level;
-                if (levelCounts[lvl] !== undefined) levelCounts[lvl]++;
-            }
-            
+            for (const entry of entries) { const lvl = entry.level; if (levelCounts[lvl] !== undefined) levelCounts[lvl]++; }
             const phrasesCount = entries.filter(e => e.source === 'phrase').length;
             const wordsCount = entries.filter(e => e.source === 'word').length;
-            
             statsDiv.innerHTML = `📊 Всего: ${entries.length} (слова: ${wordsCount}, фразы: ${phrasesCount}) | ⭐${levelCounts[1]} | ⭐⭐${levelCounts[2]} | ⭐⭐⭐${levelCounts[3]} | ⭐⭐⭐⭐${levelCounts[4]} | ⭐⭐⭐⭐⭐${levelCounts[5]}`;
         }
         
@@ -701,55 +628,20 @@
                 document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Базы не загружены!</div>';
                 return;
             }
-            
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
             let filtered = [...entries];
-            
-            if (currentLevel !== 'all') {
-                filtered = filtered.filter(entry => entry.level === parseInt(currentLevel));
-            }
-            
-            if (query !== '') {
-                filtered = filtered.filter(entry => {
-                    return entry.chinese.includes(query) ||
-                           entry.pinyin.toLowerCase().includes(query) ||
-                           entry.russian.toLowerCase().includes(query);
-                });
-            }
-            
+            if (currentLevel !== 'all') { filtered = filtered.filter(entry => entry.level === parseInt(currentLevel)); }
+            if (query !== '') { filtered = filtered.filter(entry => entry.chinese.includes(query) || entry.pinyin.toLowerCase().includes(query) || entry.russian.toLowerCase().includes(query)); }
             const resultsDiv = document.getElementById('dictResults');
-            if (filtered.length === 0) {
-                resultsDiv.innerHTML = '<div style="text-align:center; padding:2rem;">😔 Ничего не найдено</div>';
-                return;
-            }
-            
+            if (filtered.length === 0) { resultsDiv.innerHTML = '<div style="text-align:center; padding:2rem;">😔 Ничего не найдено</div>'; return; }
             let html = '';
             for (const entry of filtered) {
                 const stars = '⭐'.repeat(entry.level);
                 const safeChinese = entry.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 const extraInfo = entry.radical ? ` (ключ: ${entry.radical})` : '';
-                html += `
-                    <div class="dict-item">
-                        <div class="dict-content">
-                            <div>
-                                <span class="dict-chinese" onclick="speakChinese('${safeChinese}')">${entry.chinese}</span>
-                                <span class="dict-pinyin">${entry.pinyin}</span>
-                                <span class="source-badge" title="${entry.sourceName}">${entry.sourceIcon} ${entry.source === 'word' ? 'слово' : 'фраза'}</span>
-                            </div>
-                            <div class="dict-russian">${entry.russian}${extraInfo}</div>
-                            <div class="dict-level">Уровень ${entry.level} ${stars}</div>
-                        </div>
-                        <button class="speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
-                    </div>
-                `;
+                html += `<div class="dict-item"><div class="dict-content"><div><span class="dict-chinese" onclick="speakChinese('${safeChinese}')">${entry.chinese}</span><span class="dict-pinyin">${entry.pinyin}</span><span class="source-badge">${entry.sourceIcon} ${entry.source === 'word' ? 'слово' : 'фраза'}</span></div><div class="dict-russian">${entry.russian}${extraInfo}</div><div class="dict-level">Уровень ${entry.level} ${stars}</div></div><button class="speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button></div>`;
             }
-            
-            resultsDiv.innerHTML = `
-                <div style="margin-bottom:0.8rem; padding:0.5rem; background:#FFF8F0; border-radius:15px;">
-                    🔍 Найдено: ${filtered.length} записей
-                </div>
-                ${html}
-            `;
+            resultsDiv.innerHTML = `<div style="margin-bottom:0.8rem; padding:0.5rem; background:#FFF8F0; border-radius:15px;">🔍 Найдено: ${filtered.length} записей</div>${html}`;
         }
         
         document.querySelectorAll('#tab-dictionary .filter-btn').forEach(btn => {
@@ -761,44 +653,16 @@
             });
         });
         
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
+        document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchDictionary(); });
+        document.getElementById('searchBtn')?.addEventListener('click', () => searchDictionary());
         
-        if (searchInput) {
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') searchDictionary();
-            });
-        }
-        
-        if (searchBtn) {
-            searchBtn.addEventListener('click', function() {
+        setTimeout(() => {
+            if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
+                updateStats();
                 searchDictionary();
-            });
-        }
+            }
+        }, 200);
         
-        function initDictionary() {
-            setTimeout(() => {
-                if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
-                    updateStats();
-                    searchDictionary();
-                    console.log('✅ Словарь инициализирован: частотные слова + фразы');
-                } else {
-                    document.getElementById('statsInfo').innerHTML = '⚠️ Базы данных не загружены! Проверьте файлы frequency-db.js и phrases-db.js';
-                    document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Ошибка: базы данных не загружены</div>';
-                }
-            }, 200);
-        }
-        
-        initDictionary();
-        
-        if (typeof frequencyDB !== 'undefined') {
-            console.log(`📊 frequencyDB загружена: ${frequencyDB.length} частотных слов`);
-        }
-        if (typeof phrasesDB !== 'undefined') {
-            console.log(`📊 phrasesDB загружена: ${phrasesDB.length} фраз`);
-        }
-        
-        // Обработка переходов для PWA — все ссылки открываются в том же окне
         document.addEventListener('click', function(e) {
             const link = e.target.closest('a');
             if (link && link.href && link.href.startsWith(window.location.origin) && !link.hasAttribute('data-no-pwa')) {
@@ -806,22 +670,10 @@
                 window.location.href = link.href;
             }
         });
-    </script>
-    <!-- Регистрация Service Worker для офлайн-режима -->
-    <script>
+        
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                const repoName = 'lesson-1';
-                const swPath = `/${repoName}/sw.js`;
-                const scopePath = `/${repoName}/`;
-                
-                navigator.serviceWorker.register(swPath, { scope: scopePath })
-                    .then(function(reg) {
-                        console.log('✅ Service Worker зарегистрирован:', reg);
-                    })
-                    .catch(function(err) {
-                        console.log('❌ Ошибка регистрации SW:', err);
-                    });
+                navigator.serviceWorker.register('/lesson-1/sw.js', { scope: '/lesson-1/' }).catch(err => console.log('SW error:', err));
             });
         }
     </script>
