@@ -1,12 +1,9 @@
-Вот html-файл, который подключается к базе frequency-db.js и реализует логику «ключ1 + ключ2 = сборное слово»:
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🔑 Ключ + Ключ = Слово | Китайский конструктор</title>
+    <title>🀄 Маджонг: Собери слово из ключей | Весёлый китайский</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +14,7 @@
         }
 
         body {
-            background: linear-gradient(145deg, #1a2a4a 0%, #2a3f6e 100%);
+            background: linear-gradient(145deg, #1a472a 0%, #2d6a4f 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', 'Poppins', sans-serif;
             padding: 0.8rem;
             min-height: 100vh;
@@ -30,12 +27,12 @@
 
         .hero {
             text-align: center;
-            background: linear-gradient(135deg, #7C9BD6, #4A6FA5);
+            background: linear-gradient(135deg, #FFD966, #FFB347);
             border-radius: 40px;
             padding: 1rem;
             margin-bottom: 1rem;
-            box-shadow: 0 8px 0 #2C4A7A;
-            color: white;
+            box-shadow: 0 8px 0 #C16F1A;
+            color: #5a2e0e;
         }
 
         .hero h1 {
@@ -44,13 +41,12 @@
 
         .hero p {
             font-size: 0.75rem;
-            opacity: 0.9;
         }
 
         .back-home {
             display: inline-block;
             background: rgba(255,255,255,0.9);
-            color: #2C4A7A;
+            color: #A64B2A;
             text-decoration: none;
             padding: 0.4rem 1rem;
             border-radius: 30px;
@@ -61,7 +57,7 @@
         }
 
         .game-status {
-            background: #2a3f6e;
+            background: #2b4f3a;
             border-radius: 30px;
             padding: 0.8rem;
             margin-bottom: 1rem;
@@ -74,7 +70,7 @@
         }
 
         .score-box {
-            background: #1a2a4a;
+            background: #1e3a2f;
             padding: 0.3rem 0.9rem;
             border-radius: 25px;
             text-align: center;
@@ -92,7 +88,7 @@
 
         .progress-bar {
             flex: 2;
-            background: #1a2a4a;
+            background: #1e3a2f;
             border-radius: 20px;
             height: 14px;
             overflow: hidden;
@@ -106,7 +102,7 @@
         }
 
         .message-box {
-            background: #1a2a4a;
+            background: #1e3a2f;
             padding: 0.4rem 1rem;
             border-radius: 25px;
             font-weight: bold;
@@ -260,6 +256,22 @@
             z-index: 2;
         }
 
+        .selected-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e3a2f;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            color: #FFD966;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
         @media (max-width: 450px) {
             .tile-char { font-size: 2rem; }
             .tile-pinyin { font-size: 0.7rem; }
@@ -294,7 +306,7 @@
             text-align: center;
             margin-top: 1rem;
             padding: 0.6rem;
-            background: #2a3f6e;
+            background: #2b4f3a;
             border-radius: 40px;
             font-weight: bold;
             color: #FFD966;
@@ -355,19 +367,31 @@
             background: #FF6B35;
             color: white;
         }
+        
+        .db-status {
+            background: #1e3a2f;
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #FFD966;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="hero">
-        <h1>🔑 Ключ + Ключ = Слово 🔑</h1>
-        <p>Собери слово из двух ключей (радикалов)! Найди правильную пару ключей → получишь слово в тетрадь</p>
+        <h1>🀄 Маджонг: Собери слово из ключей 🀄</h1>
+        <p>Найди ВСЕ ключи (радикалы), из которых состоит иероглиф! 🔑+🔑+... = 📖</p>
         <div>
             <a href="index.html" class="back-home">🏠 На главную</a>
             <a href="frequency-lesson.html" class="back-home">📖 Урок 127 слов</a>
         </div>
     </div>
+
+    <div class="db-status" id="dbStatus">📡 Загрузка базы слов...</div>
 
     <div class="level-selector">
         <button class="level-btn active" data-level="easy">🍃 6 слов</button>
@@ -384,7 +408,7 @@
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-        <div class="message-box" id="messageBox">🎲 Нажми на ключ</div>
+        <div class="message-box" id="messageBox">🔑 Нажми на ключ</div>
         <button class="hint-btn" id="hintBtn">💡 Подсказка</button>
         <button class="new-game-btn" id="newGameBtn">🔄 Новая</button>
     </div>
@@ -393,9 +417,11 @@
         <div class="tiles-grid" id="tilesGrid"></div>
     </div>
 
+    <div class="selected-counter" id="selectedCounter"></div>
+
     <footer>
-        🔑 Найди два ключа (радикала), которые вместе образуют иероглиф.<br>
-        🎯 Собери слово → оно отправится в тетрадь! 💡 Подсказка подсветит пару.
+        🔑 Найди ВСЕ ключи (радикалы), из которых состоит иероглиф.<br>
+        🎯 Собери слово → оно отправится в тетрадь! 💡 Подсказка покажет один из ключей.
     </footer>
 </div>
 
@@ -411,14 +437,17 @@
     </div>
 </div>
 
+<!-- Подключаем обе базы данных -->
 <script src="frequency-db.js"></script>
+<script src="Bazahsk1majong2.js"></script>
+
 <script>
     // ========== ПЕРЕМЕННЫЕ ==========
     let currentLevel = 'easy';
     let tiles = [];
-    let selectedTileIndex = null;
+    let selectedTilesIndices = [];  // Множественный выбор для слов из 3+ ключей
     let score = 0;
-    let totalPairs = 0;
+    let totalWords = 0;
     let pendingWord = null;
     let hintTimeout = null;
     
@@ -429,121 +458,60 @@
     const modal = document.getElementById('returnModal');
     const modalWordText = document.getElementById('modalWordText');
     const modalWordDisplay = document.getElementById('modalWordDisplay');
+    const dbStatus = document.getElementById('dbStatus');
+    const selectedCounter = document.getElementById('selectedCounter');
     
     // ========== БАЗА КЛЮЧЕЙ (радикалов) ==========
-    // Информация о ключах для отображения
     const keyInfoMap = {
         "亻": { pinyin: "rén", meaning: "человек" },
         "女": { pinyin: "nǚ", meaning: "женщина" },
+        "子": { pinyin: "zǐ", meaning: "ребёнок" },
         "口": { pinyin: "kǒu", meaning: "рот" },
         "日": { pinyin: "rì", meaning: "солнце" },
         "月": { pinyin: "yuè", meaning: "луна" },
         "木": { pinyin: "mù", meaning: "дерево" },
         "氵": { pinyin: "shuǐ", meaning: "вода" },
         "火": { pinyin: "huǒ", meaning: "огонь" },
+        "灬": { pinyin: "huǒ", meaning: "огонь" },
         "土": { pinyin: "tǔ", meaning: "земля" },
-        "金": { pinyin: "jīn", meaning: "металл" },
-        "钅": { pinyin: "jīn", meaning: "металл" },
-        "心": { pinyin: "xīn", meaning: "сердце" },
-        "忄": { pinyin: "xīn", meaning: "сердце" },
-        "手": { pinyin: "shǒu", meaning: "рука" },
-        "扌": { pinyin: "shǒu", meaning: "рука" },
-        "足": { pinyin: "zú", meaning: "нога" },
-        "辶": { pinyin: "chuò", meaning: "движение" },
-        "讠": { pinyin: "yán", meaning: "речь" },
-        "饣": { pinyin: "shí", meaning: "еда" },
-        "阝": { pinyin: "yì", meaning: "холм" },
-        "宀": { pinyin: "mián", meaning: "крыша" },
-        "广": { pinyin: "guǎng", meaning: "здание" },
-        "艹": { pinyin: "cǎo", meaning: "трава" },
-        "⺮": { pinyin: "zhú", meaning: "бамбук" },
-        "米": { pinyin: "mǐ", meaning: "рис" },
-        "纟": { pinyin: "sī", meaning: "шёлк" },
-        "贝": { pinyin: "bèi", meaning: "раковина" },
-        "车": { pinyin: "chē", meaning: "машина" },
-        "门": { pinyin: "mén", meaning: "дверь" },
-        "马": { pinyin: "mǎ", meaning: "лошадь" },
-        "虫": { pinyin: "chóng", meaning: "насекомое" },
-        "鱼": { pinyin: "yú", meaning: "рыба" },
-        "鸟": { pinyin: "niǎo", meaning: "птица" },
-        "王": { pinyin: "yù", meaning: "яшма" },
-        "石": { pinyin: "shí", meaning: "камень" },
-        "田": { pinyin: "tián", meaning: "поле" },
-        "力": { pinyin: "lì", meaning: "сила" },
-        "刀": { pinyin: "dāo", meaning: "нож" },
-        "刂": { pinyin: "dāo", meaning: "нож" },
+        "人": { pinyin: "rén", meaning: "человек" },
         "又": { pinyin: "yòu", meaning: "снова" },
         "大": { pinyin: "dà", meaning: "большой" },
         "小": { pinyin: "xiǎo", meaning: "маленький" },
-        "⺌": { pinyin: "xiǎo", meaning: "маленький" },
-        "子": { pinyin: "zǐ", meaning: "ребёнок" }
+        "力": { pinyin: "lì", meaning: "сила" },
+        "刀": { pinyin: "dāo", meaning: "нож" },
+        "刂": { pinyin: "dāo", meaning: "нож" },
+        "匕": { pinyin: "bǐ", meaning: "ложка" },
+        "可": { pinyin: "kě", meaning: "можно" },
+        "犬": { pinyin: "quǎn", meaning: "собака" },
+        "纟": { pinyin: "sī", meaning: "шёлк" },
+        "心": { pinyin: "xīn", meaning: "сердце" },
+        "忄": { pinyin: "xīn", meaning: "сердце" },
+        "⺮": { pinyin: "zhú", meaning: "бамбук" },
+        "艹": { pinyin: "cǎo", meaning: "трава" },
+        "辶": { pinyin: "chuò", meaning: "движение" },
+        "讠": { pinyin: "yán", meaning: "речь" },
+        "钅": { pinyin: "jīn", meaning: "металл" },
+        "饣": { pinyin: "shí", meaning: "еда" },
+        "门": { pinyin: "mén", meaning: "дверь" },
+        "马": { pinyin: "mǎ", meaning: "лошадь" },
+        "鱼": { pinyin: "yú", meaning: "рыба" },
+        "鸟": { pinyin: "niǎo", meaning: "птица" },
+        "虫": { pinyin: "chóng", meaning: "насекомое" },
+        "贝": { pinyin: "bèi", meaning: "раковина" },
+        "车": { pinyin: "chē", meaning: "машина" },
+        "田": { pinyin: "tián", meaning: "поле" },
+        "目": { pinyin: "mù", meaning: "глаз" },
+        "手": { pinyin: "shǒu", meaning: "рука" },
+        "扌": { pinyin: "shǒu", meaning: "рука" },
+        "王": { pinyin: "yù", meaning: "нефрит" },
+        "石": { pinyin: "shí", meaning: "камень" },
+        "米": { pinyin: "mǐ", meaning: "рис" },
+        "竹": { pinyin: "zhú", meaning: "бамбук" },
+        "糸": { pinyin: "mì", meaning: "нить" },
+        "言": { pinyin: "yán", meaning: "речь" },
+        "金": { pinyin: "jīn", meaning: "золото" }
     };
-    
-    // ========== СЛОВА, СОСТАВЛЕННЫЕ ИЗ ДВУХ КЛЮЧЕЙ ==========
-    // Структура: { word, key1, key2, pinyin, meaning }
-    const compositeWords = [
-        { word: "好", key1: "女", key2: "子", pinyin: "hǎo", meaning: "хорошо" },
-        { word: "明", key1: "日", key2: "月", pinyin: "míng", meaning: "яркий, светлый" },
-        { word: "林", key1: "木", key2: "木", pinyin: "lín", meaning: "лес" },
-        { word: "森", key1: "木", key2: "木", pinyin: "sēn", meaning: "густой лес" }, // особый случай
-        { word: "众", key1: "人", key2: "人", pinyin: "zhòng", meaning: "толпа" },
-        { word: "从", key1: "人", key2: "人", pinyin: "cóng", meaning: "следовать" },
-        { word: "双", key1: "又", key2: "又", pinyin: "shuāng", meaning: "пара, два" },
-        { word: "炎", key1: "火", key2: "火", pinyin: "yán", meaning: "жар, воспаление" },
-        { word: "昌", key1: "日", key2: "日", pinyin: "chāng", meaning: "процветающий" },
-        { word: "朋", key1: "月", key2: "月", pinyin: "péng", meaning: "друг" },
-        { word: "林", key1: "木", key2: "木", pinyin: "lín", meaning: "лес" },
-        { word: "比", key1: "匕", key2: "匕", pinyin: "bǐ", meaning: "сравнивать" },
-        { word: "北", key1: "匕", key2: "匕", pinyin: "běi", meaning: "север" },
-        { word: "丝", key1: "纟", key2: "纟", pinyin: "sī", meaning: "шёлк" },
-        { word: "哥", key1: "可", key2: "可", pinyin: "gē", meaning: "старший брат" },
-        { word: "吕", key1: "口", key2: "口", pinyin: "lǚ", meaning: "фамилия Люй" },
-        { word: "哭", key1: "口", key2: "犬", pinyin: "kū", meaning: "плакать" },
-        { word: "吠", key1: "口", key2: "犬", pinyin: "fèi", meaning: "лаять" },
-        { word: "尖", key1: "大", key2: "小", pinyin: "jiān", meaning: "острый" },
-        { word: "劣", key1: "小", key2: "力", pinyin: "liè", meaning: "плохой, низкий" }
-    ];
-    
-    // Добавим больше слов из frequencyDB, если они составлены из двух ключей
-    function buildCompositeWordsFromDB() {
-        if (typeof frequencyDB === 'undefined') return compositeWords;
-        
-        const additionalWords = [];
-        for (const word of frequencyDB) {
-            if (!word.parts || word.parts.length !== 2) continue;
-            // Проверяем, что обе части — это ключи (радикалы)
-            const part1 = word.parts[0];
-            const part2 = word.parts[1];
-            if (part1 && part2 && part1.char && part2.char) {
-                // Избегаем дубликатов
-                const exists = compositeWords.some(w => w.word === word.char);
-                if (!exists && part1.char !== part2.char) {
-                    additionalWords.push({
-                        word: word.char,
-                        key1: part1.char,
-                        key2: part2.char,
-                        pinyin: word.pinyin,
-                        meaning: word.meaning
-                    });
-                }
-            }
-        }
-        return [...compositeWords, ...additionalWords];
-    }
-    
-    function getAllWordPairs() {
-        const words = buildCompositeWordsFromDB();
-        const unique = [];
-        const seen = new Set();
-        for (const w of words) {
-            const key = `${w.key1}|${w.key2}`;
-            if (!seen.has(key) && w.key1 && w.key2) {
-                seen.add(key);
-                unique.push(w);
-            }
-        }
-        return unique;
-    }
     
     function getKeyInfo(keyChar) {
         return keyInfoMap[keyChar] || { pinyin: "", meaning: "ключ" };
@@ -557,11 +525,119 @@
         return arr;
     }
     
-    function getPairsForGame(limit) {
-        const allPairs = getAllWordPairs();
-        const shuffled = shuffleArray([...allPairs]);
-        if (limit === 'all') return allPairs;
-        return shuffled.slice(0, limit);
+    // Функция извлечения ключей из слова (из breakdown или parts)
+    function extractKeysFromWord(word) {
+        // Сначала пробуем получить из breakdown (формат: "手 + 戈" или "冫 + 口 + 欠")
+        if (word.breakdown && typeof word.breakdown === 'string') {
+            const keys = [];
+            const matches = word.breakdown.match(/[\u4e00-\u9fff\u3000-\u303f]+/g);
+            if (matches) {
+                for (const m of matches) {
+                    if (m.length <= 3 && m !== word.char) {
+                        keys.push(m);
+                    }
+                }
+                if (keys.length >= 2) return keys;
+            }
+        }
+        
+        // Пробуем из parts
+        if (word.parts && Array.isArray(word.parts) && word.parts.length >= 2) {
+            const keys = [];
+            for (const p of word.parts) {
+                if (p.char && p.char.length <= 3 && p.char !== word.char) {
+                    keys.push(p.char);
+                }
+            }
+            if (keys.length >= 2) return keys;
+        }
+        
+        return null;
+    }
+    
+    // Сбор всех слов из БД (frequencyDB + Bazahsk1majong2)
+    function getAllWordsFromDB() {
+        const wordsMap = new Map(); // wordChar -> { word, pinyin, meaning, keys[] }
+        
+        // Функция добавления слова
+        function addWord(char, pinyin, meaning, keys, source = 'unknown') {
+            if (!char || !keys || keys.length < 2) return;
+            const existing = wordsMap.get(char);
+            if (!existing) {
+                wordsMap.set(char, { word: char, pinyin, meaning, keys: [...keys], source });
+            } else if (keys.length > existing.keys.length) {
+                existing.keys = [...keys];
+            }
+        }
+        
+        // Из frequencyDB
+        if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
+            for (const word of frequencyDB) {
+                const keys = extractKeysFromWord(word);
+                if (keys && keys.length >= 2) {
+                    addWord(word.char, word.pinyin, word.meaning, keys, 'frequencyDB');
+                }
+            }
+            dbStatus.textContent = `📊 frequencyDB: ${frequencyDB.length} слов`;
+        }
+        
+        // Из Bazahsk1majong2 (HSK1 данные)
+        if (typeof Bazahsk1majong2 !== 'undefined' && Bazahsk1majong2.length) {
+            for (const word of Bazahsk1majong2) {
+                let keys = null;
+                
+                // Пробуем получить из keys поля
+                if (word.keys && Array.isArray(word.keys) && word.keys.length >= 2) {
+                    keys = word.keys;
+                } else {
+                    keys = extractKeysFromWord(word);
+                }
+                
+                if (keys && keys.length >= 2) {
+                    addWord(word.char, word.pinyin, word.meaning, keys, 'HSK1');
+                }
+            }
+            dbStatus.textContent = `📊 frequencyDB + HSK1: всего слов в игре: ${wordsMap.size}`;
+        }
+        
+        // Встроенные слова-резерв (на все случаи)
+        const builtinWords = [
+            { word: "好", keys: ["女", "子"], pinyin: "hǎo", meaning: "хорошо" },
+            { word: "明", keys: ["日", "月"], pinyin: "míng", meaning: "яркий" },
+            { word: "林", keys: ["木", "木"], pinyin: "lín", meaning: "лес" },
+            { word: "森", keys: ["木", "木", "木"], pinyin: "sēn", meaning: "густой лес" },
+            { word: "众", keys: ["人", "人", "人"], pinyin: "zhòng", meaning: "толпа" },
+            { word: "品", keys: ["口", "口", "口"], pinyin: "pǐn", meaning: "продукт" },
+            { word: "鑫", keys: ["金", "金", "金"], pinyin: "xīn", meaning: "процветание" },
+            { word: "淼", keys: ["水", "水", "水"], pinyin: "miǎo", meaning: "много воды" },
+            { word: "焱", keys: ["火", "火", "火"], pinyin: "yàn", meaning: "пламя" },
+            { word: "双", keys: ["又", "又"], pinyin: "shuāng", meaning: "пара" },
+            { word: "炎", keys: ["火", "火"], pinyin: "yán", meaning: "жар" },
+            { word: "昌", keys: ["日", "日"], pinyin: "chāng", meaning: "процветающий" },
+            { word: "朋", keys: ["月", "月"], pinyin: "péng", meaning: "друг" },
+            { word: "丝", keys: ["纟", "纟"], pinyin: "sī", meaning: "шёлк" },
+            { word: "哥", keys: ["可", "可"], pinyin: "gē", meaning: "брат" },
+            { word: "吕", keys: ["口", "口"], pinyin: "lǚ", meaning: "фамилия" },
+            { word: "尖", keys: ["大", "小"], pinyin: "jiān", meaning: "острый" },
+            { word: "劣", keys: ["小", "力"], pinyin: "liè", meaning: "плохой" }
+        ];
+        
+        for (const w of builtinWords) {
+            if (!wordsMap.has(w.word)) {
+                addWord(w.word, w.pinyin, w.meaning, w.keys, 'builtin');
+            }
+        }
+        
+        return Array.from(wordsMap.values());
+    }
+    
+    function getWordsForGame(limit) {
+        const allWords = getAllWordsFromDB();
+        const shuffled = shuffleArray([...allWords]);
+        if (limit === 'all') return allWords;
+        const limited = shuffled.slice(0, limit);
+        dbStatus.textContent = `🎮 В игре: ${limited.length} слов (макс. ключей: ${Math.max(...limited.map(w => w.keys.length), 0)})`;
+        return limited;
     }
     
     // ========== ТЕТРАДЬ ==========
@@ -594,26 +670,30 @@
     function saveGameState() {
         const gameState = {
             currentLevel: currentLevel,
-            tiles: tiles.map(t => ({ ...t })),
-            selectedTileIndex: selectedTileIndex,
+            tiles: tiles.map(t => ({ 
+                id: t.id, content: t.content, pinyin: t.pinyin, type: t.type,
+                groupId: t.groupId, displayText: t.displayText, label: t.label,
+                wordData: t.wordData, removed: t.removed, requiredCount: t.requiredCount
+            })),
+            selectedTilesIndices: selectedTilesIndices,
             score: score,
-            totalPairs: totalPairs,
+            totalWords: totalWords,
             timestamp: Date.now()
         };
-        localStorage.setItem('keys_game_state', JSON.stringify(gameState));
+        localStorage.setItem('majong_multi_sborka_state', JSON.stringify(gameState));
     }
     
     function loadGameState() {
-        const saved = localStorage.getItem('keys_game_state');
+        const saved = localStorage.getItem('majong_multi_sborka_state');
         if (saved) {
             try {
                 const gameState = JSON.parse(saved);
                 if (gameState.timestamp && (Date.now() - gameState.timestamp) < 3600000) {
                     currentLevel = gameState.currentLevel;
                     tiles = gameState.tiles;
-                    selectedTileIndex = gameState.selectedTileIndex;
+                    selectedTilesIndices = gameState.selectedTilesIndices || [];
                     score = gameState.score;
-                    totalPairs = gameState.totalPairs;
+                    totalWords = gameState.totalWords;
                     
                     document.querySelectorAll('.level-btn').forEach(btn => {
                         if (btn.dataset.level === currentLevel) btn.classList.add('active');
@@ -621,71 +701,64 @@
                     });
                     updateProgress();
                     renderBoard();
-                    messageBox.innerHTML = `🎴 Продолжаем! Осталось ${totalPairs - score} слов`;
+                    updateSelectedCounter();
+                    messageBox.innerHTML = `🎴 Продолжаем! Осталось ${totalWords - score} слов`;
                     return true;
                 }
-            } catch(e) {}
+            } catch(e) { console.log('Ошибка загрузки', e); }
         }
         return false;
     }
     
     function clearGameState() {
-        localStorage.removeItem('keys_game_state');
+        localStorage.removeItem('majong_multi_sborka_state');
     }
     
     // ========== ИГРОВАЯ ЛОГИКА ==========
     function initGame() {
-        let pairLimit = 6;
-        if (currentLevel === 'medium') pairLimit = 12;
-        if (currentLevel === 'hard') pairLimit = 20;
-        if (currentLevel === 'all') pairLimit = 'all';
-        const pairs = getPairsForGame(pairLimit);
-        if (!pairs.length) {
-            messageBox.innerHTML = '❌ Нет данных. Проверьте frequency-db.js';
+        let wordLimit = 6;
+        if (currentLevel === 'medium') wordLimit = 12;
+        if (currentLevel === 'hard') wordLimit = 20;
+        if (currentLevel === 'all') wordLimit = 'all';
+        const words = getWordsForGame(wordLimit);
+        if (!words.length) {
+            messageBox.innerHTML = '❌ Нет данных. Проверьте базы';
             return;
         }
-        totalPairs = pairs.length;
+        totalWords = words.length;
         score = 0;
-        selectedTileIndex = null;
+        selectedTilesIndices = [];
         pendingWord = null;
         
         const newTiles = [];
         let idCounter = 0;
         
-        for (const pair of pairs) {
-            const key1Info = getKeyInfo(pair.key1);
-            const key2Info = getKeyInfo(pair.key2);
+        for (const word of words) {
+            const groupId = idCounter;
+            const requiredCount = word.keys.length;
             
-            // Ключ 1
-            newTiles.push({
-                id: idCounter++,
-                content: pair.key1,
-                pinyin: key1Info.pinyin,
-                type: 'key',
-                pairId: idCounter - 1,
-                displayText: pair.key1,
-                label: key1Info.meaning,
-                wordData: { char: pair.word, pinyin: pair.pinyin, meaning: pair.meaning, key1: pair.key1, key2: pair.key2 },
-                removed: false
-            });
-            // Ключ 2
-            newTiles.push({
-                id: idCounter++,
-                content: pair.key2,
-                pinyin: key2Info.pinyin,
-                type: 'key',
-                pairId: idCounter - 2,
-                displayText: pair.key2,
-                label: key2Info.meaning,
-                wordData: { char: pair.word, pinyin: pair.pinyin, meaning: pair.meaning, key1: pair.key1, key2: pair.key2 },
-                removed: false
-            });
+            for (const keyChar of word.keys) {
+                const keyInfo = getKeyInfo(keyChar);
+                newTiles.push({
+                    id: idCounter++,
+                    content: keyChar,
+                    pinyin: keyInfo.pinyin,
+                    type: 'key',
+                    groupId: groupId,
+                    displayText: keyChar,
+                    label: keyInfo.meaning,
+                    wordData: { char: word.word, pinyin: word.pinyin, meaning: word.meaning, keys: word.keys },
+                    removed: false,
+                    requiredCount: requiredCount
+                });
+            }
         }
         tiles = shuffleArray(newTiles);
         clearGameState();
         updateProgress();
         renderBoard();
-        messageBox.innerHTML = `🔑 Найди пару ключей, чтобы собрать слово! (${totalPairs} слов)`;
+        messageBox.innerHTML = `🔑 Собери ВСЕ ключи для каждого слова! (${totalWords} слов)`;
+        updateSelectedCounter();
     }
     
     function renderBoard() {
@@ -695,7 +768,7 @@
             if (tile.removed) return;
             const tileDiv = document.createElement('div');
             tileDiv.className = 'tile';
-            if (selectedTileIndex === idx) tileDiv.classList.add('selected');
+            if (selectedTilesIndices.includes(idx)) tileDiv.classList.add('selected');
             tileDiv.innerHTML = `
                 <div class="tile-char">${tile.displayText}</div>
                 <div class="tile-pinyin">${tile.pinyin || ''}</div>
@@ -726,117 +799,194 @@
         saveGameState();
     }
     
+    function updateSelectedCounter() {
+        if (selectedCounter) {
+            const count = selectedTilesIndices.length;
+            if (count > 0) {
+                selectedCounter.textContent = `📌 Выбрано ключей: ${count}`;
+                selectedCounter.style.display = 'block';
+            } else {
+                selectedCounter.style.display = 'none';
+            }
+        }
+    }
+    
     function onTileClick(clickedIdx) {
         const clickedTile = tiles[clickedIdx];
         if (clickedTile.removed) return;
         
-        if (selectedTileIndex === null) {
-            selectedTileIndex = clickedIdx;
+        // Если уже выбран этот же тайл — снимаем выделение
+        if (selectedTilesIndices.includes(clickedIdx)) {
+            selectedTilesIndices = selectedTilesIndices.filter(i => i !== clickedIdx);
             renderBoard();
-            messageBox.innerHTML = `📌 Выбран ключ: ${clickedTile.displayText} (${clickedTile.label})`;
+            updateSelectedCounter();
+            messageBox.innerHTML = `🎲 Ключ "${clickedTile.displayText}" убран из выбора`;
             return;
         }
         
-        if (selectedTileIndex === clickedIdx) {
-            selectedTileIndex = null;
-            renderBoard();
-            messageBox.innerHTML = '🎲 Выбор сброшен';
-            return;
+        // Добавляем в выделение
+        selectedTilesIndices.push(clickedIdx);
+        renderBoard();
+        updateSelectedCounter();
+        
+        // Получаем все выбранные тайлы
+        const selectedTiles = selectedTilesIndices.map(i => tiles[i]);
+        
+        // Группируем выбранные тайлы по groupId
+        const groups = new Map();
+        for (const tile of selectedTiles) {
+            if (!groups.has(tile.groupId)) groups.set(tile.groupId, []);
+            groups.get(tile.groupId).push(tile);
         }
         
-        const selectedTile = tiles[selectedTileIndex];
+        // Проверяем, собрана ли полная группа
+        let completedGroupId = null;
+        let completedWordData = null;
         
-        // Проверяем, принадлежат ли оба ключа к одному слову
-        let isMatch = false;
-        let matchedWordData = null;
-        
-        if (selectedTile.pairId === clickedTile.pairId) {
-            isMatch = true;
-            matchedWordData = selectedTile.wordData;
+        for (const [groupId, groupTiles] of groups.entries()) {
+            const firstTile = groupTiles[0];
+            const requiredCount = firstTile.requiredCount;
+            if (groupTiles.length === requiredCount) {
+                // Все ключи слова собраны!
+                completedGroupId = groupId;
+                completedWordData = firstTile.wordData;
+                break;
+            }
         }
         
-        if (isMatch && matchedWordData) {
-            tiles[selectedTileIndex].removed = true;
-            tiles[clickedIdx].removed = true;
+        if (completedGroupId !== null && completedWordData) {
+            // Убираем все тайлы этой группы
+            const indicesToRemove = [];
+            for (let i = 0; i < tiles.length; i++) {
+                if (tiles[i].groupId === completedGroupId && !tiles[i].removed) {
+                    indicesToRemove.push(i);
+                }
+            }
+            for (const idx of indicesToRemove) {
+                tiles[idx].removed = true;
+            }
+            
             score++;
-            selectedTileIndex = null;
+            selectedTilesIndices = [];
             
-            const remainingPairs = tiles.filter(t => !t.removed && t.type === 'key').length / 2;
+            const remainingWords = tiles.filter(t => !t.removed).length / (tiles[0]?.requiredCount || 2);
             const found = score;
-            const total = totalPairs;
+            const total = totalWords;
             
-            if (remainingPairs === 0) {
+            if (remainingWords === 0 || found === total) {
                 messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты собрал все слова!';
                 renderBoard();
                 clearGameState();
             } else {
-                messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remainingPairs} слов)`;
+                messageBox.innerHTML = `✅ Слово "${completedWordData.char}" собрано! +1 (осталось ${total - found} слов)`;
                 renderBoard();
             }
             
             // Добавляем слово в тетрадь
-            const isNew = addToCopybookOnly(matchedWordData.char, matchedWordData.pinyin, matchedWordData.meaning);
-            pendingWord = matchedWordData;
-            modalWordDisplay.innerHTML = `${matchedWordData.char} = ${matchedWordData.key1} + ${matchedWordData.key2}`;
-            modalWordText.innerHTML = `«${matchedWordData.char} — ${matchedWordData.meaning}» ${isNew ? 'добавлено в тетрадь!' : 'уже было в тетради!'}`;
+            const isNew = addToCopybookOnly(completedWordData.char, completedWordData.pinyin, completedWordData.meaning);
+            pendingWord = completedWordData;
+            modalWordDisplay.innerHTML = `${completedWordData.char} = ${completedWordData.keys.join(' + ')}`;
+            modalWordText.innerHTML = `«${completedWordData.char} — ${completedWordData.meaning}» ${isNew ? 'добавлено в тетрадь!' : 'уже было в тетради!'}`;
             modal.style.display = 'flex';
-        } else {
-            messageBox.innerHTML = `❌ ${selectedTile.displayText} + ${clickedTile.displayText} ≠ слово. Попробуй другую пару!`;
-            selectedTileIndex = null;
-            renderBoard();
+            
+            updateSelectedCounter();
+            saveGameState();
+            return;
         }
+        
+        // Сообщаем, сколько ещё нужно
+        if (selectedTilesIndices.length > 0) {
+            const firstTile = tiles[selectedTilesIndices[0]];
+            const needed = firstTile.requiredCount;
+            const current = selectedTilesIndices.length;
+            messageBox.innerHTML = `📌 Выбрано ${current} из ${needed} ключей для слова. Добавьте остальные!`;
+        }
+        
         saveGameState();
     }
     
     function updateProgress() {
-        const remainingKeys = tiles.filter(t => !t.removed).length;
-        const remainingPairs = remainingKeys / 2;
-        const found = totalPairs - remainingPairs;
-        const percent = totalPairs > 0 ? (found / totalPairs) * 100 : 0;
+        const remainingGroups = new Set();
+        for (const tile of tiles) {
+            if (!tile.removed) {
+                remainingGroups.add(tile.groupId);
+            }
+        }
+        const remainingWords = remainingGroups.size;
+        const found = totalWords - remainingWords;
+        const percent = totalWords > 0 ? (found / totalWords) * 100 : 0;
         progressFill.style.width = percent + '%';
         scoreSpan.innerText = found;
     }
     
     function showHint() {
-        // Ищем первую неубранную пару ключей
-        const pairsFound = new Map();
+        // Ищем группу, у которой собрано больше всего ключей
+        const groups = new Map();
         for (let i = 0; i < tiles.length; i++) {
             if (tiles[i].removed) continue;
-            const pairId = tiles[i].pairId;
-            if (!pairsFound.has(pairId)) {
-                pairsFound.set(pairId, []);
+            if (!groups.has(tiles[i].groupId)) {
+                groups.set(tiles[i].groupId, { required: tiles[i].requiredCount, collected: [], indices: [] });
             }
-            pairsFound.get(pairId).push(i);
+            groups.get(tiles[i].groupId).collected.push(tiles[i].displayText);
+            groups.get(tiles[i].groupId).indices.push(i);
         }
         
-        let hintIdx1 = -1, hintIdx2 = -1;
-        for (const [pairId, indices] of pairsFound.entries()) {
-            if (indices.length === 2) {
-                hintIdx1 = indices[0];
-                hintIdx2 = indices[1];
-                break;
+        let bestGroup = null;
+        let bestGroupId = null;
+        for (const [groupId, data] of groups.entries()) {
+            if (data.collected.length < data.required && data.collected.length > 0) {
+                if (!bestGroup || data.collected.length > bestGroup.collected.length) {
+                    bestGroup = data;
+                    bestGroupId = groupId;
+                }
             }
         }
         
-        if (hintIdx1 === -1) {
-            messageBox.innerHTML = '🤔 Не могу найти пару? Возможно, все уже собраны!';
+        // Если нет частично собранных, показываем любую доступную группу
+        if (!bestGroup) {
+            for (const [groupId, data] of groups.entries()) {
+                if (data.collected.length > 0 && data.collected.length < data.required) {
+                    bestGroup = data;
+                    bestGroupId = groupId;
+                    break;
+                }
+            }
+        }
+        
+        if (!bestGroup) {
+            messageBox.innerHTML = '🤔 Нет доступных для подсказки групп!';
+            return;
+        }
+        
+        // Подсвечиваем все ещё невыбранные ключи этой группы
+        const hintIndices = [];
+        for (let i = 0; i < tiles.length; i++) {
+            if (tiles[i].groupId === bestGroupId && !tiles[i].removed && !selectedTilesIndices.includes(i)) {
+                hintIndices.push(i);
+            }
+        }
+        
+        if (hintIndices.length === 0) {
+            messageBox.innerHTML = '🤔 Все ключи уже выбраны, соберите слово!';
             return;
         }
         
         const tilesElements = document.querySelectorAll('.tile');
-        if (tilesElements[hintIdx1]) tilesElements[hintIdx1].classList.add('hint');
-        if (tilesElements[hintIdx2]) tilesElements[hintIdx2].classList.add('hint');
+        for (const idx of hintIndices) {
+            if (tilesElements[idx]) tilesElements[idx].classList.add('hint');
+        }
         
-        messageBox.innerHTML = `💡 Подсказка: "${tiles[hintIdx1].displayText}" + "${tiles[hintIdx2].displayText}" = слово!`;
+        messageBox.innerHTML = `💡 Подсказка: для слова нужны эти ключи: ${bestGroup.collected.join(' + ')} + ещё ${hintIndices.length}`;
         
         if (hintTimeout) clearTimeout(hintTimeout);
         hintTimeout = setTimeout(() => {
             document.querySelectorAll('.tile.hint').forEach(el => el.classList.remove('hint'));
-        }, 2000);
+        }, 2500);
     }
     
     function newGame() {
         clearGameState();
+        selectedTilesIndices = [];
         pendingWord = null;
         initGame();
     }
@@ -877,8 +1027,9 @@
         if (e.target === modal) closeModalAndContinue();
     });
     
+    // Ждём загрузки БД
     const waitForDB = setInterval(() => {
-        if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
+        if ((typeof frequencyDB !== 'undefined' || typeof Bazahsk1majong2 !== 'undefined') || performance.now() > 3000) {
             clearInterval(waitForDB);
             if (!loadGameState()) {
                 initGame();
@@ -888,4 +1039,3 @@
 </script>
 </body>
 </html>
-```
