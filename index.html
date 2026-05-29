@@ -71,6 +71,8 @@
             font-size: 0.9rem;
             transition: 0.1s;
             box-shadow: 0 4px 0 #D98F33;
+            text-decoration: none;
+            display: inline-block;
         }
         .tab-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
@@ -90,42 +92,6 @@
             margin-bottom: 1rem;
             font-size: 0.85rem;
             border: 2px solid #FFB347;
-        }
-        
-        /* ЯРКИЙ БАННЕР ДЛЯ НОВОЙ ИГРЫ */
-        .new-game-banner {
-            background: linear-gradient(135deg, #9C27B0, #E91E63);
-            border-radius: 60px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: white;
-            box-shadow: 0 8px 0 #6A1B9A;
-            text-decoration: none;
-            display: block;
-            transition: 0.1s;
-            animation: pulse-glow 2s infinite;
-        }
-        .new-game-banner:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #6A1B9A;
-        }
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
-            50% { box-shadow: 0 8px 0 #6A1B9A, 0 0 20px 5px rgba(156,39,176,0.7); }
-            100% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
-        }
-        .new-game-banner .banner-icon { font-size: 2.5rem; }
-        .new-game-banner .banner-title { font-weight: bold; font-size: 1.3rem; margin: 0.3rem 0; }
-        .new-game-banner .banner-desc { font-size: 0.8rem; opacity: 0.9; }
-        .new-game-banner .banner-button {
-            display: inline-block;
-            margin-top: 0.5rem;
-            background: rgba(255,255,255,0.25);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 0.9rem;
         }
         
         .lessons-list {
@@ -186,6 +152,41 @@
         .game-tag.green { background: #4CAF50; }
         .game-tag.orange { background: #FF8C42; }
         .game-tag.purple { background: #9C27B0; }
+        
+        .new-game-banner {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            border-radius: 60px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 0 #6A1B9A;
+            text-decoration: none;
+            display: block;
+            transition: 0.1s;
+            animation: pulse-glow 2s infinite;
+        }
+        .new-game-banner:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #6A1B9A;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
+            50% { box-shadow: 0 8px 0 #6A1B9A, 0 0 20px 5px rgba(156,39,176,0.7); }
+            100% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
+        }
+        .new-game-banner .banner-icon { font-size: 2.5rem; }
+        .new-game-banner .banner-title { font-weight: bold; font-size: 1.3rem; margin: 0.3rem 0; }
+        .new-game-banner .banner-desc { font-size: 0.8rem; opacity: 0.9; }
+        .new-game-banner .banner-button {
+            display: inline-block;
+            margin-top: 0.5rem;
+            background: rgba(255,255,255,0.25);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
         
         .search-box {
             background: white;
@@ -327,6 +328,16 @@
             font-size: 0.85rem;
         }
         
+        .texts-link-card {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+        }
+        .texts-link-card .game-icon,
+        .texts-link-card h3,
+        .texts-link-card p {
+            color: white;
+        }
+        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -371,18 +382,17 @@
         
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой 🎧</p>
         </div>
         
         <div class="tabs-nav">
-    <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
-    <button class="tab-btn" data-tab="games">🎮 Игры</button>
-    <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
-    <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
-    <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
-    <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
-    <a href="texts-viewer.html" style="text-decoration:none;"><button class="tab-btn" style="background: linear-gradient(135deg, #FF6B35, #FF8C42); color: white;">📖 Тексты с озвучкой</button></a>
-</div>
+            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+            <button class="tab-btn" data-tab="games">🎮 Игры</button>
+            <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
+            <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
+            <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
+            <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
+        </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
         <div class="tab-content active" id="tab-lessons">
@@ -398,7 +408,6 @@
         
         <!-- ВКЛАДКА: ИГРЫ -->
         <div class="tab-content" id="tab-games">
-            <!-- ===== ЯРКИЙ БАННЕР НОВОЙ ИГРЫ ===== -->
             <a href="majongsborka.html" class="new-game-banner">
                 <div class="banner-icon">🀄 🔑➕🔑 🀄</div>
                 <div class="banner-title">НОВАЯ ИГРА! Маджонг: собери слово из ключей</div>
@@ -455,6 +464,14 @@
                     <h3>Маджонг: слово + ключ</h3>
                     <p>Сопоставляй иероглифы с их радикалами</p>
                     <span class="game-tag orange">память</span>
+                </a>
+
+                <!-- НОВАЯ ССЫЛКА НА ТЕКСТЫ -->
+                <a href="texts-viewer.html" class="game-card texts-link-card">
+                    <div class="game-icon">📖</div>
+                    <h3>Тексты с озвучкой</h3>
+                    <p>11 живых историй. Нажимай на иероглифы — слушай произношение!</p>
+                    <span class="game-tag purple">🎧 11 текстов</span>
                 </a>
             </div>
         </div>
@@ -518,7 +535,7 @@
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов!
+            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов! 📖 11 живых текстов с озвучкой!
         </footer>
     </div>
     
