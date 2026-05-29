@@ -64,15 +64,13 @@
             background: white;
             color: #A64B2A;
             border: 2px solid #FFB347;
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1rem;
             border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: 0.1s;
             box-shadow: 0 4px 0 #D98F33;
-            text-decoration: none;
-            display: inline-block;
         }
         .tab-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
@@ -328,15 +326,108 @@
             font-size: 0.85rem;
         }
         
-        .texts-link-card {
+        /* Стили для вкладки ТЕКСТЫ */
+        .texts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .text-card {
+            background: white;
+            border-radius: 30px;
+            padding: 0;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            overflow: hidden;
+        }
+        .text-header {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .speak-all-btn {
+            background: rgba(255,255,255,0.25);
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .speak-all-btn:active { background: rgba(255,255,255,0.4); transform: scale(0.97); }
+        .text-content {
+            padding: 1.5rem;
+            background: #FFFDF9;
+        }
+        .text-line {
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px dashed #FFD699;
+        }
+        .chinese-line {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #A64B2A;
+            cursor: pointer;
+            display: inline-block;
+            background: #FFF0E0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.3rem;
+            transition: 0.1s;
+        }
+        .chinese-line:active {
+            background: #FFD699;
+            transform: scale(0.99);
+        }
+        .pinyin-line {
+            font-size: 1rem;
+            color: #FF8C42;
+            margin-top: 0.3rem;
+            letter-spacing: 0.5px;
+        }
+        .translate-line {
+            font-size: 1.1rem;
+            color: #8B5A2B;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        .lesson-selector-texts {
+            background: white;
+            border-radius: 50px;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 2px solid #FFB347;
+        }
+        .lesson-btn-texts {
+            background: #FFF0E0;
+            border: 2px solid #FFB347;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: 0.1s;
+        }
+        .lesson-btn-texts.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
+            border-color: #FF6B35;
         }
-        .texts-link-card .game-icon,
-        .texts-link-card h3,
-        .texts-link-card p {
-            color: white;
-        }
+        .lesson-btn-texts:active { transform: scale(0.97); }
         
         footer {
             text-align: center;
@@ -363,6 +454,11 @@
             }
             .new-game-banner .banner-title { font-size: 1rem; }
             .new-game-banner .banner-icon { font-size: 1.8rem; }
+            .chinese-line { font-size: 1.4rem; }
+            .pinyin-line { font-size: 0.8rem; }
+            .translate-line { font-size: 0.9rem; }
+            .text-content { padding: 1rem; }
+            .lesson-btn-texts { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
         }
     </style>
     <meta name="theme-color" content="#FF6B35">
@@ -392,6 +488,7 @@
             <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
             <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
             <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
+            <button class="tab-btn" data-tab="texts">📖 Тексты с озвучкой</button>
         </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
@@ -465,14 +562,6 @@
                     <p>Сопоставляй иероглифы с их радикалами</p>
                     <span class="game-tag orange">память</span>
                 </a>
-
-                <!-- НОВАЯ ССЫЛКА НА ТЕКСТЫ -->
-                <a href="texts-viewer.html" class="game-card texts-link-card">
-                    <div class="game-icon">📖</div>
-                    <h3>Тексты с озвучкой</h3>
-                    <p>11 живых историй. Нажимай на иероглифы — слушай произношение!</p>
-                    <span class="game-tag purple">🎧 11 текстов</span>
-                </a>
             </div>
         </div>
         
@@ -534,6 +623,13 @@
             </div>
         </div>
         
+        <!-- НОВАЯ ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
+        <div class="tab-content" id="tab-texts">
+            <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
+            <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
+            <div class="texts-grid" id="textsContainer"></div>
+        </div>
+        
         <footer>
             🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов! 📖 11 живых текстов с озвучкой!
         </footer>
@@ -542,6 +638,7 @@
     <script src="frequency-db.js"></script>
     <script src="lessons-data.js"></script>
     <script src="phrases-db.js"></script>
+    <script src="texts-db.js"></script>
     
     <script>
         let deferredPrompt = null;
@@ -573,6 +670,7 @@
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
                 document.getElementById('tab-' + tabName).classList.add('active');
                 if (tabName === 'dictionary') { updateStats(); searchDictionary(); }
+                if (tabName === 'texts' && typeof TEXTS_DB !== 'undefined') { renderTextsViewer(); }
             });
         });
         
@@ -674,10 +772,83 @@
         document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchDictionary(); });
         document.getElementById('searchBtn')?.addEventListener('click', () => searchDictionary());
         
+        // ========== ТЕКСТЫ С ОЗВУЧКОЙ ==========
+        let currentTextId = 1;
+        
+        function renderTextsViewer() {
+            if (typeof TEXTS_DB === 'undefined') {
+                document.getElementById('textsContainer').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ База texts-db.js не загружена!</div>';
+                return;
+            }
+            renderTextsSelector();
+            renderTextContent(currentTextId);
+        }
+        
+        function renderTextContent(id) {
+            const text = TEXTS_DB.find(t => t.id === id);
+            if (!text) return;
+            
+            const container = document.getElementById('textsContainer');
+            const fullText = text.lines.map(line => line.chinese).join('');
+            
+            let linesHtml = '';
+            for (let i = 0; i < text.lines.length; i++) {
+                const line = text.lines[i];
+                const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                linesHtml += `
+                    <div class="text-line">
+                        <div>
+                            <span class="chinese-line" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
+                            <button class="speak-small" onclick="event.stopPropagation(); speakChinese('${safeChinese}')" style="background:none; border:none; font-size:1rem; margin-left:0.5rem; cursor:pointer;">🔊</button>
+                        </div>
+                        <div class="pinyin-line">${line.pinyin}</div>
+                        <div class="translate-line">${line.russian}</div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <div class="text-card">
+                    <div class="text-header">
+                        <div class="title">
+                            <span>${text.title}</span>
+                        </div>
+                        <button class="speak-all-btn" onclick="speakChinese('${fullText.replace(/'/g, "\\'")}')">🔊 Весь текст</button>
+                    </div>
+                    <div class="text-content">
+                        ${linesHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderTextsSelector() {
+            const selector = document.getElementById('lessonSelectorTexts');
+            if (!selector) return;
+            let buttonsHtml = '';
+            for (const text of TEXTS_DB) {
+                const activeClass = text.id === currentTextId ? 'active' : '';
+                buttonsHtml += `<button class="lesson-btn-texts ${activeClass}" data-id="${text.id}">${text.title}</button>`;
+            }
+            selector.innerHTML = buttonsHtml;
+            
+            document.querySelectorAll('.lesson-btn-texts').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.dataset.id);
+                    currentTextId = id;
+                    renderTextsSelector();
+                    renderTextContent(currentTextId);
+                });
+            });
+        }
+        
         setTimeout(() => {
             if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
                 updateStats();
                 searchDictionary();
+            }
+            if (typeof TEXTS_DB !== 'undefined') {
+                renderTextsViewer();
             }
         }, 200);
         
