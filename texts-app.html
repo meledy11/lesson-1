@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>📚 Весёлый китайский - Тексты с озвучкой</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
+            border-radius: 80px;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 15px 0 #C16F1A;
+            color: white;
+        }
+        .hero h1 { font-size: 1.8rem; }
+        .hero p { font-size: 0.9rem; margin-top: 0.3rem; }
+        
+        .install-banner {
+            background: #2d6a4f;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 20px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            display: none;
+        }
+        .install-banner.show { display: flex; }
+        .install-banner button {
+            background: #FF8C42;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .install-banner button:active { transform: scale(0.96); }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .tab-btn {
+            background: white;
+            color: #A64B2A;
+            border: 2px solid #FFB347;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #C16F1A; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .texts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .text-card {
+            background: white;
+            border-radius: 30px;
+            padding: 0;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            overflow: hidden;
+        }
+        
+        .text-header {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .text-header .title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .speak-all-btn {
+            background: rgba(255,255,255,0.25);
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .speak-all-btn:active { background: rgba(255,255,255,0.4); transform: scale(0.97); }
+        
+        .text-content {
+            padding: 1.5rem;
+            background: #FFFDF9;
+        }
+        
+        .text-line {
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px dashed #FFD699;
+        }
+        
+        .chinese-line {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #A64B2A;
+            cursor: pointer;
+            display: inline-block;
+            background: #FFF0E0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.3rem;
+            transition: 0.1s;
+        }
+        .chinese-line:active {
+            background: #FFD699;
+            transform: scale(0.99);
+        }
+        
+        .pinyin-line {
+            font-size: 1rem;
+            color: #FF8C42;
+            margin-top: 0.3rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .translate-line {
+            font-size: 1.1rem;
+            color: #8B5A2B;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        .lesson-selector {
+            background: white;
+            border-radius: 50px;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 2px solid #FFB347;
+        }
+        .lesson-btn {
+            background: #FFF0E0;
+            border: 2px solid #FFB347;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: 0.1s;
+        }
+        .lesson-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border-color: #FF6B35;
+        }
+        .lesson-btn:active { transform: scale(0.97); }
+        
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            background: #FFD699;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #A64B2A;
+            font-size: 0.8rem;
+        }
+        
+        .speak-tip {
+            text-align: center;
+            background: #FFF1C1;
+            padding: 0.6rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            border: 2px solid #FFB347;
+        }
+        
+        @media (max-width: 600px) {
+            .text-content { padding: 1rem; }
+            .chinese-line { font-size: 1.4rem; }
+            .pinyin-line { font-size: 0.8rem; }
+            .translate-line { font-size: 0.9rem; }
+            .text-header { font-size: 1rem; }
+            .hero h1 { font-size: 1.3rem; }
+            .lesson-btn { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="install-banner" id="installBanner">
+        <span>📱 Установите приложение на телефон</span>
+        <button id="installBtn">⬇️ Установить</button>
+    </div>
+    
+    <div class="hero">
+        <h1>📚 Весёлый китайский</h1>
+        <p>🎧 11 живых текстов с озвучкой | Нажимай на иероглифы — слушай произношение 🎧</p>
+    </div>
+    
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="texts">📖 Живые тексты</button>
+    </div>
+    
+    <div class="tab-content active" id="tab-texts">
+        <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
+        
+        <div class="lesson-selector" id="lessonSelector"></div>
+        
+        <div class="texts-grid" id="textsContainer"></div>
+    </div>
+    
+    <footer>
+        🀄 11 повседневных историй | Нажимай на любые иероглифы — учись произношению!
+    </footer>
+</div>
+
+<script src="texts-db.js"></script>
+<script>
+    // ========== УСТАНОВКА ПРИЛОЖЕНИЯ ==========
+    let deferredPrompt = null;
+    const installBanner = document.getElementById('installBanner');
+    const installBtn = document.getElementById('installBtn');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBanner.classList.add('show');
+    });
+    
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installBanner.classList.remove('show');
+            }
+        });
+    }
+    
+    // ========== ОЗВУЧКА ==========
+    function speakChinese(text) {
+        if (!text || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.7;
+            window.speechSynthesis.speak(utterance);
+        }, 50);
+    }
+    window.speakChinese = speakChinese;
+    
+    // ========== ОТОБРАЖЕНИЕ ТЕКСТОВ ==========
+    let currentTextId = 1;
+    
+    function renderText(id) {
+        const text = TEXTS_DB.find(t => t.id === id);
+        if (!text) return;
+        
+        const container = document.getElementById('textsContainer');
+        const fullText = text.lines.map(line => line.chinese).join('');
+        
+        let linesHtml = '';
+        for (let i = 0; i < text.lines.length; i++) {
+            const line = text.lines[i];
+            const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            linesHtml += `
+                <div class="text-line">
+                    <div>
+                        <span class="chinese-line" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
+                        <button class="speak-small" onclick="event.stopPropagation(); speakChinese('${safeChinese}')" style="background:none; border:none; font-size:1rem; margin-left:0.5rem; cursor:pointer;">🔊</button>
+                    </div>
+                    <div class="pinyin-line">${line.pinyin}</div>
+                    <div class="translate-line">${line.russian}</div>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = `
+            <div class="text-card">
+                <div class="text-header">
+                    <div class="title">
+                        <span>${text.title}</span>
+                    </div>
+                    <button class="speak-all-btn" onclick="speakChinese('${fullText.replace(/'/g, "\\'")}')">🔊 Весь текст</button>
+                </div>
+                <div class="text-content">
+                    ${linesHtml}
+                </div>
+            </div>
+        `;
+    }
+    
+    function renderLessonSelector() {
+        const selector = document.getElementById('lessonSelector');
+        let buttonsHtml = '';
+        for (const text of TEXTS_DB) {
+            const activeClass = text.id === currentTextId ? 'active' : '';
+            buttonsHtml += `<button class="lesson-btn ${activeClass}" data-id="${text.id}">${text.title}</button>`;
+        }
+        selector.innerHTML = buttonsHtml;
+        
+        document.querySelectorAll('.lesson-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                currentTextId = id;
+                renderLessonSelector();
+                renderText(currentTextId);
+            });
+        });
+    }
+    
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    renderLessonSelector();
+    renderText(currentTextId);
+</script>
+</body>
+</html>
