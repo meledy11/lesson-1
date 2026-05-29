@@ -238,21 +238,6 @@ const TEXTS_DB = [
     },
     {
         id: 11,
-        title: "🚌 В автобусе",
-        lines: [
-            { chinese: "今天早上我坐公交车。", pinyin: "jīn tiān zǎo shang wǒ zuò gōng jiāo chē。", russian: "Сегодня утром я поехал на автобусе." },
-            { chinese: "车上有很多人。", pinyin: "chē shàng yǒu hěn duō rén。", russian: "В автобусе было много людей." },
-            { chinese: "我站在一个阿姨旁边。", pinyin: "wǒ zhàn zài yī gè ā yí páng biān。", russian: "Я стоял рядом с тётей." },
-            { chinese: "她拿着很多东西。", pinyin: "tā ná zhe hěn duō dōng xi。", russian: "У неё было много вещей." },
-            { chinese: "我帮她拿了一个包。", pinyin: "wǒ bāng tā ná le yī gè bāo。", russian: "Я помог ей донести сумку." },
-            { chinese: "她说：'谢谢你，小伙子'。", pinyin: "tā shuō：'xiè xie nǐ，xiǎo huǒ zi'。", russian: "Она сказала: «Спасибо, молодой человек»." },
-            { chinese: "我说：'不客气'。", pinyin: "wǒ shuō：'bù kè qi'。", russian: "Я сказал: «Пожалуйста»." },
-            { chinese: "我到站了。", pinyin: "wǒ dào zhàn le。", russian: "Я приехал на свою остановку." },
-            { chinese: "我下车去公司。", pinyin: "wǒ xià chē qù gōng sī。", russian: "Я вышел и пошёл в компанию." }
-        ]
-    }
-    {
-        id: 12,
         title: "📞 Звонок маме",
         lines: [
             { chinese: "下班以后我给妈妈打电话。", pinyin: "xià bān yǐ hòu wǒ gěi mā ma dǎ diàn huà。", russian: "После работы я позвонил маме." },
@@ -276,6 +261,72 @@ const TEXTS_DB = [
             { chinese: "我说：'好的，拜拜'。", pinyin: "wǒ shuō：'hǎo de，bài bài'。", russian: "Я сказал: «Хорошо, пока»." },
             { chinese: "我挂了电话。", pinyin: "wǒ guà le diàn huà。", russian: "Я повесил трубку." },
             { chinese: "我心里暖暖的。", pinyin: "wǒ xīn lǐ nuǎn nuǎn de。", russian: "У меня на душе было тепло." }
+        ]
+    },
+    {
+        id: 12,
+        title: "🚌 В автобусе",
+        lines: [
+            { chinese: "今天早上我坐公交车。", pinyin: "jīn tiān zǎo shang wǒ zuò gōng jiāo chē。", russian: "Сегодня утром я поехал на автобусе." },
+            { chinese: "车上有很多人。", pinyin: "chē shàng yǒu hěn duō rén。", russian: "В автобусе было много людей." },
+            { chinese: "我站在一个阿姨旁边。", pinyin: "wǒ zhàn zài yī gè ā yí páng biān。", russian: "Я стоял рядом с тётей." },
+            { chinese: "她拿着很多东西。", pinyin: "tā ná zhe hěn duō dōng xi。", russian: "У неё было много вещей." },
+            { chinese: "我帮她拿了一个包。", pinyin: "wǒ bāng tā ná le yī gè bāo。", russian: "Я помог ей донести сумку." },
+            { chinese: "她说：'谢谢你，小伙子'。", pinyin: "tā shuō：'xiè xie nǐ，xiǎo huǒ zi'。", russian: "Она сказала: «Спасибо, молодой человек»." },
+            { chinese: "我说：'不客气'。", pinyin: "wǒ shuō：'bù kè qi'。", russian: "Я сказал: «Пожалуйста»." },
+            { chinese: "我到站了。", pinyin: "wǒ dào zhàn le。", russian: "Я приехал на свою остановку." },
+            { chinese: "我下车去公司。", pinyin: "wǒ xià chē qù gōng sī。", russian: "Я вышел и пошёл в компанию." }
+        ]
+    },
+    {
+        id: 13,
+        title: "🛒 В супермаркете",
+        lines: [
+            { chinese: "下班以后我去超市买东西。", pinyin: "xià bān yǐ hòu wǒ qù chāo shì mǎi dōng xi。", russian: "После работы я пошёл в супермаркет за покупками." },
+            { chinese: "我需要买牛奶、面包和鸡蛋。", pinyin: "wǒ xū yào mǎi niú nǎi、miàn bāo hé jī dàn。", russian: "Мне нужно купить молоко, хлеб и яйца." },
+            { chinese: "水果很新鲜。", pinyin: "shuǐ guǒ hěn xīn xiān。", russian: "Фрукты очень свежие." },
+            { chinese: "我买了三个苹果。", pinyin: "wǒ mǎi le sān gè píng guǒ。", russian: "Я купил три яблока." },
+            { chinese: "香蕉也打折。", pinyin: "xiāng jiāo yě dǎ zhé。", russian: "На бананы тоже скидка." },
+            { chinese: "我拿了一串香蕉。", pinyin: "wǒ ná le yī chuàn xiāng jiāo。", russian: "Я взял одну связку бананов." },
+            { chinese: "在肉柜台我买了鸡肉。", pinyin: "zài ròu guì tái wǒ mǎi le jī ròu。", russian: "В мясном отделе я купил курицу." },
+            { chinese: "鸡肉很便宜。", pinyin: "jī ròu hěn pián yi。", russian: "Курица была недорогой." },
+            { chinese: "我又买了一瓶水。", pinyin: "wǒ yòu mǎi le yī píng shuǐ。", russian: "Я также купил бутылку воды." },
+            { chinese: "我去收银台付钱。", pinyin: "wǒ qù shōu yín tái fù qián。", russian: "Я пошёл на кассу заплатить." },
+            { chinese: "一共八十五块。", pinyin: "yī gòng bā shí wǔ kuài。", russian: "Всего 85 юаней." },
+            { chinese: "我付了钱回家。", pinyin: "wǒ fù le qián huí jiā。", russian: "Я заплатил и пошёл домой." }
+        ]
+    },
+    {
+        id: 14,
+        title: "😊 Мой день",
+        lines: [
+            { chinese: "今天我心情很好。", pinyin: "jīn tiān wǒ xīn qíng hěn hǎo。", russian: "Сегодня у меня очень хорошее настроение." },
+            { chinese: "早上阳光很漂亮。", pinyin: "zǎo shang yáng guāng hěn piào liang。", russian: "Утром было красивое солнце." },
+            { chinese: "我觉得很开心。", pinyin: "wǒ jué de hěn kāi xīn。", russian: "Я чувствовал себя очень счастливым." },
+            { chinese: "中午我和朋友一起吃饭。", pinyin: "zhōng wǔ wǒ hé péng you yī qǐ chī fàn。", russian: "В обед мы с другом вместе поели." },
+            { chinese: "我们吃了火锅。", pinyin: "wǒ men chī le huǒ guō。", russian: "Мы ели хого." },
+            { chinese: "火锅很辣，但是很好吃。", pinyin: "huǒ guō hěn là，dàn shì hěn hǎo chī。", russian: "Хого было очень острым, но очень вкусным." },
+            { chinese: "下午我有点累。", pinyin: "xià wǔ wǒ yǒu diǎn lèi。", russian: "После обеда я немного устал." },
+            { chinese: "我喝了一杯咖啡。", pinyin: "wǒ hē le yī bēi kā fēi。", russian: "Я выпил чашку кофе." },
+            { chinese: "咖啡让我清醒了。", pinyin: "kā fēi ràng wǒ qīng xǐng le。", russian: "Кофе меня взбодрил." },
+            { chinese: "晚上我回家看电视。", pinyin: "wǎn shang wǒ huí jiā kàn diàn shì。", russian: "Вечером я вернулся домой и посмотрел телевизор." },
+            { chinese: "今天是很棒的一天。", pinyin: "jīn tiān shì hěn bàng de yī tiān。", russian: "Сегодня был отличный день." }
+        ]
+    },
+    {
+        id: 15,
+        title: "🍎 Любимые продукты",
+        lines: [
+            { chinese: "我喜欢吃水果。", pinyin: "wǒ xǐ huan chī shuǐ guǒ。", russian: "Я люблю есть фрукты." },
+            { chinese: "苹果又甜又脆。", pinyin: "píng guǒ yòu tián yòu cuì。", russian: "Яблоки сладкие и хрустящие." },
+            { chinese: "西瓜很甜，夏天我常常吃。", pinyin: "xī guā hěn tián，xià tiān wǒ cháng cháng chī。", russian: "Арбузы очень сладкие, летом я часто их ем." },
+            { chinese: "我不喜欢吃苦瓜。", pinyin: "wǒ bù xǐ huan chī kǔ guā。", russian: "Я не люблю горькую тыкву." },
+            { chinese: "苦瓜太苦了。", pinyin: "kǔ guā tài kǔ le。", russian: "Горькая тыква слишком горькая." },
+            { chinese: "我喜欢吃面条和饺子。", pinyin: "wǒ xǐ huan chī miàn tiáo hé jiǎo zi。", russian: "Я люблю есть лапшу и пельмени." },
+            { chinese: "饺子是我最喜欢的食物。", pinyin: "jiǎo zi shì wǒ zuì xǐ huan de shí wù。", russian: "Пельмени — моя самая любимая еда." },
+            { chinese: "我也喜欢喝汤。", pinyin: "wǒ yě xǐ huan hē tāng。", russian: "Я также люблю суп." },
+            { chinese: "每天早上我喝一碗粥。", pinyin: "měi tiān zǎo shang wǒ hē yī wǎn zhōu。", russian: "Каждое утро я ем тарелку каши." },
+            { chinese: "我觉得中国菜很好吃。", pinyin: "wǒ jué de zhōng guó cài hěn hǎo chī。", russian: "Я считаю, что китайская кухня очень вкусная." }
         ]
     }
 ];
