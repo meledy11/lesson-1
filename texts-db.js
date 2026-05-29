@@ -238,6 +238,21 @@ const TEXTS_DB = [
     },
     {
         id: 11,
+        title: "🚌 В автобусе",
+        lines: [
+            { chinese: "今天早上我坐公交车。", pinyin: "jīn tiān zǎo shang wǒ zuò gōng jiāo chē。", russian: "Сегодня утром я поехал на автобусе." },
+            { chinese: "车上有很多人。", pinyin: "chē shàng yǒu hěn duō rén。", russian: "В автобусе было много людей." },
+            { chinese: "我站在一个阿姨旁边。", pinyin: "wǒ zhàn zài yī gè ā yí páng biān。", russian: "Я стоял рядом с тётей." },
+            { chinese: "她拿着很多东西。", pinyin: "tā ná zhe hěn duō dōng xi。", russian: "У неё было много вещей." },
+            { chinese: "我帮她拿了一个包。", pinyin: "wǒ bāng tā ná le yī gè bāo。", russian: "Я помог ей донести сумку." },
+            { chinese: "她说：'谢谢你，小伙子'。", pinyin: "tā shuō：'xiè xie nǐ，xiǎo huǒ zi'。", russian: "Она сказала: «Спасибо, молодой человек»." },
+            { chinese: "我说：'不客气'。", pinyin: "wǒ shuō：'bù kè qi'。", russian: "Я сказал: «Пожалуйста»." },
+            { chinese: "我到站了。", pinyin: "wǒ dào zhàn le。", russian: "Я приехал на свою остановку." },
+            { chinese: "我下车去公司。", pinyin: "wǒ xià chē qù gōng sī。", russian: "Я вышел и пошёл в компанию." }
+        ]
+    }
+    {
+        id: 12,
         title: "📞 Звонок маме",
         lines: [
             { chinese: "下班以后我给妈妈打电话。", pinyin: "xià bān yǐ hòu wǒ gěi mā ma dǎ diàn huà。", russian: "После работы я позвонил маме." },
