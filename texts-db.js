@@ -328,5 +328,120 @@ const TEXTS_DB = [
             { chinese: "每天早上我喝一碗粥。", pinyin: "měi tiān zǎo shang wǒ hē yī wǎn zhōu。", russian: "Каждое утро я ем тарелку каши." },
             { chinese: "我觉得中国菜很好吃。", pinyin: "wǒ jué de zhōng guó cài hěn hǎo chī。", russian: "Я считаю, что китайская кухня очень вкусная." }
         ]
+    },
+    {
+        id: 16,
+        title: "👀 Что я делаю каждый день",
+        lines: [
+            { chinese: "我每天早上七点起床。", pinyin: "wǒ měi tiān zǎo shang qī diǎn qǐ chuáng。", russian: "Я каждый день встаю в 7 утра." },
+            { chinese: "我洗脸，刷牙，然后吃早饭。", pinyin: "wǒ xǐ liǎn，shuā yá，rán hòu chī zǎo fàn。", russian: "Я умываюсь, чищу зубы, потом завтракаю." },
+            { chinese: "我八点出门去上班。", pinyin: "wǒ bā diǎn chū mén qù shàng bān。", russian: "Я выхожу из дома в 8 часов на работу." },
+            { chinese: "我坐地铁去公司。", pinyin: "wǒ zuò dì tiě qù gōng sī。", russian: "Я еду на метро в компанию." },
+            { chinese: "在路上我听音乐。", pinyin: "zài lù shàng wǒ tīng yīn yuè。", russian: "По дороге я слушаю музыку." },
+            { chinese: "我早上很忙。", pinyin: "wǒ zǎo shang hěn máng。", russian: "Я очень занят утром." },
+            { chinese: "中午我和同事一起吃饭。", pinyin: "zhōng wǔ wǒ hé tóng shì yī qǐ chī fàn。", russian: "В обед я ем вместе с коллегами." },
+            { chinese: "下午我有点累。", pinyin: "xià wǔ wǒ yǒu diǎn lèi。", russian: "После обеда я немного устаю." },
+            { chinese: "我五点半下班。", pinyin: "wǒ wǔ diǎn bàn xià bān。", russian: "Я заканчиваю работу в 5:30." },
+            { chinese: "晚上我回家休息。", pinyin: "wǎn shang wǒ huí jiā xiū xi。", russian: "Вечером я возвращаюсь домой отдыхать." },
+            { chinese: "我十一点睡觉。", pinyin: "wǒ shí yī diǎn shuì jiào。", russian: "Я ложусь спать в 11 часов." }
+        ]
+    },
+    {
+        id: 17,
+        title: "❤️ Мои чувства и эмоции",
+        lines: [
+            { chinese: "今天我收到一个礼物。", pinyin: "jīn tiān wǒ shōu dào yī gè lǐ wù。", russian: "Сегодня я получил подарок." },
+            { chinese: "我很开心，我笑了。", pinyin: "wǒ hěn kāi xīn，wǒ xiào le。", russian: "Мне очень радостно, я засмеялся." },
+            { chinese: "我特别喜欢这个礼物。", pinyin: "wǒ tè bié xǐ huan zhè gè lǐ wù。", russian: "Мне особенно нравится этот подарок." },
+            { chinese: "但是昨天我很难过。", pinyin: "dàn shì zuó tiān wǒ hěn nán guò。", russian: "Но вчера мне было очень грустно." },
+            { chinese: "我丢了钱包，我哭了。", pinyin: "wǒ diū le qián bāo，wǒ kū le。", russian: "Я потерял кошелёк, я плакал." },
+            { chinese: "我害怕一个人回家。", pinyin: "wǒ hài pà yī gè rén huí jiā。", russian: "Я боюсь один возвращаться домой." },
+            { chinese: "朋友给我打电话，我不害怕了。", pinyin: "péng you gěi wǒ dǎ diàn huà，wǒ bù hài pà le。", russian: "Друг позвонил мне, и я перестал бояться." },
+            { chinese: "我现在心情很好。", pinyin: "wǒ xiàn zài xīn qíng hěn hǎo。", russian: "Сейчас у меня хорошее настроение." },
+            { chinese: "我每天都笑。", pinyin: "wǒ měi tiān dōu xiào。", russian: "Я каждый день смеюсь." },
+            { chinese: "生活很美好，我热爱生活。", pinyin: "shēng huó hěn měi hǎo，wǒ rè ài shēng huó。", russian: "Жизнь прекрасна, я люблю жизнь." }
+        ]
+    },
+    {
+        id: 18,
+        title: "🍚 Что я ем и пью",
+        lines: [
+            { chinese: "早上我喝一杯牛奶。", pinyin: "zǎo shang wǒ hē yī bēi niú nǎi。", russian: "Утром я пью стакан молока." },
+            { chinese: "我吃面包和鸡蛋。", pinyin: "wǒ chī miàn bāo hé jī dàn。", russian: "Я ем хлеб и яйца." },
+            { chinese: "中午我吃米饭和蔬菜。", pinyin: "zhōng wǔ wǒ chī mǐ fàn hé shū cài。", russian: "В обед я ем рис и овощи." },
+            { chinese: "我喝汤，我不喜欢喝可乐。", pinyin: "wǒ hē tāng，wǒ bù xǐ huan hē kě lè。", russian: "Я пью суп, я не люблю пить колу." },
+            { chinese: "晚上我吃面条。", pinyin: "wǎn shang wǒ chī miàn tiáo。", russian: "Вечером я ем лапшу." },
+            { chinese: "我喝绿茶。", pinyin: "wǒ hē lǜ chá。", russian: "Я пью зелёный чай." },
+            { chinese: "我不吃猪肉。", pinyin: "wǒ bù chī zhū ròu。", russian: "Я не ем свинину." },
+            { chinese: "我很喜欢吃水果。", pinyin: "wǒ hěn xǐ huan chī shuǐ guǒ。", russian: "Я очень люблю есть фрукты." },
+            { chinese: "我每天吃一个苹果。", pinyin: "wǒ měi tiān chī yī gè píng guǒ。", russian: "Я каждый день ем одно яблоко." },
+            { chinese: "吃健康的食物让我很开心。", pinyin: "chī jiàn kāng de shí wù ràng wǒ hěn kāi xīn。", russian: "Есть здоровую пищу — меня это радует." }
+        ]
+    },
+    {
+        id: 19,
+        title: "💰 В магазине: покупки",
+        lines: [
+            { chinese: "昨天我去超市买东西。", pinyin: "zuó tiān wǒ qù chāo shì mǎi dōng xi。", russian: "Вчера я пошёл в супермаркет за покупками." },
+            { chinese: "我买了很多东西。", pinyin: "wǒ mǎi le hěn duō dōng xi。", russian: "Я купил много вещей." },
+            { chinese: "我买了牛奶、面包和鸡蛋。", pinyin: "wǒ mǎi le niú nǎi、miàn bāo hé jī dàn。", russian: "Я купил молоко, хлеб и яйца." },
+            { chinese: "我还买了苹果和香蕉。", pinyin: "wǒ hái mǎi le píng guǒ hé xiāng jiāo。", russian: "Я также купил яблоки и бананы." },
+            { chinese: "在收银台我算了一下价钱。", pinyin: "zài shōu yín tái wǒ suàn le yī xià jià qián。", russian: "На кассе я посчитал стоимость." },
+            { chinese: "一共一百块钱。", pinyin: "yī gòng yī bǎi kuài qián。", russian: "Всего 100 юаней." },
+            { chinese: "我付了一百块钱。", pinyin: "wǒ fù le yī bǎi kuài qián。", russian: "Я заплатил 100 юаней." },
+            { chinese: "我有会员卡，所以打折了。", pinyin: "wǒ yǒu huì yuán kǎ，suǒ yǐ dǎ zhé le。", russian: "У меня есть карта постоянного покупателя, поэтому была скидка." },
+            { chinese: "我实际付了八十块。", pinyin: "wǒ shí jì fù le bā shí kuài。", russian: "Я фактически заплатил 80 юаней." },
+            { chinese: "我很高兴，因为我省了二十块钱。", pinyin: "wǒ hěn gāo xìng，yīn wèi wǒ shěng le èr shí kuài qián。", russian: "Я очень рад, потому что сэкономил 20 юаней." }
+        ]
+    },
+    {
+        id: 20,
+        title: "👁️ Что я вижу и слышу",
+        lines: [
+            { chinese: "每天早上我睁开眼睛。", pinyin: "měi tiān zǎo shang wǒ zhēng kāi yǎn jīng。", russian: "Каждое утро я открываю глаза." },
+            { chinese: "我看见窗外的太阳。", pinyin: "wǒ kàn jiàn chuāng wài de tài yáng。", russian: "Я вижу солнце за окном." },
+            { chinese: "我听见鸟儿在唱歌。", pinyin: "wǒ tīng jiàn niǎo er zài chàng gē。", russian: "Я слышу, как поют птицы." },
+            { chinese: "我走路去地铁站。", pinyin: "wǒ zǒu lù qù dì tiě zhàn。", russian: "Я иду пешком на станцию метро." },
+            { chinese: "在路上我看见很多车和人。", pinyin: "zài lù shàng wǒ kàn jiàn hěn duō chē hé rén。", russian: "По дороге я вижу много машин и людей." },
+            { chinese: "我听见汽车的声音。", pinyin: "wǒ tīng jiàn qì chē de shēng yīn。", russian: "Я слышу шум машин." },
+            { chinese: "在办公室我工作，我看电脑。", pinyin: "zài bàn gōng shì wǒ gōng zuò，wǒ kàn diàn nǎo。", russian: "В офисе я работаю, я смотрю на компьютер." },
+            { chinese: "我听见同事在说话。", pinyin: "wǒ tīng jiàn tóng shì zài shuō huà。", russian: "Я слышу, как разговаривают коллеги." },
+            { chinese: "下班以后我走在街上。", pinyin: "xià bān yǐ hòu wǒ zǒu zài jiē shàng。", russian: "После работы я иду по улице." },
+            { chinese: "我看见漂亮的夜景。", pinyin: "wǒ kàn jiàn piào liang de yè jǐng。", russian: "Я вижу красивый ночной вид." },
+            { chinese: "我听见音乐，很开心。", pinyin: "wǒ tīng jiàn yīn yuè，hěn kāi xīn。", russian: "Я слышу музыку, мне очень радостно." },
+            { chinese: "我感觉到幸福。", pinyin: "wǒ gǎn jué dào xìng fú。", russian: "Я чувствую счастье." }
+        ]
+    },
+    {
+        id: 21,
+        title: "📖 Я читаю книги",
+        lines: [
+            { chinese: "我喜欢看书。", pinyin: "wǒ xǐ huan kàn shū。", russian: "Я люблю читать книги." },
+            { chinese: "每天晚上我读一小时书。", pinyin: "měi tiān wǎn shang wǒ dú yī xiǎo shí shū。", russian: "Каждый вечер я читаю книгу один час." },
+            { chinese: "现在我正在读一本小说。", pinyin: "xiàn zài wǒ zhèng zài dú yī běn xiǎo shuō。", russian: "Сейчас я читаю роман." },
+            { chinese: "我看得很慢，但是很认真。", pinyin: "wǒ kàn dé hěn màn，dàn shì hěn rèn zhēn。", russian: "Я читаю медленно, но очень внимательно." },
+            { chinese: "我理解书里的意思。", pinyin: "wǒ lǐ jiě shū lǐ de yì si。", russian: "Я понимаю смысл книги." },
+            { chinese: "有时候我不认识一些生词。", pinyin: "yǒu shí hòu wǒ bù rèn shi yī xiē shēng cí。", russian: "Иногда я не знаю некоторые новые слова." },
+            { chinese: "我查字典学习新词。", pinyin: "wǒ chá zì diǎn xué xí xīn cí。", russian: "Я смотрю в словаре и учу новые слова." },
+            { chinese: "读中文书帮助我学汉语。", pinyin: "dú zhōng wén shū bāng zhù wǒ xué hàn yǔ。", russian: "Чтение китайских книг помогает мне учить китайский язык." },
+            { chinese: "我可以读懂简单的文章了。", pinyin: "wǒ kě yǐ dú dǒng jiǎn dān de wén zhāng le。", russian: "Я уже могу читать и понимать простые тексты." },
+            { chinese: "读书让我很快乐。", pinyin: "dú shū ràng wǒ hěn kuài lè。", russian: "Чтение приносит мне радость." }
+        ]
+    },
+    {
+        id: 22,
+        title: "🎮 Я играю",
+        lines: [
+            { chinese: "周末我喜欢玩游戏。", pinyin: "zhōu mò wǒ xǐ huan wán yóu xì。", russian: "На выходных я люблю играть в игры." },
+            { chinese: "我玩手机游戏和电脑游戏。", pinyin: "wǒ wán shǒu jī yóu xì hé diàn nǎo yóu xì。", russian: "Я играю в мобильные игры и компьютерные игры." },
+            { chinese: "我最喜欢的游戏是象棋。", pinyin: "wǒ zuì xǐ huan de yóu xì shì xiàng qí。", russian: "Моя любимая игра — китайские шахматы." },
+            { chinese: "我和朋友一起玩。", pinyin: "wǒ hé péng you yī qǐ wán。", russian: "Я играю вместе с другом." },
+            { chinese: "我玩游戏的时候很开心。", pinyin: "wǒ wán yóu xì de shí hòu hěn kāi xīn。", russian: "Когда я играю в игры, мне очень весело." },
+            { chinese: "有时候我赢了，有时候我输了。", pinyin: "yǒu shí hòu wǒ yíng le，yǒu shí hòu wǒ shū le。", russian: "Иногда я выигрываю, иногда проигрываю." },
+            { chinese: "输了也没关系，我不难过。", pinyin: "shū le yě méi guān xì，wǒ bù nán guò。", russian: "Проигрывать — не страшно, я не расстраиваюсь." },
+            { chinese: "我可以玩两个小时。", pinyin: "wǒ kě yǐ wán liǎng gè xiǎo shí。", russian: "Я могу играть два часа." },
+            { chinese: "但是我不玩太多，因为要学习。", pinyin: "dàn shì wǒ bù wán tài duō，yīn wèi yào xué xí。", russian: "Но я не играю слишком много, потому что нужно учиться." },
+            { chinese: "玩游戏是一种放松。", pinyin: "wán yóu xì shì yī zhǒng fàng sōng。", russian: "Игра — это способ отдохнуть." }
+        ]
     }
 ];
