@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -110,7 +110,7 @@
             text-align: center;
         }
 
-        .new-game-btn, .hint-btn {
+        .new-game-btn {
             background: #FFB347;
             border: none;
             padding: 0.5rem 1.2rem;
@@ -121,12 +121,7 @@
             box-shadow: 0 3px 0 #C16F1A;
         }
 
-        .hint-btn {
-            background: #2196F3;
-            box-shadow: 0 3px 0 #0b5e7e;
-        }
-
-        .new-game-btn:active, .hint-btn:active {
+        .new-game-btn:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #C16F1A;
         }
@@ -140,50 +135,44 @@
 
         .tiles-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
         }
 
         @media (min-width: 500px) {
-            .tiles-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 700px) {
             .tiles-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 700px) {
             .tiles-grid {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(6, 1fr);
             }
         }
 
         .tile {
             background: linear-gradient(145deg, #FFF8E7, #FFE8C8);
             border-radius: 20px;
-            padding: 1rem 0.5rem;
+            padding: 0.8rem 0.3rem;
             text-align: center;
             cursor: pointer;
             transition: 0.05s linear;
-            box-shadow: 0 6px 0 #B87C2E;
+            box-shadow: 0 5px 0 #B87C2E;
             border: 1px solid #FFD699;
-            min-height: 150px;
+            min-height: 130px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
             position: relative;
         }
 
         .tile.selected {
             background: linear-gradient(145deg, #FFE0A3, #FFD580);
             box-shadow: 0 2px 0 #B87C2E;
-            transform: translateY(4px);
+            transform: translateY(3px);
             border: 2px solid #FF8C42;
         }
 
@@ -194,25 +183,13 @@
             background: transparent;
         }
 
-        .tile.hint {
-            animation: pulse 0.5s ease-in-out 3;
-            background: linear-gradient(145deg, #FFE0A3, #FFD580);
-            border: 3px solid #FF6B35;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
         .tile:active {
-            transform: translateY(4px);
+            transform: translateY(3px);
             box-shadow: 0 2px 0 #B87C2E;
         }
 
         .tile-char {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-family: 'Noto Sans SC', monospace;
             font-weight: bold;
             color: #A64B2A;
@@ -220,36 +197,37 @@
         }
 
         .tile-pinyin {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #E67E22;
             font-weight: 600;
             background: rgba(255,255,255,0.7);
-            padding: 0.2rem 0.6rem;
+            padding: 0.15rem 0.5rem;
             border-radius: 20px;
             display: inline-block;
         }
 
         .tile-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #6B3A1A;
             font-weight: 500;
             margin-top: 0.2rem;
             background: rgba(255,245,220,0.8);
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.4rem;
             border-radius: 15px;
             max-width: 95%;
-            white-space: normal;
-            text-align: center;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
         }
 
         .sound-badge {
             position: absolute;
-            bottom: 8px;
-            right: 10px;
-            font-size: 0.8rem;
+            bottom: 5px;
+            right: 8px;
+            font-size: 0.7rem;
             background: rgba(0,0,0,0.5);
             border-radius: 20px;
-            padding: 3px 8px;
+            padding: 2px 6px;
             color: white;
             cursor: pointer;
             pointer-events: auto;
@@ -257,10 +235,10 @@
         }
 
         @media (max-width: 450px) {
-            .tile-char { font-size: 2rem; }
+            .tile-char { font-size: 1.8rem; }
             .tile-pinyin { font-size: 0.7rem; }
-            .tile-label { font-size: 0.7rem; }
-            .tile { min-height: 130px; padding: 0.8rem 0.3rem; }
+            .tile-label { font-size: 0.65rem; white-space: normal; }
+            .tile { min-height: 110px; padding: 0.5rem 0.2rem; }
         }
 
         .level-selector {
@@ -297,6 +275,7 @@
             font-size: 0.7rem;
         }
 
+        /* Стили для модального окна подтверждения */
         .modal {
             display: none;
             position: fixed;
@@ -350,10 +329,11 @@
 <div class="container">
     <div class="hero">
         <h1>🀄 Маджонг: найди часть слова 🀄</h1>
-        <p>Сопоставь иероглиф с любой его составной частью | 🔊 Озвучка | 💡 Подсказка</p>
+        <p>Сопоставь иероглиф с любой его составной частью | 🔊 Озвучка | ✍️ Авто-тетрадь</p>
         <div>
             <a href="index.html" class="back-home">🏠 На главную</a>
-            <a href="frequency-lesson.html" class="back-home">📖 Урок 127 слов</a>
+            <a href="frequency-lesson.html" class="back-home">📖 Урок 50 слов</a>
+            <a href="copybook.html" class="back-home">✍️ Открыть тетрадь</a>
         </div>
     </div>
 
@@ -373,7 +353,6 @@
             <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="message-box" id="messageBox">🎲 Нажми на плитку</div>
-        <button class="hint-btn" id="hintBtn">💡 Подсказка</button>
         <button class="new-game-btn" id="newGameBtn">🔄 Новая</button>
     </div>
 
@@ -383,10 +362,11 @@
 
     <footer>
         🀄 Найди для иероглифа его составную часть (ключ).<br>
-        🎯 При каждой угаданной паре → слово отправляется в тетрадь! 💡 Подсказка подсветит пару.
+        🎯 При каждой угаданной паре → слово АВТОМАТИЧЕСКИ отправляется в тетрадь!
     </footer>
 </div>
 
+<!-- Модальное окно для подтверждения возврата -->
 <div id="returnModal" class="modal">
     <div class="modal-content">
         <p>✍️ Слово добавлено в тетрадь!</p>
@@ -400,14 +380,12 @@
 
 <script src="frequency-db.js"></script>
 <script>
-    // ========== ПЕРЕМЕННЫЕ ==========
     let currentLevel = 'easy';
     let tiles = [];
     let selectedTileIndex = null;
     let score = 0;
     let totalPairs = 0;
-    let pendingWord = null;
-    let hintTimeout = null;
+    let pendingWord = null; // Храним слово для модального окна
     
     const tilesGrid = document.getElementById('tilesGrid');
     const scoreSpan = document.getElementById('scoreCount');
@@ -416,54 +394,6 @@
     const modal = document.getElementById('returnModal');
     const modalWordText = document.getElementById('modalWordText');
     
-    // ========== СОХРАНЕНИЕ И ЗАГРУЗКА СОСТОЯНИЯ ==========
-    function saveGameState() {
-        const gameState = {
-            currentLevel: currentLevel,
-            tiles: tiles.map(t => ({ ...t })), // копируем массив
-            selectedTileIndex: selectedTileIndex,
-            score: score,
-            totalPairs: totalPairs,
-            timestamp: Date.now()
-        };
-        localStorage.setItem('mahjong_game_state', JSON.stringify(gameState));
-        console.log('💾 Состояние игры сохранено');
-    }
-    
-    function loadGameState() {
-        const saved = localStorage.getItem('mahjong_game_state');
-        if (saved) {
-            try {
-                const gameState = JSON.parse(saved);
-                // Проверяем, что сохранение не старше 1 часа
-                if (gameState.timestamp && (Date.now() - gameState.timestamp) < 3600000) {
-                    currentLevel = gameState.currentLevel;
-                    tiles = gameState.tiles;
-                    selectedTileIndex = gameState.selectedTileIndex;
-                    score = gameState.score;
-                    totalPairs = gameState.totalPairs;
-                    
-                    // Обновляем UI
-                    document.querySelectorAll('.level-btn').forEach(btn => {
-                        if (btn.dataset.level === currentLevel) btn.classList.add('active');
-                        else btn.classList.remove('active');
-                    });
-                    updateProgress();
-                    renderBoard();
-                    messageBox.innerHTML = `🎴 Продолжаем! Найди ${totalPairs - score} пар!`;
-                    console.log('📀 Состояние игры загружено');
-                    return true;
-                }
-            } catch(e) { console.log('Ошибка загрузки сохранения'); }
-        }
-        return false;
-    }
-    
-    function clearGameState() {
-        localStorage.removeItem('mahjong_game_state');
-    }
-    
-    // ========== ДАННЫЕ ДЛЯ ИГРЫ ==========
     const partDataMap = {
         "亻": { pinyin: "rén", meaning: "человек" }, "女": { pinyin: "nǚ", meaning: "женщина" }, "口": { pinyin: "kǒu", meaning: "рот" },
         "日": { pinyin: "rì", meaning: "солнце" }, "月": { pinyin: "yuè", meaning: "луна/мясо" }, "木": { pinyin: "mù", meaning: "дерево" },
@@ -476,7 +406,7 @@
         "戈": { pinyin: "gē", meaning: "копьё" }, "彳": { pinyin: "chì", meaning: "шаг" }, "彡": { pinyin: "shān", meaning: "волосы" },
         "歹": { pinyin: "dǎi", meaning: "смерть" }, "门": { pinyin: "mén", meaning: "дверь" }, "马": { pinyin: "mǎ", meaning: "лошадь" },
         "鸟": { pinyin: "niǎo", meaning: "птица" }, "鱼": { pinyin: "yú", meaning: "рыба" }, "虫": { pinyin: "chóng", meaning: "насекомое" },
-        "艹": { pinyin: "cǎo", meaning: "трава" }, "⺮": { pinyin: "zhú", meaning: "бамбук" }, "米": { pinyin: "mǐ", meaning: "рис" },
+        "艹": { pinyin: "cǎo", meaning: "трава" }, "竹": { pinyin: "zhú", meaning: "бамбук" }, "米": { pinyin: "mǐ", meaning: "рис" },
         "糸": { pinyin: "mì", meaning: "шёлк" }, "纟": { pinyin: "sī", meaning: "шёлк" }, "贝": { pinyin: "bèi", meaning: "раковина" },
         "车": { pinyin: "chē", meaning: "машина" }, "走": { pinyin: "zǒu", meaning: "идти" }, "身": { pinyin: "shēn", meaning: "тело" },
         "一": { pinyin: "yī", meaning: "один" }, "二": { pinyin: "èr", meaning: "два" }, "三": { pinyin: "sān", meaning: "три" },
@@ -486,7 +416,7 @@
         "尤": { pinyin: "yóu", meaning: "особенно" }, "者": { pinyin: "zhě", meaning: "тот, кто" }, "文": { pinyin: "wén", meaning: "текст" },
         "正": { pinyin: "zhèng", meaning: "прямой" }, "白": { pinyin: "bái", meaning: "белый" }, "勺": { pinyin: "sháo", meaning: "ковш" },
         "子": { pinyin: "zǐ", meaning: "ребёнок" }, "小": { pinyin: "xiǎo", meaning: "маленький" }, "大": { pinyin: "dà", meaning: "большой" },
-        "可": { pinyin: "kě", meaning: "можно" }, "力": { pinyin: "lì", meaning: "сила" }, "刀": { pinyin: "dāo", meaning: "нож" }
+        "可": { pinyin: "kě", meaning: "можно" }
     };
     
     function shuffleArray(arr) {
@@ -542,6 +472,7 @@
         return shuffled.slice(0, limit);
     }
     
+    // Функция добавления слова в тетрадь (БЕЗ автоматического перехода)
     function addToCopybookOnly(char, pinyin, meaning) {
         if (!char) return false;
         let copybookWords = [];
@@ -556,64 +487,15 @@
         if (!alreadyExists) {
             copybookWords.unshift({ char, pinyin, meaning, timestamp: Date.now() });
             localStorage.setItem('copybook_words', JSON.stringify(copybookWords));
-            return true;
+            return true; // слово добавлено
         }
-        return false;
+        return false; // уже было
     }
     
+    // Переход в тетрадь с сохранением выбранного слова
     function openCopybookWithWord(char, pinyin, meaning) {
         localStorage.setItem('selected_character', JSON.stringify({ char, pinyin, meaning }));
-        saveGameState(); // Сохраняем игру перед переходом
         window.location.href = 'copybook.html';
-    }
-    
-    // ========== ПОДСКАЗКА ==========
-    function showHint() {
-        // Находим все неубранные плитки
-        const activeTiles = tiles.filter(t => !t.removed);
-        if (activeTiles.length === 0) {
-            messageBox.innerHTML = '🎉 Игра уже завершена! Начни новую!';
-            return;
-        }
-        
-        // Ищем первую неубранную пару
-        let hintWordIndex = -1;
-        let hintPartIndex = -1;
-        
-        for (let i = 0; i < tiles.length; i++) {
-            if (tiles[i].removed) continue;
-            for (let j = i + 1; j < tiles.length; j++) {
-                if (tiles[j].removed) continue;
-                if (tiles[i].pairId === tiles[j].pairId) {
-                    hintWordIndex = i;
-                    hintPartIndex = j;
-                    break;
-                }
-            }
-            if (hintWordIndex !== -1) break;
-        }
-        
-        if (hintWordIndex === -1) {
-            messageBox.innerHTML = '🤔 Не могу найти пару? Возможно, ошибка в данных!';
-            return;
-        }
-        
-        // Подсвечиваем плитки
-        const tilesElements = document.querySelectorAll('.tile');
-        if (tilesElements[hintWordIndex]) {
-            tilesElements[hintWordIndex].classList.add('hint');
-        }
-        if (tilesElements[hintPartIndex]) {
-            tilesElements[hintPartIndex].classList.add('hint');
-        }
-        
-        messageBox.innerHTML = `💡 Подсказка: "${tiles[hintWordIndex].displayText}" и "${tiles[hintPartIndex].displayText}" — это пара!`;
-        
-        // Убираем подсветку через 2 секунды
-        if (hintTimeout) clearTimeout(hintTimeout);
-        hintTimeout = setTimeout(() => {
-            document.querySelectorAll('.tile.hint').forEach(el => el.classList.remove('hint'));
-        }, 2000);
     }
     
     function initGame() {
@@ -641,8 +523,7 @@
                 pairId: idCounter - 1,
                 displayText: pair.wordChar,
                 label: pair.wordMeaning,
-                wordData: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning },
-                removed: false
+                wordData: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning }
             });
             newTiles.push({
                 id: idCounter++,
@@ -652,12 +533,10 @@
                 pairId: idCounter - 2,
                 displayText: pair.partChar,
                 label: pair.partMeaning,
-                wordData: null,
-                removed: false
+                wordData: null
             });
         }
         tiles = shuffleArray(newTiles);
-        clearGameState();
         updateProgress();
         renderBoard();
         messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! При угадывании → слово в тетрадь!`;
@@ -698,7 +577,6 @@
             tilesGrid.appendChild(tileDiv);
         });
         updateProgress();
-        saveGameState(); // Сохраняем после каждого рендера
     }
     
     function onTileClick(clickedIdx) {
@@ -738,12 +616,12 @@
             if (remainingPairs === 0) {
                 messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты выучил все пары!';
                 renderBoard();
-                clearGameState();
             } else {
                 messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remainingPairs})`;
                 renderBoard();
             }
             
+            // Добавляем слово в тетрадь и показываем модальное окно
             if (matchedWord && matchedWord.char) {
                 const isNew = addToCopybookOnly(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
                 pendingWord = matchedWord;
@@ -755,19 +633,15 @@
             selectedTileIndex = null;
             renderBoard();
         }
-        saveGameState();
     }
     
     function updateProgress() {
-        const remainingWords = tiles.filter(t => !t.removed && t.type === 'word').length;
-        const found = totalPairs - remainingWords;
-        const percent = totalPairs > 0 ? (found / totalPairs) * 100 : 0;
+        const percent = totalPairs > 0 ? (score / totalPairs) * 100 : 0;
         progressFill.style.width = percent + '%';
-        scoreSpan.innerText = found;
+        scoreSpan.innerText = score;
     }
     
     function newGame() { 
-        clearGameState();
         pendingWord = null;
         initGame(); 
     }
@@ -781,29 +655,31 @@
         newGame();
     }
     
+    // Закрыть модальное окно и продолжить игру
     function closeModalAndContinue() {
         modal.style.display = 'none';
         pendingWord = null;
-        saveGameState();
     }
     
+    // Открыть тетрадь с текущим словом
     function openCopybook() {
         if (pendingWord) {
             openCopybookWithWord(pendingWord.char, pendingWord.pinyin, pendingWord.meaning);
         } else {
-            saveGameState();
             window.location.href = 'copybook.html';
         }
     }
     
-    // ========== ИНИЦИАЛИЗАЦИЯ ==========
     document.getElementById('newGameBtn')?.addEventListener('click', () => newGame());
-    document.getElementById('hintBtn')?.addEventListener('click', () => showHint());
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => setLevel(btn.dataset.level));
     });
+    
+    // Кнопки модального окна
     document.getElementById('modalContinueBtn')?.addEventListener('click', closeModalAndContinue);
     document.getElementById('modalCopybookBtn')?.addEventListener('click', openCopybook);
+    
+    // Клик вне модального окна (на фон) — продолжает игру
     modal?.addEventListener('click', (e) => {
         if (e.target === modal) closeModalAndContinue();
     });
@@ -811,9 +687,7 @@
     const waitForDB = setInterval(() => {
         if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
             clearInterval(waitForDB);
-            if (!loadGameState()) {
-                initGame();
-            }
+            initGame();
         }
     }, 150);
 </script>
