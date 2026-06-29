@@ -429,6 +429,40 @@
         }
         .lesson-btn-texts:active { transform: scale(0.97); }
         
+        /* Стили для вкладки КЛЮЧИ */
+        .keys-preview {
+            background: white;
+            border-radius: 30px;
+            padding: 1.5rem;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            text-align: center;
+        }
+        .keys-preview .big-icon { font-size: 4rem; margin-bottom: 0.5rem; }
+        .keys-preview h2 { color: #A64B2A; margin-bottom: 0.5rem; }
+        .keys-preview p { color: #8B5A2B; margin-bottom: 1rem; }
+        .keys-preview .go-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 0 #C16F1A;
+            transition: 0.1s;
+        }
+        .keys-preview .go-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #C16F1A;
+        }
+        .keys-preview .stats-mini {
+            margin-top: 1rem;
+            color: #8B5A2B;
+            font-size: 0.9rem;
+        }
+        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -459,6 +493,7 @@
             .translate-line { font-size: 0.9rem; }
             .text-content { padding: 1rem; }
             .lesson-btn-texts { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
+            .keys-preview .big-icon { font-size: 3rem; }
         }
     </style>
     <meta name="theme-color" content="#FF6B35">
@@ -478,7 +513,7 @@
         
         <div class="hero">
             <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой 🎧</p>
+            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой | 🔑 Ключи 🎧</p>
         </div>
         
         <div class="tabs-nav">
@@ -487,8 +522,9 @@
             <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
             <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
             <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
-            <button class="tab-btn" data-tab="phrases">📇 Карточки фраз</button>
-            <button class="tab-btn" data-tab="texts">📖 Тексты с озвучкой</button>
+            <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
+            <button class="tab-btn" data-tab="texts">📖 Тексты</button>
+            <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
         </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
@@ -623,15 +659,28 @@
             </div>
         </div>
         
-        <!-- НОВАЯ ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
+        <!-- ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
         <div class="tab-content" id="tab-texts">
             <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
             <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
             <div class="texts-grid" id="textsContainer"></div>
         </div>
         
+        <!-- НОВАЯ ВКЛАДКА: КЛЮЧИ -->
+        <div class="tab-content" id="tab-keys">
+            <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
+            <div class="keys-preview">
+                <div class="big-icon">🔑</div>
+                <h2>Все ключи китайского</h2>
+                <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
+                Нажимай на иероглифы — слушай произношение!</p>
+                <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
+                <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
+            </div>
+        </div>
+        
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Новая игра "Ключ + Ключ = Слово" — собирай иероглифы из радикалов! 📖 11 живых текстов с озвучкой!
+            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Учи слова по ключам — запоминай быстрее! 📖 Тексты с озвучкой!
         </footer>
     </div>
     
@@ -639,6 +688,7 @@
     <script src="lessons-data.js"></script>
     <script src="phrases-db.js"></script>
     <script src="texts-db.js"></script>
+    <script src="keys-data.js"></script>
     
     <script>
         let deferredPrompt = null;
@@ -671,6 +721,7 @@
                 document.getElementById('tab-' + tabName).classList.add('active');
                 if (tabName === 'dictionary') { updateStats(); searchDictionary(); }
                 if (tabName === 'texts' && typeof TEXTS_DB !== 'undefined') { renderTextsViewer(); }
+                if (tabName === 'keys') { updateKeysStats(); }
             });
         });
         
@@ -842,6 +893,17 @@
             });
         }
         
+        // ========== СТАТИСТИКА ДЛЯ КЛЮЧЕЙ ==========
+        function updateKeysStats() {
+            const statsDiv = document.getElementById('keysStats');
+            if (typeof KEY_NAMES !== 'undefined' && typeof getTotalWords !== 'undefined') {
+                statsDiv.innerHTML = `📊 ${KEY_NAMES.length} ключей, ${getTotalWords()} слов`;
+            } else {
+                statsDiv.innerHTML = '📊 Загрузка... (убедитесь, что keys-data.js загружен)';
+            }
+        }
+        
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
         setTimeout(() => {
             if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
                 updateStats();
@@ -849,6 +911,9 @@
             }
             if (typeof TEXTS_DB !== 'undefined') {
                 renderTextsViewer();
+            }
+            if (typeof KEY_NAMES !== 'undefined') {
+                updateKeysStats();
             }
         }, 200);
         
