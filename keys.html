@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🔑 Ключи китайского — запоминай слова</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
+            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
+            border-radius: 80px;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 0 #C16F1A;
+            color: white;
+        }
+        .header h1 { font-size: 1.8rem; }
+        .header p { font-size: 0.9rem; margin-top: 0.3rem; }
+        
+        .back-link {
+            display: inline-block;
+            background: white;
+            color: #A64B2A;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            border: 2px solid #FFB347;
+            box-shadow: 0 4px 0 #D98F33;
+            transition: 0.1s;
+        }
+        .back-link:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #D98F33;
+        }
+        
+        .key-selector {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .key-btn {
+            background: white;
+            color: #A64B2A;
+            border: 2px solid #FFB347;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .key-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 4px 0 #C16F1A;
+            border-color: #FF6B35;
+        }
+        .key-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #C16F1A;
+        }
+        
+        .fang-container {
+            background: white;
+            border-radius: 30px;
+            padding: 1.5rem;
+            border: 3px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+        }
+        
+        .fang-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #A64B2A;
+            padding: 0.5rem;
+            background: #FFF8F0;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            border: 2px solid #FFD699;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .fang-title .key-char {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 2.8rem;
+        }
+        .fang-title .key-meaning {
+            font-size: 1.2rem;
+            color: #8B5A2B;
+        }
+        .fang-title .key-emoji {
+            font-size: 2.5rem;
+        }
+        
+        .fang-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .fang-item {
+            display: flex;
+            align-items: center;
+            background: #FFFDF9;
+            border-radius: 20px;
+            padding: 0.8rem 1.2rem;
+            border-left: 5px solid #FF8C42;
+            transition: 0.1s;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .fang-item:hover {
+            background: #FFF0E0;
+            transform: translateX(5px);
+        }
+        .fang-item .arrow {
+            font-size: 1.8rem;
+            color: #FF8C42;
+            min-width: 2.5rem;
+            text-align: center;
+        }
+        .fang-item .word-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3rem 0.8rem;
+            flex: 1;
+        }
+        .fang-item .chinese-word {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #A64B2A;
+            cursor: pointer;
+            background: #FFF0E0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            transition: 0.1s;
+        }
+        .fang-item .chinese-word:active {
+            background: #FFD699;
+            transform: scale(0.97);
+        }
+        .fang-item .pinyin-word {
+            color: #FF8C42;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .fang-item .translation {
+            color: #8B5A2B;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .fang-item .emoji {
+            font-size: 1.8rem;
+            margin-left: 0.2rem;
+        }
+        .fang-item .hsk-badge {
+            display: inline-block;
+            background: #FFE0C0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            color: #8B5A2B;
+            font-weight: bold;
+        }
+        .fang-item .speak-small-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 20px;
+            transition: 0.1s;
+        }
+        .fang-item .speak-small-btn:hover {
+            background: #FFD699;
+        }
+        .fang-item .speak-small-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .total-badge {
+            text-align: center;
+            background: #FFF1C1;
+            padding: 0.5rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #A64B2A;
+            border: 2px solid #FFB347;
+        }
+        
+        .search-section {
+            margin-bottom: 1rem;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            border: 2px solid #FFB347;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+            background: white;
+        }
+        .search-input:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .stats-row .total-words {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+            background: #FFF8F0;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+        }
+        .stats-row .keys-count {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            background: #FFD699;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #A64B2A;
+            font-size: 0.8rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #8B5A2B;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 800px) {
+            .header h1 { font-size: 1.3rem; }
+            .fang-title { font-size: 2rem; }
+            .fang-title .key-char { font-size: 2rem; }
+            .fang-item .chinese-word { font-size: 1.4rem; }
+            .fang-item .arrow { font-size: 1.2rem; min-width: 1.8rem; }
+            .fang-item .emoji { font-size: 1.4rem; }
+            .fang-item { padding: 0.6rem 0.8rem; }
+            .key-btn { font-size: 0.75rem; padding: 0.4rem 0.8rem; }
+            .stats-row { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔑 Ключи китайского</h1>
+            <p>Запоминай слова по радикалам — стрелки показывают связь с основным словом</p>
+            <p style="font-size:0.8rem; margin-top:0.3rem; opacity:0.9;">Всего ключей: <span id="totalKeys">0</span> | Всего слов: <span id="totalWords">0</span></p>
+        </div>
+        
+        <a href="index.html" class="back-link">⬅️ На главную</a>
+        
+        <div class="search-section">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Поиск по ключам, словам, переводу..." autocomplete="off">
+        </div>
+        
+        <div class="key-selector" id="keySelector">
+            <!-- Кнопки генерируются через JS -->
+        </div>
+        
+        <div class="total-badge" id="totalBadge">📊 Загрузка...</div>
+        
+        <div class="fang-container" id="fangContainer">
+            <!-- Заполняется через JavaScript -->
+        </div>
+        
+        <footer>
+            🎧 Нажимай на иероглифы — слушай произношение! 🔑 Учи слова по ключам — запоминай быстрее!<br>
+            Всего <span id="footerTotalKeys">0</span> ключей и <span id="footerTotalWords">0</span> слов
+        </footer>
+    </div>
+    
+    <script src="keys-data.js"></script>
+    <script>
+        // ===== ОЗВУЧКА =====
+        function speakChinese(text) {
+            if (!text || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+        }
+        window.speakChinese = speakChinese;
+
+        // ===== СОСТОЯНИЕ =====
+        let currentKey = KEY_NAMES[0] || '方';
+        let searchQuery = '';
+
+        // ===== ОТОБРАЖЕНИЕ СТАТИСТИКИ =====
+        function updateStats() {
+            const totalKeys = KEY_NAMES.length;
+            const totalWords = getTotalWords();
+            document.getElementById('totalKeys').textContent = totalKeys;
+            document.getElementById('totalWords').textContent = totalWords;
+            document.getElementById('footerTotalKeys').textContent = totalKeys;
+            document.getElementById('footerTotalWords').textContent = totalWords;
+        }
+
+        // ===== ОТОБРАЖЕНИЕ КНОПОК КЛЮЧЕЙ =====
+        function renderKeySelector() {
+            const selector = document.getElementById('keySelector');
+            let html = '';
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                const active = key === currentKey ? 'active' : '';
+                html += `<button class="key-btn ${active}" data-key="${key}">${data.emoji} ${key}</button>`;
+            }
+            selector.innerHTML = html;
+
+            document.querySelectorAll('.key-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentKey = this.dataset.key;
+                    searchQuery = document.getElementById('searchInput').value.trim();
+                    renderKeySelector();
+                    renderWords();
+                });
+            });
+        }
+
+        // ===== ОТОБРАЖЕНИЕ СЛОВ =====
+        function renderWords() {
+            const container = document.getElementById('fangContainer');
+            const totalBadge = document.getElementById('totalBadge');
+            const searchInput = document.getElementById('searchInput');
+            searchQuery = searchInput.value.trim().toLowerCase();
+
+            // Фильтруем ключи по поиску
+            let filteredKeys = KEY_NAMES;
+            if (searchQuery) {
+                filteredKeys = KEY_NAMES.filter(key => {
+                    const data = WORDS_BY_KEY[key];
+                    // Ищем по ключу, значению, или словам
+                    if (key.includes(searchQuery)) return true;
+                    if (data.meaning.toLowerCase().includes(searchQuery)) return true;
+                    for (const word of data.words) {
+                        if (word.chinese.includes(searchQuery)) return true;
+                        if (word.pinyin.toLowerCase().includes(searchQuery)) return true;
+                        if (word.translation.toLowerCase().includes(searchQuery)) return true;
+                    }
+                    return false;
+                });
+            }
+
+            // Если есть поиск и текущий ключ не входит в результаты, выбираем первый подходящий
+            if (searchQuery && filteredKeys.length > 0 && !filteredKeys.includes(currentKey)) {
+                currentKey = filteredKeys[0];
+                renderKeySelector();
+            }
+
+            // Если после фильтрации ничего не осталось
+            if (filteredKeys.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        😔 Ничего не найдено по запросу «${searchQuery}»
+                    </div>
+                `;
+                totalBadge.textContent = '📊 0 слов найдено';
+                return;
+            }
+
+            // Если поиск активен и выбранный ключ не в фильтре, показываем все результаты
+            if (searchQuery) {
+                // Показываем все ключи, которые подходят под поиск
+                let allHtml = '';
+                let totalFound = 0;
+                for (const key of filteredKeys) {
+                    const data = WORDS_BY_KEY[key];
+                    const wordsHtml = data.words.map(word => {
+                        totalFound++;
+                        const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                        return `
+                            <div class="fang-item">
+                                <div class="arrow">➜</div>
+                                <div class="word-group">
+                                    <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                                    <span class="pinyin-word">${word.pinyin}</span>
+                                    <span class="translation">— ${word.translation}</span>
+                                    ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                                    ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                                    <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    allHtml += `
+                        <div style="margin-top: 1.5rem; padding: 0.5rem; background: #FFF8F0; border-radius: 20px; font-weight: bold; color: #A64B2A; border-left: 5px solid #FF6B35;">
+                            ${data.emoji} Ключ: <span style="font-size:1.5rem;">${key}</span> — ${data.meaning}
+                        </div>
+                        ${wordsHtml}
+                    `;
+                }
+
+                container.innerHTML = `
+                    <div style="text-align:center; padding:0.5rem; background:#FFF1C1; border-radius:20px; margin-bottom:1rem; font-weight:bold;">
+                        🔍 Найдено: ${totalFound} слов в ${filteredKeys.length} ключах
+                    </div>
+                    ${allHtml}
+                `;
+                totalBadge.textContent = `📊 Найдено: ${totalFound} слов`;
+                return;
+            }
+
+            // Обычный режим — показываем текущий ключ
+            const data = WORDS_BY_KEY[currentKey];
+            if (!data) {
+                container.innerHTML = '<div style="text-align:center; padding:2rem;">❌ Ключ не найден</div>';
+                return;
+            }
+
+            totalBadge.textContent = `📊 ${data.words.length} слов с ключом «${currentKey}»`;
+
+            let wordsHtml = data.words.map(word => {
+                const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                return `
+                    <div class="fang-item">
+                        <div class="arrow">➜</div>
+                        <div class="word-group">
+                            <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                            <span class="pinyin-word">${word.pinyin}</span>
+                            <span class="translation">— ${word.translation}</span>
+                            ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                            ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                            <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="fang-title">
+                    <span class="key-emoji">${data.emoji}</span>
+                    <span class="key-char">${currentKey}</span>
+                    <span class="key-meaning">— ${data.meaning}</span>
+                </div>
+                <div class="fang-grid">${wordsHtml}</div>
+            `;
+        }
+
+        // ===== ПОИСК В РЕАЛЬНОМ ВРЕМЕНИ =====
+        document.getElementById('searchInput').addEventListener('input', function() {
+            renderWords();
+        });
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        updateStats();
+        renderKeySelector();
+        renderWords();
+    </script>
+</body>
+</html>
