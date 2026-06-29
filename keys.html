@@ -399,10 +399,10 @@
             max-width: 500px;
             height: auto;
             aspect-ratio: 1/1;
-            background: white;
+            background: #FDF8F0;
             border-radius: 20px;
             touch-action: none;
-            cursor: crosshair;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='30' viewBox='0 0 24 30'><text y='24' font-size='20'>🖊️</text></svg>") 0 24, crosshair;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
         
@@ -509,10 +509,10 @@
             
             <div class="writing-section">
                 <div class="writing-toolbar">
-                    <div class="char-display" id="currentCharDisplay">方</div>
+                    <div class="char-display" id="currentCharDisplay">上</div>
                     <div class="info-display">
-                        <div class="pinyin-display" id="currentPinyinDisplay">fāng</div>
-                        <div class="translation-display" id="currentTranslationDisplay">квадратный, направление</div>
+                        <div class="pinyin-display" id="currentPinyinDisplay">shàng</div>
+                        <div class="translation-display" id="currentTranslationDisplay">верх, подниматься</div>
                     </div>
                 </div>
                 
@@ -562,13 +562,11 @@
                 return;
             }
             
-            // Отменяем текущую речь
             if (currentUtterance) {
                 speechSynth.cancel();
                 currentUtterance = null;
             }
             
-            // Задержка для корректной работы
             setTimeout(() => {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'zh-CN';
@@ -576,7 +574,6 @@
                 utterance.pitch = 1;
                 utterance.volume = 1;
                 
-                // Выбираем китайский голос
                 const voices = speechSynth.getVoices();
                 const zhVoice = voices.find(v => v.lang.startsWith('zh'));
                 if (zhVoice) utterance.voice = zhVoice;
@@ -628,7 +625,6 @@
                     checkPronunciation(transcript);
                     stopListening();
                 } else {
-                    // Показываем промежуточный результат
                     document.getElementById('heardText').textContent = `🎤 Распознаётся: ${transcript}...`;
                 }
             };
@@ -667,7 +663,6 @@
                 return;
             }
             
-            // Показываем ожидаемое слово
             document.getElementById('expectedText').textContent = `Ожидалось: ${currentWordForSpeech}`;
             document.getElementById('speechResult').classList.add('show');
             document.getElementById('heardText').textContent = '🎤 Слушаю... скажите слово';
@@ -701,7 +696,6 @@
             const expected = currentWordForSpeech;
             const pinyin = document.getElementById('currentPinyinDisplay').textContent.trim();
             
-            // Упрощаем для сравнения
             const spokenClean = spoken.replace(/\s+/g, '').toLowerCase();
             const expectedClean = expected.toLowerCase();
             
@@ -709,15 +703,12 @@
             let feedback = '';
             let feedbackClass = '';
             
-            // Точное совпадение
             if (spokenClean === expectedClean) {
                 score = 100;
                 feedback = '🎉 Отлично! Произношение идеальное!';
                 feedbackClass = 'perfect';
             } 
-            // Проверяем по символам
             else {
-                // Сравниваем посимвольно
                 const maxLen = Math.max(spokenClean.length, expectedClean.length);
                 let matchCount = 0;
                 
@@ -727,22 +718,16 @@
                     }
                 }
                 
-                // Учитываем, что распознавание может давать пиньинь вместо иероглифов
                 if (spokenClean.includes(pinyin) || pinyin.includes(spokenClean)) {
-                    // Если распознан пиньинь — даём больше баллов
                     score = Math.min(85, matchCount / maxLen * 100 + 20);
                 } else {
                     score = Math.round(matchCount / maxLen * 100);
                 }
                 
-                // Проверяем на близость (Levenshtein для пиньиня)
-                if (score < 40 && spokenClean.length > 0) {
-                    // Проверяем, может быть распознан близкий по звучанию
-                    const pinyinParts = pinyin.split(' ');
-                    for (const part of pinyinParts) {
-                        if (spokenClean.includes(part.substring(0, 2)) || part.includes(spokenClean.substring(0, 2))) {
-                            score = Math.max(score, 55);
-                        }
+                const pinyinParts = pinyin.split(' ');
+                for (const part of pinyinParts) {
+                    if (spokenClean.includes(part.substring(0, 2)) || part.includes(spokenClean.substring(0, 2))) {
+                        score = Math.max(score, 55);
                     }
                 }
                 
@@ -758,7 +743,6 @@
                 }
             }
             
-            // Отображаем результат
             const scoreDisplay = document.getElementById('scoreDisplay');
             scoreDisplay.textContent = score + '%';
             scoreDisplay.className = 'score';
@@ -776,7 +760,6 @@
             
             document.getElementById('speechResult').classList.add('show');
             
-            // Если плохой результат, воспроизводим образец для сравнения
             if (score < 60) {
                 setTimeout(() => {
                     speakChinese(expected);
@@ -967,10 +950,14 @@
         let canvas, ctx;
         let isDrawing = false;
         let lastX = 0, lastY = 0;
+        let lastPressure = 0.5;
         let drawingHistory = [];
         let currentStep = -1;
-        let currentWritingChar = '方';
+        let currentWritingChar = '上';
         let writingCharData = null;
+
+        // Флаг для инициализации тетради
+        let isWritingInitialized = false;
 
         function initWritingTab() {
             canvas = document.getElementById('writingCanvas');
@@ -981,39 +968,74 @@
             canvas.width = size;
             canvas.height = size;
             
+            // Устанавливаем стиль кисти для каллиграфии
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
             // События для мыши
+            canvas.removeEventListener('mousedown', startDraw);
+            canvas.removeEventListener('mousemove', draw);
+            canvas.removeEventListener('mouseup', endDraw);
+            canvas.removeEventListener('mouseleave', endDraw);
+            
             canvas.addEventListener('mousedown', startDraw);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', endDraw);
             canvas.addEventListener('mouseleave', endDraw);
             
             // События для touch
+            canvas.removeEventListener('touchstart', handleTouchStart);
+            canvas.removeEventListener('touchmove', handleTouchMove);
+            canvas.removeEventListener('touchend', handleTouchEnd);
+            
             canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
             canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
             canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
             
             // Кнопки
-            document.getElementById('clearBtn').addEventListener('click', clearCanvas);
-            document.getElementById('undoBtn').addEventListener('click', undoDraw);
-            document.getElementById('nextCharBtn').addEventListener('click', nextChar);
-            document.getElementById('prevCharBtn').addEventListener('click', prevChar);
-            document.getElementById('randomCharBtn').addEventListener('click', randomChar);
-            document.getElementById('speakCharBtn').addEventListener('click', function() {
+            document.getElementById('clearBtn').onclick = clearCanvas;
+            document.getElementById('undoBtn').onclick = undoDraw;
+            document.getElementById('nextCharBtn').onclick = nextChar;
+            document.getElementById('prevCharBtn').onclick = prevChar;
+            document.getElementById('randomCharBtn').onclick = randomChar;
+            document.getElementById('speakCharBtn').onclick = function() {
                 const char = document.getElementById('currentCharDisplay').textContent;
                 speakChinese(char);
-            });
-            document.getElementById('micBtn').addEventListener('click', startListening);
+            };
+            document.getElementById('micBtn').onclick = startListening;
             
-            // Инициализация распознавания
             initSpeechRecognition();
-            
-            // Заполняем сетку слов
             renderWordGrid();
             
-            // Загружаем первый иероглиф
-            if (allWordsList.length > 0) {
-                currentWordIndex = 0;
-                loadCharForWriting(allWordsList[0]);
+            // Загружаем иероглиф 上 при первом открытии
+            if (!isWritingInitialized) {
+                isWritingInitialized = true;
+                // Ищем иероглиф 上 в списке
+                let shangFound = false;
+                for (let i = 0; i < allWordsList.length; i++) {
+                    if (allWordsList[i].chinese === '上') {
+                        currentWordIndex = i;
+                        shangFound = true;
+                        break;
+                    }
+                }
+                if (!shangFound && allWordsList.length > 0) {
+                    currentWordIndex = 0;
+                }
+                loadCharForWriting(allWordsList[currentWordIndex] || allWordsList[0]);
+            } else {
+                // Обновляем отображение текущего иероглифа
+                updateWritingDisplay();
+                clearCanvas();
+                drawGrid();
+                if (currentWritingChar) {
+                    drawSampleChar(currentWritingChar);
+                }
+                // Обновляем активный элемент в сетке
+                document.querySelectorAll('.grid-char').forEach(el => {
+                    el.classList.toggle('active-char', el.dataset.char === currentWritingChar);
+                });
             }
         }
 
@@ -1056,13 +1078,6 @@
                         writingCharData = word;
                         setTimeout(() => {
                             initWritingTab();
-                            updateWritingDisplay();
-                            clearCanvas();
-                            drawGrid();
-                            drawSampleChar(char);
-                            document.querySelectorAll('.grid-char').forEach(el => {
-                                el.classList.toggle('active-char', el.dataset.char === char);
-                            });
                         }, 100);
                         return;
                     }
@@ -1071,6 +1086,7 @@
         }
 
         function loadCharForWriting(data) {
+            if (!data) return;
             currentWritingChar = data.chinese;
             writingCharData = data;
             updateWritingDisplay();
@@ -1092,6 +1108,7 @@
 
         function drawGrid() {
             const size = canvas.width;
+            ctx.save();
             ctx.strokeStyle = '#E8E0D8';
             ctx.lineWidth = 1;
             
@@ -1111,6 +1128,7 @@
             ctx.strokeStyle = '#D0C8C0';
             ctx.lineWidth = 2;
             ctx.strokeRect(0, 0, size, size);
+            ctx.restore();
         }
 
         function drawSampleChar(char) {
@@ -1120,7 +1138,6 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
-            // Адаптивный размер в зависимости от количества символов
             let fontSize = size * 0.65;
             if (char.length >= 2) fontSize = size * 0.45;
             if (char.length >= 3) fontSize = size * 0.32;
@@ -1144,7 +1161,18 @@
             ctx.restore();
         }
 
-        // ===== РИСОВАНИЕ =====
+        // ===== КАЛЛИГРАФИЧЕСКОЕ РИСОВАНИЕ =====
+        function getPressure() {
+            return 0.3 + Math.random() * 0.7;
+        }
+
+        function getLineWidth(pressure, speed) {
+            // Имитация кисти: давление + скорость влияют на толщину
+            const baseWidth = 4 + pressure * 10;
+            const speedFactor = Math.min(1, speed / 50);
+            return Math.max(2, baseWidth * (0.6 + 0.4 * (1 - speedFactor)));
+        }
+
         function startDraw(e) {
             isDrawing = true;
             const rect = canvas.getBoundingClientRect();
@@ -1152,6 +1180,13 @@
             const y = (e.clientY - rect.top) * (canvas.height / rect.height);
             lastX = x;
             lastY = y;
+            lastPressure = getPressure();
+            
+            ctx.save();
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = getLineWidth(lastPressure, 0);
             ctx.beginPath();
             ctx.moveTo(x, y);
         }
@@ -1162,14 +1197,39 @@
             const rect = canvas.getBoundingClientRect();
             const x = (e.clientX - rect.left) * (canvas.width / rect.width);
             const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            // Вычисляем скорость для изменения толщины
+            const dx = x - lastX;
+            const dy = y - lastY;
+            const speed = Math.sqrt(dx * dx + dy * dy);
+            
+            // Давление меняется плавно
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.15));
+            
+            const lineWidth = getLineWidth(lastPressure, speed);
+            
             ctx.strokeStyle = '#1a1a1a';
-            ctx.lineWidth = 6;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
+            ctx.lineWidth = lineWidth;
+            
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
             ctx.stroke();
+            
+            // Добавляем небольшой "эффект кисти" — лёгкое размытие на концах
+            if (speed > 10) {
+                ctx.save();
+                ctx.globalAlpha = 0.3;
+                ctx.lineWidth = lineWidth * 0.6;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+            }
+            
             lastX = x;
             lastY = y;
         }
@@ -1181,6 +1241,7 @@
                 drawingHistory = drawingHistory.slice(0, currentStep + 1);
                 drawingHistory.push(imageData);
                 currentStep = drawingHistory.length - 1;
+                ctx.restore();
             }
         }
 
@@ -1193,6 +1254,13 @@
             isDrawing = true;
             lastX = x;
             lastY = y;
+            lastPressure = getPressure();
+            
+            ctx.save();
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = getLineWidth(lastPressure, 0);
             ctx.beginPath();
             ctx.moveTo(x, y);
         }
@@ -1204,14 +1272,35 @@
             const rect = canvas.getBoundingClientRect();
             const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
             const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            
+            const dx = x - lastX;
+            const dy = y - lastY;
+            const speed = Math.sqrt(dx * dx + dy * dy);
+            
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.15));
+            const lineWidth = getLineWidth(lastPressure, speed);
+            
             ctx.strokeStyle = '#1a1a1a';
-            ctx.lineWidth = 6;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
+            ctx.lineWidth = lineWidth;
+            
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
             ctx.stroke();
+            
+            if (speed > 10) {
+                ctx.save();
+                ctx.globalAlpha = 0.3;
+                ctx.lineWidth = lineWidth * 0.6;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.restore();
+            }
+            
             lastX = x;
             lastY = y;
         }
@@ -1224,6 +1313,7 @@
                 drawingHistory = drawingHistory.slice(0, currentStep + 1);
                 drawingHistory.push(imageData);
                 currentStep = drawingHistory.length - 1;
+                ctx.restore();
             }
         }
 
@@ -1275,6 +1365,9 @@
         setTimeout(() => {
             if (document.getElementById('tab-writing').classList.contains('active')) {
                 initWritingTab();
+            } else {
+                // Если тетрадь не активна, всё равно инициализируем в фоне
+                setTimeout(initWritingTab, 500);
             }
         }, 300);
 
