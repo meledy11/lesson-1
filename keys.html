@@ -10,45 +10,114 @@
         body {
             background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
-            padding: 1rem;
+            padding: 0.8rem;
             min-height: 100vh;
         }
         
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
         
         .header {
             text-align: center;
             background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
-            border-radius: 80px;
-            padding: 1.5rem 1rem;
+            border-radius: 60px;
+            padding: 2rem 1rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 15px 0 #C16F1A;
             color: white;
         }
-        .header h1 { font-size: 1.8rem; }
-        .header p { font-size: 0.9rem; margin-top: 0.3rem; }
+        .header h1 { 
+            font-size: 3rem; 
+            letter-spacing: 2px;
+        }
+        .header p { 
+            font-size: 1.4rem; 
+            margin-top: 0.5rem;
+            opacity: 0.95;
+        }
+        .header .stats {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
         
         .back-link {
             display: inline-block;
             background: white;
             color: #A64B2A;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.3rem;
             margin-bottom: 1.5rem;
-            border: 2px solid #FFB347;
-            box-shadow: 0 4px 0 #D98F33;
+            border: 3px solid #FFB347;
+            box-shadow: 0 6px 0 #D98F33;
             transition: 0.1s;
         }
         .back-link:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #D98F33;
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D98F33;
+        }
+        
+        /* Вкладки */
+        .tabs-nav {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+            background: white;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: 0.1s;
+            box-shadow: 0 6px 0 #D98F33;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 6px 0 #C16F1A;
+            border-color: #FF6B35;
+        }
+        .tab-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D98F33;
+        }
+        .tab-btn.active:active {
+            box-shadow: 0 3px 0 #C16F1A;
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .search-section {
+            margin-bottom: 1.5rem;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border-radius: 60px;
+            border: 3px solid #FFB347;
+            font-size: 1.6rem;
+            outline: none;
+            font-family: inherit;
+            background: white;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .search-input:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 4px 0 #D98F33, 0 0 0 4px rgba(255,107,53,0.2);
         }
         
         .key-selector {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 1.5rem;
@@ -56,108 +125,130 @@
         .key-btn {
             background: white;
             color: #A64B2A;
-            border: 2px solid #FFB347;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
+            border: 3px solid #FFB347;
+            padding: 0.8rem 1.6rem;
+            border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.3rem;
             transition: 0.1s;
-            box-shadow: 0 4px 0 #D98F33;
+            box-shadow: 0 6px 0 #D98F33;
+            min-width: 70px;
         }
         .key-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            box-shadow: 0 4px 0 #C16F1A;
+            box-shadow: 0 6px 0 #C16F1A;
             border-color: #FF6B35;
+            transform: scale(1.05);
         }
         .key-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #C16F1A;
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D98F33;
+        }
+        .key-btn.active:active {
+            box-shadow: 0 3px 0 #C16F1A;
+        }
+        
+        .total-badge {
+            text-align: center;
+            background: #FFF1C1;
+            padding: 0.8rem;
+            border-radius: 60px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            box-shadow: 0 4px 0 #D98F33;
         }
         
         .fang-container {
             background: white;
-            border-radius: 30px;
-            padding: 1.5rem;
-            border: 3px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #D98F33;
         }
         
         .fang-title {
             text-align: center;
-            font-size: 2.8rem;
+            font-size: 4rem;
             font-weight: bold;
             color: #A64B2A;
-            padding: 0.5rem;
+            padding: 1rem;
             background: #FFF8F0;
-            border-radius: 50px;
-            margin-bottom: 1.5rem;
-            border: 2px solid #FFD699;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            border: 3px solid #FFD699;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
         .fang-title .key-char {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            padding: 0.2rem 1.2rem;
-            border-radius: 40px;
-            font-size: 2.8rem;
+            padding: 0.3rem 1.8rem;
+            border-radius: 50px;
+            font-size: 5rem;
+            line-height: 1.4;
         }
         .fang-title .key-meaning {
-            font-size: 1.2rem;
+            font-size: 2rem;
             color: #8B5A2B;
         }
         .fang-title .key-emoji {
-            font-size: 2.5rem;
+            font-size: 4rem;
         }
         
         .fang-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 1.2rem;
         }
         
         .fang-item {
             display: flex;
             align-items: center;
             background: #FFFDF9;
-            border-radius: 20px;
-            padding: 0.8rem 1.2rem;
-            border-left: 5px solid #FF8C42;
+            border-radius: 30px;
+            padding: 1.2rem 1.8rem;
+            border-left: 8px solid #FF8C42;
             transition: 0.1s;
-            gap: 0.8rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
         .fang-item:hover {
             background: #FFF0E0;
-            transform: translateX(5px);
+            transform: translateX(8px);
         }
         .fang-item .arrow {
-            font-size: 1.8rem;
+            font-size: 3rem;
             color: #FF8C42;
-            min-width: 2.5rem;
+            min-width: 4rem;
             text-align: center;
+            font-weight: bold;
         }
         .fang-item .word-group {
             display: flex;
             flex-wrap: wrap;
-            align-items: baseline;
-            gap: 0.3rem 0.8rem;
+            align-items: center;
+            gap: 0.5rem 1.2rem;
             flex: 1;
         }
         .fang-item .chinese-word {
-            font-size: 1.8rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: #A64B2A;
             cursor: pointer;
             background: #FFF0E0;
-            padding: 0.1rem 0.6rem;
-            border-radius: 20px;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
             transition: 0.1s;
+            line-height: 1.3;
         }
         .fang-item .chinese-word:active {
             background: #FFD699;
@@ -165,34 +256,35 @@
         }
         .fang-item .pinyin-word {
             color: #FF8C42;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         .fang-item .translation {
             color: #8B5A2B;
-            font-size: 1rem;
+            font-size: 1.6rem;
             font-weight: 500;
         }
         .fang-item .emoji {
-            font-size: 1.8rem;
+            font-size: 3rem;
             margin-left: 0.2rem;
         }
         .fang-item .hsk-badge {
             display: inline-block;
             background: #FFE0C0;
-            padding: 0.1rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.7rem;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
             color: #8B5A2B;
             font-weight: bold;
         }
         .fang-item .speak-small-btn {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 2rem;
             cursor: pointer;
-            padding: 0.2rem 0.4rem;
-            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
             transition: 0.1s;
         }
         .fang-item .speak-small-btn:hover {
@@ -201,54 +293,171 @@
         .fang-item .speak-small-btn:active {
             transform: scale(0.9);
         }
+        .fang-item .write-btn {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #6A1B9A;
+            transition: 0.1s;
+        }
+        .fang-item .write-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #6A1B9A;
+        }
         
-        .total-badge {
+        .no-results {
             text-align: center;
-            background: #FFF1C1;
-            padding: 0.5rem;
-            border-radius: 50px;
-            margin-bottom: 1rem;
+            padding: 2rem;
+            color: #8B5A2B;
+            font-size: 1.8rem;
+        }
+        
+        /* ===== СТИЛИ ДЛЯ ТЕТРАДИ ===== */
+        .writing-section {
+            background: white;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #D98F33;
+        }
+        
+        .writing-toolbar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .writing-toolbar .char-display {
+            font-size: 5rem;
             font-weight: bold;
             color: #A64B2A;
-            border: 2px solid #FFB347;
-        }
-        
-        .search-section {
-            margin-bottom: 1rem;
-        }
-        .search-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 50px;
-            border: 2px solid #FFB347;
-            font-size: 1rem;
-            outline: none;
-            font-family: inherit;
-            background: white;
-        }
-        .search-input:focus {
-            border-color: #FF6B35;
-            box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
-        }
-        
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .stats-row .total-words {
-            font-size: 0.9rem;
-            color: #8B5A2B;
             background: #FFF8F0;
-            padding: 0.2rem 1rem;
-            border-radius: 20px;
+            padding: 0.2rem 2rem;
+            border-radius: 30px;
+            border: 3px solid #FFD699;
+            min-width: 150px;
+            text-align: center;
         }
-        .stats-row .keys-count {
-            font-size: 0.9rem;
+        .writing-toolbar .info-display {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.2rem;
+        }
+        .writing-toolbar .info-display .pinyin-display {
+            font-size: 1.6rem;
+            color: #FF8C42;
+            font-weight: 600;
+        }
+        .writing-toolbar .info-display .translation-display {
+            font-size: 1.4rem;
             color: #8B5A2B;
+        }
+        
+        .writing-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .writing-actions button {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+        }
+        .writing-actions button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+        }
+        .btn-clear {
+            background: #FF6B6B;
+            color: white;
+        }
+        .btn-undo {
+            background: #FFB347;
+            color: white;
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+        .btn-prev {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+        }
+        .btn-random {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+        }
+        
+        .canvas-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            background: #FFFDF9;
+            border-radius: 30px;
+            padding: 1rem;
+            border: 3px solid #FFD699;
+        }
+        #writingCanvas {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            aspect-ratio: 1/1;
+            background: white;
+            border-radius: 20px;
+            touch-action: none;
+            cursor: crosshair;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+        
+        /* Сетка на канвасе */
+        .canvas-grid {
+            position: relative;
+        }
+        
+        .word-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.6rem;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            background: #FFF8F0;
+            border-radius: 20px;
+            border: 2px solid #FFD699;
+        }
+        .word-selector-grid .grid-char {
+            font-size: 2.2rem;
+            text-align: center;
+            padding: 0.3rem;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #FFD699;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .word-selector-grid .grid-char:active {
+            background: #FFD699;
+            transform: scale(0.95);
+        }
+        .word-selector-grid .grid-char.active-char {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border-color: #FF6B35;
         }
         
         footer {
@@ -259,26 +468,31 @@
             border-radius: 50px;
             font-weight: bold;
             color: #A64B2A;
-            font-size: 0.8rem;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 2rem;
-            color: #8B5A2B;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         @media (max-width: 800px) {
-            .header h1 { font-size: 1.3rem; }
-            .fang-title { font-size: 2rem; }
-            .fang-title .key-char { font-size: 2rem; }
-            .fang-item .chinese-word { font-size: 1.4rem; }
-            .fang-item .arrow { font-size: 1.2rem; min-width: 1.8rem; }
-            .fang-item .emoji { font-size: 1.4rem; }
-            .fang-item { padding: 0.6rem 0.8rem; }
-            .key-btn { font-size: 0.75rem; padding: 0.4rem 0.8rem; }
-            .stats-row { flex-direction: column; align-items: center; }
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .fang-title { font-size: 2.5rem; }
+            .fang-title .key-char { font-size: 3.5rem; }
+            .fang-title .key-meaning { font-size: 1.2rem; }
+            .fang-item .chinese-word { font-size: 2.5rem; }
+            .fang-item .arrow { font-size: 2rem; min-width: 2.5rem; }
+            .fang-item .pinyin-word { font-size: 1.2rem; }
+            .fang-item .translation { font-size: 1.2rem; }
+            .fang-item .emoji { font-size: 2rem; }
+            .key-btn { font-size: 1rem; padding: 0.5rem 1rem; }
+            .tab-btn { font-size: 1rem; padding: 0.5rem 1rem; }
+            .search-input { font-size: 1.2rem; padding: 0.8rem 1rem; }
+            .total-badge { font-size: 1.2rem; }
+            .fang-container { padding: 1rem; }
+            .fang-item { padding: 0.8rem 1rem; }
+            .writing-toolbar .char-display { font-size: 3.5rem; min-width: 100px; }
+            #writingCanvas { max-width: 100%; }
+            .word-selector-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
+            .word-selector-grid .grid-char { font-size: 1.6rem; }
+            .writing-actions button { font-size: 1rem; padding: 0.5rem 1rem; }
         }
     </style>
 </head>
@@ -287,28 +501,72 @@
         <div class="header">
             <h1>🔑 Ключи китайского</h1>
             <p>Запоминай слова по радикалам — стрелки показывают связь с основным словом</p>
-            <p style="font-size:0.8rem; margin-top:0.3rem; opacity:0.9;">Всего ключей: <span id="totalKeys">0</span> | Всего слов: <span id="totalWords">0</span></p>
+            <div class="stats">Всего ключей: <span id="totalKeys">0</span> | Всего слов: <span id="totalWords">0</span></div>
         </div>
         
         <a href="index.html" class="back-link">⬅️ На главную</a>
         
-        <div class="search-section">
-            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Поиск по ключам, словам, переводу..." autocomplete="off">
+        <!-- Вкладки -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="words">📚 Слова по ключам</button>
+            <button class="tab-btn" data-tab="writing">✍️ Тетрадь для рисования</button>
         </div>
         
-        <div class="key-selector" id="keySelector">
-            <!-- Кнопки генерируются через JS -->
+        <!-- Вкладка: СЛОВА ПО КЛЮЧАМ -->
+        <div class="tab-content active" id="tab-words">
+            <div class="search-section">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Поиск по ключам, словам, переводу..." autocomplete="off">
+            </div>
+            
+            <div class="key-selector" id="keySelector">
+                <!-- Кнопки генерируются через JS -->
+            </div>
+            
+            <div class="total-badge" id="totalBadge">📊 Загрузка...</div>
+            
+            <div class="fang-container" id="fangContainer">
+                <!-- Заполняется через JavaScript -->
+            </div>
         </div>
         
-        <div class="total-badge" id="totalBadge">📊 Загрузка...</div>
-        
-        <div class="fang-container" id="fangContainer">
-            <!-- Заполняется через JavaScript -->
+        <!-- Вкладка: ТЕТРАДЬ ДЛЯ РИСОВАНИЯ -->
+        <div class="tab-content" id="tab-writing">
+            <div class="speak-tip" style="text-align:center; background:#FFF1C1; padding:1rem; border-radius:60px; margin-bottom:1.5rem; font-size:1.3rem; border:3px solid #FFB347;">
+                ✍️ Нажми на любой иероглиф в списке или выбери из сетки ниже — появится образец для обведения. Рисуй пальцем или мышкой!
+            </div>
+            
+            <div class="writing-section">
+                <div class="writing-toolbar">
+                    <div class="char-display" id="currentCharDisplay">方</div>
+                    <div class="info-display">
+                        <div class="pinyin-display" id="currentPinyinDisplay">fāng</div>
+                        <div class="translation-display" id="currentTranslationDisplay">квадратный, направление</div>
+                    </div>
+                </div>
+                
+                <div class="writing-actions">
+                    <button class="btn-prev" id="prevCharBtn">⬅️ Предыдущий</button>
+                    <button class="btn-next" id="nextCharBtn">Следующий ➡️</button>
+                    <button class="btn-random" id="randomCharBtn">🎲 Случайный</button>
+                    <button class="btn-undo" id="undoBtn">↩️ Отменить</button>
+                    <button class="btn-clear" id="clearBtn">🗑️ Очистить</button>
+                </div>
+                
+                <div class="canvas-wrapper">
+                    <canvas id="writingCanvas" width="500" height="500"></canvas>
+                </div>
+                
+                <div style="text-align:center; margin-bottom:0.5rem; font-size:1.2rem; color:#8B5A2B;">
+                    💡 Нажми на иероглиф ниже, чтобы выбрать его для рисования
+                </div>
+                <div class="word-selector-grid" id="wordSelectorGrid">
+                    <!-- Заполняется через JS -->
+                </div>
+            </div>
         </div>
         
         <footer>
-            🎧 Нажимай на иероглифы — слушай произношение! 🔑 Учи слова по ключам — запоминай быстрее!<br>
-            Всего <span id="footerTotalKeys">0</span> ключей и <span id="footerTotalWords">0</span> слов
+            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради — запоминай лучше!
         </footer>
     </div>
     
@@ -330,16 +588,44 @@
         // ===== СОСТОЯНИЕ =====
         let currentKey = KEY_NAMES[0] || '方';
         let searchQuery = '';
+        let allWordsList = [];
+        let currentWordIndex = 0;
 
-        // ===== ОТОБРАЖЕНИЕ СТАТИСТИКИ =====
+        // ===== СТАТИСТИКА =====
         function updateStats() {
             const totalKeys = KEY_NAMES.length;
             const totalWords = getTotalWords();
             document.getElementById('totalKeys').textContent = totalKeys;
             document.getElementById('totalWords').textContent = totalWords;
-            document.getElementById('footerTotalKeys').textContent = totalKeys;
-            document.getElementById('footerTotalWords').textContent = totalWords;
         }
+
+        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ СЛОВ =====
+        function buildAllWordsList() {
+            allWordsList = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    allWordsList.push({
+                        key: key,
+                        ...word
+                    });
+                }
+            }
+        }
+
+        // ===== ВКЛАДКИ =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById('tab-' + tabName).classList.add('active');
+                if (tabName === 'writing') {
+                    initWritingTab();
+                }
+            });
+        });
 
         // ===== ОТОБРАЖЕНИЕ КНОПОК КЛЮЧЕЙ =====
         function renderKeySelector() {
@@ -369,12 +655,10 @@
             const searchInput = document.getElementById('searchInput');
             searchQuery = searchInput.value.trim().toLowerCase();
 
-            // Фильтруем ключи по поиску
             let filteredKeys = KEY_NAMES;
             if (searchQuery) {
                 filteredKeys = KEY_NAMES.filter(key => {
                     const data = WORDS_BY_KEY[key];
-                    // Ищем по ключу, значению, или словам
                     if (key.includes(searchQuery)) return true;
                     if (data.meaning.toLowerCase().includes(searchQuery)) return true;
                     for (const word of data.words) {
@@ -386,26 +670,18 @@
                 });
             }
 
-            // Если есть поиск и текущий ключ не входит в результаты, выбираем первый подходящий
             if (searchQuery && filteredKeys.length > 0 && !filteredKeys.includes(currentKey)) {
                 currentKey = filteredKeys[0];
                 renderKeySelector();
             }
 
-            // Если после фильтрации ничего не осталось
             if (filteredKeys.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        😔 Ничего не найдено по запросу «${searchQuery}»
-                    </div>
-                `;
+                container.innerHTML = `<div class="no-results">😔 Ничего не найдено по запросу «${searchQuery}»</div>`;
                 totalBadge.textContent = '📊 0 слов найдено';
                 return;
             }
 
-            // Если поиск активен и выбранный ключ не в фильтре, показываем все результаты
             if (searchQuery) {
-                // Показываем все ключи, которые подходят под поиск
                 let allHtml = '';
                 let totalFound = 0;
                 for (const key of filteredKeys) {
@@ -423,21 +699,22 @@
                                     ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
                                     ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
                                     <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                                    <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
                                 </div>
                             </div>
                         `;
                     }).join('');
 
                     allHtml += `
-                        <div style="margin-top: 1.5rem; padding: 0.5rem; background: #FFF8F0; border-radius: 20px; font-weight: bold; color: #A64B2A; border-left: 5px solid #FF6B35;">
-                            ${data.emoji} Ключ: <span style="font-size:1.5rem;">${key}</span> — ${data.meaning}
+                        <div style="margin-top: 1.5rem; padding: 0.8rem; background: #FFF8F0; border-radius: 30px; font-weight: bold; font-size:1.5rem; color: #A64B2A; border-left: 8px solid #FF6B35;">
+                            ${data.emoji} Ключ: <span style="font-size:2.5rem;">${key}</span> — ${data.meaning}
                         </div>
                         ${wordsHtml}
                     `;
                 }
 
                 container.innerHTML = `
-                    <div style="text-align:center; padding:0.5rem; background:#FFF1C1; border-radius:20px; margin-bottom:1rem; font-weight:bold;">
+                    <div style="text-align:center; padding:0.8rem; background:#FFF1C1; border-radius:30px; margin-bottom:1.5rem; font-weight:bold; font-size:1.5rem;">
                         🔍 Найдено: ${totalFound} слов в ${filteredKeys.length} ключах
                     </div>
                     ${allHtml}
@@ -446,10 +723,9 @@
                 return;
             }
 
-            // Обычный режим — показываем текущий ключ
             const data = WORDS_BY_KEY[currentKey];
             if (!data) {
-                container.innerHTML = '<div style="text-align:center; padding:2rem;">❌ Ключ не найден</div>';
+                container.innerHTML = '<div class="no-results">❌ Ключ не найден</div>';
                 return;
             }
 
@@ -467,6 +743,7 @@
                             ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
                             ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
                             <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                            <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
                         </div>
                     </div>
                 `;
@@ -482,15 +759,317 @@
             `;
         }
 
-        // ===== ПОИСК В РЕАЛЬНОМ ВРЕМЕНИ =====
+        // ===== ПОИСК =====
         document.getElementById('searchInput').addEventListener('input', function() {
             renderWords();
         });
 
+        // ===== ТЕТРАДЬ ДЛЯ РИСОВАНИЯ =====
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0, lastY = 0;
+        let drawingHistory = [];
+        let currentStep = -1;
+        let currentWritingChar = '方';
+        let writingCharData = null;
+
+        function initWritingTab() {
+            canvas = document.getElementById('writingCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Устанавливаем размер canvas в зависимости от экрана
+            const rect = canvas.getBoundingClientRect();
+            const size = Math.min(rect.width, 500);
+            canvas.width = size;
+            canvas.height = size;
+            
+            // События для мыши
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('mouseleave', endDraw);
+            
+            // События для touch
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+            
+            // Кнопки
+            document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+            document.getElementById('undoBtn').addEventListener('click', undoDraw);
+            document.getElementById('nextCharBtn').addEventListener('click', nextChar);
+            document.getElementById('prevCharBtn').addEventListener('click', prevChar);
+            document.getElementById('randomCharBtn').addEventListener('click', randomChar);
+            
+            // Заполняем сетку слов
+            renderWordGrid();
+            
+            // Загружаем первый иероглиф
+            if (allWordsList.length > 0) {
+                currentWordIndex = 0;
+                loadCharForWriting(allWordsList[0]);
+            }
+        }
+
+        function renderWordGrid() {
+            const grid = document.getElementById('wordSelectorGrid');
+            let html = '';
+            // Показываем все слова, сгруппированные по ключам
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    const isActive = word.chinese === currentWritingChar ? 'active-char' : '';
+                    html += `<div class="grid-char ${isActive}" data-char="${word.chinese}" data-pinyin="${word.pinyin}" data-translation="${word.translation}" onclick="selectCharFromGrid('${word.chinese}', '${word.pinyin}', '${word.translation}')">${word.chinese}</div>`;
+                }
+            }
+            grid.innerHTML = html;
+        }
+
+        function selectCharFromGrid(char, pinyin, translation) {
+            currentWritingChar = char;
+            writingCharData = { chinese: char, pinyin: pinyin, translation: translation };
+            updateWritingDisplay();
+            clearCanvas();
+            drawGrid();
+            drawSampleChar(char);
+            // Обновляем активный элемент в сетке
+            document.querySelectorAll('.grid-char').forEach(el => {
+                el.classList.toggle('active-char', el.dataset.char === char);
+            });
+        }
+
+        function openWritingForChar(char) {
+            // Переключаемся на вкладку рисования
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tab="writing"]').classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.getElementById('tab-writing').classList.add('active');
+            
+            // Находим данные слова
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    if (word.chinese === char) {
+                        currentWritingChar = char;
+                        writingCharData = word;
+                        setTimeout(() => {
+                            initWritingTab();
+                            updateWritingDisplay();
+                            clearCanvas();
+                            drawGrid();
+                            drawSampleChar(char);
+                            // Обновляем сетку
+                            document.querySelectorAll('.grid-char').forEach(el => {
+                                el.classList.toggle('active-char', el.dataset.char === char);
+                            });
+                        }, 100);
+                        return;
+                    }
+                }
+            }
+        }
+
+        function loadCharForWriting(data) {
+            currentWritingChar = data.chinese;
+            writingCharData = data;
+            updateWritingDisplay();
+            clearCanvas();
+            drawGrid();
+            drawSampleChar(data.chinese);
+            // Обновляем сетку
+            document.querySelectorAll('.grid-char').forEach(el => {
+                el.classList.toggle('active-char', el.dataset.char === data.chinese);
+            });
+        }
+
+        function updateWritingDisplay() {
+            if (writingCharData) {
+                document.getElementById('currentCharDisplay').textContent = writingCharData.chinese;
+                document.getElementById('currentPinyinDisplay').textContent = writingCharData.pinyin;
+                document.getElementById('currentTranslationDisplay').textContent = writingCharData.translation;
+            }
+        }
+
+        function drawGrid() {
+            const size = canvas.width;
+            ctx.strokeStyle = '#E8E0D8';
+            ctx.lineWidth = 1;
+            
+            // Вертикальные линии (4x4 сетка)
+            for (let i = 1; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * size / 4, 0);
+                ctx.lineTo(i * size / 4, size);
+                ctx.stroke();
+            }
+            // Горизонтальные линии
+            for (let i = 1; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, i * size / 4);
+                ctx.lineTo(size, i * size / 4);
+                ctx.stroke();
+            }
+            
+            // Рамка
+            ctx.strokeStyle = '#D0C8C0';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, size, size);
+        }
+
+        function drawSampleChar(char) {
+            const size = canvas.width;
+            ctx.save();
+            ctx.fillStyle = 'rgba(200, 180, 160, 0.25)';
+            ctx.font = `${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(char, size/2, size/2 + size * 0.03);
+            ctx.restore();
+        }
+
+        // ===== РИСОВАНИЕ =====
+        function startDraw(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            lastX = x;
+            lastY = y;
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 6;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            lastX = x;
+            lastY = y;
+        }
+
+        function endDraw(e) {
+            if (isDrawing) {
+                isDrawing = false;
+                // Сохраняем состояние для undo
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                drawingHistory = drawingHistory.slice(0, currentStep + 1);
+                drawingHistory.push(imageData);
+                currentStep = drawingHistory.length - 1;
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            isDrawing = true;
+            lastX = x;
+            lastY = y;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 6;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            lastX = x;
+            lastY = y;
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            if (isDrawing) {
+                isDrawing = false;
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                drawingHistory = drawingHistory.slice(0, currentStep + 1);
+                drawingHistory.push(imageData);
+                currentStep = drawingHistory.length - 1;
+            }
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            if (currentWritingChar) {
+                drawSampleChar(currentWritingChar);
+            }
+            drawingHistory = [];
+            currentStep = -1;
+        }
+
+        function undoDraw() {
+            if (currentStep > 0) {
+                currentStep--;
+                ctx.putImageData(drawingHistory[currentStep], 0, 0);
+            }
+        }
+
+        function nextChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = (currentWordIndex + 1) % allWordsList.length;
+            loadCharForWriting(allWordsList[currentWordIndex]);
+        }
+
+        function prevChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = (currentWordIndex - 1 + allWordsList.length) % allWordsList.length;
+            loadCharForWriting(allWordsList[currentWordIndex]);
+        }
+
+        function randomChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = Math.floor(Math.random() * allWordsList.length);
+            loadCharForWriting(allWordsList[currentWordIndex]);
+        }
+
         // ===== ИНИЦИАЛИЗАЦИЯ =====
+        buildAllWordsList();
         updateStats();
         renderKeySelector();
         renderWords();
+
+        // Инициализируем тетрадь при загрузке (если вкладка активна)
+        setTimeout(() => {
+            if (document.getElementById('tab-writing').classList.contains('active')) {
+                initWritingTab();
+            }
+        }, 300);
+
+        // Делаем openWritingForChar глобальной
+        window.openWritingForChar = openWritingForChar;
+        window.selectCharFromGrid = selectCharFromGrid;
     </script>
 </body>
 </html>
