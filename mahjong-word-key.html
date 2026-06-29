@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🀄 Маджонг: все части слов | Весёлый китайский</title>
+    <title>🀄 Маджонг: ключ → слово | Весёлый китайский</title>
     <style>
         * {
             margin: 0;
@@ -36,11 +36,10 @@
         }
 
         .hero h1 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
         }
-
         .hero p {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
         }
 
         .back-home {
@@ -51,15 +50,14 @@
             padding: 0.4rem 1rem;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
-            margin-left: 0.3rem;
         }
 
         .game-status {
             background: #2b4f3a;
             border-radius: 30px;
-            padding: 0.8rem;
+            padding: 0.8rem 1rem;
             margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
@@ -71,17 +69,15 @@
 
         .score-box {
             background: #1e3a2f;
-            padding: 0.3rem 0.9rem;
+            padding: 0.3rem 1rem;
             border-radius: 25px;
             text-align: center;
         }
-
         .score-box span:first-child {
             font-size: 0.7rem;
         }
-
         .score-box span:last-child {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #FFD966;
         }
@@ -90,15 +86,15 @@
             flex: 2;
             background: #1e3a2f;
             border-radius: 20px;
-            height: 14px;
+            height: 16px;
             overflow: hidden;
+            min-width: 80px;
         }
-
         .progress-fill {
             background: #FFD966;
             width: 0%;
             height: 100%;
-            transition: width 0.2s;
+            transition: width 0.3s;
         }
 
         .message-box {
@@ -106,8 +102,10 @@
             padding: 0.4rem 1rem;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-align: center;
+            flex: 1;
+            min-width: 100px;
         }
 
         .new-game-btn {
@@ -119,8 +117,8 @@
             cursor: pointer;
             font-size: 0.85rem;
             box-shadow: 0 3px 0 #C16F1A;
+            transition: 0.05s;
         }
-
         .new-game-btn:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #C16F1A;
@@ -144,7 +142,6 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-
         @media (min-width: 700px) {
             .tiles-grid {
                 grid-template-columns: repeat(6, 1fr);
@@ -165,7 +162,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
             position: relative;
         }
 
@@ -173,7 +170,7 @@
             background: linear-gradient(145deg, #FFE0A3, #FFD580);
             box-shadow: 0 2px 0 #B87C2E;
             transform: translateY(3px);
-            border: 2px solid #FF8C42;
+            border: 3px solid #FF8C42;
         }
 
         .tile.removed {
@@ -189,7 +186,7 @@
         }
 
         .tile-char {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-family: 'Noto Sans SC', monospace;
             font-weight: bold;
             color: #A64B2A;
@@ -201,7 +198,7 @@
             color: #E67E22;
             font-weight: 600;
             background: rgba(255,255,255,0.7);
-            padding: 0.15rem 0.5rem;
+            padding: 0.1rem 0.6rem;
             border-radius: 20px;
             display: inline-block;
         }
@@ -210,24 +207,34 @@
             font-size: 0.75rem;
             color: #6B3A1A;
             font-weight: 500;
-            margin-top: 0.2rem;
             background: rgba(255,245,220,0.8);
-            padding: 0.2rem 0.4rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 15px;
             max-width: 95%;
             white-space: nowrap;
-            overflow-x: hidden;
+            overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .tile-badge {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 0.6rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 1px 8px;
+            border-radius: 20px;
         }
 
         .sound-badge {
             position: absolute;
-            bottom: 5px;
-            right: 8px;
+            bottom: 4px;
+            right: 6px;
             font-size: 0.7rem;
             background: rgba(0,0,0,0.5);
             border-radius: 20px;
-            padding: 2px 6px;
+            padding: 2px 8px;
             color: white;
             cursor: pointer;
             pointer-events: auto;
@@ -235,10 +242,10 @@
         }
 
         @media (max-width: 450px) {
-            .tile-char { font-size: 1.8rem; }
-            .tile-pinyin { font-size: 0.7rem; }
-            .tile-label { font-size: 0.65rem; white-space: normal; }
-            .tile { min-height: 110px; padding: 0.5rem 0.2rem; }
+            .tile-char { font-size: 2rem; }
+            .tile-pinyin { font-size: 0.65rem; }
+            .tile-label { font-size: 0.6rem; white-space: normal; }
+            .tile { min-height: 100px; padding: 0.4rem 0.2rem; }
         }
 
         .level-selector {
@@ -252,16 +259,19 @@
         .level-btn {
             background: #FFE0C0;
             border: 2px solid #FFB347;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 1.2rem;
             border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
+            transition: 0.1s;
         }
-
         .level-btn.active {
             background: #FFB347;
             color: white;
+        }
+        .level-btn:active {
+            transform: scale(0.95);
         }
 
         footer {
@@ -272,10 +282,10 @@
             border-radius: 40px;
             font-weight: bold;
             color: #FFD966;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
 
-        /* Стили для модального окна подтверждения */
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -293,19 +303,30 @@
             border-radius: 40px;
             padding: 24px;
             text-align: center;
-            max-width: 300px;
+            max-width: 340px;
             margin: 20px;
             border: 3px solid #FFB347;
         }
+        .modal-content .modal-char {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #A64B2A;
+        }
+        .modal-content .modal-info {
+            font-size: 1.1rem;
+            color: #8B5A2B;
+            margin: 0.3rem 0;
+        }
         .modal-content p {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+            margin-bottom: 16px;
+            font-size: 1rem;
             color: #A64B2A;
         }
         .modal-buttons {
             display: flex;
             gap: 12px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .modal-btn {
             padding: 10px 20px;
@@ -313,12 +334,13 @@
             font-weight: bold;
             cursor: pointer;
             border: none;
+            font-size: 0.9rem;
         }
-        .modal-btn.yes {
+        .modal-btn.continue {
             background: #4CAF50;
             color: white;
         }
-        .modal-btn.no {
+        .modal-btn.copybook {
             background: #FF6B35;
             color: white;
         }
@@ -328,20 +350,19 @@
 
 <div class="container">
     <div class="hero">
-        <h1>🀄 Маджонг: найди часть слова 🀄</h1>
-        <p>Сопоставь иероглиф с любой его составной частью | 🔊 Озвучка | ✍️ Авто-тетрадь</p>
+        <h1>🀄 Маджонг: ключ → слово 🀄</h1>
+        <p>Найди пару: 🔑 ключ (радикал) + 📖 слово, в котором он есть</p>
         <div>
             <a href="index.html" class="back-home">🏠 На главную</a>
-            <a href="frequency-lesson.html" class="back-home">📖 Урок 50 слов</a>
-            <a href="copybook.html" class="back-home">✍️ Открыть тетрадь</a>
+            <a href="copybook.html" class="back-home">✍️ Тетрадь</a>
         </div>
     </div>
 
     <div class="level-selector">
-        <button class="level-btn active" data-level="easy">🍃 6 слов</button>
-        <button class="level-btn" data-level="medium">🌿 12 слов</button>
-        <button class="level-btn" data-level="hard">🔥 20 слов</button>
-        <button class="level-btn" data-level="all">🏆 ВСЕ слова</button>
+        <button class="level-btn active" data-level="easy">🍃 6 пар</button>
+        <button class="level-btn" data-level="medium">🌿 12 пар</button>
+        <button class="level-btn" data-level="hard">🔥 20 пар</button>
+        <button class="level-btn" data-level="all">🏆 ВСЕ</button>
     </div>
 
     <div class="game-status">
@@ -352,7 +373,7 @@
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-        <div class="message-box" id="messageBox">🎲 Нажми на плитку</div>
+        <div class="message-box" id="messageBox">🎲 Выбери плитку</div>
         <button class="new-game-btn" id="newGameBtn">🔄 Новая</button>
     </div>
 
@@ -361,118 +382,134 @@
     </div>
 
     <footer>
-        🀄 Найди для иероглифа его составную часть (ключ).<br>
-        🎯 При каждой угаданной паре → слово АВТОМАТИЧЕСКИ отправляется в тетрадь!
+        🀄 Сопоставь ключ (🔑) и слово (📖), в котором этот ключ есть.<br>
+        ✅ При каждой угаданной паре слово АВТОМАТИЧЕСКИ добавляется в тетрадь!
     </footer>
 </div>
 
-<!-- Модальное окно для подтверждения возврата -->
+<!-- Модальное окно -->
 <div id="returnModal" class="modal">
     <div class="modal-content">
-        <p>✍️ Слово добавлено в тетрадь!</p>
-        <p style="font-size: 0.9rem;" id="modalWordText"></p>
+        <div class="modal-char" id="modalChar">方</div>
+        <div class="modal-info" id="modalPinyin">fāng</div>
+        <div class="modal-info" id="modalMeaning">квадратный</div>
+        <p id="modalStatus">✅ Добавлено в тетрадь!</p>
         <div class="modal-buttons">
-            <button class="modal-btn yes" id="modalContinueBtn">🎮 Продолжить игру</button>
-            <button class="modal-btn no" id="modalCopybookBtn">📖 Открыть тетрадь</button>
+            <button class="modal-btn continue" id="modalContinueBtn">🎮 Продолжить</button>
+            <button class="modal-btn copybook" id="modalCopybookBtn">📖 Открыть тетрадь</button>
         </div>
     </div>
 </div>
 
 <script src="frequency-db.js"></script>
 <script>
+    // ===== ОЗВУЧКА =====
+    function speakChinese(text) {
+        if (!text || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.7;
+            window.speechSynthesis.speak(utterance);
+        }, 50);
+    }
+    window.speakChinese = speakChinese;
+
+    // ===== СОСТОЯНИЕ =====
     let currentLevel = 'easy';
     let tiles = [];
     let selectedTileIndex = null;
     let score = 0;
     let totalPairs = 0;
-    let pendingWord = null; // Храним слово для модального окна
-    
+    let pendingWord = null;
+
     const tilesGrid = document.getElementById('tilesGrid');
     const scoreSpan = document.getElementById('scoreCount');
     const messageBox = document.getElementById('messageBox');
     const progressFill = document.getElementById('progressFill');
     const modal = document.getElementById('returnModal');
-    const modalWordText = document.getElementById('modalWordText');
-    
-    const partDataMap = {
-        "亻": { pinyin: "rén", meaning: "человек" }, "女": { pinyin: "nǚ", meaning: "женщина" }, "口": { pinyin: "kǒu", meaning: "рот" },
-        "日": { pinyin: "rì", meaning: "солнце" }, "月": { pinyin: "yuè", meaning: "луна/мясо" }, "木": { pinyin: "mù", meaning: "дерево" },
-        "水": { pinyin: "shuǐ", meaning: "вода" }, "火": { pinyin: "huǒ", meaning: "огонь" }, "土": { pinyin: "tǔ", meaning: "земля" },
-        "金": { pinyin: "jīn", meaning: "металл" }, "心": { pinyin: "xīn", meaning: "сердце" }, "忄": { pinyin: "xīn", meaning: "сердце" },
-        "手": { pinyin: "shǒu", meaning: "рука" }, "扌": { pinyin: "shǒu", meaning: "рука" }, "足": { pinyin: "zú", meaning: "нога" },
-        "辶": { pinyin: "chuò", meaning: "движение" }, "讠": { pinyin: "yán", meaning: "речь" }, "饣": { pinyin: "shí", meaning: "еда" },
-        "阝": { pinyin: "yì", meaning: "город/холм" }, "宀": { pinyin: "mián", meaning: "крыша" }, "广": { pinyin: "guǎng", meaning: "здание" },
-        "厂": { pinyin: "hǎn", meaning: "утёс" }, "尸": { pinyin: "shī", meaning: "тело" }, "弓": { pinyin: "gōng", meaning: "лук" },
-        "戈": { pinyin: "gē", meaning: "копьё" }, "彳": { pinyin: "chì", meaning: "шаг" }, "彡": { pinyin: "shān", meaning: "волосы" },
-        "歹": { pinyin: "dǎi", meaning: "смерть" }, "门": { pinyin: "mén", meaning: "дверь" }, "马": { pinyin: "mǎ", meaning: "лошадь" },
-        "鸟": { pinyin: "niǎo", meaning: "птица" }, "鱼": { pinyin: "yú", meaning: "рыба" }, "虫": { pinyin: "chóng", meaning: "насекомое" },
-        "艹": { pinyin: "cǎo", meaning: "трава" }, "竹": { pinyin: "zhú", meaning: "бамбук" }, "米": { pinyin: "mǐ", meaning: "рис" },
-        "糸": { pinyin: "mì", meaning: "шёлк" }, "纟": { pinyin: "sī", meaning: "шёлк" }, "贝": { pinyin: "bèi", meaning: "раковина" },
-        "车": { pinyin: "chē", meaning: "машина" }, "走": { pinyin: "zǒu", meaning: "идти" }, "身": { pinyin: "shēn", meaning: "тело" },
-        "一": { pinyin: "yī", meaning: "один" }, "二": { pinyin: "èr", meaning: "два" }, "三": { pinyin: "sān", meaning: "три" },
-        "十": { pinyin: "shí", meaning: "десять" }, "八": { pinyin: "bā", meaning: "восемь" }, "人": { pinyin: "rén", meaning: "человек" },
-        "入": { pinyin: "rù", meaning: "входить" }, "几": { pinyin: "jǐ", meaning: "сколько" }, "又": { pinyin: "yòu", meaning: "снова" },
-        "厶": { pinyin: "sī", meaning: "частный" }, "尔": { pinyin: "ěr", meaning: "ты" }, "京": { pinyin: "jīng", meaning: "столица" },
-        "尤": { pinyin: "yóu", meaning: "особенно" }, "者": { pinyin: "zhě", meaning: "тот, кто" }, "文": { pinyin: "wén", meaning: "текст" },
-        "正": { pinyin: "zhèng", meaning: "прямой" }, "白": { pinyin: "bái", meaning: "белый" }, "勺": { pinyin: "sháo", meaning: "ковш" },
-        "子": { pinyin: "zǐ", meaning: "ребёнок" }, "小": { pinyin: "xiǎo", meaning: "маленький" }, "大": { pinyin: "dà", meaning: "большой" },
-        "可": { pinyin: "kě", meaning: "можно" }
+    const modalChar = document.getElementById('modalChar');
+    const modalPinyin = document.getElementById('modalPinyin');
+    const modalMeaning = document.getElementById('modalMeaning');
+    const modalStatus = document.getElementById('modalStatus');
+
+    // ===== ДАННЫЕ О КЛЮЧАХ =====
+    const keyData = {
+        '亻': { pinyin: 'rén', meaning: 'человек' },
+        '女': { pinyin: 'nǚ', meaning: 'женщина' },
+        '口': { pinyin: 'kǒu', meaning: 'рот' },
+        '日': { pinyin: 'rì', meaning: 'солнце' },
+        '月': { pinyin: 'yuè', meaning: 'луна/мясо' },
+        '木': { pinyin: 'mù', meaning: 'дерево' },
+        '水': { pinyin: 'shuǐ', meaning: 'вода' },
+        '火': { pinyin: 'huǒ', meaning: 'огонь' },
+        '土': { pinyin: 'tǔ', meaning: 'земля' },
+        '金': { pinyin: 'jīn', meaning: 'металл/золото' },
+        '心': { pinyin: 'xīn', meaning: 'сердце' },
+        '忄': { pinyin: 'xīn', meaning: 'сердце' },
+        '手': { pinyin: 'shǒu', meaning: 'рука' },
+        '扌': { pinyin: 'shǒu', meaning: 'рука' },
+        '足': { pinyin: 'zú', meaning: 'нога' },
+        '辶': { pinyin: 'chuò', meaning: 'движение' },
+        '讠': { pinyin: 'yán', meaning: 'речь' },
+        '饣': { pinyin: 'shí', meaning: 'еда' },
+        '阝': { pinyin: 'yì', meaning: 'город/холм' },
+        '宀': { pinyin: 'mián', meaning: 'крыша' },
+        '广': { pinyin: 'guǎng', meaning: 'здание' },
+        '厂': { pinyin: 'hǎn', meaning: 'утёс' },
+        '尸': { pinyin: 'shī', meaning: 'тело' },
+        '弓': { pinyin: 'gōng', meaning: 'лук' },
+        '戈': { pinyin: 'gē', meaning: 'копьё' },
+        '彳': { pinyin: 'chì', meaning: 'шаг' },
+        '歹': { pinyin: 'dǎi', meaning: 'смерть' },
+        '门': { pinyin: 'mén', meaning: 'дверь' },
+        '马': { pinyin: 'mǎ', meaning: 'лошадь' },
+        '鸟': { pinyin: 'niǎo', meaning: 'птица' },
+        '鱼': { pinyin: 'yú', meaning: 'рыба' },
+        '虫': { pinyin: 'chóng', meaning: 'насекомое' },
+        '艹': { pinyin: 'cǎo', meaning: 'трава' },
+        '竹': { pinyin: 'zhú', meaning: 'бамбук' },
+        '米': { pinyin: 'mǐ', meaning: 'рис' },
+        '纟': { pinyin: 'sī', meaning: 'шёлк' },
+        '贝': { pinyin: 'bèi', meaning: 'раковина' },
+        '车': { pinyin: 'chē', meaning: 'машина' },
+        '走': { pinyin: 'zǒu', meaning: 'идти' },
+        '身': { pinyin: 'shēn', meaning: 'тело' },
+        '人': { pinyin: 'rén', meaning: 'человек' },
+        '子': { pinyin: 'zǐ', meaning: 'ребёнок' },
+        '小': { pinyin: 'xiǎo', meaning: 'маленький' },
+        '大': { pinyin: 'dà', meaning: 'большой' },
+        '白': { pinyin: 'bái', meaning: 'белый' },
+        '方': { pinyin: 'fāng', meaning: 'квадрат/метод' },
+        '文': { pinyin: 'wén', meaning: 'текст/культура' },
+        '正': { pinyin: 'zhèng', meaning: 'прямой/правильный' },
+        '可': { pinyin: 'kě', meaning: 'можно' },
+        '天': { pinyin: 'tiān', meaning: 'небо/день' },
+        '生': { pinyin: 'shēng', meaning: 'жизнь/рождаться' },
+        '田': { pinyin: 'tián', meaning: 'поле' },
+        '力': { pinyin: 'lì', meaning: 'сила' },
+        '又': { pinyin: 'yòu', meaning: 'снова' },
+        '十': { pinyin: 'shí', meaning: 'десять' },
+        '八': { pinyin: 'bā', meaning: 'восемь' },
+        '一': { pinyin: 'yī', meaning: 'один' },
+        '二': { pinyin: 'èr', meaning: 'два' },
+        '三': { pinyin: 'sān', meaning: 'три' },
+        '山': { pinyin: 'shān', meaning: 'гора' },
+        '石': { pinyin: 'shí', meaning: 'камень' },
+        '雨': { pinyin: 'yǔ', meaning: 'дождь' },
+        '青': { pinyin: 'qīng', meaning: 'сине-зелёный' },
+        '黄': { pinyin: 'huáng', meaning: 'жёлтый' },
+        '红': { pinyin: 'hóng', meaning: 'красный' },
+        '黑': { pinyin: 'hēi', meaning: 'чёрный' },
+        '白': { pinyin: 'bái', meaning: 'белый' },
     };
-    
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
+
+    function getKeyInfo(char) {
+        return keyData[char] || { pinyin: '', meaning: 'ключ' };
     }
-    
-    function getPartData(partChar) {
-        return partDataMap[partChar] || { pinyin: "", meaning: "часть" };
-    }
-    
-    function getAllPartPairs() {
-        const allPairs = [];
-        if (typeof frequencyDB !== 'undefined' && frequencyDB.length) {
-            for (const word of frequencyDB) {
-                if (!word.parts || !word.parts.length) continue;
-                for (const part of word.parts) {
-                    const partChar = part.char;
-                    if (partChar === word.char) continue;
-                    if (partChar.length > 2) continue;
-                    const partInfo = getPartData(partChar);
-                    allPairs.push({
-                        wordId: word.id,
-                        wordChar: word.char,
-                        wordPinyin: word.pinyin,
-                        wordMeaning: word.meaning,
-                        partChar: partChar,
-                        partMeaning: partInfo.meaning,
-                        partPinyin: partInfo.pinyin
-                    });
-                }
-            }
-        }
-        const uniquePairs = [];
-        const keySet = new Set();
-        for (const pair of allPairs) {
-            const key = `${pair.wordChar}|${pair.partChar}`;
-            if (!keySet.has(key)) {
-                keySet.add(key);
-                uniquePairs.push(pair);
-            }
-        }
-        return uniquePairs;
-    }
-    
-    function getPairsForGame(limit) {
-        const allPairs = getAllPartPairs();
-        const shuffled = shuffleArray([...allPairs]);
-        if (limit === 'all') return allPairs;
-        return shuffled.slice(0, limit);
-    }
-    
-    // Функция добавления слова в тетрадь (БЕЗ автоматического перехода)
+
+    // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С ТЕТРАДЬЮ =====
     function addToCopybookOnly(char, pinyin, meaning) {
         if (!char) return false;
         let copybookWords = [];
@@ -487,181 +524,276 @@
         if (!alreadyExists) {
             copybookWords.unshift({ char, pinyin, meaning, timestamp: Date.now() });
             localStorage.setItem('copybook_words', JSON.stringify(copybookWords));
-            return true; // слово добавлено
+            return true;
         }
-        return false; // уже было
+        return false;
     }
-    
-    // Переход в тетрадь с сохранением выбранного слова
+
     function openCopybookWithWord(char, pinyin, meaning) {
         localStorage.setItem('selected_character', JSON.stringify({ char, pinyin, meaning }));
         window.location.href = 'copybook.html';
     }
-    
+
+    // ===== ПЕРЕМЕШИВАНИЕ =====
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ===== ПОЛУЧЕНИЕ ПАР =====
+    function getAllKeyWordPairs() {
+        const pairs = [];
+        const usedWords = new Set();
+        const usedKeys = new Set();
+
+        if (typeof frequencyDB === 'undefined' || !frequencyDB.length) {
+            console.warn('frequencyDB не загружена');
+            return pairs;
+        }
+
+        for (const word of frequencyDB) {
+            if (!word.parts || !word.parts.length) continue;
+            if (usedWords.has(word.char)) continue;
+
+            for (const part of word.parts) {
+                const partChar = part.char;
+                if (partChar === word.char) continue;
+                if (partChar.length > 2) continue;
+                if (usedKeys.has(partChar)) continue;
+
+                const keyInfo = getKeyInfo(partChar);
+                if (!keyInfo.pinyin && !keyInfo.meaning) continue;
+
+                pairs.push({
+                    wordChar: word.char,
+                    wordPinyin: word.pinyin,
+                    wordMeaning: word.meaning,
+                    keyChar: partChar,
+                    keyPinyin: keyInfo.pinyin,
+                    keyMeaning: keyInfo.meaning
+                });
+
+                usedWords.add(word.char);
+                usedKeys.add(partChar);
+                break;
+            }
+        }
+
+        return pairs;
+    }
+
+    function getPairsForGame(limit) {
+        const allPairs = getAllKeyWordPairs();
+        const shuffled = shuffleArray([...allPairs]);
+        if (limit === 'all') return allPairs;
+        return shuffled.slice(0, limit);
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ ИГРЫ =====
     function initGame() {
         let pairLimit = 6;
         if (currentLevel === 'medium') pairLimit = 12;
         if (currentLevel === 'hard') pairLimit = 20;
         if (currentLevel === 'all') pairLimit = 'all';
+
         const pairs = getPairsForGame(pairLimit);
         if (!pairs.length) {
             messageBox.innerHTML = '❌ Нет данных. Проверьте frequency-db.js';
             return;
         }
+
         totalPairs = pairs.length;
         score = 0;
         selectedTileIndex = null;
         pendingWord = null;
+
         const newTiles = [];
         let idCounter = 0;
+
         for (const pair of pairs) {
+            // Плитка со словом
             newTiles.push({
                 id: idCounter++,
-                content: pair.wordChar,
-                pinyin: pair.wordPinyin,
                 type: 'word',
                 pairId: idCounter - 1,
-                displayText: pair.wordChar,
+                displayChar: pair.wordChar,
+                pinyin: pair.wordPinyin,
                 label: pair.wordMeaning,
-                wordData: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning }
+                wordData: { char: pair.wordChar, pinyin: pair.wordPinyin, meaning: pair.wordMeaning },
+                removed: false,
+                badge: '📖'
             });
+
+            // Плитка с ключом
             newTiles.push({
                 id: idCounter++,
-                content: pair.partChar,
-                pinyin: pair.partPinyin,
-                type: 'part',
+                type: 'key',
                 pairId: idCounter - 2,
-                displayText: pair.partChar,
-                label: pair.partMeaning,
-                wordData: null
+                displayChar: pair.keyChar,
+                pinyin: pair.keyPinyin,
+                label: pair.keyMeaning,
+                wordData: null,
+                removed: false,
+                badge: '🔑'
             });
         }
+
         tiles = shuffleArray(newTiles);
         updateProgress();
         renderBoard();
-        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! При угадывании → слово в тетрадь!`;
+        messageBox.innerHTML = `🎴 Найди ${totalPairs} пар! Ключ ↔ Слово`;
     }
-    
+
+    // ===== ОТРИСОВКА ПОЛЯ =====
     function renderBoard() {
         if (!tilesGrid) return;
         tilesGrid.innerHTML = '';
+
         tiles.forEach((tile, idx) => {
             if (tile.removed) return;
+
             const tileDiv = document.createElement('div');
             tileDiv.className = 'tile';
             if (selectedTileIndex === idx) tileDiv.classList.add('selected');
+
+            const badgeEmoji = tile.type === 'word' ? '📖' : '🔑';
+
             tileDiv.innerHTML = `
-                <div class="tile-char">${tile.displayText}</div>
+                <div class="tile-badge">${badgeEmoji}</div>
+                <div class="tile-char">${tile.displayChar}</div>
                 <div class="tile-pinyin">${tile.pinyin || ''}</div>
-                <div class="tile-label">${tile.label || (tile.type === 'word' ? 'слово' : 'часть')}</div>
-                <div class="sound-badge" data-char="${tile.content}" data-pinyin="${tile.pinyin || ''}">🔊</div>
+                <div class="tile-label">${tile.label || (tile.type === 'word' ? 'слово' : 'ключ')}</div>
+                <div class="sound-badge" data-char="${tile.displayChar}">🔊</div>
             `;
+
             const soundBtn = tileDiv.querySelector('.sound-badge');
             soundBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const text = tile.content;
-                if (window.speechSynthesis) {
-                    window.speechSynthesis.cancel();
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = "zh-CN";
-                    utterance.rate = 0.7;
-                    window.speechSynthesis.speak(utterance);
-                }
+                speakChinese(tile.displayChar);
             });
+
             tileDiv.onclick = (function(index) {
-                return function(e) { 
-                    if(e.target.classList && e.target.classList.contains('sound-badge')) return;
-                    onTileClick(index); 
+                return function(e) {
+                    if (e.target.classList && e.target.classList.contains('sound-badge')) return;
+                    onTileClick(index);
                 };
             })(idx);
+
             tilesGrid.appendChild(tileDiv);
         });
+
         updateProgress();
     }
-    
+
+    // ===== ОБРАБОТЧИК КЛИКА =====
     function onTileClick(clickedIdx) {
         const clickedTile = tiles[clickedIdx];
         if (clickedTile.removed) return;
+
+        // Если ничего не выбрано
         if (selectedTileIndex === null) {
             selectedTileIndex = clickedIdx;
             renderBoard();
             const tile = tiles[selectedTileIndex];
-            messageBox.innerHTML = `📌 Выбрано: ${tile.displayText} (${tile.type === 'word' ? 'слово' : 'часть'})`;
+            messageBox.innerHTML = `📌 Выбрано: ${tile.displayChar} (${tile.type === 'word' ? 'слово' : 'ключ'})`;
             return;
         }
+
+        // Если кликнули на ту же плитку — сброс
         if (selectedTileIndex === clickedIdx) {
             selectedTileIndex = null;
             renderBoard();
             messageBox.innerHTML = '🎲 Выбор сброшен';
             return;
         }
+
         const selectedTile = tiles[selectedTileIndex];
-        let isMatch = false;
-        if (selectedTile.type === 'word' && clickedTile.type === 'part') {
-            isMatch = (selectedTile.pairId === clickedTile.pairId);
-        } else if (selectedTile.type === 'part' && clickedTile.type === 'word') {
-            isMatch = (selectedTile.pairId === clickedTile.pairId);
+
+        // Проверяем, что выбраны разные типы (слово + ключ)
+        if (selectedTile.type === clickedTile.type) {
+            messageBox.innerHTML = `⚠️ Выбери слово и ключ (разные типы)`;
+            selectedTileIndex = null;
+            renderBoard();
+            return;
         }
+
+        // Определяем, какая плитка слово, какая ключ
+        let wordTile, keyTile;
+        if (selectedTile.type === 'word') {
+            wordTile = selectedTile;
+            keyTile = clickedTile;
+        } else {
+            wordTile = clickedTile;
+            keyTile = selectedTile;
+        }
+
+        // Проверяем совпадение по pairId
+        const isMatch = (wordTile.pairId === keyTile.pairId);
+
         if (isMatch) {
-            let matchedWord = null;
-            if (selectedTile.type === 'word') matchedWord = selectedTile.wordData;
-            else if (clickedTile.type === 'word') matchedWord = clickedTile.wordData;
-            
+            // Убираем обе плитки
             tiles[selectedTileIndex].removed = true;
             tiles[clickedIdx].removed = true;
             score++;
             selectedTileIndex = null;
-            const remainingPairs = tiles.filter(t => !t.removed && t.type === 'word').length;
-            
-            if (remainingPairs === 0) {
-                messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты выучил все пары!';
+
+            const remaining = tiles.filter(t => !t.removed && t.type === 'word').length;
+            if (remaining === 0) {
+                messageBox.innerHTML = '🎉 ПОБЕДА! 🎉 Ты выучил все слова!';
                 renderBoard();
             } else {
-                messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remainingPairs})`;
+                messageBox.innerHTML = `✅ Правильно! +1 (осталось ${remaining} пар)`;
                 renderBoard();
             }
-            
-            // Добавляем слово в тетрадь и показываем модальное окно
-            if (matchedWord && matchedWord.char) {
-                const isNew = addToCopybookOnly(matchedWord.char, matchedWord.pinyin, matchedWord.meaning);
-                pendingWord = matchedWord;
-                modalWordText.innerHTML = `"${matchedWord.char} — ${matchedWord.meaning}" ${isNew ? 'добавлено в тетрадь!' : 'уже было в тетради!'}`;
+
+            // Добавляем слово в тетрадь
+            if (wordTile.wordData && wordTile.wordData.char) {
+                const wd = wordTile.wordData;
+                const isNew = addToCopybookOnly(wd.char, wd.pinyin, wd.meaning);
+                pendingWord = wd;
+                modalChar.textContent = wd.char;
+                modalPinyin.textContent = wd.pinyin;
+                modalMeaning.textContent = wd.meaning;
+                modalStatus.textContent = isNew ? '✅ Добавлено в тетрадь!' : '📖 Уже было в тетради!';
                 modal.style.display = 'flex';
             }
         } else {
-            messageBox.innerHTML = `❌ ${selectedTile.displayText} ≠ ${clickedTile.displayText}. Попробуй ещё!`;
+            messageBox.innerHTML = `❌ ${selectedTile.displayChar} ≠ ${clickedTile.displayChar}. Попробуй ещё!`;
             selectedTileIndex = null;
             renderBoard();
         }
     }
-    
+
+    // ===== ОБНОВЛЕНИЕ ПРОГРЕССА =====
     function updateProgress() {
         const percent = totalPairs > 0 ? (score / totalPairs) * 100 : 0;
         progressFill.style.width = percent + '%';
         scoreSpan.innerText = score;
     }
-    
-    function newGame() { 
+
+    // ===== УПРАВЛЕНИЕ =====
+    function newGame() {
         pendingWord = null;
-        initGame(); 
+        modal.style.display = 'none';
+        initGame();
     }
-    
+
     function setLevel(level) {
         currentLevel = level;
         document.querySelectorAll('.level-btn').forEach(btn => {
-            if (btn.dataset.level === level) btn.classList.add('active');
-            else btn.classList.remove('active');
+            btn.classList.toggle('active', btn.dataset.level === level);
         });
         newGame();
     }
-    
-    // Закрыть модальное окно и продолжить игру
+
     function closeModalAndContinue() {
         modal.style.display = 'none';
         pendingWord = null;
     }
-    
-    // Открыть тетрадь с текущим словом
+
     function openCopybook() {
         if (pendingWord) {
             openCopybookWithWord(pendingWord.char, pendingWord.pinyin, pendingWord.meaning);
@@ -669,23 +801,24 @@
             window.location.href = 'copybook.html';
         }
     }
-    
-    document.getElementById('newGameBtn')?.addEventListener('click', () => newGame());
+
+    // ===== СОБЫТИЯ =====
+    document.getElementById('newGameBtn')?.addEventListener('click', newGame);
+
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => setLevel(btn.dataset.level));
     });
-    
-    // Кнопки модального окна
+
     document.getElementById('modalContinueBtn')?.addEventListener('click', closeModalAndContinue);
     document.getElementById('modalCopybookBtn')?.addEventListener('click', openCopybook);
-    
-    // Клик вне модального окна (на фон) — продолжает игру
+
     modal?.addEventListener('click', (e) => {
         if (e.target === modal) closeModalAndContinue();
     });
-    
+
+    // ===== ЗАПУСК =====
     const waitForDB = setInterval(() => {
-        if (typeof frequencyDB !== 'undefined' || performance.now() > 2500) {
+        if (typeof frequencyDB !== 'undefined' || performance.now() > 3000) {
             clearInterval(waitForDB);
             initGame();
         }
