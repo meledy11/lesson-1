@@ -1,316 +1,396 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>❓ ВСЕ вопросы + Игры + Счётные слова</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>❓ ВСЕ вопросы + Счётные слова + Нюансы + Игры</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             padding: 0.8rem;
             min-height: 100vh;
         }
-
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         .header {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             border-radius: 50px;
             padding: 1.5rem 1rem;
             text-align: center;
-            color: white;
+            color: #fff;
             box-shadow: 0 10px 0 #C16F1A;
             margin-bottom: 1rem;
         }
-        .header h1 { font-size: 2.4rem; letter-spacing: 2px; }
-        .header .sub { font-size: 1.2rem; opacity: 0.9; margin-top: 0.3rem; }
+        .header h1 {
+            font-size: 2.4rem;
+            letter-spacing: 2px;
+        }
+        .header .sub {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.3rem;
+        }
 
         .back-link {
             display: inline-block;
-            background: white;
+            background: #fff;
             padding: 0.8rem 1.8rem;
             border-radius: 40px;
             color: #A64B2A;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
             border: 3px solid #FFB347;
             box-shadow: 0 5px 0 #D98F33;
-            transition: 0.1s;
+            transition: .1s;
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
-        .back-link:active { transform: translateY(3px); box-shadow: 0 2px 0 #D98F33; }
+        .back-link:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #D98F33;
+        }
 
         .quick-nav {
             display: flex;
-            gap: 0.5rem;
+            gap: .5rem;
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 1rem;
-            background: white;
-            padding: 0.8rem;
+            background: #fff;
+            padding: .8rem;
             border-radius: 30px;
             border: 3px solid #FFB347;
             box-shadow: 0 8px 0 #D98F33;
         }
         .quick-nav a {
-            padding: 0.4rem 1rem;
+            padding: .4rem 1rem;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-weight: 700;
+            font-size: .85rem;
             color: #A64B2A;
             background: #FFF8F0;
             border: 2px solid #FFD699;
-            transition: 0.1s;
+            transition: .1s;
         }
-        .quick-nav a:active { transform: scale(0.95); background: #FFD699; }
-        .quick-nav a .nav-icon { margin-right: 0.3rem; }
+        .quick-nav a:active {
+            transform: scale(.95);
+            background: #FFD699;
+        }
 
         .section-title {
             font-size: 1.8rem;
             color: #A64B2A;
-            margin: 2rem 0 1rem 0;
+            margin: 2rem 0 1rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: .8rem;
             flex-wrap: wrap;
         }
         .section-title .badge {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.8rem;
+            font-size: .7rem;
+            padding: .2rem .8rem;
             border-radius: 20px;
-            color: white;
+            color: #fff;
         }
-        .badge.profession { background: #2980B9; }
-        .badge.name { background: #27AE60; }
-        .badge.age { background: #E67E22; }
-        .badge.place { background: #8E44AD; }
-        .badge.nuance { background: #E74C3C; }
-        .badge.game { background: #F39C12; }
-        .badge.counter { background: #9C27B0; }
-        .badge.rule { background: #1ABC9C; }
+        .badge.shenme {
+            background: #E67E22;
+        }
+        .badge.na {
+            background: #2980B9;
+        }
+        .badge.zenme {
+            background: #1ABC9C;
+        }
+        .badge.zenmeyang {
+            background: #F39C12;
+        }
+        .badge.shei {
+            background: #E74C3C;
+        }
+        .badge.duoshao {
+            background: #27AE60;
+        }
+        .badge.ji {
+            background: #8E44AD;
+        }
+        .badge.naer {
+            background: #2C3E50;
+        }
+        .badge.nali {
+            background: #2C3E50;
+        }
+        .badge.weishenme {
+            background: #C0392B;
+        }
+        .badge.ganshenme {
+            background: #D35400;
+        }
+        .badge.shenmeshihou {
+            background: #16A085;
+        }
+        .badge.jidian {
+            background: #2980B9;
+        }
+        .badge.rule {
+            background: #1ABC9C;
+        }
+        .badge.nuance {
+            background: #E74C3C;
+        }
+        .badge.counter {
+            background: #9C27B0;
+        }
+        .badge.game {
+            background: #F39C12;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 35px;
+            padding: 1.5rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 10px 0 #D98F33;
+            margin-bottom: 1.5rem;
+            transition: .2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
 
         .accordion-card {
-            background: white;
+            background: #fff;
             border-radius: 20px;
-            margin-bottom: 0.7rem;
+            margin-bottom: .7rem;
             border: 3px solid #FFD699;
             overflow: hidden;
-            transition: 0.2s;
+            transition: .2s;
             box-shadow: 0 4px 0 #D98F33;
         }
-        .accordion-card:active { transform: scale(0.99); }
-        .accordion-card.profession { border-color: #2980B9; }
-        .accordion-card.name { border-color: #27AE60; }
-        .accordion-card.age { border-color: #E67E22; }
-        .accordion-card.place { border-color: #8E44AD; }
-        .accordion-card.counter { border-color: #9C27B0; }
-        .accordion-card.nuance { border-color: #E74C3C; }
-        .accordion-card.rule { border-color: #1ABC9C; }
+        .accordion-card:active {
+            transform: scale(.99);
+        }
 
         .accordion-header {
-            padding: 0.7rem 1rem;
+            padding: .7rem 1rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1rem;
             color: #A64B2A;
             background: #FFF8F0;
-            transition: 0.1s;
+            transition: .1s;
             user-select: none;
-            gap: 0.5rem;
+            gap: .5rem;
             flex-wrap: wrap;
         }
-        .accordion-header:active { background: #FFE0C0; }
+        .accordion-header:active {
+            background: #FFE0C0;
+        }
         .accordion-header .arrow {
             font-size: 1.4rem;
-            transition: transform 0.3s ease;
+            transition: transform .3s ease;
             color: #FF8C42;
             flex-shrink: 0;
         }
-        .accordion-header .arrow.open { transform: rotate(180deg); }
+        .accordion-header .arrow.open {
+            transform: rotate(180deg);
+        }
 
         .accordion-header .q-chinese {
             font-size: 2rem;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: bold;
+            font-weight: 700;
             color: #A64B2A;
             cursor: pointer;
             background: #FFE8D0;
-            padding: 0.1rem 0.5rem;
+            padding: .1rem .5rem;
             border-radius: 12px;
-            transition: 0.1s;
+            transition: .1s;
         }
-        .accordion-header .q-chinese:active { background: #FFD699; transform: scale(0.97); }
+        .accordion-header .q-chinese:active {
+            background: #FFD699;
+            transform: scale(.97);
+        }
         .accordion-header .q-pinyin {
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: #FF8C42;
-            margin: 0 0.3rem;
+            margin: 0 .3rem;
         }
         .accordion-header .q-translation {
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: #555;
             font-style: italic;
         }
         .accordion-header .q-tag {
             display: inline-block;
-            font-size: 0.6rem;
-            font-weight: bold;
-            padding: 0.1rem 0.5rem;
+            font-size: .6rem;
+            font-weight: 700;
+            padding: .1rem .5rem;
             border-radius: 12px;
-            color: white;
-            background: #2980B9;
+            color: #fff;
         }
         .accordion-header .q-speak {
             background: none;
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
-            padding: 0.1rem 0.3rem;
+            padding: .1rem .3rem;
             border-radius: 15px;
-            transition: 0.1s;
+            transition: .1s;
         }
-        .accordion-header .q-speak:active { background: #FFD699; }
+        .accordion-header .q-speak:active {
+            background: #FFD699;
+        }
 
         .accordion-body {
             display: none;
-            padding: 0.8rem 1rem;
+            padding: .8rem 1rem;
             background: #FFFDF9;
             border-top: 2px solid #FFD699;
         }
-        .accordion-body.open { display: block; }
+        .accordion-body.open {
+            display: block;
+        }
 
         .accordion-body .answer-chinese {
             font-size: 2rem;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            font-weight: bold;
+            font-weight: 700;
             color: #27AE60;
             cursor: pointer;
-            padding: 0.1rem 0.5rem;
+            padding: .1rem .5rem;
             border-radius: 12px;
             background: #E8F5E9;
-            transition: 0.1s;
+            transition: .1s;
             display: inline-block;
         }
-        .accordion-body .answer-chinese:active { background: #C8E6C9; transform: scale(0.97); }
+        .accordion-body .answer-chinese:active {
+            background: #C8E6C9;
+            transform: scale(.97);
+        }
         .accordion-body .answer-pinyin {
             font-size: 1rem;
             color: #FF8C42;
-            margin-left: 0.5rem;
+            margin-left: .5rem;
         }
         .accordion-body .answer-translation {
             font-size: 1rem;
             color: #555;
             font-style: italic;
-            margin-top: 0.3rem;
+            margin-top: .3rem;
         }
         .accordion-body .answer-speak {
             background: none;
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
-            padding: 0.1rem 0.3rem;
+            padding: .1rem .3rem;
             border-radius: 15px;
-            transition: 0.1s;
-            margin-top: 0.3rem;
+            transition: .1s;
+            margin-top: .3rem;
         }
-        .accordion-body .answer-speak:active { background: #FFD699; }
-
+        .accordion-body .answer-speak:active {
+            background: #FFD699;
+        }
         .accordion-body .answer-note {
-            margin-top: 0.5rem;
-            padding: 0.4rem 0.8rem;
+            margin-top: .5rem;
+            padding: .4rem .8rem;
             background: #FFF1C1;
             border-radius: 12px;
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: #A64B2A;
             border-left: 3px solid #F39C12;
         }
-        .accordion-body .answer-note strong { color: #E67E22; }
-
-        .card {
-            background: white;
-            border-radius: 35px;
-            padding: 1.5rem;
-            border: 4px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
-            margin-bottom: 1.5rem;
-            transition: 0.2s;
+        .accordion-body .answer-note strong {
+            color: #E67E22;
         }
-        .card:hover { transform: translateY(-2px); }
 
         .counter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.8rem;
-            margin-top: 0.5rem;
+            gap: .8rem;
+            margin-top: .5rem;
         }
         .counter-card {
             background: #F3E5F5;
             border-radius: 20px;
-            padding: 0.8rem;
+            padding: .8rem;
             text-align: center;
             border: 3px solid #CE93D8;
-            transition: 0.1s;
+            transition: .1s;
             cursor: default;
         }
-        .counter-card:active { transform: scale(0.97); }
+        .counter-card:active {
+            transform: scale(.97);
+        }
         .counter-card .counter-char {
             font-size: 3rem;
-            font-weight: bold;
+            font-weight: 700;
             color: #6A1B9A;
             display: block;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             cursor: pointer;
         }
-        .counter-card .counter-char:active { opacity: 0.7; }
+        .counter-card .counter-char:active {
+            opacity: .7;
+        }
         .counter-card .counter-pinyin {
             font-size: 1.1rem;
             color: #8E44AD;
-            font-weight: bold;
+            font-weight: 700;
         }
         .counter-card .counter-use {
-            font-size: 0.8rem;
+            font-size: .8rem;
             color: #555;
-            margin-top: 0.2rem;
+            margin-top: .2rem;
         }
         .counter-card .counter-example {
-            font-size: 0.85rem;
+            font-size: .85rem;
             color: #6A1B9A;
-            background: white;
-            padding: 0.1rem 0.6rem;
+            background: #fff;
+            padding: .1rem .6rem;
             border-radius: 12px;
             display: inline-block;
-            margin-top: 0.2rem;
+            margin-top: .2rem;
             cursor: pointer;
         }
-        .counter-card .counter-example:active { background: #E8D5F5; }
+        .counter-card .counter-example:active {
+            background: #E8D5F5;
+        }
 
-        /* ===== ИГРЫ ===== */
         .game-section {
-            background: white;
+            background: #fff;
             border-radius: 35px;
             padding: 1.5rem;
             border: 4px solid #F39C12;
             box-shadow: 0 10px 0 #D68910;
             margin-bottom: 1.5rem;
         }
-        .game-section .section-title { color: #D68910; margin-top: 0; }
 
         .game-status {
             text-align: center;
             font-size: 1.1rem;
-            padding: 0.5rem;
+            padding: .5rem;
             background: #FEF9E7;
             border-radius: 25px;
-            margin-bottom: 0.8rem;
+            margin-bottom: .8rem;
         }
-        .game-status .score { font-weight: bold; color: #D68910; }
+        .game-status .score {
+            font-weight: 700;
+            color: #D68910;
+        }
 
         .game-question {
             background: #FEF9E7;
@@ -321,7 +401,7 @@
         }
         .game-question .q-text {
             font-size: 2.5rem;
-            font-weight: bold;
+            font-weight: 700;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             color: #A64B2A;
             line-height: 1.4;
@@ -329,78 +409,103 @@
         .game-question .q-desc {
             font-size: 1.1rem;
             color: #8B5A2B;
-            margin-top: 0.3rem;
+            margin-top: .3rem;
+        }
+        .game-question .q-hint {
+            font-size: .9rem;
+            color: #E67E22;
+            margin-top: .3rem;
+            font-style: italic;
         }
 
         .game-options {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.8rem;
+            gap: .8rem;
         }
         .game-options button {
-            padding: 0.8rem;
+            padding: .8rem;
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 700;
             border: 4px solid #D98F33;
             border-radius: 25px;
-            background: white;
+            background: #fff;
             cursor: pointer;
-            transition: 0.1s;
+            transition: .1s;
             box-shadow: 0 5px 0 #D98F33;
             font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
         }
-        .game-options button:active { transform: translateY(3px); box-shadow: 0 2px 0 #D98F33; }
+        .game-options button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #D98F33;
+        }
         .game-options button.correct {
             background: #27AE60;
-            color: white;
+            color: #fff;
             border-color: #1E8449;
             box-shadow: 0 5px 0 #1E8449;
         }
         .game-options button.wrong {
             background: #E74C3C;
-            color: white;
+            color: #fff;
             border-color: #B03A2E;
             box-shadow: 0 5px 0 #B03A2E;
         }
-        .game-options button.disabled { pointer-events: none; opacity: 0.6; }
+        .game-options button.disabled {
+            pointer-events: none;
+            opacity: .6;
+        }
 
         .game-result {
             text-align: center;
             margin-top: 1rem;
             font-size: 1.2rem;
-            font-weight: bold;
-            padding: 0.5rem;
+            font-weight: 700;
+            padding: .5rem;
             border-radius: 25px;
         }
-        .game-result.correct { background: #C8E6C9; color: #2E7D32; }
-        .game-result.wrong { background: #FFCDD2; color: #C62828; }
+        .game-result.correct {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        .game-result.wrong {
+            background: #FFCDD2;
+            color: #C62828;
+        }
 
         .game-controls {
             display: flex;
-            gap: 0.8rem;
+            gap: .8rem;
             justify-content: center;
             margin-top: 1rem;
             flex-wrap: wrap;
         }
         .game-controls button {
-            padding: 0.6rem 1.8rem;
+            padding: .6rem 1.8rem;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 700;
             border: none;
             border-radius: 40px;
             cursor: pointer;
-            transition: 0.1s;
-            color: white;
+            transition: .1s;
+            color: #fff;
         }
-        .game-controls button:active { transform: scale(0.95); }
-        .btn-next { background: linear-gradient(135deg, #FF6B35, #FF8C42); box-shadow: 0 4px 0 #C16F1A; }
-        .btn-reset { background: linear-gradient(135deg, #9C27B0, #E91E63); box-shadow: 0 4px 0 #6A1B9A; }
+        .game-controls button:active {
+            transform: scale(.95);
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+        .btn-reset {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            box-shadow: 0 4px 0 #6A1B9A;
+        }
 
-        /* ===== НАЙДИ ПАРУ ===== */
         .match-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
+            gap: .8rem;
             margin-bottom: 1rem;
         }
         .match-item {
@@ -410,13 +515,15 @@
             text-align: center;
             border: 3px solid #F39C12;
             cursor: pointer;
-            transition: 0.1s;
+            transition: .1s;
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             color: #A64B2A;
             user-select: none;
         }
-        .match-item:active { transform: scale(0.95); }
+        .match-item:active {
+            transform: scale(.95);
+        }
         .match-item.selected {
             border-color: #2980B9;
             background: #D6EAF8;
@@ -426,49 +533,72 @@
             border-color: #27AE60;
             background: #C8E6C9;
             cursor: default;
-            opacity: 0.6;
+            opacity: .6;
         }
         .match-item .match-sub {
             display: block;
-            font-size: 0.7rem;
-            font-weight: normal;
+            font-size: .7rem;
+            font-weight: 400;
             color: #888;
-            margin-top: 0.2rem;
+            margin-top: .2rem;
         }
 
         .match-status {
             text-align: center;
             font-size: 1.1rem;
-            padding: 0.5rem;
+            padding: .5rem;
             background: #FEF9E7;
             border-radius: 25px;
-            margin-bottom: 0.8rem;
+            margin-bottom: .8rem;
         }
         .match-result {
             text-align: center;
-            font-weight: bold;
-            padding: 0.5rem;
+            font-weight: 700;
+            padding: .5rem;
             border-radius: 25px;
             font-size: 1.1rem;
         }
-        .match-result.correct { background: #C8E6C9; color: #2E7D32; }
-        .match-result.wrong { background: #FFCDD2; color: #C62828; }
-        .match-result.done { background: #D5F5E3; color: #1E8449; }
-
-        @media (max-width: 700px) {
-            .game-options { grid-template-columns: 1fr 1fr; }
-            .match-grid { grid-template-columns: 1fr; }
-            .header h1 { font-size: 1.8rem; }
-            .section-title { font-size: 1.3rem; }
-            .accordion-header { font-size: 0.95rem; padding: 0.5rem 0.8rem; }
-            .accordion-header .q-chinese { font-size: 1.6rem; }
-            .quick-nav a { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
-            .counter-grid { grid-template-columns: repeat(2, 1fr); }
+        .match-result.correct {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        .match-result.wrong {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        .match-result.done {
+            background: #D5F5E3;
+            color: #1E8449;
         }
 
-        @media (max-width: 450px) {
-            .counter-grid { grid-template-columns: 1fr; }
-            .game-options { grid-template-columns: 1fr; }
+        @media (max-width:700px) {
+            .game-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .quick-nav a {
+                font-size: .75rem;
+                padding: .3rem .7rem;
+            }
+            .counter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width:450px) {
+            .counter-grid {
+                grid-template-columns: 1fr;
+            }
+            .game-options {
+                grid-template-columns: 1fr;
+            }
         }
 
         .footer {
@@ -476,16 +606,15 @@
             padding: 1rem;
             background: #FFD699;
             border-radius: 40px;
-            font-weight: bold;
+            font-weight: 700;
             color: #A64B2A;
-            font-size: 0.9rem;
+            font-size: .9rem;
             margin-top: 1rem;
         }
-
         .progress-wrapper {
-            background: white;
+            background: #fff;
             border-radius: 30px;
-            padding: 0.8rem 1.2rem;
+            padding: .8rem 1.2rem;
             margin-bottom: 1rem;
             border: 3px solid #FFB347;
             display: flex;
@@ -506,948 +635,1151 @@
             background: linear-gradient(90deg, #FF6B35, #FF8C42);
             border-radius: 20px;
             width: 0%;
-            transition: width 0.5s ease;
+            transition: width .5s ease;
         }
         .progress-label {
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-size: .9rem;
+            font-weight: 700;
             color: #A64B2A;
             white-space: nowrap;
+        }
+
+        .rule-card {
+            background: #E8F8F5;
+            border-radius: 20px;
+            padding: 1.2rem;
+            border: 3px solid #1ABC9C;
+            margin-bottom: .8rem;
+        }
+        .rule-card .rule-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1ABC9C;
+            margin-bottom: .5rem;
+        }
+        .rule-card .rule-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .rule-card .rule-desc strong {
+            color: #1ABC9C;
         }
     </style>
 </head>
 <body>
+    <div class="container">
 
-<div class="container">
-
-    <div class="header">
-        <h1>❓ ВСЕ вопросы + Игры + Счётные слова</h1>
-        <div class="sub">50+ примеров • Раскрывающиеся карточки • 3 игры 🎯</div>
-    </div>
-
-    <a href="index.html" class="back-link">⬅️ На главную</a>
-
-    <div class="progress-wrapper">
-        <span class="progress-label">📊 Прогресс:</span>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progressFill" style="width: 0%;"></div>
+        <div class="header">
+            <h1>❓ ВСЕ вопросы + Счётные слова + Нюансы</h1>
+            <div class="sub">50+ примеров • 12 счётных слов • 3 игры • Золотые правила 🎯</div>
         </div>
-        <span class="progress-label" id="progressText">0 / 10</span>
-    </div>
 
-    <div class="quick-nav">
-        <a href="#rules"><span class="nav-icon">🏆</span>Правила</a>
-        <a href="#profession"><span class="nav-icon">💼</span>Профессия</a>
-        <a href="#name"><span class="nav-icon">👤</span>Имя</a>
-        <a href="#age"><span class="nav-icon">🎂</span>Возраст</a>
-        <a href="#place"><span class="nav-icon">🌍</span>Место</a>
-        <a href="#counters"><span class="nav-icon">🔢</span>Счётные</a>
-        <a href="#counter-questions"><span class="nav-icon">❓</span>Вопросы с счётными</a>
-        <a href="#game1"><span class="nav-icon">🎮</span>Игра 1</a>
-        <a href="#game2"><span class="nav-icon">🧩</span>Игра 2</a>
-        <a href="#nuances"><span class="nav-icon">⚠️</span>Нюансы</a>
-    </div>
+        <a href="index.html" class="back-link">⬅️ На главную</a>
 
-    <!-- ============================================================ -->
-    <!-- ЗОЛОТЫЕ ПРАВИЛА -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="rules">
-        🏆 ЗОЛОТЫЕ ПРАВИЛА
-        <span class="badge rule">ГЛАВНОЕ</span>
-    </div>
-    <div class="card" style="border-color:#1ABC9C; box-shadow:0 10px 0 #148F77;">
+        <div class="progress-wrapper">
+            <span class="progress-label">📊 Прогресс:</span>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+            <span class="progress-label" id="progressText">0 / 10</span>
+        </div>
 
-        <div class="accordion-card rule">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">什么 vs 哪</span>
-                    <span class="q-pinyin">shénme vs nǎ</span>
-                    <span class="q-tag" style="background:#1ABC9C;">правило</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
+        <div class="quick-nav">
+            <a href="#rules"><span class="nav-icon">🏆</span>Правила</a>
+            <a href="#shenme"><span class="nav-icon">❓</span>什么</a>
+            <a href="#na"><span class="nav-icon">🎯</span>哪</a>
+            <a href="#zenme"><span class="nav-icon">🔧</span>怎么</a>
+            <a href="#zenmeyang"><span class="nav-icon">📊</span>怎么样</a>
+            <a href="#shenmeyang"><span class="nav-icon">👤</span>什么样</a>
+            <a href="#shei"><span class="nav-icon">👤</span>谁</a>
+            <a href="#shenmeren"><span class="nav-icon">💼</span>什么人</a>
+            <a href="#nageren"><span class="nav-icon">🎯</span>哪个人</a>
+            <a href="#shenmeshihou"><span class="nav-icon">📅</span>什么时候</a>
+            <a href="#jidian"><span class="nav-icon">🕐</span>几点</a>
+            <a href="#weishenme"><span class="nav-icon">❓</span>为什么</a>
+            <a href="#duoshao"><span class="nav-icon">💰</span>多少</a>
+            <a href="#ji"><span class="nav-icon">🔢</span>几</a>
+            <a href="#naer"><span class="nav-icon">🗣️</span>哪儿</a>
+            <a href="#nali"><span class="nav-icon">📖</span>哪里</a>
+            <a href="#ganshenme"><span class="nav-icon">🔨</span>干什么</a>
+            <a href="#counters"><span class="nav-icon">🔢</span>Счётные</a>
+            <a href="#games"><span class="nav-icon">🎮</span>Игры</a>
+            <a href="#nuances"><span class="nav-icon">⚠️</span>Нюансы</a>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ЗОЛОТЫЕ ПРАВИЛА -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="rules">
+            🏆 ЗОЛОТЫЕ ПРАВИЛА
+            <span class="badge rule">ГЛАВНОЕ</span>
+        </div>
+        <div class="card" style="border-color:#1ABC9C; box-shadow:0 10px 0 #148F77;">
+
+            <div class="rule-card">
+                <div class="rule-title">📌 Правило 1: 什么 vs 哪</div>
+                <div class="rule-desc">
                     <strong>什么 (shénme)</strong> = «ЧТО? / КАКОЙ?» — <strong>НЕТ</strong> ограничений, вариантов много.<br>
-                    <strong>哪 (nǎ)</strong> = «КАКОЙ ИЗ?» — <strong>ВЫБОР</strong> из ограниченного числа, <strong>ОБЯЗАТЕЛЬНО</strong> со счётным словом!<br><br>
-                    <span style="display:inline-block; padding:0.3rem 0.8rem; background:#FFF1C1; border-radius:10px;">
+                    <strong>哪 (nǎ)</strong> = «КАКОЙ ИЗ?» — <strong>ВЫБОР</strong> из ограниченного числа, <strong>ОБЯЗАТЕЛЬНО</strong> со счётным словом!<br>
+                    <span style="display:inline-block; margin-top:.3rem; padding:.3rem .8rem; background:#FFF1C1; border-radius:10px;">
                         💡 <strong>Лайфхак:</strong> Если можно добавить «из этих» → <strong>哪</strong>. Если просто «что за?» → <strong>什么</strong>.
                     </span>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-card rule">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">几 vs 多少</span>
-                    <span class="q-pinyin">jǐ vs duōshao</span>
-                    <span class="q-tag" style="background:#1ABC9C;">правило</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
+            <div class="rule-card">
+                <div class="rule-title">📌 Правило 2: 几 vs 多少</div>
+                <div class="rule-desc">
                     <strong>几 (jǐ)</strong> = «СКОЛЬКО?» — для чисел <strong>до 10</strong>, <strong>ОБЯЗАТЕЛЬНО</strong> со счётным словом!<br>
                     <strong>多少 (duōshao)</strong> = «СКОЛЬКО?» — для чисел <strong>больше 10</strong> и для <strong>цены</strong>.
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-card rule">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">Где писать 人？</span>
-                    <span class="q-pinyin">rén</span>
-                    <span class="q-tag" style="background:#1ABC9C;">правило</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
+            <div class="rule-card">
+                <div class="rule-title">📌 Правило 3: Где писать 人 (rén)?</div>
+                <div class="rule-desc">
                     <strong>人</strong> пишем <strong>ТОЛЬКО</strong> в 3-х случаях:<br>
                     &nbsp;• 👤 <strong>Личность / характер</strong> — 你是什么人？<br>
                     &nbsp;• 🎯 <strong>Выбор из людей</strong> — 哪个人？<br>
-                    &nbsp;• 🌍 <strong>Национальность</strong> — 你是哪里人？<br><br>
-                    <span style="display:inline-block; padding:0.3rem 0.8rem; background:#FFCDD2; border-radius:10px;">
+                    &nbsp;• 🌍 <strong>Национальность</strong> — 你是哪里人？<br>
+                    <span style="display:inline-block; margin-top:.3rem; padding:.3rem .8rem; background:#FFCDD2; border-radius:10px;">
                         ⚠️ Для профессии, имени, места — <strong>НЕ пишем 人</strong>!
                     </span>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-card rule">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">是 vs 在</span>
-                    <span class="q-pinyin">shì vs zài</span>
-                    <span class="q-tag" style="background:#1ABC9C;">правило</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
+            <div class="rule-card">
+                <div class="rule-title">📌 Правило 4: 是 vs 在</div>
+                <div class="rule-desc">
                     <strong>是 (shì)</strong> = «являться» (кто/что)<br>
                     <strong>在 (zài)</strong> = «находиться» (где)
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-card rule">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">Порядок времени</span>
-                    <span class="q-pinyin">shíjiān shùnxù</span>
-                    <span class="q-tag" style="background:#1ABC9C;">правило</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
+            <div class="rule-card">
+                <div class="rule-title">📌 Правило 5: Порядок времени</div>
+                <div class="rule-desc">
                     В китайском языке <strong>время всегда ставится в начале</strong>:<br>
                     <strong>Время + место + действие</strong>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 1. ПРОФЕССИЯ (5 примеров) -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="profession">
-        💼 1. Профессия
-        <span class="badge profession">5 ПРИМЕРОВ</span>
-    </div>
-    <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="professionContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- 2. ИМЯ (3 примера) -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="name">
-        👤 2. Имя
-        <span class="badge name">3 ПРИМЕРА</span>
-    </div>
-    <div class="card" style="border-color:#27AE60; box-shadow:0 10px 0 #1E8449;" id="nameContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- 3. ВОЗРАСТ (4 примера) -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="age">
-        🎂 3. Возраст
-        <span class="badge age">4 ПРИМЕРА</span>
-    </div>
-    <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #D68910;" id="ageContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- 4. МЕСТО / НАЦИОНАЛЬНОСТЬ (4 примера) -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="place">
-        🌍 4. Место / Национальность
-        <span class="badge place">4 ПРИМЕРА</span>
-    </div>
-    <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="placeContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- 5. СЧЁТНЫЕ СЛОВА -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="counters">
-        🔢 5. Счётные слова
-        <span class="badge counter">12 СЧЁТЧИКОВ</span>
-    </div>
-    <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
-        <div class="counter-grid" id="countersGrid"></div>
-        <div style="margin-top:1rem; padding:0.8rem; background:#F3E5F5; border-radius:15px; text-align:center; font-size:1rem; border:2px solid #CE93D8;">
-            📌 <strong>Золотое правило:</strong> С <strong>什么</strong> счётные слова <strong>НЕ НУЖНЫ</strong>.<br>
-            С <strong>哪</strong>, <strong>几</strong>, <strong>这</strong>, <strong>那</strong> — <strong>ОБЯЗАТЕЛЬНЫ</strong>!
+        <!-- ============================================================ -->
+        <!-- 1. 什么 (shénme) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="shenme">
+            ❓ 1. 什么
+            <span class="badge shenme">ЧТО? / КАКОЙ?</span>
         </div>
-    </div>
+        <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmeContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 6. ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ (12 примеров) -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="counter-questions">
-        ❓ 6. Вопросы со счётными словами
-        <span class="badge counter">12 ПРИМЕРОВ</span>
-    </div>
-    <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;" id="counterQuestionsContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- 7. ИГРА 1: Угадай вопросительное слово -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="game1">
-        🎮 7. Игра: Угадай слово
-        <span class="badge game">ВОПРОСЫ</span>
-    </div>
-    <div class="game-section">
-        <div class="game-status">
-            ✅ <span class="score" id="game1Score">0</span> / <span id="game1Total">0</span>
-            &nbsp;|&nbsp; ❌ Ошибок: <span id="game1Mistakes">0</span>
+        <!-- ============================================================ -->
+        <!-- 2. 哪 (nǎ) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="na">
+            🎯 2. 哪
+            <span class="badge na">КАКОЙ ИЗ?</span>
         </div>
+        <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="naContainer"></div>
 
-        <div class="game-question">
-            <div class="q-text" id="game1Question">你好</div>
-            <div class="q-desc" id="game1Translation">Привет</div>
-            <div class="q-desc" style="font-size:0.9rem; color:#E67E22; margin-top:0.3rem;" id="game1Hint"></div>
+        <!-- ============================================================ -->
+        <!-- 3. 怎么 (zěnme) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="zenme">
+            🔧 3. 怎么
+            <span class="badge zenme">КАК? (способ)</span>
         </div>
+        <div class="card" style="border-color:#1ABC9C; box-shadow:0 10px 0 #148F77;" id="zenmeContainer"></div>
 
-        <div class="game-options" id="game1Options"></div>
-        <div class="game-result" id="game1Result"></div>
-
-        <div class="game-controls">
-            <button class="btn-next" id="game1Next">➡️ Следующий</button>
-            <button class="btn-reset" id="game1Reset">🔄 Начать заново</button>
+        <!-- ============================================================ -->
+        <!-- 4. 怎么样 (zěnmeyàng) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="zenmeyang">
+            📊 4. 怎么样
+            <span class="badge zenmeyang">КАК? (состояние)</span>
         </div>
-    </div>
+        <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="zenmeyangContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 8. ИГРА 2: Угадай счётное слово -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="game2">
-        🧮 8. Игра: Счётные слова
-        <span class="badge game">СЧЁТЧИКИ</span>
-    </div>
-    <div class="game-section" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
-        <div class="game-status">
-            ✅ <span class="score" id="game2Score">0</span> / <span id="game2Total">0</span>
-            &nbsp;|&nbsp; ❌ Ошибок: <span id="game2Mistakes">0</span>
+        <!-- ============================================================ -->
+        <!-- 5. 什么样 (shénme yàng) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="shenmeyang">
+            👤 5. 什么样
+            <span class="badge zenmeyang">КАК ВЫГЛЯДИТ?</span>
         </div>
+        <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="shenmeyangContainer"></div>
 
-        <div class="game-question">
-            <div class="q-text" id="game2Question">📚 书</div>
-            <div class="q-desc" id="game2Desc">Выбери правильный счётчик</div>
+        <!-- ============================================================ -->
+        <!-- 6. 谁 (shéi) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="shei">
+            👤 6. 谁
+            <span class="badge shei">КТО?</span>
         </div>
+        <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #B03A2E;" id="sheiContainer"></div>
 
-        <div class="game-options" id="game2Options"></div>
-        <div class="game-result" id="game2Result"></div>
-
-        <div class="game-controls">
-            <button class="btn-next" id="game2Next">➡️ Следующий</button>
-            <button class="btn-reset" id="game2Reset">🔄 Начать заново</button>
+        <!-- ============================================================ -->
+        <!-- 7. 什么人 (shénme rén) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="shenmeren">
+            💼 7. 什么人
+            <span class="badge shenme">ЧТО ЗА ЧЕЛОВЕК?</span>
         </div>
-    </div>
+        <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmerenContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 9. ИГРА 3: Найди пару -->
-    <!-- ============================================================ -->
-    <div class="section-title">
-        🧩 9. Игра: Найди пару
-        <span class="badge game">ПРЕДМЕТ + СЧЁТЧИК</span>
-    </div>
-    <div class="game-section" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;">
-        <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 5)</div>
-        <div class="match-grid" id="matchGrid"></div>
-        <div class="match-result" id="matchResult"></div>
-        <div class="game-controls">
-            <button class="btn-reset" id="matchReset" style="background:linear-gradient(135deg, #8E44AD, #6A1B9A); box-shadow:0 4px 0 #4A235A;">🔄 Новая игра</button>
+        <!-- ============================================================ -->
+        <!-- 8. 哪个人 (nǎ ge rén) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="nageren">
+            🎯 8. 哪个人
+            <span class="badge na">КОТОРЫЙ ИЗ ЛЮДЕЙ?</span>
         </div>
-    </div>
+        <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="nagerenContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 10. НЮАНСЫ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="nuances">
-        ⚠️ 10. Важные нюансы
-        <span class="badge nuance">🔥 ТОП-5</span>
-    </div>
-    <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #C0392B;">
+        <!-- ============================================================ -->
+        <!-- 9. 什么时候 (shénme shíhou) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="shenmeshihou">
+            📅 9. 什么时候
+            <span class="badge shenmeshihou">КОГДА?</span>
+        </div>
+        <div class="card" style="border-color:#16A085; box-shadow:0 10px 0 #0E6655;" id="shenmeshihouContainer"></div>
 
-        <div class="accordion-card nuance">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">是 vs 在</span>
-                    <span class="q-pinyin">shì vs zài</span>
-                    <span class="q-tag" style="background:#E74C3C;">нюанс</span>
-                </span>
-                <span class="arrow">▼</span>
+        <!-- ============================================================ -->
+        <!-- 10. 几点 (jǐ diǎn) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="jidian">
+            🕐 10. 几点
+            <span class="badge jidian">КОТОРЫЙ ЧАС?</span>
+        </div>
+        <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="jidianContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 11. 为什么 (wèishénme) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="weishenme">
+            ❓ 11. 为什么
+            <span class="badge weishenme">ПОЧЕМУ?</span>
+        </div>
+        <div class="card" style="border-color:#C0392B; box-shadow:0 10px 0 #922B21;" id="weishenmeContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 12. 多少 (duōshao) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="duoshao">
+            💰 12. 多少
+            <span class="badge duoshao">СКОЛЬКО? (большие числа)</span>
+        </div>
+        <div class="card" style="border-color:#27AE60; box-shadow:0 10px 0 #1E8449;" id="duoshaoContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 13. 几 (jǐ) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="ji">
+            🔢 13. 几
+            <span class="badge ji">СКОЛЬКО? (малые числа)</span>
+        </div>
+        <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="jiContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 14. 哪儿 (nǎr) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="naer">
+            🗣️ 14. 哪儿
+            <span class="badge naer">ГДЕ? (разговорный)</span>
+        </div>
+        <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naerContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 15. 哪里 (nǎlǐ) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="nali">
+            📖 15. 哪里
+            <span class="badge nali">ГДЕ? / ОТКУДА? (формальный)</span>
+        </div>
+        <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naliContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- 16. 干什么 (gàn shénme) — 5 примеров -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="ganshenme">
+            🔨 16. 干什么
+            <span class="badge ganshenme">ЧТО ДЕЛАТЬ? / ЗАЧЕМ?</span>
+        </div>
+        <div class="card" style="border-color:#D35400; box-shadow:0 10px 0 #A04000;" id="ganshenmeContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- СЧЁТНЫЕ СЛОВА -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="counters">
+            🔢 СЧЁТНЫЕ СЛОВА
+            <span class="badge counter">12 СЧЁТЧИКОВ</span>
+        </div>
+        <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
+            <div class="counter-grid" id="countersGrid"></div>
+            <div style="margin-top:1rem; padding:.8rem; background:#F3E5F5; border-radius:15px; text-align:center; font-size:1rem; border:2px solid #CE93D8;">
+                📌 <strong>Золотое правило:</strong> С <strong>什么</strong> счётные слова <strong>НЕ НУЖНЫ</strong>.<br>
+                С <strong>哪</strong>, <strong>几</strong>, <strong>这</strong>, <strong>那</strong> — <strong>ОБЯЗАТЕЛЬНЫ</strong>!
             </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
-                    <strong>是 (shì)</strong> = «являться» (кто/что)<br>
-                    <strong>在 (zài)</strong> = «находиться» (где)
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ -->
+        <!-- ============================================================ -->
+        <div class="section-title">
+            ❓ Вопросы со счётными словами
+            <span class="badge counter">12 ПРИМЕРОВ</span>
+        </div>
+        <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;" id="counterQuestionsContainer"></div>
+
+        <!-- ============================================================ -->
+        <!-- ИГРЫ -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="games">
+            🎮 ИГРЫ
+            <span class="badge game">3 ИГРЫ</span>
+        </div>
+
+        <!-- ИГРА 1 -->
+        <div class="game-section" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;">
+            <h2 style="color:#D68910; margin-bottom:.5rem;">🎮 Игра 1: Угадай вопросительное слово</h2>
+            <div class="game-status">
+                ✅ <span class="score" id="game1Score">0</span> / <span id="game1Total">0</span>
+                &nbsp;|&nbsp; ❌ Ошибок: <span id="game1Mistakes">0</span>
+            </div>
+            <div class="game-question">
+                <div class="q-text" id="game1Question">你好</div>
+                <div class="q-desc" id="game1Translation">Привет</div>
+                <div class="q-hint" id="game1Hint"></div>
+            </div>
+            <div class="game-options" id="game1Options"></div>
+            <div class="game-result" id="game1Result"></div>
+            <div class="game-controls">
+                <button class="btn-next" id="game1Next">➡️ Следующий</button>
+                <button class="btn-reset" id="game1Reset">🔄 Начать заново</button>
+            </div>
+        </div>
+
+        <!-- ИГРА 2 -->
+        <div class="game-section" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
+            <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧮 Игра 2: Угадай счётное слово</h2>
+            <div class="game-status">
+                ✅ <span class="score" id="game2Score">0</span> / <span id="game2Total">0</span>
+                &nbsp;|&nbsp; ❌ Ошибок: <span id="game2Mistakes">0</span>
+            </div>
+            <div class="game-question">
+                <div class="q-text" id="game2Question">📚 书</div>
+                <div class="q-desc" id="game2Desc">Выбери правильный счётчик</div>
+            </div>
+            <div class="game-options" id="game2Options"></div>
+            <div class="game-result" id="game2Result"></div>
+            <div class="game-controls">
+                <button class="btn-next" id="game2Next">➡️ Следующий</button>
+                <button class="btn-reset" id="game2Reset">🔄 Начать заново</button>
+            </div>
+        </div>
+
+        <!-- ИГРА 3 -->
+        <div class="game-section" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;">
+            <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧩 Игра 3: Найди пару (предмет + счётчик)</h2>
+            <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 5)</div>
+            <div class="match-grid" id="matchGrid"></div>
+            <div class="match-result" id="matchResult"></div>
+            <div class="game-controls">
+                <button class="btn-reset" id="matchReset" style="background:linear-gradient(135deg, #8E44AD, #6A1B9A); box-shadow:0 4px 0 #4A235A;">🔄 Новая игра</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- НЮАНСЫ -->
+        <!-- ============================================================ -->
+        <div class="section-title" id="nuances">
+            ⚠️ НЮАНСЫ
+            <span class="badge nuance">🔥 ТОП-5</span>
+        </div>
+        <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #C0392B;">
+
+            <div class="accordion-card nuance">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>
+                        <span class="q-chinese">是 vs 在</span>
+                        <span class="q-pinyin">shì vs zài</span>
+                        <span class="q-tag" style="background:#E74C3C;">нюанс</span>
+                    </span>
+                    <span class="arrow">▼</span>
                 </div>
-                <div class="accordion-body" style="display:block; padding:0.5rem 0; border:none; background:transparent;">
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60; margin-bottom:0.3rem;">
+                <div class="accordion-body">
+                    <div style="font-size:1.1rem; line-height:1.8;">
+                        <strong>是 (shì)</strong> = «являться» (кто/что)<br>
+                        <strong>在 (zài)</strong> = «находиться» (где)
+                    </div>
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">他是医生。</span> — Он врач.
                     </div>
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60;">
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">他在家。</span> — Он дома.
                     </div>
-                    <div style="margin-top:0.5rem; padding:0.4rem 0.8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
+                    <div style="padding:.4rem .8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
                         ❌ <strong>他是家。</strong> — Он дом. (НЕПРАВИЛЬНО!)
                     </div>
+                    <div class="answer-note">💡 <strong>Запомни:</strong> 是 = кто/что, 在 = где!</div>
                 </div>
-                <div class="answer-note">💡 <strong>Запомни:</strong> 是 = кто/что, 在 = где!</div>
             </div>
-        </div>
 
-        <div class="accordion-card nuance">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">不 vs 没</span>
-                    <span class="q-pinyin">bù vs méi</span>
-                    <span class="q-tag" style="background:#E74C3C;">нюанс</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
-                    <strong>不 (bù)</strong> = отрицание <strong>настоящего</strong> и <strong>будущего</strong><br>
-                    <strong>没 (méi)</strong> = отрицание <strong>прошедшего</strong>
+            <div class="accordion-card nuance">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>
+                        <span class="q-chinese">不 vs 没</span>
+                        <span class="q-pinyin">bù vs méi</span>
+                        <span class="q-tag" style="background:#E74C3C;">нюанс</span>
+                    </span>
+                    <span class="arrow">▼</span>
                 </div>
-                <div class="accordion-body" style="display:block; padding:0.5rem 0; border:none; background:transparent;">
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60; margin-bottom:0.3rem;">
+                <div class="accordion-body">
+                    <div style="font-size:1.1rem; line-height:1.8;">
+                        <strong>不 (bù)</strong> = отрицание <strong>настоящего</strong> и <strong>будущего</strong><br>
+                        <strong>没 (méi)</strong> = отрицание <strong>прошедшего</strong>
+                    </div>
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">我不知道。</span> — Я не знаю.
                     </div>
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60;">
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">我没吃饭。</span> — Я не ел.
                     </div>
+                    <div class="answer-note">💡 <strong>Запомни:</strong> 不 = сейчас/будущее, 没 = прошлое!</div>
                 </div>
-                <div class="answer-note">💡 <strong>Запомни:</strong> 不 = сейчас/будущее, 没 = прошлое!</div>
             </div>
-        </div>
 
-        <div class="accordion-card nuance">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">二 vs 两</span>
-                    <span class="q-pinyin">èr vs liǎng</span>
-                    <span class="q-tag" style="background:#E74C3C;">нюанс</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
-                    <strong>二 (èr)</strong> = «два» в <strong>числах</strong> (20, 200)<br>
-                    <strong>两 (liǎng)</strong> = «два» со <strong>счётными словами</strong>
+            <div class="accordion-card nuance">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>
+                        <span class="q-chinese">二 vs 两</span>
+                        <span class="q-pinyin">èr vs liǎng</span>
+                        <span class="q-tag" style="background:#E74C3C;">нюанс</span>
+                    </span>
+                    <span class="arrow">▼</span>
                 </div>
-                <div class="accordion-body" style="display:block; padding:0.5rem 0; border:none; background:transparent;">
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60; margin-bottom:0.3rem;">
+                <div class="accordion-body">
+                    <div style="font-size:1.1rem; line-height:1.8;">
+                        <strong>二 (èr)</strong> = «два» в <strong>числах</strong> (20, 200)<br>
+                        <strong>两 (liǎng)</strong> = «два» со <strong>счётными словами</strong>
+                    </div>
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">二十</span> — Двадцать
                     </div>
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60;">
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">两个人</span> — Два человека
                     </div>
-                    <div style="margin-top:0.5rem; padding:0.4rem 0.8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
+                    <div style="padding:.4rem .8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
                         ❌ <strong>二个人</strong> — НЕПРАВИЛЬНО!
                     </div>
+                    <div class="answer-note">💡 <strong>Запомни:</strong> 二 = в числах, 两 = со счётными словами!</div>
                 </div>
-                <div class="answer-note">💡 <strong>Запомни:</strong> 二 = в числах, 两 = со счётными словами!</div>
             </div>
-        </div>
 
-        <div class="accordion-card nuance">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <span>
-                    <span class="q-chinese">Порядок времени</span>
-                    <span class="q-pinyin">shíjiān shùnxù</span>
-                    <span class="q-tag" style="background:#E74C3C;">нюанс</span>
-                </span>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="accordion-body">
-                <div style="font-size:1.1rem; line-height:1.8;">
-                    В китайском языке <strong>время всегда ставится в начале</strong>:<br>
-                    <strong>Время + место + действие</strong>
+            <div class="accordion-card nuance">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>
+                        <span class="q-chinese">Порядок времени</span>
+                        <span class="q-pinyin">shíjiān shùnxù</span>
+                        <span class="q-tag" style="background:#E74C3C;">нюанс</span>
+                    </span>
+                    <span class="arrow">▼</span>
                 </div>
-                <div class="accordion-body" style="display:block; padding:0.5rem 0; border:none; background:transparent;">
-                    <div style="background:#FFF8F0; border-radius:12px; padding:0.5rem 0.8rem; border-left:3px solid #27AE60; margin-bottom:0.3rem;">
+                <div class="accordion-body">
+                    <div style="font-size:1.1rem; line-height:1.8;">
+                        В китайском языке <strong>время всегда ставится в начале</strong>:<br>
+                        <strong>Время + место + действие</strong>
+                    </div>
+                    <div style="background:#FFF8F0; border-radius:12px; padding:.5rem .8rem; border-left:3px solid #27AE60; margin:.5rem 0;">
                         ✅ <span class="answer-chinese" style="font-size:1.2rem; background:transparent; padding:0;">我今天去学校。</span> — Я сегодня иду в школу.
                     </div>
-                    <div style="margin-top:0.5rem; padding:0.4rem 0.8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
+                    <div style="padding:.4rem .8rem; background:#FFCDD2; border-radius:12px; border-left:3px solid #E74C3C;">
                         ❌ <strong>我去学校今天。</strong> — НЕПРАВИЛЬНО!
                     </div>
+                    <div class="answer-note">💡 <strong>Запомни:</strong> Время всегда в начале!</div>
                 </div>
-                <div class="answer-note">💡 <strong>Запомни:</strong> Время всегда в начале!</div>
             </div>
+
+        </div>
+
+        <div class="footer">
+            🎯 Нажимай на иероглифы — слушай произношение! 🔥 3 игры для запоминания!<br>
+            📌 Запомни: 你做什么工作？ = Кем ты работаешь? (НЕ 你是什么人？)
         </div>
 
     </div>
 
-    <div class="footer">
-        🎯 Нажимай на иероглифы — слушай произношение! 🔥 3 игры для запоминания!<br>
-        📌 Запомни: 你做什么工作？ = Кем ты работаешь? (НЕ 你是什么人？)
-    </div>
+    <script>
+        // ================================================================
+        // 1. ДАННЫЕ
+        // ================================================================
 
-</div>
+        const countersData = [
+            { char: '个', pinyin: 'gè', use: 'Универсальный', example: '一个人 — один человек' },
+            { char: '本', pinyin: 'běn', use: 'Для книг', example: '一本书 — одна книга' },
+            { char: '辆', pinyin: 'liàng', use: 'Для машин', example: '一辆车 — одна машина' },
+            { char: '杯', pinyin: 'bēi', use: 'Для чашек', example: '一杯茶 — одна чашка чая' },
+            { char: '条', pinyin: 'tiáo', use: 'Для длинных', example: '一条路 — одна дорога' },
+            { char: '件', pinyin: 'jiàn', use: 'Для одежды/дел', example: '一件事 — одно дело' },
+            { char: '张', pinyin: 'zhāng', use: 'Для плоских', example: '一张纸 — один лист' },
+            { char: '只', pinyin: 'zhī', use: 'Для животных', example: '一只狗 — одна собака' },
+            { char: '双', pinyin: 'shuāng', use: 'Для пар', example: '一双鞋 — одна пара' },
+            { char: '块', pinyin: 'kuài', use: 'Для денег/часов', example: '一块钱 — один юань' },
+            { char: '把', pinyin: 'bǎ', use: 'С ручкой', example: '一把刀 — один нож' },
+            { char: '瓶', pinyin: 'píng', use: 'Для бутылок', example: '一瓶水 — одна бутылка' },
+        ];
 
-<script>
-    // ================================================================
-    // 1. ДАННЫЕ
-    // ================================================================
+        // ===== 1. 什么 =====
+        const shenmeData = [
+            { q: '你喜欢什么书？', p: 'Nǐ xǐhuān shénme shū?', t: '📖 Какие книги ты любишь?', a: '我喜欢小说。', ap: 'Wǒ xǐhuān xiǎoshuō.', at: 'Я люблю романы.', note: 'Спрашиваем жанр/название' },
+            { q: '你想吃什么？', p: 'Nǐ xiǎng chī shénme?', t: '🍕 Что ты хочешь съесть?', a: '我想吃披萨。', ap: 'Wǒ xiǎng chī pīsà.', at: 'Я хочу пиццу.', note: 'Еды много → открытый вопрос' },
+            { q: '这是什么？', p: 'Zhè shì shénme?', t: '❓ Что это?', a: '这是手机。', ap: 'Zhè shì shǒujī.', at: 'Это телефон.', note: 'Неизвестный предмет' },
+            { q: '你叫什么名字？', p: 'Nǐ jiào shénme míngzi?', t: '👤 Как тебя зовут?', a: '我叫安娜。', ap: 'Wǒ jiào Ānnà.', at: 'Меня зовут Анна.', note: 'Спрашиваем имя' },
+            { q: '你爱吃什么水果？', p: 'Nǐ ài chī shénme shuǐguǒ?', t: '🍎 Какие фрукты ты любишь?', a: '我爱吃苹果。', ap: 'Wǒ ài chī píngguǒ.', at: 'Я люблю яблоки.', note: 'Фруктов много → открытый вопрос' },
+        ];
 
-    const countersData = [
-        { char: '个', pinyin: 'gè', use: 'Универсальный', example: '一个人 — один человек' },
-        { char: '本', pinyin: 'běn', use: 'Для книг', example: '一本书 — одна книга' },
-        { char: '辆', pinyin: 'liàng', use: 'Для машин', example: '一辆车 — одна машина' },
-        { char: '杯', pinyin: 'bēi', use: 'Для чашек', example: '一杯茶 — одна чашка чая' },
-        { char: '条', pinyin: 'tiáo', use: 'Для длинных', example: '一条路 — одна дорога' },
-        { char: '件', pinyin: 'jiàn', use: 'Для одежды/дел', example: '一件事 — одно дело' },
-        { char: '张', pinyin: 'zhāng', use: 'Для плоских', example: '一张纸 — один лист' },
-        { char: '只', pinyin: 'zhī', use: 'Для животных', example: '一只狗 — одна собака' },
-        { char: '双', pinyin: 'shuāng', use: 'Для пар', example: '一双鞋 — одна пара' },
-        { char: '块', pinyin: 'kuài', use: 'Для денег/часов', example: '一块钱 — один юань' },
-        { char: '把', pinyin: 'bǎ', use: 'С ручкой', example: '一把刀 — один нож' },
-        { char: '瓶', pinyin: 'píng', use: 'Для бутылок', example: '一瓶水 — одна бутылка' },
-    ];
+        // ===== 2. 哪 =====
+        const naData = [
+            { q: '哪本书是你的？', p: 'Nǎ běn shū shì nǐ de?', t: '📖 Которая книга твоя?', a: '那本书是我的。', ap: 'Nà běn shū shì wǒ de.', at: 'Та книга моя.', note: 'Выбор из книг → нужен счётчик 本' },
+            { q: '哪个蛋糕好吃？', p: 'Nǎ ge dàngāo hǎochī?', t: '🍰 Который торт вкуснее?', a: '这个蛋糕好吃。', ap: 'Zhège dàngāo hǎochī.', at: 'Этот торт вкусный.', note: 'Выбор из тортов → счётчик 个' },
+            { q: '哪辆车是你的？', p: 'Nǎ liàng chē shì nǐ de?', t: '🚗 Которая машина твоя?', a: '那辆车是我的。', ap: 'Nà liàng chē shì wǒ de.', at: 'Та машина моя.', note: 'Выбор из машин → счётчик 辆' },
+            { q: '哪杯茶是你的？', p: 'Nǎ bēi chá shì nǐ de?', t: '☕ Которая чашка чая твоя?', a: '这杯茶是我的。', ap: 'Zhè bēi chá shì wǒ de.', at: 'Эта чашка чая моя.', note: 'Выбор из чашек → счётчик 杯' },
+            { q: '哪个城市更漂亮？', p: 'Nǎ ge chéngshì gèng piàoliang?', t: '🏙️ Который город красивее?', a: '北京更漂亮。', ap: 'Běijīng gèng piàoliang.', at: 'Пекин красивее.', note: 'Выбор из городов → счётчик 个' },
+        ];
 
-    // Профессия (5)
-    const professionData = [
-        { question: '你做什么工作？', pinyin: 'Nǐ zuò shénme gōngzuò?', translation: '💼 Кем ты работаешь?', answer: '我是医生。', answerPinyin: 'Wǒ shì yīshēng.', answerTranslation: 'Я врач.', note: 'Самый естественный вопрос о профессии' },
-        { question: '你在哪儿工作？', pinyin: 'Nǐ zài nǎr gōngzuò?', translation: '🏢 Где ты работаешь?', answer: '我在医院工作。', answerPinyin: 'Wǒ zài yīyuàn gōngzuò.', answerTranslation: 'Я работаю в больнице.', note: 'Спрашиваем о месте работы' },
-        { question: '你是什么工作？', pinyin: 'Nǐ shì shénme gōngzuò?', translation: '📋 Какая у тебя работа?', answer: '我是老师。', answerPinyin: 'Wǒ shì lǎoshī.', answerTranslation: 'Я учитель.', note: 'Альтернативный вариант' },
-        { question: '你是做什么的？', pinyin: 'Nǐ shì zuò shénme de?', translation: '🗣️ Чем ты занимаешься?', answer: '我是程序员。', answerPinyin: 'Wǒ shì chéngxùyuán.', answerTranslation: 'Я программист.', note: 'Разговорный вариант' },
-        { question: '你干哪行的？', pinyin: 'Nǐ gàn nǎ háng de?', translation: '🏭 В какой сфере ты работаешь?', answer: '我做IT的。', answerPinyin: 'Wǒ zuò IT de.', answerTranslation: 'Я работаю в IT.', note: 'Очень разговорный вариант' },
-    ];
+        // ===== 3. 怎么 =====
+        const zenmeData = [
+            { q: '你怎么去学校？', p: 'Nǐ zěnme qù xuéxiào?', t: '🚌 Как ты добираешься до школы?', a: '我坐地铁去。', ap: 'Wǒ zuò dìtiě qù.', at: 'Я еду на метро.', note: 'Способ действия' },
+            { q: '这个字怎么读？', p: 'Zhège zì zěnme dú?', t: '📖 Как читается этот иероглиф?', a: '这个字读"人"。', ap: 'Zhège zì dú "rén".', at: 'Этот иероглиф читается "жэнь".', note: 'Способ чтения' },
+            { q: '这道题怎么做？', p: 'Zhè dào tí zěnme zuò?', t: '✏️ Как решить эту задачу?', a: '我帮你做。', ap: 'Wǒ bāng nǐ zuò.', at: 'Я помогу тебе решить.', note: 'Способ решения' },
+            { q: '你怎么了？', p: 'Nǐ zěnme le?', t: '🤔 Что с тобой?', a: '我没事。', ap: 'Wǒ méi shì.', at: 'Я в порядке.', note: 'Состояние' },
+            { q: '怎么说？', p: 'Zěnme shuō?', t: '🗣️ Как сказать?', a: '这样说。', ap: 'Zhèyàng shuō.', at: 'Говори так.', note: 'Способ сказать' },
+        ];
 
-    // Имя (3)
-    const nameData = [
-        { question: '你叫什么名字？', pinyin: 'Nǐ jiào shénme míngzi?', translation: '👤 Как тебя зовут?', answer: '我叫安娜。', answerPinyin: 'Wǒ jiào Ānnà.', answerTranslation: 'Меня зовут Анна.', note: 'Самый вежливый вопрос' },
-        { question: '请问，您贵姓？', pinyin: 'Qǐngwèn, nín guì xìng?', translation: '🙏 Как ваша фамилия?', answer: '我姓王。', answerPinyin: 'Wǒ xìng Wáng.', answerTranslation: 'Моя фамилия Ван.', note: 'Очень вежливый вариант' },
-        { question: '你叫什么？', pinyin: 'Nǐ jiào shénme?', translation: '🗣️ Как тебя зовут? (короткий)', answer: '我叫小明。', answerPinyin: 'Wǒ jiào Xiǎomíng.', answerTranslation: 'Меня зовут Сяомин.', note: 'Короткий разговорный вариант' },
-    ];
+        // ===== 4. 怎么样 =====
+        const zenmeyangData = [
+            { q: '你怎么样？', p: 'Nǐ zěnmeyàng?', t: '💬 Как ты? / Как дела?', a: '我很好。', ap: 'Wǒ hěn hǎo.', at: 'Я очень хорошо.', note: 'Состояние' },
+            { q: '这部电影怎么样？', p: 'Zhè bù diànyǐng zěnmeyàng?', t: '🎬 Как этот фильм?', a: '这部电影很好看。', ap: 'Zhè bù diànyǐng hěn hǎokàn.', at: 'Этот фильм очень хороший.', note: 'Оценка фильма' },
+            { q: '今天的天气怎么样？', p: 'Jīntiān de tiānqì zěnmeyàng?', t: '🌤️ Какая сегодня погода?', a: '今天天气很好。', ap: 'Jīntiān tiānqì hěn hǎo.', at: 'Сегодня погода хорошая.', note: 'Оценка погоды' },
+            { q: '你父母怎么样？', p: 'Nǐ fùmǔ zěnmeyàng?', t: '👪 Как твои родители?', a: '他们都很好。', ap: 'Tāmen dōu hěn hǎo.', at: 'Они все хорошо.', note: 'Состояние родителей' },
+            { q: '这家餐厅怎么样？', p: 'Zhè jiā cāntīng zěnmeyàng?', t: '🍽️ Как этот ресторан?', a: '这家餐厅很棒。', ap: 'Zhè jiā cāntīng hěn bàng.', at: 'Этот ресторан отличный.', note: 'Оценка ресторана' },
+        ];
 
-    // Возраст (4)
-    const ageData = [
-        { question: '你几岁？', pinyin: 'Nǐ jǐ suì?', translation: '🎂 Сколько тебе лет? (дети до 10)', answer: '我八岁。', answerPinyin: 'Wǒ bā suì.', answerTranslation: 'Мне 8 лет.', note: 'Для детей до 10 лет' },
-        { question: '你今年几岁？', pinyin: 'Nǐ jīnnián jǐ suì?', translation: '🎂 Сколько тебе лет в этом году?', answer: '我今年九岁。', answerPinyin: 'Wǒ jīnnián jiǔ suì.', answerTranslation: 'Мне в этом году 9 лет.', note: 'Уточняем возраст в этом году' },
-        { question: '你多大？', pinyin: 'Nǐ duō dà?', translation: '🎂 Сколько тебе лет? (взрослые)', answer: '我二十五岁。', answerPinyin: 'Wǒ èrshíwǔ suì.', answerTranslation: 'Мне 25 лет.', note: 'Для взрослых' },
-        { question: '您多大年纪？', pinyin: 'Nín duō dà niánjì?', translation: '🎂 Сколько вам лет? (вежливый)', answer: '我六十岁。', answerPinyin: 'Wǒ liùshí suì.', answerTranslation: 'Мне 60 лет.', note: 'Вежливый для пожилых' },
-    ];
+        // ===== 5. 什么样 =====
+        const shenmeyangData = [
+            { q: '他什么样？', p: 'Tā shénme yàng?', t: '👤 Как он выглядит?', a: '他很高很帅。', ap: 'Tā hěn gāo hěn shuài.', at: 'Он высокий и красивый.', note: 'Внешность' },
+            { q: '你的房子什么样？', p: 'Nǐ de fángzi shénme yàng?', t: '🏠 Как выглядит твой дом?', a: '我的房子很大。', ap: 'Wǒ de fángzi hěn dà.', at: 'Мой дом большой.', note: 'Внешность дома' },
+            { q: '这个手机什么样？', p: 'Zhège shǒujī shénme yàng?', t: '📱 Какой этот телефон?', a: '这个手机很新。', ap: 'Zhège shǒujī hěn xīn.', at: 'Этот телефон новый.', note: 'Внешность телефона' },
+            { q: '她的包什么样？', p: 'Tā de bāo shénme yàng?', t: '👜 Как выглядит её сумка?', a: '她的包很漂亮。', ap: 'Tā de bāo hěn piàoliang.', at: 'Её сумка красивая.', note: 'Внешность сумки' },
+            { q: '这个公园什么样？', p: 'Zhège gōngyuán shénme yàng?', t: '🌳 Как выглядит этот парк?', a: '这个公园很安静。', ap: 'Zhège gōngyuán hěn ānjìng.', at: 'Этот парк очень тихий.', note: 'Внешность парка' },
+        ];
 
-    // Место (4)
-    const placeData = [
-        { question: '你是哪里人？', pinyin: 'Nǐ shì nǎlǐ rén?', translation: '🌍 Откуда ты?', answer: '我是俄罗斯人。', answerPinyin: 'Wǒ shì Éluósī rén.', answerTranslation: 'Я из России.', note: 'Спрашиваем национальность (с 人)' },
-        { question: '你来自哪里？', pinyin: 'Nǐ láizì nǎlǐ?', translation: '🌏 Откуда ты приехал?', answer: '我来自莫斯科。', answerPinyin: 'Wǒ láizì Mòsīkē.', answerTranslation: 'Я из Москвы.', note: 'Альтернативный вариант' },
-        { question: '你在哪儿？', pinyin: 'Nǐ zài nǎr?', translation: '📍 Где ты?', answer: '我在家。', answerPinyin: 'Wǒ zài jiā.', answerTranslation: 'Я дома.', note: 'Спрашиваем местоположение (без 人)' },
-        { question: '你住在哪里？', pinyin: 'Nǐ zhù zài nǎlǐ?', translation: '🏠 Где ты живёшь?', answer: '我住在北京。', answerPinyin: 'Wǒ zhù zài Běijīng.', answerTranslation: 'Я живу в Пекине.', note: 'Спрашиваем место жительства' },
-    ];
+        // ===== 6. 谁 =====
+        const sheiData = [
+            { q: '他是谁？', p: 'Tā shì shéi?', t: '👤 Кто он?', a: '他是我的老师。', ap: 'Tā shì wǒ de lǎoshī.', at: 'Он мой учитель.', note: 'Спрашиваем личность' },
+            { q: '谁来了？', p: 'Shéi lái le?', t: '🚪 Кто пришёл?', a: '我的朋友来了。', ap: 'Wǒ de péngyou lái le.', at: 'Пришёл мой друг.', note: 'Кто совершил действие' },
+            { q: '谁是你的老师？', p: 'Shéi shì nǐ de lǎoshī?', t: '👨‍🏫 Кто твой учитель?', a: '张老师是我的老师。', ap: 'Zhāng lǎoshī shì wǒ de lǎoshī.', at: 'Учитель Чжан — мой учитель.', note: 'Кто является' },
+            { q: '你找谁？', p: 'Nǐ zhǎo shéi?', t: '🔍 Кого ты ищешь?', a: '我找李老师。', ap: 'Wǒ zhǎo Lǐ lǎoshī.', at: 'Я ищу учителя Ли.', note: 'Кого ищешь' },
+            { q: '谁在那儿？', p: 'Shéi zài nàr?', t: '👀 Кто там?', a: '是我的朋友。', ap: 'Shì wǒ de péngyou.', at: 'Это мой друг.', note: 'Кто находится' },
+        ];
 
-    // Вопросы со счётными словами (12)
-    const counterQuestionsData = [
-        { question: '几个人？', pinyin: 'Jǐ ge rén?', translation: '👥 Сколько людей?', answer: '三个人。', answerPinyin: 'Sān ge rén.', answerTranslation: 'Три человека.', note: 'Счётчик 个 для людей' },
-        { question: '几本书？', pinyin: 'Jǐ běn shū?', translation: '📚 Сколько книг?', answer: '五本书。', answerPinyin: 'Wǔ běn shū.', answerTranslation: 'Пять книг.', note: 'Счётчик 本 для книг' },
-        { question: '几辆车？', pinyin: 'Jǐ liàng chē?', translation: '🚗 Сколько машин?', answer: '两辆车。', answerPinyin: 'Liǎng liàng chē.', answerTranslation: 'Две машины.', note: 'Счётчик 辆 для машин' },
-        { question: '几杯茶？', pinyin: 'Jǐ bēi chá?', translation: '☕ Сколько чашек чая?', answer: '四杯茶。', answerPinyin: 'Sì bēi chá.', answerTranslation: 'Четыре чашки чая.', note: 'Счётчик 杯 для чашек' },
-        { question: '几条路？', pinyin: 'Jǐ tiáo lù?', translation: '🛣️ Сколько дорог?', answer: '两条路。', answerPinyin: 'Liǎng tiáo lù.', answerTranslation: 'Две дороги.', note: 'Счётчик 条 для длинных предметов' },
-        { question: '几件事？', pinyin: 'Jǐ jiàn shì?', translation: '📋 Сколько дел?', answer: '一件事。', answerPinyin: 'Yī jiàn shì.', answerTranslation: 'Одно дело.', note: 'Счётчик 件 для дел/одежды' },
-        { question: '几张纸？', pinyin: 'Jǐ zhāng zhǐ?', translation: '📄 Сколько листов бумаги?', answer: '六张纸。', answerPinyin: 'Liù zhāng zhǐ.', answerTranslation: 'Шесть листов бумаги.', note: 'Счётчик 张 для плоских предметов' },
-        { question: '几只狗？', pinyin: 'Jǐ zhī gǒu?', translation: '🐕 Сколько собак?', answer: '两只狗。', answerPinyin: 'Liǎng zhī gǒu.', answerTranslation: 'Две собаки.', note: 'Счётчик 只 для животных' },
-        { question: '几双鞋？', pinyin: 'Jǐ shuāng xié?', translation: '👟 Сколько пар обуви?', answer: '三双鞋。', answerPinyin: 'Sān shuāng xié.', answerTranslation: 'Три пары обуви.', note: 'Счётчик 双 для пар' },
-        { question: '几块钱？', pinyin: 'Jǐ kuài qián?', translation: '💰 Сколько юаней?', answer: '十块钱。', answerPinyin: 'Shí kuài qián.', answerTranslation: 'Десять юаней.', note: 'Счётчик 块 для денег' },
-        { question: '几把刀？', pinyin: 'Jǐ bǎ dāo?', translation: '🔪 Сколько ножей?', answer: '两把刀。', answerPinyin: 'Liǎng bǎ dāo.', answerTranslation: 'Два ножа.', note: 'Счётчик 把 для предметов с ручкой' },
-        { question: '几瓶水？', pinyin: 'Jǐ píng shuǐ?', translation: '🍾 Сколько бутылок воды?', answer: '四瓶水。', answerPinyin: 'Sì píng shuǐ.', answerTranslation: 'Четыре бутылки воды.', note: 'Счётчик 瓶 для бутылок' },
-    ];
+        // ===== 7. 什么人 =====
+        const shenmerenData = [
+            { q: '他是什么人？', p: 'Tā shì shénme rén?', t: '💼 Что он за человек?', a: '他是医生。', ap: 'Tā shì yīshēng.', at: 'Он врач.', note: 'Спрашиваем профессию' },
+            { q: '你是什么人？', p: 'Nǐ shì shénme rén?', t: '❓ Кто ты такой?', a: '我是学生。', ap: 'Wǒ shì xuéshēng.', at: 'Я студент.', note: 'Спрашиваем статус' },
+            { q: '她是什么人？', p: 'Tā shì shénme rén?', t: '👩 Что она за человек?', a: '她是老师。', ap: 'Tā shì lǎoshī.', at: 'Она учитель.', note: 'Спрашиваем профессию' },
+            { q: '他们是什么人？', p: 'Tāmen shì shénme rén?', t: '👥 Что они за люди?', a: '他们是我的家人。', ap: 'Tāmen shì wǒ de jiārén.', at: 'Они моя семья.', note: 'Кто они' },
+            { q: '那个人是什么人？', p: 'Nàge rén shì shénme rén?', t: '🧐 Кто тот человек?', a: '他是我的老板。', ap: 'Tā shì wǒ de lǎobǎn.', at: 'Он мой босс.', note: 'Кто тот человек' },
+        ];
 
-    // ================================================================
-    // 2. ФУНКЦИИ
-    // ================================================================
+        // ===== 8. 哪个人 =====
+        const nagerenData = [
+            { q: '哪个人是你弟弟？', p: 'Nǎ ge rén shì nǐ dìdi?', t: '👦 Который из них твой брат?', a: '那个人是我弟弟。', ap: 'Nàge rén shì wǒ dìdi.', at: 'Тот человек — мой младший брат.', note: 'Выбор из людей' },
+            { q: '哪个人是你的朋友？', p: 'Nǎ ge rén shì nǐ de péngyou?', t: '🤝 Кто из них твой друг?', a: '那个高个子是我的朋友。', ap: 'Nàge gāo gèzi shì wǒ de péngyou.', at: 'Тот высокий — мой друг.', note: 'Выбор друга' },
+            { q: '哪个人是老师？', p: 'Nǎ ge rén shì lǎoshī?', t: '👨‍🏫 Кто из них учитель?', a: '那位女士是老师。', ap: 'Nà wèi nǚshì shì lǎoshī.', at: 'Та женщина — учитель.', note: 'Выбор учителя' },
+            { q: '哪个人是你妈妈？', p: 'Nǎ ge rén shì nǐ māma?', t: '👩 Кто из них твоя мама?', a: '我妈妈在那边。', ap: 'Wǒ māma zài nàbiān.', at: 'Моя мама вон там.', note: 'Выбор мамы' },
+            { q: '哪个人最帅？', p: 'Nǎ ge rén zuì shuài?', t: '😎 Кто из них самый красивый?', a: '那个男生最帅。', ap: 'Nàge nánshēng zuì shuài.', at: 'Тот парень самый красивый.', note: 'Выбор самого красивого' },
+        ];
 
-    function speakChinese(text) {
-        if (!text || !window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        setTimeout(() => {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.6;
-            window.speechSynthesis.speak(utterance);
-        }, 50);
-    }
-    window.speakChinese = speakChinese;
+        // ===== 9. 什么时候 =====
+        const shenmeshihouData = [
+            { q: '你什么时候来？', p: 'Nǐ shénme shíhou lái?', t: '📅 Когда ты придёшь?', a: '我明天来。', ap: 'Wǒ míngtiān lái.', at: 'Я приду завтра.', note: 'Спрашиваем день' },
+            { q: '你什么时候去北京？', p: 'Nǐ shénme shíhou qù Běijīng?', t: '✈️ Когда ты едешь в Пекин?', a: '我下个月去。', ap: 'Wǒ xià ge yuè qù.', at: 'Я поеду в следующем месяце.', note: 'Спрашиваем месяц' },
+            { q: '你们什么时候考试？', p: 'Nǐmen shénme shíhou kǎoshì?', t: '📝 Когда у вас экзамен?', a: '我们下星期考试。', ap: 'Wǒmen xià xīngqī kǎoshì.', at: 'У нас экзамен на следующей неделе.', note: 'Спрашиваем неделю' },
+            { q: '你什么时候起床？', p: 'Nǐ shénme shíhou qǐchuáng?', t: '🌅 Когда ты встаёшь?', a: '我七点起床。', ap: 'Wǒ qī diǎn qǐchuáng.', at: 'Я встаю в 7 часов.', note: 'Спрашиваем время суток' },
+            { q: '你什么时候回家？', p: 'Nǐ shénme shíhou huí jiā?', t: '🏠 Когда ты возвращаешься домой?', a: '我晚上八点回家。', ap: 'Wǒ wǎnshang bā diǎn huí jiā.', at: 'Я возвращаюсь домой в 8 вечера.', note: 'Спрашиваем время' },
+        ];
 
-    function toggleAccordion(header) {
-        const body = header.nextElementSibling;
-        const arrow = header.querySelector('.arrow');
-        body.classList.toggle('open');
-        arrow.classList.toggle('open');
-    }
+        // ===== 10. 几点 =====
+        const jidianData = [
+            { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在三点。', ap: 'Xiànzài sān diǎn.', at: 'Сейчас 3 часа.', note: 'Точное время' },
+            { q: '我们几点见面？', p: 'Wǒmen jǐ diǎn jiànmiàn?', t: '🤝 Во сколько мы встретимся?', a: '我们五点见面。', ap: 'Wǒmen wǔ diǎn jiànmiàn.', at: 'Мы встретимся в 5 часов.', note: 'Время встречи' },
+            { q: '你几点起床？', p: 'Nǐ jǐ diǎn qǐchuáng?', t: '⏰ Во сколько ты встаёшь?', a: '我六点半起床。', ap: 'Wǒ liù diǎn bàn qǐchuáng.', at: 'Я встаю в 6:30.', note: 'Время подъёма' },
+            { q: '电影几点开始？', p: 'Diànyǐng jǐ diǎn kāishǐ?', t: '🎬 Во сколько начинается фильм?', a: '电影七点开始。', ap: 'Diànyǐng qī diǎn kāishǐ.', at: 'Фильм начинается в 7 часов.', note: 'Время начала' },
+            { q: '你几点下班？', p: 'Nǐ jǐ diǎn xiàbān?', t: '💼 Во сколько ты заканчиваешь работу?', a: '我六点下班。', ap: 'Wǒ liù diǎn xiàbān.', at: 'Я заканчиваю работу в 6 часов.', note: 'Время окончания работы' },
+        ];
 
-    function renderAccordionCards(containerId, data, type) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        let html = '';
-        for (const item of data) {
-            const safeQ = item.question.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const safeA = item.answer.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            html += `
-                <div class="accordion-card ${type}">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <span>
-                            <span class="q-chinese" onclick="event.stopPropagation(); speakChinese('${safeQ}')">${item.question}</span>
-                            <span class="q-pinyin">${item.pinyin}</span>
-                            <span class="q-translation">${item.translation}</span>
-                            <span class="q-tag" style="background:${type === 'profession' ? '#2980B9' : type === 'name' ? '#27AE60' : type === 'age' ? '#E67E22' : type === 'place' ? '#8E44AD' : '#9C27B0'};">${type}</span>
-                        </span>
-                        <button class="q-speak" onclick="event.stopPropagation(); speakChinese('${safeQ}')">🔊</button>
-                        <span class="arrow">▼</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div>
-                            <span class="answer-chinese" onclick="speakChinese('${safeA}')">${item.answer}</span>
-                            <span class="answer-pinyin">${item.answerPinyin}</span>
+        // ===== 11. 为什么 =====
+        const weishenmeData = [
+            { q: '你为什么笑？', p: 'Nǐ wèishénme xiào?', t: '❓ Почему ты смеёшься?', a: '因为很好笑。', ap: 'Yīnwèi hěn hǎoxiào.', at: 'Потому что очень смешно.', note: 'Причина' },
+            { q: '为什么你学习中文？', p: 'Wèishénme nǐ xuéxí zhōngwén?', t: '🇨🇳 Почему ты учишь китайский?', a: '因为我对中文感兴趣。', ap: 'Yīnwèi wǒ duì zhōngwén gǎn xìngqù.', at: 'Потому что мне интересен китайский.', note: 'Причина' },
+            { q: '你为什么迟到？', p: 'Nǐ wèishénme chídào?', t: '⏰ Почему ты опоздал?', a: '因为堵车了。', ap: 'Yīnwèi dǔchē le.', at: 'Потому что были пробки.', note: 'Причина опоздания' },
+            { q: '为什么不吃早饭？', p: 'Wèishénme bù chī zǎofàn?', t: '🍳 Почему не завтракаешь?', a: '因为我没有时间。', ap: 'Yīnwèi wǒ méiyǒu shíjiān.', at: 'Потому что у меня нет времени.', note: 'Причина' },
+            { q: '为什么你爱我？', p: 'Wèishénme nǐ ài wǒ?', t: '❤️ Почему ты меня любишь?', a: '因为你很善良。', ap: 'Yīnwèi nǐ hěn shànliáng.', at: 'Потому что ты добрая.', note: 'Причина любви' },
+        ];
+
+        // ===== 12. 多少 =====
+        const duoshaoData = [
+            { q: '这多少钱？', p: 'Zhè duōshao qián?', t: '💰 Сколько это стоит?', a: '这个一百块。', ap: 'Zhège yībǎi kuài.', at: 'Это стоит 100 юаней.', note: 'Цена' },
+            { q: '你们有多少人？', p: 'Nǐmen yǒu duōshao rén?', t: '👥 Сколько у вас человек?', a: '我们有五十个人。', ap: 'Wǒmen yǒu wǔshí ge rén.', at: 'У нас 50 человек.', note: 'Большое количество' },
+            { q: '这个城市有多少人口？', p: 'Zhège chéngshì yǒu duōshao rénkǒu?', t: '🏙️ Сколько населения в этом городе?', a: '有一千万人口。', ap: 'Yǒu yīqiān wàn rénkǒu.', at: '10 миллионов человек.', note: 'Большое число' },
+            { q: '你有多少钱？', p: 'Nǐ yǒu duōshao qián?', t: '💰 Сколько у тебя денег?', a: '我没有很多钱。', ap: 'Wǒ méiyǒu hěnduō qián.', at: 'У меня не много денег.', note: 'Количество денег' },
+            { q: '这本书多少页？', p: 'Zhè běn shū duōshao yè?', t: '📄 Сколько страниц в этой книге?', a: '有三百页。', ap: 'Yǒu sānbǎi yè.', at: '300 страниц.', note: 'Количество страниц' },
+        ];
+
+        // ===== 13. 几 =====
+        const jiData = [
+            { q: '你几岁？', p: 'Nǐ jǐ suì?', t: '🎂 Сколько тебе лет?', a: '我八岁。', ap: 'Wǒ bā suì.', at: 'Мне 8 лет.', note: 'Возраст до 10 → 几' },
+            { q: '你们有几个人？', p: 'Nǐmen yǒu jǐ ge rén?', t: '👥 Сколько вас человек?', a: '我们有两个人。', ap: 'Wǒmen yǒu liǎng ge rén.', at: 'Нас двое.', note: 'Малое число → 几 + 个' },
+            { q: '你要几本书？', p: 'Nǐ yào jǐ běn shū?', t: '📚 Сколько книг тебе нужно?', a: '我要两本书。', ap: 'Wǒ yào liǎng běn shū.', at: 'Мне нужно две книги.', note: 'Малое число → 几 + 本' },
+            { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在八点。', ap: 'Xiànzài bā diǎn.', at: 'Сейчас 8 часов.', note: 'Время → 几 + 点' },
+            { q: '你有几个朋友？', p: 'Nǐ yǒu jǐ ge péngyou?', t: '🤝 Сколько у тебя друзей?', a: '我有五个朋友。', ap: 'Wǒ yǒu wǔ ge péngyou.', at: 'У меня 5 друзей.', note: 'Малое число → 几 + 个' },
+        ];
+
+        // ===== 14. 哪儿 =====
+        const naerData = [
+            { q: '你在哪儿？', p: 'Nǐ zài nǎr?', t: '🗣️ Ты где?', a: '我在家。', ap: 'Wǒ zài jiā.', at: 'Я дома.', note: 'Разговорный вопрос' },
+            { q: '你去哪儿？', p: 'Nǐ qù nǎr?', t: '🚶 Куда ты идёшь?', a: '我去学校。', ap: 'Wǒ qù xuéxiào.', at: 'Я иду в школу.', note: 'Разговорный вопрос' },
+            { q: '你住在哪儿？', p: 'Nǐ zhù zài nǎr?', t: '🏠 Где ты живёшь?', a: '我住在北京。', ap: 'Wǒ zhù zài Běijīng.', at: 'Я живу в Пекине.', note: 'Разговорный вопрос' },
+            { q: '厕所在哪儿？', p: 'Cèsuǒ zài nǎr?', t: '🚻 Где туалет?', a: '厕所在那儿。', ap: 'Cèsuǒ zài nàr.', at: 'Туалет вон там.', note: 'Разговорный вопрос' },
+            { q: '超市在哪儿？', p: 'Chāoshì zài nǎr?', t: '🛒 Где супермаркет?', a: '超市在对面。', ap: 'Chāoshì zài duìmiàn.', at: 'Супермаркет напротив.', note: 'Разговорный вопрос' },
+        ];
+
+        // ===== 15. 哪里 =====
+        const naliData = [
+            { q: '你是哪里人？', p: 'Nǐ shì nǎlǐ rén?', t: '🌍 Откуда ты родом?', a: '我是俄罗斯人。', ap: 'Wǒ shì Éluósī rén.', at: 'Я из России.', note: 'Национальность → с 人' },
+            { q: '你来自哪里？', p: 'Nǐ láizì nǎlǐ?', t: '🌏 Откуда ты приехал?', a: '我来自莫斯科。', ap: 'Wǒ láizì Mòsīkē.', at: 'Я из Москвы.', note: 'Формальный вопрос' },
+            { q: '你在哪里工作？', p: 'Nǐ zài nǎlǐ gōngzuò?', t: '💼 Где ты работаешь?', a: '我在学校工作。', ap: 'Wǒ zài xuéxiào gōngzuò.', at: 'Я работаю в школе.', note: 'Формальный вопрос' },
+            { q: '学校在哪里？', p: 'Xuéxiào zài nǎlǐ?', t: '🏫 Где находится школа?', a: '学校在公园旁边。', ap: 'Xuéxiào zài gōngyuán pángbiān.', at: 'Школа рядом с парком.', note: 'Формальный вопрос' },
+            { q: '银行在哪里？', p: 'Yínháng zài nǎlǐ?', t: '🏦 Где находится банк?', a: '银行在超市旁边。', ap: 'Yínháng zài chāoshì pángbiān.', at: 'Банк рядом с супермаркетом.', note: 'Формальный вопрос' },
+        ];
+
+        // ===== 16. 干什么 =====
+        const ganshenmeData = [
+            { q: '你在干什么？', p: 'Nǐ zài gàn shénme?', t: '🔨 Что ты делаешь?', a: '我在看书。', ap: 'Wǒ zài kàn shū.', at: 'Я читаю книгу.', note: 'Спрашиваем о текущем действии' },
+            { q: '你想干什么？', p: 'Nǐ xiǎng gàn shénme?', t: '🤔 Что ты хочешь делать?', a: '我想看电影。', ap: 'Wǒ xiǎng kàn diànyǐng.', at: 'Я хочу посмотреть фильм.', note: 'Спрашиваем о желании' },
+            { q: '你打算干什么？', p: 'Nǐ dǎsuàn gàn shénme?', t: '📋 Что ты планируешь делать?', a: '我打算去旅行。', ap: 'Wǒ dǎsuàn qù lǚxíng.', at: 'Я планирую путешествовать.', note: 'Спрашиваем о планах' },
+            { q: '他正在干什么？', p: 'Tā zhèngzài gàn shénme?', t: '👀 Что он сейчас делает?', a: '他正在做饭。', ap: 'Tā zhèngzài zuòfàn.', at: 'Он готовит еду.', note: 'Спрашиваем о действии другого' },
+            { q: '你周末干什么？', p: 'Nǐ zhōumò gàn shénme?', t: '🗓️ Что ты делаешь на выходных?', a: '我周末去公园。', ap: 'Wǒ zhōumò qù gōngyuán.', at: 'Я иду в парк на выходных.', note: 'Спрашиваем о планах на выходные' },
+        ];
+
+        // ===== ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ =====
+        const counterQuestionsData = [
+            { q: '几个人？', p: 'Jǐ ge rén?', t: '👥 Сколько людей?', a: '三个人。', ap: 'Sān ge rén.', at: 'Три человека.', note: 'Счётчик 个 для людей' },
+            { q: '几本书？', p: 'Jǐ běn shū?', t: '📚 Сколько книг?', a: '五本书。', ap: 'Wǔ běn shū.', at: 'Пять книг.', note: 'Счётчик 本 для книг' },
+            { q: '几辆车？', p: 'Jǐ liàng chē?', t: '🚗 Сколько машин?', a: '两辆车。', ap: 'Liǎng liàng chē.', at: 'Две машины.', note: 'Счётчик 辆 для машин' },
+            { q: '几杯茶？', p: 'Jǐ bēi chá?', t: '☕ Сколько чашек чая?', a: '四杯茶。', ap: 'Sì bēi chá.', at: 'Четыре чашки чая.', note: 'Счётчик 杯 для чашек' },
+            { q: '几条路？', p: 'Jǐ tiáo lù?', t: '🛣️ Сколько дорог?', a: '两条路。', ap: 'Liǎng tiáo lù.', at: 'Две дороги.', note: 'Счётчик 条 для длинных' },
+            { q: '几件事？', p: 'Jǐ jiàn shì?', t: '📋 Сколько дел?', a: '一件事。', ap: 'Yī jiàn shì.', at: 'Одно дело.', note: 'Счётчик 件 для дел' },
+            { q: '几张纸？', p: 'Jǐ zhāng zhǐ?', t: '📄 Сколько листов бумаги?', a: '六张纸。', ap: 'Liù zhāng zhǐ.', at: 'Шесть листов бумаги.', note: 'Счётчик 张 для плоских' },
+            { q: '几只狗？', p: 'Jǐ zhī gǒu?', t: '🐕 Сколько собак?', a: '两只狗。', ap: 'Liǎng zhī gǒu.', at: 'Две собаки.', note: 'Счётчик 只 для животных' },
+            { q: '几双鞋？', p: 'Jǐ shuāng xié?', t: '👟 Сколько пар обуви?', a: '三双鞋。', ap: 'Sān shuāng xié.', at: 'Три пары обуви.', note: 'Счётчик 双 для пар' },
+            { q: '几块钱？', p: 'Jǐ kuài qián?', t: '💰 Сколько юаней?', a: '十块钱。', ap: 'Shí kuài qián.', at: 'Десять юаней.', note: 'Счётчик 块 для денег' },
+            { q: '几把刀？', p: 'Jǐ bǎ dāo?', t: '🔪 Сколько ножей?', a: '两把刀。', ap: 'Liǎng bǎ dāo.', at: 'Два ножа.', note: 'Счётчик 把 для предметов с ручкой' },
+            { q: '几瓶水？', p: 'Jǐ píng shuǐ?', t: '🍾 Сколько бутылок воды?', a: '四瓶水。', ap: 'Sì píng shuǐ.', at: 'Четыре бутылки воды.', note: 'Счётчик 瓶 для бутылок' },
+        ];
+
+        // ================================================================
+        // 2. ФУНКЦИИ
+        // ================================================================
+
+        function speakChinese(text) {
+            if (!text || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.6;
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+        }
+        window.speakChinese = speakChinese;
+
+        function toggleAccordion(header) {
+            const body = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+            body.classList.toggle('open');
+            arrow.classList.toggle('open');
+        }
+
+        function renderAccordionCards(containerId, data, type, color) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            let html = '';
+            for (const item of data) {
+                const safeQ = item.q.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const safeA = item.a.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                html += `
+                    <div class="accordion-card ${type}">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>
+                                <span class="q-chinese" onclick="event.stopPropagation(); speakChinese('${safeQ}')">${item.q}</span>
+                                <span class="q-pinyin">${item.p}</span>
+                                <span class="q-translation">${item.t}</span>
+                                <span class="q-tag" style="background:${color};">${type}</span>
+                            </span>
+                            <button class="q-speak" onclick="event.stopPropagation(); speakChinese('${safeQ}')">🔊</button>
+                            <span class="arrow">▼</span>
                         </div>
-                        <div class="answer-translation">${item.answerTranslation}</div>
-                        <button class="answer-speak" onclick="speakChinese('${safeA}')">🔊 Озвучить ответ</button>
-                        ${item.note ? `<div class="answer-note">💡 <strong>${item.note}</strong></div>` : ''}
+                        <div class="accordion-body">
+                            <div>
+                                <span class="answer-chinese" onclick="speakChinese('${safeA}')">${item.a}</span>
+                                <span class="answer-pinyin">${item.ap}</span>
+                            </div>
+                            <div class="answer-translation">${item.at}</div>
+                            <button class="answer-speak" onclick="speakChinese('${safeA}')">🔊 Озвучить ответ</button>
+                            ${item.note ? `<div class="answer-note">💡 <strong>${item.note}</strong></div>` : ''}
+                        </div>
                     </div>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-    }
-
-    function renderCounters() {
-        const grid = document.getElementById('countersGrid');
-        let html = '';
-        for (const c of countersData) {
-            html += `
-                <div class="counter-card">
-                    <span class="counter-char" onclick="speakChinese('${c.char}')">${c.char}</span>
-                    <span class="counter-pinyin">${c.pinyin}</span>
-                    <div class="counter-use">${c.use}</div>
-                    <span class="counter-example" onclick="speakChinese('${c.example}')">${c.example}</span>
-                </div>
-            `;
-        }
-        grid.innerHTML = html;
-    }
-
-    // ================================================================
-    // 3. ИГРЫ (полный код из предыдущей версии)
-    // ================================================================
-
-    const game1Questions = [
-        { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем профессию → вариантов много' },
-        { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'], hint: 'Выбор из книг → нужен счётчик 本' },
-        { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'], hint: 'Способ действия' },
-        { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем имя' },
-        { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'], hint: 'Маленькое число → 几 + счётное' },
-        { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'], hint: 'Цена → используем 多少' },
-        { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'], hint: 'Повседневный → 哪儿' },
-        { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'], hint: 'Национальность → 哪里 + 人' },
-        { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'], hint: 'Удивление → 怎么' },
-        { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'], hint: 'Причина → 为什么' },
-        { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'], hint: 'Выбор из тортов → нужен счётчик 个' },
-        { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Фруктов много → открытый вопрос' },
-        { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], hint: 'Внешность, вид' },
-        { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], hint: 'Состояние → "как дела?"' },
-        { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], hint: 'Выбор из людей → нужен счётчик 个' },
-        { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'], hint: 'Спрашиваем о действии' },
-    ];
-
-    const counterItems = [
-        { item: '📚 书 (книга)', correct: '本' },
-        { item: '🚗 车 (машина)', correct: '辆' },
-        { item: '☕ 茶 (чай)', correct: '杯' },
-        { item: '🐕 狗 (собака)', correct: '只' },
-        { item: '👟 鞋 (обувь)', correct: '双' },
-        { item: '💰 钱 (деньги)', correct: '块' },
-        { item: '📄 纸 (бумага)', correct: '张' },
-        { item: '👔 衣服 (одежда)', correct: '件' },
-        { item: '🛣️ 路 (дорога)', correct: '条' },
-        { item: '🔪 刀 (нож)', correct: '把' },
-        { item: '🍾 水 (бутылка)', correct: '瓶' },
-        { item: '🍎 苹果 (яблоко)', correct: '个' },
-        { item: '📖 杂志 (журнал)', correct: '本' },
-        { item: '🖼️ 照片 (фото)', correct: '张' },
-    ];
-
-    const matchPairs = [
-        { item: '📚 书 (книга)', counter: '本' },
-        { item: '🚗 车 (машина)', counter: '辆' },
-        { item: '☕ 茶 (чай)', counter: '杯' },
-        { item: '🐕 狗 (собака)', counter: '只' },
-        { item: '👟 鞋 (обувь)', counter: '双' },
-        { item: '💰 钱 (деньги)', counter: '块' },
-        { item: '📄 纸 (бумага)', counter: '张' },
-        { item: '👔 衣服 (одежда)', counter: '件' },
-        { item: '🛣️ 路 (дорога)', counter: '条' },
-        { item: '🔪 刀 (нож)', counter: '把' },
-        { item: '🍾 水 (бутылка)', counter: '瓶' },
-        { item: '🍎 苹果 (яблоко)', counter: '个' },
-    ];
-
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-
-    // ===== ИГРА 1 =====
-    let g1Questions = [];
-    let g1Index = 0;
-    let g1Score = 0;
-    let g1Mistakes = 0;
-    let g1Answered = false;
-
-    const g1Q = document.getElementById('game1Question');
-    const g1T = document.getElementById('game1Translation');
-    const g1H = document.getElementById('game1Hint');
-    const g1Opt = document.getElementById('game1Options');
-    const g1Res = document.getElementById('game1Result');
-    const g1ScoreEl = document.getElementById('game1Score');
-    const g1TotalEl = document.getElementById('game1Total');
-    const g1MistEl = document.getElementById('game1Mistakes');
-
-    function initGame1() {
-        const shuffled = shuffleArray([...game1Questions]);
-        g1Questions = shuffled.slice(0, 10);
-        g1Index = 0;
-        g1Score = 0;
-        g1Mistakes = 0;
-        g1Answered = false;
-        updateGame1Stats();
-        showGame1Question();
-    }
-
-    function showGame1Question() {
-        if (g1Index >= g1Questions.length) {
-            g1Q.textContent = '🎉 Поздравляем!';
-            g1T.textContent = `Правильных: ${g1Score} из ${g1Questions.length}`;
-            g1H.textContent = '';
-            g1Opt.innerHTML = '';
-            g1Res.textContent = `🎊 Ошибок: ${g1Mistakes}`;
-            g1Res.className = 'game-result correct';
-            return;
+                `;
+            }
+            container.innerHTML = html;
         }
 
-        const q = g1Questions[g1Index];
-        g1Q.textContent = q.chinese;
-        g1T.textContent = q.translation;
-        g1H.textContent = '💡 ' + q.hint;
-
-        const shuffledOpt = shuffleArray([...q.options]);
-        let html = '';
-        for (const opt of shuffledOpt) {
-            html += `<button data-answer="${opt}">${opt}</button>`;
-        }
-        g1Opt.innerHTML = html;
-        g1Res.textContent = '';
-        g1Res.className = 'game-result';
-        g1Answered = false;
-
-        document.querySelectorAll('#game1Options button').forEach(btn => {
-            btn.disabled = false;
-            btn.className = '';
-            btn.addEventListener('click', handleGame1Answer);
-        });
-    }
-
-    function handleGame1Answer(e) {
-        if (g1Answered) return;
-        if (g1Index >= g1Questions.length) return;
-
-        const btn = e.currentTarget;
-        const selected = btn.dataset.answer;
-        const q = g1Questions[g1Index];
-        const isCorrect = selected === q.correct;
-
-        document.querySelectorAll('#game1Options button').forEach(b => {
-            b.disabled = true;
-            b.classList.add('disabled');
-            if (b.dataset.answer === q.correct) b.classList.add('correct');
-            else if (b.dataset.answer === selected && !isCorrect) b.classList.add('wrong');
-        });
-
-        if (isCorrect) {
-            g1Score++;
-            g1Res.textContent = '✅ Правильно! ' + q.hint;
-            g1Res.className = 'game-result correct';
-        } else {
-            g1Mistakes++;
-            g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct + ' — ' + q.hint;
-            g1Res.className = 'game-result wrong';
+        function renderCounters() {
+            const grid = document.getElementById('countersGrid');
+            let html = '';
+            for (const c of countersData) {
+                html += `
+                    <div class="counter-card">
+                        <span class="counter-char" onclick="speakChinese('${c.char}')">${c.char}</span>
+                        <span class="counter-pinyin">${c.pinyin}</span>
+                        <div class="counter-use">${c.use}</div>
+                        <span class="counter-example" onclick="speakChinese('${c.example}')">${c.example}</span>
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
         }
 
-        speakChinese(q.chinese.replace('__', q.correct));
-        g1Answered = true;
-        updateGame1Stats();
-    }
+        // ================================================================
+        // 3. ОТОБРАЖЕНИЕ ВСЕХ РАЗДЕЛОВ
+        // ================================================================
 
-    function updateGame1Stats() {
-        g1ScoreEl.textContent = g1Score;
-        g1TotalEl.textContent = g1Questions.length;
-        g1MistEl.textContent = g1Mistakes;
-    }
+        renderAccordionCards('shenmeContainer', shenmeData, '什么', '#E67E22');
+        renderAccordionCards('naContainer', naData, '哪', '#2980B9');
+        renderAccordionCards('zenmeContainer', zenmeData, '怎么', '#1ABC9C');
+        renderAccordionCards('zenmeyangContainer', zenmeyangData, '怎么样', '#F39C12');
+        renderAccordionCards('shenmeyangContainer', shenmeyangData, '什么样', '#F39C12');
+        renderAccordionCards('sheiContainer', sheiData, '谁', '#E74C3C');
+        renderAccordionCards('shenmerenContainer', shenmerenData, '什么人', '#E67E22');
+        renderAccordionCards('nagerenContainer', nagerenData, '哪个人', '#2980B9');
+        renderAccordionCards('shenmeshihouContainer', shenmeshihouData, '什么时候', '#16A085');
+        renderAccordionCards('jidianContainer', jidianData, '几点', '#2980B9');
+        renderAccordionCards('weishenmeContainer', weishenmeData, '为什么', '#C0392B');
+        renderAccordionCards('duoshaoContainer', duoshaoData, '多少', '#27AE60');
+        renderAccordionCards('jiContainer', jiData, '几', '#8E44AD');
+        renderAccordionCards('naerContainer', naerData, '哪儿', '#2C3E50');
+        renderAccordionCards('naliContainer', naliData, '哪里', '#2C3E50');
+        renderAccordionCards('ganshenmeContainer', ganshenmeData, '干什么', '#D35400');
 
-    document.getElementById('game1Next').addEventListener('click', function() {
-        if (g1Index < g1Questions.length) {
-            g1Index++;
+        // Вопросы со счётными словами
+        renderAccordionCards('counterQuestionsContainer', counterQuestionsData, 'счётное', '#9C27B0');
+
+        renderCounters();
+
+        // ================================================================
+        // 4. ИГРЫ
+        // ================================================================
+
+        const game1Questions = [
+            { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем профессию → вариантов много' },
+            { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'], hint: 'Выбор из книг → нужен счётчик 本' },
+            { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'], hint: 'Способ действия' },
+            { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем имя' },
+            { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'], hint: 'Маленькое число → 几 + счётное' },
+            { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'], hint: 'Цена → используем 多少' },
+            { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'], hint: 'Повседневный → 哪儿' },
+            { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'], hint: 'Национальность → 哪里 + 人' },
+            { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'], hint: 'Удивление → 怎么' },
+            { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'], hint: 'Причина → 为什么' },
+            { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'], hint: 'Выбор из тортов → нужен счётчик 个' },
+            { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Фруктов много → открытый вопрос' },
+            { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], hint: 'Внешность, вид' },
+            { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], hint: 'Состояние → "как дела?"' },
+            { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], hint: 'Выбор из людей → нужен счётчик 个' },
+            { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'], hint: 'Спрашиваем о действии' },
+        ];
+
+        const counterItems = [
+            { item: '📚 书 (книга)', correct: '本' },
+            { item: '🚗 车 (машина)', correct: '辆' },
+            { item: '☕ 茶 (чай)', correct: '杯' },
+            { item: '🐕 狗 (собака)', correct: '只' },
+            { item: '👟 鞋 (обувь)', correct: '双' },
+            { item: '💰 钱 (деньги)', correct: '块' },
+            { item: '📄 纸 (бумага)', correct: '张' },
+            { item: '👔 衣服 (одежда)', correct: '件' },
+            { item: '🛣️ 路 (дорога)', correct: '条' },
+            { item: '🔪 刀 (нож)', correct: '把' },
+            { item: '🍾 水 (бутылка)', correct: '瓶' },
+            { item: '🍎 苹果 (яблоко)', correct: '个' },
+            { item: '📖 杂志 (журнал)', correct: '本' },
+            { item: '🖼️ 照片 (фото)', correct: '张' },
+        ];
+
+        const matchPairs = [
+            { item: '📚 书 (книга)', counter: '本' },
+            { item: '🚗 车 (машина)', counter: '辆' },
+            { item: '☕ 茶 (чай)', counter: '杯' },
+            { item: '🐕 狗 (собака)', counter: '只' },
+            { item: '👟 鞋 (обувь)', counter: '双' },
+            { item: '💰 钱 (деньги)', counter: '块' },
+            { item: '📄 纸 (бумага)', counter: '张' },
+            { item: '👔 衣服 (одежда)', counter: '件' },
+            { item: '🛣️ 路 (дорога)', counter: '条' },
+            { item: '🔪 刀 (нож)', counter: '把' },
+            { item: '🍾 水 (бутылка)', counter: '瓶' },
+            { item: '🍎 苹果 (яблоко)', counter: '个' },
+        ];
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // ===== ИГРА 1 =====
+        let g1Questions = [],
+            g1Index = 0,
+            g1Score = 0,
+            g1Mistakes = 0,
+            g1Answered = false;
+
+        const g1Q = document.getElementById('game1Question');
+        const g1T = document.getElementById('game1Translation');
+        const g1H = document.getElementById('game1Hint');
+        const g1Opt = document.getElementById('game1Options');
+        const g1Res = document.getElementById('game1Result');
+        const g1ScoreEl = document.getElementById('game1Score');
+        const g1TotalEl = document.getElementById('game1Total');
+        const g1MistEl = document.getElementById('game1Mistakes');
+
+        function initGame1() {
+            const shuffled = shuffleArray([...game1Questions]);
+            g1Questions = shuffled.slice(0, 10);
+            g1Index = 0;
+            g1Score = 0;
+            g1Mistakes = 0;
+            g1Answered = false;
+            updateGame1Stats();
             showGame1Question();
         }
-    });
 
-    document.getElementById('game1Reset').addEventListener('click', function() {
-        initGame1();
-    });
+        function showGame1Question() {
+            if (g1Index >= g1Questions.length) {
+                g1Q.textContent = '🎉 Поздравляем!';
+                g1T.textContent = `Правильных: ${g1Score} из ${g1Questions.length}`;
+                g1H.textContent = '';
+                g1Opt.innerHTML = '';
+                g1Res.textContent = `🎊 Ошибок: ${g1Mistakes}`;
+                g1Res.className = 'game-result correct';
+                return;
+            }
 
-    // ===== ИГРА 2 =====
-    let g2Questions = [];
-    let g2Index = 0;
-    let g2Score = 0;
-    let g2Mistakes = 0;
-    let g2Answered = false;
+            const q = g1Questions[g1Index];
+            g1Q.textContent = q.chinese;
+            g1T.textContent = q.translation;
+            g1H.textContent = '💡 ' + q.hint;
 
-    const g2Q = document.getElementById('game2Question');
-    const g2D = document.getElementById('game2Desc');
-    const g2Opt = document.getElementById('game2Options');
-    const g2Res = document.getElementById('game2Result');
-    const g2ScoreEl = document.getElementById('game2Score');
-    const g2TotalEl = document.getElementById('game2Total');
-    const g2MistEl = document.getElementById('game2Mistakes');
+            const shuffledOpt = shuffleArray([...q.options]);
+            let html = '';
+            for (const opt of shuffledOpt) {
+                html += `<button data-answer="${opt}">${opt}</button>`;
+            }
+            g1Opt.innerHTML = html;
+            g1Res.textContent = '';
+            g1Res.className = 'game-result';
+            g1Answered = false;
 
-    function initGame2() {
-        const shuffled = shuffleArray([...counterItems]);
-        g2Questions = shuffled.slice(0, 10);
-        g2Index = 0;
-        g2Score = 0;
-        g2Mistakes = 0;
-        g2Answered = false;
-        updateGame2Stats();
-        showGame2Question();
-    }
-
-    function showGame2Question() {
-        if (g2Index >= g2Questions.length) {
-            g2Q.textContent = '🎉 Поздравляем!';
-            g2D.textContent = `Правильных: ${g2Score} из ${g2Questions.length}`;
-            g2Opt.innerHTML = '';
-            g2Res.textContent = `🎊 Ошибок: ${g2Mistakes}`;
-            g2Res.className = 'game-result correct';
-            return;
+            document.querySelectorAll('#game1Options button').forEach(btn => {
+                btn.disabled = false;
+                btn.className = '';
+                btn.addEventListener('click', handleGame1Answer);
+            });
         }
 
-        const q = g2Questions[g2Index];
-        g2Q.textContent = q.item;
-        g2D.textContent = 'Выбери правильный счётчик!';
+        function handleGame1Answer(e) {
+            if (g1Answered) return;
+            if (g1Index >= g1Questions.length) return;
 
-        const allCounters = countersData.map(c => c.char);
-        const shuffledCounters = shuffleArray([...allCounters]);
-        let options = [q.correct];
-        const others = shuffledCounters.filter(c => c !== q.correct);
-        for (let i = 0; i < 3 && i < others.length; i++) {
-            options.push(others[i]);
+            const btn = e.currentTarget;
+            const selected = btn.dataset.answer;
+            const q = g1Questions[g1Index];
+            const isCorrect = selected === q.correct;
+
+            document.querySelectorAll('#game1Options button').forEach(b => {
+                b.disabled = true;
+                b.classList.add('disabled');
+                if (b.dataset.answer === q.correct) b.classList.add('correct');
+                else if (b.dataset.answer === selected && !isCorrect) b.classList.add('wrong');
+            });
+
+            if (isCorrect) {
+                g1Score++;
+                g1Res.textContent = '✅ Правильно! ' + q.hint;
+                g1Res.className = 'game-result correct';
+            } else {
+                g1Mistakes++;
+                g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct + ' — ' + q.hint;
+                g1Res.className = 'game-result wrong';
+            }
+
+            speakChinese(q.chinese.replace('__', q.correct));
+            g1Answered = true;
+            updateGame1Stats();
         }
-        const finalOptions = shuffleArray(options);
 
-        let html = '';
-        for (const opt of finalOptions) {
-            html += `<button data-answer="${opt}">${opt}</button>`;
+        function updateGame1Stats() {
+            g1ScoreEl.textContent = g1Score;
+            g1TotalEl.textContent = g1Questions.length;
+            g1MistEl.textContent = g1Mistakes;
         }
-        g2Opt.innerHTML = html;
-        g2Res.textContent = '';
-        g2Res.className = 'game-result';
-        g2Answered = false;
 
-        document.querySelectorAll('#game2Options button').forEach(btn => {
-            btn.disabled = false;
-            btn.className = '';
-            btn.addEventListener('click', handleGame2Answer);
-        });
-    }
-
-    function handleGame2Answer(e) {
-        if (g2Answered) return;
-        if (g2Index >= g2Questions.length) return;
-
-        const btn = e.currentTarget;
-        const selected = btn.dataset.answer;
-        const q = g2Questions[g2Index];
-        const isCorrect = selected === q.correct;
-
-        document.querySelectorAll('#game2Options button').forEach(b => {
-            b.disabled = true;
-            b.classList.add('disabled');
-            if (b.dataset.answer === q.correct) b.classList.add('correct');
-            else if (b.dataset.answer === selected && !isCorrect) b.classList.add('wrong');
+        document.getElementById('game1Next').addEventListener('click', function() {
+            if (g1Index < g1Questions.length) {
+                g1Index++;
+                showGame1Question();
+            }
         });
 
-        if (isCorrect) {
-            g2Score++;
-            g2Res.textContent = '✅ Правильно!';
-            g2Res.className = 'game-result correct';
-        } else {
-            g2Mistakes++;
-            g2Res.textContent = '❌ Неправильно! Правильно: ' + q.correct;
-            g2Res.className = 'game-result wrong';
-        }
+        document.getElementById('game1Reset').addEventListener('click', function() {
+            initGame1();
+        });
 
-        speakChinese(q.correct);
-        g2Answered = true;
-        updateGame2Stats();
-    }
+        // ===== ИГРА 2 =====
+        let g2Questions = [],
+            g2Index = 0,
+            g2Score = 0,
+            g2Mistakes = 0,
+            g2Answered = false;
 
-    function updateGame2Stats() {
-        g2ScoreEl.textContent = g2Score;
-        g2TotalEl.textContent = g2Questions.length;
-        g2MistEl.textContent = g2Mistakes;
-    }
+        const g2Q = document.getElementById('game2Question');
+        const g2D = document.getElementById('game2Desc');
+        const g2Opt = document.getElementById('game2Options');
+        const g2Res = document.getElementById('game2Result');
+        const g2ScoreEl = document.getElementById('game2Score');
+        const g2TotalEl = document.getElementById('game2Total');
+        const g2MistEl = document.getElementById('game2Mistakes');
 
-    document.getElementById('game2Next').addEventListener('click', function() {
-        if (g2Index < g2Questions.length) {
-            g2Index++;
+        function initGame2() {
+            const shuffled = shuffleArray([...counterItems]);
+            g2Questions = shuffled.slice(0, 10);
+            g2Index = 0;
+            g2Score = 0;
+            g2Mistakes = 0;
+            g2Answered = false;
+            updateGame2Stats();
             showGame2Question();
         }
-    });
 
-    document.getElementById('game2Reset').addEventListener('click', function() {
-        initGame2();
-    });
-
-    // ===== ИГРА 3: НАЙДИ ПАРУ =====
-    let matchItems = [];
-    let selectedMatch = null;
-    let matchPairsFound = 0;
-
-    const matchGrid = document.getElementById('matchGrid');
-    const matchStatus = document.getElementById('matchStatus');
-    const matchResult = document.getElementById('matchResult');
-
-    function initMatchGame() {
-        const shuffled = shuffleArray([...matchPairs]);
-        matchItems = shuffled.slice(0, 5);
-        matchPairsFound = 0;
-        selectedMatch = null;
-        matchResult.textContent = '';
-        matchResult.className = 'match-result';
-        renderMatchGrid();
-        updateMatchStatus();
-    }
-
-    function renderMatchGrid() {
-        const items = matchItems.map((p, i) => ({ id: `item-${i}`, text: p.item, type: 'item', pairId: i }));
-        const counters = matchItems.map((p, i) => ({ id: `counter-${i}`, text: p.counter, type: 'counter', pairId: i, pinyin: countersData.find(c => c.char === p.counter)?.pinyin || '' }));
-        const all = shuffleArray([...items, ...counters]);
-
-        matchGrid.innerHTML = '';
-        for (const el of all) {
-            const div = document.createElement('div');
-            div.className = 'match-item';
-            div.dataset.pairId = el.pairId;
-            div.dataset.type = el.type;
-            div.dataset.id = el.id;
-            div.innerHTML = `${el.text}`;
-            if (el.type === 'counter') {
-                div.innerHTML += `<span class="match-sub">${el.pinyin || ''}</span>`;
+        function showGame2Question() {
+            if (g2Index >= g2Questions.length) {
+                g2Q.textContent = '🎉 Поздравляем!';
+                g2D.textContent = `Правильных: ${g2Score} из ${g2Questions.length}`;
+                g2Opt.innerHTML = '';
+                g2Res.textContent = `🎊 Ошибок: ${g2Mistakes}`;
+                g2Res.className = 'game-result correct';
+                return;
             }
-            div.addEventListener('click', () => handleMatchClick(div));
-            matchGrid.appendChild(div);
+
+            const q = g2Questions[g2Index];
+            g2Q.textContent = q.item;
+            g2D.textContent = 'Выбери правильный счётчик!';
+
+            const allCounters = countersData.map(c => c.char);
+            const shuffledCounters = shuffleArray([...allCounters]);
+            let options = [q.correct];
+            const others = shuffledCounters.filter(c => c !== q.correct);
+            for (let i = 0; i < 3 && i < others.length; i++) {
+                options.push(others[i]);
+            }
+            const finalOptions = shuffleArray(options);
+
+            let html = '';
+            for (const opt of finalOptions) {
+                html += `<button data-answer="${opt}">${opt}</button>`;
+            }
+            g2Opt.innerHTML = html;
+            g2Res.textContent = '';
+            g2Res.className = 'game-result';
+            g2Answered = false;
+
+            document.querySelectorAll('#game2Options button').forEach(btn => {
+                btn.disabled = false;
+                btn.className = '';
+                btn.addEventListener('click', handleGame2Answer);
+            });
         }
-    }
 
-    function handleMatchClick(el) {
-        if (el.classList.contains('matched')) return;
+        function handleGame2Answer(e) {
+            if (g2Answered) return;
+            if (g2Index >= g2Questions.length) return;
 
-        if (document.querySelectorAll('.match-item.selected').length >= 2) {
-            document.querySelectorAll('.match-item.selected').forEach(e => e.classList.remove('selected'));
-            selectedMatch = null;
-        }
+            const btn = e.currentTarget;
+            const selected = btn.dataset.answer;
+            const q = g2Questions[g2Index];
+            const isCorrect = selected === q.correct;
 
-        if (selectedMatch === null) {
-            el.classList.add('selected');
-            selectedMatch = el;
-        } else if (selectedMatch === el) {
-            el.classList.remove('selected');
-            selectedMatch = null;
-        } else {
-            const first = selectedMatch;
-            const second = el;
-            const firstPairId = parseInt(first.dataset.pairId);
-            const secondPairId = parseInt(second.dataset.pairId);
-            const firstType = first.dataset.type;
-            const secondType = second.dataset.type;
+            document.querySelectorAll('#game2Options button').forEach(b => {
+                b.disabled = true;
+                b.classList.add('disabled');
+                if (b.dataset.answer === q.correct) b.classList.add('correct');
+                else if (b.dataset.answer === selected && !isCorrect) b.classList.add('wrong');
+            });
 
-            if (firstPairId === secondPairId && firstType !== secondType) {
-                first.classList.add('matched');
-                second.classList.add('matched');
-                first.classList.remove('selected');
-                second.classList.remove('selected');
-                matchPairsFound++;
-                updateMatchStatus();
-                matchResult.textContent = '✅ Правильно!';
-                matchResult.className = 'match-result correct';
-                speakChinese(matchItems[firstPairId].counter);
-
-                if (matchPairsFound === matchItems.length) {
-                    matchResult.textContent = '🎉 Поздравляем! Все пары найдены!';
-                    matchResult.className = 'match-result done';
-                }
+            if (isCorrect) {
+                g2Score++;
+                g2Res.textContent = '✅ Правильно!';
+                g2Res.className = 'game-result correct';
             } else {
-                first.classList.remove('selected');
-                second.classList.remove('selected');
-                matchResult.textContent = '❌ Неправильно! Попробуй ещё раз.';
-                matchResult.className = 'match-result wrong';
+                g2Mistakes++;
+                g2Res.textContent = '❌ Неправильно! Правильно: ' + q.correct;
+                g2Res.className = 'game-result wrong';
             }
-            selectedMatch = null;
+
+            speakChinese(q.correct);
+            g2Answered = true;
+            updateGame2Stats();
         }
-    }
 
-    function updateMatchStatus() {
-        matchStatus.textContent = `🎯 Найди все пары! (${matchPairsFound} / ${matchItems.length})`;
-    }
+        function updateGame2Stats() {
+            g2ScoreEl.textContent = g2Score;
+            g2TotalEl.textContent = g2Questions.length;
+            g2MistEl.textContent = g2Mistakes;
+        }
 
-    document.getElementById('matchReset').addEventListener('click', function() {
+        document.getElementById('game2Next').addEventListener('click', function() {
+            if (g2Index < g2Questions.length) {
+                g2Index++;
+                showGame2Question();
+            }
+        });
+
+        document.getElementById('game2Reset').addEventListener('click', function() {
+            initGame2();
+        });
+
+        // ===== ИГРА 3 =====
+        let matchItems = [],
+            selectedMatch = null,
+            matchPairsFound = 0;
+
+        const matchGrid = document.getElementById('matchGrid');
+        const matchStatus = document.getElementById('matchStatus');
+        const matchResult = document.getElementById('matchResult');
+
+        function initMatchGame() {
+            const shuffled = shuffleArray([...matchPairs]);
+            matchItems = shuffled.slice(0, 5);
+            matchPairsFound = 0;
+            selectedMatch = null;
+            matchResult.textContent = '';
+            matchResult.className = 'match-result';
+            renderMatchGrid();
+            updateMatchStatus();
+        }
+
+        function renderMatchGrid() {
+            const items = matchItems.map((p, i) => ({ id: `item-${i}`, text: p.item, type: 'item', pairId: i }));
+            const counters = matchItems.map((p, i) => ({ id: `counter-${i}`, text: p.counter, type: 'counter', pairId: i, pinyin: countersData.find(c => c.char === p.counter)?.pinyin || '' }));
+            const all = shuffleArray([...items, ...counters]);
+
+            matchGrid.innerHTML = '';
+            for (const el of all) {
+                const div = document.createElement('div');
+                div.className = 'match-item';
+                div.dataset.pairId = el.pairId;
+                div.dataset.type = el.type;
+                div.dataset.id = el.id;
+                div.innerHTML = `${el.text}`;
+                if (el.type === 'counter') {
+                    div.innerHTML += `<span class="match-sub">${el.pinyin || ''}</span>`;
+                }
+                div.addEventListener('click', () => handleMatchClick(div));
+                matchGrid.appendChild(div);
+            }
+        }
+
+        function handleMatchClick(el) {
+            if (el.classList.contains('matched')) return;
+
+            if (document.querySelectorAll('.match-item.selected').length >= 2) {
+                document.querySelectorAll('.match-item.selected').forEach(e => e.classList.remove('selected'));
+                selectedMatch = null;
+            }
+
+            if (selectedMatch === null) {
+                el.classList.add('selected');
+                selectedMatch = el;
+            } else if (selectedMatch === el) {
+                el.classList.remove('selected');
+                selectedMatch = null;
+            } else {
+                const first = selectedMatch;
+                const second = el;
+                const firstPairId = parseInt(first.dataset.pairId);
+                const secondPairId = parseInt(second.dataset.pairId);
+                const firstType = first.dataset.type;
+                const secondType = second.dataset.type;
+
+                if (firstPairId === secondPairId && firstType !== secondType) {
+                    first.classList.add('matched');
+                    second.classList.add('matched');
+                    first.classList.remove('selected');
+                    second.classList.remove('selected');
+                    matchPairsFound++;
+                    updateMatchStatus();
+                    matchResult.textContent = '✅ Правильно!';
+                    matchResult.className = 'match-result correct';
+                    speakChinese(matchItems[firstPairId].counter);
+
+                    if (matchPairsFound === matchItems.length) {
+                        matchResult.textContent = '🎉 Поздравляем! Все пары найдены!';
+                        matchResult.className = 'match-result done';
+                    }
+                } else {
+                    first.classList.remove('selected');
+                    second.classList.remove('selected');
+                    matchResult.textContent = '❌ Неправильно! Попробуй ещё раз.';
+                    matchResult.className = 'match-result wrong';
+                }
+                selectedMatch = null;
+            }
+        }
+
+        function updateMatchStatus() {
+            matchStatus.textContent = `🎯 Найди все пары! (${matchPairsFound} / ${matchItems.length})`;
+        }
+
+        document.getElementById('matchReset').addEventListener('click', function() {
+            initMatchGame();
+        });
+
+        // ================================================================
+        // 5. ЗАПУСК
+        // ================================================================
+
+        initGame1();
+        initGame2();
         initMatchGame();
-    });
 
-    // ================================================================
-    // 4. ЗАПУСК
-    // ================================================================
-
-    renderAccordionCards('professionContainer', professionData, 'profession');
-    renderAccordionCards('nameContainer', nameData, 'name');
-    renderAccordionCards('ageContainer', ageData, 'age');
-    renderAccordionCards('placeContainer', placeData, 'place');
-    renderAccordionCards('counterQuestionsContainer', counterQuestionsData, 'counter');
-    renderCounters();
-    initGame1();
-    initGame2();
-    initMatchGame();
-
-    console.log('✅ Приложение загружено! Все вопросы + игры + счётные слова!');
-</script>
+        console.log('✅ Приложение загружено! Все вопросы + счётные слова + нюансы + 3 игры!');
+    </script>
 
 </body>
 </html>
