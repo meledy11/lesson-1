@@ -59,6 +59,35 @@
             box-shadow: 0 2px 0 #D98F33;
         }
 
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: #fff;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5);
+            transition: .3s;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+        }
+        .scroll-top-btn:active {
+            transform: scale(0.95);
+        }
+        .scroll-top-btn.show {
+            display: flex;
+        }
+
         .quick-nav {
             display: flex;
             gap: .5rem;
@@ -390,46 +419,125 @@
             background: #E8D5F5;
         }
 
-        /* ===== ТАБЛИЦА КЛАССИФИКАЦИИ ===== */
-        .class-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: .95rem;
-            margin-top: .5rem;
+        /* ===== КЛАССИФИКАЦИЯ В БОКСАХ ===== */
+        .class-box {
+            background: #FFF8F0;
+            border-radius: 20px;
+            margin-bottom: .7rem;
+            border: 3px solid #FFD699;
+            overflow: hidden;
+            transition: .2s;
+            box-shadow: 0 4px 0 #D98F33;
         }
-        .class-table th {
-            background: #9C27B0;
-            color: #fff;
-            padding: .5rem;
-            border-radius: 10px;
-            text-align: center;
+        .class-box:active {
+            transform: scale(.99);
         }
-        .class-table td {
-            padding: .5rem;
-            border-bottom: 1px solid #FFE0C0;
-            text-align: center;
-        }
-        .class-table tr:nth-child(even) {
+        .class-box .class-header {
+            padding: .7rem 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #A64B2A;
             background: #F3E5F5;
+            transition: .1s;
+            user-select: none;
+            gap: .5rem;
+            flex-wrap: wrap;
         }
-        .class-table .counter-char-cell {
-            font-size: 2rem;
+        .class-box .class-header:active {
+            background: #E8D5F5;
+        }
+        .class-box .class-header .arrow {
+            font-size: 1.4rem;
+            transition: transform .3s ease;
+            color: #8E44AD;
+            flex-shrink: 0;
+        }
+        .class-box .class-header .arrow.open {
+            transform: rotate(180deg);
+        }
+        .class-box .class-header .class-icon {
+            font-size: 1.5rem;
+            margin-right: .5rem;
+        }
+
+        .class-box .class-body {
+            display: none;
+            padding: .8rem 1rem;
+            background: #FFFDF9;
+            border-top: 2px solid #FFD699;
+        }
+        .class-box .class-body.open {
+            display: block;
+        }
+
+        .class-item {
+            background: #F8F0FF;
+            border-radius: 15px;
+            padding: .6rem 1rem;
+            margin-bottom: .5rem;
+            border-left: 4px solid #9C27B0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .5rem;
+        }
+        .class-item .ci-char {
+            font-size: 2.5rem;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             font-weight: 700;
             color: #6A1B9A;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             cursor: pointer;
+            padding: .1rem .3rem;
+            border-radius: 10px;
+            background: #FFE8D0;
+            transition: .1s;
         }
-        .class-table .counter-char-cell:active {
-            opacity: .7;
+        .class-item .ci-char:active {
+            background: #FFD699;
+            transform: scale(.97);
         }
-        .class-table .example-cell {
-            font-size: 1.2rem;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        .class-item .ci-pinyin {
+            font-size: 1rem;
+            color: #8E44AD;
+            font-weight: 700;
+        }
+        .class-item .ci-use {
+            font-size: .9rem;
+            color: #555;
+        }
+        .class-item .ci-examples {
+            font-size: .9rem;
             color: #A64B2A;
+            background: #FFF1C1;
+            padding: .1rem .6rem;
+            border-radius: 12px;
             cursor: pointer;
         }
-        .class-table .example-cell:active {
-            opacity: .7;
+        .class-item .ci-examples:active {
+            background: #FFD699;
+        }
+        .class-item .ci-speak {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: .1rem .3rem;
+            border-radius: 15px;
+            transition: .1s;
+        }
+        .class-item .ci-speak:active {
+            background: #FFD699;
+        }
+
+        .class-item .ci-translation {
+            font-size: .85rem;
+            color: #888;
+            font-style: italic;
+            margin-left: .3rem;
         }
 
         /* ===== ИГРЫ ===== */
@@ -658,14 +766,12 @@
             .counter-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .class-table {
-                font-size: .75rem;
+            .class-item {
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .class-table .counter-char-cell {
-                font-size: 1.5rem;
-            }
-            .class-table .example-cell {
-                font-size: 1rem;
+            .class-item .ci-char {
+                font-size: 2rem;
             }
         }
         @media (max-width: 450px) {
@@ -674,15 +780,6 @@
             }
             .game-options {
                 grid-template-columns: 1fr;
-            }
-            .class-table {
-                font-size: .65rem;
-            }
-            .class-table .counter-char-cell {
-                font-size: 1.2rem;
-            }
-            .class-table .example-cell {
-                font-size: .85rem;
             }
         }
 
@@ -757,6 +854,7 @@
 
     <div class="container">
 
+        <!-- ===== ШАПКА ===== -->
         <div class="header">
             <h1>❓ ВСЕ вопросы + Счётные слова + Нюансы</h1>
             <div class="sub">120+ примеров • 16 счётных слов • 3 игры • Золотые правила 🎯</div>
@@ -764,12 +862,17 @@
 
         <a href="index.html" class="back-link">⬅️ На главную</a>
 
+        <!-- ===== КНОПКА "ВВЕРХ" ===== -->
+        <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">⬆</button>
+
+        <!-- ===== ПРОГРЕСС ===== -->
         <div class="progress-wrapper">
             <span class="progress-label">📊 Прогресс:</span>
             <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
             <span class="progress-label" id="progressText">0 / 10</span>
         </div>
 
+        <!-- ===== НАВИГАЦИЯ ===== -->
         <div class="quick-nav">
             <a href="#rules"><span class="nav-icon">🏆</span>Правила</a>
             <a href="#profession"><span class="nav-icon">💼</span>Профессия</a>
@@ -892,7 +995,7 @@
         <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="placeContainer"></div>
 
         <!-- ============================================================ -->
-        <!-- 5. 什么 -->
+        <!-- 5-20. ВСЕ ВОПРОСИТЕЛЬНЫЕ СЛОВА (16 шт) -->
         <!-- ============================================================ -->
         <div class="section-title" id="shenme">
             ❓ 5. 什么
@@ -900,135 +1003,90 @@
         </div>
         <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmeContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 6. 哪 -->
-        <!-- ============================================================ -->
         <div class="section-title" id="na">
             🎯 6. 哪
             <span class="badge na">КАКОЙ ИЗ?</span>
         </div>
         <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="naContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 7. 怎么 -->
-        <!-- ============================================================ -->
         <div class="section-title" id="zenme">
             🔧 7. 怎么
             <span class="badge zenme">КАК? (способ)</span>
         </div>
         <div class="card" style="border-color:#1ABC9C; box-shadow:0 10px 0 #148F77;" id="zenmeContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 8. 怎么样 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             📊 8. 怎么样
             <span class="badge zenmeyang">КАК? (состояние)</span>
         </div>
         <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="zenmeyangContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 9. 什么样 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             👤 9. 什么样
             <span class="badge zenmeyang">КАК ВЫГЛЯДИТ?</span>
         </div>
         <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="shenmeyangContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 10. 谁 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             👤 10. 谁
             <span class="badge shei">КТО?</span>
         </div>
         <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #B03A2E;" id="sheiContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 11. 什么人 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             💼 11. 什么人
             <span class="badge shenme">ЧТО ЗА ЧЕЛОВЕК?</span>
         </div>
         <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmerenContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 12. 哪个人 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             🎯 12. 哪个人
             <span class="badge na">КОТОРЫЙ ИЗ ЛЮДЕЙ?</span>
         </div>
         <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="nagerenContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 13. 什么时候 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             📅 13. 什么时候
             <span class="badge shenmeshihou">КОГДА?</span>
         </div>
         <div class="card" style="border-color:#16A085; box-shadow:0 10px 0 #0E6655;" id="shenmeshihouContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 14. 几点 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             🕐 14. 几点
             <span class="badge jidian">КОТОРЫЙ ЧАС?</span>
         </div>
         <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="jidianContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 15. 为什么 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             ❓ 15. 为什么
             <span class="badge weishenme">ПОЧЕМУ?</span>
         </div>
         <div class="card" style="border-color:#C0392B; box-shadow:0 10px 0 #922B21;" id="weishenmeContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 16. 多少 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             💰 16. 多少
             <span class="badge duoshao">СКОЛЬКО? (большие числа)</span>
         </div>
         <div class="card" style="border-color:#27AE60; box-shadow:0 10px 0 #1E8449;" id="duoshaoContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 17. 几 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             🔢 17. 几
             <span class="badge ji">СКОЛЬКО? (малые числа)</span>
         </div>
         <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="jiContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 18. 哪儿 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             🗣️ 18. 哪儿
             <span class="badge naer">ГДЕ? (разговорный)</span>
         </div>
         <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naerContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 19. 哪里 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             📖 19. 哪里
             <span class="badge nali">ГДЕ? / ОТКУДА? (формальный)</span>
         </div>
         <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naliContainer"></div>
 
-        <!-- ============================================================ -->
-        <!-- 20. 干什么 -->
-        <!-- ============================================================ -->
         <div class="section-title">
             🔨 20. 干什么
             <span class="badge ganshenme">ЧТО ДЕЛАТЬ? / ЗАЧЕМ?</span>
@@ -1036,7 +1094,7 @@
         <div class="card" style="border-color:#D35400; box-shadow:0 10px 0 #A04000;" id="ganshenmeContainer"></div>
 
         <!-- ============================================================ -->
-        <!-- СЧЁТНЫЕ СЛОВА (16 штук) -->
+        <!-- СЧЁТНЫЕ СЛОВА (16 шт) -->
         <!-- ============================================================ -->
         <div class="section-title" id="counters">
             🔢 СЧЁТНЫЕ СЛОВА
@@ -1051,15 +1109,24 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ -->
+        <!-- КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ (раскрывающиеся боксы) -->
         <!-- ============================================================ -->
         <div class="section-title" id="class">
             📊 КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ
             <span class="badge class">ПО КАТЕГОРИЯМ</span>
         </div>
-        <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="classTableContainer">
+        <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="classContainer">
             <!-- Заполняется из JS -->
         </div>
+
+        <!-- ============================================================ -->
+        <!-- ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ -->
+        <!-- ============================================================ -->
+        <div class="section-title">
+            ❓ Вопросы со счётными словами
+            <span class="badge counter">16 ПРИМЕРОВ</span>
+        </div>
+        <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;" id="counterQuestionsContainer"></div>
 
         <!-- ============================================================ -->
         <!-- ИГРЫ -->
@@ -1111,7 +1178,7 @@
         <!-- ИГРА 3 -->
         <div class="game-section" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;">
             <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧩 Игра 3: Найди пару (предмет + счётчик)</h2>
-            <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 5)</div>
+            <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 6)</div>
             <div class="match-grid" id="matchGrid"></div>
             <div class="match-result" id="matchResult"></div>
             <div class="game-controls">
@@ -1264,53 +1331,61 @@
             { char: '片', pinyin: 'piàn', use: 'Для тонких/плоских', example: '一片面包 — ломтик хлеба' },
         ];
 
-        // ===== КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ =====
+        // ===== КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ (для боксов) =====
         const classData = [
-            { category: '👫 Парные предметы', counters: [
-                    { char: '双', pinyin: 'shuāng', use: 'Естественные пары', examples: '鞋, 袜子, 筷子, 手' },
-                    { char: '对', pinyin: 'duì', use: 'Симметричные пары', examples: '耳环, 夫妻, 翅膀, 眼睛' },
-                    { char: '副', pinyin: 'fù', use: 'Наборы/комплекты', examples: '眼镜, 手套, 扑克牌' }
+            { category: '👫 Парные предметы', icon: '👫',
+                items: [
+                    { char: '双', pinyin: 'shuāng', use: 'Естественные пары', examples: '鞋 (обувь), 袜子 (носки), 筷子 (палочки), 手 (руки)' },
+                    { char: '对', pinyin: 'duì', use: 'Симметричные пары', examples: '耳环 (серёжки), 夫妻 (супруги), 翅膀 (крылья), 眼睛 (глаза)' },
+                    { char: '副', pinyin: 'fù', use: 'Наборы/комплекты', examples: '眼镜 (очки), 手套 (перчатки), 扑克牌 (карты)' }
                 ] },
-            { category: '📄 Плоские предметы', counters: [
-                    { char: '张', pinyin: 'zhāng', use: 'Плоские (созданные)', examples: '纸, 桌子, 照片, 票' },
-                    { char: '块', pinyin: 'kuài', use: 'Куски (твёрдые)', examples: '蛋糕, 钱, 手表, 石头' },
-                    { char: '片', pinyin: 'piàn', use: 'Тонкие/природные', examples: '面包, 叶子, 雪花, 天空' }
+            { category: '📄 Плоские предметы', icon: '📄',
+                items: [
+                    { char: '张', pinyin: 'zhāng', use: 'Плоские (созданные)', examples: '纸 (бумага), 桌子 (стол), 照片 (фото), 票 (билет)' },
+                    { char: '块', pinyin: 'kuài', use: 'Куски (твёрдые)', examples: '蛋糕 (торт), 钱 (монета), 手表 (часы), 石头 (камень)' },
+                    { char: '片', pinyin: 'piàn', use: 'Тонкие/природные', examples: '面包 (хлеб), 叶子 (лист), 雪花 (снежинка), 天空 (небо)' }
                 ] },
-            { category: '📏 Длинные предметы', counters: [
-                    { char: '条', pinyin: 'tiáo', use: 'Длинные/гибкие', examples: '路, 鱼, 蛇, 裤子, 消息' },
-                    { char: '根', pinyin: 'gēn', use: 'Длинные/твёрдые', examples: '筷子, 绳子, 木头, 香蕉' }
+            { category: '📏 Длинные предметы', icon: '📏',
+                items: [
+                    { char: '条', pinyin: 'tiáo', use: 'Длинные/гибкие', examples: '路 (дорога), 鱼 (рыба), 蛇 (змея), 裤子 (штаны), 消息 (сообщение)' },
+                    { char: '根', pinyin: 'gēn', use: 'Длинные/твёрдые', examples: '筷子 (палочка), 绳子 (верёвка), 木头 (бревно), 香蕉 (банан)' }
                 ] },
-            { category: '🐾 Животные', counters: [
-                    { char: '只', pinyin: 'zhī', use: 'Мелкие/обычные', examples: '狗, 猫, 鸟, 鸡' },
-                    { char: '条', pinyin: 'tiáo', use: 'Длинные животные', examples: '鱼, 蛇, 龙' },
-                    { char: '头', pinyin: 'tóu', use: 'Крупные животные', examples: '牛, 猪, 大象' },
-                    { char: '匹', pinyin: 'pǐ', use: 'Лошади', examples: '马' }
+            { category: '🐾 Животные', icon: '🐾',
+                items: [
+                    { char: '只', pinyin: 'zhī', use: 'Мелкие/обычные', examples: '狗 (собака), 猫 (кошка), 鸟 (птица), 鸡 (курица)' },
+                    { char: '条', pinyin: 'tiáo', use: 'Длинные животные', examples: '鱼 (рыба), 蛇 (змея), 龙 (дракон)' },
+                    { char: '头', pinyin: 'tóu', use: 'Крупные животные', examples: '牛 (корова), 猪 (свинья), 大象 (слон)' },
+                    { char: '匹', pinyin: 'pǐ', use: 'Лошади', examples: '马 (лошадь)' }
                 ] },
-            { category: '🚗 Транспорт', counters: [
-                    { char: '辆', pinyin: 'liàng', use: 'Наземный транспорт', examples: '车, 自行车, 公交车' },
-                    { char: '架', pinyin: 'jià', use: 'Летательный транспорт', examples: '飞机, 桥' },
-                    { char: '艘', pinyin: 'sōu', use: 'Водный транспорт', examples: '船, 军舰' }
+            { category: '🚗 Транспорт', icon: '🚗',
+                items: [
+                    { char: '辆', pinyin: 'liàng', use: 'Наземный транспорт', examples: '车 (машина), 自行车 (велосипед), 公交车 (автобус)' },
+                    { char: '架', pinyin: 'jià', use: 'Летательный транспорт', examples: '飞机 (самолёт), 桥 (мост)' },
+                    { char: '艘', pinyin: 'sōu', use: 'Водный транспорт', examples: '船 (корабль), 军舰 (военный корабль)' }
                 ] },
-            { category: '👕 Одежда', counters: [
-                    { char: '件', pinyin: 'jiàn', use: 'Верхняя одежда', examples: '衣服, 衬衫, 外套' },
-                    { char: '条', pinyin: 'tiáo', use: 'Длинная одежда', examples: '裤子, 裙子, 围巾' },
-                    { char: '双', pinyin: 'shuāng', use: 'Парная одежда', examples: '鞋, 袜子, 手套' }
+            { category: '👕 Одежда', icon: '👕',
+                items: [
+                    { char: '件', pinyin: 'jiàn', use: 'Верхняя одежда', examples: '衣服 (одежда), 衬衫 (рубашка), 外套 (пальто)' },
+                    { char: '条', pinyin: 'tiáo', use: 'Длинная одежда', examples: '裤子 (штаны), 裙子 (юбка), 围巾 (шарф)' },
+                    { char: '双', pinyin: 'shuāng', use: 'Парная одежда', examples: '鞋 (обувь), 袜子 (носки), 手套 (перчатки)' }
                 ] },
-            { category: '🍽️ Еда и напитки', counters: [
-                    { char: '杯', pinyin: 'bēi', use: 'Напитки в чашках', examples: '茶, 咖啡, 水' },
-                    { char: '瓶', pinyin: 'píng', use: 'Напитки в бутылках', examples: '水, 酒, 饮料' },
-                    { char: '块', pinyin: 'kuài', use: 'Кусочки еды', examples: '蛋糕, 巧克力, 肉' },
-                    { char: '片', pinyin: 'piàn', use: 'Ломтики еды', examples: '面包, 饼干, 火腿' }
+            { category: '🍽️ Еда и напитки', icon: '🍽️',
+                items: [
+                    { char: '杯', pinyin: 'bēi', use: 'Напитки в чашках', examples: '茶 (чай), 咖啡 (кофе), 水 (вода)' },
+                    { char: '瓶', pinyin: 'píng', use: 'Напитки в бутылках', examples: '水 (вода), 酒 (вино), 饮料 (напиток)' },
+                    { char: '块', pinyin: 'kuài', use: 'Кусочки еды', examples: '蛋糕 (торт), 巧克力 (шоколад), 肉 (мясо)' },
+                    { char: '片', pinyin: 'piàn', use: 'Ломтики еды', examples: '面包 (хлеб), 饼干 (печенье), 火腿 (ветчина)' }
                 ] },
-            { category: '📦 Универсальный', counters: [
-                    { char: '个', pinyin: 'gè', use: 'Универсальный счётчик', examples: '人, 苹果, 问题' }
+            { category: '📦 Универсальный', icon: '📦',
+                items: [
+                    { char: '个', pinyin: 'gè', use: 'Универсальный счётчик', examples: '人 (человек), 苹果 (яблоко), 问题 (вопрос)' }
                 ] },
         ];
 
         // ===== ПРОФЕССИЯ =====
         const professionData = [
             { q: '你做什么工作？', p: 'Nǐ zuò shénme gōngzuò?', t: '💼 Кем ты работаешь?', a: '我是医生。', ap: 'Wǒ shì yīshēng.',
-            at: 'Я врач.', note: 'Самый естественный вопрос о профессии' },
+                at: 'Я врач.', note: 'Самый естественный вопрос о профессии' },
             { q: '你在哪儿工作？', p: 'Nǐ zài nǎr gōngzuò?', t: '🏢 Где ты работаешь?', a: '我在医院工作。', ap: 'Wǒ zài yīyuàn gōngzuò.',
                 at: 'Я работаю в больнице.', note: 'Спрашиваем о месте работы' },
             { q: '你是什么工作？', p: 'Nǐ shì shénme gōngzuò?', t: '📋 Какая у тебя работа?', a: '我是老师。', ap: 'Wǒ shì lǎoshī.',
@@ -1362,7 +1437,7 @@
             { q: '你想吃什么？', p: 'Nǐ xiǎng chī shénme?', t: '🍕 Что ты хочешь съесть?', a: '我想吃披萨。', ap: 'Wǒ xiǎng chī pīsà.',
                 at: 'Я хочу пиццу.', note: 'Еды много → открытый вопрос' },
             { q: '这是什么？', p: 'Zhè shì shénme?', t: '❓ Что это?', a: '这是手机。', ap: 'Zhè shì shǒujī.',
-            at: 'Это телефон.', note: 'Неизвестный предмет' },
+                at: 'Это телефон.', note: 'Неизвестный предмет' },
             { q: '你叫什么名字？', p: 'Nǐ jiào shénme míngzi?', t: '👤 Как тебя зовут?', a: '我叫安娜。', ap: 'Wǒ jiào Ānnà.',
                 at: 'Меня зовут Анна.', note: 'Спрашиваем имя' },
             { q: '你爱吃什么水果？', p: 'Nǐ ài chī shénme shuǐguǒ?', t: '🍎 Какие фрукты ты любишь?', a: '我爱吃苹果。', ap: 'Wǒ ài chī píngguǒ.',
@@ -1400,7 +1475,7 @@
         // ===== 4. 怎么样 =====
         const zenmeyangData = [
             { q: '你怎么样？', p: 'Nǐ zěnmeyàng?', t: '💬 Как ты? / Как дела?', a: '我很好。', ap: 'Wǒ hěn hǎo.',
-            at: 'Я очень хорошо.', note: 'Состояние' },
+                at: 'Я очень хорошо.', note: 'Состояние' },
             { q: '这部电影怎么样？', p: 'Zhè bù diànyǐng zěnmeyàng?', t: '🎬 Как этот фильм?', a: '这部电影很好看。', ap: 'Zhè bù diànyǐng hěn hǎokàn.',
                 at: 'Этот фильм очень хороший.', note: 'Оценка фильма' },
             { q: '今天的天气怎么样？', p: 'Jīntiān de tiānqì zěnmeyàng?', t: '🌤️ Какая сегодня погода?', a: '今天天气很好。', ap: 'Jīntiān tiānqì hěn hǎo.',
@@ -1484,7 +1559,7 @@
         // ===== 10. 几点 =====
         const jidianData = [
             { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在三点。', ap: 'Xiànzài sān diǎn.',
-            at: 'Сейчас 3 часа.', note: 'Точное время' },
+                at: 'Сейчас 3 часа.', note: 'Точное время' },
             { q: '我们几点见面？', p: 'Wǒmen jǐ diǎn jiànmiàn?', t: '🤝 Во сколько мы встретимся?', a: '我们五点见面。', ap: 'Wǒmen wǔ diǎn jiànmiàn.',
                 at: 'Мы встретимся в 5 часов.', note: 'Время встречи' },
             { q: '你几点起床？', p: 'Nǐ jǐ diǎn qǐchuáng?', t: '⏰ Во сколько ты встаёшь?', a: '我六点半起床。', ap: 'Wǒ liù diǎn bàn qǐchuáng.',
@@ -1532,7 +1607,7 @@
             { q: '你要几本书？', p: 'Nǐ yào jǐ běn shū?', t: '📚 Сколько книг тебе нужно?', a: '我要两本书。', ap: 'Wǒ yào liǎng běn shū.',
                 at: 'Мне нужно две книги.', note: 'Малое число → 几 + 本' },
             { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在八点。', ap: 'Xiànzài bā diǎn.',
-            at: 'Сейчас 8 часов.', note: 'Время → 几 + 点' },
+                at: 'Сейчас 8 часов.', note: 'Время → 几 + 点' },
             { q: '你有几个朋友？', p: 'Nǐ yǒu jǐ ge péngyou?', t: '🤝 Сколько у тебя друзей?', a: '我有五个朋友。', ap: 'Wǒ yǒu wǔ ge péngyou.',
                 at: 'У меня 5 друзей.', note: 'Малое число → 几 + 个' },
         ];
@@ -1542,7 +1617,7 @@
             { q: '你在哪儿？', p: 'Nǐ zài nǎr?', t: '🗣️ Ты где?', a: '我在家。', ap: 'Wǒ zài jiā.', at: 'Я дома.',
                 note: 'Разговорный вопрос' },
             { q: '你去哪儿？', p: 'Nǐ qù nǎr?', t: '🚶 Куда ты идёшь?', a: '我去学校。', ap: 'Wǒ qù xuéxiào.',
-            at: 'Я иду в школу.', note: 'Разговорный вопрос' },
+                at: 'Я иду в школу.', note: 'Разговорный вопрос' },
             { q: '你住在哪儿？', p: 'Nǐ zhù zài nǎr?', t: '🏠 Где ты живёшь?', a: '我住在北京。', ap: 'Wǒ zhù zài Běijīng.',
                 at: 'Я живу в Пекине.', note: 'Разговорный вопрос' },
             { q: '厕所在哪儿？', p: 'Cèsuǒ zài nǎr?', t: '🚻 Где туалет?', a: '厕所在那儿。', ap: 'Cèsuǒ zài nàr.',
@@ -1688,49 +1763,48 @@
             grid.innerHTML = html;
         }
 
-        function renderClassTable() {
-            const container = document.getElementById('classTableContainer');
-            let html = `
-                        <div style="overflow-x:auto;">
-                            <table class="class-table">
-                                <thead>
-                                    <tr>
-                                        <th>📂 Категория</th>
-                                        <th>🔤 Счётное</th>
-                                        <th>🔊 Пиньинь</th>
-                                        <th>📖 Для чего</th>
-                                        <th>📝 Примеры</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                            `;
+        function renderClassBoxes() {
+            const container = document.getElementById('classContainer');
+            let html = '';
             for (const cat of classData) {
                 html += `
-                            <tr style="background:#F5EEF8; font-weight:700;">
-                                <td colspan="5" style="text-align:left; padding:.5rem;">${cat.category}</td>
-                            </tr>
+                            <div class="class-box">
+                                <div class="class-header" onclick="toggleClassBox(this)">
+                                    <span>
+                                        <span class="class-icon">${cat.icon}</span>
+                                        ${cat.category}
+                                        <span style="font-size:.8rem; font-weight:400; color:#888;">(${cat.items.length})</span>
+                                    </span>
+                                    <span class="arrow">▼</span>
+                                </div>
+                                <div class="class-body">
                             `;
-                for (const c of cat.counters) {
+                for (const item of cat.items) {
+                    const safeChar = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const safeExamples = item.examples.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                     html += `
-                                <tr>
-                                    <td></td>
-                                    <td><span class="counter-char-cell" onclick="speakChinese('${c.char}')">${c.char}</span></td>
-                                    <td>${c.pinyin}</td>
-                                    <td>${c.use}</td>
-                                    <td><span class="example-cell" onclick="speakChinese('${c.examples}')">${c.examples}</span></td>
-                                </tr>
-                            `;
+                                    <div class="class-item">
+                                        <span class="ci-char" onclick="speakChinese('${safeChar}')">${item.char}</span>
+                                        <span class="ci-pinyin">${item.pinyin}</span>
+                                        <span class="ci-use">— ${item.use}</span>
+                                        <span class="ci-examples" onclick="speakChinese('${safeExamples}')">📌 ${item.examples}</span>
+                                        <button class="ci-speak" onclick="speakChinese('${safeExamples}')">🔊</button>
+                                    </div>
+                                `;
                 }
+                html += `
+                                </div>
+                            </div>
+                        `;
             }
-            html += `
-                                </tbody>
-                            </table>
-                        </div>
-                        <div style="margin-top:.8rem; padding:.5rem .8rem; background:#FFF1C1; border-radius:12px; font-size:.9rem;">
-                            💡 <strong>Совет:</strong> Нажимай на иероглифы и примеры — услышишь произношение!
-                        </div>
-                    `;
             container.innerHTML = html;
+        }
+
+        function toggleClassBox(header) {
+            const body = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+            body.classList.toggle('open');
+            arrow.classList.toggle('open');
         }
 
         // ================================================================
@@ -1760,7 +1834,7 @@
         renderAccordionCards('counterQuestionsContainer', counterQuestionsData, 'счётное', '#9C27B0');
 
         renderCounters();
-        renderClassTable();
+        renderClassBoxes();
 
         // ================================================================
         // 4. ИГРЫ
@@ -1768,17 +1842,17 @@
 
         const game1Questions = [
             { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'],
-            hint: 'Спрашиваем профессию → вариантов много' },
+                hint: 'Спрашиваем профессию → вариантов много' },
             { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'],
                 hint: 'Выбор из книг → нужен счётчик 本' },
             { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'],
                 hint: 'Способ действия' },
             { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'],
-            hint: 'Спрашиваем имя' },
+                hint: 'Спрашиваем имя' },
             { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'],
                 hint: 'Маленькое число → 几 + счётное' },
             { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'],
-            hint: 'Цена → используем 多少' },
+                hint: 'Цена → используем 多少' },
             { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'],
                 hint: 'Повседневный → 哪儿' },
             { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'],
@@ -1845,6 +1919,20 @@
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
+        }
+
+        // ===== КНОПКА "ВВЕРХ" =====
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 300) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===== ИГРА 1 =====
@@ -2173,7 +2261,7 @@
         initGame2();
         initMatchGame();
 
-        console.log('✅ Приложение загружено! Все вопросы + 16 счётных слов + классификация + 3 игры!');
+        console.log('✅ Приложение загружено! Все вопросы + 16 счётных слов + классификация + 3 игры + кнопка вверх!');
     </script>
 
 </body>
