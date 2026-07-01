@@ -1054,9 +1054,9 @@
 
 </div>
 
-<script>
+   <script>
     // ================================================================
-    // ЧАСТЬ 2 — JavaScript (данные и логика)
+    // ЧАСТЬ 2 — JavaScript (данные)
     // ================================================================
 
     // ===== 16 СЧЁТНЫХ СЛОВ =====
@@ -1153,8 +1153,7 @@
         { q: '你在哪儿？', p: 'Nǐ zài nǎr?', t: '📍 Где ты?', a: '我在家。', ap: 'Wǒ zài jiā.', at: 'Я дома.', note: 'Спрашиваем местоположение (без 人)' },
         { q: '你住在哪里？', p: 'Nǐ zhù zài nǎlǐ?', t: '🏠 Где ты живёшь?', a: '我住在北京。', ap: 'Wǒ zhù zài Běijīng.', at: 'Я живу в Пекине.', note: 'Спрашиваем место жительства' },
     ];
-
-    // ===== ВСЕ ВОПРОСИТЕЛЬНЫЕ СЛОВА (16 шт × 5 примеров) =====
+       // ===== ВСЕ ВОПРОСИТЕЛЬНЫЕ СЛОВА (16 шт × 5 примеров) =====
     const shenmeData = [
         { q: '你喜欢什么书？', p: 'Nǐ xǐhuān shénme shū?', t: '📖 Какие книги ты любишь?', a: '我喜欢小说。', ap: 'Wǒ xǐhuān xiǎoshuō.', at: 'Я люблю романы.', note: 'Спрашиваем жанр/название' },
         { q: '你想吃什么？', p: 'Nǐ xiǎng chī shénme?', t: '🍕 Что ты хочешь съесть?', a: '我想吃披萨。', ap: 'Wǒ xiǎng chī pīsà.', at: 'Я хочу пиццу.', note: 'Еды много → открытый вопрос' },
@@ -1302,8 +1301,7 @@
         { q: '几根筷子？', p: 'Jǐ gēn kuàizi?', t: '🥢 Сколько палочек?', a: '两根筷子。', ap: 'Liǎng gēn kuàizi.', at: 'Две палочки.', note: 'Счётчик 根 для длинных/твёрдых' },
         { q: '几片面包？', p: 'Jǐ piàn miànbāo?', t: '🍞 Сколько ломтиков хлеба?', a: '三片面包。', ap: 'Sān piàn miànbāo.', at: 'Три ломтика хлеба.', note: 'Счётчик 片 для тонких/плоских' },
     ];
-
-    // ================================================================
+       // ================================================================
     // 2. ФУНКЦИИ
     // ================================================================
 
@@ -1595,7 +1593,7 @@
     { chinese: '__是你的经历？', translation: 'Каков твой опыт?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de jīnglì?' },
     { chinese: '__个明星最好？', translation: 'Какая звезда лучшая?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge míngxīng zuì hǎo?' },
     { chinese: '你__努力？', translation: 'Как ты стараешься?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ nǔlì?' },
-];
+    ];
 
     const counterItems = [
     // === ОСНОВНЫЕ (16) ===
@@ -1765,9 +1763,9 @@
     { item: '⚽ 足球 (футбольный мяч)', correct: '个', pinyin: 'zúqiú' },
     { item: '🎾 网球 (теннисный мяч)', correct: '个', pinyin: 'wǎngqiú' },
     { item: '🏸 羽毛球 (волан)', correct: '个', pinyin: 'yǔmáoqiú' },
-];
+    ];
 
-const matchPairs = [
+    const matchPairs = [
     // === ОСНОВНЫЕ (16) ===
     { item: '📚 书 (книга)', counter: '本' },
     { item: '🚗 车 (машина)', counter: '辆' },
@@ -1869,7 +1867,7 @@ const matchPairs = [
     { item: '🍣 寿司 (суши)', counter: '个' },
     { item: '🍱 便当 (бэнто)', counter: '盒' },
     { item: '🍜 拉面 (рамен)', counter: '碗' },
-];
+    ];
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -1893,7 +1891,11 @@ const matchPairs = [
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ===== ИГРА 1 =====
+    // ================================================================
+    // 5. ИГРЫ — ЗАПУСК
+    // ================================================================
+
+    // === ИГРА 1 ===
     let g1Questions = [], g1Index = 0, g1Score = 0, g1Mistakes = 0, g1Answered = false;
     const g1Q = document.getElementById('game1Question');
     const g1T = document.getElementById('game1Translation');
@@ -1904,16 +1906,16 @@ const matchPairs = [
     const g1TotalEl = document.getElementById('game1Total');
     const g1MistEl = document.getElementById('game1Mistakes');
 
-function initGame1() {
-    const shuffled = shuffleArray([...game1Questions]);
-    g1Questions = shuffled.slice(0, 100);
-    g1Index = 0;
-    g1Score = 0;
-    g1Mistakes = 0;
-    g1Answered = false;
-    updateGame1Stats();
-    showGame1Question();
-}
+    function initGame1() {
+        const shuffled = shuffleArray([...game1Questions]);
+        g1Questions = shuffled.slice(0, 100);
+        g1Index = 0;
+        g1Score = 0;
+        g1Mistakes = 0;
+        g1Answered = false;
+        updateGame1Stats();
+        showGame1Question();
+    }
 
     function showGame1Question() {
         if (g1Index >= g1Questions.length) {
@@ -1988,7 +1990,7 @@ function initGame1() {
         initGame1();
     });
 
-    // ===== ИГРА 2 =====
+    // === ИГРА 2 ===
     let g2Questions = [], g2Index = 0, g2Score = 0, g2Mistakes = 0, g2Answered = false;
     const g2Q = document.getElementById('game2Question');
     const g2D = document.getElementById('game2Desc');
@@ -1998,16 +2000,17 @@ function initGame1() {
     const g2TotalEl = document.getElementById('game2Total');
     const g2MistEl = document.getElementById('game2Mistakes');
 
-   function initGame2() {
-    const shuffled = shuffleArray([...counterItems]);
-    g2Questions = shuffled.slice(0, 100);
-    g2Index = 0;
-    g2Score = 0;
-    g2Mistakes = 0;
-    g2Answered = false;
-    updateGame2Stats();
-    showGame2Question();
-}
+    function initGame2() {
+        const shuffled = shuffleArray([...counterItems]);
+        g2Questions = shuffled.slice(0, 100);
+        g2Index = 0;
+        g2Score = 0;
+        g2Mistakes = 0;
+        g2Answered = false;
+        updateGame2Stats();
+        showGame2Question();
+    }
+
     function showGame2Question() {
         if (g2Index >= g2Questions.length) {
             g2Q.textContent = '🎉 Поздравляем!';
@@ -2086,22 +2089,22 @@ function initGame1() {
         initGame2();
     });
 
-    // ===== ИГРА 3 =====
+    // === ИГРА 3 ===
     let matchItems = [], selectedMatch = null, matchPairsFound = 0;
     const matchGrid = document.getElementById('matchGrid');
     const matchStatus = document.getElementById('matchStatus');
     const matchResult = document.getElementById('matchResult');
 
     function initMatchGame() {
-    const shuffled = shuffleArray([...matchPairs]);
-    matchItems = shuffled.slice(0, 20);
-    matchPairsFound = 0;
-    selectedMatch = null;
-    matchResult.textContent = '';
-    matchResult.className = 'match-result';
-    renderMatchGrid();
-    updateMatchStatus();
-}
+        const shuffled = shuffleArray([...matchPairs]);
+        matchItems = shuffled.slice(0, 20);
+        matchPairsFound = 0;
+        selectedMatch = null;
+        matchResult.textContent = '';
+        matchResult.className = 'match-result';
+        renderMatchGrid();
+        updateMatchStatus();
+    }
 
     function renderMatchGrid() {
         const items = matchItems.map((p, i) => ({ id: `item-${i}`, text: p.item, type: 'item', pairId: i }));
@@ -2176,7 +2179,7 @@ function initGame1() {
     });
 
     // ================================================================
-    // 5. ЗАПУСК
+    // 6. ЗАПУСК
     // ================================================================
 
     initGame1();
