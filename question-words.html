@@ -709,7 +709,6 @@
         </div>
 
     </div>
-
     <!-- ============================================================ -->
     <!-- 1. ПРОФЕССИЯ -->
     <!-- ============================================================ -->
@@ -884,19 +883,18 @@
     <!-- ============================================================ -->
     <div class="section-title" id="games">
         🎮 ИГРЫ
-        <span class="badge game">3 ИГРЫ</span>
+        <span class="badge game">3 ИГРЫ (50+ вопросов)</span>
     </div>
 
     <div class="game-section" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;">
-        <h2 style="color:#D68910; margin-bottom:.5rem;">🎮 Игра 1: Угадай вопросительное слово</h2>
+        <h2 style="color:#D68910; margin-bottom:.5rem;">🎮 Игра 1: Угадай вопросительное слово (50 вопросов)</h2>
         <div class="game-status">
-            ✅ <span class="score" id="game1Score">0</span> / <span id="game1Total">0</span>
+            ✅ <span class="score" id="game1Score">0</span> / <span id="game1Total">50</span>
             &nbsp;|&nbsp; ❌ Ошибок: <span id="game1Mistakes">0</span>
         </div>
         <div class="game-question">
             <div class="q-text" id="game1Question">你好</div>
             <div class="q-desc" id="game1Translation">Привет</div>
-            <div class="q-hint" id="game1Hint"></div>
         </div>
         <div class="game-options" id="game1Options"></div>
         <div class="game-result" id="game1Result"></div>
@@ -907,9 +905,9 @@
     </div>
 
     <div class="game-section" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
-        <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧮 Игра 2: Угадай счётное слово</h2>
+        <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧮 Игра 2: Угадай счётное слово (50 предметов)</h2>
         <div class="game-status">
-            ✅ <span class="score" id="game2Score">0</span> / <span id="game2Total">0</span>
+            ✅ <span class="score" id="game2Score">0</span> / <span id="game2Total">50</span>
             &nbsp;|&nbsp; ❌ Ошибок: <span id="game2Mistakes">0</span>
         </div>
         <div class="game-question">
@@ -925,8 +923,8 @@
     </div>
 
     <div class="game-section" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;">
-        <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧩 Игра 3: Найди пару (предмет + счётчик)</h2>
-        <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 6)</div>
+        <h2 style="color:#6A1B9A; margin-bottom:.5rem;">🧩 Игра 3: Найди пару (предмет + счётчик) 24 пары</h2>
+        <div class="match-status" id="matchStatus">🎯 Найди все пары! (0 / 8)</div>
         <div class="match-grid" id="matchGrid"></div>
         <div class="match-result" id="matchResult"></div>
         <div class="game-controls">
@@ -1055,10 +1053,6 @@
 </div>
 
 <script>
-    // ================================================================
-    // ЧАСТЬ 2 — JavaScript (данные и логика)
-    // ================================================================
-
     // ===== 16 СЧЁТНЫХ СЛОВ =====
     const countersData = [
         { char: '个', pinyin: 'gè', use: 'Универсальный', example: '一个人 — один человек' },
@@ -1153,156 +1147,143 @@
         { q: '你在哪儿？', p: 'Nǐ zài nǎr?', t: '📍 Где ты?', a: '我在家。', ap: 'Wǒ zài jiā.', at: 'Я дома.', note: 'Спрашиваем местоположение (без 人)' },
         { q: '你住在哪里？', p: 'Nǐ zhù zài nǎlǐ?', t: '🏠 Где ты живёшь?', a: '我住在北京。', ap: 'Wǒ zhù zài Běijīng.', at: 'Я живу в Пекине.', note: 'Спрашиваем место жительства' },
     ];
+    // ================================================================
+    // ИГРА 1 — 50 ВОПРОСОВ
+    // ================================================================
+    const game1Questions = [
+        // Базовые вопросы (что/какой)
+        { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'] },
+        { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'] },
+        { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'] },
+        { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'] },
+        { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'] },
+        { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'] },
+        { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'] },
+        { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
 
-    // ===== ВСЕ ВОПРОСИТЕЛЬНЫЕ СЛОВА (16 шт × 5 примеров) =====
-    const shenmeData = [
-        { q: '你喜欢什么书？', p: 'Nǐ xǐhuān shénme shū?', t: '📖 Какие книги ты любишь?', a: '我喜欢小说。', ap: 'Wǒ xǐhuān xiǎoshuō.', at: 'Я люблю романы.', note: 'Спрашиваем жанр/название' },
-        { q: '你想吃什么？', p: 'Nǐ xiǎng chī shénme?', t: '🍕 Что ты хочешь съесть?', a: '我想吃披萨。', ap: 'Wǒ xiǎng chī pīsà.', at: 'Я хочу пиццу.', note: 'Еды много → открытый вопрос' },
-        { q: '这是什么？', p: 'Zhè shì shénme?', t: '❓ Что это?', a: '这是手机。', ap: 'Zhè shì shǒujī.', at: 'Это телефон.', note: 'Неизвестный предмет' },
-        { q: '你叫什么名字？', p: 'Nǐ jiào shénme míngzi?', t: '👤 Как тебя зовут?', a: '我叫安娜。', ap: 'Wǒ jiào Ānnà.', at: 'Меня зовут Анна.', note: 'Спрашиваем имя' },
-        { q: '你爱吃什么水果？', p: 'Nǐ ài chī shénme shuǐguǒ?', t: '🍎 Какие фрукты ты любишь?', a: '我爱吃苹果。', ap: 'Wǒ ài chī píngguǒ.', at: 'Я люблю яблоки.', note: 'Фруктов много → открытый вопрос' },
+        // Дополнительные вопросы (расширение)
+        { chinese: '你__想去？', translation: 'Куда ты хочешь пойти?', correct: '哪儿', options: ['哪儿', '哪里', '什么'] },
+        { chinese: '你__时候来？', translation: 'Когда ты придёшь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__工作？', translation: 'Где ты работаешь?', correct: '哪儿', options: ['哪儿', '哪里', '什么'] },
+        { chinese: '__个手机是你的？', translation: 'Который телефон твой?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '你__学习中文？', translation: 'Зачем ты учишь китайский?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '你__天去？', translation: 'В какой день ты пойдёшь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__个城市更大？', translation: 'Какой город больше?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__认识他？', translation: 'Как ты с ним познакомился?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '他__人？', translation: 'Что он за человек?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__条路更近？', translation: 'Какая дорога ближе?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__忙？', translation: 'Как ты занят? (насколько)', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '今天__？', translation: 'Какая сегодня погода?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '这个__？', translation: 'Какой этот предмет?', correct: '什么样', options: ['什么样', '怎么样', '怎么'] },
+        { chinese: '__是老师？', translation: 'Кто из них учитель?', correct: '哪个人', options: ['哪个人', '谁', '什么人'] },
+        { chinese: '你__去的？', translation: 'Почему ты пошёл?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '你__做？', translation: 'Что ты делаешь?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
+        { chinese: '__样的人？', translation: 'Какой человек?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__个苹果？', translation: 'Которое яблоко?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__去？', translation: 'Как ты поедешь?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '这__？', translation: 'Что это?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__位是你的朋友？', translation: 'Кто из них твой друг?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '你__这么高兴？', translation: 'Почему ты такой радостный?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '__路走？', translation: 'Какой дорогой идти?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__知道？', translation: 'Как ты узнал?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '他__？', translation: 'Какой он? (характер)', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '__是你爸爸？', translation: 'Который из них твой папа?', correct: '哪个人', options: ['哪个人', '谁', '什么人'] },
+        { chinese: '你__没来？', translation: 'Почему ты не пришёл?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '你__名字？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__件衣服是你的？', translation: 'Которая одежда твоя?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '这__意思？', translation: 'Что это значит?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '你__天来？', translation: 'В какой день ты придёшь?', correct: '什么', options: ['什么', '哪', '怎么'] },
     ];
 
-    const naData = [
-        { q: '哪本书是你的？', p: 'Nǎ běn shū shì nǐ de?', t: '📖 Которая книга твоя?', a: '那本书是我的。', ap: 'Nà běn shū shì wǒ de.', at: 'Та книга моя.', note: 'Выбор из книг → нужен счётчик 本' },
-        { q: '哪个蛋糕好吃？', p: 'Nǎ ge dàngāo hǎochī?', t: '🍰 Который торт вкуснее?', a: '这个蛋糕好吃。', ap: 'Zhège dàngāo hǎochī.', at: 'Этот торт вкусный.', note: 'Выбор из тортов → счётчик 个' },
-        { q: '哪辆车是你的？', p: 'Nǎ liàng chē shì nǐ de?', t: '🚗 Которая машина твоя?', a: '那辆车是我的。', ap: 'Nà liàng chē shì wǒ de.', at: 'Та машина моя.', note: 'Выбор из машин → счётчик 辆' },
-        { q: '哪杯茶是你的？', p: 'Nǎ bēi chá shì nǐ de?', t: '☕ Которая чашка чая твоя?', a: '这杯茶是我的。', ap: 'Zhè bēi chá shì wǒ de.', at: 'Эта чашка чая моя.', note: 'Выбор из чашек → счётчик 杯' },
-        { q: '哪个城市更漂亮？', p: 'Nǎ ge chéngshì gèng piàoliang?', t: '🏙️ Который город красивее?', a: '北京更漂亮。', ap: 'Běijīng gèng piàoliang.', at: 'Пекин красивее.', note: 'Выбор из городов → счётчик 个' },
+    // ===== ИГРА 2 — 50 ПРЕДМЕТОВ СО СЧЁТНЫМИ =====
+    const counterItems = [
+        { item: '📚 书 (книга)', correct: '本' },
+        { item: '🚗 车 (машина)', correct: '辆' },
+        { item: '☕ 茶 (чай)', correct: '杯' },
+        { item: '🐕 狗 (собака)', correct: '只' },
+        { item: '👟 鞋 (обувь)', correct: '双' },
+        { item: '💰 钱 (деньги)', correct: '块' },
+        { item: '📄 纸 (бумага)', correct: '张' },
+        { item: '👔 衣服 (одежда)', correct: '件' },
+        { item: '🛣️ 路 (дорога)', correct: '条' },
+        { item: '🔪 刀 (нож)', correct: '把' },
+        { item: '🍾 水 (бутылка)', correct: '瓶' },
+        { item: '🍎 苹果 (яблоко)', correct: '个' },
+        { item: '💎 耳环 (серёжки)', correct: '对' },
+        { item: '👓 眼镜 (очки)', correct: '副' },
+        { item: '🥢 筷子 (палочки)', correct: '根' },
+        { item: '🍞 面包 (хлеб)', correct: '片' },
+        { item: '🐱 猫 (кошка)', correct: '只' },
+        { item: '🐦 鸟 (птица)', correct: '只' },
+        { item: '🐄 牛 (корова)', correct: '头' },
+        { item: '🐷 猪 (свинья)', correct: '头' },
+        { item: '🐘 大象 (слон)', correct: '头' },
+        { item: '🐎 马 (лошадь)', correct: '匹' },
+        { item: '🚲 自行车 (велосипед)', correct: '辆' },
+        { item: '🚌 公交车 (автобус)', correct: '辆' },
+        { item: '✈️ 飞机 (самолёт)', correct: '架' },
+        { item: '🚢 船 (корабль)', correct: '艘' },
+        { item: '🌉 桥 (мост)', correct: '架' },
+        { item: '👕 衬衫 (рубашка)', correct: '件' },
+        { item: '🧥 外套 (пальто)', correct: '件' },
+        { item: '🐍 蛇 (змея)', correct: '条' },
+        { item: '👖 裤子 (штаны)', correct: '条' },
+        { item: '🐟 鱼 (рыба)', correct: '条' },
+        { item: '🧣 围巾 (шарф)', correct: '条' },
+        { item: '🧤 手套 (перчатки)', correct: '副' },
+        { item: '🃏 扑克牌 (карты)', correct: '副' },
+        { item: '🪑 椅子 (стул)', correct: '把' },
+        { item: '☂️ 伞 (зонт)', correct: '把' },
+        { item: '🔑 钥匙 (ключ)', correct: '把' },
+        { item: '🍰 蛋糕 (торт)', correct: '块' },
+        { item: '⌚ 手表 (часы)', correct: '块' },
+        { item: '🪨 石头 (камень)', correct: '块' },
+        { item: '🍫 巧克力 (шоколад)', correct: '块' },
+        { item: '🥩 肉 (мясо)', correct: '块' },
+        { item: '🍪 饼干 (печенье)', correct: '片' },
+        { item: '🧇 火腿 (ветчина)', correct: '片' },
+        { item: '❄️ 雪花 (снежинка)', correct: '片' },
+        { item: '🌿 叶子 (лист)', correct: '片' },
+        { item: '🍌 香蕉 (банан)', correct: '根' },
+        { item: '🪵 木头 (бревно)', correct: '根' },
+        { item: '🪢 绳子 (верёвка)', correct: '根' },
     ];
 
-    const zenmeData = [
-        { q: '你怎么去学校？', p: 'Nǐ zěnme qù xuéxiào?', t: '🚌 Как ты добираешься?', a: '我坐地铁去。', ap: 'Wǒ zuò dìtiě qù.', at: 'Я еду на метро.', note: 'Способ действия' },
-        { q: '这个字怎么读？', p: 'Zhège zì zěnme dú?', t: '📖 Как читается этот иероглиф?', a: '这个字读"人"。', ap: 'Zhège zì dú "rén".', at: 'Читается "жэнь".', note: 'Способ чтения' },
-        { q: '这道题怎么做？', p: 'Zhè dào tí zěnme zuò?', t: '✏️ Как решить эту задачу?', a: '我帮你做。', ap: 'Wǒ bāng nǐ zuò.', at: 'Я помогу решить.', note: 'Способ решения' },
-        { q: '你怎么了？', p: 'Nǐ zěnme le?', t: '🤔 Что с тобой?', a: '我没事。', ap: 'Wǒ méi shì.', at: 'Я в порядке.', note: 'Состояние' },
-        { q: '怎么说？', p: 'Zěnme shuō?', t: '🗣️ Как сказать?', a: '这样说。', ap: 'Zhèyàng shuō.', at: 'Говори так.', note: 'Способ сказать' },
+    // ===== ИГРА 3 — 24 ПАРЫ =====
+    const matchPairs = [
+        { item: '📚 书 (книга)', counter: '本' },
+        { item: '🚗 车 (машина)', counter: '辆' },
+        { item: '☕ 茶 (чай)', counter: '杯' },
+        { item: '🐕 狗 (собака)', counter: '只' },
+        { item: '👟 鞋 (обувь)', counter: '双' },
+        { item: '💰 钱 (деньги)', counter: '块' },
+        { item: '📄 纸 (бумага)', counter: '张' },
+        { item: '👔 衣服 (одежда)', counter: '件' },
+        { item: '🛣️ 路 (дорога)', counter: '条' },
+        { item: '🔪 刀 (нож)', counter: '把' },
+        { item: '🍾 水 (бутылка)', counter: '瓶' },
+        { item: '🍎 苹果 (яблоко)', counter: '个' },
+        { item: '💎 耳环 (серёжки)', counter: '对' },
+        { item: '👓 眼镜 (очки)', counter: '副' },
+        { item: '🥢 筷子 (палочки)', counter: '根' },
+        { item: '🍞 面包 (хлеб)', counter: '片' },
+        { item: '🐱 猫 (кошка)', counter: '只' },
+        { item: '🐄 牛 (корова)', counter: '头' },
+        { item: '🐎 马 (лошадь)', counter: '匹' },
+        { item: '🚲 自行车 (велосипед)', counter: '辆' },
+        { item: '✈️ 飞机 (самолёт)', counter: '架' },
+        { item: '🚢 船 (корабль)', counter: '艘' },
+        { item: '🐍 蛇 (змея)', counter: '条' },
+        { item: '👖 裤子 (штаны)', counter: '条' },
     ];
-
-    const zenmeyangData = [
-        { q: '你怎么样？', p: 'Nǐ zěnmeyàng?', t: '💬 Как ты? / Как дела?', a: '我很好。', ap: 'Wǒ hěn hǎo.', at: 'Я очень хорошо.', note: 'Состояние' },
-        { q: '这部电影怎么样？', p: 'Zhè bù diànyǐng zěnmeyàng?', t: '🎬 Как этот фильм?', a: '这部电影很好看。', ap: 'Zhè bù diànyǐng hěn hǎokàn.', at: 'Этот фильм очень хороший.', note: 'Оценка фильма' },
-        { q: '今天的天气怎么样？', p: 'Jīntiān de tiānqì zěnmeyàng?', t: '🌤️ Какая сегодня погода?', a: '今天天气很好。', ap: 'Jīntiān tiānqì hěn hǎo.', at: 'Сегодня погода хорошая.', note: 'Оценка погоды' },
-        { q: '你父母怎么样？', p: 'Nǐ fùmǔ zěnmeyàng?', t: '👪 Как твои родители?', a: '他们都很好。', ap: 'Tāmen dōu hěn hǎo.', at: 'Они все хорошо.', note: 'Состояние родителей' },
-        { q: '这家餐厅怎么样？', p: 'Zhè jiā cāntīng zěnmeyàng?', t: '🍽️ Как этот ресторан?', a: '这家餐厅很棒。', ap: 'Zhè jiā cāntīng hěn bàng.', at: 'Этот ресторан отличный.', note: 'Оценка ресторана' },
-    ];
-
-    const shenmeyangData = [
-        { q: '他什么样？', p: 'Tā shénme yàng?', t: '👤 Как он выглядит?', a: '他很高很帅。', ap: 'Tā hěn gāo hěn shuài.', at: 'Он высокий и красивый.', note: 'Внешность' },
-        { q: '你的房子什么样？', p: 'Nǐ de fángzi shénme yàng?', t: '🏠 Как выглядит твой дом?', a: '我的房子很大。', ap: 'Wǒ de fángzi hěn dà.', at: 'Мой дом большой.', note: 'Внешность дома' },
-        { q: '这个手机什么样？', p: 'Zhège shǒujī shénme yàng?', t: '📱 Какой этот телефон?', a: '这个手机很新。', ap: 'Zhège shǒujī hěn xīn.', at: 'Этот телефон новый.', note: 'Внешность телефона' },
-        { q: '她的包什么样？', p: 'Tā de bāo shénme yàng?', t: '👜 Как выглядит её сумка?', a: '她的包很漂亮。', ap: 'Tā de bāo hěn piàoliang.', at: 'Её сумка красивая.', note: 'Внешность сумки' },
-        { q: '这个公园什么样？', p: 'Zhège gōngyuán shénme yàng?', t: '🌳 Как выглядит этот парк?', a: '这个公园很安静。', ap: 'Zhège gōngyuán hěn ānjìng.', at: 'Этот парк очень тихий.', note: 'Внешность парка' },
-    ];
-
-    const sheiData = [
-        { q: '他是谁？', p: 'Tā shì shéi?', t: '👤 Кто он?', a: '他是我的老师。', ap: 'Tā shì wǒ de lǎoshī.', at: 'Он мой учитель.', note: 'Спрашиваем личность' },
-        { q: '谁来了？', p: 'Shéi lái le?', t: '🚪 Кто пришёл?', a: '我的朋友来了。', ap: 'Wǒ de péngyou lái le.', at: 'Пришёл мой друг.', note: 'Кто совершил действие' },
-        { q: '谁是你的老师？', p: 'Shéi shì nǐ de lǎoshī?', t: '👨‍🏫 Кто твой учитель?', a: '张老师是我的老师。', ap: 'Zhāng lǎoshī shì wǒ de lǎoshī.', at: 'Учитель Чжан — мой учитель.', note: 'Кто является' },
-        { q: '你找谁？', p: 'Nǐ zhǎo shéi?', t: '🔍 Кого ты ищешь?', a: '我找李老师。', ap: 'Wǒ zhǎo Lǐ lǎoshī.', at: 'Я ищу учителя Ли.', note: 'Кого ищешь' },
-        { q: '谁在那儿？', p: 'Shéi zài nàr?', t: '👀 Кто там?', a: '是我的朋友。', ap: 'Shì wǒ de péngyou.', at: 'Это мой друг.', note: 'Кто находится' },
-    ];
-
-    const shenmerenData = [
-        { q: '你是什么人？', p: 'Nǐ shì shénme rén?', t: '❓ Что ты за человек?', a: '我是好人。', ap: 'Wǒ shì hǎorén.', at: 'Я хороший человек.', note: 'Спрашиваем характер/личность (НЕ профессию!)' },
-        { q: '他是什么人？', p: 'Tā shì shénme rén?', t: '👤 Что он за человек?', a: '他是善良的人。', ap: 'Tā shì shànliáng de rén.', at: 'Он добрый человек.', note: 'Спрашиваем характер' },
-        { q: '她是什么人？', p: 'Tā shì shénme rén?', t: '👩 Что она за человек?', a: '她是聪明的人。', ap: 'Tā shì cōngming de rén.', at: 'Она умный человек.', note: 'Спрашиваем личность' },
-        { q: '他们是什么人？', p: 'Tāmen shì shénme rén?', t: '👥 Что они за люди?', a: '他们是我的朋友。', ap: 'Tāmen shì wǒ de péngyou.', at: 'Они мои друзья.', note: 'Спрашиваем статус' },
-        { q: '那个人是什么人？', p: 'Nàge rén shì shénme rén?', t: '🧐 Что тот человек за человек?', a: '他是我的老师。', ap: 'Tā shì wǒ de lǎoshī.', at: 'Он мой учитель.', note: 'Спрашиваем роль/статус' },
-    ];
-
-    const nagerenData = [
-        { q: '哪个人是你弟弟？', p: 'Nǎ ge rén shì nǐ dìdi?', t: '👦 Который из них твой брат?', a: '那个人是我弟弟。', ap: 'Nàge rén shì wǒ dìdi.', at: 'Тот человек — мой младший брат.', note: 'Выбор из людей' },
-        { q: '哪个人是你的朋友？', p: 'Nǎ ge rén shì nǐ de péngyou?', t: '🤝 Кто из них твой друг?', a: '那个高个子是我的朋友。', ap: 'Nàge gāo gèzi shì wǒ de péngyou.', at: 'Тот высокий — мой друг.', note: 'Выбор друга' },
-        { q: '哪个人是老师？', p: 'Nǎ ge rén shì lǎoshī?', t: '👨‍🏫 Кто из них учитель?', a: '那位女士是老师。', ap: 'Nà wèi nǚshì shì lǎoshī.', at: 'Та женщина — учитель.', note: 'Выбор учителя' },
-        { q: '哪个人是你妈妈？', p: 'Nǎ ge rén shì nǐ māma?', t: '👩 Кто из них твоя мама?', a: '我妈妈在那边。', ap: 'Wǒ māma zài nàbiān.', at: 'Моя мама вон там.', note: 'Выбор мамы' },
-        { q: '哪个人最帅？', p: 'Nǎ ge rén zuì shuài?', t: '😎 Кто из них самый красивый?', a: '那个男生最帅。', ap: 'Nàge nánshēng zuì shuài.', at: 'Тот парень самый красивый.', note: 'Выбор самого красивого' },
-    ];
-
-    const shenmeshihouData = [
-        { q: '你什么时候来？', p: 'Nǐ shénme shíhou lái?', t: '📅 Когда ты придёшь?', a: '我明天来。', ap: 'Wǒ míngtiān lái.', at: 'Я приду завтра.', note: 'Спрашиваем день' },
-        { q: '你什么时候去北京？', p: 'Nǐ shénme shíhou qù Běijīng?', t: '✈️ Когда ты едешь в Пекин?', a: '我下个月去。', ap: 'Wǒ xià ge yuè qù.', at: 'Я поеду в следующем месяце.', note: 'Спрашиваем месяц' },
-        { q: '你们什么时候考试？', p: 'Nǐmen shénme shíhou kǎoshì?', t: '📝 Когда у вас экзамен?', a: '我们下星期考试。', ap: 'Wǒmen xià xīngqī kǎoshì.', at: 'У нас экзамен на следующей неделе.', note: 'Спрашиваем неделю' },
-        { q: '你什么时候起床？', p: 'Nǐ shénme shíhou qǐchuáng?', t: '🌅 Когда ты встаёшь?', a: '我七点起床。', ap: 'Wǒ qī diǎn qǐchuáng.', at: 'Я встаю в 7 часов.', note: 'Спрашиваем время суток' },
-        { q: '你什么时候回家？', p: 'Nǐ shénme shíhou huí jiā?', t: '🏠 Когда ты возвращаешься домой?', a: '我晚上八点回家。', ap: 'Wǒ wǎnshang bā diǎn huí jiā.', at: 'Я возвращаюсь домой в 8 вечера.', note: 'Спрашиваем время' },
-    ];
-
-    const jidianData = [
-        { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在三点。', ap: 'Xiànzài sān diǎn.', at: 'Сейчас 3 часа.', note: 'Точное время' },
-        { q: '我们几点见面？', p: 'Wǒmen jǐ diǎn jiànmiàn?', t: '🤝 Во сколько мы встретимся?', a: '我们五点见面。', ap: 'Wǒmen wǔ diǎn jiànmiàn.', at: 'Мы встретимся в 5 часов.', note: 'Время встречи' },
-        { q: '你几点起床？', p: 'Nǐ jǐ diǎn qǐchuáng?', t: '⏰ Во сколько ты встаёшь?', a: '我六点半起床。', ap: 'Wǒ liù diǎn bàn qǐchuáng.', at: 'Я встаю в 6:30.', note: 'Время подъёма' },
-        { q: '电影几点开始？', p: 'Diànyǐng jǐ diǎn kāishǐ?', t: '🎬 Во сколько начинается фильм?', a: '电影七点开始。', ap: 'Diànyǐng qī diǎn kāishǐ.', at: 'Фильм начинается в 7 часов.', note: 'Время начала' },
-        { q: '你几点下班？', p: 'Nǐ jǐ diǎn xiàbān?', t: '💼 Во сколько ты заканчиваешь работу?', a: '我六点下班。', ap: 'Wǒ liù diǎn xiàbān.', at: 'Я заканчиваю работу в 6 часов.', note: 'Время окончания работы' },
-    ];
-
-    const weishenmeData = [
-        { q: '你为什么笑？', p: 'Nǐ wèishénme xiào?', t: '❓ Почему ты смеёшься?', a: '因为很好笑。', ap: 'Yīnwèi hěn hǎoxiào.', at: 'Потому что очень смешно.', note: 'Причина' },
-        { q: '为什么你学习中文？', p: 'Wèishénme nǐ xuéxí zhōngwén?', t: '🇨🇳 Почему ты учишь китайский?', a: '因为我对中文感兴趣。', ap: 'Yīnwèi wǒ duì zhōngwén gǎn xìngqù.', at: 'Потому что мне интересен китайский.', note: 'Причина' },
-        { q: '你为什么迟到？', p: 'Nǐ wèishénme chídào?', t: '⏰ Почему ты опоздал?', a: '因为堵车了。', ap: 'Yīnwèi dǔchē le.', at: 'Потому что были пробки.', note: 'Причина опоздания' },
-        { q: '为什么不吃早饭？', p: 'Wèishénme bù chī zǎofàn?', t: '🍳 Почему не завтракаешь?', a: '因为我没有时间。', ap: 'Yīnwèi wǒ méiyǒu shíjiān.', at: 'Потому что у меня нет времени.', note: 'Причина' },
-        { q: '为什么你爱我？', p: 'Wèishénme nǐ ài wǒ?', t: '❤️ Почему ты меня любишь?', a: '因为你很善良。', ap: 'Yīnwèi nǐ hěn shànliáng.', at: 'Потому что ты добрая.', note: 'Причина любви' },
-    ];
-
-    const duoshaoData = [
-        { q: '这多少钱？', p: 'Zhè duōshao qián?', t: '💰 Сколько это стоит?', a: '这个一百块。', ap: 'Zhège yībǎi kuài.', at: 'Это стоит 100 юаней.', note: 'Цена' },
-        { q: '你们有多少人？', p: 'Nǐmen yǒu duōshao rén?', t: '👥 Сколько у вас человек?', a: '我们有五十个人。', ap: 'Wǒmen yǒu wǔshí ge rén.', at: 'У нас 50 человек.', note: 'Большое количество' },
-        { q: '这个城市有多少人口？', p: 'Zhège chéngshì yǒu duōshao rénkǒu?', t: '🏙️ Сколько населения?', a: '有一千万人口。', ap: 'Yǒu yīqiān wàn rénkǒu.', at: '10 миллионов человек.', note: 'Большое число' },
-        { q: '你有多少钱？', p: 'Nǐ yǒu duōshao qián?', t: '💰 Сколько у тебя денег?', a: '我没有很多钱。', ap: 'Wǒ méiyǒu hěnduō qián.', at: 'У меня не много денег.', note: 'Количество денег' },
-        { q: '这本书多少页？', p: 'Zhè běn shū duōshao yè?', t: '📄 Сколько страниц?', a: '有三百页。', ap: 'Yǒu sānbǎi yè.', at: '300 страниц.', note: 'Количество страниц' },
-    ];
-
-    const jiData = [
-        { q: '你几岁？', p: 'Nǐ jǐ suì?', t: '🎂 Сколько тебе лет?', a: '我八岁。', ap: 'Wǒ bā suì.', at: 'Мне 8 лет.', note: 'Возраст до 10 → 几' },
-        { q: '你们有几个人？', p: 'Nǐmen yǒu jǐ ge rén?', t: '👥 Сколько вас человек?', a: '我们有两个人。', ap: 'Wǒmen yǒu liǎng ge rén.', at: 'Нас двое.', note: 'Малое число → 几 + 个' },
-        { q: '你要几本书？', p: 'Nǐ yào jǐ běn shū?', t: '📚 Сколько книг тебе нужно?', a: '我要两本书。', ap: 'Wǒ yào liǎng běn shū.', at: 'Мне нужно две книги.', note: 'Малое число → 几 + 本' },
-        { q: '现在几点？', p: 'Xiànzài jǐ diǎn?', t: '🕐 Который час?', a: '现在八点。', ap: 'Xiànzài bā diǎn.', at: 'Сейчас 8 часов.', note: 'Время → 几 + 点' },
-        { q: '你有几个朋友？', p: 'Nǐ yǒu jǐ ge péngyou?', t: '🤝 Сколько у тебя друзей?', a: '我有五个朋友。', ap: 'Wǒ yǒu wǔ ge péngyou.', at: 'У меня 5 друзей.', note: 'Малое число → 几 + 个' },
-    ];
-
-    const naerData = [
-        { q: '你在哪儿？', p: 'Nǐ zài nǎr?', t: '🗣️ Ты где?', a: '我在家。', ap: 'Wǒ zài jiā.', at: 'Я дома.', note: 'Разговорный вопрос' },
-        { q: '你去哪儿？', p: 'Nǐ qù nǎr?', t: '🚶 Куда ты идёшь?', a: '我去学校。', ap: 'Wǒ qù xuéxiào.', at: 'Я иду в школу.', note: 'Разговорный вопрос' },
-        { q: '你住在哪儿？', p: 'Nǐ zhù zài nǎr?', t: '🏠 Где ты живёшь?', a: '我住在北京。', ap: 'Wǒ zhù zài Běijīng.', at: 'Я живу в Пекине.', note: 'Разговорный вопрос' },
-        { q: '厕所在哪儿？', p: 'Cèsuǒ zài nǎr?', t: '🚻 Где туалет?', a: '厕所在那儿。', ap: 'Cèsuǒ zài nàr.', at: 'Туалет вон там.', note: 'Разговорный вопрос' },
-        { q: '超市在哪儿？', p: 'Chāoshì zài nǎr?', t: '🛒 Где супермаркет?', a: '超市在对面。', ap: 'Chāoshì zài duìmiàn.', at: 'Супермаркет напротив.', note: 'Разговорный вопрос' },
-    ];
-
-    const naliData = [
-        { q: '你是哪里人？', p: 'Nǐ shì nǎlǐ rén?', t: '🌍 Откуда ты родом?', a: '我是俄罗斯人。', ap: 'Wǒ shì Éluósī rén.', at: 'Я из России.', note: 'Национальность → с 人' },
-        { q: '你来自哪里？', p: 'Nǐ láizì nǎlǐ?', t: '🌏 Откуда ты приехал?', a: '我来自莫斯科。', ap: 'Wǒ láizì Mòsīkē.', at: 'Я из Москвы.', note: 'Формальный вопрос' },
-        { q: '你在哪里工作？', p: 'Nǐ zài nǎlǐ gōngzuò?', t: '💼 Где ты работаешь?', a: '我在学校工作。', ap: 'Wǒ zài xuéxiào gōngzuò.', at: 'Я работаю в школе.', note: 'Формальный вопрос' },
-        { q: '学校在哪里？', p: 'Xuéxiào zài nǎlǐ?', t: '🏫 Где находится школа?', a: '学校在公园旁边。', ap: 'Xuéxiào zài gōngyuán pángbiān.', at: 'Школа рядом с парком.', note: 'Формальный вопрос' },
-        { q: '银行在哪里？', p: 'Yínháng zài nǎlǐ?', t: '🏦 Где находится банк?', a: '银行在超市旁边。', ap: 'Yínháng zài chāoshì pángbiān.', at: 'Банк рядом с супермаркетом.', note: 'Формальный вопрос' },
-    ];
-
-    const ganshenmeData = [
-        { q: '你在干什么？', p: 'Nǐ zài gàn shénme?', t: '🔨 Что ты делаешь?', a: '我在看书。', ap: 'Wǒ zài kàn shū.', at: 'Я читаю книгу.', note: 'Спрашиваем о текущем действии' },
-        { q: '你想干什么？', p: 'Nǐ xiǎng gàn shénme?', t: '🤔 Что ты хочешь делать?', a: '我想看电影。', ap: 'Wǒ xiǎng kàn diànyǐng.', at: 'Я хочу посмотреть фильм.', note: 'Спрашиваем о желании' },
-        { q: '你打算干什么？', p: 'Nǐ dǎsuàn gàn shénme?', t: '📋 Что ты планируешь делать?', a: '我打算去旅行。', ap: 'Wǒ dǎsuàn qù lǚxíng.', at: 'Я планирую путешествовать.', note: 'Спрашиваем о планах' },
-        { q: '他正在干什么？', p: 'Tā zhèngzài gàn shénme?', t: '👀 Что он сейчас делает?', a: '他正在做饭。', ap: 'Tā zhèngzài zuòfàn.', at: 'Он готовит еду.', note: 'Спрашиваем о действии другого' },
-        { q: '你周末干什么？', p: 'Nǐ zhōumò gàn shénme?', t: '🗓️ Что ты делаешь на выходных?', a: '我周末去公园。', ap: 'Wǒ zhōumò qù gōngyuán.', at: 'Я иду в парк на выходных.', note: 'Спрашиваем о планах на выходные' },
-    ];
-
-    // ===== ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ (16) =====
-    const counterQuestionsData = [
-        { q: '几个人？', p: 'Jǐ ge rén?', t: '👥 Сколько людей?', a: '三个人。', ap: 'Sān ge rén.', at: 'Три человека.', note: 'Счётчик 个 для людей' },
-        { q: '几本书？', p: 'Jǐ běn shū?', t: '📚 Сколько книг?', a: '五本书。', ap: 'Wǔ běn shū.', at: 'Пять книг.', note: 'Счётчик 本 для книг' },
-        { q: '几辆车？', p: 'Jǐ liàng chē?', t: '🚗 Сколько машин?', a: '两辆车。', ap: 'Liǎng liàng chē.', at: 'Две машины.', note: 'Счётчик 辆 для машин' },
-        { q: '几杯茶？', p: 'Jǐ bēi chá?', t: '☕ Сколько чашек чая?', a: '四杯茶。', ap: 'Sì bēi chá.', at: 'Четыре чашки чая.', note: 'Счётчик 杯 для чашек' },
-        { q: '几条路？', p: 'Jǐ tiáo lù?', t: '🛣️ Сколько дорог?', a: '两条路。', ap: 'Liǎng tiáo lù.', at: 'Две дороги.', note: 'Счётчик 条 для длинных' },
-        { q: '几件事？', p: 'Jǐ jiàn shì?', t: '📋 Сколько дел?', a: '一件事。', ap: 'Yī jiàn shì.', at: 'Одно дело.', note: 'Счётчик 件 для дел' },
-        { q: '几张纸？', p: 'Jǐ zhāng zhǐ?', t: '📄 Сколько листов бумаги?', a: '六张纸。', ap: 'Liù zhāng zhǐ.', at: 'Шесть листов бумаги.', note: 'Счётчик 张 для плоских' },
-        { q: '几只狗？', p: 'Jǐ zhī gǒu?', t: '🐕 Сколько собак?', a: '两只狗。', ap: 'Liǎng zhī gǒu.', at: 'Две собаки.', note: 'Счётчик 只 для животных' },
-        { q: '几双鞋？', p: 'Jǐ shuāng xié?', t: '👟 Сколько пар обуви?', a: '三双鞋。', ap: 'Sān shuāng xié.', at: 'Три пары обуви.', note: 'Счётчик 双 для пар' },
-        { q: '几块钱？', p: 'Jǐ kuài qián?', t: '💰 Сколько юаней?', a: '十块钱。', ap: 'Shí kuài qián.', at: 'Десять юаней.', note: 'Счётчик 块 для денег' },
-        { q: '几把刀？', p: 'Jǐ bǎ dāo?', t: '🔪 Сколько ножей?', a: '两把刀。', ap: 'Liǎng bǎ dāo.', at: 'Два ножа.', note: 'Счётчик 把 для предметов с ручкой' },
-        { q: '几瓶水？', p: 'Jǐ píng shuǐ?', t: '🍾 Сколько бутылок воды?', a: '四瓶水。', ap: 'Sì píng shuǐ.', at: 'Четыре бутылки воды.', note: 'Счётчик 瓶 для бутылок' },
-        { q: '几对耳环？', p: 'Jǐ duì ěrhuán?', t: '💎 Сколько пар серёжек?', a: '两对耳环。', ap: 'Liǎng duì ěrhuán.', at: 'Две пары серёжек.', note: 'Счётчик 对 для симметричных пар' },
-        { q: '几副眼镜？', p: 'Jǐ fù yǎnjìng?', t: '👓 Сколько очков?', a: '一副眼镜。', ap: 'Yī fù yǎnjìng.', at: 'Одни очки.', note: 'Счётчик 副 для наборов' },
-        { q: '几根筷子？', p: 'Jǐ gēn kuàizi?', t: '🥢 Сколько палочек?', a: '两根筷子。', ap: 'Liǎng gēn kuàizi.', at: 'Две палочки.', note: 'Счётчик 根 для длинных/твёрдых' },
-        { q: '几片面包？', p: 'Jǐ piàn miànbāo?', t: '🍞 Сколько ломтиков хлеба?', a: '三片面包。', ap: 'Sān piàn miànbāo.', at: 'Три ломтика хлеба.', note: 'Счётчик 片 для тонких/плоских' },
-    ];
-
     // ================================================================
     // 2. ФУНКЦИИ
     // ================================================================
@@ -1421,7 +1402,7 @@
     }
 
     // ================================================================
-    // 3. ОТОБРАЖЕНИЕ
+    // 3. ОТОБРАЖЕНИЕ ВСЕХ РАЗДЕЛОВ
     // ================================================================
 
     renderAccordionCards('professionContainer', professionData, 'профессия', '#2980B9');
@@ -1453,63 +1434,6 @@
     // 4. ИГРЫ
     // ================================================================
 
-    const game1Questions = [
-        { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем профессию → вариантов много' },
-        { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'], hint: 'Выбор из книг → нужен счётчик 本' },
-        { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'], hint: 'Способ действия' },
-        { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем имя' },
-        { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'], hint: 'Маленькое число → 几 + счётное' },
-        { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'], hint: 'Цена → используем 多少' },
-        { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'], hint: 'Повседневный → 哪儿' },
-        { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'], hint: 'Национальность → 哪里 + 人' },
-        { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'], hint: 'Удивление → 怎么' },
-        { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'], hint: 'Причина → 为什么' },
-        { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'], hint: 'Выбор из тортов → нужен счётчик 个' },
-        { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Фруктов много → открытый вопрос' },
-        { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], hint: 'Внешность, вид' },
-        { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], hint: 'Состояние → "как дела?"' },
-        { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], hint: 'Выбор из людей → нужен счётчик 个' },
-        { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'], hint: 'Спрашиваем о действии' },
-    ];
-
-    const counterItems = [
-        { item: '📚 书 (книга)', correct: '本' },
-        { item: '🚗 车 (машина)', correct: '辆' },
-        { item: '☕ 茶 (чай)', correct: '杯' },
-        { item: '🐕 狗 (собака)', correct: '只' },
-        { item: '👟 鞋 (обувь)', correct: '双' },
-        { item: '💰 钱 (деньги)', correct: '块' },
-        { item: '📄 纸 (бумага)', correct: '张' },
-        { item: '👔 衣服 (одежда)', correct: '件' },
-        { item: '🛣️ 路 (дорога)', correct: '条' },
-        { item: '🔪 刀 (нож)', correct: '把' },
-        { item: '🍾 水 (бутылка)', correct: '瓶' },
-        { item: '🍎 苹果 (яблоко)', correct: '个' },
-        { item: '💎 耳环 (серёжки)', correct: '对' },
-        { item: '👓 眼镜 (очки)', correct: '副' },
-        { item: '🥢 筷子 (палочки)', correct: '根' },
-        { item: '🍞 面包 (хлеб)', correct: '片' },
-    ];
-
-    const matchPairs = [
-        { item: '📚 书 (книга)', counter: '本' },
-        { item: '🚗 车 (машина)', counter: '辆' },
-        { item: '☕ 茶 (чай)', counter: '杯' },
-        { item: '🐕 狗 (собака)', counter: '只' },
-        { item: '👟 鞋 (обувь)', counter: '双' },
-        { item: '💰 钱 (деньги)', counter: '块' },
-        { item: '📄 纸 (бумага)', counter: '张' },
-        { item: '👔 衣服 (одежда)', counter: '件' },
-        { item: '🛣️ 路 (дорога)', counter: '条' },
-        { item: '🔪 刀 (нож)', counter: '把' },
-        { item: '🍾 水 (бутылка)', counter: '瓶' },
-        { item: '🍎 苹果 (яблоко)', counter: '个' },
-        { item: '💎 耳环 (серёжки)', counter: '对' },
-        { item: '👓 眼镜 (очки)', counter: '副' },
-        { item: '🥢 筷子 (палочки)', counter: '根' },
-        { item: '🍞 面包 (хлеб)', counter: '片' },
-    ];
-
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -1532,11 +1456,10 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ===== ИГРА 1 =====
+    // ===== ИГРА 1 (50 вопросов) =====
     let g1Questions = [], g1Index = 0, g1Score = 0, g1Mistakes = 0, g1Answered = false;
     const g1Q = document.getElementById('game1Question');
     const g1T = document.getElementById('game1Translation');
-    const g1H = document.getElementById('game1Hint');
     const g1Opt = document.getElementById('game1Options');
     const g1Res = document.getElementById('game1Result');
     const g1ScoreEl = document.getElementById('game1Score');
@@ -1545,7 +1468,7 @@
 
     function initGame1() {
         const shuffled = shuffleArray([...game1Questions]);
-        g1Questions = shuffled.slice(0, 10);
+        g1Questions = shuffled.slice(0, 50);
         g1Index = 0;
         g1Score = 0;
         g1Mistakes = 0;
@@ -1558,7 +1481,6 @@
         if (g1Index >= g1Questions.length) {
             g1Q.textContent = '🎉 Поздравляем!';
             g1T.textContent = `Правильных: ${g1Score} из ${g1Questions.length}`;
-            g1H.textContent = '';
             g1Opt.innerHTML = '';
             g1Res.textContent = `🎊 Ошибок: ${g1Mistakes}`;
             g1Res.className = 'game-result correct';
@@ -1567,7 +1489,6 @@
         const q = g1Questions[g1Index];
         g1Q.textContent = q.chinese;
         g1T.textContent = q.translation;
-        g1H.textContent = '💡 ' + q.hint;
         const shuffledOpt = shuffleArray([...q.options]);
         let html = '';
         for (const opt of shuffledOpt) {
@@ -1599,11 +1520,11 @@
         });
         if (isCorrect) {
             g1Score++;
-            g1Res.textContent = '✅ Правильно! ' + q.hint;
+            g1Res.textContent = '✅ Правильно!';
             g1Res.className = 'game-result correct';
         } else {
             g1Mistakes++;
-            g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct + ' — ' + q.hint;
+            g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct;
             g1Res.className = 'game-result wrong';
         }
         speakChinese(q.chinese.replace('__', q.correct));
@@ -1627,7 +1548,7 @@
         initGame1();
     });
 
-    // ===== ИГРА 2 =====
+    // ===== ИГРА 2 (50 предметов) =====
     let g2Questions = [], g2Index = 0, g2Score = 0, g2Mistakes = 0, g2Answered = false;
     const g2Q = document.getElementById('game2Question');
     const g2D = document.getElementById('game2Desc');
@@ -1639,7 +1560,7 @@
 
     function initGame2() {
         const shuffled = shuffleArray([...counterItems]);
-        g2Questions = shuffled.slice(0, 10);
+        g2Questions = shuffled.slice(0, 50);
         g2Index = 0;
         g2Score = 0;
         g2Mistakes = 0;
@@ -1726,7 +1647,7 @@
         initGame2();
     });
 
-    // ===== ИГРА 3 =====
+    // ===== ИГРА 3 (24 пары) =====
     let matchItems = [], selectedMatch = null, matchPairsFound = 0;
     const matchGrid = document.getElementById('matchGrid');
     const matchStatus = document.getElementById('matchStatus');
@@ -1734,7 +1655,7 @@
 
     function initMatchGame() {
         const shuffled = shuffleArray([...matchPairs]);
-        matchItems = shuffled.slice(0, 6);
+        matchItems = shuffled.slice(0, 8);
         matchPairsFound = 0;
         selectedMatch = null;
         matchResult.textContent = '';
@@ -1823,7 +1744,7 @@
     initGame2();
     initMatchGame();
 
-    console.log('✅ Приложение загружено! Все 20 разделов + 16 счётных слов + 3 игры!');
+    console.log('✅ Приложение загружено! 50 вопросов + 50 счётных слов + 24 пары!');
 </script>
 
 </body>
