@@ -1198,376 +1198,105 @@
 
     // ===== ИГРА 1: 40 вопросов (расширено, БЕЗ подсказок, с пиньин) =====
     const game1Questions = [
-    // === БАЗОВЫЕ (16) ===
-    { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ gōngzuò?' },
-    { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ běn shū shì nǐ de?' },
-    { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ qù xuéxiào?' },
-    { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ jiào shénme __?' },
-    { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'], pinyin: 'Nǐ __ suì?' },
-    { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'], pinyin: 'Zhè __ qián?' },
-    { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'], pinyin: 'Nǐ zài __?' },
-    { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'], pinyin: 'Nǐ shì __ rén?' },
-    { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'], pinyin: 'Nǐ __ lái le?' },
-    { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ xiào?' },
-    { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge dàngāo hǎochī?' },
-    { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ ài chī shénme __?' },
-    { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], pinyin: 'Tā __?' },
-    { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], pinyin: 'Nǐ __?' },
-    { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], pinyin: '__ shì nǐ gēge?' },
-    { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'], pinyin: 'Tā zài __?' },
-
-    // === ДОПОЛНИТЕЛЬНЫЕ (30) ===
-    { chinese: '你__想去？', translation: 'Куда ты хочешь пойти?', correct: '哪儿', options: ['哪儿', '哪里', '什么'], pinyin: 'Nǐ __ xiǎng qù?' },
-    { chinese: '你__时候来？', translation: 'Когда ты придёшь?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ shíhou lái?' },
-    { chinese: '__个手机是你的？', translation: 'Который телефон твой?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ ge shǒujī shì nǐ de?' },
-    { chinese: '你__学习中文？', translation: 'Зачем ты учишь китайский?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ xuéxí zhōngwén?' },
-    { chinese: '你__天去？', translation: 'В какой день ты пойдёшь?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ tiān qù?' },
-    { chinese: '__个城市更大？', translation: 'Какой город больше?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge chéngshì gèng dà?' },
-    { chinese: '你__认识他？', translation: 'Как ты с ним познакомился?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ rènshi tā?' },
-    { chinese: '他__人？', translation: 'Что он за человек?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Tā __ rén?' },
-    { chinese: '__条路更近？', translation: 'Какая дорога ближе?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ tiáo lù gèng jìn?' },
-    { chinese: '你__忙？', translation: 'Как ты занят?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], pinyin: 'Nǐ __ máng?' },
-    { chinese: '今天__？', translation: 'Какая сегодня погода?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], pinyin: 'Jīntiān __?' },
-    { chinese: '这个__？', translation: 'Какой этот предмет?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], pinyin: 'Zhège __?' },
-    { chinese: '__是老师？', translation: 'Кто из них учитель?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], pinyin: '__ shì lǎoshī?' },
-    { chinese: '你__去的？', translation: 'Почему ты пошёл?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ qù de?' },
-    { chinese: '你__做？', translation: 'Что ты делаешь?', correct: '干什么', options: ['干什么', '什么', '怎么'], pinyin: 'Nǐ __ zuò?' },
-    { chinese: '__样的人？', translation: 'Какой человек?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ yàng de rén?' },
-    { chinese: '__个苹果？', translation: 'Которое яблоко?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge píngguǒ?' },
-    { chinese: '你__去？', translation: 'Как ты поедешь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ qù?' },
-    { chinese: '这__？', translation: 'Что это?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __?' },
-    { chinese: '__位是你的朋友？', translation: 'Кто из них твой друг?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ wèi shì nǐ de péngyou?' },
-    { chinese: '你__这么高兴？', translation: 'Почему ты такой радостный?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ zhème gāoxìng?' },
-    { chinese: '__路走？', translation: 'Какой дорогой идти?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ lù zǒu?' },
-    { chinese: '你__知道？', translation: 'Как ты узнал?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zhīdào?' },
-    { chinese: '他__？', translation: 'Какой он? (характер)', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], pinyin: 'Tā __?' },
-    { chinese: '__是你爸爸？', translation: 'Который из них твой папа?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], pinyin: '__ shì nǐ bàba?' },
-    { chinese: '你__没来？', translation: 'Почему ты не пришёл?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ méi lái?' },
-    { chinese: '你__名字？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ míngzi?' },
-    { chinese: '__件衣服是你的？', translation: 'Которая одежда твоя?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ jiàn yīfu shì nǐ de?' },
-    { chinese: '这__意思？', translation: 'Что это значит?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __ yìsi?' },
-    { chinese: '你__天来？', translation: 'В какой день ты придёшь?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ tiān lái?' },
-
-    // === РАСШИРЕНИЕ (54 вопроса до 100) ===
-    { chinese: '__个学生最好？', translation: 'Который ученик лучший?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ ge xuésheng zuì hǎo?' },
-    { chinese: '你__喜欢这个？', translation: 'Почему тебе это нравится?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ xǐhuān zhège?' },
-    { chinese: '他__了？', translation: 'Что с ним случилось?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Tā __ le?' },
-    { chinese: '你__时回来？', translation: 'Когда ты вернёшься?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ shí huílái?' },
-    { chinese: '__个房间更大？', translation: 'Какая комната больше?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge fángjiān gèng dà?' },
-    { chinese: '你__知道这个？', translation: 'Как ты это узнал?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zhīdào zhège?' },
-    { chinese: '他__工作？', translation: 'Кем он работает?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Tā __ gōngzuò?' },
-    { chinese: '__个问题最难？', translation: 'Какой вопрос самый сложный?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge wèntí zuì nán?' },
-    { chinese: '你__走？', translation: 'Как ты уйдёшь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zǒu?' },
-    { chinese: '__是你的想法？', translation: 'Какая твоя идея?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de xiǎngfǎ?' },
-    { chinese: '__个颜色更漂亮？', translation: 'Какой цвет красивее?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge yánsè gèng piàoliang?' },
-    { chinese: '你__能来？', translation: 'Как ты сможешь прийти?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ néng lái?' },
-    { chinese: '他__时候走？', translation: 'Когда он уйдёт?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Tā __ shíhou zǒu?' },
-    { chinese: '__本书最好？', translation: 'Какая книга лучшая?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ běn shū zuì hǎo?' },
-    { chinese: '你__这么累？', translation: 'Почему ты такой уставший?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ zhème lèi?' },
-    { chinese: '这个__样？', translation: 'Какой этот?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], pinyin: 'Zhège __ yàng?' },
-    { chinese: '__是你的习惯？', translation: 'Какая твоя привычка?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de xíguàn?' },
-    { chinese: '__个动物最大？', translation: 'Какое животное самое большое?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge dòngwù zuì dà?' },
-    { chinese: '你__会中文？', translation: 'Как ты выучил китайский?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ huì zhōngwén?' },
-    { chinese: '这__菜？', translation: 'Что это за блюдо?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __ cài?' },
-    { chinese: '__个老师最好？', translation: 'Который учитель лучший?', correct: '哪', options: ['什么', '哪', '谁'], pinyin: '__ ge lǎoshī zuì hǎo?' },
-    { chinese: '你__学习？', translation: 'Как ты учишься?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ xuéxí?' },
-    { chinese: '__是你的爱好？', translation: 'Какое твоё хобби?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de àihào?' },
-    { chinese: '__个城市最漂亮？', translation: 'Какой город самый красивый?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge chéngshì zuì piàoliang?' },
-    { chinese: '你__天学习？', translation: 'В какие дни ты учишься?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Nǐ __ tiān xuéxí?' },
-    { chinese: '__个答案正确？', translation: 'Какой ответ правильный?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge dá'àn zhèngquè?' },
-    { chinese: '你__做这个？', translation: 'Как ты это делаешь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zuò zhège?' },
-    { chinese: '__是你的梦想？', translation: 'Какая твоя мечта?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de mèngxiǎng?' },
-    { chinese: '__个地方最美？', translation: 'Какое место самое красивое?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge dìfāng zuì měi?' },
-    { chinese: '你__去那里？', translation: 'Как ты туда попадёшь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ qù nàlǐ?' },
-    { chinese: '这__时候开始？', translation: 'Когда это начинается?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __ shíhou kāishǐ?' },
-    { chinese: '__个节目最好看？', translation: 'Какая передача самая интересная?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge jiémù zuì hǎokàn?' },
-    { chinese: '你__这么晚？', translation: 'Почему ты так поздно?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ zhème wǎn?' },
-    { chinese: '这__回事？', translation: 'Что это за дело?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __ huí shì?' },
-    { chinese: '__个季节最好？', translation: 'Какое время года лучшее?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge jìjié zuì hǎo?' },
-    { chinese: '你__想？', translation: 'Как ты думаешь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ xiǎng?' },
-    { chinese: '__是你的选择？', translation: 'Какой твой выбор?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de xuǎnzé?' },
-    { chinese: '__个饭店最好？', translation: 'Какой ресторан лучший?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge fàndiàn zuì hǎo?' },
-    { chinese: '你__知道答案？', translation: 'Как ты узнал ответ?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zhīdào dá'àn?' },
-    { chinese: '这__意思？', translation: 'Что это значит?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: 'Zhè __ yìsi?' },
-    { chinese: '__个运动最好？', translation: 'Какой спорт лучший?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge yùndòng zuì hǎo?' },
-    { chinese: '你__去机场？', translation: 'Как ты доберёшься до аэропорта?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ qù jīchǎng?' },
-    { chinese: '__是你的计划？', translation: 'Какой у тебя план?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de jìhuà?' },
-    { chinese: '__个礼物最好？', translation: 'Какой подарок лучший?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge lǐwù zuì hǎo?' },
-    { chinese: '你__办到？', translation: 'Как ты это сделаешь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ bàn dào?' },
-    { chinese: '__是你的故事？', translation: 'Какая твоя история?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de gùshi?' },
-    { chinese: '__个电影最好看？', translation: 'Какой фильм самый интересный?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge diànyǐng zuì hǎokàn?' },
-    { chinese: '你__这么早？', translation: 'Почему ты так рано?', correct: '为什么', options: ['为什么', '怎么', '什么'], pinyin: 'Nǐ __ zhème zǎo?' },
-    { chinese: '__是你的问题？', translation: 'Какая твоя проблема?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de wèntí?' },
-    { chinese: '__个学校最好？', translation: 'Какая школа лучшая?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge xuéxiào zuì hǎo?' },
-    { chinese: '你__知道这么多？', translation: 'Как ты так много знаешь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ zhīdào zhème duō?' },
-    { chinese: '__是你的目标？', translation: 'Какая твоя цель?', correct: '什么', options: ['什么', '哪', '怎么'], pinyin: '__ shì nǐ de mùbiāo?' },
-    { chinese: '__个菜最好吃？', translation: 'Какое блюдо самое вкусное?', correct: '哪', options: ['什么', '哪', '怎么'], pinyin: '__ ge cài zuì hǎochī?' },
-    { chinese: '你__解决？', translation: 'Как ты это решишь?', correct: '怎么', options: ['怎么', '什么', '哪'], pinyin: 'Nǐ __ jiějué?' },
-];
+        { chinese: '你__工作？', pinyin: 'Nǐ ___ gōngzuò?', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__本书是你的？', pinyin: '___ běn shū shì nǐ de?', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '你__去学校？', pinyin: 'Nǐ ___ qù xuéxiào?', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '你叫什么__？', pinyin: 'Nǐ jiào shénme ___?', translation: 'Как тебя зовут?', correct: '名字', options: ['名字', '工作', '地方'] },
+        { chinese: '你__岁？', pinyin: 'Nǐ ___ suì?', translation: 'Сколько тебе лет? (ребёнок)', correct: '几', options: ['几', '多少', '怎么'] },
+        { chinese: '这__钱？', pinyin: 'Zhè ___ qián?', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'] },
+        { chinese: '你在__？', pinyin: 'Nǐ zài ___?', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'] },
+        { chinese: '你是__人？', pinyin: 'Nǐ shì ___ rén?', translation: 'Откуда ты? (национальность)', correct: '哪里', options: ['哪里', '哪儿', '什么'] },
+        { chinese: '你__来了？', pinyin: 'Nǐ ___ lái le?', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'] },
+        { chinese: '你__笑？', pinyin: 'Nǐ ___ xiào?', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '__个蛋糕好吃？', pinyin: '___ ge dàngāo hǎochī?', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你爱吃什么__？', pinyin: 'Nǐ ài chī shénme ___?', translation: 'Какие фрукты ты любишь?', correct: '水果', options: ['水果', '工作', '地方'] },
+        { chinese: '他__？', pinyin: 'Tā ___?', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '__是你哥哥？', pinyin: '___ shì nǐ gēge?', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'] },
+        { chinese: '他在__？', pinyin: 'Tā zài ___?', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
+        { chinese: '__是你的书？', pinyin: '___ shì nǐ de shū?', translation: 'Которая книга твоя?', correct: '哪本', options: ['哪本', '什么', '谁'] },
+        { chinese: '今天星期__？', pinyin: 'Jīntiān xīngqī ___?', translation: 'Какой сегодня день недели?', correct: '几', options: ['几', '什么', '多少'] },
+        { chinese: '你有__朋友？', pinyin: 'Nǐ yǒu ___ péngyou?', translation: 'Сколько у тебя друзей? (мало)', correct: '几个', options: ['几个', '多少', '什么'] },
+        { chinese: '你们班有__学生？', pinyin: 'Nǐmen bān yǒu ___ xuéshēng?', translation: 'Сколько студентов в группе? (много)', correct: '多少', options: ['多少', '几个', '几'] },
+        { chinese: '__是你的杯子？', pinyin: '___ shì nǐ de bēizi?', translation: 'Которая чашка твоя?', correct: '哪个', options: ['哪个', '什么', '怎么'] },
+        { chinese: '你__回家？', pinyin: 'Nǐ ___ huí jiā?', translation: 'Когда ты возвращаешься домой?', correct: '什么时候', options: ['什么时候', '几点', '多少'] },
+        { chinese: '现在__？', pinyin: 'Xiànzài ___?', translation: 'Который час?', correct: '几点', options: ['几点', '什么时候', '多少'] },
+        { chinese: '你__学中文？', pinyin: 'Nǐ ___ xué zhōngwén?', translation: 'Почему ты учишь китайский?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '这__？', pinyin: 'Zhè ___?', translation: 'Что это?', correct: '是什么', options: ['是什么', '在哪里', '怎么样'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Кто ты? (характер)', correct: '什么人', options: ['什么人', '谁', '哪里人'] },
+        { chinese: '__来了？', pinyin: '___ lái le?', translation: 'Кто пришёл?', correct: '谁', options: ['谁', '什么', '哪里'] },
+        { chinese: '你住在__？', pinyin: 'Nǐ zhù zài ___?', translation: 'Где ты живёшь? (формально)', correct: '哪里', options: ['哪里', '哪儿', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Где ты? (разговорно)', correct: '在哪儿', options: ['在哪儿', '在哪里', '什么'] },
+        { chinese: '__车是你的？', pinyin: '___ chē shì nǐ de?', translation: 'Которая машина твоя?', correct: '哪辆', options: ['哪辆', '什么', '几辆'] },
+        { chinese: '你__去北京？', pinyin: 'Nǐ ___ qù Běijīng?', translation: 'Как ты едешь в Пекин?', correct: '怎么', options: ['怎么', '什么', '哪里'] },
+        { chinese: '这部电影__？', pinyin: 'Zhè bù diànyǐng ___?', translation: 'Как этот фильм?', correct: '怎么样', options: ['怎么样', '什么样', '什么'] },
+        { chinese: '你__起床？', pinyin: 'Nǐ ___ qǐchuáng?', translation: 'Во сколько ты встаёшь?', correct: '几点', options: ['几点', '什么时候', '多少'] },
+        { chinese: '__钱？', pinyin: '___ qián?', translation: 'Сколько денег? (цена)', correct: '多少', options: ['多少', '几', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Что ты делаешь?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
+        { chinese: '__城市最漂亮？', pinyin: '___ chéngshì zuì piàoliang?', translation: 'Какой город самый красивый?', correct: '哪个', options: ['哪个', '什么', '哪里'] },
+        { chinese: '你有__本书？', pinyin: 'Nǐ yǒu ___ běn shū?', translation: 'Сколько у тебя книг? (мало)', correct: '几', options: ['几', '多少', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Как ты? (состояние)', correct: '怎么样', options: ['怎么样', '什么样', '什么'] },
+        { chinese: '__是你的老师？', pinyin: '___ shì nǐ de lǎoshī?', translation: 'Кто твой учитель?', correct: '谁', options: ['谁', '什么', '哪个'] },
+        { chinese: '你__去？', pinyin: 'Nǐ ___ qù?', translation: 'Куда ты идёшь?', correct: '去哪儿', options: ['去哪儿', '去哪里', '什么'] },
+    ];
 
     // ===== ИГРА 2: 30 предметов для счётных слов (расширено) =====
     const counterItems = [
-    // === ОСНОВНЫЕ (16) ===
-    { item: '📚 书 (книга)', correct: '本', pinyin: 'shū' },
-    { item: '🚗 车 (машина)', correct: '辆', pinyin: 'chē' },
-    { item: '☕ 茶 (чай)', correct: '杯', pinyin: 'chá' },
-    { item: '🐕 狗 (собака)', correct: '只', pinyin: 'gǒu' },
-    { item: '👟 鞋 (обувь)', correct: '双', pinyin: 'xié' },
-    { item: '💰 钱 (деньги)', correct: '块', pinyin: 'qián' },
-    { item: '📄 纸 (бумага)', correct: '张', pinyin: 'zhǐ' },
-    { item: '👔 衣服 (одежда)', correct: '件', pinyin: 'yīfu' },
-    { item: '🛣️ 路 (дорога)', correct: '条', pinyin: 'lù' },
-    { item: '🔪 刀 (нож)', correct: '把', pinyin: 'dāo' },
-    { item: '🍾 水 (бутылка)', correct: '瓶', pinyin: 'shuǐ' },
-    { item: '🍎 苹果 (яблоко)', correct: '个', pinyin: 'píngguǒ' },
-    { item: '💎 耳环 (серёжки)', correct: '对', pinyin: 'ěrhuán' },
-    { item: '👓 眼镜 (очки)', correct: '副', pinyin: 'yǎnjìng' },
-    { item: '🥢 筷子 (палочки)', correct: '根', pinyin: 'kuàizi' },
-    { item: '🍞 面包 (хлеб)', correct: '片', pinyin: 'miànbāo' },
-
-    // === ЖИВОТНЫЕ (30) ===
-    { item: '🐱 猫 (кошка)', correct: '只', pinyin: 'māo' },
-    { item: '🐦 鸟 (птица)', correct: '只', pinyin: 'niǎo' },
-    { item: '🐄 牛 (корова)', correct: '头', pinyin: 'niú' },
-    { item: '🐷 猪 (свинья)', correct: '头', pinyin: 'zhū' },
-    { item: '🐘 大象 (слон)', correct: '头', pinyin: 'dàxiàng' },
-    { item: '🐎 马 (лошадь)', correct: '匹', pinyin: 'mǎ' },
-    { item: '🐍 蛇 (змея)', correct: '条', pinyin: 'shé' },
-    { item: '🐟 鱼 (рыба)', correct: '条', pinyin: 'yú' },
-    { item: '🐒 猴子 (обезьяна)', correct: '只', pinyin: 'hóuzi' },
-    { item: '🐰 兔子 (кролик)', correct: '只', pinyin: 'tùzi' },
-    { item: '🐭 老鼠 (мышь)', correct: '只', pinyin: 'lǎoshǔ' },
-    { item: '🐹 仓鼠 (хомяк)', correct: '只', pinyin: 'cāngshǔ' },
-    { item: '🐺 狼 (волк)', correct: '只', pinyin: 'láng' },
-    { item: '🦊 狐狸 (лиса)', correct: '只', pinyin: 'húli' },
-    { item: '🐻 熊 (медведь)', correct: '头', pinyin: 'xióng' },
-    { item: '🐼 熊猫 (панда)', correct: '只', pinyin: 'xióngmāo' },
-    { item: '🐨 考拉 (коала)', correct: '只', pinyin: 'kǎolā' },
-    { item: '🦁 狮子 (лев)', correct: '头', pinyin: 'shīzi' },
-    { item: '🐯 老虎 (тигр)', correct: '只', pinyin: 'lǎohǔ' },
-    { item: '🐆 豹 (леопард)', correct: '只', pinyin: 'bào' },
-    { item: '🦒 长颈鹿 (жираф)', correct: '头', pinyin: 'chángjǐnglù' },
-    { item: '🦓 斑马 (зебра)', correct: '匹', pinyin: 'bānmǎ' },
-    { item: '🦌 鹿 (олень)', correct: '只', pinyin: 'lù' },
-    { item: '🐗 野猪 (кабан)', correct: '头', pinyin: 'yězhū' },
-    { item: '🐫 骆驼 (верблюд)', correct: '头', pinyin: 'luòtuo' },
-    { item: '🦙 羊驼 (альпака)', correct: '只', pinyin: 'yángtuó' },
-    { item: '🐑 羊 (овца)', correct: '只', pinyin: 'yáng' },
-    { item: '🐐 山羊 (козёл)', correct: '只', pinyin: 'shānyáng' },
-    { item: '🦢 天鹅 (лебедь)', correct: '只', pinyin: 'tiān'é' },
-    { item: '🦆 鸭子 (утка)', correct: '只', pinyin: 'yāzi' },
-
-    // === ТРАНСПОРТ (20) ===
-    { item: '🚲 自行车 (велосипед)', correct: '辆', pinyin: 'zìxíngchē' },
-    { item: '🚌 公交车 (автобус)', correct: '辆', pinyin: 'gōngjiāochē' },
-    { item: '✈️ 飞机 (самолёт)', correct: '架', pinyin: 'fēijī' },
-    { item: '🚢 船 (корабль)', correct: '艘', pinyin: 'chuán' },
-    { item: '🌉 桥 (мост)', correct: '架', pinyin: 'qiáo' },
-    { item: '🚀 火箭 (ракета)', correct: '架', pinyin: 'huǒjiàn' },
-    { item: '🚁 直升机 (вертолёт)', correct: '架', pinyin: 'zhíshēngjī' },
-    { item: '🚄 高铁 (скоростной поезд)', correct: '列', pinyin: 'gāotiě' },
-    { item: '🚃 电车 (трамвай)', correct: '辆', pinyin: 'diànchē' },
-    { item: '🚎 无轨电车 (троллейбус)', correct: '辆', pinyin: 'wúguǐ diànchē' },
-    { item: '🚐 面包车 (микроавтобус)', correct: '辆', pinyin: 'miànbāochē' },
-    { item: '🚜 拖拉机 (трактор)', correct: '辆', pinyin: 'tuōlājī' },
-    { item: '🏎️ 赛车 (гоночная машина)', correct: '辆', pinyin: 'sàichē' },
-    { item: '🚡 缆车 (канатная дорога)', correct: '辆', pinyin: 'lǎnchē' },
-    { item: '🛴 滑板车 (самокат)', correct: '辆', pinyin: 'huábǎnchē' },
-    { item: '🛹 滑板 (скейтборд)', correct: '个', pinyin: 'huábǎn' },
-    { item: '🛵 摩托车 (мотоцикл)', correct: '辆', pinyin: 'mótuōchē' },
-    { item: '🚲 三轮车 (трицикл)', correct: '辆', pinyin: 'sānlúnchē' },
-    { item: '🛷 雪橇 (сани)', correct: '个', pinyin: 'xuěqiāo' },
-    { item: '🚑 救护车 (скорая помощь)', correct: '辆', pinyin: 'jiùhùchē' },
-
-    // === ОДЕЖДА (20) ===
-    { item: '👕 衬衫 (рубашка)', correct: '件', pinyin: 'chènshān' },
-    { item: '🧥 外套 (пальто)', correct: '件', pinyin: 'wàitào' },
-    { item: '👖 裤子 (штаны)', correct: '条', pinyin: 'kùzi' },
-    { item: '👗 裙子 (юбка)', correct: '条', pinyin: 'qúnzi' },
-    { item: '🧣 围巾 (шарф)', correct: '条', pinyin: 'wéijīn' },
-    { item: '🧤 手套 (перчатки)', correct: '副', pinyin: 'shǒutào' },
-    { item: '🧦 袜子 (носки)', correct: '双', pinyin: 'wàzi' },
-    { item: '👘 和服 (кимоно)', correct: '件', pinyin: 'héfú' },
-    { item: '🥻 长袍 (халат)', correct: '件', pinyin: 'chángpáo' },
-    { item: '🧥 大衣 (пальто)', correct: '件', pinyin: 'dàyī' },
-    { item: '👔 领带 (галстук)', correct: '条', pinyin: 'lǐngdài' },
-    { item: '🎽 背心 (жилет)', correct: '件', pinyin: 'bèixīn' },
-    { item: '👚 女装 (женская одежда)', correct: '件', pinyin: 'nǚzhuāng' },
-    { item: '🧶 毛衣 (свитер)', correct: '件', pinyin: 'máoyī' },
-    { item: '🧵 连衣裙 (платье)', correct: '条', pinyin: 'liányīqún' },
-    { item: '👗 礼服 (вечернее платье)', correct: '件', pinyin: 'lǐfú' },
-    { item: '🧣 披肩 (накидка)', correct: '条', pinyin: 'pījiān' },
-    { item: '👕 T恤 (футболка)', correct: '件', pinyin: 'T xù' },
-    { item: '👖 牛仔裤 (джинсы)', correct: '条', pinyin: 'niúzǎikù' },
-    { item: '🧥 羽绒服 (пуховик)', correct: '件', pinyin: 'yǔróngfú' },
-
-    // === ЕДА И НАПИТКИ (30) ===
-    { item: '☕ 咖啡 (кофе)', correct: '杯', pinyin: 'kāfēi' },
-    { item: '🍷 酒 (вино)', correct: '瓶', pinyin: 'jiǔ' },
-    { item: '🧃 饮料 (напиток)', correct: '瓶', pinyin: 'yǐnliào' },
-    { item: '🍰 蛋糕 (торт)', correct: '块', pinyin: 'dàngāo' },
-    { item: '🍫 巧克力 (шоколад)', correct: '块', pinyin: 'qiǎokèlì' },
-    { item: '🥩 肉 (мясо)', correct: '块', pinyin: 'ròu' },
-    { item: '🍪 饼干 (печенье)', correct: '片', pinyin: 'bǐnggān' },
-    { item: '🧇 火腿 (ветчина)', correct: '片', pinyin: 'huǒtuǐ' },
-    { item: '🍜 面条 (лапша)', correct: '碗', pinyin: 'miàntiáo' },
-    { item: '🍚 米饭 (рис)', correct: '碗', pinyin: 'mǐfàn' },
-    { item: '🥣 汤 (суп)', correct: '碗', pinyin: 'tāng' },
-    { item: '🥗 沙拉 (салат)', correct: '份', pinyin: 'shālā' },
-    { item: '🍕 披萨 (пицца)', correct: '个', pinyin: 'pīsà' },
-    { item: '🍔 汉堡 (гамбургер)', correct: '个', pinyin: 'hànbǎo' },
-    { item: '🌮 墨西哥卷 (тако)', correct: '个', pinyin: 'mòxīgē juǎn' },
-    { item: '🍣 寿司 (суши)', correct: '个', pinyin: 'shòusī' },
-    { item: '🍱 便当 (бэнто)', correct: '盒', pinyin: 'biàndāng' },
-    { item: '🍙 饭团 (онигири)', correct: '个', pinyin: 'fàntuán' },
-    { item: '🥟 饺子 (пельмени)', correct: '个', pinyin: 'jiǎozi' },
-    { item: '🥧 派 (пирог)', correct: '块', pinyin: 'pài' },
-    { item: '🍩 甜甜圈 (пончик)', correct: '个', pinyin: 'tiántiánquān' },
-    { item: '🍬 糖果 (конфета)', correct: '颗', pinyin: 'tángguǒ' },
-    { item: '🍭 棒棒糖 (леденец)', correct: '根', pinyin: 'bàngbàngtáng' },
-    { item: '🍦 冰淇淋 (мороженое)', correct: '个', pinyin: 'bīngqílín' },
-    { item: '🍨 圣代 (парфе)', correct: '杯', pinyin: 'shèngdài' },
-    { item: '🧁 蛋糕 (капкейк)', correct: '个', pinyin: 'dàngāo' },
-    { item: '🍮 布丁 (пудинг)', correct: '个', pinyin: 'bùdīng' },
-    { item: '🍌 香蕉 (банан)', correct: '根', pinyin: 'xiāngjiāo' },
-    { item: '🍇 葡萄 (виноград)', correct: '串', pinyin: 'pútáo' },
-    { item: '🍊 橙子 (апельсин)', correct: '个', pinyin: 'chéngzi' },
-
-    // === ПРЕДМЕТЫ (40) ===
-    { item: '🪑 椅子 (стул)', correct: '把', pinyin: 'yǐzi' },
-    { item: '☂️ 伞 (зонт)', correct: '把', pinyin: 'sǎn' },
-    { item: '🔑 钥匙 (ключ)', correct: '把', pinyin: 'yàoshi' },
-    { item: '⌚ 手表 (часы)', correct: '块', pinyin: 'shǒubiǎo' },
-    { item: '🪨 石头 (камень)', correct: '块', pinyin: 'shítou' },
-    { item: '🪵 木头 (бревно)', correct: '根', pinyin: 'mùtou' },
-    { item: '🪢 绳子 (верёвка)', correct: '根', pinyin: 'shéngzi' },
-    { item: '❄️ 雪花 (снежинка)', correct: '片', pinyin: 'xuěhuā' },
-    { item: '🌿 叶子 (лист)', correct: '片', pinyin: 'yèzi' },
-    { item: '📖 杂志 (журнал)', correct: '本', pinyin: 'zázhì' },
-    { item: '📕 日记本 (дневник)', correct: '本', pinyin: 'rìjìběn' },
-    { item: '🖼️ 照片 (фото)', correct: '张', pinyin: 'zhàopiàn' },
-    { item: '🎫 票 (билет)', correct: '张', pinyin: 'piào' },
-    { item: '🪑 桌子 (стол)', correct: '张', pinyin: 'zhuōzi' },
-    { item: '🛏️ 床 (кровать)', correct: '张', pinyin: 'chuáng' },
-    { item: '📄 名片 (визитка)', correct: '张', pinyin: 'míngpiàn' },
-    { item: '📋 纸 (лист)', correct: '张', pinyin: 'zhǐ' },
-    { item: '🏠 房子 (дом)', correct: '栋', pinyin: 'fángzi' },
-    { item: '🏢 楼 (здание)', correct: '栋', pinyin: 'lóu' },
-    { item: '🚪 门 (дверь)', correct: '扇', pinyin: 'mén' },
-    { item: '🪟 窗户 (окно)', correct: '扇', pinyin: 'chuānghu' },
-    { item: '📱 手机 (телефон)', correct: '部', pinyin: 'shǒujī' },
-    { item: '💻 电脑 (компьютер)', correct: '台', pinyin: 'diànnǎo' },
-    { item: '📺 电视 (телевизор)', correct: '台', pinyin: 'diànshì' },
-    { item: '🧹 扫帚 (метла)', correct: '把', pinyin: 'sǎozhou' },
-    { item: '🪣 桶 (ведро)', correct: '个', pinyin: 'tǒng' },
-    { item: '🪥 牙刷 (зубная щётка)', correct: '支', pinyin: 'yáshuā' },
-    { item: '🧴 洗发水 (шампунь)', correct: '瓶', pinyin: 'xǐfàshuǐ' },
-    { item: '🧻 卫生纸 (туалетная бумага)', correct: '卷', pinyin: 'wèishēngzhǐ' },
-    { item: '🪒 剃须刀 (бритва)', correct: '把', pinyin: 'tìxūdāo' },
-    { item: '📸 相机 (фотоаппарат)', correct: '台', pinyin: 'xiàngjī' },
-    { item: '🎮 游戏机 (игровая приставка)', correct: '台', pinyin: 'yóuxìjī' },
-    { item: '📻 收音机 (радио)', correct: '台', pinyin: 'shōuyīnjī' },
-    { item: '💡 灯 (лампа)', correct: '盏', pinyin: 'dēng' },
-    { item: '🕯️ 蜡烛 (свеча)', correct: '根', pinyin: 'làzhú' },
-    { item: '🪁 风筝 (воздушный змей)', correct: '个', pinyin: 'fēngzheng' },
-    { item: '🏀 篮球 (баскетбольный мяч)', correct: '个', pinyin: 'lánqiú' },
-    { item: '⚽ 足球 (футбольный мяч)', correct: '个', pinyin: 'zúqiú' },
-    { item: '🎾 网球 (теннисный мяч)', correct: '个', pinyin: 'wǎngqiú' },
-    { item: '🏸 羽毛球 (волан)', correct: '个', pinyin: 'yǔmáoqiú' },
-];
+        { item: '📚 书', pinyin: 'shū', translation: 'книга', correct: '本' },
+        { item: '🚗 车', pinyin: 'chē', translation: 'машина', correct: '辆' },
+        { item: '☕ 茶', pinyin: 'chá', translation: 'чай (чашка)', correct: '杯' },
+        { item: '🐕 狗', pinyin: 'gǒu', translation: 'собака', correct: '只' },
+        { item: '👟 鞋', pinyin: 'xié', translation: 'обувь (пара)', correct: '双' },
+        { item: '💰 钱', pinyin: 'qián', translation: 'деньги (юань)', correct: '块' },
+        { item: '📄 纸', pinyin: 'zhǐ', translation: 'бумага', correct: '张' },
+        { item: '👔 衣服', pinyin: 'yīfu', translation: 'одежда', correct: '件' },
+        { item: '🛣️ 路', pinyin: 'lù', translation: 'дорога', correct: '条' },
+        { item: '🔪 刀', pinyin: 'dāo', translation: 'нож', correct: '把' },
+        { item: '🍾 水', pinyin: 'shuǐ', translation: 'вода (бутылка)', correct: '瓶' },
+        { item: '🍎 苹果', pinyin: 'píngguǒ', translation: 'яблоко', correct: '个' },
+        { item: '💎 耳环', pinyin: 'ěrhuán', translation: 'серёжки', correct: '对' },
+        { item: '👓 眼镜', pinyin: 'yǎnjìng', translation: 'очки', correct: '副' },
+        { item: '🥢 筷子', pinyin: 'kuàizi', translation: 'палочки', correct: '根' },
+        { item: '🍞 面包', pinyin: 'miànbāo', translation: 'хлеб (ломтик)', correct: '片' },
+        { item: '🐈 猫', pinyin: 'māo', translation: 'кошка', correct: '只' },
+        { item: '🐟 鱼', pinyin: 'yú', translation: 'рыба', correct: '条' },
+        { item: '🐴 马', pinyin: 'mǎ', translation: 'лошадь', correct: '匹' },
+        { item: '🐘 大象', pinyin: 'dàxiàng', translation: 'слон', correct: '头' },
+        { item: '👕 衬衫', pinyin: 'chènshān', translation: 'рубашка', correct: '件' },
+        { item: '👖 裤子', pinyin: 'kùzi', translation: 'штаны', correct: '条' },
+        { item: '🧦 袜子', pinyin: 'wàzi', translation: 'носки (пара)', correct: '双' },
+        { item: '🧤 手套', pinyin: 'shǒutào', translation: 'перчатки (комплект)', correct: '副' },
+        { item: '🎴 扑克牌', pinyin: 'pūkèpái', translation: 'карты (колода)', correct: '副' },
+        { item: '📷 照片', pinyin: 'zhàopiàn', translation: 'фото', correct: '张' },
+        { item: '🎫 票', pinyin: 'piào', translation: 'билет', correct: '张' },
+        { item: '🪑 桌子', pinyin: 'zhuōzi', translation: 'стол', correct: '张' },
+        { item: '🚲 自行车', pinyin: 'zìxíngchē', translation: 'велосипед', correct: '辆' },
+        { item: '🚌 公交车', pinyin: 'gōngjiāochē', translation: 'автобус', correct: '辆' },
+    ];
 
     // ===== ИГРА 3: 20 пар для игры "Найди пару" =====
     const matchPairs = [
-    // === ОСНОВНЫЕ (16) ===
-    { item: '📚 书 (книга)', counter: '本' },
-    { item: '🚗 车 (машина)', counter: '辆' },
-    { item: '☕ 茶 (чай)', counter: '杯' },
-    { item: '🐕 狗 (собака)', counter: '只' },
-    { item: '👟 鞋 (обувь)', counter: '双' },
-    { item: '💰 钱 (деньги)', counter: '块' },
-    { item: '📄 纸 (бумага)', counter: '张' },
-    { item: '👔 衣服 (одежда)', counter: '件' },
-    { item: '🛣️ 路 (дорога)', counter: '条' },
-    { item: '🔪 刀 (нож)', counter: '把' },
-    { item: '🍾 水 (бутылка)', counter: '瓶' },
-    { item: '🍎 苹果 (яблоко)', counter: '个' },
-    { item: '💎 耳环 (серёжки)', counter: '对' },
-    { item: '👓 眼镜 (очки)', counter: '副' },
-    { item: '🥢 筷子 (палочки)', counter: '根' },
-    { item: '🍞 面包 (хлеб)', counter: '片' },
-
-    // === ЖИВОТНЫЕ (16) ===
-    { item: '🐱 猫 (кошка)', counter: '只' },
-    { item: '🐦 鸟 (птица)', counter: '只' },
-    { item: '🐄 牛 (корова)', counter: '头' },
-    { item: '🐷 猪 (свинья)', counter: '头' },
-    { item: '🐘 大象 (слон)', counter: '头' },
-    { item: '🐎 马 (лошадь)', counter: '匹' },
-    { item: '🐍 蛇 (змея)', counter: '条' },
-    { item: '🐟 鱼 (рыба)', counter: '条' },
-    { item: '🐻 熊 (медведь)', counter: '头' },
-    { item: '🐼 熊猫 (панда)', counter: '只' },
-    { item: '🦁 狮子 (лев)', counter: '头' },
-    { item: '🐯 老虎 (тигр)', counter: '只' },
-    { item: '🦒 长颈鹿 (жираф)', counter: '头' },
-    { item: '🦓 斑马 (зебра)', counter: '匹' },
-    { item: '🐫 骆驼 (верблюд)', counter: '头' },
-    { item: '🐑 羊 (овца)', counter: '只' },
-
-    // === ТРАНСПОРТ (10) ===
-    { item: '🚲 自行车 (велосипед)', counter: '辆' },
-    { item: '🚌 公交车 (автобус)', counter: '辆' },
-    { item: '✈️ 飞机 (самолёт)', counter: '架' },
-    { item: '🚢 船 (корабль)', counter: '艘' },
-    { item: '🌉 桥 (мост)', counter: '架' },
-    { item: '🚀 火箭 (ракета)', counter: '架' },
-    { item: '🚁 直升机 (вертолёт)', counter: '架' },
-    { item: '🚄 高铁 (скоростной поезд)', counter: '列' },
-    { item: '🚃 电车 (трамвай)', counter: '辆' },
-    { item: '🛵 摩托车 (мотоцикл)', counter: '辆' },
-
-    // === ОДЕЖДА (10) ===
-    { item: '👕 衬衫 (рубашка)', counter: '件' },
-    { item: '🧥 外套 (пальто)', counter: '件' },
-    { item: '👖 裤子 (штаны)', counter: '条' },
-    { item: '👗 裙子 (юбка)', counter: '条' },
-    { item: '🧣 围巾 (шарф)', counter: '条' },
-    { item: '🧤 手套 (перчатки)', counter: '副' },
-    { item: '🧦 袜子 (носки)', counter: '双' },
-    { item: '👘 和服 (кимоно)', counter: '件' },
-    { item: '🧥 大衣 (пальто)', counter: '件' },
-    { item: '👔 领带 (галстук)', counter: '条' },
-
-    // === ЕДА (10) ===
-    { item: '☕ 咖啡 (кофе)', counter: '杯' },
-    { item: '🍷 酒 (вино)', counter: '瓶' },
-    { item: '🍰 蛋糕 (торт)', counter: '块' },
-    { item: '🍫 巧克力 (шоколад)', counter: '块' },
-    { item: '🍪 饼干 (печенье)', counter: '片' },
-    { item: '🧇 火腿 (ветчина)', counter: '片' },
-    { item: '🍜 面条 (лапша)', counter: '碗' },
-    { item: '🍚 米饭 (рис)', counter: '碗' },
-    { item: '🥗 沙拉 (салат)', counter: '份' },
-    { item: '🍕 披萨 (пицца)', counter: '个' },
-
-    // === ПРЕДМЕТЫ (16) ===
-    { item: '🪑 椅子 (стул)', counter: '把' },
-    { item: '☂️ 伞 (зонт)', counter: '把' },
-    { item: '🔑 钥匙 (ключ)', counter: '把' },
-    { item: '⌚ 手表 (часы)', counter: '块' },
-    { item: '🍌 香蕉 (банан)', counter: '根' },
-    { item: '🪢 绳子 (верёвка)', counter: '根' },
-    { item: '📖 杂志 (журнал)', counter: '本' },
-    { item: '🖼️ 照片 (фото)', counter: '张' },
-    { item: '📱 手机 (телефон)', counter: '部' },
-    { item: '💻 电脑 (компьютер)', counter: '台' },
-    { item: '📺 电视 (телевизор)', counter: '台' },
-    { item: '🏠 房子 (дом)', counter: '栋' },
-    { item: '🚪 门 (дверь)', counter: '扇' },
-    { item: '🪟 窗户 (окно)', counter: '扇' },
-    { item: '🧹 扫帚 (метла)', counter: '把' },
-    { item: '💡 灯 (лампа)', counter: '盏' },
-];
+        { item: '📚 书', pinyin: 'shū', translation: 'книга', counter: '本' },
+        { item: '🚗 车', pinyin: 'chē', translation: 'машина', counter: '辆' },
+        { item: '☕ 茶', pinyin: 'chá', translation: 'чай', counter: '杯' },
+        { item: '🐕 狗', pinyin: 'gǒu', translation: 'собака', counter: '只' },
+        { item: '👟 鞋', pinyin: 'xié', translation: 'обувь', counter: '双' },
+        { item: '💰 钱', pinyin: 'qián', translation: 'деньги', counter: '块' },
+        { item: '📄 纸', pinyin: 'zhǐ', translation: 'бумага', counter: '张' },
+        { item: '👔 衣服', pinyin: 'yīfu', translation: 'одежда', counter: '件' },
+        { item: '🛣️ 路', pinyin: 'lù', translation: 'дорога', counter: '条' },
+        { item: '🔪 刀', pinyin: 'dāo', translation: 'нож', counter: '把' },
+        { item: '🍾 水', pinyin: 'shuǐ', translation: 'вода', counter: '瓶' },
+        { item: '🍎 苹果', pinyin: 'píngguǒ', translation: 'яблоко', counter: '个' },
+        { item: '💎 耳环', pinyin: 'ěrhuán', translation: 'серёжки', counter: '对' },
+        { item: '👓 眼镜', pinyin: 'yǎnjìng', translation: 'очки', counter: '副' },
+        { item: '🥢 筷子', pinyin: 'kuàizi', translation: 'палочки', counter: '根' },
+        { item: '🍞 面包', pinyin: 'miànbāo', translation: 'хлеб', counter: '片' },
+        { item: '🐈 猫', pinyin: 'māo', translation: 'кошка', counter: '只' },
+        { item: '🐟 鱼', pinyin: 'yú', translation: 'рыба', counter: '条' },
+        { item: '🐴 马', pinyin: 'mǎ', translation: 'лошадь', counter: '匹' },
+        { item: '👖 裤子', pinyin: 'kùzi', translation: 'штаны', counter: '条' },
+    ];
 
     // ================================================================
     // 2. ФУНКЦИИ
@@ -1753,16 +1482,15 @@
     const g1MistEl = document.getElementById('game1Mistakes');
 
     function initGame1() {
-    const shuffled = shuffleArray([...game1Questions]);
-    g1Questions = shuffled.slice(0, 100);  // ← 100 вопросов
-    g1Index = 0;
-    g1Score = 0;
-    g1Mistakes = 0;
-    g1Answered = false;
-    updateGame1Stats();
-    showGame1Question();
-}
-
+        const shuffled = shuffleArray([...game1Questions]);
+        g1Questions = shuffled.slice(0, 15);
+        g1Index = 0;
+        g1Score = 0;
+        g1Mistakes = 0;
+        g1Answered = false;
+        updateGame1Stats();
+        showGame1Question();
+    }
 
     function showGame1Question() {
         if (g1Index >= g1Questions.length) {
@@ -1849,15 +1577,15 @@
     const g2MistEl = document.getElementById('game2Mistakes');
 
     function initGame2() {
-    const shuffled = shuffleArray([...counterItems]);
-    g2Questions = shuffled.slice(0, 100);  // ← 100 предметов
-    g2Index = 0;
-    g2Score = 0;
-    g2Mistakes = 0;
-    g2Answered = false;
-    updateGame2Stats();
-    showGame2Question();
-}
+        const shuffled = shuffleArray([...counterItems]);
+        g2Questions = shuffled.slice(0, 12);
+        g2Index = 0;
+        g2Score = 0;
+        g2Mistakes = 0;
+        g2Answered = false;
+        updateGame2Stats();
+        showGame2Question();
+    }
 
     function showGame2Question() {
         if (g2Index >= g2Questions.length) {
@@ -1948,15 +1676,15 @@
     const matchResult = document.getElementById('matchResult');
 
     function initMatchGame() {
-    const shuffled = shuffleArray([...matchPairs]);
-    matchItems = shuffled.slice(0, 20);  // ← 20 пар (максимум для сетки 10×2)
-    matchPairsFound = 0;
-    selectedMatch = null;
-    matchResult.textContent = '';
-    matchResult.className = 'match-result';
-    renderMatchGrid();
-    updateMatchStatus();
-}
+        const shuffled = shuffleArray([...matchPairs]);
+        matchItems = shuffled.slice(0, 8);
+        matchPairsFound = 0;
+        selectedMatch = null;
+        matchResult.textContent = '';
+        matchResult.className = 'match-result';
+        renderMatchGrid();
+        updateMatchStatus();
+    }
 
     function renderMatchGrid() {
         const items = matchItems.map((p, i) => ({
