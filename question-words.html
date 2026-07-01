@@ -417,8 +417,13 @@
             color: #A64B2A;
             line-height: 1.4;
         }
+        .game-question .q-pinyin {
+            font-size: 1.1rem;
+            color: #FF8C42;
+            margin-top: .3rem;
+            font-style: italic;
+        }
         .game-question .q-desc { font-size: 1.1rem; color: #8B5A2B; margin-top: .3rem; }
-        .game-question .q-hint { font-size: .9rem; color: #E67E22; margin-top: .3rem; font-style: italic; }
 
         .game-options {
             display: grid;
@@ -640,9 +645,6 @@
         <a href="#nuances"><span class="nav-icon">⚠️</span>Нюансы</a>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- ЗОЛОТЫЕ ПРАВИЛА -->
-    <!-- ============================================================ -->
     <div class="section-title" id="rules">
         🏆 ЗОЛОТЫЕ ПРАВИЛА
         <span class="badge rule">ГЛАВНОЕ</span>
@@ -672,9 +674,9 @@
             <div class="rule-title">📌 Правило 3: Где писать 人 (rén)?</div>
             <div class="rule-desc">
                 <strong>人</strong> пишем <strong>ТОЛЬКО</strong> в 3-х случаях:<br>
-                &nbsp;• 👤 <strong>Личность / характер</strong> — 你是什么人？<br>
-                &nbsp;• 🎯 <strong>Выбор из людей</strong> — 哪个人？<br>
-                &nbsp;• 🌍 <strong>Национальность</strong> — 你是哪里人？<br>
+                • 👤 <strong>Личность / характер</strong> — 你是什么人？<br>
+                • 🎯 <strong>Выбор из людей</strong> — 哪个人？<br>
+                • 🌍 <strong>Национальность</strong> — 你是哪里人？<br>
                 <span style="display:inline-block; margin-top:.3rem; padding:.3rem .8rem; background:#FFCDD2; border-radius:10px;">
                     ⚠️ Для профессии, имени, места — <strong>НЕ пишем 人</strong>!
                 </span>
@@ -710,149 +712,67 @@
 
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 1. ПРОФЕССИЯ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="profession">
-        💼 1. Профессия
-        <span class="badge profession">5 ПРИМЕРОВ</span>
-    </div>
+    <div class="section-title" id="profession">💼 1. Профессия<span class="badge profession">5 ПРИМЕРОВ</span></div>
     <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="professionContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 2. ИМЯ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="name">
-        👤 2. Имя
-        <span class="badge name">3 ПРИМЕРА</span>
-    </div>
+    <div class="section-title" id="name">👤 2. Имя<span class="badge name">3 ПРИМЕРА</span></div>
     <div class="card" style="border-color:#27AE60; box-shadow:0 10px 0 #1E8449;" id="nameContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 3. ВОЗРАСТ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="age">
-        🎂 3. Возраст
-        <span class="badge age">4 ПРИМЕРА</span>
-    </div>
+    <div class="section-title" id="age">🎂 3. Возраст<span class="badge age">4 ПРИМЕРА</span></div>
     <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #D68910;" id="ageContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 4. МЕСТО -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="place">
-        🌍 4. Место / Национальность
-        <span class="badge place">4 ПРИМЕРА</span>
-    </div>
+    <div class="section-title" id="place">🌍 4. Место / Национальность<span class="badge place">4 ПРИМЕРА</span></div>
     <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="placeContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- 5-20. ВСЕ ВОПРОСИТЕЛЬНЫЕ СЛОВА (16 шт × 5 примеров) -->
-    <!-- ============================================================ -->
-
-    <div class="section-title" id="shenme">
-        ❓ 5. 什么
-        <span class="badge shenme">ЧТО? / КАКОЙ?</span>
-    </div>
+    <div class="section-title" id="shenme">❓ 5. 什么<span class="badge shenme">ЧТО? / КАКОЙ?</span></div>
     <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmeContainer"></div>
 
-    <div class="section-title" id="na">
-        🎯 6. 哪
-        <span class="badge na">КАКОЙ ИЗ?</span>
-    </div>
+    <div class="section-title" id="na">🎯 6. 哪<span class="badge na">КАКОЙ ИЗ?</span></div>
     <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="naContainer"></div>
 
-    <div class="section-title" id="zenme">
-        🔧 7. 怎么
-        <span class="badge zenme">КАК? (способ)</span>
-    </div>
+    <div class="section-title" id="zenme">🔧 7. 怎么<span class="badge zenme">КАК? (способ)</span></div>
     <div class="card" style="border-color:#1ABC9C; box-shadow:0 10px 0 #148F77;" id="zenmeContainer"></div>
 
-    <div class="section-title" id="zenmeyang">
-        📊 8. 怎么样
-        <span class="badge zenmeyang">КАК? (состояние)</span>
-    </div>
+    <div class="section-title" id="zenmeyang">📊 8. 怎么样<span class="badge zenmeyang">КАК? (состояние)</span></div>
     <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="zenmeyangContainer"></div>
 
-    <div class="section-title" id="shenmeyang">
-        👤 9. 什么样
-        <span class="badge zenmeyang">КАК ВЫГЛЯДИТ?</span>
-    </div>
+    <div class="section-title" id="shenmeyang">👤 9. 什么样<span class="badge zenmeyang">КАК ВЫГЛЯДИТ?</span></div>
     <div class="card" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;" id="shenmeyangContainer"></div>
 
-    <div class="section-title" id="shei">
-        👤 10. 谁
-        <span class="badge shei">КТО?</span>
-    </div>
+    <div class="section-title" id="shei">👤 10. 谁<span class="badge shei">КТО?</span></div>
     <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #B03A2E;" id="sheiContainer"></div>
 
-    <div class="section-title" id="shenmeren">
-        💼 11. 什么人
-        <span class="badge shenme">ЧТО ЗА ЧЕЛОВЕК?</span>
-    </div>
+    <div class="section-title" id="shenmeren">💼 11. 什么人<span class="badge shenme">ЧТО ЗА ЧЕЛОВЕК?</span></div>
     <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="shenmerenContainer"></div>
 
-    <div class="section-title" id="nageren">
-        🎯 12. 哪个人
-        <span class="badge na">КОТОРЫЙ ИЗ ЛЮДЕЙ?</span>
-    </div>
+    <div class="section-title" id="nageren">🎯 12. 哪个人<span class="badge na">КОТОРЫЙ ИЗ ЛЮДЕЙ?</span></div>
     <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="nagerenContainer"></div>
 
-    <div class="section-title" id="shenmeshihou">
-        📅 13. 什么时候
-        <span class="badge shenmeshihou">КОГДА?</span>
-    </div>
+    <div class="section-title" id="shenmeshihou">📅 13. 什么时候<span class="badge shenmeshihou">КОГДА?</span></div>
     <div class="card" style="border-color:#16A085; box-shadow:0 10px 0 #0E6655;" id="shenmeshihouContainer"></div>
 
-    <div class="section-title" id="jidian">
-        🕐 14. 几点
-        <span class="badge jidian">КОТОРЫЙ ЧАС?</span>
-    </div>
+    <div class="section-title" id="jidian">🕐 14. 几点<span class="badge jidian">КОТОРЫЙ ЧАС?</span></div>
     <div class="card" style="border-color:#2980B9; box-shadow:0 10px 0 #1A5276;" id="jidianContainer"></div>
 
-    <div class="section-title" id="weishenme">
-        ❓ 15. 为什么
-        <span class="badge weishenme">ПОЧЕМУ?</span>
-    </div>
+    <div class="section-title" id="weishenme">❓ 15. 为什么<span class="badge weishenme">ПОЧЕМУ?</span></div>
     <div class="card" style="border-color:#C0392B; box-shadow:0 10px 0 #922B21;" id="weishenmeContainer"></div>
 
-    <div class="section-title" id="duoshao">
-        💰 16. 多少
-        <span class="badge duoshao">СКОЛЬКО? (большие числа)</span>
-    </div>
+    <div class="section-title" id="duoshao">💰 16. 多少<span class="badge duoshao">СКОЛЬКО? (большие числа)</span></div>
     <div class="card" style="border-color:#27AE60; box-shadow:0 10px 0 #1E8449;" id="duoshaoContainer"></div>
 
-    <div class="section-title" id="ji">
-        🔢 17. 几
-        <span class="badge ji">СКОЛЬКО? (малые числа)</span>
-    </div>
+    <div class="section-title" id="ji">🔢 17. 几<span class="badge ji">СКОЛЬКО? (малые числа)</span></div>
     <div class="card" style="border-color:#8E44AD; box-shadow:0 10px 0 #6A1B9A;" id="jiContainer"></div>
 
-    <div class="section-title" id="naer">
-        🗣️ 18. 哪儿
-        <span class="badge naer">ГДЕ? (разговорный)</span>
-    </div>
+    <div class="section-title" id="naer">🗣️ 18. 哪儿<span class="badge naer">ГДЕ? (разговорный)</span></div>
     <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naerContainer"></div>
 
-    <div class="section-title" id="nali">
-        📖 19. 哪里
-        <span class="badge nali">ГДЕ? / ОТКУДА? (формальный)</span>
-    </div>
+    <div class="section-title" id="nali">📖 19. 哪里<span class="badge nali">ГДЕ? / ОТКУДА? (формальный)</span></div>
     <div class="card" style="border-color:#2C3E50; box-shadow:0 10px 0 #1A252F;" id="naliContainer"></div>
 
-    <div class="section-title" id="ganshenme">
-        🔨 20. 干什么
-        <span class="badge ganshenme">ЧТО ДЕЛАТЬ? / ЗАЧЕМ?</span>
-    </div>
+    <div class="section-title" id="ganshenme">🔨 20. 干什么<span class="badge ganshenme">ЧТО ДЕЛАТЬ? / ЗАЧЕМ?</span></div>
     <div class="card" style="border-color:#D35400; box-shadow:0 10px 0 #A04000;" id="ganshenmeContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- СЧЁТНЫЕ СЛОВА -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="counters">
-        🔢 СЧЁТНЫЕ СЛОВА
-        <span class="badge counter">16 СЧЁТЧИКОВ</span>
-    </div>
+    <div class="section-title" id="counters">🔢 СЧЁТНЫЕ СЛОВА<span class="badge counter">16 СЧЁТЧИКОВ</span></div>
     <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;">
         <div class="counter-grid" id="countersGrid"></div>
         <div style="margin-top:1rem; padding:.8rem; background:#F3E5F5; border-radius:15px; text-align:center; font-size:1rem; border:2px solid #CE93D8;">
@@ -861,31 +781,13 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="class">
-        📊 КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ
-        <span class="badge class">ПО КАТЕГОРИЯМ</span>
-    </div>
+    <div class="section-title" id="class">📊 КЛАССИФИКАЦИЯ СЧЁТНЫХ СЛОВ<span class="badge class">ПО КАТЕГОРИЯМ</span></div>
     <div class="card" style="border-color:#E67E22; box-shadow:0 10px 0 #CA6F1E;" id="classContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- ВОПРОСЫ СО СЧЁТНЫМИ СЛОВАМИ -->
-    <!-- ============================================================ -->
-    <div class="section-title">
-        ❓ Вопросы со счётными словами
-        <span class="badge counter">16 ПРИМЕРОВ</span>
-    </div>
+    <div class="section-title">❓ Вопросы со счётными словами<span class="badge counter">16 ПРИМЕРОВ</span></div>
     <div class="card" style="border-color:#9C27B0; box-shadow:0 10px 0 #6A1B9A;" id="counterQuestionsContainer"></div>
 
-    <!-- ============================================================ -->
-    <!-- ИГРЫ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="games">
-        🎮 ИГРЫ
-        <span class="badge game">3 ИГРЫ</span>
-    </div>
+    <div class="section-title" id="games">🎮 ИГРЫ<span class="badge game">3 ИГРЫ</span></div>
 
     <div class="game-section" style="border-color:#F39C12; box-shadow:0 10px 0 #D68910;">
         <h2 style="color:#D68910; margin-bottom:.5rem;">🎮 Игра 1: Угадай вопросительное слово</h2>
@@ -895,8 +797,8 @@
         </div>
         <div class="game-question">
             <div class="q-text" id="game1Question">你好</div>
+            <div class="q-pinyin" id="game1Pinyin"></div>
             <div class="q-desc" id="game1Translation">Привет</div>
-            <div class="q-hint" id="game1Hint"></div>
         </div>
         <div class="game-options" id="game1Options"></div>
         <div class="game-result" id="game1Result"></div>
@@ -914,6 +816,7 @@
         </div>
         <div class="game-question">
             <div class="q-text" id="game2Question">📚 书</div>
+            <div class="q-pinyin" id="game2Pinyin">shū</div>
             <div class="q-desc" id="game2Desc">Выбери правильный счётчик</div>
         </div>
         <div class="game-options" id="game2Options"></div>
@@ -934,13 +837,7 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- НЮАНСЫ -->
-    <!-- ============================================================ -->
-    <div class="section-title" id="nuances">
-        ⚠️ НЮАНСЫ
-        <span class="badge nuance">🔥 ТОП-5</span>
-    </div>
+    <div class="section-title" id="nuances">⚠️ НЮАНСЫ<span class="badge nuance">🔥 ТОП-5</span></div>
     <div class="card" style="border-color:#E74C3C; box-shadow:0 10px 0 #C0392B;">
 
         <div class="accordion-card nuance">
@@ -1055,10 +952,6 @@
 </div>
 
 <script>
-    // ================================================================
-    // ЧАСТЬ 2 — JavaScript (данные и логика)
-    // ================================================================
-
     // ===== 16 СЧЁТНЫХ СЛОВ =====
     const countersData = [
         { char: '个', pinyin: 'gè', use: 'Универсальный', example: '一个人 — один человек' },
@@ -1303,6 +1196,108 @@
         { q: '几片面包？', p: 'Jǐ piàn miànbāo?', t: '🍞 Сколько ломтиков хлеба?', a: '三片面包。', ap: 'Sān piàn miànbāo.', at: 'Три ломтика хлеба.', note: 'Счётчик 片 для тонких/плоских' },
     ];
 
+    // ===== ИГРА 1: 40 вопросов (расширено, БЕЗ подсказок, с пиньин) =====
+    const game1Questions = [
+        { chinese: '你__工作？', pinyin: 'Nǐ ___ gōngzuò?', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'] },
+        { chinese: '__本书是你的？', pinyin: '___ běn shū shì nǐ de?', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'] },
+        { chinese: '你__去学校？', pinyin: 'Nǐ ___ qù xuéxiào?', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'] },
+        { chinese: '你叫什么__？', pinyin: 'Nǐ jiào shénme ___?', translation: 'Как тебя зовут?', correct: '名字', options: ['名字', '工作', '地方'] },
+        { chinese: '你__岁？', pinyin: 'Nǐ ___ suì?', translation: 'Сколько тебе лет? (ребёнок)', correct: '几', options: ['几', '多少', '怎么'] },
+        { chinese: '这__钱？', pinyin: 'Zhè ___ qián?', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'] },
+        { chinese: '你在__？', pinyin: 'Nǐ zài ___?', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'] },
+        { chinese: '你是__人？', pinyin: 'Nǐ shì ___ rén?', translation: 'Откуда ты? (национальность)', correct: '哪里', options: ['哪里', '哪儿', '什么'] },
+        { chinese: '你__来了？', pinyin: 'Nǐ ___ lái le?', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'] },
+        { chinese: '你__笑？', pinyin: 'Nǐ ___ xiào?', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '__个蛋糕好吃？', pinyin: '___ ge dàngāo hǎochī?', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'] },
+        { chinese: '你爱吃什么__？', pinyin: 'Nǐ ài chī shénme ___?', translation: 'Какие фрукты ты любишь?', correct: '水果', options: ['水果', '工作', '地方'] },
+        { chinese: '他__？', pinyin: 'Tā ___?', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'] },
+        { chinese: '__是你哥哥？', pinyin: '___ shì nǐ gēge?', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'] },
+        { chinese: '他在__？', pinyin: 'Tā zài ___?', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
+        { chinese: '__是你的书？', pinyin: '___ shì nǐ de shū?', translation: 'Которая книга твоя?', correct: '哪本', options: ['哪本', '什么', '谁'] },
+        { chinese: '今天星期__？', pinyin: 'Jīntiān xīngqī ___?', translation: 'Какой сегодня день недели?', correct: '几', options: ['几', '什么', '多少'] },
+        { chinese: '你有__朋友？', pinyin: 'Nǐ yǒu ___ péngyou?', translation: 'Сколько у тебя друзей? (мало)', correct: '几个', options: ['几个', '多少', '什么'] },
+        { chinese: '你们班有__学生？', pinyin: 'Nǐmen bān yǒu ___ xuéshēng?', translation: 'Сколько студентов в группе? (много)', correct: '多少', options: ['多少', '几个', '几'] },
+        { chinese: '__是你的杯子？', pinyin: '___ shì nǐ de bēizi?', translation: 'Которая чашка твоя?', correct: '哪个', options: ['哪个', '什么', '怎么'] },
+        { chinese: '你__回家？', pinyin: 'Nǐ ___ huí jiā?', translation: 'Когда ты возвращаешься домой?', correct: '什么时候', options: ['什么时候', '几点', '多少'] },
+        { chinese: '现在__？', pinyin: 'Xiànzài ___?', translation: 'Который час?', correct: '几点', options: ['几点', '什么时候', '多少'] },
+        { chinese: '你__学中文？', pinyin: 'Nǐ ___ xué zhōngwén?', translation: 'Почему ты учишь китайский?', correct: '为什么', options: ['为什么', '怎么', '什么'] },
+        { chinese: '这__？', pinyin: 'Zhè ___?', translation: 'Что это?', correct: '是什么', options: ['是什么', '在哪里', '怎么样'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Кто ты? (характер)', correct: '什么人', options: ['什么人', '谁', '哪里人'] },
+        { chinese: '__来了？', pinyin: '___ lái le?', translation: 'Кто пришёл?', correct: '谁', options: ['谁', '什么', '哪里'] },
+        { chinese: '你住在__？', pinyin: 'Nǐ zhù zài ___?', translation: 'Где ты живёшь? (формально)', correct: '哪里', options: ['哪里', '哪儿', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Где ты? (разговорно)', correct: '在哪儿', options: ['在哪儿', '在哪里', '什么'] },
+        { chinese: '__车是你的？', pinyin: '___ chē shì nǐ de?', translation: 'Которая машина твоя?', correct: '哪辆', options: ['哪辆', '什么', '几辆'] },
+        { chinese: '你__去北京？', pinyin: 'Nǐ ___ qù Běijīng?', translation: 'Как ты едешь в Пекин?', correct: '怎么', options: ['怎么', '什么', '哪里'] },
+        { chinese: '这部电影__？', pinyin: 'Zhè bù diànyǐng ___?', translation: 'Как этот фильм?', correct: '怎么样', options: ['怎么样', '什么样', '什么'] },
+        { chinese: '你__起床？', pinyin: 'Nǐ ___ qǐchuáng?', translation: 'Во сколько ты встаёшь?', correct: '几点', options: ['几点', '什么时候', '多少'] },
+        { chinese: '__钱？', pinyin: '___ qián?', translation: 'Сколько денег? (цена)', correct: '多少', options: ['多少', '几', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Что ты делаешь?', correct: '干什么', options: ['干什么', '什么', '怎么'] },
+        { chinese: '__城市最漂亮？', pinyin: '___ chéngshì zuì piàoliang?', translation: 'Какой город самый красивый?', correct: '哪个', options: ['哪个', '什么', '哪里'] },
+        { chinese: '你有__本书？', pinyin: 'Nǐ yǒu ___ běn shū?', translation: 'Сколько у тебя книг? (мало)', correct: '几', options: ['几', '多少', '什么'] },
+        { chinese: '你__？', pinyin: 'Nǐ ___?', translation: 'Как ты? (состояние)', correct: '怎么样', options: ['怎么样', '什么样', '什么'] },
+        { chinese: '__是你的老师？', pinyin: '___ shì nǐ de lǎoshī?', translation: 'Кто твой учитель?', correct: '谁', options: ['谁', '什么', '哪个'] },
+        { chinese: '你__去？', pinyin: 'Nǐ ___ qù?', translation: 'Куда ты идёшь?', correct: '去哪儿', options: ['去哪儿', '去哪里', '什么'] },
+    ];
+
+    // ===== ИГРА 2: 30 предметов для счётных слов (расширено) =====
+    const counterItems = [
+        { item: '📚 书', pinyin: 'shū', translation: 'книга', correct: '本' },
+        { item: '🚗 车', pinyin: 'chē', translation: 'машина', correct: '辆' },
+        { item: '☕ 茶', pinyin: 'chá', translation: 'чай (чашка)', correct: '杯' },
+        { item: '🐕 狗', pinyin: 'gǒu', translation: 'собака', correct: '只' },
+        { item: '👟 鞋', pinyin: 'xié', translation: 'обувь (пара)', correct: '双' },
+        { item: '💰 钱', pinyin: 'qián', translation: 'деньги (юань)', correct: '块' },
+        { item: '📄 纸', pinyin: 'zhǐ', translation: 'бумага', correct: '张' },
+        { item: '👔 衣服', pinyin: 'yīfu', translation: 'одежда', correct: '件' },
+        { item: '🛣️ 路', pinyin: 'lù', translation: 'дорога', correct: '条' },
+        { item: '🔪 刀', pinyin: 'dāo', translation: 'нож', correct: '把' },
+        { item: '🍾 水', pinyin: 'shuǐ', translation: 'вода (бутылка)', correct: '瓶' },
+        { item: '🍎 苹果', pinyin: 'píngguǒ', translation: 'яблоко', correct: '个' },
+        { item: '💎 耳环', pinyin: 'ěrhuán', translation: 'серёжки', correct: '对' },
+        { item: '👓 眼镜', pinyin: 'yǎnjìng', translation: 'очки', correct: '副' },
+        { item: '🥢 筷子', pinyin: 'kuàizi', translation: 'палочки', correct: '根' },
+        { item: '🍞 面包', pinyin: 'miànbāo', translation: 'хлеб (ломтик)', correct: '片' },
+        { item: '🐈 猫', pinyin: 'māo', translation: 'кошка', correct: '只' },
+        { item: '🐟 鱼', pinyin: 'yú', translation: 'рыба', correct: '条' },
+        { item: '🐴 马', pinyin: 'mǎ', translation: 'лошадь', correct: '匹' },
+        { item: '🐘 大象', pinyin: 'dàxiàng', translation: 'слон', correct: '头' },
+        { item: '👕 衬衫', pinyin: 'chènshān', translation: 'рубашка', correct: '件' },
+        { item: '👖 裤子', pinyin: 'kùzi', translation: 'штаны', correct: '条' },
+        { item: '🧦 袜子', pinyin: 'wàzi', translation: 'носки (пара)', correct: '双' },
+        { item: '🧤 手套', pinyin: 'shǒutào', translation: 'перчатки (комплект)', correct: '副' },
+        { item: '🎴 扑克牌', pinyin: 'pūkèpái', translation: 'карты (колода)', correct: '副' },
+        { item: '📷 照片', pinyin: 'zhàopiàn', translation: 'фото', correct: '张' },
+        { item: '🎫 票', pinyin: 'piào', translation: 'билет', correct: '张' },
+        { item: '🪑 桌子', pinyin: 'zhuōzi', translation: 'стол', correct: '张' },
+        { item: '🚲 自行车', pinyin: 'zìxíngchē', translation: 'велосипед', correct: '辆' },
+        { item: '🚌 公交车', pinyin: 'gōngjiāochē', translation: 'автобус', correct: '辆' },
+    ];
+
+    // ===== ИГРА 3: 20 пар для игры "Найди пару" =====
+    const matchPairs = [
+        { item: '📚 书', pinyin: 'shū', translation: 'книга', counter: '本' },
+        { item: '🚗 车', pinyin: 'chē', translation: 'машина', counter: '辆' },
+        { item: '☕ 茶', pinyin: 'chá', translation: 'чай', counter: '杯' },
+        { item: '🐕 狗', pinyin: 'gǒu', translation: 'собака', counter: '只' },
+        { item: '👟 鞋', pinyin: 'xié', translation: 'обувь', counter: '双' },
+        { item: '💰 钱', pinyin: 'qián', translation: 'деньги', counter: '块' },
+        { item: '📄 纸', pinyin: 'zhǐ', translation: 'бумага', counter: '张' },
+        { item: '👔 衣服', pinyin: 'yīfu', translation: 'одежда', counter: '件' },
+        { item: '🛣️ 路', pinyin: 'lù', translation: 'дорога', counter: '条' },
+        { item: '🔪 刀', pinyin: 'dāo', translation: 'нож', counter: '把' },
+        { item: '🍾 水', pinyin: 'shuǐ', translation: 'вода', counter: '瓶' },
+        { item: '🍎 苹果', pinyin: 'píngguǒ', translation: 'яблоко', counter: '个' },
+        { item: '💎 耳环', pinyin: 'ěrhuán', translation: 'серёжки', counter: '对' },
+        { item: '👓 眼镜', pinyin: 'yǎnjìng', translation: 'очки', counter: '副' },
+        { item: '🥢 筷子', pinyin: 'kuàizi', translation: 'палочки', counter: '根' },
+        { item: '🍞 面包', pinyin: 'miànbāo', translation: 'хлеб', counter: '片' },
+        { item: '🐈 猫', pinyin: 'māo', translation: 'кошка', counter: '只' },
+        { item: '🐟 鱼', pinyin: 'yú', translation: 'рыба', counter: '条' },
+        { item: '🐴 马', pinyin: 'mǎ', translation: 'лошадь', counter: '匹' },
+        { item: '👖 裤子', pinyin: 'kùzi', translation: 'штаны', counter: '条' },
+    ];
+
     // ================================================================
     // 2. ФУНКЦИИ
     // ================================================================
@@ -1453,63 +1448,6 @@
     // 4. ИГРЫ
     // ================================================================
 
-    const game1Questions = [
-        { chinese: '你__工作？', translation: 'Кем ты работаешь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем профессию → вариантов много' },
-        { chinese: '__本书是你的？', translation: 'Которая книга твоя?', correct: '哪', options: ['什么', '哪', '谁'], hint: 'Выбор из книг → нужен счётчик 本' },
-        { chinese: '你__去学校？', translation: 'Как ты добираешься?', correct: '怎么', options: ['怎么', '什么', '哪'], hint: 'Способ действия' },
-        { chinese: '你叫什么__？', translation: 'Как тебя зовут?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Спрашиваем имя' },
-        { chinese: '你__岁？', translation: 'Сколько тебе лет?', correct: '几', options: ['几', '多少', '怎么'], hint: 'Маленькое число → 几 + счётное' },
-        { chinese: '这__钱？', translation: 'Сколько это стоит?', correct: '多少', options: ['多少', '几', '什么'], hint: 'Цена → используем 多少' },
-        { chinese: '你在__？', translation: 'Где ты? (разговорный)', correct: '哪儿', options: ['哪儿', '哪里', '什么'], hint: 'Повседневный → 哪儿' },
-        { chinese: '你是__人？', translation: 'Откуда ты?', correct: '哪里', options: ['哪里', '哪儿', '什么'], hint: 'Национальность → 哪里 + 人' },
-        { chinese: '你__来了？', translation: 'Как так — ты пришёл?', correct: '怎么', options: ['怎么', '为什么', '什么'], hint: 'Удивление → 怎么' },
-        { chinese: '你__笑？', translation: 'Почему ты смеёшься?', correct: '为什么', options: ['为什么', '怎么', '什么'], hint: 'Причина → 为什么' },
-        { chinese: '__个蛋糕好吃？', translation: 'Который торт вкуснее?', correct: '哪', options: ['什么', '哪', '怎么'], hint: 'Выбор из тортов → нужен счётчик 个' },
-        { chinese: '你爱吃什么__？', translation: 'Какие фрукты ты любишь?', correct: '什么', options: ['什么', '哪', '怎么'], hint: 'Фруктов много → открытый вопрос' },
-        { chinese: '他__？', translation: 'Как он выглядит?', correct: '什么样', options: ['什么样', '怎么样', '怎么'], hint: 'Внешность, вид' },
-        { chinese: '你__？', translation: 'Как дела?', correct: '怎么样', options: ['怎么样', '什么样', '怎么'], hint: 'Состояние → "как дела?"' },
-        { chinese: '__是你哥哥？', translation: 'Который из них твой брат?', correct: '哪个人', options: ['哪个人', '谁', '什么人'], hint: 'Выбор из людей → нужен счётчик 个' },
-        { chinese: '他在__？', translation: 'Что он делает?', correct: '干什么', options: ['干什么', '什么', '怎么'], hint: 'Спрашиваем о действии' },
-    ];
-
-    const counterItems = [
-        { item: '📚 书 (книга)', correct: '本' },
-        { item: '🚗 车 (машина)', correct: '辆' },
-        { item: '☕ 茶 (чай)', correct: '杯' },
-        { item: '🐕 狗 (собака)', correct: '只' },
-        { item: '👟 鞋 (обувь)', correct: '双' },
-        { item: '💰 钱 (деньги)', correct: '块' },
-        { item: '📄 纸 (бумага)', correct: '张' },
-        { item: '👔 衣服 (одежда)', correct: '件' },
-        { item: '🛣️ 路 (дорога)', correct: '条' },
-        { item: '🔪 刀 (нож)', correct: '把' },
-        { item: '🍾 水 (бутылка)', correct: '瓶' },
-        { item: '🍎 苹果 (яблоко)', correct: '个' },
-        { item: '💎 耳环 (серёжки)', correct: '对' },
-        { item: '👓 眼镜 (очки)', correct: '副' },
-        { item: '🥢 筷子 (палочки)', correct: '根' },
-        { item: '🍞 面包 (хлеб)', correct: '片' },
-    ];
-
-    const matchPairs = [
-        { item: '📚 书 (книга)', counter: '本' },
-        { item: '🚗 车 (машина)', counter: '辆' },
-        { item: '☕ 茶 (чай)', counter: '杯' },
-        { item: '🐕 狗 (собака)', counter: '只' },
-        { item: '👟 鞋 (обувь)', counter: '双' },
-        { item: '💰 钱 (деньги)', counter: '块' },
-        { item: '📄 纸 (бумага)', counter: '张' },
-        { item: '👔 衣服 (одежда)', counter: '件' },
-        { item: '🛣️ 路 (дорога)', counter: '条' },
-        { item: '🔪 刀 (нож)', counter: '把' },
-        { item: '🍾 水 (бутылка)', counter: '瓶' },
-        { item: '🍎 苹果 (яблоко)', counter: '个' },
-        { item: '💎 耳环 (серёжки)', counter: '对' },
-        { item: '👓 眼镜 (очки)', counter: '副' },
-        { item: '🥢 筷子 (палочки)', counter: '根' },
-        { item: '🍞 面包 (хлеб)', counter: '片' },
-    ];
-
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -1535,8 +1473,8 @@
     // ===== ИГРА 1 =====
     let g1Questions = [], g1Index = 0, g1Score = 0, g1Mistakes = 0, g1Answered = false;
     const g1Q = document.getElementById('game1Question');
+    const g1P = document.getElementById('game1Pinyin');
     const g1T = document.getElementById('game1Translation');
-    const g1H = document.getElementById('game1Hint');
     const g1Opt = document.getElementById('game1Options');
     const g1Res = document.getElementById('game1Result');
     const g1ScoreEl = document.getElementById('game1Score');
@@ -1545,7 +1483,7 @@
 
     function initGame1() {
         const shuffled = shuffleArray([...game1Questions]);
-        g1Questions = shuffled.slice(0, 10);
+        g1Questions = shuffled.slice(0, 15);
         g1Index = 0;
         g1Score = 0;
         g1Mistakes = 0;
@@ -1557,8 +1495,8 @@
     function showGame1Question() {
         if (g1Index >= g1Questions.length) {
             g1Q.textContent = '🎉 Поздравляем!';
+            g1P.textContent = '';
             g1T.textContent = `Правильных: ${g1Score} из ${g1Questions.length}`;
-            g1H.textContent = '';
             g1Opt.innerHTML = '';
             g1Res.textContent = `🎊 Ошибок: ${g1Mistakes}`;
             g1Res.className = 'game-result correct';
@@ -1566,8 +1504,8 @@
         }
         const q = g1Questions[g1Index];
         g1Q.textContent = q.chinese;
+        g1P.textContent = q.pinyin;
         g1T.textContent = q.translation;
-        g1H.textContent = '💡 ' + q.hint;
         const shuffledOpt = shuffleArray([...q.options]);
         let html = '';
         for (const opt of shuffledOpt) {
@@ -1599,11 +1537,11 @@
         });
         if (isCorrect) {
             g1Score++;
-            g1Res.textContent = '✅ Правильно! ' + q.hint;
+            g1Res.textContent = '✅ Правильно!';
             g1Res.className = 'game-result correct';
         } else {
             g1Mistakes++;
-            g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct + ' — ' + q.hint;
+            g1Res.textContent = '❌ Неправильно! Правильно: ' + q.correct;
             g1Res.className = 'game-result wrong';
         }
         speakChinese(q.chinese.replace('__', q.correct));
@@ -1630,6 +1568,7 @@
     // ===== ИГРА 2 =====
     let g2Questions = [], g2Index = 0, g2Score = 0, g2Mistakes = 0, g2Answered = false;
     const g2Q = document.getElementById('game2Question');
+    const g2P = document.getElementById('game2Pinyin');
     const g2D = document.getElementById('game2Desc');
     const g2Opt = document.getElementById('game2Options');
     const g2Res = document.getElementById('game2Result');
@@ -1639,7 +1578,7 @@
 
     function initGame2() {
         const shuffled = shuffleArray([...counterItems]);
-        g2Questions = shuffled.slice(0, 10);
+        g2Questions = shuffled.slice(0, 12);
         g2Index = 0;
         g2Score = 0;
         g2Mistakes = 0;
@@ -1651,6 +1590,7 @@
     function showGame2Question() {
         if (g2Index >= g2Questions.length) {
             g2Q.textContent = '🎉 Поздравляем!';
+            g2P.textContent = '';
             g2D.textContent = `Правильных: ${g2Score} из ${g2Questions.length}`;
             g2Opt.innerHTML = '';
             g2Res.textContent = `🎊 Ошибок: ${g2Mistakes}`;
@@ -1659,8 +1599,9 @@
         }
         const q = g2Questions[g2Index];
         g2Q.textContent = q.item;
-        g2D.textContent = 'Выбери правильный счётчик!';
-        const allCounters = countersData.map(c => c.char);
+        g2P.textContent = q.pinyin;
+        g2D.textContent = q.translation + ' — выбери правильный счётчик!';
+        const allCounters = [...new Set(countersData.map(c => c.char))];
         const shuffledCounters = shuffleArray([...allCounters]);
         let options = [q.correct];
         const others = shuffledCounters.filter(c => c !== q.correct);
@@ -1670,7 +1611,9 @@
         const finalOptions = shuffleArray(options);
         let html = '';
         for (const opt of finalOptions) {
-            html += `<button data-answer="${opt}">${opt}</button>`;
+            const counterInfo = countersData.find(c => c.char === opt);
+            const pinyin = counterInfo ? counterInfo.pinyin : '';
+            html += `<button data-answer="${opt}">${opt}<br><small style="font-size:.7rem; color:#888;">${pinyin}</small></button>`;
         }
         g2Opt.innerHTML = html;
         g2Res.textContent = '';
@@ -1734,7 +1677,7 @@
 
     function initMatchGame() {
         const shuffled = shuffleArray([...matchPairs]);
-        matchItems = shuffled.slice(0, 6);
+        matchItems = shuffled.slice(0, 8);
         matchPairsFound = 0;
         selectedMatch = null;
         matchResult.textContent = '';
@@ -1744,9 +1687,20 @@
     }
 
     function renderMatchGrid() {
-        const items = matchItems.map((p, i) => ({ id: `item-${i}`, text: p.item, type: 'item', pairId: i }));
-        const counters = matchItems.map((p, i) => ({ id: `counter-${i}`, text: p.counter, type: 'counter', pairId: i,
-            pinyin: countersData.find(c => c.char === p.counter)?.pinyin || '' }));
+        const items = matchItems.map((p, i) => ({
+            id: `item-${i}`,
+            text: p.item,
+            sub: p.pinyin,
+            type: 'item',
+            pairId: i
+        }));
+        const counters = matchItems.map((p, i) => ({
+            id: `counter-${i}`,
+            text: p.counter,
+            sub: countersData.find(c => c.char === p.counter)?.pinyin || '',
+            type: 'counter',
+            pairId: i
+        }));
         const all = shuffleArray([...items, ...counters]);
         matchGrid.innerHTML = '';
         for (const el of all) {
@@ -1755,10 +1709,7 @@
             div.dataset.pairId = el.pairId;
             div.dataset.type = el.type;
             div.dataset.id = el.id;
-            div.innerHTML = `${el.text}`;
-            if (el.type === 'counter') {
-                div.innerHTML += `<span class="match-sub">${el.pinyin || ''}</span>`;
-            }
+            div.innerHTML = `${el.text}<span class="match-sub">${el.sub || ''}</span>`;
             div.addEventListener('click', () => handleMatchClick(div));
             matchGrid.appendChild(div);
         }
@@ -1828,3 +1779,4 @@
 
 </body>
 </html>
+
