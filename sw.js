@@ -1,6 +1,6 @@
 const REPO_NAME = 'lesson-1';
 const BASE_PATH = `/${REPO_NAME}/`;
-const CACHE_NAME = 'chinese-lesson-v3';
+const CACHE_NAME = 'chinese-lesson-v4';  // ← НОВАЯ ВЕРСИЯ!
 
 // Файлы для кеширования (все важные файлы)
 const FILES_TO_CACHE = [
@@ -66,7 +66,6 @@ self.addEventListener('install', event => {
           })
           .catch(err => {
             console.error('❌ Ошибка кеширования:', err);
-            // Продолжаем даже если некоторые файлы не закешировались
           });
       })
   );
@@ -99,25 +98,17 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   
-  // Пропускаем запросы не к нашему приложению
-  if (url.origin !== self.location.origin) {
-    // Для внешних ресурсов (например, Google Fonts) — не кешируем
-    return;
-  }
+  if (url.origin !== self.location.origin) return;
   
-  // Для HTML-страниц - сначала кеш, потом сеть, потом fallback
   if (event.request.mode === 'navigate') {
     event.respondWith(
       caches.match(event.request)
         .then(response => {
           if (response) {
-            console.log('📄 Из кеша (HTML):', event.request.url);
             return response;
           }
-          console.log('🌐 Загрузка из сети (HTML):', event.request.url);
           return fetch(event.request)
             .then(fetchResponse => {
-              // Кешируем полученную страницу для будущих посещений
               if (fetchResponse && fetchResponse.status === 200) {
                 const clone = fetchResponse.clone();
                 caches.open(CACHE_NAME).then(cache => {
@@ -127,7 +118,6 @@ self.addEventListener('fetch', event => {
               return fetchResponse;
             })
             .catch(() => {
-              console.log('⚠️ Fallback на index.html');
               return caches.match(`${BASE_PATH}index.html`);
             });
         })
@@ -135,21 +125,14 @@ self.addEventListener('fetch', event => {
     return;
   }
   
-  // Для статических файлов (JS, CSS, изображения)
   event.respondWith(
     caches.match(event.request)
       .then(response => {
         if (response) {
-          // Для отладки: показываем, что файл найден в кеше
-          if (event.request.url.match(/\.(js|css|html)$/)) {
-            console.log('📄 Из кеша (статичный):', event.request.url);
-          }
           return response;
         }
-        console.log('🌐 Загрузка из сети (статичный):', event.request.url);
         return fetch(event.request)
           .then(fetchResponse => {
-            // Кешируем успешно загруженные файлы
             if (fetchResponse && fetchResponse.status === 200) {
               const clone = fetchResponse.clone();
               caches.open(CACHE_NAME).then(cache => {
@@ -159,7 +142,6 @@ self.addEventListener('fetch', event => {
             return fetchResponse;
           })
           .catch(() => {
-            // Для изображений можно вернуть заглушку
             if (event.request.url.match(/\.(png|jpg|jpeg|gif|svg|ico)$/)) {
               return caches.match(`${BASE_PATH}favicon.ico`);
             }
@@ -177,7 +159,6 @@ self.addEventListener('message', event => {
     self.skipWaiting();
   }
   
-  // Обработка запроса на обновление кеша
   if (event.data && event.data.type === 'REFRESH_CACHE') {
     event.waitUntil(
       caches.open(CACHE_NAME)
@@ -189,34 +170,6 @@ self.addEventListener('message', event => {
         })
     );
   }
-});
-
-// ============================================================
-// ОБРАБОТКА ПУШ-УВЕДОМЛЕНИЙ (если нужно)
-// ============================================================
-self.addEventListener('push', event => {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || '📚 Весёлый китайский';
-  const options = {
-    body: data.body || 'Новый урок готов!',
-    icon: `${BASE_PATH}icon-192.png`,
-    badge: `${BASE_PATH}icon-192.png`,
-    vibrate: [200, 100, 200],
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
-});
-
-// ============================================================
-// ОБРАБОТКА КЛИКА ПО УВЕДОМЛЕНИЮ
-// ============================================================
-self.addEventListener('notificationclick', event => {
-  event.notification.close();
-  event.waitUntil(
-    clients.openWindow(BASE_PATH)
-  );
 });
 
 console.log('✅ Service Worker загружен!');
