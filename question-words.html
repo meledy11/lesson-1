@@ -1904,16 +1904,16 @@ const matchPairs = [
     const g1TotalEl = document.getElementById('game1Total');
     const g1MistEl = document.getElementById('game1Mistakes');
 
-    function initGame1() {
-        const shuffled = shuffleArray([...game1Questions]);
-        g1Questions = shuffled.slice(0, 10);
-        g1Index = 0;
-        g1Score = 0;
-        g1Mistakes = 0;
-        g1Answered = false;
-        updateGame1Stats();
-        showGame1Question();
-    }
+function initGame1() {
+    const shuffled = shuffleArray([...game1Questions]);
+    g1Questions = shuffled.slice(0, 100);
+    g1Index = 0;
+    g1Score = 0;
+    g1Mistakes = 0;
+    g1Answered = false;
+    updateGame1Stats();
+    showGame1Question();
+}
 
     function showGame1Question() {
         if (g1Index >= g1Questions.length) {
@@ -1998,17 +1998,16 @@ const matchPairs = [
     const g2TotalEl = document.getElementById('game2Total');
     const g2MistEl = document.getElementById('game2Mistakes');
 
-    function initGame2() {
-        const shuffled = shuffleArray([...counterItems]);
-        g2Questions = shuffled.slice(0, 10);
-        g2Index = 0;
-        g2Score = 0;
-        g2Mistakes = 0;
-        g2Answered = false;
-        updateGame2Stats();
-        showGame2Question();
-    }
-
+   function initGame2() {
+    const shuffled = shuffleArray([...counterItems]);
+    g2Questions = shuffled.slice(0, 100);
+    g2Index = 0;
+    g2Score = 0;
+    g2Mistakes = 0;
+    g2Answered = false;
+    updateGame2Stats();
+    showGame2Question();
+}
     function showGame2Question() {
         if (g2Index >= g2Questions.length) {
             g2Q.textContent = '🎉 Поздравляем!';
@@ -2094,15 +2093,15 @@ const matchPairs = [
     const matchResult = document.getElementById('matchResult');
 
     function initMatchGame() {
-        const shuffled = shuffleArray([...matchPairs]);
-        matchItems = shuffled.slice(0, 6);
-        matchPairsFound = 0;
-        selectedMatch = null;
-        matchResult.textContent = '';
-        matchResult.className = 'match-result';
-        renderMatchGrid();
-        updateMatchStatus();
-    }
+    const shuffled = shuffleArray([...matchPairs]);
+    matchItems = shuffled.slice(0, 20);
+    matchPairsFound = 0;
+    selectedMatch = null;
+    matchResult.textContent = '';
+    matchResult.className = 'match-result';
+    renderMatchGrid();
+    updateMatchStatus();
+}
 
     function renderMatchGrid() {
         const items = matchItems.map((p, i) => ({ id: `item-${i}`, text: p.item, type: 'item', pairId: i }));
