@@ -1824,13 +1824,6 @@ const WORDS_BY_KEY = {
             { chinese: '着凉', pinyin: 'zháo liáng', translation: 'простудиться', emoji: '🤧', hsk: '5' },
         ]
     },
-    Отлично! Вот расширенный список популярных ключей, которые вы можете добавить в свой код. Они охватывают повседневную лексику, важные глаголы и часто используемые иероглифы.
-
-```javascript
-// ============================================================
-// ===== ДОПОЛНИТЕЛЬНЫЕ ПОПУЛЯРНЫЕ КЛЮЧИ =====
-// ============================================================
-
     // ============================================================
     // ===== 机 — МАШИНА, МЕХАНИЗМ =====
     // ============================================================
@@ -2549,8 +2542,1206 @@ const WORDS_BY_KEY = {
             { chinese: '楼房', pinyin: 'lóu fáng', translation: 'многоэтажное здание', emoji: '🏢', hsk: '3' },
             { chinese: '上楼', pinyin: 'shàng lóu', translation: 'подниматься наверх', emoji: '⬆️', hsk: '3' },
             { chinese: '下楼', pinyin: 'xià lóu', translation: 'спускаться', emoji: '⬇️', hsk: '3' },
-            { chinese: '教学楼', pinyin: 'jiào xué lóu', translation: 'учебный корпус', emoji: '🏫', hsk: '
 
+        ]
+    },
+// ============================================================
+    // ===== 爱 — ЛЮБОВЬ =====
+    // ============================================================
+    '爱': {
+        emoji: '❤️',
+        meaning: 'любить, любовь, дорожить',
+        words: [
+            { chinese: '爱', pinyin: 'ài', translation: 'любить', emoji: '❤️', hsk: '1' },
+            { chinese: '爱人', pinyin: 'ài rén', translation: 'любимый человек, супруг(а)', emoji: '💑', hsk: '4' },
+            { chinese: '爱情', pinyin: 'ài qíng', translation: 'любовь (чувство)', emoji: '💕', hsk: '3' },
+            { chinese: '爱好', pinyin: 'ài hào', translation: 'хобби, увлечение', emoji: '🎯', hsk: '3' },
+            { chinese: '可爱', pinyin: 'kě ài', translation: 'милый, симпатичный', emoji: '🥰', hsk: '2' },
+            { chinese: '热爱', pinyin: 'rè ài', translation: 'горячо любить', emoji: '🔥', hsk: '4' },
+            { chinese: '喜爱', pinyin: 'xǐ ài', translation: 'любить, нравиться', emoji: '😍', hsk: '4' },
+            { chinese: '爱心', pinyin: 'ài xīn', translation: 'любовь, доброта', emoji: '💗', hsk: '3' },
+            { chinese: '爱护', pinyin: 'ài hù', translation: 'заботиться, беречь', emoji: '🤗', hsk: '4' },
+            { chinese: '恋爱', pinyin: 'liàn ài', translation: 'быть влюблённым, встречаться', emoji: '💖', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 友 — ДРУГ =====
+    // ============================================================
+    '友': {
+        emoji: '🤝',
+        meaning: 'друг, дружба, дружеский',
+        words: [
+            { chinese: '朋友', pinyin: 'péng you', translation: 'друг', emoji: '🤝', hsk: '1' },
+            { chinese: '好友', pinyin: 'hǎo yǒu', translation: 'хороший друг', emoji: '👫', hsk: '3' },
+            { chinese: '友情', pinyin: 'yǒu qíng', translation: 'дружба', emoji: '💕', hsk: '4' },
+            { chinese: '友爱', pinyin: 'yǒu ài', translation: 'дружелюбие', emoji: '🤗', hsk: '5' },
+            { chinese: '网友', pinyin: 'wǎng yǒu', translation: 'друг по интернету', emoji: '💻', hsk: '4' },
+            { chinese: '校友', pinyin: 'xiào yǒu', translation: 'выпускник, однокашник', emoji: '🎓', hsk: '5' },
+            { chinese: '室友', pinyin: 'shì yǒu', translation: 'сосед по комнате', emoji: '🏠', hsk: '4' },
+            { chinese: '朋友', pinyin: 'péng you', translation: 'друг', emoji: '🤝', hsk: '1' },
+            { chinese: '友好', pinyin: 'yǒu hǎo', translation: 'дружелюбный', emoji: '😊', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 亲 — РОДНОЙ, БЛИЗКИЙ =====
+    // ============================================================
+    '亲': {
+        emoji: '👨‍👩‍👦',
+        meaning: 'родной, близкий, сам, поцеловать',
+        words: [
+            { chinese: '父亲', pinyin: 'fù qīn', translation: 'отец', emoji: '👨', hsk: '3' },
+            { chinese: '母亲', pinyin: 'mǔ qīn', translation: 'мать', emoji: '👩', hsk: '3' },
+            { chinese: '亲人', pinyin: 'qīn rén', translation: 'родственник, близкий', emoji: '👨‍👩‍👦', hsk: '3' },
+            { chinese: '亲爱', pinyin: 'qīn ài', translation: 'дорогой, любимый', emoji: '❤️', hsk: '4' },
+            { chinese: '亲自', pinyin: 'qīn zì', translation: 'лично, сам', emoji: '👤', hsk: '4' },
+            { chinese: '亲密', pinyin: 'qīn mì', translation: 'близкий, интимный', emoji: '💕', hsk: '5' },
+            { chinese: '亲吻', pinyin: 'qīn wěn', translation: 'целовать', emoji: '💋', hsk: '5' },
+            { chinese: '亲戚', pinyin: 'qīn qi', translation: 'родственник', emoji: '👪', hsk: '3' },
+            { chinese: '亲近', pinyin: 'qīn jìn', translation: 'сближаться', emoji: '🤗', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 母 — МАТЬ =====
+    // ============================================================
+    '母': {
+        emoji: '👩',
+        meaning: 'мать, женский, родительница',
+        words: [
+            { chinese: '母亲', pinyin: 'mǔ qīn', translation: 'мать', emoji: '👩', hsk: '3' },
+            { chinese: '父母', pinyin: 'fù mǔ', translation: 'родители', emoji: '👨‍👩‍👦', hsk: '3' },
+            { chinese: '母语', pinyin: 'mǔ yǔ', translation: 'родной язык', emoji: '🗣️', hsk: '4' },
+            { chinese: '母校', pinyin: 'mǔ xiào', translation: 'альма-матер, родная школа', emoji: '🏫', hsk: '5' },
+            { chinese: '母鸡', pinyin: 'mǔ jī', translation: 'курица', emoji: '🐔', hsk: '4' },
+            { chinese: '字母', pinyin: 'zì mǔ', translation: 'буква', emoji: '🔤', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 子 — СЫН, РЕБЁНОК, ЧАСТИЦА =====
+    // ============================================================
+    '子': {
+        emoji: '👶',
+        meaning: 'сын, ребёнок, частица, суффикс',
+        words: [
+            { chinese: '儿子', pinyin: 'ér zi', translation: 'сын', emoji: '👦', hsk: '2' },
+            { chinese: '孩子', pinyin: 'hái zi', translation: 'ребёнок', emoji: '👶', hsk: '1' },
+            { chinese: '女子', pinyin: 'nǚ zǐ', translation: 'девушка, женщина', emoji: '👩', hsk: '2' },
+            { chinese: '男子', pinyin: 'nán zǐ', translation: 'мужчина', emoji: '👨', hsk: '3' },
+            { chinese: '子女', pinyin: 'zǐ nǚ', translation: 'дети, сыновья и дочери', emoji: '👨‍👩‍👧', hsk: '4' },
+            { chinese: '种子', pinyin: 'zhǒng zi', translation: 'семя', emoji: '🌱', hsk: '4' },
+            { chinese: '桌子', pinyin: 'zhuō zi', translation: 'стол', emoji: '🪑', hsk: '1' },
+            { chinese: '椅子', pinyin: 'yǐ zi', translation: 'стул', emoji: '🪑', hsk: '2' },
+            { chinese: '房子', pinyin: 'fáng zi', translation: 'дом', emoji: '🏠', hsk: '1' },
+            { chinese: '兔子', pinyin: 'tù zi', translation: 'кролик', emoji: '🐰', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 公 — ОБЩЕСТВЕННЫЙ, МУЖСКОЙ =====
+    // ============================================================
+    '公': {
+        emoji: '🏛️',
+        meaning: 'общественный, мужской, публичный',
+        words: [
+            { chinese: '公共', pinyin: 'gōng gòng', translation: 'общественный', emoji: '🏛️', hsk: '4' },
+            { chinese: '公园', pinyin: 'gōng yuán', translation: 'парк', emoji: '🌳', hsk: '2' },
+            { chinese: '公司', pinyin: 'gōng sī', translation: 'компания', emoji: '🏢', hsk: '2' },
+            { chinese: '公车', pinyin: 'gōng chē', translation: 'автобус', emoji: '🚌', hsk: '3' },
+            { chinese: '公开', pinyin: 'gōng kāi', translation: 'открытый, публичный', emoji: '📢', hsk: '4' },
+            { chinese: '公平', pinyin: 'gōng píng', translation: 'справедливый', emoji: '⚖️', hsk: '4' },
+            { chinese: '公寓', pinyin: 'gōng yù', translation: 'квартира, апартаменты', emoji: '🏢', hsk: '4' },
+            { chinese: '公共汽车', pinyin: 'gōng gòng qì chē', translation: 'автобус', emoji: '🚌', hsk: '2' },
+            { chinese: '公里', pinyin: 'gōng lǐ', translation: 'километр', emoji: '📏', hsk: '2' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 共 — СОВМЕСТНЫЙ =====
+    // ============================================================
+    '共': {
+        emoji: '🤝',
+        meaning: 'совместный, общий, вместе',
+        words: [
+            { chinese: '共同', pinyin: 'gòng tóng', translation: 'совместный, общий', emoji: '🤝', hsk: '4' },
+            { chinese: '共度', pinyin: 'gòng dù', translation: 'проводить вместе (время)', emoji: '⏳', hsk: '5' },
+            { chinese: '总共', pinyin: 'zǒng gòng', translation: 'всего, в общей сложности', emoji: '📊', hsk: '3' },
+            { chinese: '共产党', pinyin: 'gòng chǎn dǎng', translation: 'коммунистическая партия', emoji: '🇨🇳', hsk: '5' },
+            { chinese: '共享', pinyin: 'gòng xiǎng', translation: 'совместно использовать', emoji: '🔄', hsk: '5' },
+            { chinese: '共和', pinyin: 'gòng hé', translation: 'республика', emoji: '🏛️', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 合 — СОЕДИНЯТЬ, ПОДХОДИТЬ =====
+    // ============================================================
+    '合': {
+        emoji: '🔗',
+        meaning: 'соединять, подходить, соответствовать',
+        words: [
+            { chinese: '合作', pinyin: 'hé zuò', translation: 'сотрудничать', emoji: '🤝', hsk: '4' },
+            { chinese: '合同', pinyin: 'hé tong', translation: 'контракт', emoji: '📝', hsk: '4' },
+            { chinese: '合适', pinyin: 'hé shì', translation: 'подходящий', emoji: '✅', hsk: '3' },
+            { chinese: '合理', pinyin: 'hé lǐ', translation: 'разумный, логичный', emoji: '💡', hsk: '4' },
+            { chinese: '结合', pinyin: 'jié hé', translation: 'объединять, комбинировать', emoji: '🔗', hsk: '4' },
+            { chinese: '合租', pinyin: 'hé zū', translation: 'совместно арендовать', emoji: '🏠', hsk: '5' },
+            { chinese: '合唱', pinyin: 'hé chàng', translation: 'хор, петь вместе', emoji: '🎤', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 作 — РАБОТАТЬ, ДЕЛАТЬ =====
+    // ============================================================
+    '作': {
+        emoji: '✍️',
+        meaning: 'работать, делать, выступать',
+        words: [
+            { chinese: '工作', pinyin: 'gōng zuò', translation: 'работа', emoji: '💼', hsk: '1' },
+            { chinese: '作业', pinyin: 'zuò yè', translation: 'домашнее задание', emoji: '📝', hsk: '2' },
+            { chinese: '作家', pinyin: 'zuò jiā', translation: 'писатель', emoji: '✍️', hsk: '3' },
+            { chinese: '作品', pinyin: 'zuò pǐn', translation: 'произведение', emoji: '🎨', hsk: '4' },
+            { chinese: '作用', pinyin: 'zuò yòng', translation: 'роль, функция', emoji: '⚙️', hsk: '4' },
+            { chinese: '操作', pinyin: 'cāo zuò', translation: 'работать, управлять', emoji: '🛠️', hsk: '4' },
+            { chinese: '合作', pinyin: 'hé zuò', translation: 'сотрудничать', emoji: '🤝', hsk: '4' },
+            { chinese: '动作', pinyin: 'dòng zuò', translation: 'движение, действие', emoji: '🏃', hsk: '3' },
+            { chinese: '作文', pinyin: 'zuò wén', translation: 'сочинение', emoji: '📝', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 品 — ТОВАР, ВКУШАТЬ =====
+    // ============================================================
+    '品': {
+        emoji: '📦',
+        meaning: 'товар, изделие, пробовать, качество',
+        words: [
+            { chinese: '食品', pinyin: 'shí pǐn', translation: 'продукты питания', emoji: '🍽️', hsk: '3' },
+            { chinese: '商品', pinyin: 'shāng pǐn', translation: 'товар, продукт', emoji: '🛒', hsk: '4' },
+            { chinese: '作品', pinyin: 'zuò pǐn', translation: 'произведение', emoji: '🎨', hsk: '4' },
+            { chinese: '用品', pinyin: 'yòng pǐn', translation: 'принадлежности, предметы', emoji: '📦', hsk: '4' },
+            { chinese: '品质', pinyin: 'pǐn zhì', translation: 'качество', emoji: '⭐', hsk: '4' },
+            { chinese: '品味', pinyin: 'pǐn wèi', translation: 'вкус, стиль', emoji: '👅', hsk: '5' },
+            { chinese: '品尝', pinyin: 'pǐn cháng', translation: 'пробовать (на вкус)', emoji: '😋', hsk: '4' },
+            { chinese: '产品', pinyin: 'chǎn pǐn', translation: 'продукция', emoji: '🏭', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 商 — ТОРГОВЛЯ, БИЗНЕС =====
+    // ============================================================
+    '商': {
+        emoji: '💼',
+        meaning: 'торговля, бизнес, обсуждать',
+        words: [
+            { chinese: '商店', pinyin: 'shāng diàn', translation: 'магазин', emoji: '🏪', hsk: '1' },
+            { chinese: '商业', pinyin: 'shāng yè', translation: 'коммерция, бизнес', emoji: '📈', hsk: '4' },
+            { chinese: '商人', pinyin: 'shāng rén', translation: 'торговец, бизнесмен', emoji: '💼', hsk: '4' },
+            { chinese: '商量', pinyin: 'shāng liang', translation: 'обсуждать, советоваться', emoji: '💬', hsk: '4' },
+            { chinese: '商品', pinyin: 'shāng pǐn', translation: 'товар', emoji: '🛒', hsk: '4' },
+            { chinese: '商场', pinyin: 'shāng chǎng', translation: 'торговый центр', emoji: '🏬', hsk: '3' },
+            { chinese: '商家', pinyin: 'shāng jiā', translation: 'продавец, торговая фирма', emoji: '🏪', hsk: '4' },
+            { chinese: '商标', pinyin: 'shāng biāo', translation: 'товарный знак', emoji: '🏷️', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 物 — ВЕЩЬ, ПРЕДМЕТ =====
+    // ============================================================
+    '物': {
+        emoji: '📦',
+        meaning: 'вещь, предмет, существо',
+        words: [
+            { chinese: '动物', pinyin: 'dòng wù', translation: 'животное', emoji: '🐾', hsk: '2' },
+            { chinese: '食物', pinyin: 'shí wù', translation: 'еда, пища', emoji: '🍽️', hsk: '3' },
+            { chinese: '礼物', pinyin: 'lǐ wù', translation: 'подарок', emoji: '🎁', hsk: '2' },
+            { chinese: '物品', pinyin: 'wù pǐn', translation: 'предмет, вещь', emoji: '📦', hsk: '4' },
+            { chinese: '物体', pinyin: 'wù tǐ', translation: 'предмет, тело', emoji: '⚪', hsk: '5' },
+            { chinese: '物理', pinyin: 'wù lǐ', translation: 'физика', emoji: '⚛️', hsk: '4' },
+            { chinese: '物质', pinyin: 'wù zhì', translation: 'материя, вещество', emoji: '🧪', hsk: '5' },
+            { chinese: '人物', pinyin: 'rén wù', translation: 'личность, персонаж', emoji: '👤', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 理 — ЛОГИКА, УПРАВЛЯТЬ =====
+    // ============================================================
+    '理': {
+        emoji: '🧠',
+        meaning: 'логика, управлять, принцип',
+        words: [
+            { chinese: '道理', pinyin: 'dào lǐ', translation: 'принцип, истина', emoji: '⚖️', hsk: '3' },
+            { chinese: '理解', pinyin: 'lǐ jiě', translation: 'понимать', emoji: '💡', hsk: '3' },
+            { chinese: '理想', pinyin: 'lǐ xiǎng', translation: 'идеал, идеальный', emoji: '⭐', hsk: '4' },
+            { chinese: '理由', pinyin: 'lǐ yóu', translation: 'причина, основание', emoji: '📌', hsk: '4' },
+            { chinese: '理发', pinyin: 'lǐ fà', translation: 'стричься', emoji: '💇', hsk: '4' },
+            { chinese: '经理', pinyin: 'jīng lǐ', translation: 'управляющий, менеджер', emoji: '🧑‍💼', hsk: '4' },
+            { chinese: '心理', pinyin: 'xīn lǐ', translation: 'психология, душевный', emoji: '🧠', hsk: '3' },
+            { chinese: '物理', pinyin: 'wù lǐ', translation: 'физика', emoji: '⚛️', hsk: '4' },
+            { chinese: '管理', pinyin: 'guǎn lǐ', translation: 'управлять, управление', emoji: '📋', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 科 — НАУКА =====
+    // ============================================================
+    '科': {
+        emoji: '🔬',
+        meaning: 'наука, отрасль, предмет',
+        words: [
+            { chinese: '科学', pinyin: 'kē xué', translation: 'наука', emoji: '🔬', hsk: '3' },
+            { chinese: '科技', pinyin: 'kē jì', translation: 'наука и техника', emoji: '💻', hsk: '4' },
+            { chinese: '科目', pinyin: 'kē mù', translation: 'предмет, дисциплина', emoji: '📚', hsk: '4' },
+            { chinese: '科研', pinyin: 'kē yán', translation: 'научные исследования', emoji: '🧪', hsk: '5' },
+            { chinese: '科普', pinyin: 'kē pǔ', translation: 'научно-популярный', emoji: '📖', hsk: '5' },
+            { chinese: '科学家', pinyin: 'kē xué jiā', translation: 'учёный', emoji: '👨‍🔬', hsk: '4' },
+            { chinese: '内科', pinyin: 'nèi kē', translation: 'терапия', emoji: '🏥', hsk: '5' },
+            { chinese: '外科', pinyin: 'wài kē', translation: 'хирургия', emoji: '🏥', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 学 — УЧИТЬСЯ (уже есть) =====
+    // ============================================================
+    // Уже есть, но дополним новыми словами позже
+
+    // ============================================================
+    // ===== 教 — УЧИТЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 校 — ШКОЛА (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 园 — САД, ПАРК =====
+    // ============================================================
+    '园': {
+        emoji: '🌳',
+        meaning: 'сад, парк, место',
+        words: [
+            { chinese: '公园', pinyin: 'gōng yuán', translation: 'парк', emoji: '🌳', hsk: '2' },
+            { chinese: '花园', pinyin: 'huā yuán', translation: 'сад', emoji: '🌸', hsk: '3' },
+            { chinese: '校园', pinyin: 'xiào yuán', translation: 'кампус', emoji: '🏫', hsk: '3' },
+            { chinese: '动物园', pinyin: 'dòng wù yuán', translation: 'зоопарк', emoji: '🐘', hsk: '3' },
+            { chinese: '菜园', pinyin: 'cài yuán', translation: 'огород', emoji: '🥬', hsk: '5' },
+            { chinese: '果园', pinyin: 'guǒ yuán', translation: 'фруктовый сад', emoji: '🍎', hsk: '5' },
+            { chinese: '园区', pinyin: 'yuán qū', translation: 'промзона, парк', emoji: '🏭', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 果 — ФРУКТ, РЕЗУЛЬТАТ =====
+    // ============================================================
+    '果': {
+        emoji: '🍎',
+        meaning: 'фрукт, результат, на самом деле',
+        words: [
+            { chinese: '水果', pinyin: 'shuǐ guǒ', translation: 'фрукты', emoji: '🍉', hsk: '2' },
+            { chinese: '苹果', pinyin: 'píng guǒ', translation: 'яблоко', emoji: '🍎', hsk: '2' },
+            { chinese: '果汁', pinyin: 'guǒ zhī', translation: 'фруктовый сок', emoji: '🧃', hsk: '3' },
+            { chinese: '结果', pinyin: 'jié guǒ', translation: 'результат, итог', emoji: '📊', hsk: '3' },
+            { chinese: '果然', pinyin: 'guǒ rán', translation: 'действительно, как и ожидалось', emoji: '✅', hsk: '4' },
+            { chinese: '如果', pinyin: 'rú guǒ', translation: 'если', emoji: '🤔', hsk: '3' },
+            { chinese: '后果', pinyin: 'hòu guǒ', translation: 'последствия', emoji: '⚠️', hsk: '5' },
+            { chinese: '成果', pinyin: 'chéng guǒ', translation: 'достижение, результат', emoji: '🏆', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 实 — РЕАЛЬНЫЙ, НАСТОЯЩИЙ =====
+    // ============================================================
+    '实': {
+        emoji: '💯',
+        meaning: 'реальный, настоящий, честный',
+        words: [
+            { chinese: '实在', pinyin: 'shí zài', translation: 'настоящий, честный', emoji: '💯', hsk: '3' },
+            { chinese: '实际', pinyin: 'shí jì', translation: 'фактический, реальный', emoji: '📊', hsk: '4' },
+            { chinese: '实现', pinyin: 'shí xiàn', translation: 'реализовать, осуществить', emoji: '✅', hsk: '4' },
+            { chinese: '实验', pinyin: 'shí yàn', translation: 'эксперимент', emoji: '🔬', hsk: '4' },
+            { chinese: '实力', pinyin: 'shí lì', translation: 'сила, мощь', emoji: '💪', hsk: '4' },
+            { chinese: '实习', pinyin: 'shí xí', translation: 'стажировка, практика', emoji: '📚', hsk: '4' },
+            { chinese: '实话', pinyin: 'shí huà', translation: 'правда', emoji: '🗣️', hsk: '4' },
+            { chinese: '果实', pinyin: 'guǒ shí', translation: 'плод, результат', emoji: '🍎', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 验 — ПРОВЕРЯТЬ =====
+    // ============================================================
+    '验': {
+        emoji: '🔍',
+        meaning: 'проверять, осматривать, экзамен',
+        words: [
+            { chinese: '经验', pinyin: 'jīng yàn', translation: 'опыт', emoji: '📚', hsk: '3' },
+            { chinese: '实验', pinyin: 'shí yàn', translation: 'эксперимент', emoji: '🔬', hsk: '4' },
+            { chinese: '考验', pinyin: 'kǎo yàn', translation: 'испытание', emoji: '🧗', hsk: '5' },
+            { chinese: '化验', pinyin: 'huà yàn', translation: 'анализ (медицинский)', emoji: '🧪', hsk: '5' },
+            { chinese: '验证', pinyin: 'yàn zhèng', translation: 'подтверждать, проверять', emoji: '✅', hsk: '5' },
+            { chinese: '体验', pinyin: 'tǐ yàn', translation: 'испытывать, пробовать', emoji: '🎢', hsk: '4' },
+            { chinese: '体检', pinyin: 'tǐ jiǎn', translation: 'медосмотр', emoji: '🏥', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 验 — ЭКЗАМЕН (дополнительно) =====
+    // ============================================================
+    '考': {
+        emoji: '📝',
+        meaning: 'экзамен, проверять, рассматривать',
+        words: [
+            { chinese: '考试', pinyin: 'kǎo shì', translation: 'экзамен', emoji: '📝', hsk: '1' },
+            { chinese: '考虑', pinyin: 'kǎo lǜ', translation: 'обдумывать, рассматривать', emoji: '💭', hsk: '3' },
+            { chinese: '考验', pinyin: 'kǎo yàn', translation: 'испытание', emoji: '🧗', hsk: '5' },
+            { chinese: '考级', pinyin: 'kǎo jí', translation: 'сдавать экзамен на уровень', emoji: '📚', hsk: '5' },
+            { chinese: '考生', pinyin: 'kǎo shēng', translation: 'экзаменующийся', emoji: '👤', hsk: '4' },
+            { chinese: '考场', pinyin: 'kǎo chǎng', translation: 'экзаменационная аудитория', emoji: '🏫', hsk: '4' },
+            { chinese: '思考', pinyin: 'sī kǎo', translation: 'размышлять', emoji: '🧠', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 试 — ПРОБОВАТЬ, ЭКЗАМЕН =====
+    // ============================================================
+    '试': {
+        emoji: '🧪',
+        meaning: 'пробовать, пытаться, экзамен',
+        words: [
+            { chinese: '考试', pinyin: 'kǎo shì', translation: 'экзамен', emoji: '📝', hsk: '1' },
+            { chinese: '试验', pinyin: 'shì yàn', translation: 'испытание, эксперимент', emoji: '🧪', hsk: '5' },
+            { chinese: '面试', pinyin: 'miàn shì', translation: 'собеседование', emoji: '💼', hsk: '4' },
+            { chinese: '试穿', pinyin: 'shì chuān', translation: 'примерять', emoji: '👕', hsk: '4' },
+            { chinese: '尝试', pinyin: 'cháng shì', translation: 'пробовать, пытаться', emoji: '💪', hsk: '4' },
+            { chinese: '试试', pinyin: 'shì shì', translation: 'попробовать', emoji: '🤔', hsk: '2' },
+            { chinese: '试用', pinyin: 'shì yòng', translation: 'пробное использование', emoji: '🆕', hsk: '5' },
+            { chinese: '笔试', pinyin: 'bǐ shì', translation: 'письменный экзамен', emoji: '✍️', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 语 — ЯЗЫК (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 言 — РЕЧЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 问 — СПРАШИВАТЬ =====
+    // ============================================================
+    '问': {
+        emoji: '❓',
+        meaning: 'спрашивать, вопрос, заботиться',
+        words: [
+            { chinese: '问', pinyin: 'wèn', translation: 'спрашивать', emoji: '❓', hsk: '1' },
+            { chinese: '问题', pinyin: 'wèn tí', translation: 'вопрос, проблема', emoji: '🤔', hsk: '2' },
+            { chinese: '问候', pinyin: 'wèn hòu', translation: 'приветствовать, передавать привет', emoji: '👋', hsk: '4' },
+            { chinese: '请问', pinyin: 'qǐng wèn', translation: 'разрешите спросить', emoji: '🙋', hsk: '2' },
+            { chinese: '问答', pinyin: 'wèn dá', translation: 'вопрос-ответ', emoji: '💬', hsk: '4' },
+            { chinese: '追问', pinyin: 'zhuī wèn', translation: 'допрашивать, дорасспрашивать', emoji: '🔍', hsk: '5' },
+            { chinese: '提问', pinyin: 'tí wèn', translation: 'задавать вопрос', emoji: '🙋', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 答 — ОТВЕЧАТЬ =====
+    // ============================================================
+    '答': {
+        emoji: '💬',
+        meaning: 'отвечать, ответ, реакция',
+        words: [
+            { chinese: '回答', pinyin: 'huí dá', translation: 'отвечать', emoji: '💬', hsk: '2' },
+            { chinese: '答案', pinyin: 'dá àn', translation: 'ответ', emoji: '✅', hsk: '2' },
+            { chinese: '问答', pinyin: 'wèn dá', translation: 'вопрос-ответ', emoji: '💬', hsk: '4' },
+            { chinese: '答应', pinyin: 'dā ying', translation: 'соглашаться, обещать', emoji: '🤝', hsk: '3' },
+            { chinese: '答谢', pinyin: 'dá xiè', translation: 'благодарить в ответ', emoji: '🙏', hsk: '5' },
+            { chinese: '答复', pinyin: 'dá fù', translation: 'ответ, реагировать', emoji: '📨', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 找 — ИСКАТЬ =====
+    // ============================================================
+    '找': {
+        emoji: '🔍',
+        meaning: 'искать, находить, обращаться к',
+        words: [
+            { chinese: '找', pinyin: 'zhǎo', translation: 'искать', emoji: '🔍', hsk: '1' },
+            { chinese: '找到', pinyin: 'zhǎo dào', translation: 'найти', emoji: '✅', hsk: '2' },
+            { chinese: '找工作', pinyin: 'zhǎo gōng zuò', translation: 'искать работу', emoji: '💼', hsk: '3' },
+            { chinese: '找零', pinyin: 'zhǎo líng', translation: 'сдача (деньги)', emoji: '💰', hsk: '4' },
+            { chinese: '找麻烦', pinyin: 'zhǎo má fán', translation: 'искать проблемы', emoji: '😤', hsk: '5' },
+            { chinese: '找人', pinyin: 'zhǎo rén', translation: 'искать человека', emoji: '👤', hsk: '2' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 等 — ЖДАТЬ, РАВНЫЙ =====
+    // ============================================================
+    '等': {
+        emoji: '⏳',
+        meaning: 'ждать, равный, уровень',
+        words: [
+            { chinese: '等', pinyin: 'děng', translation: 'ждать', emoji: '⏳', hsk: '1' },
+            { chinese: '等待', pinyin: 'děng dài', translation: 'ожидать', emoji: '⏳', hsk: '4' },
+            { chinese: '等级', pinyin: 'děng jí', translation: 'уровень, класс', emoji: '📊', hsk: '4' },
+            { chinese: '等于', pinyin: 'děng yú', translation: 'равняться, равнозначно', emoji: '➡️', hsk: '3' },
+            { chinese: '等候', pinyin: 'děng hòu', translation: 'ожидать, дожидаться', emoji: '⏳', hsk: '4' },
+            { chinese: '平等', pinyin: 'píng děng', translation: 'равенство', emoji: '⚖️', hsk: '4' },
+            { chinese: '等等', pinyin: 'děng děng', translation: 'подождите, и так далее', emoji: '⏳', hsk: '2' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 急 — ТОРОПИТЬСЯ, СРОЧНО =====
+    // ============================================================
+    '急': {
+        emoji: '😰',
+        meaning: 'спешить, срочный, беспокоиться',
+        words: [
+            { chinese: '着急', pinyin: 'zháo jí', translation: 'волноваться, спешить', emoji: '😰', hsk: '3' },
+            { chinese: '急忙', pinyin: 'jí máng', translation: 'поспешно, быстро', emoji: '🏃', hsk: '4' },
+            { chinese: '紧急', pinyin: 'jǐn jí', translation: 'срочный, аварийный', emoji: '🚨', hsk: '4' },
+            { chinese: '急事', pinyin: 'jí shì', translation: 'срочное дело', emoji: '📋', hsk: '4' },
+            { chinese: '急性子', pinyin: 'jí xìng zi', translation: 'нетерпеливый человек', emoji: '😤', hsk: '5' },
+            { chinese: '急救', pinyin: 'jí jiù', translation: 'скорая помощь', emoji: '🚑', hsk: '4' },
+            { chinese: '急用', pinyin: 'jí yòng', translation: 'срочно нужно', emoji: '⏰', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 慢 — МЕДЛЕННЫЙ =====
+    // ============================================================
+    '慢': {
+        emoji: '🐢',
+        meaning: 'медленный, не торопиться',
+        words: [
+            { chinese: '慢', pinyin: 'màn', translation: 'медленный', emoji: '🐢', hsk: '2' },
+            { chinese: '慢慢', pinyin: 'màn màn', translation: 'медленно, постепенно', emoji: '🐢', hsk: '2' },
+            { chinese: '慢走', pinyin: 'màn zǒu', translation: 'прощайте (идите не спеша)', emoji: '👋', hsk: '3' },
+            { chinese: '慢性', pinyin: 'màn xìng', translation: 'хронический (о болезни)', emoji: '🩺', hsk: '5' },
+            { chinese: '慢跑', pinyin: 'màn pǎo', translation: 'бег трусцой', emoji: '🏃', hsk: '4' },
+            { chinese: '缓慢', pinyin: 'huǎn màn', translation: 'медленный, неторопливый', emoji: '🐢', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 快 — БЫСТРЫЙ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 总 — ВСЕГДА, ГЛАВНЫЙ =====
+    // ============================================================
+    '总': {
+        emoji: '📊',
+        meaning: 'всегда, главный, общий, итог',
+        words: [
+            { chinese: '总是', pinyin: 'zǒng shì', translation: 'всегда', emoji: '🔄', hsk: '2' },
+            { chinese: '总统', pinyin: 'zǒng tǒng', translation: 'президент', emoji: '👨‍💼', hsk: '4' },
+            { chinese: '总结', pinyin: 'zǒng jié', translation: 'подводить итоги, резюмировать', emoji: '📊', hsk: '4' },
+            { chinese: '总共', pinyin: 'zǒng gòng', translation: 'всего, в общей сложности', emoji: '📊', hsk: '3' },
+            { chinese: '总理', pinyin: 'zǒng lǐ', translation: 'премьер-министр', emoji: '👨‍💼', hsk: '5' },
+            { chinese: '总部', pinyin: 'zǒng bù', translation: 'главный офис', emoji: '🏢', hsk: '4' },
+            { chinese: '总算', pinyin: 'zǒng suàn', translation: 'наконец-то, в итоге', emoji: '✅', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 经 — ПРОХОДИТЬ, ИСПЫТЫВАТЬ =====
+    // ============================================================
+    '经': {
+        emoji: '📚',
+        meaning: 'проходить, испытывать, менструация',
+        words: [
+            { chinese: '经常', pinyin: 'jīng cháng', translation: 'часто', emoji: '🔄', hsk: '2' },
+            { chinese: '经过', pinyin: 'jīng guò', translation: 'проходить через', emoji: '🚶', hsk: '3' },
+            { chinese: '经验', pinyin: 'jīng yàn', translation: 'опыт', emoji: '📚', hsk: '3' },
+            { chinese: '经理', pinyin: 'jīng lǐ', translation: 'управляющий', emoji: '🧑‍💼', hsk: '4' },
+            { chinese: '经济', pinyin: 'jīng jì', translation: 'экономика', emoji: '📈', hsk: '3' },
+            { chinese: '经典', pinyin: 'jīng diǎn', translation: 'классический', emoji: '⭐', hsk: '4' },
+            { chinese: '经历', pinyin: 'jīng lì', translation: 'переживать, опыт', emoji: '🎢', hsk: '4' },
+            { chinese: '神经', pinyin: 'shén jīng', translation: 'нерв', emoji: '🧠', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 常 — ЧАСТО, ПОСТОЯННЫЙ =====
+    // ============================================================
+    '常': {
+        emoji: '🔄',
+        meaning: 'часто, постоянный, обычный',
+        words: [
+            { chinese: '经常', pinyin: 'jīng cháng', translation: 'часто', emoji: '🔄', hsk: '2' },
+            { chinese: '常常', pinyin: 'cháng cháng', translation: 'часто', emoji: '🔄', hsk: '2' },
+            { chinese: '常识', pinyin: 'cháng shí', translation: 'здравый смысл', emoji: '💡', hsk: '4' },
+            { chinese: '平常', pinyin: 'píng cháng', translation: 'обычный, обычно', emoji: '📅', hsk: '3' },
+            { chinese: '正常', pinyin: 'zhèng cháng', translation: 'нормальный', emoji: '✅', hsk: '3' },
+            { chinese: '日常', pinyin: 'rì cháng', translation: 'повседневный', emoji: '📅', hsk: '3' },
+            { chinese: '往常', pinyin: 'wǎng cháng', translation: 'как обычно', emoji: '🔄', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 正 — ПРАВИЛЬНЫЙ, ПРЯМОЙ =====
+    // ============================================================
+    '正': {
+        emoji: '✅',
+        meaning: 'правильный, прямой, как раз',
+        words: [
+            { chinese: '正', pinyin: 'zhèng', translation: 'правильный, как раз', emoji: '✅', hsk: '2' },
+            { chinese: '正在', pinyin: 'zhèng zài', translation: 'в данный момент', emoji: '🔄', hsk: '2' },
+            { chinese: '正好', pinyin: 'zhèng hǎo', translation: 'как раз, удачно', emoji: '👍', hsk: '3' },
+            { chinese: '正常', pinyin: 'zhèng cháng', translation: 'нормальный', emoji: '✅', hsk: '3' },
+            { chinese: '正式', pinyin: 'zhèng shì', translation: 'официальный', emoji: '📝', hsk: '4' },
+            { chinese: '正确', pinyin: 'zhèng què', translation: 'правильный, верный', emoji: '✅', hsk: '3' },
+            { chinese: '真正', pinyin: 'zhēn zhèng', translation: 'настоящий, истинный', emoji: '💯', hsk: '3' },
+            { chinese: '正方形', pinyin: 'zhèng fāng xíng', translation: 'квадрат', emoji: '⬜', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 真 — НАСТОЯЩИЙ, ИСТИННЫЙ =====
+    // ============================================================
+    '真': {
+        emoji: '💯',
+        meaning: 'настоящий, истинный, честный',
+        words: [
+            { chinese: '真', pinyin: 'zhēn', translation: 'настоящий, правда', emoji: '💯', hsk: '2' },
+            { chinese: '真正', pinyin: 'zhēn zhèng', translation: 'настоящий, истинный', emoji: '💯', hsk: '3' },
+            { chinese: '真实', pinyin: 'zhēn shí', translation: 'реальный, настоящий', emoji: '✅', hsk: '4' },
+            { chinese: '真相', pinyin: 'zhēn xiàng', translation: 'правда, истина', emoji: '🔍', hsk: '4' },
+            { chinese: '认真', pinyin: 'rèn zhēn', translation: 'серьёзный, старательный', emoji: '🧐', hsk: '2' },
+            { chinese: '天真', pinyin: 'tiān zhēn', translation: 'наивный, бесхитростный', emoji: '😇', hsk: '4' },
+            { chinese: '真诚', pinyin: 'zhēn chéng', translation: 'искренний', emoji: '💕', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 假 — ЛОЖНЫЙ, ВЫХОДНОЙ =====
+    // ============================================================
+    '假': {
+        emoji: '❌',
+        meaning: 'ложный, ненастоящий, каникулы',
+        words: [
+            { chinese: '放假', pinyin: 'fàng jià', translation: 'быть на каникулах', emoji: '🏖️', hsk: '2' },
+            { chinese: '假期', pinyin: 'jià qī', translation: 'каникулы, отпуск', emoji: '🏖️', hsk: '3' },
+            { chinese: '假', pinyin: 'jiǎ', translation: 'ложный, поддельный', emoji: '❌', hsk: '3' },
+            { chinese: '假如', pinyin: 'jiǎ rú', translation: 'если, предположим', emoji: '🤔', hsk: '4' },
+            { chinese: '假的', pinyin: 'jiǎ de', translation: 'поддельный, ненастоящий', emoji: '❌', hsk: '3' },
+            { chinese: '假装', pinyin: 'jiǎ zhuāng', translation: 'притворяться', emoji: '🎭', hsk: '4' },
+            { chinese: '寒假', pinyin: 'hán jià', translation: 'зимние каникулы', emoji: '❄️', hsk: '3' },
+            { chinese: '暑假', pinyin: 'shǔ jià', translation: 'летние каникулы', emoji: '☀️', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 应 — ОТВЕЧАТЬ, ДОЛЖЕН =====
+    // ============================================================
+    '应': {
+        emoji: '📢',
+        meaning: 'отвечать, должен, реагировать',
+        words: [
+            { chinese: '应该', pinyin: 'yīng gāi', translation: 'должен, следует', emoji: '📋', hsk: '2' },
+            { chinese: '答应', pinyin: 'dā ying', translation: 'соглашаться, обещать', emoji: '🤝', hsk: '3' },
+            { chinese: '反应', pinyin: 'fǎn yìng', translation: 'реакция', emoji: '⚡', hsk: '4' },
+            { chinese: '应用', pinyin: 'yìng yòng', translation: 'применение, приложение', emoji: '📱', hsk: '4' },
+            { chinese: '适应', pinyin: 'shì yìng', translation: 'приспосабливаться', emoji: '🔄', hsk: '4' },
+            { chinese: '对应', pinyin: 'duì yìng', translation: 'соответствовать', emoji: '🔗', hsk: '4' },
+            { chinese: '回应', pinyin: 'huí yìng', translation: 'отвечать, реагировать', emoji: '💬', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 该 — ДОЛЖЕН, ЭТОТ =====
+    // ============================================================
+    '该': {
+        emoji: '📋',
+        meaning: 'должен, следует, этот (вопросит.)',
+        words: [
+            { chinese: '应该', pinyin: 'yīng gāi', translation: 'должен, следует', emoji: '📋', hsk: '2' },
+            { chinese: '该', pinyin: 'gāi', translation: 'должен, следует', emoji: '📋', hsk: '2' },
+            { chinese: '该死', pinyin: 'gāi sǐ', translation: 'проклятый, чтоб ему', emoji: '💀', hsk: '4' },
+            { chinese: '该有', pinyin: 'gāi yǒu', translation: 'должен быть, следует иметь', emoji: '✅', hsk: '3' },
+            { chinese: '该说', pinyin: 'gāi shuō', translation: 'следует сказать', emoji: '🗣️', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 别 — НЕ, ДРУГОЙ, ПРОЩАТЬСЯ =====
+    // ============================================================
+    '别': {
+        emoji: '❌',
+        meaning: 'не (приказ), другой, прощаться',
+        words: [
+            { chinese: '别', pinyin: 'bié', translation: 'не (приказ)', emoji: '❌', hsk: '2' },
+            { chinese: '别人', pinyin: 'bié ren', translation: 'другой человек', emoji: '👤', hsk: '2' },
+            { chinese: '别的', pinyin: 'bié de', translation: 'другой, иной', emoji: '🔄', hsk: '2' },
+            { chinese: '别走', pinyin: 'bié zǒu', translation: 'не уходи', emoji: '🛑', hsk: '3' },
+            { chinese: '区别', pinyin: 'qū bié', translation: 'различие', emoji: '🔀', hsk: '4' },
+            { chinese: '告别', pinyin: 'gào bié', translation: 'прощаться', emoji: '👋', hsk: '4' },
+            { chinese: '离别', pinyin: 'lí bié', translation: 'расставание', emoji: '😢', hsk: '5' },
+            { chinese: '特别', pinyin: 'tè bié', translation: 'особенный, особенно', emoji: '⭐', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 特 — ОСОБЕННЫЙ =====
+    // ============================================================
+    '特': {
+        emoji: '⭐',
+        meaning: 'особенный, специальный',
+        words: [
+            { chinese: '特别', pinyin: 'tè bié', translation: 'особенно, специальный', emoji: '⭐', hsk: '3' },
+            { chinese: '特点', pinyin: 'tè diǎn', translation: 'особенность, черта', emoji: '🔵', hsk: '3' },
+            { chinese: '特色', pinyin: 'tè sè', translation: 'особенность, специфика', emoji: '🌈', hsk: '4' },
+            { chinese: '特殊', pinyin: 'tè shū', translation: 'особый, специальный', emoji: '⭐', hsk: '4' },
+            { chinese: '特产', pinyin: 'tè chǎn', translation: 'местный продукт', emoji: '🛍️', hsk: '4' },
+            { chinese: '特务', pinyin: 'tè wù', translation: 'шпион, агент', emoji: '🕵️', hsk: '5' },
+            { chinese: '特快', pinyin: 'tè kuài', translation: 'экспресс, очень быстрый', emoji: '⚡', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 所 — МЕСТО, -СТВО =====
+    // ============================================================
+    '所': {
+        emoji: '📍',
+        meaning: 'место, то, что, учреждение',
+        words: [
+            { chinese: '所以', pinyin: 'suǒ yǐ', translation: 'поэтому, следовательно', emoji: '➡️', hsk: '2' },
+            { chinese: '所有', pinyin: 'suǒ yǒu', translation: 'все, весь', emoji: '📦', hsk: '3' },
+            { chinese: '场所', pinyin: 'chǎng suǒ', translation: 'место, помещение', emoji: '📍', hsk: '4' },
+            { chinese: '住所', pinyin: 'zhù suǒ', translation: 'место жительства', emoji: '🏠', hsk: '4' },
+            { chinese: '研究所', pinyin: 'yán jiū suǒ', translation: 'НИИ', emoji: '🔬', hsk: '5' },
+            { chinese: '厕所', pinyin: 'cè suǒ', translation: 'туалет', emoji: '🚽', hsk: '2' },
+            { chinese: '无所谓', pinyin: 'wú suǒ wèi', translation: 'всё равно, не важно', emoji: '🤷', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 以 — С ПОМОЩЬЮ, ЧТОБЫ =====
+    // ============================================================
+    '以': {
+        emoji: '📌',
+        meaning: 'использовать, чтобы, начиная с',
+        words: [
+            { chinese: '可以', pinyin: 'kě yǐ', translation: 'можно, мочь', emoji: '✅', hsk: '1' },
+            { chinese: '以为', pinyin: 'yǐ wéi', translation: 'считать, ошибочно полагать', emoji: '💭', hsk: '3' },
+            { chinese: '以上', pinyin: 'yǐ shàng', translation: 'выше, сверх', emoji: '⬆️', hsk: '3' },
+            { chinese: '以下', pinyin: 'yǐ xià', translation: 'ниже, менее', emoji: '⬇️', hsk: '3' },
+            { chinese: '以前', pinyin: 'yǐ qián', translation: 'раньше, до', emoji: '⏪', hsk: '2' },
+            { chinese: '以后', pinyin: 'yǐ hòu', translation: 'потом, после', emoji: '⏩', hsk: '2' },
+            { chinese: '所以', pinyin: 'suǒ yǐ', translation: 'поэтому', emoji: '➡️', hsk: '2' },
+            { chinese: '以及', pinyin: 'yǐ jí', translation: 'а также, и', emoji: '🔗', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 为 — ДЛЯ, ДЕЛАТЬ =====
+    // ============================================================
+    '为': {
+        emoji: '🎯',
+        meaning: 'для, ради, делать, быть',
+        words: [
+            { chinese: '因为', pinyin: 'yīn wèi', translation: 'потому что', emoji: '📌', hsk: '2' },
+            { chinese: '为什么', pinyin: 'wèi shén me', translation: 'почему', emoji: '❓', hsk: '1' },
+            { chinese: '为了', pinyin: 'wèi le', translation: 'для, ради', emoji: '🎯', hsk: '3' },
+            { chinese: '成为', pinyin: 'chéng wéi', translation: 'становиться', emoji: '📈', hsk: '3' },
+            { chinese: '行为', pinyin: 'xíng wéi', translation: 'поведение', emoji: '🔄', hsk: '4' },
+            { chinese: '为人', pinyin: 'wéi rén', translation: 'характер, личность', emoji: '👤', hsk: '4' },
+            { chinese: '以为', pinyin: 'yǐ wéi', translation: 'думать, полагать', emoji: '💭', hsk: '3' },
+            { chinese: '作为', pinyin: 'zuò wéi', translation: 'в качестве, поступок', emoji: '📋', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 因 — ПРИЧИНА, ПОТОМУ ЧТО =====
+    // ============================================================
+    '因': {
+        emoji: '📌',
+        meaning: 'причина, из-за, потому что',
+        words: [
+            { chinese: '因为', pinyin: 'yīn wèi', translation: 'потому что', emoji: '📌', hsk: '2' },
+            { chinese: '原因', pinyin: 'yuán yīn', translation: 'причина', emoji: '🔍', hsk: '3' },
+            { chinese: '因此', pinyin: 'yīn cǐ', translation: 'следовательно, поэтому', emoji: '➡️', hsk: '4' },
+            { chinese: '因素', pinyin: 'yīn sù', translation: 'фактор', emoji: '⚙️', hsk: '4' },
+            { chinese: '起因', pinyin: 'qǐ yīn', translation: 'происхождение, причина', emoji: '📌', hsk: '5' },
+            { chinese: '因爱', pinyin: 'yīn ài', translation: 'из любви', emoji: '❤️', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 件 — ВЕЩЬ, ШТУКА (счётное слово) =====
+    // ============================================================
+    '件': {
+        emoji: '📦',
+        meaning: 'вещь, предмет, дело (сч. слово)',
+        words: [
+            { chinese: '事情', pinyin: 'shì qing', translation: 'дело', emoji: '📋', hsk: '1' },
+            { chinese: '一件衣服', pinyin: 'yī jiàn yī fu', translation: 'одна вещь одежды', emoji: '👕', hsk: '3' },
+            { chinese: '事情', pinyin: 'shì qing', translation: 'дело, событие', emoji: '📋', hsk: '1' },
+            { chinese: '文件', pinyin: 'wén jiàn', translation: 'документ, файл', emoji: '📄', hsk: '4' },
+            { chinese: '案件', pinyin: 'àn jiàn', translation: 'дело (юридическое)', emoji: '⚖️', hsk: '5' },
+            { chinese: '邮件', pinyin: 'yóu jiàn', translation: 'письмо, почта', emoji: '✉️', hsk: '4' },
+            { chinese: '一件礼物', pinyin: 'yī jiàn lǐ wù', translation: 'один подарок', emoji: '🎁', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 信 — ПИСЬМО (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 息 — ВЗДОХ, НОВОСТЬ =====
+    // ============================================================
+    '息': {
+        emoji: '💨',
+        meaning: 'вздох, новость, проценты',
+        words: [
+            { chinese: '信息', pinyin: 'xìn xī', translation: 'информация', emoji: '📨', hsk: '3' },
+            { chinese: '消息', pinyin: 'xiāo xi', translation: 'новость', emoji: '📢', hsk: '4' },
+            { chinese: '休息', pinyin: 'xiū xi', translation: 'отдыхать', emoji: '😌', hsk: '2' },
+            { chinese: '利息', pinyin: 'lì xī', translation: 'проценты (банковские)', emoji: '💰', hsk: '5' },
+            { chinese: '平息', pinyin: 'píng xī', translation: 'успокаиваться', emoji: '😌', hsk: '6' },
+            { chinese: '叹息', pinyin: 'tàn xī', translation: 'вздыхать', emoji: '😮‍💨', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 休 — ОТДЫХАТЬ =====
+    // ============================================================
+    '休': {
+        emoji: '😌',
+        meaning: 'отдыхать, прекращать',
+        words: [
+            { chinese: '休息', pinyin: 'xiū xi', translation: 'отдыхать', emoji: '😌', hsk: '2' },
+            { chinese: '休假', pinyin: 'xiū jià', translation: 'быть в отпуске', emoji: '🏖️', hsk: '3' },
+            { chinese: '休学', pinyin: 'xiū xué', translation: 'взять академический отпуск', emoji: '📚', hsk: '5' },
+            { chinese: '休止', pinyin: 'xiū zhǐ', translation: 'останавливаться, пауза', emoji: '⏸️', hsk: '6' },
+            { chinese: '退休', pinyin: 'tuì xiū', translation: 'выйти на пенсию', emoji: '👴', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 息 — ВЗДОХ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 息 — НОВОСТЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 停 — ОСТАНАВЛИВАТЬСЯ =====
+    // ============================================================
+    '停': {
+        emoji: '🛑',
+        meaning: 'останавливаться, стоять, парковаться',
+        words: [
+            { chinese: '停车', pinyin: 'tíng chē', translation: 'парковаться, остановить машину', emoji: '🅿️', hsk: '3' },
+            { chinese: '停止', pinyin: 'tíng zhǐ', translation: 'останавливаться, прекращать', emoji: '🛑', hsk: '4' },
+            { chinese: '停水', pinyin: 'tíng shuǐ', translation: 'отключение воды', emoji: '💧', hsk: '4' },
+            { chinese: '停电', pinyin: 'tíng diàn', translation: 'отключение электричества', emoji: '⚡', hsk: '4' },
+            { chinese: '停车场', pinyin: 'tíng chē chǎng', translation: 'парковка', emoji: '🅿️', hsk: '4' },
+            { chinese: '停住', pinyin: 'tíng zhù', translation: 'остановиться', emoji: '🧍', hsk: '5' },
+            { chinese: '停留', pinyin: 'tíng liú', translation: 'остановиться, задержаться', emoji: '⏳', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 始 — НАЧИНАТЬ =====
+    // ============================================================
+    '始': {
+        emoji: '▶️',
+        meaning: 'начинать, начало, впервые',
+        words: [
+            { chinese: '开始', pinyin: 'kāi shǐ', translation: 'начинать', emoji: '▶️', hsk: '1' },
+            { chinese: '最初', pinyin: 'zuì chū', translation: 'в самом начале', emoji: '1️⃣', hsk: '4' },
+            { chinese: '始发', pinyin: 'shǐ fā', translation: 'отправляться (о поезде)', emoji: '🚂', hsk: '5' },
+            { chinese: '始终', pinyin: 'shǐ zhōng', translation: 'всегда, от начала до конца', emoji: '🔄', hsk: '4' },
+            { chinese: '原始', pinyin: 'yuán shǐ', translation: 'первоначальный, первобытный', emoji: '🦴', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 终 — КОНЕЦ =====
+    // ============================================================
+    '终': {
+        emoji: '🏁',
+        meaning: 'конец, наконец, смерть',
+        words: [
+            { chinese: '终于', pinyin: 'zhōng yú', translation: 'наконец, в конце концов', emoji: '🏁', hsk: '3' },
+            { chinese: '终点', pinyin: 'zhōng diǎn', translation: 'конечная точка', emoji: '🏁', hsk: '4' },
+            { chinese: '最终', pinyin: 'zuì zhōng', translation: 'окончательный, конечный', emoji: '🏁', hsk: '4' },
+            { chinese: '终身', pinyin: 'zhōng shēn', translation: 'всю жизнь', emoji: '⏳', hsk: '4' },
+            { chinese: '终止', pinyin: 'zhōng zhǐ', translation: 'прекращать, заканчивать', emoji: '🛑', hsk: '5' },
+            { chinese: '始终', pinyin: 'shǐ zhōng', translation: 'всегда, с начала до конца', emoji: '🔄', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 表 — ТАБЛИЦА, ВЫРАЖАТЬ =====
+    // ============================================================
+    '表': {
+        emoji: '📊',
+        meaning: 'таблица, выражение, показывать',
+        words: [
+            { chinese: '手表', pinyin: 'shǒu biǎo', translation: 'часы', emoji: '⌚', hsk: '2' },
+            { chinese: '表示', pinyin: 'biǎo shì', translation: 'выражать, показывать', emoji: '💬', hsk: '3' },
+            { chinese: '表现', pinyin: 'biǎo xiàn', translation: 'проявлять, представление', emoji: '🎭', hsk: '4' },
+            { chinese: '表演', pinyin: 'biǎo yǎn', translation: 'выступать, представление', emoji: '🎤', hsk: '3' },
+            { chinese: '表格', pinyin: 'biǎo gé', translation: 'таблица, анкета', emoji: '📊', hsk: '4' },
+            { chinese: '表情', pinyin: 'biǎo qíng', translation: 'выражение лица', emoji: '😊', hsk: '4' },
+            { chinese: '表面', pinyin: 'biǎo miàn', translation: 'поверхность', emoji: '📄', hsk: '3' },
+            { chinese: '表白', pinyin: 'biǎo bái', translation: 'объясняться в любви', emoji: '💕', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 示 — ПОКАЗЫВАТЬ =====
+    // ============================================================
+    '示': {
+        emoji: '👆',
+        meaning: 'показывать, указывать, демонстрация',
+        words: [
+            { chinese: '表示', pinyin: 'biǎo shì', translation: 'выражать, показывать', emoji: '💬', hsk: '3' },
+            { chinese: '指示', pinyin: 'zhǐ shì', translation: 'указывать, инструкция', emoji: '📋', hsk: '4' },
+            { chinese: '显示', pinyin: 'xiǎn shì', translation: 'показывать, отображать', emoji: '🖥️', hsk: '4' },
+            { chinese: '提示', pinyin: 'tí shì', translation: 'подсказка, напоминание', emoji: '💡', hsk: '4' },
+            { chinese: '示爱', pinyin: 'shì ài', translation: 'проявлять любовь', emoji: '❤️', hsk: '5' },
+            { chinese: '告示', pinyin: 'gào shì', translation: 'объявление', emoji: '📢', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 示 — ПОКАЗЫВАТЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 解 — РЕШАТЬ, ПОНИМАТЬ =====
+    // ============================================================
+    '解': {
+        emoji: '🧩',
+        meaning: 'решать, понимать, разъяснять',
+        words: [
+            { chinese: '解决', pinyin: 'jiě jué', translation: 'решать (проблему)', emoji: '✅', hsk: '3' },
+            { chinese: '理解', pinyin: 'lǐ jiě', translation: 'понимать', emoji: '💡', hsk: '3' },
+            { chinese: '了解', pinyin: 'liǎo jiě', translation: 'знать, понимать', emoji: '🧠', hsk: '3' },
+            { chinese: '解放', pinyin: 'jiě fàng', translation: 'освобождать', emoji: '🕊️', hsk: '5' },
+            { chinese: '解释', pinyin: 'jiě shì', translation: 'объяснять, толковать', emoji: '📝', hsk: '4' },
+            { chinese: '解散', pinyin: 'jiě sàn', translation: 'распускать, расходиться', emoji: '👋', hsk: '5' },
+            { chinese: '讲解', pinyin: 'jiǎng jiě', translation: 'разъяснять, комментировать', emoji: '🗣️', hsk: '5' },
+            { chinese: '解答', pinyin: 'jiě dá', translation: 'отвечать (на вопрос)', emoji: '💬', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 决 — РЕШАТЬ, ОПРЕДЕЛЯТЬ =====
+    // ============================================================
+    '决': {
+        emoji: '⚖️',
+        meaning: 'решать, определять, обязательно',
+        words: [
+            { chinese: '决定', pinyin: 'jué dìng', translation: 'решать, решение', emoji: '⚖️', hsk: '3' },
+            { chinese: '解决', pinyin: 'jiě jué', translation: 'решать (проблему)', emoji: '✅', hsk: '3' },
+            { chinese: '决心', pinyin: 'jué xīn', translation: 'решимость, твёрдое решение', emoji: '💪', hsk: '4' },
+            { chinese: '坚决', pinyin: 'jiān jué', translation: 'твёрдый, решительный', emoji: '💪', hsk: '5' },
+            { chinese: '决赛', pinyin: 'jué sài', translation: 'финал', emoji: '🏆', hsk: '5' },
+            { chinese: '绝望', pinyin: 'jué wàng', translation: 'отчаяние', emoji: '😩', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 定 — ОПРЕДЕЛЯТЬ, СТАБИЛЬНЫЙ =====
+    // ============================================================
+    '定': {
+        emoji: '📌',
+        meaning: 'определять, стабильный, установленный',
+        words: [
+            { chinese: '一定', pinyin: 'yī dìng', translation: 'обязательно, определённо', emoji: '💯', hsk: '2' },
+            { chinese: '决定', pinyin: 'jué dìng', translation: 'решать, решение', emoji: '⚖️', hsk: '3' },
+            { chinese: '定义', pinyin: 'dìng yì', translation: 'определение', emoji: '📖', hsk: '4' },
+            { chinese: '稳定', pinyin: 'wěn dìng', translation: 'стабильный', emoji: '📊', hsk: '4' },
+            { chinese: '固定', pinyin: 'gù dìng', translation: 'фиксированный, постоянный', emoji: '🔒', hsk: '4' },
+            { chinese: '定时', pinyin: 'dìng shí', translation: 'в установленное время', emoji: '⏰', hsk: '4' },
+            { chinese: '约定', pinyin: 'yuē dìng', translation: 'договорённость', emoji: '🤝', hsk: '4' },
+            { chinese: '规定', pinyin: 'guī dìng', translation: 'правило, предписание', emoji: '📋', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 规 — ПРАВИЛО, РЕГУЛИРОВАТЬ =====
+    // ============================================================
+    '规': {
+        emoji: '📋',
+        meaning: 'правило, регулировать, планировать',
+        words: [
+            { chinese: '规定', pinyin: 'guī dìng', translation: 'правило, предписание', emoji: '📋', hsk: '4' },
+            { chinese: '规律', pinyin: 'guī lǜ', translation: 'закономерность', emoji: '🔄', hsk: '4' },
+            { chinese: '规模', pinyin: 'guī mó', translation: 'масштаб, размер', emoji: '📊', hsk: '4' },
+            { chinese: '规划', pinyin: 'guī huà', translation: 'планировать, план', emoji: '📝', hsk: '5' },
+            { chinese: '规范', pinyin: 'guī fàn', translation: 'норма, стандарт', emoji: '📐', hsk: '5' },
+            { chinese: '常规', pinyin: 'cháng guī', translation: 'обычный, стандартный', emoji: '🔄', hsk: '5' },
+            { chinese: '规则', pinyin: 'guī zé', translation: 'правило', emoji: '📋', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 则 — ПРАВИЛО =====
+    // ============================================================
+    '则': {
+        emoji: '📋',
+        meaning: 'правило, принцип, то (в сложных словах)',
+        words: [
+            { chinese: '规则', pinyin: 'guī zé', translation: 'правило', emoji: '📋', hsk: '4' },
+            { chinese: '原则', pinyin: 'yuán zé', translation: 'принцип', emoji: '⚖️', hsk: '4' },
+            { chinese: '准则', pinyin: 'zhǔn zé', translation: 'норма, критерий', emoji: '📐', hsk: '5' },
+            { chinese: '否则', pinyin: 'fǒu zé', translation: 'иначе, в противном случае', emoji: '⚠️', hsk: '4' },
+            { chinese: '细则', pinyin: 'xì zé', translation: 'детальные правила', emoji: '📋', hsk: '6' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 求 — ПРОСИТЬ, ИСКАТЬ =====
+    // ============================================================
+    '求': {
+        emoji: '🙏',
+        meaning: 'просить, искать, требовать',
+        words: [
+            { chinese: '要求', pinyin: 'yāo qiú', translation: 'требовать, требование', emoji: '📋', hsk: '3' },
+            { chinese: '请求', pinyin: 'qǐng qiú', translation: 'просить, просьба', emoji: '🙏', hsk: '4' },
+            { chinese: '求助', pinyin: 'qiú zhù', translation: 'просить о помощи', emoji: '🆘', hsk: '4' },
+            { chinese: '追求', pinyin: 'zhuī qiú', translation: 'стремиться, добиваться', emoji: '🏃', hsk: '5' },
+            { chinese: '求学', pinyin: 'qiú xué', translation: 'учиться, получать образование', emoji: '📚', hsk: '5' },
+            { chinese: '求职', pinyin: 'qiú zhí', translation: 'искать работу', emoji: '💼', hsk: '4' },
+            { chinese: '求婚', pinyin: 'qiú hūn', translation: 'делать предложение', emoji: '💍', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 助 — ПОМОГАТЬ =====
+    // ============================================================
+    '助': {
+        emoji: '🤝',
+        meaning: 'помогать, помощь, поддерживать',
+        words: [
+            { chinese: '帮助', pinyin: 'bāng zhù', translation: 'помогать', emoji: '🤝', hsk: '1' },
+            { chinese: '助手', pinyin: 'zhù shǒu', translation: 'помощник', emoji: '👤', hsk: '4' },
+            { chinese: '助理', pinyin: 'zhù lǐ', translation: 'ассистент', emoji: '🧑‍💼', hsk: '4' },
+            { chinese: '互助', pinyin: 'hù zhù', translation: 'взаимопомощь', emoji: '🤝', hsk: '5' },
+            { chinese: '援助', pinyin: 'yuán zhù', translation: 'помощь, поддержка', emoji: '🆘', hsk: '5' },
+            { chinese: '自助', pinyin: 'zì zhù', translation: 'самообслуживание', emoji: '🛒', hsk: '5' },
+            { chinese: '助教', pinyin: 'zhù jiào', translation: 'ассистент преподавателя', emoji: '👨‍🏫', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 帮 — ПОМОГАТЬ, БАНДА =====
+    // ============================================================
+    '帮': {
+        emoji: '🤝',
+        meaning: 'помогать, группа, банда',
+        words: [
+            { chinese: '帮助', pinyin: 'bāng zhù', translation: 'помогать', emoji: '🤝', hsk: '1' },
+            { chinese: '帮忙', pinyin: 'bāng máng', translation: 'помогать, делать одолжение', emoji: '💪', hsk: '2' },
+            { chinese: '帮手', pinyin: 'bāng shǒu', translation: 'помощник', emoji: '👤', hsk: '4' },
+            { chinese: '帮派', pinyin: 'bāng pài', translation: 'банда, группировка', emoji: '👥', hsk: '6' },
+            { chinese: '帮主', pinyin: 'bāng zhǔ', translation: 'главарь банды', emoji: '👨‍💼', hsk: '6' },
+            { chinese: '帮人', pinyin: 'bāng rén', translation: 'помогать людям', emoji: '🤝', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 忙 — ЗАНЯТОЙ, СПЕШИТЬ =====
+    // ============================================================
+    '忙': {
+        emoji: '😰',
+        meaning: 'занятой, спешить, торопиться',
+        words: [
+            { chinese: '忙', pinyin: 'máng', translation: 'занятой', emoji: '😰', hsk: '2' },
+            { chinese: '帮忙', pinyin: 'bāng máng', translation: 'помогать, делать одолжение', emoji: '💪', hsk: '2' },
+            { chinese: '忙碌', pinyin: 'máng lù', translation: 'занятой, хлопотливый', emoji: '🏃', hsk: '4' },
+            { chinese: '忙人', pinyin: 'máng rén', translation: 'занятой человек', emoji: '👤', hsk: '3' },
+            { chinese: '赶忙', pinyin: 'gǎn máng', translation: 'поспешно, торопливо', emoji: '🏃', hsk: '4' },
+            { chinese: '匆忙', pinyin: 'cōng máng', translation: 'поспешный, торопливый', emoji: '🏃', hsk: '4' },
+            { chinese: '繁忙', pinyin: 'fán máng', translation: 'очень занятой', emoji: '😰', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 想 — ДУМАТЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 思 — ДУМАТЬ, МЫСЛИТЬ =====
+    // ============================================================
+    '思': {
+        emoji: '🧠',
+        meaning: 'думать, мыслить, размышлять',
+        words: [
+            { chinese: '思想', pinyin: 'sī xiǎng', translation: 'мысль, идеология', emoji: '💭', hsk: '4' },
+            { chinese: '思考', pinyin: 'sī kǎo', translation: 'размышлять', emoji: '🧠', hsk: '4' },
+            { chinese: '思维', pinyin: 'sī wéi', translation: 'мышление', emoji: '🧠', hsk: '5' },
+            { chinese: '意思', pinyin: 'yì si', translation: 'значение, смысл', emoji: '📖', hsk: '2' },
+            { chinese: '思乡', pinyin: 'sī xiāng', translation: 'тосковать по родине', emoji: '🏡', hsk: '5' },
+            { chinese: '思念', pinyin: 'sī niàn', translation: 'скучать, вспоминать', emoji: '😢', hsk: '4' },
+            { chinese: '深思', pinyin: 'shēn sī', translation: 'глубоко задуматься', emoji: '🤔', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 念 — ЧИТАТЬ, ВСПОМИНАТЬ =====
+    // ============================================================
+    '念': {
+        emoji: '🧠',
+        meaning: 'читать, вспоминать, мысль',
+        words: [
+            { chinese: '念', pinyin: 'niàn', translation: 'читать, вспоминать', emoji: '🧠', hsk: '3' },
+            { chinese: '想念', pinyin: 'xiǎng niàn', translation: 'скучать, тосковать', emoji: '😢', hsk: '3' },
+            { chinese: '念头', pinyin: 'niàn tou', translation: 'мысль, идея', emoji: '💭', hsk: '5' },
+            { chinese: '念书', pinyin: 'niàn shū', translation: 'учиться, читать книгу', emoji: '📖', hsk: '3' },
+            { chinese: '纪念', pinyin: 'jì niàn', translation: 'помнить, отмечать', emoji: '📅', hsk: '4' },
+            { chinese: '思念', pinyin: 'sī niàn', translation: 'тосковать, скучать', emoji: '😢', hsk: '4' },
+            { chinese: '概念', pinyin: 'gài niàn', translation: 'понятие, концепция', emoji: '💡', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 意 — МЫСЛЬ (уже есть) =====
+    // ============================================================
+
+    // ============================================================
+    // ===== 久 — ДОЛГО =====
+    // ============================================================
+    '久': {
+        emoji: '⏳',
+        meaning: 'долго, давно, длительный',
+        words: [
+            { chinese: '好久', pinyin: 'hǎo jiǔ', translation: 'давно, долго', emoji: '⏳', hsk: '2' },
+            { chinese: '多久', pinyin: 'duō jiǔ', translation: 'как долго', emoji: '⏳', hsk: '2' },
+            { chinese: '永久', pinyin: 'yǒng jiǔ', translation: 'навсегда, вечный', emoji: '♾️', hsk: '4' },
+            { chinese: '悠久', pinyin: 'yōu jiǔ', translation: 'долгий, давний', emoji: '⏳', hsk: '5' },
+            { chinese: '久别', pinyin: 'jiǔ bié', translation: 'долгая разлука', emoji: '😢', hsk: '5' },
+            { chinese: '久而久之', pinyin: 'jiǔ ér jiǔ zhī', translation: 'со временем', emoji: '🔄', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 永 — ВЕЧНЫЙ =====
+    // ============================================================
+    '永': {
+        emoji: '♾️',
+        meaning: 'вечный, всегда, навсегда',
+        words: [
+            { chinese: '永远', pinyin: 'yǒng yuǎn', translation: 'всегда, навсегда', emoji: '♾️', hsk: '3' },
+            { chinese: '永久', pinyin: 'yǒng jiǔ', translation: 'навсегда, вечный', emoji: '♾️', hsk: '4' },
+            { chinese: '永恒', pinyin: 'yǒng héng', translation: 'вечность, вечный', emoji: '♾️', hsk: '5' },
+            { chinese: '永别', pinyin: 'yǒng bié', translation: 'прощай навсегда', emoji: '😢', hsk: '5' },
+            { chinese: '永生', pinyin: 'yǒng shēng', translation: 'бессмертие', emoji: '🌟', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 远 — ДАЛЁКИЙ =====
+    // ============================================================
+    '远': {
+        emoji: '🌍',
+        meaning: 'далёкий, далеко, отдалённый',
+        words: [
+            { chinese: '远', pinyin: 'yuǎn', translation: 'далёкий', emoji: '🌍', hsk: '2' },
+            { chinese: '远点', pinyin: 'yuǎn diǎn', translation: 'подальше', emoji: '📏', hsk: '3' },
+            { chinese: '永远', pinyin: 'yǒng yuǎn', translation: 'всегда, навсегда', emoji: '♾️', hsk: '3' },
+            { chinese: '远处', pinyin: 'yuǎn chù', translation: 'вдалеке', emoji: '🌍', hsk: '3' },
+            { chinese: '远方', pinyin: 'yuǎn fāng', translation: 'дальние края', emoji: '✈️', hsk: '4' },
+            { chinese: '远路', pinyin: 'yuǎn lù', translation: 'дальняя дорога', emoji: '🛣️', hsk: '5' },
+            { chinese: '远近', pinyin: 'yuǎn jìn', translation: 'близко и далеко', emoji: '📏', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 近 — БЛИЗКИЙ =====
+    // ============================================================
+    '近': {
+        emoji: '📏',
+        meaning: 'близкий, недавний, почти',
+        words: [
+            { chinese: '近', pinyin: 'jìn', translation: 'близкий, недавний', emoji: '📏', hsk: '2' },
+            { chinese: '最近', pinyin: 'zuì jìn', translation: 'недавно, в последнее время', emoji: '🆕', hsk: '2' },
+            { chinese: '附近', pinyin: 'fù jìn', translation: 'поблизости, рядом', emoji: '📍', hsk: '3' },
+            { chinese: '近处', pinyin: 'jìn chù', translation: 'поблизости', emoji: '📍', hsk: '4' },
+            { chinese: '近乎', pinyin: 'jìn hū', translation: 'почти', emoji: '⚠️', hsk: '5' },
+            { chinese: '亲近', pinyin: 'qīn jìn', translation: 'близкий, сближаться', emoji: '💕', hsk: '5' },
+            { chinese: '远近', pinyin: 'yuǎn jìn', translation: 'близко и далеко', emoji: '📏', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 离 — ПОКИДАТЬ, ОТ =====
+    // ============================================================
+    '离': {
+        emoji: '🚶',
+        meaning: 'покидать, уходить, от (расстояние)',
+        words: [
+            { chinese: '离开', pinyin: 'lí kāi', translation: 'уйти, покинуть', emoji: '🚶', hsk: '2' },
+            { chinese: '距离', pinyin: 'jù lí', translation: 'расстояние', emoji: '📏', hsk: '4' },
+            { chinese: '离婚', pinyin: 'lí hūn', translation: 'развод', emoji: '💔', hsk: '4' },
+            { chinese: '离别', pinyin: 'lí bié', translation: 'расставание', emoji: '😢', hsk: '5' },
+            { chinese: '离任', pinyin: 'lí rèn', translation: 'уйти с должности', emoji: '👋', hsk: '5' },
+            { chinese: '离家', pinyin: 'lí jiā', translation: 'уйти из дома', emoji: '🏠', hsk: '3' },
+            { chinese: '离校', pinyin: 'lí xiào', translation: 'покинуть школу', emoji: '🏫', hsk: '4' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 再 — СНОВА, ЕЩЁ =====
+    // ============================================================
+    '再': {
+        emoji: '🔄',
+        meaning: 'снова, ещё, тогда (в будущем)',
+        words: [
+            { chinese: '再见', pinyin: 'zài jiàn', translation: 'до свидания', emoji: '👋', hsk: '1' },
+            { chinese: '再次', pinyin: 'zài cì', translation: 'снова, ещё раз', emoji: '🔄', hsk: '3' },
+            { chinese: '再会', pinyin: 'zài huì', translation: 'до встречи', emoji: '👋', hsk: '4' },
+            { chinese: '再好', pinyin: 'zài hǎo', translation: 'лучше, ещё лучше', emoji: '⭐', hsk: '3' },
+            { chinese: '再问', pinyin: 'zài wèn', translation: 'переспросить', emoji: '❓', hsk: '4' },
+            { chinese: '再学', pinyin: 'zài xué', translation: 'учить заново', emoji: '📚', hsk: '4' },
+            { chinese: '再说', pinyin: 'zài shuō', translation: 'поговорить ещё, потом', emoji: '🗣️', hsk: '3' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 次 — РАЗ, ПОРЯДОК =====
+    // ============================================================
+    '次': {
+        emoji: '🔢',
+        meaning: 'раз, порядок, следующий',
+        words: [
+            { chinese: '第一次', pinyin: 'dì yī cì', translation: 'в первый раз', emoji: '1️⃣', hsk: '2' },
+            { chinese: '下次', pinyin: 'xià cì', translation: 'в следующий раз', emoji: '⏩', hsk: '2' },
+            { chinese: '再次', pinyin: 'zài cì', translation: 'снова, ещё раз', emoji: '🔄', hsk: '3' },
+            { chinese: '这次', pinyin: 'zhè cì', translation: 'на этот раз', emoji: '📌', hsk: '2' },
+            { chinese: '次数', pinyin: 'cì shù', translation: 'количество раз', emoji: '🔢', hsk: '4' },
+            { chinese: '次序', pinyin: 'cì xù', translation: 'порядок, очерёдность', emoji: '📋', hsk: '5' },
+            { chinese: '次要', pinyin: 'cì yào', translation: 'второстепенный', emoji: '📌', hsk: '5' },
+        ]
+    },
+
+    // ============================================================
+    // ===== 每 — КАЖДЫЙ =====
+    // ============================================================
+    '每': {
+        emoji: '📅',
+        meaning: 'каждый, каждая, каждое',
+        words: [
+            { chinese: '每天', pinyin: 'měi tiān', translation: 'каждый день', emoji: '📅', hsk: '1' },
+            { chinese: '每月', pinyin: 'měi yuè', translation: 'каждый месяц', emoji: '📅', hsk: '3' },
+            { chinese: '每年', pinyin: 'měi nián', translation: 'каждый год', emoji: '📅', hsk: '2' },
+            { chinese: '每人', pinyin: 'měi rén', translation: 'каждый человек', emoji: '👤', hsk: '2' },
+            { chinese: '每次', pinyin: 'měi cì', translation: 'каждый раз', emoji: '🔢', hsk: '2' },
+            { chinese: '每当', pinyin: 'měi dāng', translation: 'каждый раз, когда', emoji: '🔄', hsk: '4' },
+            { chinese: '每个', pinyin: 'měi ge', translation: 'каждый (сч. слово)', emoji: '📌', hsk: '1' },
+        ]
+    },
     // ============================================================
     // ===== 过 — ПРОХОДИТЬ, -Л (НОВЫЙ!) =====
     // ============================================================
