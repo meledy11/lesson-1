@@ -349,7 +349,6 @@
             50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(231,76,60,0.5); }
         }
 
-        /* Регулировка кисти */
         .brush-control {
             display: flex;
             align-items: center;
@@ -478,93 +477,194 @@
             border-color: #FF6B35;
         }
         
-        /* ===== СТИЛИ ДЛЯ МАДЖОНГА ===== */
+        /* ===== СТИЛИ ДЛЯ 3D МАДЖОНГА ===== */
         .mahjong-container {
-            background: white;
+            background: linear-gradient(145deg, #2d1b0e, #4a2c1a);
             border-radius: 40px;
             padding: 2rem;
             border: 4px solid #FFB347;
-            box-shadow: 0 12px 0 #D98F33;
+            box-shadow: 0 12px 0 #8B5A2B, inset 0 0 60px rgba(0,0,0,0.3);
+            perspective: 1200px;
+            min-height: 500px;
+        }
+        
+        .mahjong-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.15);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .mahjong-stats span {
+            color: #FFB347;
+            font-size: 1.8rem;
+        }
+        .mahjong-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .mahjong-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 0.8rem;
-            margin: 1rem 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            perspective: 1200px;
         }
         
         .mahjong-tile {
-            background: linear-gradient(145deg, #FFF8F0, #FFE8D0);
-            border: 3px solid #FFB347;
-            border-radius: 16px;
-            padding: 0.8rem;
-            text-align: center;
+            position: relative;
+            aspect-ratio: 3/4;
             cursor: pointer;
-            transition: 0.1s;
-            box-shadow: 0 4px 0 #D98F33;
-            aspect-ratio: 1/1;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .mahjong-tile:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .mahjong-tile-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 14px;
+            box-shadow: 
+                0 6px 0 #3d2415,
+                0 10px 30px rgba(0,0,0,0.5),
+                inset 0 -3px 0 rgba(0,0,0,0.2);
+        }
+        
+        .mahjong-tile-front,
+        .mahjong-tile-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100px;
-        }
-        .mahjong-tile:active { transform: translateY(3px); box-shadow: 0 1px 0 #D98F33; }
-        .mahjong-tile .tile-char {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #A64B2A;
-        }
-        .mahjong-tile .tile-pinyin {
-            font-size: 1rem;
-            color: #FF8C42;
-            margin-top: 0.2rem;
-        }
-        .mahjong-tile .tile-translation {
-            font-size: 0.9rem;
-            color: #8B5A2B;
-            margin-top: 0.2rem;
-        }
-        .mahjong-tile .tile-key {
-            font-size: 0.8rem;
-            color: #A64B2A;
-            background: #FFE0C0;
-            padding: 0.1rem 0.6rem;
-            border-radius: 12px;
-            margin-top: 0.2rem;
-        }
-        .mahjong-tile.matched {
-            opacity: 0.4;
-            pointer-events: none;
-            transform: scale(0.9);
-            filter: grayscale(1);
-        }
-        .mahjong-tile.selected {
-            border-color: #FF6B35;
-            box-shadow: 0 4px 0 #C16F1A, 0 0 20px rgba(255,107,53,0.3);
-            transform: scale(1.05);
+            padding: 0.3rem;
+            text-align: center;
+            border: 3px solid #b8956a;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.4);
+            overflow: hidden;
         }
         
-        .mahjong-score {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #A64B2A;
-            padding: 1rem;
-            background: #FFF8F0;
-            border-radius: 30px;
-            margin-bottom: 1rem;
-            border: 3px solid #FFD699;
+        .mahjong-tile-front {
+            background: linear-gradient(145deg, #f5e6d3, #e8d5c0);
+            transform: rotateY(0deg);
         }
-        .mahjong-score span { color: #FF6B35; font-size: 2.2rem; }
+        
+        .mahjong-tile-front .tile-char {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #2d1b0e;
+            line-height: 1;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+        }
+        
+        .mahjong-tile-front .tile-pinyin {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+            margin-top: 0.1rem;
+            font-weight: 600;
+        }
+        
+        .mahjong-tile-front .tile-translation {
+            font-size: 0.7rem;
+            color: #6b4a2a;
+            margin-top: 0.1rem;
+            font-weight: 500;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mahjong-tile-front .tile-key {
+            font-size: 0.6rem;
+            color: #fff;
+            background: #FF6B35;
+            padding: 0.1rem 0.6rem;
+            border-radius: 10px;
+            margin-top: 0.2rem;
+            font-weight: bold;
+        }
+        
+        .mahjong-tile-back {
+            background: linear-gradient(145deg, #2d1b0e, #1a0f08);
+            transform: rotateY(180deg);
+            border-color: #5a3d2b;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #b8956a;
+        }
+        
+        .mahjong-tile-back .back-emoji {
+            font-size: 4rem;
+        }
+        .mahjong-tile-back .back-text {
+            font-size: 1rem;
+            color: #FFB347;
+            margin-top: 0.3rem;
+            font-weight: bold;
+        }
+        
+        .mahjong-tile.flipped .mahjong-tile-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .mahjong-tile.matched {
+            animation: matchSuccess 0.7s ease forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes matchSuccess {
+            0% { transform: scale(1) rotateY(0deg); opacity: 1; }
+            30% { transform: scale(1.3) rotateY(180deg); opacity: 1; }
+            60% { transform: scale(1.4) rotateY(360deg); opacity: 0.8; }
+            100% { transform: scale(0) rotateY(720deg); opacity: 0; }
+        }
+        
+        .mahjong-tile.wrong {
+            animation: wrongShake 0.5s ease;
+        }
+        
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotateY(0deg); }
+            20% { transform: translateX(-15px) rotateY(-15deg); }
+            40% { transform: translateX(15px) rotateY(15deg); }
+            60% { transform: translateX(-10px) rotateY(-10deg); }
+            80% { transform: translateX(10px) rotateY(10deg); }
+        }
+        
+        .mahjong-tile.selected .mahjong-tile-inner {
+            transform: rotateY(180deg);
+            box-shadow: 
+                0 0 30px rgba(255,107,53,0.6),
+                0 8px 0 #3d2415;
+        }
         
         .mahjong-controls {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         .mahjong-controls button {
             padding: 0.8rem 2rem;
@@ -574,11 +674,72 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.1s;
-            box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+            box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+            color: white;
         }
-        .mahjong-controls button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
-        .btn-new-game { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; }
-        .btn-shuffle { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; }
+        .mahjong-controls button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+        .btn-new-game { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .btn-shuffle { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .btn-hint { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        
+        .mahjong-pairs-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .mahjong-pairs-selector button {
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            border: 2px solid #FFB347;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .mahjong-pairs-selector button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .mahjong-pairs-selector button.active {
+            background: #FF6B35;
+            border-color: #FF6B35;
+            color: white;
+        }
+        
+        @media (max-width: 600px) {
+            .mahjong-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.6rem;
+            }
+            .mahjong-tile-front .tile-char {
+                font-size: 2rem;
+            }
+            .mahjong-tile-front .tile-pinyin {
+                font-size: 0.7rem;
+            }
+            .mahjong-tile-front .tile-translation {
+                font-size: 0.6rem;
+            }
+            .mahjong-stats {
+                font-size: 1rem;
+                padding: 0.6rem;
+            }
+            .mahjong-stats span {
+                font-size: 1.2rem;
+            }
+            .mahjong-tile-back .back-emoji {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .mahjong-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         
         footer {
             text-align: center;
@@ -616,9 +777,7 @@
             .speech-result .score { font-size: 2rem; }
             .speech-result .heard-text { font-size: 1.2rem; }
             .brush-control input[type="range"] { width: 120px; }
-            .mahjong-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-            .mahjong-tile { min-height: 70px; }
-            .mahjong-tile .tile-char { font-size: 2rem; }
+            .mahjong-container { padding: 1rem; }
         }
     </style>
 </head>
@@ -636,7 +795,7 @@
             <button class="tab-btn active" data-tab="words">📚 Слова по ключам</button>
             <button class="tab-btn" data-tab="writing">✍️ Тетрадь + 🎤 Произношение</button>
             <button class="tab-btn" data-tab="pinyin">🔤 Поиск по пиньинь</button>
-            <button class="tab-btn" data-tab="mahjong">🀄 Маджонг</button>
+            <button class="tab-btn" data-tab="mahjong">🀄 3D Маджонг</button>
         </div>
         
         <!-- Вкладка: СЛОВА ПО КЛЮЧАМ -->
@@ -677,7 +836,6 @@
                     <button class="btn-clear" id="clearBtn">🗑️ Очистить</button>
                 </div>
 
-                <!-- Регулировка кисти -->
                 <div class="brush-control">
                     <label for="brushSizeSlider">🖌️ Размер кисти:</label>
                     <input type="range" id="brushSizeSlider" min="2" max="30" value="8" step="0.5">
@@ -687,7 +845,6 @@
                     </label>
                 </div>
                 
-                <!-- Результат распознавания речи -->
                 <div class="speech-result" id="speechResult">
                     <div class="heard-text" id="heardText">🎤 Распознано: ...</div>
                     <div class="score" id="scoreDisplay">0%</div>
@@ -717,16 +874,21 @@
             <div class="fang-container" id="pinyinContainer"></div>
         </div>
         
-        <!-- Вкладка: МАДЖОНГ -->
+        <!-- Вкладка: 3D МАДЖОНГ -->
         <div class="tab-content" id="tab-mahjong">
             <div class="mahjong-container">
-                <div class="mahjong-score">
-                    🏆 Очки: <span id="mahjongScore">0</span> | 
-                    🎯 Пар: <span id="mahjongPairs">0</span> / <span id="mahjongTotalPairs">0</span>
+                <div class="mahjong-stats">
+                    <div class="stat-item">🏆 Очки: <span id="mahjongScore">0</span></div>
+                    <div class="stat-item">🎯 Найдено: <span id="mahjongPairs">0</span> / <span id="mahjongTotalPairs">0</span></div>
+                    <div class="stat-item">⏱️ Ходы: <span id="mahjongMoves">0</span></div>
                 </div>
                 
-                <div style="text-align:center; padding:0.5rem; background:#FFF8F0; border-radius:20px; margin-bottom:1rem; font-size:1.2rem; color:#8B5A2B; border:2px solid #FFD699;">
-                    🀄 Найди пару: слово + его ключ. Нажимай на плитки!
+                <div class="mahjong-pairs-selector" id="pairsSelector">
+                    <button data-pairs="4" onclick="setMahjongPairs(4)">4 пары</button>
+                    <button data-pairs="6" onclick="setMahjongPairs(6)" class="active">6 пар</button>
+                    <button data-pairs="8" onclick="setMahjongPairs(8)">8 пар</button>
+                    <button data-pairs="10" onclick="setMahjongPairs(10)">10 пар</button>
+                    <button data-pairs="12" onclick="setMahjongPairs(12)">12 пар</button>
                 </div>
                 
                 <div class="mahjong-grid" id="mahjongGrid"></div>
@@ -734,12 +896,13 @@
                 <div class="mahjong-controls">
                     <button class="btn-new-game" onclick="startMahjong()">🔄 Новая игра</button>
                     <button class="btn-shuffle" onclick="shuffleMahjong()">🔀 Перемешать</button>
+                    <button class="btn-hint" onclick="mahjongHint()">💡 Подсказка</button>
                 </div>
             </div>
         </div>
         
         <footer>
-            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение! 🀄 Играй в маджонг!
+            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение! 🀄 Играй в 3D маджонг!
         </footer>
     </div>
     
@@ -1006,7 +1169,7 @@
                     }
                 }
                 if (tabName === 'mahjong') {
-                    setTimeout(startMahjong, 100);
+                    setTimeout(startMahjong, 200);
                 }
             });
         });
@@ -1236,7 +1399,6 @@
             totalBadge.textContent = `📊 Найдено: ${totalFound} слов`;
         }
 
-        // ===== ОБРАБОТЧИК ПОИСКА ПО ПИНЬИНЬ =====
         document.getElementById('pinyinSearchInput').addEventListener('input', function() {
             searchByPinyin(this.value);
         });
@@ -1655,57 +1817,89 @@
             document.getElementById('speechResult').classList.remove('show');
         }
 
-        // ===== МАДЖОНГ =====
+        // ===== 3D МАДЖОНГ =====
         let mahjongTiles = [];
         let mahjongSelected = null;
         let mahjongScore = 0;
         let mahjongMatched = 0;
         let mahjongTotalPairs = 0;
+        let mahjongMoves = 0;
+        let mahjongPairsCount = 6;
+        let mahjongLocked = false;
+
+        function setMahjongPairs(count) {
+            mahjongPairsCount = count;
+            document.querySelectorAll('#pairsSelector button').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.pairs) === count);
+            });
+            startMahjong();
+        }
 
         function startMahjong() {
-            // Собираем все слова с ключами
-            const allTiles = [];
+            // Собираем все слова из базы
+            const allWords = [];
             for (const key of KEY_NAMES) {
                 const data = WORDS_BY_KEY[key];
                 for (const word of data.words) {
-                    // Добавляем плитку-слово
-                    allTiles.push({
-                        id: Math.random().toString(36).substr(2, 9),
-                        type: 'word',
+                    allWords.push({
                         key: key,
+                        keyEmoji: data.emoji,
+                        keyMeaning: data.meaning,
                         chinese: word.chinese,
                         pinyin: word.pinyin,
                         translation: word.translation,
                         emoji: word.emoji || '',
-                        hsk: word.hsk || '',
-                        matched: false
-                    });
-                    // Добавляем плитку-ключ
-                    allTiles.push({
-                        id: Math.random().toString(36).substr(2, 9),
-                        type: 'key',
-                        key: key,
-                        chinese: key,
-                        meaning: data.meaning,
-                        emoji: data.emoji,
-                        matched: false
+                        hsk: word.hsk || ''
                     });
                 }
             }
             
-            // Перемешиваем
-            mahjongTiles = shuffleArray(allTiles);
+            // Перемешиваем и выбираем нужное количество пар
+            const shuffled = shuffleArray([...allWords]);
+            const selected = shuffled.slice(0, mahjongPairsCount);
+            
+            // Создаём плитки: для каждого слова — плитка-слово и плитка-ключ
+            mahjongTiles = [];
+            for (const word of selected) {
+                mahjongTiles.push({
+                    id: 'w_' + Math.random().toString(36).substr(2, 6),
+                    type: 'word',
+                    key: word.key,
+                    chinese: word.chinese,
+                    pinyin: word.pinyin,
+                    translation: word.translation,
+                    emoji: word.emoji,
+                    hsk: word.hsk,
+                    keyEmoji: word.keyEmoji,
+                    keyMeaning: word.keyMeaning,
+                    matched: false
+                });
+                mahjongTiles.push({
+                    id: 'k_' + Math.random().toString(36).substr(2, 6),
+                    type: 'key',
+                    key: word.key,
+                    chinese: word.key,
+                    keyEmoji: word.keyEmoji,
+                    keyMeaning: word.keyMeaning,
+                    matched: false
+                });
+            }
+            
+            // Перемешиваем плитки
+            mahjongTiles = shuffleArray(mahjongTiles);
             mahjongSelected = null;
             mahjongScore = 0;
             mahjongMatched = 0;
-            mahjongTotalPairs = allTiles.length / 2;
+            mahjongMoves = 0;
+            mahjongTotalPairs = mahjongPairsCount;
+            mahjongLocked = false;
             
             renderMahjong();
-            updateMahjongScore();
+            updateMahjongStats();
         }
 
         function shuffleMahjong() {
-            // Перемешиваем только несовпавшие плитки
+            if (mahjongLocked) return;
             const unmatched = mahjongTiles.filter(t => !t.matched);
             const shuffled = shuffleArray(unmatched);
             let index = 0;
@@ -1729,117 +1923,163 @@
         function renderMahjong() {
             const grid = document.getElementById('mahjongGrid');
             let html = '';
+            let displayedCount = 0;
+            
             for (const tile of mahjongTiles) {
-                const matchedClass = tile.matched ? 'matched' : '';
-                let content = '';
+                if (tile.matched) {
+                    html += `<div class="mahjong-tile matched" style="visibility:hidden;"></div>`;
+                    continue;
+                }
+                displayedCount++;
+                
+                let frontContent = '';
+                let backContent = '';
+                
                 if (tile.type === 'word') {
-                    content = `
+                    frontContent = `
                         <div class="tile-char">${tile.chinese}</div>
                         <div class="tile-pinyin">${tile.pinyin}</div>
                         <div class="tile-translation">${tile.translation}</div>
                         <div class="tile-key">🔑 ${tile.key}</div>
                     `;
+                    backContent = `
+                        <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
+                        <div class="back-text">${tile.key}</div>
+                    `;
                 } else {
-                    content = `
+                    frontContent = `
                         <div class="tile-char">${tile.chinese}</div>
-                        <div class="tile-pinyin">${tile.emoji}</div>
-                        <div class="tile-translation">${tile.meaning}</div>
+                        <div class="tile-pinyin">${tile.keyEmoji || '🔑'}</div>
+                        <div class="tile-translation">${tile.keyMeaning}</div>
                         <div class="tile-key">🔑 ключ</div>
                     `;
+                    backContent = `
+                        <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
+                        <div class="back-text">${tile.key}</div>
+                    `;
                 }
+                
+                const isSelected = mahjongSelected && mahjongSelected.id === tile.id;
+                const selectedClass = isSelected ? 'selected' : '';
+                
                 html += `
-                    <div class="mahjong-tile ${matchedClass}" data-id="${tile.id}" onclick="clickMahjong('${tile.id}')">
-                        ${content}
+                    <div class="mahjong-tile ${selectedClass}" data-id="${tile.id}" onclick="clickMahjong('${tile.id}')">
+                        <div class="mahjong-tile-inner">
+                            <div class="mahjong-tile-front">
+                                ${frontContent}
+                            </div>
+                            <div class="mahjong-tile-back">
+                                ${backContent}
+                            </div>
+                        </div>
                     </div>
                 `;
             }
+            
             grid.innerHTML = html;
-            
-            // Обновляем статистику
-            const matchedCount = mahjongTiles.filter(t => t.matched).length / 2;
-            document.getElementById('mahjongPairs').textContent = matchedCount;
-            document.getElementById('mahjongTotalPairs').textContent = mahjongTotalPairs;
-            
-            if (matchedCount === mahjongTotalPairs && mahjongTotalPairs > 0) {
-                setTimeout(() => {
-                    alert('🎉 Поздравляем! Вы нашли все пары!');
-                }, 300);
-            }
+            updateMahjongStats();
         }
 
         function clickMahjong(id) {
+            if (mahjongLocked) return;
+            
             const tile = mahjongTiles.find(t => t.id === id);
             if (!tile || tile.matched) return;
             
+            // Озвучиваем при клике
+            if (tile.type === 'word') {
+                speakChinese(tile.chinese);
+            } else {
+                speakChinese(tile.chinese);
+            }
+            
             if (mahjongSelected === null) {
-                // Выбираем первую плитку
                 mahjongSelected = tile;
-                highlightTile(id);
+                renderMahjong();
                 return;
             }
             
             if (mahjongSelected.id === id) {
-                // Снимаем выделение
                 mahjongSelected = null;
-                unhighlightAll();
+                renderMahjong();
                 return;
             }
             
-            // Проверяем пару
+            mahjongMoves++;
             const first = mahjongSelected;
             const second = tile;
             
-            // Проверяем: один ключ, одно слово с этим ключом
+            // Проверяем пару: один ключ, одно слово с этим ключом
             const isMatch = (first.type === 'key' && second.type === 'word' && first.key === second.key) ||
                            (first.type === 'word' && second.type === 'key' && first.key === second.key);
             
             if (isMatch) {
-                // Нашли пару!
                 first.matched = true;
                 second.matched = true;
                 mahjongScore += 10;
                 mahjongMatched++;
                 mahjongSelected = null;
                 renderMahjong();
-                updateMahjongScore();
+                updateMahjongStats();
+                
+                // Проверка победы
+                if (mahjongMatched === mahjongTotalPairs) {
+                    setTimeout(() => {
+                        alert('🎉 Поздравляем! Вы нашли все ' + mahjongTotalPairs + ' пар!');
+                    }, 500);
+                }
             } else {
-                // Не совпало
+                mahjongLocked = true;
                 mahjongSelected = null;
-                unhighlightAll();
-                renderMahjong();
-                // Эффект ошибки
+                
+                // Показываем ошибку
                 const tiles = document.querySelectorAll('.mahjong-tile');
                 tiles.forEach(el => {
                     if (el.dataset.id === first.id || el.dataset.id === second.id) {
-                        el.style.borderColor = '#FF6B6B';
-                        el.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            el.style.borderColor = '';
-                            el.style.transform = '';
-                        }, 400);
+                        el.classList.add('wrong');
                     }
                 });
+                
+                setTimeout(() => {
+                    tiles.forEach(el => {
+                        el.classList.remove('wrong');
+                    });
+                    renderMahjong();
+                    mahjongLocked = false;
+                }, 600);
             }
         }
 
-        function highlightTile(id) {
-            unhighlightAll();
-            const tiles = document.querySelectorAll('.mahjong-tile');
-            tiles.forEach(el => {
-                if (el.dataset.id === id) {
-                    el.classList.add('selected');
+        function mahjongHint() {
+            if (mahjongLocked || mahjongMatched === mahjongTotalPairs) return;
+            
+            // Ищем первую несовпавшую пару
+            const unmatched = mahjongTiles.filter(t => !t.matched);
+            for (let i = 0; i < unmatched.length; i++) {
+                for (let j = i + 1; j < unmatched.length; j++) {
+                    if (unmatched[i].key === unmatched[j].key && 
+                        unmatched[i].type !== unmatched[j].type) {
+                        // Подсвечиваем пару
+                        const tiles = document.querySelectorAll('.mahjong-tile');
+                        tiles.forEach(el => {
+                            if (el.dataset.id === unmatched[i].id || el.dataset.id === unmatched[j].id) {
+                                el.style.boxShadow = '0 0 30px rgba(255,215,0,0.8), 0 8px 0 #3d2415';
+                                setTimeout(() => {
+                                    el.style.boxShadow = '';
+                                }, 1500);
+                            }
+                        });
+                        return;
+                    }
                 }
-            });
+            }
         }
 
-        function unhighlightAll() {
-            document.querySelectorAll('.mahjong-tile.selected').forEach(el => {
-                el.classList.remove('selected');
-            });
-        }
-
-        function updateMahjongScore() {
+        function updateMahjongStats() {
             document.getElementById('mahjongScore').textContent = mahjongScore;
+            document.getElementById('mahjongPairs').textContent = mahjongMatched;
+            document.getElementById('mahjongTotalPairs').textContent = mahjongTotalPairs;
+            document.getElementById('mahjongMoves').textContent = mahjongMoves;
         }
 
         // ===== ИНИЦИАЛИЗАЦИЯ =====
@@ -1866,6 +2106,8 @@
         window.startMahjong = startMahjong;
         window.shuffleMahjong = shuffleMahjong;
         window.clickMahjong = clickMahjong;
+        window.mahjongHint = mahjongHint;
+        window.setMahjongPairs = setMahjongPairs;
     </script>
 </body>
 </html>
