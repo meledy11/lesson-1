@@ -1406,29 +1406,30 @@
             </div>
         </div>
         
-        <!-- Вкладка: ИГРЫ -->
-        <div class="tab-content" id="tab-games">
-            <div class="game-container">
-                <div class="game-stats" id="gameStats">
-                    🎮 <span id="gameScore">0</span> очков | 
-                    🏆 <span id="gameLevel">1</span> уровень
-                </div>
-                
-                <div class="game-buttons">
-                    <button class="tab-btn" onclick="startGame('fire')" style="font-size:1.2rem;">🔥 Трансформер</button>
-                    <button class="tab-btn" onclick="startGame('duel')" style="font-size:1.2rem;">🃏 Дуэль ключей</button>
-                    <button class="tab-btn" onclick="startGame('race')" style="font-size:1.2rem;">🚀 Космическая гонка</button>
-                    <button class="tab-btn" onclick="startGame('puzzle')" style="font-size:1.2rem;">🧩 Собери слово</button>
-                </div>
-                
-                <div id="gameArea" style="min-height:300px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-                    <div style="text-align:center; font-size:2rem; color:#b8956a; position:relative; z-index:1;">
-                        🎮 Нажми на игру выше, чтобы начать!
-                        <br><small style="font-size:1rem; color:#8B5A2B;">Яркие анимации и подсветка ждут тебя!</small>
-                    </div>
-                </div>
+        
+        <!-- Вкладка: ИГРЫ (рабочая версия) -->
+<div class="tab-content" id="tab-games">
+    <div class="game-container">
+        <div class="game-stats" id="gameStats">
+            🎮 <span id="gameScore">0</span> очков | 
+            🏆 <span id="gameLevel">1</span> уровень
+        </div>
+        
+        <div class="game-buttons">
+            <button class="tab-btn" onclick="startGame('fire')" style="font-size:1.2rem;">🔥 Трансформер</button>
+            <button class="tab-btn" onclick="startGame('duel')" style="font-size:1.2rem;">🃏 Дуэль ключей</button>
+            <button class="tab-btn" onclick="startGame('race')" style="font-size:1.2rem;">🚀 Космическая гонка</button>
+            <button class="tab-btn" onclick="startGame('puzzle')" style="font-size:1.2rem;">🧩 Собери слово</button>
+        </div>
+        
+        <div id="gameArea" style="min-height:300px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+            <div style="text-align:center; font-size:2rem; color:#b8956a; position:relative; z-index:1;">
+                🎮 Нажми на игру выше, чтобы начать!
+                <br><small style="font-size:1rem; color:#8B5A2B;">Яркие анимации и подсветка ждут тебя!</small>
             </div>
         </div>
+    </div>
+</div>
         
         <footer>
             🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение! 🀄 Играй в 3D маджонг! 🎮 Играй в игры!
@@ -2634,43 +2635,58 @@
             puzzleEmpty: -1,
             puzzleMoves: 0
         };
-
-        function startGame(type) {
-            // Проверяем, загружена ли база
-            if (allWordsList.length === 0) {
-                document.getElementById('gameArea').innerHTML = `
-                    <div style="text-align:center;font-size:1.5rem;color:#FFB347;padding:2rem;position:relative;z-index:1;">
-                        ⏳ Загрузка базы данных...
-                        <br><small style="color:#b8956a;">Пожалуйста, подождите</small>
-                    </div>
-                `;
-                setTimeout(() => startGame(type), 500);
-                return;
-            }
-            
-            gameData.currentGame = type;
-            gameData.score = 0;
-            gameData.level = 1;
-            document.getElementById('gameScore').textContent = '0';
-            document.getElementById('gameLevel').textContent = '1';
-            
-            const area = document.getElementById('gameArea');
-            
-            // Собираем слова для игры
-            const shuffled = shuffleArray([...allWordsList]);
-            gameData.words = shuffled.slice(0, 20);
-            
-            if (gameData.words.length < 4) {
-                gameData.words = shuffled.slice(0, Math.min(10, allWordsList.length));
-            }
-            
-            switch(type) {
-                case 'fire': startFireGame(area); break;
-                case 'duel': startDuelGame(area); break;
-                case 'race': startRaceGame(area); break;
-                case 'puzzle': startPuzzleGame(area); break;
-            }
-        }
+function startGame(type) {
+    // ==== ПРОВЕРКА: загружена ли база ====
+    if (typeof KEY_NAMES === 'undefined' || KEY_NAMES.length === 0) {
+        document.getElementById('gameArea').innerHTML = `
+            <div style="text-align:center;font-size:1.5rem;color:#FFB347;padding:2rem;">
+                ⏳ Загрузка базы данных...
+                <br><small style="color:#b8956a;">Подождите 1-2 секунды</small>
+            </div>
+        `;
+        setTimeout(() => startGame(type), 1000);
+        return;
+    }
+    
+    // Если allWordsList пустой — заполняем его
+    if (allWordsList.length === 0) {
+        buildAllWordsList();
+    }
+    
+    // Если всё равно пустой — ошибка
+    if (allWordsList.length === 0) {
+        document.getElementById('gameArea').innerHTML = `
+            <div style="text-align:center;font-size:1.5rem;color:#FF6B6B;padding:2rem;">
+                ❌ База данных не загружена!
+                <br><small style="color:#8B5A2B;">Проверьте файл keys-data.js</small>
+            </div>
+        `;
+        return;
+    }
+    
+    gameData.currentGame = type;
+    gameData.score = 0;
+    gameData.level = 1;
+    document.getElementById('gameScore').textContent = '0';
+    document.getElementById('gameLevel').textContent = '1';
+    
+    const area = document.getElementById('gameArea');
+    
+    // Собираем слова для игры
+    const shuffled = shuffleArray([...allWordsList]);
+    gameData.words = shuffled.slice(0, 20);
+    
+    if (gameData.words.length < 4) {
+        gameData.words = shuffled.slice(0, Math.min(10, allWordsList.length));
+    }
+    
+    switch(type) {
+        case 'fire': startFireGame(area); break;
+        case 'duel': startDuelGame(area); break;
+        case 'race': startRaceGame(area); break;
+        case 'puzzle': startPuzzleGame(area); break;
+    }
+}
 
         // ===== ИГРА 1: ТРАНСФОРМЕР (ОГОНЬ) =====
         function startFireGame(area) {
