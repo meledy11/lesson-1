@@ -2616,27 +2616,31 @@
             document.getElementById('mahjongMoves').textContent = mahjongMoves;
         }
 
-        // ============================================================
-        // ===== ЯРКИЕ ИГРЫ =====
-        // ============================================================
-        
-        let gameData = {
-            currentGame: null,
-            score: 0,
-            level: 1,
-            words: [],
-            currentIndex: 0,
-            timer: null,
-            timeLeft: 30,
-            pairs: [],
-            selectedCards: [],
-            matchedPairs: 0,
-            puzzlePieces: [],
-            puzzleEmpty: -1,
-            puzzleMoves: 0
-        };
+    // ============================================================
+// ===== ВСЕ ИГРЫ (полностью рабочие) =====
+// ============================================================
+
+let gameData = {
+    currentGame: null,
+    score: 0,
+    level: 1,
+    words: [],
+    currentIndex: 0,
+    timer: null,
+    timeLeft: 30,
+    pairs: [],
+    selectedCards: [],
+    matchedPairs: 0,
+    totalPairs: 0,
+    puzzleTiles: [],
+    targetKey: null,
+    puzzleMatched: 0,
+    puzzleTotal: 0
+};
+
+// ===== ЗАПУСК ИГРЫ =====
 function startGame(type) {
-    // ==== ПРОВЕРКА: загружена ли база ====
+    // Проверяем загрузку базы
     if (typeof KEY_NAMES === 'undefined' || KEY_NAMES.length === 0) {
         document.getElementById('gameArea').innerHTML = `
             <div style="text-align:center;font-size:1.5rem;color:#FFB347;padding:2rem;">
@@ -2648,12 +2652,10 @@ function startGame(type) {
         return;
     }
     
-    // Если allWordsList пустой — заполняем его
     if (allWordsList.length === 0) {
         buildAllWordsList();
     }
     
-    // Если всё равно пустой — ошибка
     if (allWordsList.length === 0) {
         document.getElementById('gameArea').innerHTML = `
             <div style="text-align:center;font-size:1.5rem;color:#FF6B6B;padding:2rem;">
@@ -2688,567 +2690,602 @@ function startGame(type) {
     }
 }
 
-        // ===== ИГРА 1: ТРАНСФОРМЕР (ОГОНЬ) =====
-        function startFireGame(area) {
-            if (gameData.words.length === 0) {
-                area.innerHTML = `
-                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                        🎉 Все слова изучены!
-                        <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
-                    </div>
-                `;
-                return;
-            }
-            
-            const word = gameData.words[0];
-            if (!word) {
-                area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#b8956a;padding:2rem;position:relative;z-index:1;">🎉 Все слова изучены!</div>`;
-                return;
-            }
-            
-            // Создаём частицы огня
-            let particlesHTML = '';
-            for (let i = 0; i < 15; i++) {
-                const size = 4 + Math.random() * 10;
-                const left = Math.random() * 100;
-                const delay = Math.random() * 2;
-                const duration = 1 + Math.random() * 1.5;
-                particlesHTML += `
-                    <div class="fire-particle" style="
-                        left: ${left}%;
-                        width: ${size}px;
-                        height: ${size}px;
-                        animation-delay: ${delay}s;
-                        animation-duration: ${duration}s;
-                        background: radial-gradient(circle, ${Math.random() > 0.5 ? '#FF6B35' : '#FF8C42'}, ${Math.random() > 0.5 ? '#FF4500' : '#FF6347'});
-                    "></div>
-                `;
-            }
-            
-            area.innerHTML = `
-                <div class="fire-container">
-                    <div style="font-size:1.5rem;color:#FFB347;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
-                        🔥 Найди иероглиф, который означает:
-                    </div>
-                    <div style="font-size:2.5rem;font-weight:bold;color:#FFD699;margin-bottom:1rem;text-shadow:0 0 40px rgba(255,179,71,0.2);">
-                        ${word.translation}
-                    </div>
-                    <div class="fire-emoji" id="fireEmoji">${word.emoji || '🔥'}</div>
-                    <div class="fire-particles">${particlesHTML}</div>
-                    <div class="fire-options" id="fireOptions"></div>
-                    <div style="margin-top:1rem;font-size:1.2rem;color:#b8956a;">
-                        🔥 Очки: <span id="fireScore" style="color:#FFB347;font-weight:bold;">${gameData.score}</span> | 
-                        📈 Уровень: <span id="fireLevel" style="color:#FFB347;font-weight:bold;">${gameData.level}</span>
-                    </div>
+// ============================================================
+// ===== ИГРА 1: ТРАНСФОРМЕР =====
+// ============================================================
+
+function startFireGame(area) {
+    if (gameData.words.length === 0) {
+        area.innerHTML = `
+            <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;">
+                🎉 Все слова изучены!
+                <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+            </div>
+        `;
+        return;
+    }
+    
+    const word = gameData.words[0];
+    if (!word) {
+        area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#b8956a;padding:2rem;">🎉 Все слова изучены!</div>`;
+        return;
+    }
+    
+    // Создаём частицы огня
+    let particlesHTML = '';
+    for (let i = 0; i < 15; i++) {
+        const size = 4 + Math.random() * 10;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 2;
+        const duration = 1 + Math.random() * 1.5;
+        particlesHTML += `
+            <div class="fire-particle" style="
+                left: ${left}%;
+                width: ${size}px;
+                height: ${size}px;
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+                background: radial-gradient(circle, ${Math.random() > 0.5 ? '#FF6B35' : '#FF8C42'}, ${Math.random() > 0.5 ? '#FF4500' : '#FF6347'});
+            "></div>
+        `;
+    }
+    
+    area.innerHTML = `
+        <div class="fire-container">
+            <div style="font-size:1.5rem;color:#FFB347;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
+                🔥 Найди иероглиф, который означает:
+            </div>
+            <div style="font-size:2.5rem;font-weight:bold;color:#FFD699;margin-bottom:1rem;text-shadow:0 0 40px rgba(255,179,71,0.2);">
+                ${word.translation}
+            </div>
+            <div class="fire-emoji" id="fireEmoji">${word.emoji || '🔥'}</div>
+            <div class="fire-particles">${particlesHTML}</div>
+            <div class="fire-options" id="fireOptions"></div>
+            <div style="margin-top:1rem;font-size:1.2rem;color:#b8956a;">
+                🔥 Очки: <span id="fireScore" style="color:#FFB347;font-weight:bold;">${gameData.score}</span> | 
+                📈 Уровень: <span id="fireLevel" style="color:#FFB347;font-weight:bold;">${gameData.level}</span>
+            </div>
+        </div>
+    `;
+    
+    // Генерируем варианты
+    const correct = word;
+    const others = allWordsList.filter(w => w.chinese !== correct.chinese);
+    const wrong = shuffleArray(others).slice(0, 3);
+    const options = shuffleArray([correct, ...wrong]);
+    
+    const optionsContainer = document.getElementById('fireOptions');
+    optionsContainer.innerHTML = options.map(w => `
+        <button onclick="checkFireAnswer('${w.chinese}', '${correct.chinese}')">
+            <span style="font-size:3rem;display:block;">${w.chinese}</span>
+            <span style="font-size:1rem;color:#b8956a;">${w.pinyin}</span>
+        </button>
+    `).join('');
+    
+    document.getElementById('fireScore').textContent = gameData.score;
+    document.getElementById('fireLevel').textContent = gameData.level;
+}
+
+function checkFireAnswer(selected, correct) {
+    const buttons = document.querySelectorAll('#fireOptions button');
+    buttons.forEach(btn => {
+        btn.style.pointerEvents = 'none';
+        if (btn.textContent.includes(correct)) {
+            btn.classList.add('correct');
+            createConfetti(btn);
+        }
+        if (btn.textContent.includes(selected) && selected !== correct) {
+            btn.classList.add('wrong');
+        }
+    });
+    
+    if (selected === correct) {
+        gameData.score += 10;
+        document.getElementById('fireScore').textContent = gameData.score;
+        document.getElementById('gameScore').textContent = gameData.score;
+        speakChinese(correct);
+    } else {
+        gameData.score = Math.max(0, gameData.score - 5);
+        document.getElementById('fireScore').textContent = gameData.score;
+        document.getElementById('gameScore').textContent = gameData.score;
+    }
+    
+    setTimeout(() => {
+        gameData.level++;
+        document.getElementById('fireLevel').textContent = gameData.level;
+        const remaining = gameData.words.filter(w => w.chinese !== correct);
+        if (remaining.length > 0) {
+            gameData.words = remaining;
+            startFireGame(document.getElementById('gameArea'));
+        } else {
+            document.getElementById('gameArea').innerHTML = `
+                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;">
+                    🎉 Поздравляем! Вы прошли все слова!<br>
+                    <span style="font-size:1.2rem;color:#FFB347;">🔥 Очков: ${gameData.score}</span>
+                    <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                 </div>
             `;
-            
-            // Генерируем варианты
-            const correct = word;
-            const others = allWordsList.filter(w => w.chinese !== correct.chinese);
-            const wrong = shuffleArray(others).slice(0, 3);
-            const options = shuffleArray([correct, ...wrong]);
-            
-            const optionsContainer = document.getElementById('fireOptions');
-            optionsContainer.innerHTML = options.map(w => `
-                <button onclick="checkFireAnswer('${w.chinese}', '${correct.chinese}')">
-                    ${w.chinese}
-                    ${w.emoji ? ' ' + w.emoji : ''}
-                </button>
-            `).join('');
-            
-            document.getElementById('fireScore').textContent = gameData.score;
-            document.getElementById('fireLevel').textContent = gameData.level;
         }
+    }, 900);
+}
 
-        function checkFireAnswer(selected, correct) {
-            const buttons = document.querySelectorAll('#fireOptions button');
-            buttons.forEach(btn => {
-                btn.style.pointerEvents = 'none';
-                if (btn.textContent.includes(correct)) {
-                    btn.classList.add('correct');
-                    // Добавляем конфетти эффект
-                    createConfetti(btn);
-                }
-                if (btn.textContent.includes(selected) && selected !== correct) {
-                    btn.classList.add('wrong');
-                }
-            });
-            
-            if (selected === correct) {
-                gameData.score += 10;
-                document.getElementById('fireScore').textContent = gameData.score;
-                document.getElementById('gameScore').textContent = gameData.score;
-                speakChinese(correct);
-                // Эффект искр
-                const emoji = document.getElementById('fireEmoji');
-                emoji.style.animation = 'none';
-                setTimeout(() => {
-                    emoji.style.animation = 'fireEmoji 0.8s ease-in-out infinite alternate';
-                }, 10);
-            } else {
-                gameData.score = Math.max(0, gameData.score - 5);
-                document.getElementById('fireScore').textContent = gameData.score;
-                document.getElementById('gameScore').textContent = gameData.score;
-            }
-            
-            setTimeout(() => {
-                gameData.level++;
-                document.getElementById('fireLevel').textContent = gameData.level;
-                const remaining = gameData.words.filter(w => w.chinese !== correct);
-                if (remaining.length > 0) {
-                    gameData.words = remaining;
-                    startFireGame(document.getElementById('gameArea'));
-                } else {
-                    document.getElementById('gameArea').innerHTML = `
-                        <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                            🎉 Поздравляем! Вы прошли все слова!<br>
-                            <span style="font-size:1.2rem;color:#FFB347;">🔥 Очков: ${gameData.score}</span>
-                            <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
-                        </div>
-                    `;
-                }
-            }, 900);
-        }
+// ============================================================
+// ===== ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ =====
+// ============================================================
 
-        // ===== ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ =====
-        function startDuelGame(area) {
-            const selectedWords = shuffleArray([...allWordsList]).slice(0, 6);
-            const cards = [];
-            
-            for (const word of selectedWords) {
-                cards.push({
-                    id: 'w_' + Math.random().toString(36).substr(2, 6),
-                    type: 'word',
-                    data: word,
-                    matched: false
-                });
-                cards.push({
-                    id: 'k_' + Math.random().toString(36).substr(2, 6),
-                    type: 'key',
-                    data: { 
-                        key: word.key, 
-                        emoji: WORDS_BY_KEY[word.key]?.emoji || '🔑',
-                        meaning: WORDS_BY_KEY[word.key]?.meaning || 'ключ'
-                    },
-                    matched: false
-                });
-            }
-            
-            gameData.pairs = shuffleArray(cards);
-            gameData.selectedCards = [];
-            gameData.matchedPairs = 0;
-            
-            area.innerHTML = `
-                <div style="text-align:center;width:100%;position:relative;z-index:1;">
-                    <div style="font-size:1.2rem;color:#FFB347;margin-bottom:1rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
-                        🃏 Найди пару: слово + его ключ
-                        <br>Найдено: <span id="duelMatched" style="color:#FF6B35;font-weight:bold;">0</span> / 6 | 
-                        🏆 <span id="duelScore" style="color:#FF6B35;font-weight:bold;">0</span>
-                    </div>
-                    <div class="duel-grid" id="duelGrid"></div>
-                </div>
+function startDuelGame(area) {
+    const selectedWords = shuffleArray([...allWordsList]).slice(0, 8);
+    const cards = [];
+    
+    for (const word of selectedWords) {
+        cards.push({
+            id: 'w_' + Math.random().toString(36).substr(2, 6),
+            type: 'word',
+            data: word,
+            matched: false
+        });
+        const keyData = WORDS_BY_KEY[word.key];
+        cards.push({
+            id: 'k_' + Math.random().toString(36).substr(2, 6),
+            type: 'key',
+            data: { 
+                key: word.key, 
+                emoji: keyData?.emoji || '🔑',
+                meaning: keyData?.meaning || 'ключ'
+            },
+            matched: false
+        });
+    }
+    
+    gameData.pairs = shuffleArray(cards);
+    gameData.selectedCards = [];
+    gameData.matchedPairs = 0;
+    gameData.totalPairs = selectedWords.length;
+    
+    area.innerHTML = `
+        <div style="text-align:center;width:100%;position:relative;z-index:1;">
+            <div style="font-size:1.2rem;color:#FFB347;margin-bottom:1rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
+                🃏 Найди пару: слово + его ключ
+                <br>Найдено: <span id="duelMatched" style="color:#FF6B35;font-weight:bold;">0</span> / ${gameData.totalPairs} | 
+                🏆 <span id="duelScore" style="color:#FF6B35;font-weight:bold;">0</span>
+            </div>
+            <div class="duel-grid" id="duelGrid" style="grid-template-columns: repeat(4, 1fr);"></div>
+        </div>
+    `;
+    
+    renderDuelGrid();
+}
+
+function renderDuelGrid() {
+    const grid = document.getElementById('duelGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = gameData.pairs.map((card, index) => {
+        const isMatched = card.matched;
+        let frontContent = '', backContent = '';
+        
+        if (card.type === 'word') {
+            frontContent = `
+                <div style="font-size:3.5rem;font-weight:bold;line-height:1.2;">${card.data.chinese}</div>
+                <div style="font-size:1rem;color:#8B5A2B;margin-top:0.2rem;">${card.data.pinyin}</div>
+                <div style="font-size:0.8rem;color:#6b4a2a;margin-top:0.1rem;">${card.data.translation}</div>
             `;
-            
-            renderDuelGrid();
+            backContent = `
+                <div style="font-size:3rem;">🔍</div>
+                <div style="font-size:1rem;margin-top:0.3rem;">Найди ключ!</div>
+            `;
+        } else {
+            frontContent = `
+                <div style="font-size:3.5rem;">${card.data.emoji || '🔑'}</div>
+                <div style="font-size:2rem;font-weight:bold;margin-top:0.2rem;">${card.data.key}</div>
+                <div style="font-size:0.8rem;color:#b8956a;margin-top:0.1rem;">${card.data.meaning}</div>
+            `;
+            backContent = `
+                <div style="font-size:3rem;">🔍</div>
+                <div style="font-size:1rem;margin-top:0.3rem;">Найди слово!</div>
+            `;
         }
+        
+        return `
+            <div class="duel-card ${isMatched ? 'matched' : ''}" 
+                 data-index="${index}" 
+                 onclick="clickDuelCard(${index})">
+                <div class="duel-card-inner">
+                    <div class="duel-card-front">${frontContent}</div>
+                    <div class="duel-card-back">${backContent}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('duelMatched').textContent = gameData.matchedPairs;
+    document.getElementById('duelScore').textContent = gameData.score;
+}
 
-        function renderDuelGrid() {
-            const grid = document.getElementById('duelGrid');
-            if (!grid) return;
-            
-            grid.innerHTML = gameData.pairs.map((card, index) => {
-                const isMatched = card.matched;
-                let frontContent = '', backContent = '';
-                
-                if (card.type === 'word') {
-                    frontContent = `
-                        <div class="card-emoji">${card.data.emoji || '📝'}</div>
-                        <div class="card-text">${card.data.chinese}</div>
-                        <div class="card-sub">${card.data.pinyin}</div>
-                    `;
-                    backContent = `
-                        <div class="card-back-emoji">🔍</div>
-                        <div class="card-back-text">Найди ключ!</div>
-                    `;
-                } else {
-                    frontContent = `
-                        <div class="card-emoji">${card.data.emoji || '🔑'}</div>
-                        <div class="card-text">${card.data.key}</div>
-                        <div class="card-sub">${card.data.meaning}</div>
-                    `;
-                    backContent = `
-                        <div class="card-back-emoji">🔍</div>
-                        <div class="card-back-text">Найди слово!</div>
-                    `;
-                }
-                
-                return `
-                    <div class="duel-card ${isMatched ? 'matched' : ''}" 
-                         data-index="${index}" 
-                         onclick="clickDuelCard(${index})">
-                        <div class="duel-card-inner">
-                            <div class="duel-card-front">${frontContent}</div>
-                            <div class="duel-card-back">${backContent}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
+function clickDuelCard(index) {
+    if (gameData.selectedCards.length >= 2) return;
+    const card = gameData.pairs[index];
+    if (card.matched) return;
+    if (gameData.selectedCards.includes(index)) return;
+    
+    gameData.selectedCards.push(index);
+    const cards = document.querySelectorAll('.duel-card');
+    cards.forEach((el, i) => {
+        if (i === index) el.classList.add('flipped');
+    });
+    
+    if (gameData.selectedCards.length === 2) {
+        const idx1 = gameData.selectedCards[0];
+        const idx2 = gameData.selectedCards[1];
+        const card1 = gameData.pairs[idx1];
+        const card2 = gameData.pairs[idx2];
+        
+        const isMatch = (card1.type === 'key' && card2.type === 'word' && card1.data.key === card2.data.key) ||
+                       (card1.type === 'word' && card2.type === 'key' && card1.data.key === card2.data.key);
+        
+        if (isMatch) {
+            card1.matched = true;
+            card2.matched = true;
+            gameData.matchedPairs++;
+            gameData.score += 15;
             document.getElementById('duelMatched').textContent = gameData.matchedPairs;
             document.getElementById('duelScore').textContent = gameData.score;
-        }
-
-        function clickDuelCard(index) {
-            if (gameData.selectedCards.length >= 2) return;
-            const card = gameData.pairs[index];
-            if (card.matched) return;
-            if (gameData.selectedCards.includes(index)) return;
+            document.getElementById('gameScore').textContent = gameData.score;
             
-            gameData.selectedCards.push(index);
-            const cards = document.querySelectorAll('.duel-card');
-            cards.forEach((el, i) => {
-                if (i === index) el.classList.add('flipped');
+            const cardsEl = document.querySelectorAll('.duel-card');
+            cardsEl.forEach((el, i) => {
+                if (i === idx1 || i === idx2) {
+                    el.classList.add('matched');
+                    createConfetti(el);
+                }
             });
             
-            if (gameData.selectedCards.length === 2) {
-                const idx1 = gameData.selectedCards[0];
-                const idx2 = gameData.selectedCards[1];
-                const card1 = gameData.pairs[idx1];
-                const card2 = gameData.pairs[idx2];
+            setTimeout(() => {
+                gameData.selectedCards = [];
+                renderDuelGrid();
                 
-                const isMatch = (card1.type === 'word' && card2.type === 'key' && card1.data.key === card2.data.key) ||
-                               (card1.type === 'key' && card2.type === 'word' && card1.data.key === card2.data.key);
-                
-                if (isMatch) {
-                    card1.matched = true;
-                    card2.matched = true;
-                    gameData.matchedPairs++;
-                    gameData.score += 15;
-                    document.getElementById('duelMatched').textContent = gameData.matchedPairs;
-                    document.getElementById('duelScore').textContent = gameData.score;
-                    document.getElementById('gameScore').textContent = gameData.score;
-                    
-                    // Эффект совпадения
-                    const cardsEl = document.querySelectorAll('.duel-card');
-                    cardsEl.forEach((el, i) => {
-                        if (i === idx1 || i === idx2) {
-                            el.classList.add('matched');
-                            createConfetti(el);
-                        }
-                    });
-                    
-                    setTimeout(() => {
-                        renderDuelGrid();
-                        if (gameData.matchedPairs === 6) {
-                            document.getElementById('gameArea').innerHTML = `
-                                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                                    🎉 Все пары найдены!<br>
-                                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
-                                    <br><button onclick="startGame('duel')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
-                                </div>
-                            `;
-                        }
-                    }, 600);
-                } else {
-                    // Ошибка
-                    const cardsEl = document.querySelectorAll('.duel-card');
-                    cardsEl.forEach((el, i) => {
-                        if (i === idx1 || i === idx2) {
-                            el.classList.add('wrong');
-                        }
-                    });
-                    
-                    setTimeout(() => {
-                        const cards2 = document.querySelectorAll('.duel-card');
-                        cards2.forEach((el, i) => {
-                            if (i === idx1 || i === idx2) {
-                                el.classList.remove('flipped', 'wrong');
-                            }
-                        });
-                        gameData.selectedCards = [];
-                    }, 1000);
-                }
-            }
-        }
-
-        // ===== ИГРА 3: КОСМИЧЕСКАЯ ГОНКА =====
-        function startRaceGame(area) {
-            gameData.timeLeft = 30;
-            gameData.currentIndex = 0;
-            gameData.raceWords = shuffleArray([...gameData.words]);
-            
-            // Создаём звёзды
-            let starsHTML = '';
-            for (let i = 0; i < 50; i++) {
-                const size = 1 + Math.random() * 3;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const delay = Math.random() * 3;
-                const duration = 1 + Math.random() * 2;
-                starsHTML += `
-                    <div class="race-star" style="
-                        left: ${left}%;
-                        top: ${top}%;
-                        width: ${size}px;
-                        height: ${size}px;
-                        animation-delay: ${delay}s;
-                        animation-duration: ${duration}s;
-                    "></div>
-                `;
-            }
-            
-            area.innerHTML = `
-                <div class="race-container">
-                    <div class="race-stars">${starsHTML}</div>
-                    <div style="display:flex;justify-content:space-around;font-size:1.2rem;color:#b8956a;position:relative;z-index:1;flex-wrap:wrap;gap:0.5rem;">
-                        <span>⏱️ <span class="race-timer" id="raceTimer">30</span>с</span>
-                        <span>🏆 <span style="color:#FFB347;font-weight:bold;" id="raceScore">0</span></span>
-                        <span>📚 <span style="color:#FFB347;font-weight:bold;" id="raceTotal">0</span></span>
-                    </div>
-                    <div class="race-word" id="raceWord">🚀</div>
-                    <div class="race-options" id="raceOptions"></div>
-                </div>
-            `;
-            
-            gameData.timer = setInterval(() => {
-                gameData.timeLeft--;
-                const timerEl = document.getElementById('raceTimer');
-                timerEl.textContent = gameData.timeLeft;
-                if (gameData.timeLeft <= 5) {
-                    timerEl.classList.add('warning');
-                }
-                if (gameData.timeLeft <= 0) {
-                    clearInterval(gameData.timer);
+                if (gameData.matchedPairs === gameData.totalPairs) {
                     document.getElementById('gameArea').innerHTML = `
-                        <div style="text-align:center;font-size:2rem;color:#FF6B35;padding:2rem;position:relative;z-index:1;">
-                            ⏰ Время вышло!<br>
+                        <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                            🎉 Все пары найдены!<br>
                             <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
-                            <br><button onclick="startGame('race')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                            <br><button onclick="startGame('duel')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                         </div>
                     `;
                 }
-            }, 1000);
-            
-            showRaceWord();
-        }
-
-        function showRaceWord() {
-            const word = gameData.raceWords[gameData.currentIndex];
-            if (!word) {
-                clearInterval(gameData.timer);
-                document.getElementById('gameArea').innerHTML = `
-                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                        🎉 Все слова пройдены!<br>
-                        <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
-                    </div>
-                `;
-                return;
-            }
-            
-            document.getElementById('raceWord').textContent = word.chinese;
-            document.getElementById('raceTotal').textContent = gameData.currentIndex + 1;
-            
-            const others = allWordsList.filter(w => w.chinese !== word.chinese);
-            const wrong = shuffleArray(others).slice(0, 3);
-            const options = shuffleArray([word, ...wrong]);
-            
-            const container = document.getElementById('raceOptions');
-            container.innerHTML = options.map(w => `
-                <button onclick="checkRaceAnswer('${w.chinese}', '${word.chinese}')">
-                    ${w.translation}
-                    ${w.emoji ? ' ' + w.emoji : ''}
-                </button>
-            `).join('');
-        }
-
-        function checkRaceAnswer(selected, correct) {
-            const buttons = document.querySelectorAll('#raceOptions button');
-            buttons.forEach(btn => {
-                btn.style.pointerEvents = 'none';
-                const correctWord = allWordsList.find(w => w.chinese === correct);
-                if (btn.textContent.includes(correctWord?.translation || '')) {
-                    btn.classList.add('correct');
-                    createConfetti(btn);
-                }
-                if (btn.textContent.includes(selected) && selected !== correct) {
-                    btn.classList.add('wrong');
+            }, 600);
+        } else {
+            const cardsEl = document.querySelectorAll('.duel-card');
+            cardsEl.forEach((el, i) => {
+                if (i === idx1 || i === idx2) {
+                    el.classList.add('wrong');
                 }
             });
             
-            if (selected === correct) {
-                gameData.score += 5;
-                document.getElementById('raceScore').textContent = gameData.score;
-                document.getElementById('gameScore').textContent = gameData.score;
-                speakChinese(correct);
-            }
-            
             setTimeout(() => {
-                gameData.currentIndex++;
-                showRaceWord();
-            }, 600);
+                const cards2 = document.querySelectorAll('.duel-card');
+                cards2.forEach((el, i) => {
+                    if (i === idx1 || i === idx2) {
+                        el.classList.remove('flipped', 'wrong');
+                    }
+                });
+                gameData.selectedCards = [];
+            }, 1000);
         }
+    }
+}
 
-        // ===== ИГРА 4: СОБЕРИ СЛОВО (ПАЗЛ) =====
-        function startPuzzleGame(area) {
-            const word = gameData.words[0];
-            if (!word) {
-                area.innerHTML = `
+// ============================================================
+// ===== ИГРА 3: КОСМИЧЕСКАЯ ГОНКА =====
+// ============================================================
+
+function startRaceGame(area) {
+    gameData.timeLeft = 30;
+    gameData.currentIndex = 0;
+    gameData.raceWords = shuffleArray([...gameData.words]);
+    
+    let starsHTML = '';
+    for (let i = 0; i < 50; i++) {
+        const size = 1 + Math.random() * 3;
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const delay = Math.random() * 3;
+        const duration = 1 + Math.random() * 2;
+        starsHTML += `
+            <div class="race-star" style="
+                left: ${left}%;
+                top: ${top}%;
+                width: ${size}px;
+                height: ${size}px;
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+            "></div>
+        `;
+    }
+    
+    area.innerHTML = `
+        <div class="race-container">
+            <div class="race-stars">${starsHTML}</div>
+            <div style="display:flex;justify-content:space-around;font-size:1.2rem;color:#b8956a;position:relative;z-index:1;flex-wrap:wrap;gap:0.5rem;">
+                <span>⏱️ <span class="race-timer" id="raceTimer">30</span>с</span>
+                <span>🏆 <span style="color:#FFB347;font-weight:bold;" id="raceScore">0</span></span>
+                <span>📚 <span style="color:#FFB347;font-weight:bold;" id="raceTotal">0</span></span>
+            </div>
+            <div class="race-word" id="raceWord">🚀</div>
+            <div class="race-options" id="raceOptions"></div>
+        </div>
+    `;
+    
+    gameData.timer = setInterval(() => {
+        gameData.timeLeft--;
+        const timerEl = document.getElementById('raceTimer');
+        timerEl.textContent = gameData.timeLeft;
+        if (gameData.timeLeft <= 5) {
+            timerEl.classList.add('warning');
+        }
+        if (gameData.timeLeft <= 0) {
+            clearInterval(gameData.timer);
+            document.getElementById('gameArea').innerHTML = `
+                <div style="text-align:center;font-size:2rem;color:#FF6B35;padding:2rem;position:relative;z-index:1;">
+                    ⏰ Время вышло!<br>
+                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                    <br><button onclick="startGame('race')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                </div>
+            `;
+        }
+    }, 1000);
+    
+    showRaceWord();
+}
+
+function showRaceWord() {
+    const word = gameData.raceWords[gameData.currentIndex];
+    if (!word) {
+        clearInterval(gameData.timer);
+        document.getElementById('gameArea').innerHTML = `
+            <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                🎉 Все слова пройдены!<br>
+                <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+            </div>
+        `;
+        return;
+    }
+    
+    document.getElementById('raceWord').textContent = word.chinese;
+    document.getElementById('raceTotal').textContent = gameData.currentIndex + 1;
+    
+    const others = allWordsList.filter(w => w.chinese !== word.chinese);
+    const wrong = shuffleArray(others).slice(0, 3);
+    const options = shuffleArray([word, ...wrong]);
+    
+    const container = document.getElementById('raceOptions');
+    container.innerHTML = options.map(w => `
+        <button onclick="checkRaceAnswer('${w.chinese}', '${word.chinese}')">
+            ${w.translation}
+            ${w.emoji ? ' ' + w.emoji : ''}
+        </button>
+    `).join('');
+}
+
+function checkRaceAnswer(selected, correct) {
+    const buttons = document.querySelectorAll('#raceOptions button');
+    buttons.forEach(btn => {
+        btn.style.pointerEvents = 'none';
+        const correctWord = allWordsList.find(w => w.chinese === correct);
+        if (btn.textContent.includes(correctWord?.translation || '')) {
+            btn.classList.add('correct');
+            createConfetti(btn);
+        }
+        if (btn.textContent.includes(selected) && selected !== correct) {
+            btn.classList.add('wrong');
+        }
+    });
+    
+    if (selected === correct) {
+        gameData.score += 5;
+        document.getElementById('raceScore').textContent = gameData.score;
+        document.getElementById('gameScore').textContent = gameData.score;
+        speakChinese(correct);
+    }
+    
+    setTimeout(() => {
+        gameData.currentIndex++;
+        showRaceWord();
+    }, 600);
+}
+
+// ============================================================
+// ===== ИГРА 4: ПАЗЛ =====
+// ============================================================
+
+function startPuzzleGame(area) {
+    const selectedKeys = shuffleArray([...KEY_NAMES]).slice(0, 6);
+    const targetKey = selectedKeys[0];
+    const targetData = WORDS_BY_KEY[targetKey];
+    
+    const puzzleTiles = selectedKeys.map((key, i) => ({
+        key: key,
+        emoji: WORDS_BY_KEY[key].emoji || '🔑',
+        isTarget: key === targetKey,
+        matched: false,
+        index: i
+    }));
+    
+    const shuffledTiles = shuffleArray([...puzzleTiles]);
+    
+    gameData.puzzleTiles = shuffledTiles;
+    gameData.targetKey = targetKey;
+    gameData.puzzleMatched = 0;
+    gameData.puzzleTotal = 6;
+    
+    area.innerHTML = `
+        <div style="text-align:center;width:100%;position:relative;z-index:1;">
+            <div style="font-size:1.5rem;color:#FFB347;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
+                🧩 Собери пазл: найди ключ <span style="color:#FF6B35;font-weight:bold;">${targetKey}</span>
+            </div>
+            <div style="font-size:1.2rem;color:#b8956a;margin-bottom:1rem;">
+                💡 Подсказка: ${targetData.emoji} ${targetData.meaning}
+                <br>Найдено: <span id="puzzleMatched" style="color:#FF6B35;font-weight:bold;">0</span> / 6
+            </div>
+            <div class="puzzle-grid" id="puzzleGrid" style="grid-template-columns: repeat(3, 1fr); max-width:400px; margin:0 auto;"></div>
+            <div style="margin-top:1rem;display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+                <button onclick="startGame('puzzle')" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FFB347,#FF8C42);color:#2d1b0e;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #8B4513;">🔄 Новая игра</button>
+                <button onclick="puzzleHint()" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#9C27B0,#7B1FA2);color:white;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #4A148C;">💡 Подсказка</button>
+            </div>
+        </div>
+    `;
+    
+    renderPuzzleGrid();
+}
+
+function renderPuzzleGrid() {
+    const grid = document.getElementById('puzzleGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = gameData.puzzleTiles.map((tile, i) => {
+        const isMatched = tile.matched;
+        return `
+            <div class="puzzle-piece ${isMatched ? 'matched' : ''}" 
+                 data-index="${i}"
+                 onclick="clickPuzzleTile(${i})"
+                 style="
+                    aspect-ratio:1/1;
+                    background: ${isMatched ? 'linear-gradient(145deg, #4CAF50, #45a049)' : 'linear-gradient(145deg, #FF6B35, #FF8C42)'};
+                    border-radius: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: ${isMatched ? '3rem' : '4rem'};
+                    font-weight: bold;
+                    color: white;
+                    cursor: ${isMatched ? 'default' : 'pointer'};
+                    border: 3px solid ${isMatched ? '#4CAF50' : '#FFB347'};
+                    box-shadow: ${isMatched ? '0 4px 0 #2E7D32' : '0 4px 0 #8B4513, 0 0 20px rgba(255,107,53,0.2)'};
+                    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                    transform: ${isMatched ? 'scale(0.95)' : 'scale(1)'};
+                    opacity: ${isMatched ? '0.7' : '1'};
+                    position:relative;
+                ">
+                ${isMatched ? '✅' : (tile.emoji || '🔑')}
+                ${!isMatched ? `<div style="position:absolute;bottom:4px;font-size:0.6rem;opacity:0.5;">${tile.key}</div>` : ''}
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('puzzleMatched').textContent = gameData.puzzleMatched;
+}
+
+function clickPuzzleTile(index) {
+    const tile = gameData.puzzleTiles[index];
+    if (tile.matched) return;
+    
+    if (tile.isTarget) {
+        tile.matched = true;
+        gameData.puzzleMatched++;
+        gameData.score += 10;
+        document.getElementById('gameScore').textContent = gameData.score;
+        document.getElementById('puzzleMatched').textContent = gameData.puzzleMatched;
+        
+        const el = document.querySelector(`.puzzle-piece[data-index="${index}"]`);
+        if (el) {
+            createConfetti(el);
+            el.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                renderPuzzleGrid();
+            }, 400);
+        }
+        
+        if (gameData.puzzleMatched === 6) {
+            setTimeout(() => {
+                document.getElementById('gameArea').innerHTML = `
                     <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                        🎉 Все слова собраны!
+                        🎉 Пазл собран!<br>
+                        <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
                         <br><button onclick="startGame('puzzle')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                     </div>
                 `;
-                return;
-            }
-            
-            const chars = word.chinese.split('');
-            const pieces = chars.map((char, i) => ({ char, index: i }));
-            const shuffledPieces = shuffleArray([...pieces]);
-            
-            gameData.puzzlePieces = shuffledPieces;
-            gameData.puzzleEmpty = -1;
-            gameData.puzzleMoves = 0;
-            
-            area.innerHTML = `
-                <div style="text-align:center;width:100%;position:relative;z-index:1;">
-                    <div style="font-size:1.2rem;color:#FFB347;margin-bottom:1rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
-                        🧩 Собери иероглиф: <span style="font-weight:bold;color:#FF6B35;">${word.translation}</span>
-                        <br>Ходов: <span id="puzzleMoves" style="color:#FF6B35;font-weight:bold;">0</span> | 
-                        🏆 <span id="puzzleScore" style="color:#FF6B35;font-weight:bold;">${gameData.score}</span>
-                    </div>
-                    <div class="puzzle-grid" id="puzzleGrid"></div>
-                    <div style="margin-top:1rem;display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
-                        <button onclick="startPuzzleGame(document.getElementById('gameArea'))" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FFB347,#FF8C42);color:#2d1b0e;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #8B4513;">🔄 Новый пазл</button>
-                        <button onclick="startGame('puzzle')" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#4CAF50,#45a049);color:white;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #2E7D32;">🎲 Случайный</button>
-                    </div>
-                </div>
-            `;
-            
-            renderPuzzleGrid();
+            }, 500);
         }
+    } else {
+        const el = document.querySelector(`.puzzle-piece[data-index="${index}"]`);
+        if (el) {
+            el.style.animation = 'shake 0.4s ease';
+            el.style.borderColor = '#FF6B6B';
+            el.style.boxShadow = '0 0 40px rgba(255,107,107,0.4)';
+            setTimeout(() => {
+                el.style.animation = '';
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+            }, 500);
+        }
+    }
+}
 
-        function renderPuzzleGrid() {
-            const grid = document.getElementById('puzzleGrid');
-            if (!grid) return;
-            
-            grid.innerHTML = gameData.puzzlePieces.map((piece, i) => `
-                <div class="puzzle-piece ${i === gameData.puzzleEmpty ? 'empty' : ''}" 
-                     onclick="clickPuzzlePiece(${i})">
-                    ${i === gameData.puzzleEmpty ? '' : piece.char}
-                </div>
-            `).join('');
-            
-            document.getElementById('puzzleMoves').textContent = gameData.puzzleMoves;
-            document.getElementById('puzzleScore').textContent = gameData.score;
+function puzzleHint() {
+    const tiles = document.querySelectorAll('.puzzle-piece');
+    tiles.forEach((el, i) => {
+        const tile = gameData.puzzleTiles[i];
+        if (!tile.matched && tile.isTarget) {
+            el.style.boxShadow = '0 0 40px rgba(255,215,0,0.8), 0 4px 0 #8B4513';
+            el.style.borderColor = '#FFD700';
+            setTimeout(() => {
+                el.style.boxShadow = '';
+                el.style.borderColor = '';
+            }, 1500);
         }
+    });
+}
 
-        function clickPuzzlePiece(index) {
-            if (gameData.puzzleEmpty === -1) {
-                gameData.puzzleEmpty = index;
-                renderPuzzleGrid();
-                return;
-            }
-            
-            const emptyIndex = gameData.puzzleEmpty;
-            const row = Math.floor(index / 3);
-            const col = index % 3;
-            const emptyRow = Math.floor(emptyIndex / 3);
-            const emptyCol = emptyIndex % 3;
-            
-            if ((Math.abs(row - emptyRow) === 1 && col === emptyCol) ||
-                (Math.abs(col - emptyCol) === 1 && row === emptyRow)) {
-                
-                [gameData.puzzlePieces[index], gameData.puzzlePieces[emptyIndex]] = 
-                [gameData.puzzlePieces[emptyIndex], gameData.puzzlePieces[index]];
-                
-                gameData.puzzleMoves++;
-                gameData.puzzleEmpty = index;
-                renderPuzzleGrid();
-                
-                // Проверяем победу
-                let correct = true;
-                for (let i = 0; i < gameData.puzzlePieces.length; i++) {
-                    if (gameData.puzzlePieces[i].index !== i) {
-                        correct = false;
-                        break;
-                    }
-                }
-                
-                if (correct) {
-                    gameData.score += 20;
-                    document.getElementById('gameScore').textContent = gameData.score;
-                    const grid = document.getElementById('puzzleGrid');
-                    grid.querySelectorAll('.puzzle-piece').forEach(el => {
-                        if (!el.classList.contains('empty')) {
-                            el.classList.add('correct');
-                            createConfetti(el);
-                        }
-                    });
-                    
-                    gameData.words.shift();
-                    setTimeout(() => {
-                        if (gameData.words.length > 0) {
-                            startPuzzleGame(document.getElementById('gameArea'));
-                        } else {
-                            document.getElementById('gameArea').innerHTML = `
-                                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
-                                    🎉 Все слова собраны!<br>
-                                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
-                                    <br><button onclick="startGame('puzzle')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
-                                </div>
-                            `;
-                        }
-                    }, 800);
-                }
-            } else {
-                gameData.puzzleEmpty = -1;
-                renderPuzzleGrid();
-            }
-        }
+// ============================================================
+// ===== ЭФФЕКТ КОНФЕТТИ =====
+// ============================================================
 
-        // ===== ЭФФЕКТ КОНФЕТТИ =====
-        function createConfetti(element) {
-            const rect = element.getBoundingClientRect();
-            const colors = ['#FF6B35', '#FFB347', '#4CAF50', '#2196F3', '#9C27B0', '#FF6B6B', '#FFD700'];
-            
-            for (let i = 0; i < 20; i++) {
-                const confetti = document.createElement('div');
-                const size = 6 + Math.random() * 8;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const angle = Math.random() * 2 * Math.PI;
-                const distance = 50 + Math.random() * 100;
-                const x = rect.left + rect.width / 2;
-                const y = rect.top + rect.height / 2;
-                
-                confetti.style.cssText = `
-                    position: fixed;
-                    width: ${size}px;
-                    height: ${size * 0.4}px;
-                    background: ${color};
-                    left: ${x}px;
-                    top: ${y}px;
-                    border-radius: 2px;
-                    pointer-events: none;
-                    z-index: 9999;
-                    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-                    transform: rotate(${Math.random() * 360}deg);
-                `;
-                
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.style.left = (x + Math.cos(angle) * distance) + 'px';
-                    confetti.style.top = (y + Math.sin(angle) * distance - 50) + 'px';
-                    confetti.style.opacity = '0';
-                    confetti.style.transform = `rotate(${Math.random() * 720}deg) scale(0.5)`;
-                }, 10);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 900);
-            }
-        }
+function createConfetti(element) {
+    const rect = element.getBoundingClientRect();
+    const colors = ['#FF6B35', '#FFB347', '#4CAF50', '#2196F3', '#9C27B0', '#FF6B6B', '#FFD700', '#FF1493', '#00CED1'];
+    
+    for (let i = 0; i < 25; i++) {
+        const confetti = document.createElement('div');
+        const size = 6 + Math.random() * 10;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 50 + Math.random() * 120;
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const rotation = Math.random() * 360;
+        const shapes = ['50%', '2px', '0'];
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        
+        confetti.style.cssText = `
+            position: fixed;
+            width: ${size}px;
+            height: ${size * (Math.random() > 0.5 ? 0.4 : 1)}px;
+            background: ${color};
+            left: ${x}px;
+            top: ${y}px;
+            border-radius: ${shape};
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: rotate(${rotation}deg);
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        `;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.style.left = (x + Math.cos(angle) * distance) + 'px';
+            confetti.style.top = (y + Math.sin(angle) * distance - 80) + 'px';
+            confetti.style.opacity = '0';
+            confetti.style.transform = `rotate(${rotation + Math.random() * 720}deg) scale(0.3)`;
+        }, 10);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 1000);
+    }
+}
 
         // ===== ИНИЦИАЛИЗАЦИЯ =====
         buildAllWordsList();
