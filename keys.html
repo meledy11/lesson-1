@@ -22,10 +22,10 @@
             border-radius: 60px;
             padding: 2rem 1rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 15px 0 #C16F1A;
+            box-shadow: 0 15px 0 #C16F1A, 0 0 60px rgba(255,107,53,0.2);
             color: white;
         }
-        .header h1 { font-size: 3rem; letter-spacing: 2px; }
+        .header h1 { font-size: 3rem; letter-spacing: 2px; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
         .header p { font-size: 1.4rem; margin-top: 0.5rem; opacity: 0.95; }
         .header .stats { font-size: 1.2rem; margin-top: 0.5rem; opacity: 0.9; }
         
@@ -61,20 +61,39 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: 0.1s;
+            transition: 0.2s;
             box-shadow: 0 6px 0 #D98F33;
+            position: relative;
+            overflow: hidden;
         }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .tab-btn:hover::after { opacity: 1; }
         .tab-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            box-shadow: 0 6px 0 #C16F1A;
+            box-shadow: 0 6px 0 #C16F1A, 0 0 40px rgba(255,107,53,0.3);
             border-color: #FF6B35;
+            transform: scale(1.05);
         }
         .tab-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #D98F33; }
         .tab-btn.active:active { box-shadow: 0 3px 0 #C16F1A; }
         
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
         
         .search-section { margin-bottom: 1.5rem; }
         .search-input {
@@ -87,10 +106,12 @@
             font-family: inherit;
             background: white;
             box-shadow: 0 4px 0 #D98F33;
+            transition: 0.2s;
         }
         .search-input:focus {
             border-color: #FF6B35;
             box-shadow: 0 4px 0 #D98F33, 0 0 0 4px rgba(255,107,53,0.2);
+            transform: scale(1.01);
         }
         
         .key-selector {
@@ -109,14 +130,15 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 1.3rem;
-            transition: 0.1s;
+            transition: 0.2s;
             box-shadow: 0 6px 0 #D98F33;
             min-width: 70px;
         }
+        .key-btn:hover { transform: translateY(-2px); }
         .key-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            box-shadow: 0 6px 0 #C16F1A;
+            box-shadow: 0 6px 0 #C16F1A, 0 0 30px rgba(255,107,53,0.2);
             border-color: #FF6B35;
             transform: scale(1.05);
         }
@@ -184,12 +206,12 @@
             border-radius: 30px;
             padding: 1.2rem 1.8rem;
             border-left: 8px solid #FF8C42;
-            transition: 0.1s;
+            transition: 0.3s;
             gap: 1.2rem;
             flex-wrap: wrap;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
-        .fang-item:hover { background: #FFF0E0; transform: translateX(8px); }
+        .fang-item:hover { background: #FFF0E0; transform: translateX(8px); box-shadow: 0 4px 16px rgba(255,107,53,0.15); }
         .fang-item .arrow {
             font-size: 3rem;
             color: #FF8C42;
@@ -212,9 +234,10 @@
             background: #FFF0E0;
             padding: 0.2rem 1rem;
             border-radius: 30px;
-            transition: 0.1s;
+            transition: 0.2s;
             line-height: 1.3;
         }
+        .fang-item .chinese-word:hover { background: #FFD699; transform: scale(1.05); }
         .fang-item .chinese-word:active { background: #FFD699; transform: scale(0.97); }
         .fang-item .pinyin-word {
             color: #FF8C42;
@@ -244,9 +267,9 @@
             cursor: pointer;
             padding: 0.2rem 0.8rem;
             border-radius: 30px;
-            transition: 0.1s;
+            transition: 0.2s;
         }
-        .fang-item .speak-small-btn:hover { background: #FFD699; }
+        .fang-item .speak-small-btn:hover { background: #FFD699; transform: scale(1.1); }
         .fang-item .speak-small-btn:active { transform: scale(0.9); }
         .fang-item .write-btn {
             background: linear-gradient(135deg, #9C27B0, #E91E63);
@@ -258,8 +281,9 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 0 #6A1B9A;
-            transition: 0.1s;
+            transition: 0.2s;
         }
+        .fang-item .write-btn:hover { transform: scale(1.05); box-shadow: 0 4px 0 #6A1B9A, 0 0 20px rgba(156,39,176,0.3); }
         .fang-item .write-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #6A1B9A; }
         
         .no-results { text-align: center; padding: 2rem; color: #8B5A2B; font-size: 1.8rem; }
@@ -292,6 +316,7 @@
             min-width: 150px;
             text-align: center;
             line-height: 1.3;
+            box-shadow: 0 0 30px rgba(255,107,53,0.1);
         }
         .writing-toolbar .info-display {
             display: flex;
@@ -323,9 +348,10 @@
             font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.1s;
+            transition: 0.2s;
             box-shadow: 0 5px 0 rgba(0,0,0,0.15);
         }
+        .writing-actions button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(0,0,0,0.15); }
         .writing-actions button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
         .btn-clear { background: #FF6B6B; color: white; }
         .btn-undo { background: #FFB347; color: white; }
@@ -400,7 +426,11 @@
             border: 3px solid #FFD699;
             display: none;
         }
-        .speech-result.show { display: block; }
+        .speech-result.show { display: block; animation: slideDown 0.3s ease; }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
         .speech-result .score {
             font-size: 3rem;
             font-weight: bold;
@@ -468,13 +498,15 @@
             border-radius: 15px;
             border: 2px solid #FFD699;
             cursor: pointer;
-            transition: 0.1s;
+            transition: 0.2s;
         }
+        .word-selector-grid .grid-char:hover { background: #FFD699; transform: scale(1.05); }
         .word-selector-grid .grid-char:active { background: #FFD699; transform: scale(0.95); }
         .word-selector-grid .grid-char.active-char {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
             border-color: #FF6B35;
+            box-shadow: 0 0 20px rgba(255,107,53,0.3);
         }
         
         /* ===== СТИЛИ ДЛЯ 3D МАДЖОНГА ===== */
@@ -693,10 +725,11 @@
             font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.1s;
+            transition: 0.2s;
             box-shadow: 0 5px 0 rgba(0,0,0,0.2);
             color: white;
         }
+        .mahjong-controls button:hover { transform: translateY(-2px); }
         .mahjong-controls button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
         .btn-new-game { background: linear-gradient(135deg, #4CAF50, #45a049); }
         .btn-shuffle { background: linear-gradient(135deg, #2196F3, #1976D2); }
@@ -722,11 +755,13 @@
         }
         .mahjong-pairs-selector button:hover {
             background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
         }
         .mahjong-pairs-selector button.active {
             background: #FF6B35;
             border-color: #FF6B35;
             color: white;
+            box-shadow: 0 0 20px rgba(255,107,53,0.3);
         }
         
         @media (max-width: 600px) {
@@ -788,146 +823,417 @@
             }
         }
         
-        /* ===== СТИЛИ ДЛЯ ИГР ===== */
+        /* ===== СТИЛИ ДЛЯ ИГР (яркие с анимациями) ===== */
         .game-container {
-            background: white;
+            background: linear-gradient(145deg, #1a0f08, #2d1b0e);
             border-radius: 40px;
             padding: 2rem;
             border: 4px solid #FFB347;
-            box-shadow: 0 12px 0 #D98F33;
+            box-shadow: 0 12px 0 #8B4513, inset 0 0 60px rgba(255,107,53,0.05);
             min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255,107,53,0.05) 0%, transparent 70%);
+            animation: glowRotate 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes glowRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .game-stats {
             text-align: center;
             font-size: 1.6rem;
             font-weight: bold;
-            color: #A64B2A;
+            color: #FFB347;
             padding: 1rem;
-            background: #FFF8F0;
+            background: rgba(255,255,255,0.05);
             border-radius: 30px;
             margin-bottom: 1.5rem;
-            border: 3px solid #FFD699;
+            border: 2px solid rgba(255,179,71,0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
         }
         .game-stats span { color: #FF6B35; }
         
-        .game-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        .game-buttons {
+            display: flex;
             gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .game-buttons .tab-btn {
+            font-size: 1.2rem;
+            padding: 0.8rem 1.8rem;
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,179,71,0.3);
+            color: #b8956a;
+            box-shadow: none;
+        }
+        .game-buttons .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+            color: #FFB347;
+        }
+        .game-buttons .tab-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border-color: #FF6B35;
+            box-shadow: 0 6px 0 #C16F1A, 0 0 40px rgba(255,107,53,0.3);
+        }
+        
+        /* ИГРА 1: ТРАНСФОРМЕР */
+        .fire-container { text-align: center; position: relative; z-index: 1; }
+        .fire-word {
+            font-size: 6rem;
+            font-weight: bold;
+            color: #FF6B35;
+            text-shadow: 0 0 40px rgba(255,107,53,0.5), 0 0 80px rgba(255,107,53,0.2);
+            animation: fireFloat 2s ease-in-out infinite;
             margin: 1rem 0;
         }
-        .game-options button {
-            padding: 0.8rem 1.2rem;
-            border-radius: 30px;
+        @keyframes fireFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        .fire-emoji {
+            font-size: 8rem;
+            animation: fireEmoji 0.8s ease-in-out infinite alternate;
+            display: block;
+        }
+        @keyframes fireEmoji {
+            0% { transform: scale(1) rotate(-5deg); filter: drop-shadow(0 0 20px rgba(255,107,53,0.3)); }
+            100% { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 40px rgba(255,107,53,0.6)); }
+        }
+        .fire-particles {
+            position: relative;
+            height: 60px;
+            overflow: hidden;
+        }
+        .fire-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FF6B35, #FF8C42);
+            animation: particleFly 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255,107,53,0.5);
+        }
+        @keyframes particleFly {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-80px) scale(0); opacity: 0; }
+        }
+        .fire-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+        .fire-options button {
+            padding: 1.2rem;
+            border-radius: 20px;
             border: 3px solid #FFB347;
+            background: rgba(45, 27, 14, 0.8);
+            color: #f5e6d3;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 0 #8B4513;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .fire-options button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .fire-options button:hover::after { opacity: 1; }
+        .fire-options button:hover { transform: scale(1.05); border-color: #FF6B35; }
+        .fire-options button:active { transform: translateY(3px); box-shadow: 0 1px 0 #8B4513; }
+        .fire-options button.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            transform: scale(1.1);
+            box-shadow: 0 0 60px rgba(76,175,80,0.6), 0 4px 0 #2E7D32;
+            animation: correctPulse 0.5s ease;
+        }
+        @keyframes correctPulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(76,175,80,0.6), 0 4px 0 #2E7D32; }
+            50% { box-shadow: 0 0 100px rgba(76,175,80,0.9), 0 4px 0 #2E7D32; }
+        }
+        .fire-options button.wrong {
+            background: #FF6B6B;
+            border-color: #FF6B6B;
+            animation: shake 0.4s ease;
+            box-shadow: 0 0 40px rgba(255,107,107,0.4);
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-15px); }
+            40% { transform: translateX(15px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+        }
+        
+        /* ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ */
+        .duel-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+        .duel-card {
+            aspect-ratio: 3/4;
+            perspective: 800px;
+            cursor: pointer;
+        }
+        .duel-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .duel-card.flipped .duel-card-inner {
+            transform: rotateY(180deg);
+        }
+        .duel-card-front,
+        .duel-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.3rem;
+            text-align: center;
+            border: 3px solid #b8956a;
+            box-shadow: 0 4px 0 #8B5A2B, 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .duel-card-front {
+            background: linear-gradient(145deg, #f5e6d3, #e8d5c0);
+            color: #2d1b0e;
+            transform: rotateY(0deg);
+        }
+        .duel-card-front .card-emoji { font-size: 3rem; }
+        .duel-card-front .card-text { font-size: 1.2rem; font-weight: bold; margin-top: 0.2rem; }
+        .duel-card-front .card-sub { font-size: 0.7rem; opacity: 0.7; }
+        
+        .duel-card-back {
+            background: linear-gradient(145deg, #FF6B35, #FF8C42);
+            color: white;
+            transform: rotateY(180deg);
+            border-color: #FFB347;
+            box-shadow: 0 4px 0 #C16F1A, 0 8px 30px rgba(255,107,53,0.3);
+        }
+        .duel-card-back .card-back-emoji { font-size: 4rem; }
+        .duel-card-back .card-back-text { font-size: 1.2rem; font-weight: bold; margin-top: 0.3rem; }
+        
+        .duel-card.matched {
+            animation: matchGlow 0.6s ease forwards;
+            pointer-events: none;
+        }
+        @keyframes matchGlow {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 60px rgba(76,175,80,0.6); }
+            100% { transform: scale(0.8); opacity: 0.3; }
+        }
+        .duel-card.wrong {
+            animation: wrongShake 0.5s ease;
+        }
+        
+        /* ИГРА 3: КОСМИЧЕСКАЯ ГОНКА */
+        .race-container {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            padding: 2rem;
+            background: radial-gradient(ellipse at center, #0d0805 0%, #000000 100%);
+            border: 2px solid #FFB347;
+            min-height: 350px;
+        }
+        .race-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .race-star {
+            position: absolute;
+            border-radius: 50%;
             background: white;
+            animation: starTwinkle 2s ease-in-out infinite;
+        }
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .race-word {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #FFB347;
+            text-shadow: 0 0 60px rgba(255,179,71,0.4), 0 0 120px rgba(255,179,71,0.1);
+            animation: raceFloat 1.5s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes raceFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        .race-timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FF6B35;
+            text-shadow: 0 0 30px rgba(255,107,53,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        .race-timer.warning {
+            color: #FF6B6B;
+            animation: timerPulse 0.5s ease-in-out infinite;
+        }
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .race-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            max-width: 400px;
+            margin: 1rem auto;
+            position: relative;
+            z-index: 1;
+        }
+        .race-options button {
+            padding: 0.8rem 1.2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255,179,71,0.3);
+            background: rgba(45, 27, 14, 0.7);
+            color: #f5e6d3;
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.1s;
-            box-shadow: 0 4px 0 #D98F33;
-            color: #A64B2A;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 0 rgba(139,69,19,0.5);
+            position: relative;
+            overflow: hidden;
         }
-        .game-options button:active { transform: translateY(3px); box-shadow: 0 1px 0 #D98F33; }
-        .game-options button.correct { background: #4CAF50; color: white; border-color: #4CAF50; }
-        .game-options button.wrong { background: #FF6B6B; color: white; border-color: #FF6B6B; }
+        .race-options button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .race-options button:hover::after { opacity: 1; }
+        .race-options button:hover { transform: scale(1.05); border-color: #FFB347; }
+        .race-options button:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(139,69,19,0.5); }
+        .race-options button.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            box-shadow: 0 0 60px rgba(76,175,80,0.5), 0 4px 0 #2E7D32;
+            animation: correctFlash 0.5s ease;
+        }
+        @keyframes correctFlash {
+            0%, 100% { box-shadow: 0 0 60px rgba(76,175,80,0.5), 0 4px 0 #2E7D32; }
+            50% { box-shadow: 0 0 100px rgba(76,175,80,0.8), 0 4px 0 #2E7D32; }
+        }
+        .race-options button.wrong {
+            background: #FF6B6B;
+            border-color: #FF6B6B;
+            animation: shake 0.4s ease;
+        }
         
-        .game-fire {
-            text-align: center;
-            font-size: 8rem;
-            animation: fireAnim 0.5s infinite alternate;
-            margin: 1rem 0;
-        }
-        @keyframes fireAnim {
-            0% { transform: scale(1) rotate(-3deg); }
-            100% { transform: scale(1.1) rotate(3deg); }
-        }
-        
-        .game-puzzle {
+        /* ИГРА 4: ПАЗЛ */
+        .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            max-width: 400px;
+            gap: 0.6rem;
+            max-width: 350px;
             margin: 0 auto;
         }
-        .game-puzzle .puzzle-piece {
+        .puzzle-piece {
             aspect-ratio: 1/1;
             background: linear-gradient(145deg, #FF6B35, #FF8C42);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: white;
             cursor: pointer;
             border: 3px solid #FFB347;
-            box-shadow: 0 4px 0 #C16F1A;
-            transition: 0.1s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .game-puzzle .puzzle-piece:active { transform: scale(0.95); }
-        .game-puzzle .puzzle-piece.empty { background: #f0e0d0; color: transparent; box-shadow: none; border-color: #ddd; }
-        .game-puzzle .puzzle-piece.correct { background: #4CAF50; }
-        
-        .game-duel {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .game-duel .duel-card {
-            aspect-ratio: 3/4;
-            background: linear-gradient(145deg, #f5e6d3, #e8d5c0);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2d1b0e;
-            cursor: pointer;
-            border: 3px solid #b8956a;
-            box-shadow: 0 4px 0 #8B5A2B, 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 0 #8B4513, 0 0 20px rgba(255,107,53,0.2);
             transition: 0.2s;
-            text-align: center;
-            padding: 0.3rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .game-duel .duel-card.flipped {
-            transform: rotateY(180deg);
-            background: linear-gradient(145deg, #2d1b0e, #1a0f08);
-            color: #FFB347;
-            border-color: #FFB347;
+        .puzzle-piece::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.3s;
         }
-        .game-duel .duel-card.matched {
-            opacity: 0.3;
-            pointer-events: none;
-            transform: scale(0.9);
+        .puzzle-piece:hover::after { opacity: 1; }
+        .puzzle-piece:hover { transform: scale(1.05); box-shadow: 0 4px 0 #8B4513, 0 0 40px rgba(255,107,53,0.3); }
+        .puzzle-piece:active { transform: scale(0.95); }
+        .puzzle-piece.empty {
+            background: rgba(45, 27, 14, 0.3);
+            color: transparent;
+            box-shadow: none;
+            border-color: rgba(255,179,71,0.1);
         }
-        .game-duel .duel-card .card-emoji { font-size: 3rem; }
-        .game-duel .duel-card .card-text { font-size: 1rem; margin-top: 0.2rem; }
-        
-        .game-race {
-            text-align: center;
+        .puzzle-piece.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            animation: puzzlePop 0.5s ease;
         }
-        .game-race .race-word {
-            font-size: 5rem;
-            font-weight: bold;
-            color: #A64B2A;
-            margin: 1rem 0;
-            animation: float 2s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .game-race .race-timer {
-            font-size: 2rem;
-            color: #FF6B35;
-            font-weight: bold;
+        @keyframes puzzlePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); box-shadow: 0 0 60px rgba(76,175,80,0.5); }
+            100% { transform: scale(1); }
         }
         
         footer {
@@ -939,6 +1245,7 @@
             font-weight: bold;
             color: #A64B2A;
             font-size: 1.2rem;
+            box-shadow: 0 4px 0 #C16F1A;
         }
         
         @media (max-width: 800px) {
@@ -968,10 +1275,13 @@
             .brush-control input[type="range"] { width: 120px; }
             .mahjong-container { padding: 1rem; }
             .game-puzzle { grid-template-columns: repeat(3, 1fr); }
-            .game-duel { grid-template-columns: repeat(3, 1fr); }
+            .duel-grid { grid-template-columns: repeat(3, 1fr); }
             .game-options { grid-template-columns: repeat(2, 1fr); }
-            .game-race .race-word { font-size: 3.5rem; }
-            .game-fire { font-size: 5rem; }
+            .race-word { font-size: 3.5rem; }
+            .fire-emoji { font-size: 5rem; }
+            .fire-word { font-size: 4rem; }
+            .fire-options button { font-size: 2rem; padding: 0.8rem; }
+            .game-stats { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -1058,7 +1368,7 @@
             </div>
         </div>
         
-        <!-- Вкладка: ПОИСК (пиньинь и иероглифы) -->
+        <!-- Вкладка: ПОИСК -->
         <div class="tab-content" id="tab-pinyin">
             <div class="search-section">
                 <input type="text" class="search-input" id="pinyinSearchInput" placeholder="🔤 Введите пиньинь (shi, ma, ni) или иероглиф..." autocomplete="off">
@@ -1100,12 +1410,11 @@
         <div class="tab-content" id="tab-games">
             <div class="game-container">
                 <div class="game-stats" id="gameStats">
-                    🎮 Выбери игру: 
-                    <span id="gameScore">0</span> очков | 
-                    <span id="gameLevel">1</span> уровень
+                    🎮 <span id="gameScore">0</span> очков | 
+                    🏆 <span id="gameLevel">1</span> уровень
                 </div>
                 
-                <div style="display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center; margin-bottom:1.5rem;">
+                <div class="game-buttons">
                     <button class="tab-btn" onclick="startGame('fire')" style="font-size:1.2rem;">🔥 Трансформер</button>
                     <button class="tab-btn" onclick="startGame('duel')" style="font-size:1.2rem;">🃏 Дуэль ключей</button>
                     <button class="tab-btn" onclick="startGame('race')" style="font-size:1.2rem;">🚀 Космическая гонка</button>
@@ -1113,8 +1422,9 @@
                 </div>
                 
                 <div id="gameArea" style="min-height:300px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-                    <div style="text-align:center; font-size:1.8rem; color:#8B5A2B;">
+                    <div style="text-align:center; font-size:2rem; color:#b8956a; position:relative; z-index:1;">
                         🎮 Нажми на игру выше, чтобы начать!
+                        <br><small style="font-size:1rem; color:#8B5A2B;">Яркие анимации и подсветка ждут тебя!</small>
                     </div>
                 </div>
             </div>
@@ -1393,7 +1703,7 @@
             });
         });
 
-        // ===== УМНЫЙ ПОИСК (пиньинь без тонов + иероглифы) =====
+        // ===== УМНЫЙ ПОИСК =====
         function smartSearch(query) {
             const container = document.getElementById('pinyinContainer');
             const totalBadge = document.getElementById('pinyinTotalBadge');
@@ -1633,7 +1943,7 @@
             renderWords();
         });
 
-        // ===== ТЕТРАДЬ ДЛЯ РИСОВАНИЯ =====
+        // ===== ТЕТРАДЬ =====
         let canvas, ctx;
         let isDrawing = false;
         let lastX = 0, lastY = 0;
@@ -2305,7 +2615,10 @@
             document.getElementById('mahjongMoves').textContent = mahjongMoves;
         }
 
-        // ===== ИГРЫ =====
+        // ============================================================
+        // ===== ЯРКИЕ ИГРЫ =====
+        // ============================================================
+        
         let gameData = {
             currentGame: null,
             score: 0,
@@ -2323,6 +2636,18 @@
         };
 
         function startGame(type) {
+            // Проверяем, загружена ли база
+            if (allWordsList.length === 0) {
+                document.getElementById('gameArea').innerHTML = `
+                    <div style="text-align:center;font-size:1.5rem;color:#FFB347;padding:2rem;position:relative;z-index:1;">
+                        ⏳ Загрузка базы данных...
+                        <br><small style="color:#b8956a;">Пожалуйста, подождите</small>
+                    </div>
+                `;
+                setTimeout(() => startGame(type), 500);
+                return;
+            }
+            
             gameData.currentGame = type;
             gameData.score = 0;
             gameData.level = 1;
@@ -2335,49 +2660,77 @@
             const shuffled = shuffleArray([...allWordsList]);
             gameData.words = shuffled.slice(0, 20);
             
+            if (gameData.words.length < 4) {
+                gameData.words = shuffled.slice(0, Math.min(10, allWordsList.length));
+            }
+            
             switch(type) {
-                case 'fire':
-                    startFireGame(area);
-                    break;
-                case 'duel':
-                    startDuelGame(area);
-                    break;
-                case 'race':
-                    startRaceGame(area);
-                    break;
-                case 'puzzle':
-                    startPuzzleGame(area);
-                    break;
+                case 'fire': startFireGame(area); break;
+                case 'duel': startDuelGame(area); break;
+                case 'race': startRaceGame(area); break;
+                case 'puzzle': startPuzzleGame(area); break;
             }
         }
 
         // ===== ИГРА 1: ТРАНСФОРМЕР (ОГОНЬ) =====
         function startFireGame(area) {
-            const word = gameData.words[0];
-            if (!word) {
-                area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#8B5A2B;">🎉 Все слова изучены!</div>`;
+            if (gameData.words.length === 0) {
+                area.innerHTML = `
+                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                        🎉 Все слова изучены!
+                        <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                    </div>
+                `;
                 return;
             }
             
+            const word = gameData.words[0];
+            if (!word) {
+                area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#b8956a;padding:2rem;position:relative;z-index:1;">🎉 Все слова изучены!</div>`;
+                return;
+            }
+            
+            // Создаём частицы огня
+            let particlesHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const size = 4 + Math.random() * 10;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = 1 + Math.random() * 1.5;
+                particlesHTML += `
+                    <div class="fire-particle" style="
+                        left: ${left}%;
+                        width: ${size}px;
+                        height: ${size}px;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                        background: radial-gradient(circle, ${Math.random() > 0.5 ? '#FF6B35' : '#FF8C42'}, ${Math.random() > 0.5 ? '#FF4500' : '#FF6347'});
+                    "></div>
+                `;
+            }
+            
             area.innerHTML = `
-                <div style="text-align:center;width:100%;">
-                    <div style="font-size:1.5rem;color:#8B5A2B;margin-bottom:0.5rem;">
+                <div class="fire-container">
+                    <div style="font-size:1.5rem;color:#FFB347;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
                         🔥 Найди иероглиф, который означает:
                     </div>
-                    <div style="font-size:2.5rem;font-weight:bold;color:#A64B2A;margin-bottom:1rem;">
+                    <div style="font-size:2.5rem;font-weight:bold;color:#FFD699;margin-bottom:1rem;text-shadow:0 0 40px rgba(255,179,71,0.2);">
                         ${word.translation}
                     </div>
-                    <div class="game-fire" id="fireEmoji">${word.emoji || '🔥'}</div>
-                    <div class="game-options" id="fireOptions"></div>
-                    <div style="margin-top:1rem;font-size:1.2rem;color:#8B5A2B;">
-                        Очки: <span id="fireScore">0</span> | Уровень: <span id="fireLevel">1</span>
+                    <div class="fire-emoji" id="fireEmoji">${word.emoji || '🔥'}</div>
+                    <div class="fire-particles">${particlesHTML}</div>
+                    <div class="fire-options" id="fireOptions"></div>
+                    <div style="margin-top:1rem;font-size:1.2rem;color:#b8956a;">
+                        🔥 Очки: <span id="fireScore" style="color:#FFB347;font-weight:bold;">${gameData.score}</span> | 
+                        📈 Уровень: <span id="fireLevel" style="color:#FFB347;font-weight:bold;">${gameData.level}</span>
                     </div>
                 </div>
             `;
             
             // Генерируем варианты
             const correct = word;
-            const wrong = shuffleArray(allWordsList.filter(w => w.chinese !== correct.chinese)).slice(0, 3);
+            const others = allWordsList.filter(w => w.chinese !== correct.chinese);
+            const wrong = shuffleArray(others).slice(0, 3);
             const options = shuffleArray([correct, ...wrong]);
             
             const optionsContainer = document.getElementById('fireOptions');
@@ -2398,6 +2751,8 @@
                 btn.style.pointerEvents = 'none';
                 if (btn.textContent.includes(correct)) {
                     btn.classList.add('correct');
+                    // Добавляем конфетти эффект
+                    createConfetti(btn);
                 }
                 if (btn.textContent.includes(selected) && selected !== correct) {
                     btn.classList.add('wrong');
@@ -2407,10 +2762,18 @@
             if (selected === correct) {
                 gameData.score += 10;
                 document.getElementById('fireScore').textContent = gameData.score;
+                document.getElementById('gameScore').textContent = gameData.score;
                 speakChinese(correct);
+                // Эффект искр
+                const emoji = document.getElementById('fireEmoji');
+                emoji.style.animation = 'none';
+                setTimeout(() => {
+                    emoji.style.animation = 'fireEmoji 0.8s ease-in-out infinite alternate';
+                }, 10);
             } else {
                 gameData.score = Math.max(0, gameData.score - 5);
                 document.getElementById('fireScore').textContent = gameData.score;
+                document.getElementById('gameScore').textContent = gameData.score;
             }
             
             setTimeout(() => {
@@ -2422,66 +2785,102 @@
                     startFireGame(document.getElementById('gameArea'));
                 } else {
                     document.getElementById('gameArea').innerHTML = `
-                        <div style="text-align:center;font-size:2rem;color:#4CAF50;">
+                        <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
                             🎉 Поздравляем! Вы прошли все слова!<br>
-                            <span style="font-size:1.2rem;">Очков: ${gameData.score}</span>
+                            <span style="font-size:1.2rem;color:#FFB347;">🔥 Очков: ${gameData.score}</span>
+                            <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                         </div>
                     `;
                 }
-            }, 800);
+            }, 900);
         }
 
-        // ===== ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ (МЕМОРИ) =====
+        // ===== ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ =====
         function startDuelGame(area) {
             const selectedWords = shuffleArray([...allWordsList]).slice(0, 6);
             const cards = [];
             
             for (const word of selectedWords) {
-                cards.push({ id: 'w_' + word.chinese, type: 'word', data: word, matched: false });
-                cards.push({ id: 'k_' + word.key, type: 'key', data: { key: word.key, emoji: WORDS_BY_KEY[word.key].emoji }, matched: false });
+                cards.push({
+                    id: 'w_' + Math.random().toString(36).substr(2, 6),
+                    type: 'word',
+                    data: word,
+                    matched: false
+                });
+                cards.push({
+                    id: 'k_' + Math.random().toString(36).substr(2, 6),
+                    type: 'key',
+                    data: { 
+                        key: word.key, 
+                        emoji: WORDS_BY_KEY[word.key]?.emoji || '🔑',
+                        meaning: WORDS_BY_KEY[word.key]?.meaning || 'ключ'
+                    },
+                    matched: false
+                });
             }
             
             gameData.pairs = shuffleArray(cards);
             gameData.selectedCards = [];
             gameData.matchedPairs = 0;
             
-            renderDuel(area);
-        }
-
-        function renderDuel(area) {
             area.innerHTML = `
-                <div style="text-align:center;width:100%;">
-                    <div style="font-size:1.2rem;color:#8B5A2B;margin-bottom:1rem;">
+                <div style="text-align:center;width:100%;position:relative;z-index:1;">
+                    <div style="font-size:1.2rem;color:#FFB347;margin-bottom:1rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
                         🃏 Найди пару: слово + его ключ
-                        <br>Найдено: <span id="duelMatched">0</span> / 6
+                        <br>Найдено: <span id="duelMatched" style="color:#FF6B35;font-weight:bold;">0</span> / 6 | 
+                        🏆 <span id="duelScore" style="color:#FF6B35;font-weight:bold;">0</span>
                     </div>
-                    <div class="game-duel" id="duelGrid"></div>
+                    <div class="duel-grid" id="duelGrid"></div>
                 </div>
             `;
             
+            renderDuelGrid();
+        }
+
+        function renderDuelGrid() {
             const grid = document.getElementById('duelGrid');
+            if (!grid) return;
+            
             grid.innerHTML = gameData.pairs.map((card, index) => {
-                const isFlipped = card.matched;
-                let content = '';
+                const isMatched = card.matched;
+                let frontContent = '', backContent = '';
+                
                 if (card.type === 'word') {
-                    content = `
+                    frontContent = `
                         <div class="card-emoji">${card.data.emoji || '📝'}</div>
                         <div class="card-text">${card.data.chinese}</div>
+                        <div class="card-sub">${card.data.pinyin}</div>
+                    `;
+                    backContent = `
+                        <div class="card-back-emoji">🔍</div>
+                        <div class="card-back-text">Найди ключ!</div>
                     `;
                 } else {
-                    content = `
+                    frontContent = `
                         <div class="card-emoji">${card.data.emoji || '🔑'}</div>
                         <div class="card-text">${card.data.key}</div>
+                        <div class="card-sub">${card.data.meaning}</div>
+                    `;
+                    backContent = `
+                        <div class="card-back-emoji">🔍</div>
+                        <div class="card-back-text">Найди слово!</div>
                     `;
                 }
+                
                 return `
-                    <div class="duel-card ${isFlipped ? 'matched' : ''}" 
+                    <div class="duel-card ${isMatched ? 'matched' : ''}" 
                          data-index="${index}" 
                          onclick="clickDuelCard(${index})">
-                        ${isFlipped ? '✅' : content}
+                        <div class="duel-card-inner">
+                            <div class="duel-card-front">${frontContent}</div>
+                            <div class="duel-card-back">${backContent}</div>
+                        </div>
                     </div>
                 `;
             }).join('');
+            
+            document.getElementById('duelMatched').textContent = gameData.matchedPairs;
+            document.getElementById('duelScore').textContent = gameData.score;
         }
 
         function clickDuelCard(index) {
@@ -2491,27 +2890,9 @@
             if (gameData.selectedCards.includes(index)) return;
             
             gameData.selectedCards.push(index);
-            
-            // Переворачиваем карточку
             const cards = document.querySelectorAll('.duel-card');
             cards.forEach((el, i) => {
-                if (i === index) {
-                    const cardData = gameData.pairs[i];
-                    let content = '';
-                    if (cardData.type === 'word') {
-                        content = `
-                            <div class="card-emoji">${cardData.data.emoji || '📝'}</div>
-                            <div class="card-text">${cardData.data.chinese}</div>
-                        `;
-                    } else {
-                        content = `
-                            <div class="card-emoji">${cardData.data.emoji || '🔑'}</div>
-                            <div class="card-text">${cardData.data.key}</div>
-                        `;
-                    }
-                    el.innerHTML = content;
-                    el.style.transform = 'rotateY(180deg)';
-                }
+                if (i === index) el.classList.add('flipped');
             });
             
             if (gameData.selectedCards.length === 2) {
@@ -2529,27 +2910,44 @@
                     gameData.matchedPairs++;
                     gameData.score += 15;
                     document.getElementById('duelMatched').textContent = gameData.matchedPairs;
+                    document.getElementById('duelScore').textContent = gameData.score;
                     document.getElementById('gameScore').textContent = gameData.score;
                     
+                    // Эффект совпадения
+                    const cardsEl = document.querySelectorAll('.duel-card');
+                    cardsEl.forEach((el, i) => {
+                        if (i === idx1 || i === idx2) {
+                            el.classList.add('matched');
+                            createConfetti(el);
+                        }
+                    });
+                    
                     setTimeout(() => {
-                        renderDuel(document.getElementById('gameArea'));
+                        renderDuelGrid();
                         if (gameData.matchedPairs === 6) {
                             document.getElementById('gameArea').innerHTML = `
-                                <div style="text-align:center;font-size:2rem;color:#4CAF50;">
+                                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
                                     🎉 Все пары найдены!<br>
-                                    <span style="font-size:1.2rem;">Очков: ${gameData.score}</span>
-                                    <br><button onclick="startGame('duel')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:#FF6B35;color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;">🔄 Играть снова</button>
+                                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                                    <br><button onclick="startGame('duel')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                                 </div>
                             `;
                         }
-                    }, 500);
+                    }, 600);
                 } else {
+                    // Ошибка
+                    const cardsEl = document.querySelectorAll('.duel-card');
+                    cardsEl.forEach((el, i) => {
+                        if (i === idx1 || i === idx2) {
+                            el.classList.add('wrong');
+                        }
+                    });
+                    
                     setTimeout(() => {
                         const cards2 = document.querySelectorAll('.duel-card');
                         cards2.forEach((el, i) => {
                             if (i === idx1 || i === idx2) {
-                                el.innerHTML = '❓';
-                                el.style.transform = '';
+                                el.classList.remove('flipped', 'wrong');
                             }
                         });
                         gameData.selectedCards = [];
@@ -2562,29 +2960,55 @@
         function startRaceGame(area) {
             gameData.timeLeft = 30;
             gameData.currentIndex = 0;
+            gameData.raceWords = shuffleArray([...gameData.words]);
+            
+            // Создаём звёзды
+            let starsHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const size = 1 + Math.random() * 3;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 3;
+                const duration = 1 + Math.random() * 2;
+                starsHTML += `
+                    <div class="race-star" style="
+                        left: ${left}%;
+                        top: ${top}%;
+                        width: ${size}px;
+                        height: ${size}px;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                    "></div>
+                `;
+            }
             
             area.innerHTML = `
-                <div class="game-race" style="width:100%;">
-                    <div style="display:flex;justify-content:space-around;font-size:1.2rem;color:#8B5A2B;margin-bottom:1rem;">
-                        <span>⏱️ <span id="raceTimer">30</span>с</span>
-                        <span>🏆 <span id="raceScore">0</span></span>
-                        <span>📚 <span id="raceTotal">0</span></span>
+                <div class="race-container">
+                    <div class="race-stars">${starsHTML}</div>
+                    <div style="display:flex;justify-content:space-around;font-size:1.2rem;color:#b8956a;position:relative;z-index:1;flex-wrap:wrap;gap:0.5rem;">
+                        <span>⏱️ <span class="race-timer" id="raceTimer">30</span>с</span>
+                        <span>🏆 <span style="color:#FFB347;font-weight:bold;" id="raceScore">0</span></span>
+                        <span>📚 <span style="color:#FFB347;font-weight:bold;" id="raceTotal">0</span></span>
                     </div>
-                    <div class="race-word" id="raceWord">${gameData.words[0]?.chinese || '🏁'}</div>
-                    <div class="game-options" id="raceOptions"></div>
+                    <div class="race-word" id="raceWord">🚀</div>
+                    <div class="race-options" id="raceOptions"></div>
                 </div>
             `;
             
             gameData.timer = setInterval(() => {
                 gameData.timeLeft--;
-                document.getElementById('raceTimer').textContent = gameData.timeLeft;
+                const timerEl = document.getElementById('raceTimer');
+                timerEl.textContent = gameData.timeLeft;
+                if (gameData.timeLeft <= 5) {
+                    timerEl.classList.add('warning');
+                }
                 if (gameData.timeLeft <= 0) {
                     clearInterval(gameData.timer);
                     document.getElementById('gameArea').innerHTML = `
-                        <div style="text-align:center;font-size:2rem;color:#FF6B35;">
+                        <div style="text-align:center;font-size:2rem;color:#FF6B35;padding:2rem;position:relative;z-index:1;">
                             ⏰ Время вышло!<br>
-                            <span style="font-size:1.2rem;">Очков: ${gameData.score}</span>
-                            <br><button onclick="startGame('race')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:#FF6B35;color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;">🔄 Играть снова</button>
+                            <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                            <br><button onclick="startGame('race')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                         </div>
                     `;
                 }
@@ -2594,13 +3018,13 @@
         }
 
         function showRaceWord() {
-            const word = gameData.words[gameData.currentIndex];
+            const word = gameData.raceWords[gameData.currentIndex];
             if (!word) {
                 clearInterval(gameData.timer);
                 document.getElementById('gameArea').innerHTML = `
-                    <div style="text-align:center;font-size:2rem;color:#4CAF50;">
+                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
                         🎉 Все слова пройдены!<br>
-                        <span style="font-size:1.2rem;">Очков: ${gameData.score}</span>
+                        <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
                     </div>
                 `;
                 return;
@@ -2609,7 +3033,8 @@
             document.getElementById('raceWord').textContent = word.chinese;
             document.getElementById('raceTotal').textContent = gameData.currentIndex + 1;
             
-            const wrong = shuffleArray(allWordsList.filter(w => w.chinese !== word.chinese)).slice(0, 3);
+            const others = allWordsList.filter(w => w.chinese !== word.chinese);
+            const wrong = shuffleArray(others).slice(0, 3);
             const options = shuffleArray([word, ...wrong]);
             
             const container = document.getElementById('raceOptions');
@@ -2625,8 +3050,10 @@
             const buttons = document.querySelectorAll('#raceOptions button');
             buttons.forEach(btn => {
                 btn.style.pointerEvents = 'none';
-                if (btn.textContent.includes(allWordsList.find(w => w.chinese === correct)?.translation || '')) {
+                const correctWord = allWordsList.find(w => w.chinese === correct);
+                if (btn.textContent.includes(correctWord?.translation || '')) {
                     btn.classList.add('correct');
+                    createConfetti(btn);
                 }
                 if (btn.textContent.includes(selected) && selected !== correct) {
                     btn.classList.add('wrong');
@@ -2650,7 +3077,12 @@
         function startPuzzleGame(area) {
             const word = gameData.words[0];
             if (!word) {
-                area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#8B5A2B;">🎉 Все слова собраны!</div>`;
+                area.innerHTML = `
+                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                        🎉 Все слова собраны!
+                        <br><button onclick="startGame('puzzle')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                    </div>
+                `;
                 return;
             }
             
@@ -2663,41 +3095,45 @@
             gameData.puzzleMoves = 0;
             
             area.innerHTML = `
-                <div style="text-align:center;width:100%;">
-                    <div style="font-size:1.2rem;color:#8B5A2B;margin-bottom:1rem;">
+                <div style="text-align:center;width:100%;position:relative;z-index:1;">
+                    <div style="font-size:1.2rem;color:#FFB347;margin-bottom:1rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
                         🧩 Собери иероглиф: <span style="font-weight:bold;color:#FF6B35;">${word.translation}</span>
-                        <br>Ходов: <span id="puzzleMoves">0</span>
+                        <br>Ходов: <span id="puzzleMoves" style="color:#FF6B35;font-weight:bold;">0</span> | 
+                        🏆 <span id="puzzleScore" style="color:#FF6B35;font-weight:bold;">${gameData.score}</span>
                     </div>
-                    <div class="game-puzzle" id="puzzleGrid"></div>
-                    <div style="margin-top:1rem;">
-                        <button onclick="startPuzzleGame(document.getElementById('gameArea'))" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:#FFB347;color:white;font-size:1rem;cursor:pointer;">🔄 Новый пазл</button>
+                    <div class="puzzle-grid" id="puzzleGrid"></div>
+                    <div style="margin-top:1rem;display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+                        <button onclick="startPuzzleGame(document.getElementById('gameArea'))" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FFB347,#FF8C42);color:#2d1b0e;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #8B4513;">🔄 Новый пазл</button>
+                        <button onclick="startGame('puzzle')" style="padding:0.5rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#4CAF50,#45a049);color:white;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #2E7D32;">🎲 Случайный</button>
                     </div>
                 </div>
             `;
             
-            renderPuzzle();
+            renderPuzzleGrid();
         }
 
-        function renderPuzzle() {
+        function renderPuzzleGrid() {
             const grid = document.getElementById('puzzleGrid');
+            if (!grid) return;
+            
             grid.innerHTML = gameData.puzzlePieces.map((piece, i) => `
                 <div class="puzzle-piece ${i === gameData.puzzleEmpty ? 'empty' : ''}" 
-                     onclick="clickPuzzle(${i})">
+                     onclick="clickPuzzlePiece(${i})">
                     ${i === gameData.puzzleEmpty ? '' : piece.char}
                 </div>
             `).join('');
             
             document.getElementById('puzzleMoves').textContent = gameData.puzzleMoves;
+            document.getElementById('puzzleScore').textContent = gameData.score;
         }
 
-        function clickPuzzle(index) {
+        function clickPuzzlePiece(index) {
             if (gameData.puzzleEmpty === -1) {
                 gameData.puzzleEmpty = index;
-                renderPuzzle();
+                renderPuzzleGrid();
                 return;
             }
             
-            // Проверяем соседние клетки
             const emptyIndex = gameData.puzzleEmpty;
             const row = Math.floor(index / 3);
             const col = index % 3;
@@ -2707,13 +3143,12 @@
             if ((Math.abs(row - emptyRow) === 1 && col === emptyCol) ||
                 (Math.abs(col - emptyCol) === 1 && row === emptyRow)) {
                 
-                // Меняем местами
                 [gameData.puzzlePieces[index], gameData.puzzlePieces[emptyIndex]] = 
                 [gameData.puzzlePieces[emptyIndex], gameData.puzzlePieces[index]];
                 
                 gameData.puzzleMoves++;
                 gameData.puzzleEmpty = index;
-                renderPuzzle();
+                renderPuzzleGrid();
                 
                 // Проверяем победу
                 let correct = true;
@@ -2727,23 +3162,75 @@
                 if (correct) {
                     gameData.score += 20;
                     document.getElementById('gameScore').textContent = gameData.score;
+                    const grid = document.getElementById('puzzleGrid');
+                    grid.querySelectorAll('.puzzle-piece').forEach(el => {
+                        if (!el.classList.contains('empty')) {
+                            el.classList.add('correct');
+                            createConfetti(el);
+                        }
+                    });
+                    
                     gameData.words.shift();
                     setTimeout(() => {
                         if (gameData.words.length > 0) {
                             startPuzzleGame(document.getElementById('gameArea'));
                         } else {
                             document.getElementById('gameArea').innerHTML = `
-                                <div style="text-align:center;font-size:2rem;color:#4CAF50;">
+                                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
                                     🎉 Все слова собраны!<br>
-                                    <span style="font-size:1.2rem;">Очков: ${gameData.score}</span>
+                                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                                    <br><button onclick="startGame('puzzle')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
                                 </div>
                             `;
                         }
-                    }, 500);
+                    }, 800);
                 }
             } else {
                 gameData.puzzleEmpty = -1;
-                renderPuzzle();
+                renderPuzzleGrid();
+            }
+        }
+
+        // ===== ЭФФЕКТ КОНФЕТТИ =====
+        function createConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#FF6B35', '#FFB347', '#4CAF50', '#2196F3', '#9C27B0', '#FF6B6B', '#FFD700'];
+            
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                const size = 6 + Math.random() * 8;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = 50 + Math.random() * 100;
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                confetti.style.cssText = `
+                    position: fixed;
+                    width: ${size}px;
+                    height: ${size * 0.4}px;
+                    background: ${color};
+                    left: ${x}px;
+                    top: ${y}px;
+                    border-radius: 2px;
+                    pointer-events: none;
+                    z-index: 9999;
+                    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    transform: rotate(${Math.random() * 360}deg);
+                `;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.style.left = (x + Math.cos(angle) * distance) + 'px';
+                    confetti.style.top = (y + Math.sin(angle) * distance - 50) + 'px';
+                    confetti.style.opacity = '0';
+                    confetti.style.transform = `rotate(${Math.random() * 720}deg) scale(0.5)`;
+                }, 10);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 900);
             }
         }
 
@@ -2777,8 +3264,9 @@
         window.checkFireAnswer = checkFireAnswer;
         window.clickDuelCard = clickDuelCard;
         window.checkRaceAnswer = checkRaceAnswer;
-        window.clickPuzzle = clickPuzzle;
+        window.clickPuzzlePiece = clickPuzzlePiece;
         window.smartSearch = smartSearch;
+        window.createConfetti = createConfetti;
     </script>
 </body>
 </html>
