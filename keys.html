@@ -3,464 +3,1035 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>📚 Весёлый китайский - Все уроки</title>
+    <title>🔑 Ключи китайского — запоминай слова</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background: linear-gradient(145deg, #FFF0E0 0%, #FFE0C0 100%);
             font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
-            padding: 1rem;
+            padding: 0.8rem;
             min-height: 100vh;
         }
         
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
         
-        .hero {
+        .header {
             text-align: center;
             background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
-            border-radius: 80px;
-            padding: 1.5rem 1rem;
-            margin-bottom: 1rem;
+            border-radius: 60px;
+            padding: 2rem 1rem;
+            margin-bottom: 1.5rem;
             box-shadow: 0 15px 0 #C16F1A;
             color: white;
         }
-        .hero h1 { font-size: 1.8rem; }
-        .hero p { font-size: 0.9rem; margin-top: 0.3rem; }
+        .header h1 { font-size: 3rem; letter-spacing: 2px; }
+        .header p { font-size: 1.4rem; margin-top: 0.5rem; opacity: 0.95; }
+        .header .stats { font-size: 1.2rem; margin-top: 0.5rem; opacity: 0.9; }
         
-        .install-banner {
-            background: #2d6a4f;
-            color: white;
+        .back-link {
+            display: inline-block;
+            background: white;
+            color: #A64B2A;
+            padding: 0.8rem 2rem;
             border-radius: 50px;
-            padding: 12px 20px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            display: none;
-        }
-        .install-banner.show { display: flex; }
-        .install-banner button {
-            background: #FF8C42;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            color: white;
+            text-decoration: none;
             font-weight: bold;
-            cursor: pointer;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            border: 3px solid #FFB347;
+            box-shadow: 0 6px 0 #D98F33;
+            transition: 0.1s;
         }
-        .install-banner button:active { transform: scale(0.96); }
+        .back-link:active { transform: translateY(3px); box-shadow: 0 3px 0 #D98F33; }
         
         .tabs-nav {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         .tab-btn {
             background: white;
             color: #A64B2A;
-            border: 2px solid #FFB347;
-            padding: 0.6rem 1rem;
-            border-radius: 40px;
+            border: 3px solid #FFB347;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             transition: 0.1s;
-            box-shadow: 0 4px 0 #D98F33;
+            box-shadow: 0 6px 0 #D98F33;
         }
         .tab-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            box-shadow: 0 4px 0 #C16F1A;
+            box-shadow: 0 6px 0 #C16F1A;
+            border-color: #FF6B35;
         }
-        .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #C16F1A; }
+        .tab-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #D98F33; }
+        .tab-btn.active:active { box-shadow: 0 3px 0 #C16F1A; }
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        .speak-tip {
-            text-align: center;
-            background: #FFF1C1;
-            padding: 0.6rem;
-            border-radius: 50px;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            border: 2px solid #FFB347;
-        }
-        
-        .lessons-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        .lesson-card {
-            background: white;
-            border-radius: 30px;
-            padding: 1.3rem;
-            text-decoration: none;
-            color: #A64B2A;
-            border: 3px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
-            transition: 0.1s;
-            display: block;
-        }
-        .lesson-card:hover { transform: translateY(-2px); }
-        .lesson-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
-        .lesson-card h2 { font-size: 1.2rem; margin-bottom: 0.3rem; }
-        .lesson-card p { font-size: 0.85rem; color: #8B5A2B; }
-        
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        .game-card {
-            background: white;
-            border-radius: 30px;
-            padding: 1.2rem;
-            text-align: center;
-            border: 3px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
-            cursor: pointer;
-            transition: 0.1s;
-            text-decoration: none;
-            color: #A64B2A;
-            display: block;
-        }
-        .game-card:hover { transform: translateY(-2px); }
-        .game-card:active { transform: translateY(3px); box-shadow: 0 7px 0 #D98F33; }
-        .game-card .game-icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
-        .game-card h3 { font-size: 1rem; margin-bottom: 0.2rem; }
-        .game-card p { font-size: 0.75rem; color: #8B5A2B; }
-        
-        .game-tag {
-            display: inline-block;
-            background: #4CAF50;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.65rem;
-            margin-top: 0.4rem;
-        }
-        .game-tag.blue { background: #2196F3; }
-        .game-tag.green { background: #4CAF50; }
-        .game-tag.orange { background: #FF8C42; }
-        .game-tag.purple { background: #9C27B0; }
-        
-        .new-game-banner {
-            background: linear-gradient(135deg, #9C27B0, #E91E63);
+        .search-section { margin-bottom: 1.5rem; }
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
             border-radius: 60px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: white;
-            box-shadow: 0 8px 0 #6A1B9A;
-            text-decoration: none;
-            display: block;
-            transition: 0.1s;
-            animation: pulse-glow 2s infinite;
-        }
-        .new-game-banner:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #6A1B9A;
-        }
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
-            50% { box-shadow: 0 8px 0 #6A1B9A, 0 0 20px 5px rgba(156,39,176,0.7); }
-            100% { box-shadow: 0 8px 0 #6A1B9A, 0 0 0 0 rgba(156,39,176,0.4); }
-        }
-        .new-game-banner .banner-icon { font-size: 2.5rem; }
-        .new-game-banner .banner-title { font-weight: bold; font-size: 1.3rem; margin: 0.3rem 0; }
-        .new-game-banner .banner-desc { font-size: 0.8rem; opacity: 0.9; }
-        .new-game-banner .banner-button {
-            display: inline-block;
-            margin-top: 0.5rem;
-            background: rgba(255,255,255,0.25);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        .search-box {
-            background: white;
-            border-radius: 50px;
-            padding: 0.3rem;
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            border: 2px solid #FFB347;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            outline: none;
-            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
-        }
-        .search-box button {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-        }
-        .filter-levels {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        .filter-btn {
-            background: white;
-            border: 2px solid #FFB347;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: bold;
-            transition: 0.1s;
-        }
-        .filter-btn.active {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            color: white;
-            border-color: #FF6B35;
-        }
-        .dict-results {
-            background: white;
-            border-radius: 30px;
-            padding: 1rem;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        .dict-item {
-            background: #FFF8F0;
-            border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 0.7rem;
-            border-left: 5px solid #FF8C42;
-            transition: 0.1s;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .dict-item:hover { background: #FFF0E0; transform: translateX(5px); }
-        .dict-content {
-            flex: 1;
-            min-width: 180px;
-        }
-        .dict-chinese {
-            font-size: 1.5rem;
-            font-weight: bold;
-            font-family: 'Noto Sans SC', monospace;
-            cursor: pointer;
-            display: inline-block;
-            background: #FFF0E0;
-            padding: 0.2rem 0.6rem;
-            border-radius: 30px;
-            transition: 0.1s;
-        }
-        .dict-chinese:active {
-            background: #FFD699;
-            transform: scale(0.97);
-        }
-        .dict-pinyin {
-            color: #FF8C42;
-            font-size: 0.9rem;
-            margin-left: 0.5rem;
-        }
-        .dict-russian {
-            color: #A64B2A;
-            margin-top: 0.3rem;
-        }
-        .dict-level {
-            display: inline-block;
-            background: #FFE0C0;
-            padding: 0.2rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-top: 0.5rem;
-        }
-        .source-badge {
-            display: inline-block;
-            background: #E8D5B5;
-            padding: 0.15rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            margin-left: 0.5rem;
-            color: #8B5A2B;
-        }
-        .speak-btn {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            width: 48px;
-            height: 48px;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-left: 0.8rem;
-            transition: 0.1s;
-            box-shadow: 0 3px 0 #C16F1A;
-        }
-        .speak-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #C16F1A;
-        }
-        .stats-info {
-            background: #FFF1C1;
-            border-radius: 20px;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 0.85rem;
-        }
-        
-        /* Стили для вкладки ТЕКСТЫ */
-        .texts-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .text-card {
-            background: white;
-            border-radius: 30px;
-            padding: 0;
             border: 3px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
-            overflow: hidden;
-        }
-        .text-header {
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            padding: 1rem;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .speak-all-btn {
-            background: rgba(255,255,255,0.25);
-            border: none;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .speak-all-btn:active { background: rgba(255,255,255,0.4); transform: scale(0.97); }
-        .text-content {
-            padding: 1.5rem;
-            background: #FFFDF9;
-        }
-        .text-line {
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px dashed #FFD699;
-        }
-        .chinese-line {
-            font-size: 1.8rem;
-            font-weight: bold;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            color: #A64B2A;
-            cursor: pointer;
-            display: inline-block;
-            background: #FFF0E0;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-bottom: 0.3rem;
-            transition: 0.1s;
-        }
-        .chinese-line:active {
-            background: #FFD699;
-            transform: scale(0.99);
-        }
-        .pinyin-line {
-            font-size: 1rem;
-            color: #FF8C42;
-            margin-top: 0.3rem;
-            letter-spacing: 0.5px;
-        }
-        .translate-line {
-            font-size: 1.1rem;
-            color: #8B5A2B;
-            margin-top: 0.3rem;
-            font-style: italic;
-        }
-        .lesson-selector-texts {
+            font-size: 1.6rem;
+            outline: none;
+            font-family: inherit;
             background: white;
-            border-radius: 50px;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        .search-input:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 4px 0 #D98F33, 0 0 0 4px rgba(255,107,53,0.2);
+        }
+        
+        .key-selector {
             display: flex;
             gap: 0.8rem;
             flex-wrap: wrap;
             justify-content: center;
-            border: 2px solid #FFB347;
+            margin-bottom: 1.5rem;
         }
-        .lesson-btn-texts {
-            background: #FFF0E0;
-            border: 2px solid #FFB347;
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            cursor: pointer;
+        .key-btn {
+            background: white;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            padding: 0.8rem 1.6rem;
+            border-radius: 50px;
             font-weight: bold;
-            font-size: 0.85rem;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: 0.1s;
+            box-shadow: 0 6px 0 #D98F33;
+            min-width: 70px;
+        }
+        .key-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            box-shadow: 0 6px 0 #C16F1A;
+            border-color: #FF6B35;
+            transform: scale(1.05);
+        }
+        .key-btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #D98F33; }
+        .key-btn.active:active { box-shadow: 0 3px 0 #C16F1A; }
+        
+        .total-badge {
+            text-align: center;
+            background: #FFF1C1;
+            padding: 0.8rem;
+            border-radius: 60px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #A64B2A;
+            border: 3px solid #FFB347;
+            box-shadow: 0 4px 0 #D98F33;
+        }
+        
+        .fang-container {
+            background: white;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #D98F33;
+        }
+        
+        .fang-title {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #A64B2A;
+            padding: 1rem;
+            background: #FFF8F0;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            border: 3px solid #FFD699;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .fang-title .key-char {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            padding: 0.3rem 1.8rem;
+            border-radius: 50px;
+            font-size: 5rem;
+            line-height: 1.4;
+        }
+        .fang-title .key-meaning { font-size: 2rem; color: #8B5A2B; }
+        .fang-title .key-emoji { font-size: 4rem; }
+        
+        .fang-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        
+        .fang-item {
+            display: flex;
+            align-items: center;
+            background: #FFFDF9;
+            border-radius: 30px;
+            padding: 1.2rem 1.8rem;
+            border-left: 8px solid #FF8C42;
+            transition: 0.1s;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .fang-item:hover { background: #FFF0E0; transform: translateX(8px); }
+        .fang-item .arrow {
+            font-size: 3rem;
+            color: #FF8C42;
+            min-width: 4rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        .fang-item .word-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 1.2rem;
+            flex: 1;
+        }
+        .fang-item .chinese-word {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #A64B2A;
+            cursor: pointer;
+            background: #FFF0E0;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            transition: 0.1s;
+            line-height: 1.3;
+        }
+        .fang-item .chinese-word:active { background: #FFD699; transform: scale(0.97); }
+        .fang-item .pinyin-word {
+            color: #FF8C42;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .fang-item .translation {
+            color: #8B5A2B;
+            font-size: 1.6rem;
+            font-weight: 500;
+        }
+        .fang-item .emoji { font-size: 3rem; margin-left: 0.2rem; }
+        .fang-item .hsk-badge {
+            display: inline-block;
+            background: #FFE0C0;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            color: #8B5A2B;
+            font-weight: bold;
+        }
+        .fang-item .speak-small-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
             transition: 0.1s;
         }
-        .lesson-btn-texts.active {
+        .fang-item .speak-small-btn:hover { background: #FFD699; }
+        .fang-item .speak-small-btn:active { transform: scale(0.9); }
+        .fang-item .write-btn {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #6A1B9A;
+            transition: 0.1s;
+        }
+        .fang-item .write-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #6A1B9A; }
+        
+        .no-results { text-align: center; padding: 2rem; color: #8B5A2B; font-size: 1.8rem; }
+        
+        /* ===== СТИЛИ ДЛЯ ТЕТРАДИ ===== */
+        .writing-section {
+            background: white;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #D98F33;
+        }
+        
+        .writing-toolbar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .writing-toolbar .char-display {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #A64B2A;
+            background: #FFF8F0;
+            padding: 0.2rem 2rem;
+            border-radius: 30px;
+            border: 3px solid #FFD699;
+            min-width: 150px;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .writing-toolbar .info-display {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.2rem;
+        }
+        .writing-toolbar .info-display .pinyin-display {
+            font-size: 1.6rem;
+            color: #FF8C42;
+            font-weight: 600;
+        }
+        .writing-toolbar .info-display .translation-display {
+            font-size: 1.4rem;
+            color: #8B5A2B;
+        }
+        
+        .writing-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .writing-actions button {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+        }
+        .writing-actions button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
+        .btn-clear { background: #FF6B6B; color: white; }
+        .btn-undo { background: #FFB347; color: white; }
+        .btn-next { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; }
+        .btn-prev { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; }
+        .btn-random { background: linear-gradient(135deg, #9C27B0, #E91E63); color: white; }
+        .btn-speak { background: linear-gradient(135deg, #FF6B35, #FF8C42); color: white; }
+        .btn-mic {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            font-size: 1.8rem;
+            padding: 0.8rem 2rem;
+            min-width: 120px;
+        }
+        .btn-mic.listening {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: pulse-mic 1s infinite;
+        }
+        @keyframes pulse-mic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(231,76,60,0.5); }
+        }
+
+        .brush-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            margin: 0.5rem 0 1rem;
+            flex-wrap: wrap;
+            background: #FFF8F0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            border: 2px solid #FFD699;
+        }
+        .brush-control label {
+            font-weight: bold;
+            color: #A64B2A;
+            font-size: 1.2rem;
+        }
+        .brush-control input[type="range"] {
+            width: 200px;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #FFD699;
+            border-radius: 10px;
+            outline: none;
+        }
+        .brush-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255,107,53,0.4);
+        }
+        .brush-control .brush-size-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .speech-result {
+            text-align: center;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 30px;
+            background: #FFF8F0;
+            border: 3px solid #FFD699;
+            display: none;
+        }
+        .speech-result.show { display: block; }
+        .speech-result .score {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .speech-result .score.perfect { color: #4CAF50; }
+        .speech-result .score.good { color: #FFB347; }
+        .speech-result .score.bad { color: #FF6B6B; }
+        .speech-result .heard-text {
+            font-size: 1.6rem;
+            color: #A64B2A;
+            margin: 0.5rem 0;
+        }
+        .speech-result .expected-text {
+            font-size: 1.4rem;
+            color: #8B5A2B;
+        }
+        .speech-result .feedback {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 20px;
+        }
+        .speech-result .feedback.perfect { background: #C8E6C9; color: #2E7D32; }
+        .speech-result .feedback.good { background: #FFF3E0; color: #E65100; }
+        .speech-result .feedback.bad { background: #FFCDD2; color: #C62828; }
+        
+        .canvas-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: #FFFDF9;
+            border-radius: 30px;
+            padding: 1rem;
+            border: 3px solid #FFD699;
+        }
+        #writingCanvas {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            aspect-ratio: 1/1;
+            background: #FDF8F0;
+            border-radius: 20px;
+            touch-action: none;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='30' viewBox='0 0 24 30'><text y='24' font-size='20'>🖊️</text></svg>") 0 24, crosshair;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+        
+        .word-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.6rem;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            background: #FFF8F0;
+            border-radius: 20px;
+            border: 2px solid #FFD699;
+        }
+        .word-selector-grid .grid-char {
+            font-size: 2.2rem;
+            text-align: center;
+            padding: 0.3rem;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #FFD699;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .word-selector-grid .grid-char:active { background: #FFD699; transform: scale(0.95); }
+        .word-selector-grid .grid-char.active-char {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
             border-color: #FF6B35;
         }
-        .lesson-btn-texts:active { transform: scale(0.97); }
         
-        /* Стили для вкладки КЛЮЧИ */
-        .keys-preview {
-            background: white;
-            border-radius: 30px;
-            padding: 1.5rem;
-            border: 3px solid #FFB347;
-            box-shadow: 0 10px 0 #D98F33;
-            text-align: center;
+        /* ===== СТИЛИ ДЛЯ 3D МАДЖОНГА (НЕ ТРОГАТЬ!) ===== */
+        .mahjong-container {
+            background: linear-gradient(145deg, #2d1b0e, #4a2c1a);
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #8B5A2B, inset 0 0 60px rgba(0,0,0,0.3);
+            perspective: 1200px;
+            min-height: 500px;
         }
-        .keys-preview .big-icon { font-size: 4rem; margin-bottom: 0.5rem; }
-        .keys-preview h2 { color: #A64B2A; margin-bottom: 0.5rem; }
-        .keys-preview p { color: #8B5A2B; margin-bottom: 1rem; }
-        .keys-preview .go-btn {
-            display: inline-block;
+        
+        .mahjong-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.15);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .mahjong-stats span {
+            color: #FFB347;
+            font-size: 1.8rem;
+        }
+        .mahjong-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .mahjong-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            perspective: 1200px;
+        }
+        
+        .mahjong-tile {
+            position: relative;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .mahjong-tile:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .mahjong-tile-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 14px;
+            box-shadow: 
+                0 6px 0 #3d2415,
+                0 10px 30px rgba(0,0,0,0.5),
+                inset 0 -3px 0 rgba(0,0,0,0.2);
+        }
+        
+        .mahjong-tile-front,
+        .mahjong-tile-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.3rem;
+            text-align: center;
+            border: 3px solid #b8956a;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.4);
+            overflow: hidden;
+        }
+        
+        .mahjong-tile-front {
+            background: linear-gradient(145deg, #f5e6d3, #e8d5c0);
+            transform: rotateY(0deg);
+        }
+        
+        .mahjong-tile-front .tile-char {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #2d1b0e;
+            line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+            word-break: break-word;
+            max-width: 100%;
+            padding: 0 0.1rem;
+        }
+        
+        .mahjong-tile-front .tile-char.long-word {
+            font-size: 2rem;
+        }
+        
+        .mahjong-tile-front .tile-pinyin {
+            font-size: 0.85rem;
+            color: #8B5A2B;
+            margin-top: 0.1rem;
+            font-weight: 600;
+        }
+        
+        .mahjong-tile-front .tile-translation {
+            font-size: 0.7rem;
+            color: #6b4a2a;
+            margin-top: 0.1rem;
+            font-weight: 500;
+            max-width: 100%;
+            word-break: break-word;
+            line-height: 1.2;
+            padding: 0 0.1rem;
+        }
+        
+        .mahjong-tile-front .tile-emoji {
+            font-size: 2rem;
+            line-height: 1;
+            margin-top: 0.1rem;
+        }
+        
+        .mahjong-tile-front .tile-hsk {
+            font-size: 0.55rem;
+            color: #fff;
+            background: #FF6B35;
+            padding: 0.05rem 0.5rem;
+            border-radius: 10px;
+            margin-top: 0.15rem;
+            font-weight: bold;
+        }
+        
+        .mahjong-tile-back {
+            background: linear-gradient(145deg, #2d1b0e, #1a0f08);
+            transform: rotateY(180deg);
+            border-color: #5a3d2b;
+            justify-content: center;
+            color: #b8956a;
+        }
+        
+        .mahjong-tile-back .back-emoji {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        
+        .mahjong-tile-back .back-text {
+            font-size: 1.2rem;
+            color: #FFB347;
+            margin-top: 0.3rem;
+            font-weight: bold;
+        }
+        
+        .mahjong-tile-back .back-pinyin {
+            font-size: 0.9rem;
+            color: #b8956a;
+            margin-top: 0.1rem;
+        }
+        
+        .mahjong-tile.flipped .mahjong-tile-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .mahjong-tile.matched {
+            animation: matchSuccess 0.7s ease forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes matchSuccess {
+            0% { transform: scale(1) rotateY(0deg); opacity: 1; }
+            30% { transform: scale(1.3) rotateY(180deg); opacity: 1; }
+            60% { transform: scale(1.4) rotateY(360deg); opacity: 0.8; }
+            100% { transform: scale(0) rotateY(720deg); opacity: 0; }
+        }
+        
+        .mahjong-tile.wrong {
+            animation: wrongShake 0.5s ease;
+        }
+        
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotateY(0deg); }
+            20% { transform: translateX(-15px) rotateY(-15deg); }
+            40% { transform: translateX(15px) rotateY(15deg); }
+            60% { transform: translateX(-10px) rotateY(-10deg); }
+            80% { transform: translateX(10px) rotateY(10deg); }
+        }
+        
+        .mahjong-tile.selected .mahjong-tile-inner {
+            transform: rotateY(180deg);
+            box-shadow: 
+                0 0 30px rgba(255,107,53,0.6),
+                0 8px 0 #3d2415;
+        }
+        
+        .mahjong-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .mahjong-controls button {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+            color: white;
+        }
+        .mahjong-controls button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+        .btn-new-game { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .btn-shuffle { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .btn-hint { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        
+        .mahjong-pairs-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .mahjong-pairs-selector button {
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            border: 2px solid #FFB347;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .mahjong-pairs-selector button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .mahjong-pairs-selector button.active {
+            background: #FF6B35;
+            border-color: #FF6B35;
+            color: white;
+        }
+        
+        @media (max-width: 600px) {
+            .mahjong-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.6rem;
+            }
+            .mahjong-tile-front .tile-char {
+                font-size: 2.2rem;
+            }
+            .mahjong-tile-front .tile-char.long-word {
+                font-size: 1.6rem;
+            }
+            .mahjong-tile-front .tile-pinyin {
+                font-size: 0.7rem;
+            }
+            .mahjong-tile-front .tile-translation {
+                font-size: 0.6rem;
+            }
+            .mahjong-tile-front .tile-emoji {
+                font-size: 1.5rem;
+            }
+            .mahjong-stats {
+                font-size: 1rem;
+                padding: 0.6rem;
+            }
+            .mahjong-stats span {
+                font-size: 1.2rem;
+            }
+            .mahjong-tile-back .back-emoji {
+                font-size: 2.8rem;
+            }
+            .mahjong-tile-back .back-text {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .mahjong-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mahjong-tile-front .tile-char {
+                font-size: 1.8rem;
+            }
+            .mahjong-tile-front .tile-char.long-word {
+                font-size: 1.3rem;
+            }
+            .mahjong-tile-front .tile-pinyin {
+                font-size: 0.6rem;
+            }
+            .mahjong-tile-front .tile-translation {
+                font-size: 0.55rem;
+            }
+            .mahjong-tile-front .tile-emoji {
+                font-size: 1.2rem;
+            }
+            .mahjong-tile-back .back-emoji {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* ===== СТИЛИ ДЛЯ ИГР ===== */
+        .game-container {
+            background: linear-gradient(145deg, #1a0f08, #2d1b0e);
+            border-radius: 40px;
+            padding: 1.5rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #8B4513, inset 0 0 60px rgba(255,107,53,0.05);
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-stats {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #FFB347;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255,179,71,0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+        .game-stats span { color: #FF6B35; }
+        
+        .game-buttons {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .game-buttons .tab-btn {
+            font-size: 1.1rem;
+            padding: 0.6rem 1.4rem;
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,179,71,0.3);
+            color: #b8956a;
+            box-shadow: 0 4px 0 rgba(139,69,19,0.3);
+        }
+        .game-buttons .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+            color: #FFB347;
+        }
+        .game-buttons .tab-btn.active {
             background: linear-gradient(135deg, #FF6B35, #FF8C42);
             color: white;
-            padding: 0.8rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
+            border-color: #FF6B35;
+            box-shadow: 0 6px 0 #C16F1A, 0 0 40px rgba(255,107,53,0.3);
+        }
+        
+        /* ===== ПАЗЛ ===== */
+        .puzzle-piece {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+        .puzzle-piece:hover:not([style*="pointer-events:none"]) {
+            transform: scale(1.05) !important;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2), 0 12px 30px rgba(0,0,0,0.2) !important;
+        }
+        @keyframes puzzleSnap {
+            0% { transform: scale(1.15); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(0.95); }
+        }
+        
+        /* ===== ДУЭЛЬ КЛЮЧЕЙ ===== */
+        .duel-card.flipped .duel-card-inner {
+            transform: rotateY(180deg) !important;
+        }
+        @keyframes matchPulse {
+            0% { transform: scale(1); opacity: 1; }
+            30% { transform: scale(1.1); opacity: 0.8; box-shadow: 0 0 60px rgba(76,175,80,0.4); }
+            100% { transform: scale(0.9); opacity: 0.3; }
+        }
+        
+        /* ===== ТРАНСФОРМЕР ===== */
+        .fire-container { text-align: center; position: relative; z-index: 1; }
+        .fire-emoji {
+            font-size: 7rem;
+            animation: fireEmoji 0.8s ease-in-out infinite alternate;
+            display: block;
+        }
+        @keyframes fireEmoji {
+            0% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 20px rgba(255,107,53,0.3)); }
+            100% { transform: scale(1.1) rotate(3deg); filter: drop-shadow(0 0 50px rgba(255,107,53,0.6)); }
+        }
+        .fire-particles {
+            position: relative;
+            height: 50px;
+            overflow: hidden;
+        }
+        .fire-particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: particleFly 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255,107,53,0.3);
+        }
+        @keyframes particleFly {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-70px) scale(0); opacity: 0; }
+        }
+        .fire-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+            max-width: 380px;
+            margin: 0.5rem auto;
+        }
+        .fire-options button {
+            padding: 0.8rem;
+            border-radius: 16px;
+            border: 3px solid #FFB347;
+            background: rgba(45, 27, 14, 0.8);
+            color: #f5e6d3;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 0 #8B4513;
+            backdrop-filter: blur(10px);
+        }
+        .fire-options button:hover { transform: scale(1.05); border-color: #FF6B35; }
+        .fire-options button:active { transform: translateY(3px); box-shadow: 0 1px 0 #8B4513; }
+        .fire-options button.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            transform: scale(1.1);
+            box-shadow: 0 0 60px rgba(76,175,80,0.5), 0 4px 0 #2E7D32;
+        }
+        .fire-options button.wrong {
+            background: #FF6B6B;
+            border-color: #FF6B6B;
+            animation: shake 0.4s ease;
+            box-shadow: 0 0 40px rgba(255,107,107,0.4);
+        }
+        
+        /* ===== КОСМИЧЕСКАЯ ГОНКА ===== */
+        .race-container {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            padding: 1.5rem;
+            background: radial-gradient(ellipse at center, #0d0805 0%, #000000 100%);
+            border: 2px solid #FFB347;
+            min-height: 300px;
+        }
+        .race-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .race-star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: starTwinkle 2s ease-in-out infinite;
+        }
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .race-word {
+            font-size: 4.5rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 6px 0 #C16F1A;
-            transition: 0.1s;
+            color: #FFB347;
+            text-shadow: 0 0 60px rgba(255,179,71,0.3);
+            animation: raceFloat 1.5s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
-        .keys-preview .go-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #C16F1A;
+        @keyframes raceFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.03); }
         }
-        .keys-preview .stats-mini {
-            margin-top: 1rem;
-            color: #8B5A2B;
-            font-size: 0.9rem;
+        .race-timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            text-shadow: 0 0 30px rgba(255,107,53,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        .race-timer.warning {
+            color: #FF6B6B;
+            animation: timerPulse 0.5s ease-in-out infinite;
+        }
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .race-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+            max-width: 360px;
+            margin: 0.5rem auto;
+            position: relative;
+            z-index: 1;
+        }
+        .race-options button {
+            padding: 0.6rem 0.8rem;
+            border-radius: 16px;
+            border: 2px solid rgba(255,179,71,0.3);
+            background: rgba(45, 27, 14, 0.7);
+            color: #f5e6d3;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 0 rgba(139,69,19,0.4);
+        }
+        .race-options button:hover { transform: scale(1.05); border-color: #FFB347; }
+        .race-options button:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(139,69,19,0.4); }
+        .race-options button.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            box-shadow: 0 0 50px rgba(76,175,80,0.4), 0 4px 0 #2E7D32;
+        }
+        .race-options button.wrong {
+            background: #FF6B6B;
+            border-color: #FF6B6B;
+            animation: shake 0.4s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-12px); }
+            40% { transform: translateX(12px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         footer {
@@ -471,247 +1042,448 @@
             border-radius: 50px;
             font-weight: bold;
             color: #A64B2A;
-            font-size: 0.8rem;
+            font-size: 1.2rem;
         }
         
         @media (max-width: 800px) {
-            .games-grid, .lessons-list { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 1.3rem; }
-            .dict-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .speak-btn {
-                margin-left: 0;
-                margin-top: 0.7rem;
-                align-self: flex-end;
-            }
-            .new-game-banner .banner-title { font-size: 1rem; }
-            .new-game-banner .banner-icon { font-size: 1.8rem; }
-            .chinese-line { font-size: 1.4rem; }
-            .pinyin-line { font-size: 0.8rem; }
-            .translate-line { font-size: 0.9rem; }
-            .text-content { padding: 1rem; }
-            .lesson-btn-texts { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
-            .keys-preview .big-icon { font-size: 3rem; }
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .fang-title { font-size: 2.5rem; }
+            .fang-title .key-char { font-size: 3.5rem; }
+            .fang-title .key-meaning { font-size: 1.2rem; }
+            .fang-item .chinese-word { font-size: 2.5rem; }
+            .fang-item .arrow { font-size: 2rem; min-width: 2.5rem; }
+            .fang-item .pinyin-word { font-size: 1.2rem; }
+            .fang-item .translation { font-size: 1.2rem; }
+            .fang-item .emoji { font-size: 2rem; }
+            .key-btn { font-size: 1rem; padding: 0.5rem 1rem; }
+            .tab-btn { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
+            .search-input { font-size: 1.2rem; padding: 0.8rem 1rem; }
+            .total-badge { font-size: 1.2rem; }
+            .fang-container { padding: 1rem; }
+            .fang-item { padding: 0.8rem 1rem; }
+            .writing-toolbar .char-display { font-size: 3.5rem; min-width: 100px; }
+            #writingCanvas { max-width: 100%; }
+            .word-selector-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
+            .word-selector-grid .grid-char { font-size: 1.6rem; }
+            .writing-actions button { font-size: 1rem; padding: 0.5rem 1rem; }
+            .speech-result .score { font-size: 2rem; }
+            .speech-result .heard-text { font-size: 1.2rem; }
+            .brush-control input[type="range"] { width: 120px; }
+            .mahjong-container { padding: 1rem; }
+            .game-container { padding: 1rem; }
+            .fire-options { grid-template-columns: 1fr 1fr; }
+            .fire-options button { font-size: 1.2rem; padding: 0.6rem; }
+            .race-options { grid-template-columns: 1fr 1fr; }
+            .race-word { font-size: 3.5rem; }
+            .fire-emoji { font-size: 5rem; }
+            .duel-grid { grid-template-columns: repeat(3, 1fr) !important; }
+            .game-stats { font-size: 1rem; }
+            .puzzle-grid { max-width: 320px !important; }
+        }
+        
+        @media (max-width: 400px) {
+            .duel-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .fire-options { grid-template-columns: 1fr; }
+            .race-options { grid-template-columns: 1fr; }
         }
     </style>
-    <meta name="theme-color" content="#FF6B35">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Китайский">
-    <meta name="application-name" content="Китайский">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
-        <div class="install-banner" id="installBanner">
-            <span>📱 Установите приложение на телефон</span>
-            <button id="installBtn">⬇️ Установить</button>
+        <div class="header">
+            <h1>🔑 Ключи китайского</h1>
+            <p>Запоминай слова по радикалам — стрелки показывают связь с основным словом</p>
+            <div class="stats">Всего ключей: <span id="totalKeys">0</span> | Всего слов: <span id="totalWords">0</span></div>
         </div>
         
-        <div class="hero">
-            <h1>📚 Весёлый китайский</h1>
-            <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой | 🔑 Ключи 🎧</p>
-        </div>
+        <a href="index.html" class="back-link">⬅️ На главную</a>
         
         <div class="tabs-nav">
-            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+            <button class="tab-btn active" data-tab="words">📚 Слова</button>
+            <button class="tab-btn" data-tab="writing">✍️ Тетрадь</button>
+            <button class="tab-btn" data-tab="pinyin">🔤 Поиск</button>
+            <button class="tab-btn" data-tab="mahjong">🀄 Маджонг</button>
             <button class="tab-btn" data-tab="games">🎮 Игры</button>
-            <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
-            <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
-            <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
-            <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
-            <button class="tab-btn" data-tab="texts">📖 Тексты</button>
-            <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
         </div>
         
-        <!-- ВКЛАДКА: УРОКИ -->
-        <div class="tab-content active" id="tab-lessons">
-            <div class="speak-tip">🌟 Выбери урок и начинай учить иероглифы с удовольствием! 🌟</div>
-            <div class="lessons-list" id="lessonsList">
-                <a href="frequency-lesson.html" class="lesson-card">
-                    <h2>🔥 127 самых частотных слов</h2>
-                    <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
-                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">🎯 127 слов + разбор на части</div>
-                </a>
+        <!-- Вкладка: СЛОВА ПО КЛЮЧАМ -->
+        <div class="tab-content active" id="tab-words">
+            <div class="search-section">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Поиск по ключам, словам, переводу, пиньинь..." autocomplete="off">
             </div>
-        </div>
-        
-        <!-- ВКЛАДКА: ИГРЫ -->
-        <div class="tab-content" id="tab-games">
-            <a href="majongsborka.html" class="new-game-banner">
-                <div class="banner-icon">🀄 🔑➕🔑 🀄</div>
-                <div class="banner-title">НОВАЯ ИГРА! Маджонг: собери слово из ключей</div>
-                <div class="banner-desc">Найди ВСЕ радикалы (ключи), из которых состоит иероглиф → слово отправится в тетрадь!</div>
-                <div class="banner-button">👉 ИГРАТЬ СЕЙЧАС 👈</div>
-            </a>
             
-            <div class="speak-tip">
-                <span>🎮</span> Тренируй слова и фразы в игровой форме! <span>🎮</span>
+            <div class="key-selector" id="keySelector"></div>
+            
+            <div class="total-badge" id="totalBadge">📊 Загрузка...</div>
+            
+            <div class="fang-container" id="fangContainer"></div>
+        </div>
+        
+        <!-- Вкладка: ТЕТРАДЬ -->
+        <div class="tab-content" id="tab-writing">
+            <div class="speak-tip" style="text-align:center; background:#FFF1C1; padding:1rem; border-radius:60px; margin-bottom:1.5rem; font-size:1.3rem; border:3px solid #FFB347;">
+                ✍️ Рисуй иероглифы пальцем или мышкой 🎤 Нажми на микрофон и произнеси слово — получи оценку произношения!
             </div>
-            <div class="games-grid">
-                <a href="word-match.html" class="game-card">
-                    <div class="game-icon">📚</div>
-                    <h3>Угадай слово</h3>
-                    <p>Иероглиф → пиньинь, перевод или на слух</p>
-                    <span class="game-tag">3 режима</span>
-                </a>
+            
+            <div class="writing-section">
+                <div class="writing-toolbar">
+                    <div class="char-display" id="currentCharDisplay">上</div>
+                    <div class="info-display">
+                        <div class="pinyin-display" id="currentPinyinDisplay">shàng</div>
+                        <div class="translation-display" id="currentTranslationDisplay">верх, подниматься</div>
+                    </div>
+                </div>
                 
-                <a href="all-games.html" class="game-card">
-                    <div class="game-icon">✍️🧩</div>
-                    <h3>Диктант + Собери фразу</h3>
-                    <p>Пиши пиньинь и собирай предложения</p>
-                    <span class="game-tag blue">2 игры</span>
-                </a>
-                
-                <a href="pinyin-dictation.html" class="game-card">
-                    <div class="game-icon">🎯</div>
-                    <h3>Диктант пиньиня</h3>
-                    <p>Напиши пиньинь без тонов → проверь + озвучка</p>
-                    <span class="game-tag orange">пиньинь</span>
-                </a>
-                
-                <a href="lesson0.html" class="game-card">
-                    <div class="game-icon">🎵</div>
-                    <h3>Таблица пиньиня</h3>
-                    <p>Все инициали и финали с тонами</p>
-                </a>
-                
-                <a href="copybook.html" class="game-card">
-                    <div class="game-icon">✍️</div>
-                    <h3>Тетрадь прописей</h3>
-                    <p>Пиши иероглифы и слушай произношение</p>
-                </a>
-              
-                <a href="confusing-radicals.html" class="game-card">
-                    <div class="game-icon">⚠️</div>
-                    <h3>Похожие радикалы</h3>
-                    <p>Тренируй 白/自, 午/牛, 由/申/甲 и другие</p>
-                    <span class="game-tag orange">пропись + аудио</span>
-                </a>
+                <div class="writing-actions">
+                    <button class="btn-prev" id="prevCharBtn">⬅️ Предыдущий</button>
+                    <button class="btn-next" id="nextCharBtn">Следующий ➡️</button>
+                    <button class="btn-random" id="randomCharBtn">🎲 Случайный</button>
+                    <button class="btn-speak" id="speakCharBtn">🔊 Озвучить</button>
+                    <button class="btn-mic" id="micBtn">🎤 Микрофон</button>
+                    <button class="btn-undo" id="undoBtn">↩️ Отменить</button>
+                    <button class="btn-clear" id="clearBtn">🗑️ Очистить</button>
+                </div>
 
-                <a href="mahjong-word-key.html" class="game-card">
-                    <div class="game-icon">🀄</div>
-                    <h3>Маджонг: слово + ключ</h3>
-                    <p>Сопоставляй иероглифы с их радикалами</p>
-                    <span class="game-tag orange">память</span>
-                </a>
+                <div class="brush-control">
+                    <label for="brushSizeSlider">🖌️ Размер кисти:</label>
+                    <input type="range" id="brushSizeSlider" min="2" max="30" value="8" step="0.5">
+                    <span class="brush-size-display" id="brushSizeDisplay">8</span>
+                    <label style="margin-left:0.5rem;">
+                        <input type="checkbox" id="pressureToggle" checked> Давление
+                    </label>
+                </div>
+                
+                <div class="speech-result" id="speechResult">
+                    <div class="heard-text" id="heardText">🎤 Распознано: ...</div>
+                    <div class="score" id="scoreDisplay">0%</div>
+                    <div class="expected-text" id="expectedText">Ожидалось: ...</div>
+                    <div class="feedback" id="feedbackText">...</div>
+                </div>
+                
+                <div class="canvas-wrapper">
+                    <canvas id="writingCanvas" width="550" height="550"></canvas>
+                </div>
+                
+                <div style="text-align:center; margin-bottom:0.5rem; font-size:1.2rem; color:#8B5A2B;">
+                    💡 Нажми на иероглиф ниже, чтобы выбрать его для рисования и произношения
+                </div>
+                <div class="word-selector-grid" id="wordSelectorGrid"></div>
             </div>
         </div>
         
-        <!-- ВКЛАДКА: СЛОВАРЬ -->
-        <div class="tab-content" id="tab-dictionary">
-            <div class="speak-tip">🔍 Ищи по иероглифам, пиньиню или русскому переводу 🔍</div>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Например: 你好, nihao, привет, 的..." autocomplete="off">
-                <button id="searchBtn">🔍 Поиск</button>
+        <!-- Вкладка: ПОИСК -->
+        <div class="tab-content" id="tab-pinyin">
+            <div class="search-section">
+                <input type="text" class="search-input" id="pinyinSearchInput" placeholder="🔤 Введите пиньинь (shi, ma, ni) или иероглиф..." autocomplete="off">
             </div>
-            <div class="filter-levels">
-                <button class="filter-btn active" data-level="all">🎯 Все уровни</button>
-                <button class="filter-btn" data-level="1">⭐ Уровень 1</button>
-                <button class="filter-btn" data-level="2">⭐⭐ Уровень 2</button>
-                <button class="filter-btn" data-level="3">⭐⭐⭐ Уровень 3</button>
-                <button class="filter-btn" data-level="4">⭐⭐⭐⭐ Уровень 4</button>
-                <button class="filter-btn" data-level="5">⭐⭐⭐⭐⭐ Уровень 5</button>
-            </div>
-            <div class="stats-info" id="statsInfo">📊 Загрузка словаря...</div>
-            <div class="dict-results" id="dictResults"><div style="text-align:center; padding:2rem;">📖 Начните поиск или выберите уровень</div></div>
+            
+            <div class="total-badge" id="pinyinTotalBadge">📊 Введите пиньинь или иероглиф</div>
+            
+            <div class="fang-container" id="pinyinContainer"></div>
         </div>
         
-        <!-- ВКЛАДКА: СЛОГИ -->
-        <div class="tab-content" id="tab-syllables">
-            <div class="speak-tip">🎵 Все слоги китайского языка с примерами и озвучкой 🎵</div>
-            <div class="games-grid">
-                <a href="syllables.html" class="game-card">
-                    <div class="game-icon">🎵</div>
-                    <h3>Таблица слогов</h3>
-                    <p>Все инициали и финали с тонами, озвучка, примеры</p>
-                    <span class="game-tag blue">фонетика</span>
-                </a>
-            </div>
-        </div>
-        
-        <!-- ВКЛАДКА: HSK 1 -->
-        <div class="tab-content" id="tab-hsk1">
-            <div class="speak-tip">📘 Все 150 слов HSK 1 с разбором, озвучкой и тетрадью ✍️</div>
-            <div class="games-grid">
-                <a href="hsk1.html" class="game-card">
-                    <div class="game-icon">📘</div>
-                    <h3>HSK 1 — 150 слов</h3>
-                    <p>Все слова начального уровня с разбором, прописью и озвучкой</p>
-                    <span class="game-tag green">полный курс</span>
-                </a>
+        <!-- Вкладка: МАДЖОНГ (НЕ ТРОГАТЬ!) -->
+        <div class="tab-content" id="tab-mahjong">
+            <div class="mahjong-container">
+                <div class="mahjong-stats">
+                    <div class="stat-item">🏆 Очки: <span id="mahjongScore">0</span></div>
+                    <div class="stat-item">🎯 Найдено: <span id="mahjongPairs">0</span> / <span id="mahjongTotalPairs">0</span></div>
+                    <div class="stat-item">⏱️ Ходы: <span id="mahjongMoves">0</span></div>
+                </div>
+                
+                <div class="mahjong-pairs-selector" id="pairsSelector">
+                    <button data-pairs="4" onclick="setMahjongPairs(4)">4 пары</button>
+                    <button data-pairs="6" onclick="setMahjongPairs(6)" class="active">6 пар</button>
+                    <button data-pairs="8" onclick="setMahjongPairs(8)">8 пар</button>
+                    <button data-pairs="10" onclick="setMahjongPairs(10)">10 пар</button>
+                    <button data-pairs="12" onclick="setMahjongPairs(12)">12 пар</button>
+                </div>
+                
+                <div class="mahjong-grid" id="mahjongGrid"></div>
+                
+                <div class="mahjong-controls">
+                    <button class="btn-new-game" onclick="startMahjong()">🔄 Новая игра</button>
+                    <button class="btn-shuffle" onclick="shuffleMahjong()">🔀 Перемешать</button>
+                    <button class="btn-hint" onclick="mahjongHint()">💡 Подсказка</button>
+                </div>
             </div>
         </div>
         
-        <!-- ВКЛАДКА: КАРТОЧКИ ФРАЗ -->
-        <div class="tab-content" id="tab-phrases">
-            <div class="speak-tip">📇 600 фраз с разбором иероглифов | Переворот | Озвучка радикалов 🔊</div>
-            <div class="games-grid">
-                <a href="phrases-cards.html" class="game-card">
-                    <div class="game-icon">🃏</div>
-                    <h3>600 фраз — карточки</h3>
-                    <p>Карточки переворачиваются | Есть поиск и уровни | Кликай на радикалы — слушай произношение</p>
-                    <span class="game-tag orange">переворот + аудио</span>
-                </a>
-            </div>
-        </div>
-        
-        <!-- ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
-        <div class="tab-content" id="tab-texts">
-            <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
-            <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
-            <div class="texts-grid" id="textsContainer"></div>
-        </div>
-        
-        <!-- НОВАЯ ВКЛАДКА: КЛЮЧИ -->
-        <div class="tab-content" id="tab-keys">
-            <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
-            <div class="keys-preview">
-                <div class="big-icon">🔑</div>
-                <h2>Все ключи китайского</h2>
-                <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
-                Нажимай на иероглифы — слушай произношение!</p>
-                <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
-                <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
+        <!-- Вкладка: ИГРЫ (исправлены) -->
+        <div class="tab-content" id="tab-games">
+            <div class="game-container">
+                <div class="game-stats" id="gameStats">
+                    🎮 <span id="gameScore">0</span> очков | 
+                    🏆 <span id="gameLevel">1</span> уровень
+                </div>
+                
+                <div class="game-buttons">
+                    <button class="tab-btn" onclick="startGame('fire')" style="font-size:1.2rem;">🔥 Трансформер</button>
+                    <button class="tab-btn" onclick="startGame('duel')" style="font-size:1.2rem;">🃏 Дуэль ключей</button>
+                    <button class="tab-btn" onclick="startGame('race')" style="font-size:1.2rem;">🚀 Космическая гонка</button>
+                    <button class="tab-btn" onclick="startGame('puzzle')" style="font-size:1.2rem;">🧩 Пазл</button>
+                </div>
+                
+                <div id="gameArea" style="min-height:400px; display:flex; align-items:center; justify-content:center; flex-direction:column; position:relative; z-index:1;">
+                    <div style="text-align:center; font-size:2rem; color:#b8956a;">
+                        🎮 Нажми на игру выше, чтобы начать!
+                    </div>
+                </div>
             </div>
         </div>
         
         <footer>
-            🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Учи слова по ключам — запоминай быстрее! 📖 Тексты с озвучкой!
+            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение! 🀄 Играй в 3D маджонг! 🎮 Играй в игры!
         </footer>
     </div>
     
-    <script src="frequency-db.js"></script>
-    <script src="lessons-data.js"></script>
-    <script src="phrases-db.js"></script>
-    <script src="texts-db.js"></script>
     <script src="keys-data.js"></script>
-    
     <script>
-        let deferredPrompt = null;
-        const installBanner = document.getElementById('installBanner');
-        const installBtn = document.getElementById('installBtn');
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBanner.classList.add('show');
-        });
-        
-        if (installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    deferredPrompt = null;
-                    installBanner.classList.remove('show');
-                }
-            });
+        // ===== ОЗВУЧКА =====
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+
+        function speakChinese(text, callback) {
+            if (!text || !speechSynth) {
+                if (callback) callback();
+                return;
+            }
+            
+            if (currentUtterance) {
+                speechSynth.cancel();
+                currentUtterance = null;
+            }
+            
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.7;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                const voices = speechSynth.getVoices();
+                const zhVoice = voices.find(v => v.lang.startsWith('zh'));
+                if (zhVoice) utterance.voice = zhVoice;
+                
+                currentUtterance = utterance;
+                
+                utterance.onend = function() {
+                    currentUtterance = null;
+                    if (callback) callback();
+                };
+                
+                utterance.onerror = function() {
+                    currentUtterance = null;
+                    if (callback) callback();
+                };
+                
+                speechSynth.speak(utterance);
+            }, 100);
         }
         
+        window.speakChinese = speakChinese;
+
+        // ===== РАСПОЗНАВАНИЕ РЕЧИ =====
+        let recognition = null;
+        let isListening = false;
+        let currentWordForSpeech = '';
+
+        function initSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.warn('Распознавание речи не поддерживается');
+                document.getElementById('micBtn').textContent = '🎤 Нет доступа';
+                document.getElementById('micBtn').disabled = true;
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-CN';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 5;
+            
+            recognition.onresult = function(event) {
+                const result = event.results[event.results.length - 1];
+                const transcript = result[0].transcript.trim().toLowerCase();
+                const isFinal = result.isFinal;
+                
+                if (isFinal) {
+                    checkPronunciation(transcript);
+                    stopListening();
+                } else {
+                    document.getElementById('heardText').textContent = `🎤 Распознаётся: ${transcript}...`;
+                }
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Ошибка распознавания:', event.error);
+                if (event.error === 'not-allowed') {
+                    document.getElementById('micBtn').textContent = '🎤 Нет доступа';
+                    document.getElementById('micBtn').disabled = true;
+                }
+                document.getElementById('heardText').textContent = `❌ Ошибка: ${event.error}`;
+                stopListening();
+            };
+            
+            recognition.onend = function() {
+                stopListening();
+            };
+        }
+
+        function startListening() {
+            if (!recognition) {
+                initSpeechRecognition();
+                if (!recognition) return;
+            }
+            
+            if (isListening) {
+                stopListening();
+                return;
+            }
+            
+            const charDisplay = document.getElementById('currentCharDisplay');
+            currentWordForSpeech = charDisplay.textContent.trim();
+            
+            if (!currentWordForSpeech) {
+                document.getElementById('heardText').textContent = '❌ Нет слова для проверки';
+                return;
+            }
+            
+            document.getElementById('expectedText').textContent = `Ожидалось: ${currentWordForSpeech}`;
+            document.getElementById('speechResult').classList.add('show');
+            document.getElementById('heardText').textContent = '🎤 Слушаю... скажите слово';
+            document.getElementById('scoreDisplay').textContent = '...';
+            document.getElementById('feedbackText').textContent = '⏳ Ожидание...';
+            
+            try {
+                recognition.start();
+                isListening = true;
+                document.getElementById('micBtn').textContent = '⏹️ Остановить';
+                document.getElementById('micBtn').classList.add('listening');
+            } catch (e) {
+                console.error('Ошибка запуска:', e);
+                document.getElementById('heardText').textContent = '❌ Ошибка микрофона';
+            }
+        }
+
+        function stopListening() {
+            if (recognition) {
+                try {
+                    recognition.stop();
+                } catch (e) {}
+            }
+            isListening = false;
+            document.getElementById('micBtn').textContent = '🎤 Микрофон';
+            document.getElementById('micBtn').classList.remove('listening');
+        }
+
+        // ===== ПРОВЕРКА ПРОИЗНОШЕНИЯ =====
+        function checkPronunciation(spoken) {
+            const expected = currentWordForSpeech;
+            const pinyin = document.getElementById('currentPinyinDisplay').textContent.trim();
+            
+            const spokenClean = spoken.replace(/\s+/g, '').toLowerCase();
+            const expectedClean = expected.toLowerCase();
+            
+            let score = 0;
+            let feedback = '';
+            let feedbackClass = '';
+            
+            if (spokenClean === expectedClean) {
+                score = 100;
+                feedback = '🎉 Отлично! Произношение идеальное!';
+                feedbackClass = 'perfect';
+            } 
+            else {
+                const maxLen = Math.max(spokenClean.length, expectedClean.length);
+                let matchCount = 0;
+                
+                for (let i = 0; i < Math.min(spokenClean.length, expectedClean.length); i++) {
+                    if (spokenClean[i] === expectedClean[i]) {
+                        matchCount++;
+                    }
+                }
+                
+                if (spokenClean.includes(pinyin) || pinyin.includes(spokenClean)) {
+                    score = Math.min(85, matchCount / maxLen * 100 + 20);
+                } else {
+                    score = Math.round(matchCount / maxLen * 100);
+                }
+                
+                const pinyinParts = pinyin.split(' ');
+                for (const part of pinyinParts) {
+                    if (spokenClean.includes(part.substring(0, 2)) || part.includes(spokenClean.substring(0, 2))) {
+                        score = Math.max(score, 55);
+                    }
+                }
+                
+                if (score >= 80) {
+                    feedback = '👍 Хорошо! Почти правильно, небольшие погрешности';
+                    feedbackClass = 'good';
+                } else if (score >= 50) {
+                    feedback = '🔊 Слышно, но есть ошибки. Попробуйте ещё раз!';
+                    feedbackClass = 'good';
+                } else {
+                    feedback = '❌ Попробуйте ещё раз. Слушайте образец и повторяйте.';
+                    feedbackClass = 'bad';
+                }
+            }
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.textContent = score + '%';
+            scoreDisplay.className = 'score';
+            
+            if (score >= 80) scoreDisplay.classList.add('perfect');
+            else if (score >= 50) scoreDisplay.classList.add('good');
+            else scoreDisplay.classList.add('bad');
+            
+            document.getElementById('heardText').textContent = `🎤 Распознано: ${spoken}`;
+            document.getElementById('expectedText').textContent = `Ожидалось: ${expected} (${pinyin})`;
+            
+            const feedbackEl = document.getElementById('feedbackText');
+            feedbackEl.textContent = feedback;
+            feedbackEl.className = 'feedback ' + feedbackClass;
+            
+            document.getElementById('speechResult').classList.add('show');
+            
+            if (score < 60) {
+                setTimeout(() => {
+                    speakChinese(expected);
+                }, 800);
+            }
+        }
+
+        // ===== СОСТОЯНИЕ =====
+        let currentKey = KEY_NAMES[0] || '方';
+        let searchQuery = '';
+        let allWordsList = [];
+        let currentWordIndex = 0;
+
+        // ===== СТАТИСТИКА =====
+        function updateStats() {
+            const totalKeys = KEY_NAMES.length;
+            const totalWords = getTotalWords();
+            document.getElementById('totalKeys').textContent = totalKeys;
+            document.getElementById('totalWords').textContent = totalWords;
+        }
+
+        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ СЛОВ =====
+        function buildAllWordsList() {
+            allWordsList = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    allWordsList.push({
+                        key: key,
+                        ...word
+                    });
+                }
+            }
+        }
+
+        // ===== ВКЛАДКИ =====
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -719,217 +1491,1872 @@
                 const tabName = this.dataset.tab;
                 document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
                 document.getElementById('tab-' + tabName).classList.add('active');
-                if (tabName === 'dictionary') { updateStats(); searchDictionary(); }
-                if (tabName === 'texts' && typeof TEXTS_DB !== 'undefined') { renderTextsViewer(); }
-                if (tabName === 'keys') { updateKeysStats(); }
+                if (tabName === 'writing') {
+                    setTimeout(initWritingTab, 100);
+                }
+                if (tabName === 'pinyin') {
+                    const input = document.getElementById('pinyinSearchInput');
+                    if (input.value.trim()) {
+                        smartSearch(input.value);
+                    }
+                }
+                if (tabName === 'mahjong') {
+                    setTimeout(startMahjong, 200);
+                }
             });
         });
-        
-        const lessonsList = document.getElementById('lessonsList');
-        if (typeof lessonsDB !== 'undefined') {
-            const sortedLessons = Object.entries(lessonsDB).sort((a, b) => {
-                const numA = parseInt(a[0].replace('lesson', '')) || 0;
-                const numB = parseInt(b[0].replace('lesson', '')) || 0;
-                return numA - numB;
-            });
-            if (sortedLessons.length > 0) {
-                for (const [key, lesson] of sortedLessons) {
-                    const lessonCard = document.createElement('a');
-                    lessonCard.href = `${key}.html`;
-                    lessonCard.className = 'lesson-card';
-                    lessonCard.innerHTML = `
-                        <h2>${lesson.icon} ${lesson.title}</h2>
-                        <p>${lesson.description}</p>
-                        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">${lesson.data ? '🎯 ' + lesson.data.length + ' иероглифов' : '📖 Теоретический урок'}</div>
-                    `;
-                    lessonsList.appendChild(lessonCard);
-                }
+
+        // ===== УМНЫЙ ПОИСК =====
+        function smartSearch(query) {
+            const container = document.getElementById('pinyinContainer');
+            const totalBadge = document.getElementById('pinyinTotalBadge');
+            
+            if (!query || query.trim() === '') {
+                container.innerHTML = `<div class="no-results">🔤 Введите пиньинь или иероглиф для поиска</div>`;
+                totalBadge.textContent = '📊 Введите запрос';
+                return;
             }
-        }
-        
-        let currentLevel = 'all';
-        function speakChinese(text) {
-            if (!text || !window.speechSynthesis) return;
-            window.speechSynthesis.cancel();
-            setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'zh-CN';
-                utterance.rate = 0.7;
-                window.speechSynthesis.speak(utterance);
-            }, 50);
-        }
-        window.speakChinese = speakChinese;
-        
-        function buildDictionaryEntries() {
-            const entries = [];
-            if (typeof phrasesDB !== 'undefined' && Array.isArray(phrasesDB)) {
-                for (const phrase of phrasesDB) {
-                    entries.push({ chinese: phrase.chinese, pinyin: phrase.pinyin, russian: phrase.russian, level: phrase.level || 1, source: 'phrase', sourceIcon: '💬', sourceName: 'фраза' });
-                }
-            }
-            if (typeof frequencyDB !== 'undefined' && Array.isArray(frequencyDB)) {
-                for (const word of frequencyDB) {
-                    const exists = entries.some(e => e.chinese === word.char && e.source === 'phrase');
-                    if (!exists) {
-                        entries.push({ chinese: word.char, pinyin: word.pinyin, russian: word.meaning, level: word.level || 1, source: 'word', sourceIcon: '📖', sourceName: 'частотное слово', radical: word.radical?.char || '' });
+            
+            const searchQuery = query.trim().toLowerCase();
+            const cleanPinyinQuery = searchQuery.replace(/[0-9]/g, '');
+            
+            const results = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    const cleanPinyin = word.pinyin.replace(/[0-9]/g, '').toLowerCase();
+                    const isPinyinMatch = cleanPinyin.includes(cleanPinyinQuery);
+                    const isChineseMatch = word.chinese.includes(searchQuery);
+                    const isTranslationMatch = word.translation.toLowerCase().includes(searchQuery);
+                    const isKeyMatch = key.includes(searchQuery);
+                    
+                    if (isPinyinMatch || isChineseMatch || isTranslationMatch || isKeyMatch) {
+                        results.push({
+                            key: key,
+                            keyEmoji: data.emoji,
+                            keyMeaning: data.meaning,
+                            ...word,
+                            matchType: isPinyinMatch ? 'пиньинь' : 
+                                      isChineseMatch ? 'иероглиф' : 
+                                      isTranslationMatch ? 'перевод' : 'ключ'
+                        });
                     }
                 }
             }
-            entries.sort((a, b) => a.chinese.localeCompare(b.chinese));
-            return entries;
-        }
-        
-        function updateStats() {
-            const entries = buildDictionaryEntries();
-            const statsDiv = document.getElementById('statsInfo');
-            const levelCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-            for (const entry of entries) { const lvl = entry.level; if (levelCounts[lvl] !== undefined) levelCounts[lvl]++; }
-            const phrasesCount = entries.filter(e => e.source === 'phrase').length;
-            const wordsCount = entries.filter(e => e.source === 'word').length;
-            statsDiv.innerHTML = `📊 Всего: ${entries.length} (слова: ${wordsCount}, фразы: ${phrasesCount}) | ⭐${levelCounts[1]} | ⭐⭐${levelCounts[2]} | ⭐⭐⭐${levelCounts[3]} | ⭐⭐⭐⭐${levelCounts[4]} | ⭐⭐⭐⭐⭐${levelCounts[5]}`;
-        }
-        
-        function searchDictionary() {
-            const entries = buildDictionaryEntries();
-            if (entries.length === 0) {
-                document.getElementById('dictResults').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ Базы не загружены!</div>';
+            
+            if (results.length === 0) {
+                container.innerHTML = `<div class="no-results">😔 Ничего не найдено по запросу «${query}»</div>`;
+                totalBadge.textContent = `📊 0 слов найдено`;
                 return;
             }
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            let filtered = [...entries];
-            if (currentLevel !== 'all') { filtered = filtered.filter(entry => entry.level === parseInt(currentLevel)); }
-            if (query !== '') { filtered = filtered.filter(entry => entry.chinese.includes(query) || entry.pinyin.toLowerCase().includes(query) || entry.russian.toLowerCase().includes(query)); }
-            const resultsDiv = document.getElementById('dictResults');
-            if (filtered.length === 0) { resultsDiv.innerHTML = '<div style="text-align:center; padding:2rem;">😔 Ничего не найдено</div>'; return; }
+            
             let html = '';
-            for (const entry of filtered) {
-                const stars = '⭐'.repeat(entry.level);
-                const safeChinese = entry.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                const extraInfo = entry.radical ? ` (ключ: ${entry.radical})` : '';
-                html += `<div class="dict-item"><div class="dict-content"><div><span class="dict-chinese" onclick="speakChinese('${safeChinese}')">${entry.chinese}</span><span class="dict-pinyin">${entry.pinyin}</span><span class="source-badge">${entry.sourceIcon} ${entry.source === 'word' ? 'слово' : 'фраза'}</span></div><div class="dict-russian">${entry.russian}${extraInfo}</div><div class="dict-level">Уровень ${entry.level} ${stars}</div></div><button class="speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button></div>`;
+            let grouped = {};
+            for (const item of results) {
+                if (!grouped[item.key]) {
+                    grouped[item.key] = {
+                        emoji: item.keyEmoji,
+                        meaning: item.keyMeaning,
+                        words: []
+                    };
+                }
+                grouped[item.key].words.push(item);
             }
-            resultsDiv.innerHTML = `<div style="margin-bottom:0.8rem; padding:0.5rem; background:#FFF8F0; border-radius:15px;">🔍 Найдено: ${filtered.length} записей</div>${html}`;
-        }
-        
-        document.querySelectorAll('#tab-dictionary .filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#tab-dictionary .filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentLevel = this.dataset.level;
-                searchDictionary();
-            });
-        });
-        
-        document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchDictionary(); });
-        document.getElementById('searchBtn')?.addEventListener('click', () => searchDictionary());
-        
-        // ========== ТЕКСТЫ С ОЗВУЧКОЙ ==========
-        let currentTextId = 1;
-        
-        function renderTextsViewer() {
-            if (typeof TEXTS_DB === 'undefined') {
-                document.getElementById('textsContainer').innerHTML = '<div style="text-align:center; padding:2rem; color:red;">❌ База texts-db.js не загружена!</div>';
-                return;
-            }
-            renderTextsSelector();
-            renderTextContent(currentTextId);
-        }
-        
-        function renderTextContent(id) {
-            const text = TEXTS_DB.find(t => t.id === id);
-            if (!text) return;
             
-            const container = document.getElementById('textsContainer');
-            const fullText = text.lines.map(line => line.chinese).join('');
-            
-            let linesHtml = '';
-            for (let i = 0; i < text.lines.length; i++) {
-                const line = text.lines[i];
-                const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                linesHtml += `
-                    <div class="text-line">
-                        <div>
-                            <span class="chinese-line" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
-                            <button class="speak-small" onclick="event.stopPropagation(); speakChinese('${safeChinese}')" style="background:none; border:none; font-size:1rem; margin-left:0.5rem; cursor:pointer;">🔊</button>
+            let totalFound = 0;
+            for (const key in grouped) {
+                const data = grouped[key];
+                const wordsHtml = data.words.map(word => {
+                    totalFound++;
+                    const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const matchBadge = word.matchType ? `<span style="background:#FF6B35;color:white;padding:0.1rem 0.6rem;border-radius:12px;font-size:0.8rem;margin-left:0.5rem;">${word.matchType}</span>` : '';
+                    return `
+                        <div class="fang-item">
+                            <div class="arrow">➜</div>
+                            <div class="word-group">
+                                <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                                <span class="pinyin-word">${word.pinyin}</span>
+                                <span class="translation">— ${word.translation}</span>
+                                ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                                ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                                ${matchBadge}
+                                <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                                <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
+                            </div>
                         </div>
-                        <div class="pinyin-line">${line.pinyin}</div>
-                        <div class="translate-line">${line.russian}</div>
+                    `;
+                }).join('');
+                
+                html += `
+                    <div style="margin-top: 1.5rem; padding: 0.8rem; background: #FFF8F0; border-radius: 30px; font-weight: bold; font-size:1.5rem; color: #A64B2A; border-left: 8px solid #FF6B35;">
+                        ${data.emoji} Ключ: <span style="font-size:2.5rem;">${key}</span> — ${data.meaning}
                     </div>
+                    ${wordsHtml}
                 `;
             }
             
             container.innerHTML = `
-                <div class="text-card">
-                    <div class="text-header">
-                        <div class="title">
-                            <span>${text.title}</span>
-                        </div>
-                        <button class="speak-all-btn" onclick="speakChinese('${fullText.replace(/'/g, "\\'")}')">🔊 Весь текст</button>
-                    </div>
-                    <div class="text-content">
-                        ${linesHtml}
-                    </div>
+                <div style="text-align:center; padding:0.8rem; background:#FFF1C1; border-radius:30px; margin-bottom:1.5rem; font-weight:bold; font-size:1.5rem;">
+                    🔍 Найдено: ${totalFound} слов по запросу «${query}»
                 </div>
+                ${html}
             `;
+            totalBadge.textContent = `📊 Найдено: ${totalFound} слов`;
         }
-        
-        function renderTextsSelector() {
-            const selector = document.getElementById('lessonSelectorTexts');
-            if (!selector) return;
-            let buttonsHtml = '';
-            for (const text of TEXTS_DB) {
-                const activeClass = text.id === currentTextId ? 'active' : '';
-                buttonsHtml += `<button class="lesson-btn-texts ${activeClass}" data-id="${text.id}">${text.title}</button>`;
+
+        document.getElementById('pinyinSearchInput').addEventListener('input', function() {
+            smartSearch(this.value);
+        });
+
+        // ===== ОТОБРАЖЕНИЕ КНОПОК КЛЮЧЕЙ =====
+        function renderKeySelector() {
+            const selector = document.getElementById('keySelector');
+            let html = '';
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                const active = key === currentKey ? 'active' : '';
+                html += `<button class="key-btn ${active}" data-key="${key}">${data.emoji} ${key}</button>`;
             }
-            selector.innerHTML = buttonsHtml;
-            
-            document.querySelectorAll('.lesson-btn-texts').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = parseInt(btn.dataset.id);
-                    currentTextId = id;
-                    renderTextsSelector();
-                    renderTextContent(currentTextId);
+            selector.innerHTML = html;
+
+            document.querySelectorAll('.key-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentKey = this.dataset.key;
+                    searchQuery = document.getElementById('searchInput').value.trim();
+                    renderKeySelector();
+                    renderWords();
                 });
             });
         }
-        
-        // ========== СТАТИСТИКА ДЛЯ КЛЮЧЕЙ ==========
-        function updateKeysStats() {
-            const statsDiv = document.getElementById('keysStats');
-            if (typeof KEY_NAMES !== 'undefined' && typeof getTotalWords !== 'undefined') {
-                statsDiv.innerHTML = `📊 ${KEY_NAMES.length} ключей, ${getTotalWords()} слов`;
-            } else {
-                statsDiv.innerHTML = '📊 Загрузка... (убедитесь, что keys-data.js загружен)';
+
+        // ===== ОТОБРАЖЕНИЕ СЛОВ =====
+        function renderWords() {
+            const container = document.getElementById('fangContainer');
+            const totalBadge = document.getElementById('totalBadge');
+            const searchInput = document.getElementById('searchInput');
+            searchQuery = searchInput.value.trim().toLowerCase();
+
+            let filteredKeys = KEY_NAMES;
+            if (searchQuery) {
+                filteredKeys = KEY_NAMES.filter(key => {
+                    const data = WORDS_BY_KEY[key];
+                    if (key.includes(searchQuery)) return true;
+                    if (data.meaning.toLowerCase().includes(searchQuery)) return true;
+                    for (const word of data.words) {
+                        const cleanPinyin = word.pinyin.replace(/[0-9]/g, '').toLowerCase();
+                        if (word.chinese.includes(searchQuery)) return true;
+                        if (cleanPinyin.includes(searchQuery)) return true;
+                        if (word.translation.toLowerCase().includes(searchQuery)) return true;
+                    }
+                    return false;
+                });
             }
+
+            if (searchQuery && filteredKeys.length > 0 && !filteredKeys.includes(currentKey)) {
+                currentKey = filteredKeys[0];
+                renderKeySelector();
+            }
+
+            if (filteredKeys.length === 0) {
+                container.innerHTML = `<div class="no-results">😔 Ничего не найдено по запросу «${searchQuery}»</div>`;
+                totalBadge.textContent = '📊 0 слов найдено';
+                return;
+            }
+
+            if (searchQuery) {
+                let allHtml = '';
+                let totalFound = 0;
+                for (const key of filteredKeys) {
+                    const data = WORDS_BY_KEY[key];
+                    const wordsHtml = data.words.map(word => {
+                        totalFound++;
+                        const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                        return `
+                            <div class="fang-item">
+                                <div class="arrow">➜</div>
+                                <div class="word-group">
+                                    <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                                    <span class="pinyin-word">${word.pinyin}</span>
+                                    <span class="translation">— ${word.translation}</span>
+                                    ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                                    ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                                    <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                                    <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    allHtml += `
+                        <div style="margin-top: 1.5rem; padding: 0.8rem; background: #FFF8F0; border-radius: 30px; font-weight: bold; font-size:1.5rem; color: #A64B2A; border-left: 8px solid #FF6B35;">
+                            ${data.emoji} Ключ: <span style="font-size:2.5rem;">${key}</span> — ${data.meaning}
+                        </div>
+                        ${wordsHtml}
+                    `;
+                }
+
+                container.innerHTML = `
+                    <div style="text-align:center; padding:0.8rem; background:#FFF1C1; border-radius:30px; margin-bottom:1.5rem; font-weight:bold; font-size:1.5rem;">
+                        🔍 Найдено: ${totalFound} слов в ${filteredKeys.length} ключах
+                    </div>
+                    ${allHtml}
+                `;
+                totalBadge.textContent = `📊 Найдено: ${totalFound} слов`;
+                return;
+            }
+
+            const data = WORDS_BY_KEY[currentKey];
+            if (!data) {
+                container.innerHTML = '<div class="no-results">❌ Ключ не найден</div>';
+                return;
+            }
+
+            totalBadge.textContent = `📊 ${data.words.length} слов с ключом «${currentKey}»`;
+
+            let wordsHtml = data.words.map(word => {
+                const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                return `
+                    <div class="fang-item">
+                        <div class="arrow">➜</div>
+                        <div class="word-group">
+                            <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                            <span class="pinyin-word">${word.pinyin}</span>
+                            <span class="translation">— ${word.translation}</span>
+                            ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                            ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                            <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                            <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="fang-title">
+                    <span class="key-emoji">${data.emoji}</span>
+                    <span class="key-char">${currentKey}</span>
+                    <span class="key-meaning">— ${data.meaning}</span>
+                </div>
+                <div class="fang-grid">${wordsHtml}</div>
+            `;
         }
-        
-        // ========== ИНИЦИАЛИЗАЦИЯ ==========
-        setTimeout(() => {
-            if (typeof frequencyDB !== 'undefined' || typeof phrasesDB !== 'undefined') {
-                updateStats();
-                searchDictionary();
-            }
-            if (typeof TEXTS_DB !== 'undefined') {
-                renderTextsViewer();
-            }
-            if (typeof KEY_NAMES !== 'undefined') {
-                updateKeysStats();
-            }
-        }, 200);
-        
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (link && link.href && link.href.startsWith(window.location.origin) && !link.hasAttribute('data-no-pwa')) {
-                e.preventDefault();
-                window.location.href = link.href;
-            }
+
+        // ===== ПОИСК =====
+        document.getElementById('searchInput').addEventListener('input', function() {
+            renderWords();
         });
-        
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/lesson-1/sw.js', { scope: '/lesson-1/' }).catch(err => console.log('SW error:', err));
-            });
+
+        // ===== ТЕТРАДЬ =====
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0, lastY = 0;
+        let lastPressure = 0.5;
+        let drawingHistory = [];
+        let currentStep = -1;
+        let currentWritingChar = '上';
+        let writingCharData = null;
+        let brushSize = 8;
+        let usePressure = true;
+
+        let isWritingInitialized = false;
+
+        function initWritingTab() {
+            canvas = document.getElementById('writingCanvas');
+            ctx = canvas.getContext('2d');
+            
+            const rect = canvas.getBoundingClientRect();
+            const size = Math.min(rect.width, 550);
+            canvas.width = size;
+            canvas.height = size;
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            canvas.removeEventListener('mousedown', startDraw);
+            canvas.removeEventListener('mousemove', draw);
+            canvas.removeEventListener('mouseup', endDraw);
+            canvas.removeEventListener('mouseleave', endDraw);
+            
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('mouseleave', endDraw);
+            
+            canvas.removeEventListener('touchstart', handleTouchStart);
+            canvas.removeEventListener('touchmove', handleTouchMove);
+            canvas.removeEventListener('touchend', handleTouchEnd);
+            
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+            
+            document.getElementById('clearBtn').onclick = clearCanvas;
+            document.getElementById('undoBtn').onclick = undoDraw;
+            document.getElementById('nextCharBtn').onclick = nextChar;
+            document.getElementById('prevCharBtn').onclick = prevChar;
+            document.getElementById('randomCharBtn').onclick = randomChar;
+            document.getElementById('speakCharBtn').onclick = function() {
+                const char = document.getElementById('currentCharDisplay').textContent;
+                speakChinese(char);
+            };
+            document.getElementById('micBtn').onclick = startListening;
+            
+            const slider = document.getElementById('brushSizeSlider');
+            const display = document.getElementById('brushSizeDisplay');
+            slider.oninput = function() {
+                brushSize = parseFloat(this.value);
+                display.textContent = brushSize;
+            };
+            document.getElementById('pressureToggle').onchange = function() {
+                usePressure = this.checked;
+            };
+            
+            initSpeechRecognition();
+            renderWordGrid();
+            
+            if (!isWritingInitialized) {
+                isWritingInitialized = true;
+                let shangFound = false;
+                for (let i = 0; i < allWordsList.length; i++) {
+                    if (allWordsList[i].chinese === '上') {
+                        currentWordIndex = i;
+                        shangFound = true;
+                        break;
+                    }
+                }
+                if (!shangFound && allWordsList.length > 0) {
+                    currentWordIndex = 0;
+                }
+                loadCharForWriting(allWordsList[currentWordIndex] || allWordsList[0]);
+            } else {
+                updateWritingDisplay();
+                clearCanvas();
+                drawGrid();
+                if (currentWritingChar) {
+                    drawSampleChar(currentWritingChar);
+                }
+                document.querySelectorAll('.grid-char').forEach(el => {
+                    el.classList.toggle('active-char', el.dataset.char === currentWritingChar);
+                });
+            }
         }
+
+        function renderWordGrid() {
+            const grid = document.getElementById('wordSelectorGrid');
+            let html = '';
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    const isActive = word.chinese === currentWritingChar ? 'active-char' : '';
+                    html += `<div class="grid-char ${isActive}" data-char="${word.chinese}" data-pinyin="${word.pinyin}" data-translation="${word.translation}" onclick="selectCharFromGrid('${word.chinese}', '${word.pinyin}', '${word.translation}')">${word.chinese}</div>`;
+                }
+            }
+            grid.innerHTML = html;
+        }
+
+        function selectCharFromGrid(char, pinyin, translation) {
+            currentWritingChar = char;
+            writingCharData = { chinese: char, pinyin: pinyin, translation: translation };
+            updateWritingDisplay();
+            clearCanvas();
+            drawGrid();
+            drawSampleChar(char);
+            document.querySelectorAll('.grid-char').forEach(el => {
+                el.classList.toggle('active-char', el.dataset.char === char);
+            });
+            document.getElementById('speechResult').classList.remove('show');
+        }
+
+        function openWritingForChar(char) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tab="writing"]').classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.getElementById('tab-writing').classList.add('active');
+            
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    if (word.chinese === char) {
+                        currentWritingChar = char;
+                        writingCharData = word;
+                        setTimeout(() => {
+                            initWritingTab();
+                        }, 100);
+                        return;
+                    }
+                }
+            }
+        }
+
+        function loadCharForWriting(data) {
+            if (!data) return;
+            currentWritingChar = data.chinese;
+            writingCharData = data;
+            updateWritingDisplay();
+            clearCanvas();
+            drawGrid();
+            drawSampleChar(data.chinese);
+            document.querySelectorAll('.grid-char').forEach(el => {
+                el.classList.toggle('active-char', el.dataset.char === data.chinese);
+            });
+            document.getElementById('speechResult').classList.remove('show');
+        }
+
+        function updateWritingDisplay() {
+            if (writingCharData) {
+                document.getElementById('currentCharDisplay').textContent = writingCharData.chinese;
+                document.getElementById('currentPinyinDisplay').textContent = writingCharData.pinyin;
+                document.getElementById('currentTranslationDisplay').textContent = writingCharData.translation;
+            }
+        }
+
+        function drawGrid() {
+            const size = canvas.width;
+            ctx.save();
+            ctx.strokeStyle = '#E8E0D8';
+            ctx.lineWidth = 1;
+            
+            for (let i = 1; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * size / 4, 0);
+                ctx.lineTo(i * size / 4, size);
+                ctx.stroke();
+            }
+            for (let i = 1; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, i * size / 4);
+                ctx.lineTo(size, i * size / 4);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#D0C8C0';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, size, size);
+            ctx.restore();
+        }
+
+        function drawSampleChar(char) {
+            const size = canvas.width;
+            ctx.save();
+            ctx.fillStyle = 'rgba(180, 160, 140, 0.2)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            let fontSize = size * 0.75;
+            if (char.length >= 2) fontSize = size * 0.5;
+            if (char.length >= 3) fontSize = size * 0.35;
+            if (char.length >= 4) fontSize = size * 0.28;
+            
+            ctx.font = `${fontSize}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
+            
+            if (char.length === 1) {
+                ctx.fillText(char, size/2, size/2 + size * 0.03);
+            } else if (char.length === 2) {
+                ctx.fillText(char, size/2, size/2 + size * 0.03);
+            } else {
+                const chars = char.split('');
+                const lineHeight = fontSize * 1.1;
+                const totalHeight = chars.length * lineHeight;
+                const startY = (size - totalHeight) / 2 + fontSize * 0.3;
+                for (let i = 0; i < chars.length; i++) {
+                    ctx.fillText(chars[i], size/2, startY + i * lineHeight);
+                }
+            }
+            ctx.restore();
+        }
+
+        // ===== КАЛЛИГРАФИЧЕСКОЕ РИСОВАНИЕ =====
+        function getPressure() {
+            return 0.3 + Math.random() * 0.7;
+        }
+
+        function getLineWidth(pressure, speed) {
+            let width = brushSize;
+            if (usePressure) {
+                const baseWidth = brushSize * 0.5 + pressure * brushSize * 0.8;
+                const speedFactor = Math.min(1, speed / 30);
+                width = Math.max(1, baseWidth * (0.7 + 0.3 * (1 - speedFactor)));
+            }
+            return width;
+        }
+
+        function startDraw(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            lastX = x;
+            lastY = y;
+            lastPressure = getPressure();
+            
+            ctx.save();
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = getLineWidth(lastPressure, 0);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            const dx = x - lastX;
+            const dy = y - lastY;
+            const speed = Math.sqrt(dx * dx + dy * dy);
+            
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.12));
+            
+            const lineWidth = getLineWidth(lastPressure, speed);
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = lineWidth;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            if (speed > 8 && lineWidth > 3) {
+                ctx.save();
+                ctx.globalAlpha = 0.2;
+                ctx.lineWidth = lineWidth * 0.7;
+                ctx.beginPath();
+                ctx.moveTo(lastX - dx * 0.1, lastY - dy * 0.1);
+                ctx.lineTo(x - dx * 0.1, y - dy * 0.1);
+                ctx.stroke();
+                ctx.restore();
+            }
+            
+            lastX = x;
+            lastY = y;
+        }
+
+        function endDraw(e) {
+            if (isDrawing) {
+                isDrawing = false;
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                drawingHistory = drawingHistory.slice(0, currentStep + 1);
+                drawingHistory.push(imageData);
+                currentStep = drawingHistory.length - 1;
+                ctx.restore();
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            isDrawing = true;
+            lastX = x;
+            lastY = y;
+            lastPressure = getPressure();
+            
+            ctx.save();
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = getLineWidth(lastPressure, 0);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            
+            const dx = x - lastX;
+            const dy = y - lastY;
+            const speed = Math.sqrt(dx * dx + dy * dy);
+            
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.12));
+            const lineWidth = getLineWidth(lastPressure, speed);
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = lineWidth;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            if (speed > 8 && lineWidth > 3) {
+                ctx.save();
+                ctx.globalAlpha = 0.2;
+                ctx.lineWidth = lineWidth * 0.7;
+                ctx.beginPath();
+                ctx.moveTo(lastX - dx * 0.1, lastY - dy * 0.1);
+                ctx.lineTo(x - dx * 0.1, y - dy * 0.1);
+                ctx.stroke();
+                ctx.restore();
+            }
+            
+            lastX = x;
+            lastY = y;
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            if (isDrawing) {
+                isDrawing = false;
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                drawingHistory = drawingHistory.slice(0, currentStep + 1);
+                drawingHistory.push(imageData);
+                currentStep = drawingHistory.length - 1;
+                ctx.restore();
+            }
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            if (currentWritingChar) {
+                drawSampleChar(currentWritingChar);
+            }
+            drawingHistory = [];
+            currentStep = -1;
+        }
+
+        function undoDraw() {
+            if (currentStep > 0) {
+                currentStep--;
+                ctx.putImageData(drawingHistory[currentStep], 0, 0);
+            }
+        }
+
+        function nextChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = (currentWordIndex + 1) % allWordsList.length;
+            loadCharForWriting(allWordsList[currentWordIndex]);
+            document.getElementById('speechResult').classList.remove('show');
+        }
+
+        function prevChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = (currentWordIndex - 1 + allWordsList.length) % allWordsList.length;
+            loadCharForWriting(allWordsList[currentWordIndex]);
+            document.getElementById('speechResult').classList.remove('show');
+        }
+
+        function randomChar() {
+            if (allWordsList.length === 0) return;
+            currentWordIndex = Math.floor(Math.random() * allWordsList.length);
+            loadCharForWriting(allWordsList[currentWordIndex]);
+            document.getElementById('speechResult').classList.remove('show');
+        }
+
+        // ===== 3D МАДЖОНГ (НЕ ТРОГАТЬ!) =====
+        let mahjongTiles = [];
+        let mahjongSelected = null;
+        let mahjongScore = 0;
+        let mahjongMatched = 0;
+        let mahjongTotalPairs = 0;
+        let mahjongMoves = 0;
+        let mahjongPairsCount = 6;
+        let mahjongLocked = false;
+
+        function setMahjongPairs(count) {
+            mahjongPairsCount = count;
+            document.querySelectorAll('#pairsSelector button').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.pairs) === count);
+            });
+            startMahjong();
+        }
+
+        function startMahjong() {
+            const allWords = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    allWords.push({
+                        key: key,
+                        keyEmoji: data.emoji,
+                        keyMeaning: data.meaning,
+                        chinese: word.chinese,
+                        pinyin: word.pinyin,
+                        translation: word.translation,
+                        emoji: word.emoji || '',
+                        hsk: word.hsk || ''
+                    });
+                }
+            }
+            
+            const shuffled = shuffleArray([...allWords]);
+            const selected = shuffled.slice(0, mahjongPairsCount);
+            
+            mahjongTiles = [];
+            for (const word of selected) {
+                mahjongTiles.push({
+                    id: 'w_' + Math.random().toString(36).substr(2, 6),
+                    type: 'word',
+                    key: word.key,
+                    chinese: word.chinese,
+                    pinyin: word.pinyin,
+                    translation: word.translation,
+                    emoji: word.emoji,
+                    hsk: word.hsk,
+                    keyEmoji: word.keyEmoji,
+                    keyMeaning: word.keyMeaning,
+                    matched: false
+                });
+                mahjongTiles.push({
+                    id: 'k_' + Math.random().toString(36).substr(2, 6),
+                    type: 'key',
+                    key: word.key,
+                    chinese: word.key,
+                    keyEmoji: word.keyEmoji,
+                    keyMeaning: word.keyMeaning,
+                    matched: false
+                });
+            }
+            
+            mahjongTiles = shuffleArray(mahjongTiles);
+            mahjongSelected = null;
+            mahjongScore = 0;
+            mahjongMatched = 0;
+            mahjongMoves = 0;
+            mahjongTotalPairs = mahjongPairsCount;
+            mahjongLocked = false;
+            
+            renderMahjong();
+            updateMahjongStats();
+        }
+
+        function shuffleMahjong() {
+            if (mahjongLocked) return;
+            const unmatched = mahjongTiles.filter(t => !t.matched);
+            const shuffled = shuffleArray(unmatched);
+            let index = 0;
+            for (let i = 0; i < mahjongTiles.length; i++) {
+                if (!mahjongTiles[i].matched) {
+                    mahjongTiles[i] = shuffled[index++];
+                }
+            }
+            mahjongSelected = null;
+            renderMahjong();
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function renderMahjong() {
+            const grid = document.getElementById('mahjongGrid');
+            let html = '';
+            
+            for (const tile of mahjongTiles) {
+                if (tile.matched) {
+                    html += `<div class="mahjong-tile matched" style="visibility:hidden;"></div>`;
+                    continue;
+                }
+                
+                let frontContent = '';
+                let backContent = '';
+                
+                const isLongWord = tile.chinese && tile.chinese.length >= 3;
+                const charClass = isLongWord ? 'tile-char long-word' : 'tile-char';
+                
+                if (tile.type === 'word') {
+                    frontContent = `
+                        <div class="${charClass}">${tile.chinese}</div>
+                        ${tile.pinyin ? `<div class="tile-pinyin">${tile.pinyin}</div>` : ''}
+                        ${tile.translation ? `<div class="tile-translation">${tile.translation}</div>` : ''}
+                        ${tile.emoji ? `<div class="tile-emoji">${tile.emoji}</div>` : ''}
+                        ${tile.hsk ? `<div class="tile-hsk">HSK ${tile.hsk}</div>` : ''}
+                    `;
+                    backContent = `
+                        <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
+                        <div class="back-text">${tile.key}</div>
+                        ${tile.keyMeaning ? `<div class="back-pinyin">${tile.keyMeaning}</div>` : ''}
+                    `;
+                } else {
+                    frontContent = `
+                        <div class="tile-char">${tile.chinese}</div>
+                        ${tile.keyEmoji ? `<div class="tile-emoji">${tile.keyEmoji}</div>` : ''}
+                        ${tile.keyMeaning ? `<div class="tile-translation">${tile.keyMeaning}</div>` : ''}
+                    `;
+                    backContent = `
+                        <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
+                        <div class="back-text">${tile.key}</div>
+                        ${tile.keyMeaning ? `<div class="back-pinyin">${tile.keyMeaning}</div>` : ''}
+                    `;
+                }
+                
+                const isSelected = mahjongSelected && mahjongSelected.id === tile.id;
+                const selectedClass = isSelected ? 'selected' : '';
+                
+                html += `
+                    <div class="mahjong-tile ${selectedClass}" data-id="${tile.id}" onclick="clickMahjong('${tile.id}')">
+                        <div class="mahjong-tile-inner">
+                            <div class="mahjong-tile-front">
+                                ${frontContent}
+                            </div>
+                            <div class="mahjong-tile-back">
+                                ${backContent}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            grid.innerHTML = html;
+            updateMahjongStats();
+        }
+
+        function clickMahjong(id) {
+            if (mahjongLocked) return;
+            
+            const tile = mahjongTiles.find(t => t.id === id);
+            if (!tile || tile.matched) return;
+            
+            if (tile.type === 'word') {
+                speakChinese(tile.chinese);
+            } else {
+                speakChinese(tile.chinese);
+            }
+            
+            if (mahjongSelected === null) {
+                mahjongSelected = tile;
+                renderMahjong();
+                return;
+            }
+            
+            if (mahjongSelected.id === id) {
+                mahjongSelected = null;
+                renderMahjong();
+                return;
+            }
+            
+            mahjongMoves++;
+            const first = mahjongSelected;
+            const second = tile;
+            
+            const isMatch = (first.type === 'key' && second.type === 'word' && first.key === second.key) ||
+                           (first.type === 'word' && second.type === 'key' && first.key === second.key);
+            
+            if (isMatch) {
+                first.matched = true;
+                second.matched = true;
+                mahjongScore += 10;
+                mahjongMatched++;
+                mahjongSelected = null;
+                renderMahjong();
+                updateMahjongStats();
+                
+                if (mahjongMatched === mahjongTotalPairs) {
+                    setTimeout(() => {
+                        alert('🎉 Поздравляем! Вы нашли все ' + mahjongTotalPairs + ' пар!');
+                    }, 500);
+                }
+            } else {
+                mahjongLocked = true;
+                mahjongSelected = null;
+                
+                const tiles = document.querySelectorAll('.mahjong-tile');
+                tiles.forEach(el => {
+                    if (el.dataset.id === first.id || el.dataset.id === second.id) {
+                        el.classList.add('wrong');
+                    }
+                });
+                
+                setTimeout(() => {
+                    tiles.forEach(el => {
+                        el.classList.remove('wrong');
+                    });
+                    renderMahjong();
+                    mahjongLocked = false;
+                }, 600);
+            }
+        }
+
+        function mahjongHint() {
+            if (mahjongLocked || mahjongMatched === mahjongTotalPairs) return;
+            
+            const unmatched = mahjongTiles.filter(t => !t.matched);
+            for (let i = 0; i < unmatched.length; i++) {
+                for (let j = i + 1; j < unmatched.length; j++) {
+                    if (unmatched[i].key === unmatched[j].key && 
+                        unmatched[i].type !== unmatched[j].type) {
+                        const tiles = document.querySelectorAll('.mahjong-tile');
+                        tiles.forEach(el => {
+                            if (el.dataset.id === unmatched[i].id || el.dataset.id === unmatched[j].id) {
+                                el.style.boxShadow = '0 0 30px rgba(255,215,0,0.8), 0 8px 0 #3d2415';
+                                setTimeout(() => {
+                                    el.style.boxShadow = '';
+                                }, 1500);
+                            }
+                        });
+                        return;
+                    }
+                }
+            }
+        }
+
+        function updateMahjongStats() {
+            document.getElementById('mahjongScore').textContent = mahjongScore;
+            document.getElementById('mahjongPairs').textContent = mahjongMatched;
+            document.getElementById('mahjongTotalPairs').textContent = mahjongTotalPairs;
+            document.getElementById('mahjongMoves').textContent = mahjongMoves;
+        }
+
+        // ============================================================
+        // ===== ИГРЫ (исправлены) =====
+        // ============================================================
+
+        let gameData = {
+            currentGame: null,
+            score: 0,
+            level: 1,
+            words: [],
+            currentIndex: 0,
+            timer: null,
+            timeLeft: 30,
+            pairs: [],
+            selectedCards: [],
+            matchedPairs: 0,
+            totalPairs: 0,
+            puzzlePieces: [],
+            puzzleTarget: null,
+            puzzleMatched: 0,
+            puzzleTotal: 0,
+            puzzleIsComplete: false,
+            raceWords: []
+        };
+
+        function startGame(type) {
+            if (typeof KEY_NAMES === 'undefined' || KEY_NAMES.length === 0) {
+                document.getElementById('gameArea').innerHTML = `
+                    <div style="text-align:center;font-size:1.5rem;color:#FFB347;padding:2rem;">
+                        ⏳ Загрузка базы данных...
+                        <br><small style="color:#b8956a;">Подождите 1-2 секунды</small>
+                    </div>
+                `;
+                setTimeout(() => startGame(type), 1000);
+                return;
+            }
+            
+            if (allWordsList.length === 0) {
+                buildAllWordsList();
+            }
+            
+            if (allWordsList.length === 0) {
+                document.getElementById('gameArea').innerHTML = `
+                    <div style="text-align:center;font-size:1.5rem;color:#FF6B6B;padding:2rem;">
+                        ❌ База данных не загружена!
+                        <br><small style="color:#8B5A2B;">Проверьте файл keys-data.js</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            gameData.currentGame = type;
+            gameData.score = parseInt(document.getElementById('gameScore').textContent) || 0;
+            gameData.level = parseInt(document.getElementById('gameLevel').textContent) || 1;
+            
+            const area = document.getElementById('gameArea');
+            
+            const shuffled = shuffleArray([...allWordsList]);
+            gameData.words = shuffled.slice(0, 20);
+            
+            if (gameData.words.length < 4) {
+                gameData.words = shuffled.slice(0, Math.min(10, allWordsList.length));
+            }
+            
+            if (gameData.timer) {
+                clearInterval(gameData.timer);
+                gameData.timer = null;
+            }
+            
+            switch(type) {
+                case 'fire': startFireGame(area); break;
+                case 'duel': startDuelGame(area); break;
+                case 'race': startRaceGame(area); break;
+                case 'puzzle': startPuzzleGame(area); break;
+            }
+        }
+
+        // ===== ИГРА 1: ТРАНСФОРМЕР =====
+        function startFireGame(area) {
+            if (gameData.words.length === 0) {
+                area.innerHTML = `
+                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;">
+                        🎉 Все слова изучены!
+                        <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const word = gameData.words[0];
+            if (!word) {
+                area.innerHTML = `<div style="text-align:center;font-size:2rem;color:#b8956a;padding:2rem;">🎉 Все слова изучены!</div>`;
+                return;
+            }
+            
+            let particlesHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const size = 4 + Math.random() * 10;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = 1 + Math.random() * 1.5;
+                particlesHTML += `
+                    <div class="fire-particle" style="
+                        left: ${left}%;
+                        width: ${size}px;
+                        height: ${size}px;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                        background: radial-gradient(circle, ${Math.random() > 0.5 ? '#FF6B35' : '#FF8C42'}, ${Math.random() > 0.5 ? '#FF4500' : '#FF6347'});
+                    "></div>
+                `;
+            }
+            
+            area.innerHTML = `
+                <div class="fire-container">
+                    <div style="font-size:1.5rem;color:#FFB347;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
+                        🔥 Найди иероглиф, который означает:
+                    </div>
+                    <div style="font-size:2.5rem;font-weight:bold;color:#FFD699;margin-bottom:1rem;text-shadow:0 0 40px rgba(255,179,71,0.2);">
+                        ${word.translation}
+                    </div>
+                    <div class="fire-emoji" id="fireEmoji">${word.emoji || '🔥'}</div>
+                    <div class="fire-particles">${particlesHTML}</div>
+                    <div class="fire-options" id="fireOptions"></div>
+                    <div style="margin-top:1rem;font-size:1.2rem;color:#b8956a;">
+                        🔥 Очки: <span id="fireScore" style="color:#FFB347;font-weight:bold;">${gameData.score}</span> | 
+                        📈 Уровень: <span id="fireLevel" style="color:#FFB347;font-weight:bold;">${gameData.level}</span>
+                    </div>
+                </div>
+            `;
+            
+            const correct = word;
+            const others = allWordsList.filter(w => w.chinese !== correct.chinese);
+            const wrong = shuffleArray(others).slice(0, 3);
+            const options = shuffleArray([correct, ...wrong]);
+            
+            const optionsContainer = document.getElementById('fireOptions');
+            optionsContainer.innerHTML = options.map(w => `
+                <button onclick="checkFireAnswer('${w.chinese}', '${correct.chinese}')">
+                    <span style="font-size:3rem;display:block;">${w.chinese}</span>
+                    <span style="font-size:1rem;color:#b8956a;">${w.pinyin}</span>
+                </button>
+            `).join('');
+            
+            document.getElementById('fireScore').textContent = gameData.score;
+            document.getElementById('fireLevel').textContent = gameData.level;
+        }
+
+        function checkFireAnswer(selected, correct) {
+            const buttons = document.querySelectorAll('#fireOptions button');
+            buttons.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (btn.textContent.includes(correct)) {
+                    btn.classList.add('correct');
+                    createConfetti(btn);
+                }
+                if (btn.textContent.includes(selected) && selected !== correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+            
+            if (selected === correct) {
+                gameData.score += 10;
+                document.getElementById('fireScore').textContent = gameData.score;
+                document.getElementById('gameScore').textContent = gameData.score;
+                speakChinese(correct);
+            } else {
+                gameData.score = Math.max(0, gameData.score - 5);
+                document.getElementById('fireScore').textContent = gameData.score;
+                document.getElementById('gameScore').textContent = gameData.score;
+            }
+            
+            setTimeout(() => {
+                gameData.level++;
+                document.getElementById('fireLevel').textContent = gameData.level;
+                const remaining = gameData.words.filter(w => w.chinese !== correct);
+                if (remaining.length > 0) {
+                    gameData.words = remaining;
+                    startFireGame(document.getElementById('gameArea'));
+                } else {
+                    document.getElementById('gameArea').innerHTML = `
+                        <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;">
+                            🎉 Поздравляем! Вы прошли все слова!<br>
+                            <span style="font-size:1.2rem;color:#FFB347;">🔥 Очков: ${gameData.score}</span>
+                            <br><button onclick="startGame('fire')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                        </div>
+                    `;
+                }
+            }, 900);
+        }
+
+        // ===== ИГРА 2: ДУЭЛЬ КЛЮЧЕЙ =====
+        function startDuelGame(area) {
+            const selectedWords = shuffleArray([...allWordsList]).slice(0, 6);
+            const cards = [];
+            
+            for (const word of selectedWords) {
+                cards.push({
+                    id: 'w_' + Math.random().toString(36).substr(2, 6),
+                    type: 'word',
+                    data: word,
+                    matched: false,
+                    flipped: false
+                });
+                const keyData = WORDS_BY_KEY[word.key];
+                cards.push({
+                    id: 'k_' + Math.random().toString(36).substr(2, 6),
+                    type: 'key',
+                    data: { 
+                        key: word.key, 
+                        emoji: keyData?.emoji || '🔑',
+                        meaning: keyData?.meaning || 'ключ'
+                    },
+                    matched: false,
+                    flipped: false
+                });
+            }
+            
+            gameData.pairs = shuffleArray(cards);
+            gameData.selectedCards = [];
+            gameData.matchedPairs = 0;
+            gameData.totalPairs = selectedWords.length;
+            
+            area.innerHTML = `
+                <div style="text-align:center;width:100%;position:relative;z-index:1;padding:0.5rem;">
+                    <div style="font-size:1.2rem;color:#FFB347;margin-bottom:0.8rem;text-shadow:0 0 30px rgba(255,179,71,0.1);">
+                        🃏 Найди пару: слово + его ключ
+                        <br>Найдено: <span id="duelMatched" style="color:#FF6B35;font-weight:bold;font-size:1.4rem;">0</span> / ${gameData.totalPairs} | 
+                        🏆 <span id="duelScore" style="color:#FF6B35;font-weight:bold;">${gameData.score}</span>
+                    </div>
+                    <div class="duel-grid" id="duelGrid" style="
+                        display:grid; 
+                        grid-template-columns: repeat(4, 1fr); 
+                        gap:0.6rem; 
+                        max-width:480px; 
+                        margin:0 auto;
+                    "></div>
+                    <div style="margin-top:0.8rem;font-size:0.9rem;color:#b8956a;">
+                        💡 Нажми на карточку, чтобы перевернуть
+                    </div>
+                </div>
+            `;
+            
+            renderDuelGrid();
+        }
+
+        function renderDuelGrid() {
+            const grid = document.getElementById('duelGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = gameData.pairs.map((card, index) => {
+                const isMatched = card.matched;
+                const isFlipped = card.flipped;
+                let frontContent = '', backContent = '';
+                
+                if (card.type === 'word') {
+                    frontContent = `
+                        <div style="font-size:2.8rem;font-weight:bold;line-height:1.2;">${card.data.chinese}</div>
+                        <div style="font-size:0.8rem;color:#8B5A2B;margin-top:0.1rem;">${card.data.pinyin}</div>
+                        <div style="font-size:0.7rem;color:#6b4a2a;margin-top:0.05rem;">${card.data.translation}</div>
+                    `;
+                    backContent = `
+                        <div style="font-size:2.5rem;">🔍</div>
+                        <div style="font-size:0.9rem;margin-top:0.2rem;color:rgba(255,255,255,0.8);">Найди ключ</div>
+                    `;
+                } else {
+                    frontContent = `
+                        <div style="font-size:2.8rem;">${card.data.emoji || '🔑'}</div>
+                        <div style="font-size:1.8rem;font-weight:bold;margin-top:0.1rem;">${card.data.key}</div>
+                        <div style="font-size:0.7rem;color:#b8956a;margin-top:0.05rem;">${card.data.meaning}</div>
+                    `;
+                    backContent = `
+                        <div style="font-size:2.5rem;">🔍</div>
+                        <div style="font-size:0.9rem;margin-top:0.2rem;color:rgba(255,255,255,0.8);">Найди слово</div>
+                    `;
+                }
+                
+                return `
+                    <div class="duel-card ${isMatched ? 'matched' : ''} ${isFlipped ? 'flipped' : ''}" 
+                         data-index="${index}" 
+                         onclick="clickDuelCard(${index})"
+                         style="
+                            aspect-ratio:3/4;
+                            perspective:800px;
+                            cursor:${isMatched ? 'default' : 'pointer'};
+                            opacity:${isMatched ? '0.3' : '1'};
+                            pointer-events:${isMatched ? 'none' : 'auto'};
+                            transition:all 0.3s ease;
+                         ">
+                        <div class="duel-card-inner" style="
+                            position:relative;
+                            width:100%;
+                            height:100%;
+                            transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            transform-style:preserve-3d;
+                            ${isFlipped ? 'transform:rotateY(180deg);' : ''}
+                        ">
+                            <div class="duel-card-front" style="
+                                position:absolute;
+                                width:100%;
+                                height:100%;
+                                backface-visibility:hidden;
+                                border-radius:14px;
+                                display:flex;
+                                flex-direction:column;
+                                align-items:center;
+                                justify-content:center;
+                                padding:0.3rem;
+                                text-align:center;
+                                background:linear-gradient(145deg, #f5e6d3, #e8d5c0);
+                                border:3px solid #b8956a;
+                                box-shadow:0 4px 0 #8B5A2B, 0 8px 20px rgba(0,0,0,0.15);
+                                transform:rotateY(0deg);
+                            ">${frontContent}</div>
+                            <div class="duel-card-back" style="
+                                position:absolute;
+                                width:100%;
+                                height:100%;
+                                backface-visibility:hidden;
+                                border-radius:14px;
+                                display:flex;
+                                flex-direction:column;
+                                align-items:center;
+                                justify-content:center;
+                                padding:0.3rem;
+                                text-align:center;
+                                background:linear-gradient(145deg, #FF6B35, #FF8C42);
+                                border:3px solid #FFB347;
+                                box-shadow:0 4px 0 #C16F1A, 0 8px 20px rgba(255,107,53,0.3);
+                                transform:rotateY(180deg);
+                                color:white;
+                            ">${backContent}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('duelMatched').textContent = gameData.matchedPairs;
+            document.getElementById('duelScore').textContent = gameData.score;
+        }
+
+        function clickDuelCard(index) {
+            if (gameData.selectedCards.length >= 2) return;
+            const card = gameData.pairs[index];
+            if (card.matched) return;
+            if (card.flipped) return;
+            if (gameData.selectedCards.includes(index)) return;
+            
+            card.flipped = true;
+            gameData.selectedCards.push(index);
+            
+            const cards = document.querySelectorAll('.duel-card');
+            cards.forEach((el, i) => {
+                if (i === index) {
+                    el.classList.add('flipped');
+                    el.querySelector('.duel-card-inner').style.transform = 'rotateY(180deg)';
+                }
+            });
+            
+            if (gameData.selectedCards.length === 2) {
+                const idx1 = gameData.selectedCards[0];
+                const idx2 = gameData.selectedCards[1];
+                const card1 = gameData.pairs[idx1];
+                const card2 = gameData.pairs[idx2];
+                
+                const isMatch = (card1.type === 'key' && card2.type === 'word' && card1.data.key === card2.data.key) ||
+                               (card1.type === 'word' && card2.type === 'key' && card1.data.key === card2.data.key);
+                
+                if (isMatch) {
+                    card1.matched = true;
+                    card2.matched = true;
+                    gameData.matchedPairs++;
+                    gameData.score += 15;
+                    document.getElementById('duelMatched').textContent = gameData.matchedPairs;
+                    document.getElementById('duelScore').textContent = gameData.score;
+                    document.getElementById('gameScore').textContent = gameData.score;
+                    
+                    const cardsEl = document.querySelectorAll('.duel-card');
+                    cardsEl.forEach((el, i) => {
+                        if (i === idx1 || i === idx2) {
+                            createConfetti(el);
+                            el.style.boxShadow = '0 0 40px rgba(76,175,80,0.6), 0 4px 0 #2E7D32';
+                        }
+                    });
+                    
+                    if (card1.type === 'word') {
+                        speakChinese(card1.data.chinese);
+                    } else if (card2.type === 'word') {
+                        speakChinese(card2.data.chinese);
+                    }
+                    
+                    setTimeout(() => {
+                        gameData.selectedCards = [];
+                        renderDuelGrid();
+                        
+                        if (gameData.matchedPairs === gameData.totalPairs) {
+                            document.getElementById('gameArea').innerHTML = `
+                                <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                                    🎉 Все пары найдены!<br>
+                                    <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                                    <br><button onclick="startGame('duel')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                                </div>
+                            `;
+                        }
+                    }, 700);
+                } else {
+                    const cardsEl = document.querySelectorAll('.duel-card');
+                    cardsEl.forEach((el, i) => {
+                        if (i === idx1 || i === idx2) {
+                            el.style.animation = 'shake 0.4s ease';
+                            el.style.borderColor = '#FF6B6B';
+                        }
+                    });
+                    
+                    setTimeout(() => {
+                        const cards2 = document.querySelectorAll('.duel-card');
+                        cards2.forEach((el, i) => {
+                            if (i === idx1 || i === idx2) {
+                                el.classList.remove('flipped');
+                                el.querySelector('.duel-card-inner').style.transform = '';
+                                el.style.animation = '';
+                                el.style.borderColor = '';
+                                gameData.pairs[i].flipped = false;
+                            }
+                        });
+                        gameData.selectedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        // ===== ИГРА 3: КОСМИЧЕСКАЯ ГОНКА =====
+        function startRaceGame(area) {
+            gameData.timeLeft = 30;
+            gameData.currentIndex = 0;
+            gameData.raceWords = shuffleArray([...gameData.words]);
+            
+            let starsHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const size = 1 + Math.random() * 3;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 3;
+                const duration = 1 + Math.random() * 2;
+                starsHTML += `
+                    <div class="race-star" style="
+                        left: ${left}%;
+                        top: ${top}%;
+                        width: ${size}px;
+                        height: ${size}px;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                    "></div>
+                `;
+            }
+            
+            area.innerHTML = `
+                <div class="race-container">
+                    <div class="race-stars">${starsHTML}</div>
+                    <div style="display:flex;justify-content:space-around;font-size:1.2rem;color:#b8956a;position:relative;z-index:1;flex-wrap:wrap;gap:0.5rem;">
+                        <span>⏱️ <span class="race-timer" id="raceTimer">30</span>с</span>
+                        <span>🏆 <span style="color:#FFB347;font-weight:bold;" id="raceScore">0</span></span>
+                        <span>📚 <span style="color:#FFB347;font-weight:bold;" id="raceTotal">0</span></span>
+                    </div>
+                    <div class="race-word" id="raceWord">🚀</div>
+                    <div class="race-options" id="raceOptions"></div>
+                </div>
+            `;
+            
+            gameData.timer = setInterval(() => {
+                gameData.timeLeft--;
+                const timerEl = document.getElementById('raceTimer');
+                timerEl.textContent = gameData.timeLeft;
+                if (gameData.timeLeft <= 5) {
+                    timerEl.classList.add('warning');
+                }
+                if (gameData.timeLeft <= 0) {
+                    clearInterval(gameData.timer);
+                    document.getElementById('gameArea').innerHTML = `
+                        <div style="text-align:center;font-size:2rem;color:#FF6B35;padding:2rem;position:relative;z-index:1;">
+                            ⏰ Время вышло!<br>
+                            <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                            <br><button onclick="startGame('race')" style="padding:0.8rem 2rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FF6B35,#FF8C42);color:white;font-size:1.2rem;cursor:pointer;margin-top:1rem;box-shadow:0 4px 0 #C16F1A;">🔄 Играть снова</button>
+                        </div>
+                    `;
+                }
+            }, 1000);
+            
+            showRaceWord();
+        }
+
+        function showRaceWord() {
+            const word = gameData.raceWords[gameData.currentIndex];
+            if (!word) {
+                clearInterval(gameData.timer);
+                document.getElementById('gameArea').innerHTML = `
+                    <div style="text-align:center;font-size:2rem;color:#4CAF50;padding:2rem;position:relative;z-index:1;">
+                        🎉 Все слова пройдены!<br>
+                        <span style="font-size:1.2rem;color:#FFB347;">🏆 Очков: ${gameData.score}</span>
+                    </div>
+                `;
+                return;
+            }
+            
+            document.getElementById('raceWord').textContent = word.chinese;
+            document.getElementById('raceTotal').textContent = gameData.currentIndex + 1;
+            
+            const others = allWordsList.filter(w => w.chinese !== word.chinese);
+            const wrong = shuffleArray(others).slice(0, 3);
+            const options = shuffleArray([word, ...wrong]);
+            
+            const container = document.getElementById('raceOptions');
+            container.innerHTML = options.map(w => `
+                <button onclick="checkRaceAnswer('${w.chinese}', '${word.chinese}')">
+                    ${w.translation}
+                    ${w.emoji ? ' ' + w.emoji : ''}
+                </button>
+            `).join('');
+        }
+
+        function checkRaceAnswer(selected, correct) {
+            const buttons = document.querySelectorAll('#raceOptions button');
+            buttons.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                const correctWord = allWordsList.find(w => w.chinese === correct);
+                if (btn.textContent.includes(correctWord?.translation || '')) {
+                    btn.classList.add('correct');
+                    createConfetti(btn);
+                }
+                if (btn.textContent.includes(selected) && selected !== correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+            
+            if (selected === correct) {
+                gameData.score += 5;
+                document.getElementById('raceScore').textContent = gameData.score;
+                document.getElementById('gameScore').textContent = gameData.score;
+                speakChinese(correct);
+            }
+            
+            setTimeout(() => {
+                gameData.currentIndex++;
+                showRaceWord();
+            }, 600);
+        }
+
+        // ===== ИГРА 4: ПАЗЛ =====
+        function startPuzzleGame(area) {
+            let targetWord = null;
+            let attempts = 0;
+            while (!targetWord && attempts < 100) {
+                const randomWord = allWordsList[Math.floor(Math.random() * allWordsList.length)];
+                if (randomWord.chinese.length >= 2 && randomWord.chinese.length <= 4) {
+                    targetWord = randomWord;
+                }
+                attempts++;
+            }
+            if (!targetWord) {
+                targetWord = allWordsList[0];
+            }
+            
+            const chars = targetWord.chinese.split('');
+            const totalPieces = chars.length;
+            
+            const allKeys = shuffleArray([...KEY_NAMES]);
+            const pieces = chars.map((char, i) => {
+                const randomKey = allKeys[i % allKeys.length];
+                const keyData = WORDS_BY_KEY[randomKey];
+                return {
+                    char: char,
+                    correctIndex: i,
+                    currentIndex: i,
+                    matched: false,
+                    emoji: keyData?.emoji || '🧩',
+                    key: randomKey,
+                    translation: targetWord.translation,
+                    pinyin: targetWord.pinyin,
+                    fullWord: targetWord.chinese
+                };
+            });
+            
+            const shuffledPieces = shuffleArray([...pieces]);
+            
+            gameData.puzzlePieces = shuffledPieces;
+            gameData.puzzleTarget = targetWord;
+            gameData.puzzleTotal = totalPieces;
+            gameData.puzzleMatched = 0;
+            gameData.puzzleIsComplete = false;
+            
+            const cols = totalPieces <= 4 ? 2 : 3;
+            
+            area.innerHTML = `
+                <div style="text-align:center;width:100%;position:relative;z-index:1;padding:0.5rem;">
+                    <div style="font-size:1.6rem;color:#FFB347;margin-bottom:0.3rem;text-shadow:0 0 30px rgba(255,179,71,0.2);">
+                        🧩 Собери иероглиф
+                    </div>
+                    <div style="font-size:1rem;color:#b8956a;margin-bottom:0.5rem;">
+                        💡 Подсказка: <span style="color:#FFD699;">${targetWord.translation}</span> ${targetWord.emoji || ''}
+                        <br>Собрано: <span id="puzzleMatched" style="color:#FF6B35;font-weight:bold;font-size:1.3rem;">0</span> / ${totalPieces}
+                    </div>
+                    <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:0.8rem;flex-wrap:wrap;">
+                        <span style="background:rgba(255,179,71,0.15);padding:0.3rem 1rem;border-radius:12px;font-size:1rem;color:#FFB347;border:1px solid rgba(255,179,71,0.2);">
+                            🎯 ${targetWord.chinese}
+                        </span>
+                    </div>
+                    <div class="puzzle-grid" id="puzzleGrid" style="
+                        display:grid; 
+                        grid-template-columns: repeat(${cols}, 1fr); 
+                        gap:0.8rem; 
+                        max-width:420px; 
+                        margin:0 auto;
+                    "></div>
+                    <div style="margin-top:1rem;display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+                        <button onclick="startGame('puzzle')" style="padding:0.6rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#FFB347,#FF8C42);color:#2d1b0e;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #8B4513;">🔄 Новый пазл</button>
+                        <button onclick="puzzleHint()" style="padding:0.6rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#9C27B0,#7B1FA2);color:white;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #4A148C;">💡 Подсказка</button>
+                        <button onclick="puzzleShowAnswer()" style="padding:0.6rem 1.5rem;border-radius:30px;border:none;background:linear-gradient(135deg,#2196F3,#1976D2);color:white;font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #0D47A1;">👀 Ответ</button>
+                    </div>
+                    <div id="puzzleResult" style="margin-top:1rem;"></div>
+                </div>
+            `;
+            
+            renderPuzzleGrid();
+        }
+
+        function renderPuzzleGrid() {
+            const grid = document.getElementById('puzzleGrid');
+            if (!grid) return;
+            
+            const totalPieces = gameData.puzzleTotal;
+            const cols = totalPieces <= 4 ? 2 : 3;
+            grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            
+            grid.innerHTML = gameData.puzzlePieces.map((piece, i) => {
+                const isMatched = piece.matched;
+                const hue = (piece.correctIndex * 50 + 30) % 360;
+                
+                return `
+                    <div class="puzzle-piece" 
+                         data-index="${i}"
+                         onclick="clickPuzzlePiece(${i})"
+                         style="
+                            aspect-ratio: ${totalPieces <= 4 ? '4/3' : '1/1'};
+                            background: ${isMatched ? 'linear-gradient(145deg, #4CAF50, #45a049)' : `linear-gradient(145deg, hsl(${hue}, 75%, 55%), hsl(${hue + 30}, 75%, 45%))`};
+                            border-radius: 16px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: ${totalPieces <= 4 ? '4.5rem' : '3.5rem'};
+                            font-weight: bold;
+                            color: white;
+                            cursor: ${isMatched ? 'default' : 'pointer'};
+                            border: 3px solid ${isMatched ? '#4CAF50' : 'rgba(255,255,255,0.25)'};
+                            box-shadow: ${isMatched ? '0 4px 0 #2E7D32, inset 0 -4px 0 rgba(0,0,0,0.1)' : '0 4px 0 rgba(0,0,0,0.25), 0 8px 25px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.1)'};
+                            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                            transform: ${isMatched ? 'scale(0.95)' : 'scale(1)'};
+                            opacity: ${isMatched ? '0.6' : '1'};
+                            position: relative;
+                            padding: 0.3rem;
+                        "
+                        ${isMatched ? 'style="pointer-events:none;"' : ''}
+                    >
+                        ${isMatched ? '✅' : `
+                            <div style="font-size:${totalPieces <= 4 ? '4.5rem' : '3.5rem'};line-height:1;">${piece.char}</div>
+                            <div style="font-size:0.7rem;opacity:0.9;margin-top:0.2rem;background:rgba(0,0,0,0.25);padding:0.1rem 0.6rem;border-radius:8px;">${piece.emoji}</div>
+                        `}
+                        ${!isMatched ? `<div style="position:absolute;bottom:4px;right:6px;font-size:0.5rem;opacity:0.3;">${piece.key}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('puzzleMatched').textContent = gameData.puzzleMatched;
+        }
+
+        function clickPuzzlePiece(index) {
+            if (gameData.puzzleIsComplete) return;
+            const piece = gameData.puzzlePieces[index];
+            if (piece.matched) return;
+            
+            const isCorrect = piece.currentIndex === piece.correctIndex;
+            
+            if (isCorrect) {
+                piece.matched = true;
+                gameData.puzzleMatched++;
+                gameData.score += 10;
+                document.getElementById('gameScore').textContent = gameData.score;
+                document.getElementById('puzzleMatched').textContent = gameData.puzzleMatched;
+                
+                const el = document.querySelector(`.puzzle-piece[data-index="${index}"]`);
+                if (el) {
+                    el.style.transform = 'scale(1.2)';
+                    el.style.boxShadow = '0 0 60px rgba(76,175,80,0.7), 0 4px 0 #2E7D32';
+                    el.style.borderColor = '#4CAF50';
+                    createConfetti(el);
+                    
+                    setTimeout(() => {
+                        renderPuzzleGrid();
+                    }, 400);
+                }
+                
+                if (gameData.puzzleMatched === gameData.puzzleTotal) {
+                    gameData.puzzleIsComplete = true;
+                    setTimeout(() => {
+                        showPuzzleComplete();
+                    }, 500);
+                }
+            } else {
+                const el = document.querySelector(`.puzzle-piece[data-index="${index}"]`);
+                if (el) {
+                    el.style.animation = 'shake 0.4s ease';
+                    el.style.borderColor = '#FF6B6B';
+                    el.style.boxShadow = '0 0 40px rgba(255,107,107,0.4)';
+                    setTimeout(() => {
+                        el.style.animation = '';
+                        el.style.borderColor = '';
+                        el.style.boxShadow = '';
+                    }, 500);
+                }
+            }
+        }
+
+        function showPuzzleComplete() {
+            const target = gameData.puzzleTarget;
+            const resultDiv = document.getElementById('puzzleResult');
+            if (resultDiv) {
+                resultDiv.innerHTML = `
+                    <div style="
+                        background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(255,179,71,0.15));
+                        border: 3px solid #4CAF50;
+                        border-radius: 24px;
+                        padding: 1.5rem;
+                        animation: fadeIn 0.6s ease;
+                    ">
+                        <div style="font-size:4rem;font-weight:bold;color:#4CAF50;text-shadow:0 0 40px rgba(76,175,80,0.3);">
+                            ${target.chinese}
+                        </div>
+                        <div style="font-size:1.4rem;color:#FFB347;margin-top:0.3rem;">
+                            ${target.pinyin}
+                        </div>
+                        <div style="font-size:1.8rem;color:#f5e6d3;margin-top:0.3rem;">
+                            ${target.translation} ${target.emoji || '🎉'}
+                        </div>
+                        <div style="margin-top:0.5rem;font-size:1.2rem;color:#b8956a;">
+                            🏆 Очков: ${gameData.score}
+                        </div>
+                        <button onclick="startGame('puzzle')" style="
+                            margin-top:1rem;
+                            padding:0.6rem 2rem;
+                            border-radius:30px;
+                            border:none;
+                            background:linear-gradient(135deg,#FF6B35,#FF8C42);
+                            color:white;
+                            font-size:1.2rem;
+                            font-weight:bold;
+                            cursor:pointer;
+                            box-shadow:0 4px 0 #C16F1A;
+                        ">🔄 Новый пазл</button>
+                    </div>
+                `;
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const fakeEl = document.createElement('div');
+                        fakeEl.getBoundingClientRect = () => ({
+                            left: window.innerWidth / 2 - 100 + Math.random() * 200,
+                            top: window.innerHeight / 2 - 100 + Math.random() * 200,
+                            width: 50,
+                            height: 50
+                        });
+                        createConfetti(fakeEl);
+                    }, i * 100);
+                }
+            }
+        }
+
+        function puzzleHint() {
+            if (gameData.puzzleIsComplete) return;
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            pieces.forEach((el, i) => {
+                const piece = gameData.puzzlePieces[i];
+                if (!piece.matched) {
+                    if (piece.currentIndex === piece.correctIndex) {
+                        el.style.boxShadow = '0 0 40px rgba(76,175,80,0.8), 0 4px 0 #2E7D32';
+                        el.style.borderColor = '#4CAF50';
+                    } else {
+                        const correctPos = gameData.puzzlePieces.findIndex(p => 
+                            p.correctIndex === piece.currentIndex && !p.matched
+                        );
+                        if (correctPos !== -1) {
+                            const correctEl = document.querySelector(`.puzzle-piece[data-index="${correctPos}"]`);
+                            if (correctEl) {
+                                correctEl.style.boxShadow = '0 0 40px rgba(255,215,0,0.8), 0 4px 0 #8B4513';
+                                correctEl.style.borderColor = '#FFD700';
+                            }
+                        }
+                    }
+                }
+            });
+            
+            setTimeout(() => {
+                const allPieces = document.querySelectorAll('.puzzle-piece');
+                allPieces.forEach(el => {
+                    el.style.boxShadow = '';
+                    el.style.borderColor = '';
+                });
+                renderPuzzleGrid();
+            }, 2500);
+        }
+
+        function puzzleShowAnswer() {
+            if (gameData.puzzleIsComplete) return;
+            const target = gameData.puzzleTarget;
+            const resultDiv = document.getElementById('puzzleResult');
+            if (resultDiv) {
+                resultDiv.innerHTML = `
+                    <div style="
+                        background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,107,53,0.15));
+                        border: 3px solid #FFD700;
+                        border-radius: 24px;
+                        padding: 1.5rem;
+                        animation: fadeIn 0.6s ease;
+                    ">
+                        <div style="font-size:4rem;font-weight:bold;color:#FFD700;text-shadow:0 0 40px rgba(255,215,0,0.3);">
+                            ${target.chinese}
+                        </div>
+                        <div style="font-size:1.4rem;color:#FFB347;margin-top:0.3rem;">
+                            ${target.pinyin}
+                        </div>
+                        <div style="font-size:1.8rem;color:#f5e6d3;margin-top:0.3rem;">
+                            ${target.translation} ${target.emoji || '📖'}
+                        </div>
+                        <div style="margin-top:0.5rem;font-size:1rem;color:#b8956a;">
+                            💡 Собери пазл сам!
+                        </div>
+                        <button onclick="document.getElementById('puzzleResult').innerHTML=''" style="
+                            margin-top:0.8rem;
+                            padding:0.4rem 1.5rem;
+                            border-radius:20px;
+                            border:2px solid #FFB347;
+                            background:transparent;
+                            color:#FFB347;
+                            font-size:1rem;
+                            cursor:pointer;
+                        ">Закрыть</button>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        // ===== ЭФФЕКТ КОНФЕТТИ =====
+        // ============================================================
+
+        function createConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#FF6B35', '#FFB347', '#4CAF50', '#2196F3', '#9C27B0', '#FF6B6B', '#FFD700', '#FF1493', '#00CED1', '#FF4500'];
+            
+            for (let i = 0; i < 25; i++) {
+                const confetti = document.createElement('div');
+                const size = 6 + Math.random() * 10;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = 40 + Math.random() * 100;
+                const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
+                const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 40;
+                const rotation = Math.random() * 360;
+                const shapes = ['50%', '2px', '0', '4px'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                const isCircle = shape === '50%';
+                
+                confetti.style.cssText = `
+                    position: fixed;
+                    width: ${isCircle ? size : size}px;
+                    height: ${isCircle ? size : size * (0.3 + Math.random() * 0.7)}px;
+                    background: ${color};
+                    left: ${x}px;
+                    top: ${y}px;
+                    border-radius: ${shape};
+                    pointer-events: none;
+                    z-index: 9999;
+                    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    transform: rotate(${rotation}deg);
+                    box-shadow: 0 0 10px rgba(255,255,255,0.15);
+                `;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.style.left = (x + Math.cos(angle) * distance) + 'px';
+                    confetti.style.top = (y + Math.sin(angle) * distance - 60) + 'px';
+                    confetti.style.opacity = '0';
+                    confetti.style.transform = `rotate(${rotation + Math.random() * 720}deg) scale(0.2)`;
+                }, 10);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 1000);
+            }
+        }
+
+        // ============================================================
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        // ============================================================
+
+        buildAllWordsList();
+        updateStats();
+        renderKeySelector();
+        renderWords();
+
+        setTimeout(() => {
+            if (document.getElementById('tab-writing').classList.contains('active')) {
+                initWritingTab();
+            } else {
+                setTimeout(initWritingTab, 500);
+            }
+            if (document.getElementById('tab-mahjong').classList.contains('active')) {
+                setTimeout(startMahjong, 200);
+            }
+        }, 300);
+
+        window.openWritingForChar = openWritingForChar;
+        window.selectCharFromGrid = selectCharFromGrid;
+        window.speakChinese = speakChinese;
+        window.startListening = startListening;
+        window.startMahjong = startMahjong;
+        window.shuffleMahjong = shuffleMahjong;
+        window.clickMahjong = clickMahjong;
+        window.mahjongHint = mahjongHint;
+        window.setMahjongPairs = setMahjongPairs;
+        window.startGame = startGame;
+        window.checkFireAnswer = checkFireAnswer;
+        window.clickDuelCard = clickDuelCard;
+        window.checkRaceAnswer = checkRaceAnswer;
+        window.clickPuzzlePiece = clickPuzzlePiece;
+        window.puzzleHint = puzzleHint;
+        window.puzzleShowAnswer = puzzleShowAnswer;
+        window.smartSearch = smartSearch;
+        window.createConfetti = createConfetti;
     </script>
 </body>
 </html>
+```
