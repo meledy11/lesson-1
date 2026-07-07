@@ -570,11 +570,12 @@
         }
         
         .mahjong-tile-front .tile-char {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             font-weight: bold;
             color: #2d1b0e;
-            line-height: 1;
+            line-height: 1.1;
             text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+            word-break: break-all;
         }
         
         .mahjong-tile-front .tile-pinyin {
@@ -585,24 +586,14 @@
         }
         
         .mahjong-tile-front .tile-translation {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #6b4a2a;
             margin-top: 0.1rem;
             font-weight: 500;
-            max-width: 90%;
-            white-space: nowrap;
+            max-width: 95%;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-        
-        .mahjong-tile-front .tile-key {
-            font-size: 0.6rem;
-            color: #fff;
-            background: #FF6B35;
-            padding: 0.1rem 0.6rem;
-            border-radius: 10px;
-            margin-top: 0.2rem;
-            font-weight: bold;
+            white-space: nowrap;
         }
         
         .mahjong-tile-back {
@@ -616,9 +607,11 @@
         
         .mahjong-tile-back .back-emoji {
             font-size: 4rem;
+            line-height: 1;
         }
+        
         .mahjong-tile-back .back-text {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #FFB347;
             margin-top: 0.3rem;
             font-weight: bold;
@@ -715,7 +708,7 @@
                 gap: 0.6rem;
             }
             .mahjong-tile-front .tile-char {
-                font-size: 2rem;
+                font-size: 2.4rem;
             }
             .mahjong-tile-front .tile-pinyin {
                 font-size: 0.7rem;
@@ -731,13 +724,19 @@
                 font-size: 1.2rem;
             }
             .mahjong-tile-back .back-emoji {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+            .mahjong-tile-back .back-text {
+                font-size: 1rem;
             }
         }
         
         @media (max-width: 400px) {
             .mahjong-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .mahjong-tile-front .tile-char {
+                font-size: 2rem;
             }
         }
         
@@ -1836,7 +1835,6 @@
         }
 
         function startMahjong() {
-            // Собираем все слова из базы
             const allWords = [];
             for (const key of KEY_NAMES) {
                 const data = WORDS_BY_KEY[key];
@@ -1854,11 +1852,9 @@
                 }
             }
             
-            // Перемешиваем и выбираем нужное количество пар
             const shuffled = shuffleArray([...allWords]);
             const selected = shuffled.slice(0, mahjongPairsCount);
             
-            // Создаём плитки: для каждого слова — плитка-слово и плитка-ключ
             mahjongTiles = [];
             for (const word of selected) {
                 mahjongTiles.push({
@@ -1885,7 +1881,6 @@
                 });
             }
             
-            // Перемешиваем плитки
             mahjongTiles = shuffleArray(mahjongTiles);
             mahjongSelected = null;
             mahjongScore = 0;
@@ -1923,14 +1918,12 @@
         function renderMahjong() {
             const grid = document.getElementById('mahjongGrid');
             let html = '';
-            let displayedCount = 0;
             
             for (const tile of mahjongTiles) {
                 if (tile.matched) {
                     html += `<div class="mahjong-tile matched" style="visibility:hidden;"></div>`;
                     continue;
                 }
-                displayedCount++;
                 
                 let frontContent = '';
                 let backContent = '';
@@ -1940,7 +1933,6 @@
                         <div class="tile-char">${tile.chinese}</div>
                         <div class="tile-pinyin">${tile.pinyin}</div>
                         <div class="tile-translation">${tile.translation}</div>
-                        <div class="tile-key">🔑 ${tile.key}</div>
                     `;
                     backContent = `
                         <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
@@ -1949,9 +1941,7 @@
                 } else {
                     frontContent = `
                         <div class="tile-char">${tile.chinese}</div>
-                        <div class="tile-pinyin">${tile.keyEmoji || '🔑'}</div>
                         <div class="tile-translation">${tile.keyMeaning}</div>
-                        <div class="tile-key">🔑 ключ</div>
                     `;
                     backContent = `
                         <div class="back-emoji">${tile.keyEmoji || '🔑'}</div>
@@ -2009,7 +1999,6 @@
             const first = mahjongSelected;
             const second = tile;
             
-            // Проверяем пару: один ключ, одно слово с этим ключом
             const isMatch = (first.type === 'key' && second.type === 'word' && first.key === second.key) ||
                            (first.type === 'word' && second.type === 'key' && first.key === second.key);
             
@@ -2022,7 +2011,6 @@
                 renderMahjong();
                 updateMahjongStats();
                 
-                // Проверка победы
                 if (mahjongMatched === mahjongTotalPairs) {
                     setTimeout(() => {
                         alert('🎉 Поздравляем! Вы нашли все ' + mahjongTotalPairs + ' пар!');
@@ -2032,7 +2020,6 @@
                 mahjongLocked = true;
                 mahjongSelected = null;
                 
-                // Показываем ошибку
                 const tiles = document.querySelectorAll('.mahjong-tile');
                 tiles.forEach(el => {
                     if (el.dataset.id === first.id || el.dataset.id === second.id) {
@@ -2053,13 +2040,11 @@
         function mahjongHint() {
             if (mahjongLocked || mahjongMatched === mahjongTotalPairs) return;
             
-            // Ищем первую несовпавшую пару
             const unmatched = mahjongTiles.filter(t => !t.matched);
             for (let i = 0; i < unmatched.length; i++) {
                 for (let j = i + 1; j < unmatched.length; j++) {
                     if (unmatched[i].key === unmatched[j].key && 
                         unmatched[i].type !== unmatched[j].type) {
-                        // Подсвечиваем пару
                         const tiles = document.querySelectorAll('.mahjong-tile');
                         tiles.forEach(el => {
                             if (el.dataset.id === unmatched[i].id || el.dataset.id === unmatched[j].id) {
