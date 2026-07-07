@@ -348,6 +348,49 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(231,76,60,0.5); }
         }
+
+        /* Регулировка кисти */
+        .brush-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            margin: 0.5rem 0 1rem;
+            flex-wrap: wrap;
+            background: #FFF8F0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            border: 2px solid #FFD699;
+        }
+        .brush-control label {
+            font-weight: bold;
+            color: #A64B2A;
+            font-size: 1.2rem;
+        }
+        .brush-control input[type="range"] {
+            width: 200px;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #FFD699;
+            border-radius: 10px;
+            outline: none;
+        }
+        .brush-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255,107,53,0.4);
+        }
+        .brush-control .brush-size-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            min-width: 40px;
+            text-align: center;
+        }
         
         .speech-result {
             text-align: center;
@@ -388,7 +431,7 @@
         .canvas-wrapper {
             display: flex;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             background: #FFFDF9;
             border-radius: 30px;
             padding: 1rem;
@@ -396,7 +439,7 @@
         }
         #writingCanvas {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             height: auto;
             aspect-ratio: 1/1;
             background: #FDF8F0;
@@ -470,6 +513,7 @@
             .writing-actions button { font-size: 1rem; padding: 0.5rem 1rem; }
             .speech-result .score { font-size: 2rem; }
             .speech-result .heard-text { font-size: 1.2rem; }
+            .brush-control input[type="range"] { width: 120px; }
         }
     </style>
 </head>
@@ -525,6 +569,16 @@
                     <button class="btn-undo" id="undoBtn">↩️ Отменить</button>
                     <button class="btn-clear" id="clearBtn">🗑️ Очистить</button>
                 </div>
+
+                <!-- Регулировка кисти -->
+                <div class="brush-control">
+                    <label for="brushSizeSlider">🖌️ Размер кисти:</label>
+                    <input type="range" id="brushSizeSlider" min="2" max="30" value="8" step="0.5">
+                    <span class="brush-size-display" id="brushSizeDisplay">8</span>
+                    <label style="margin-left:0.5rem;">
+                        <input type="checkbox" id="pressureToggle" checked> Давление
+                    </label>
+                </div>
                 
                 <!-- Результат распознавания речи -->
                 <div class="speech-result" id="speechResult">
@@ -535,7 +589,7 @@
                 </div>
                 
                 <div class="canvas-wrapper">
-                    <canvas id="writingCanvas" width="500" height="500"></canvas>
+                    <canvas id="writingCanvas" width="550" height="550"></canvas>
                 </div>
                 
                 <div style="text-align:center; margin-bottom:0.5rem; font-size:1.2rem; color:#8B5A2B;">
@@ -955,8 +1009,9 @@
         let currentStep = -1;
         let currentWritingChar = '上';
         let writingCharData = null;
+        let brushSize = 8;
+        let usePressure = true;
 
-        // Флаг для инициализации тетради
         let isWritingInitialized = false;
 
         function initWritingTab() {
@@ -964,16 +1019,14 @@
             ctx = canvas.getContext('2d');
             
             const rect = canvas.getBoundingClientRect();
-            const size = Math.min(rect.width, 500);
+            const size = Math.min(rect.width, 550);
             canvas.width = size;
             canvas.height = size;
             
-            // Устанавливаем стиль кисти для каллиграфии
             ctx.strokeStyle = '#1a1a1a';
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             
-            // События для мыши
             canvas.removeEventListener('mousedown', startDraw);
             canvas.removeEventListener('mousemove', draw);
             canvas.removeEventListener('mouseup', endDraw);
@@ -984,7 +1037,6 @@
             canvas.addEventListener('mouseup', endDraw);
             canvas.addEventListener('mouseleave', endDraw);
             
-            // События для touch
             canvas.removeEventListener('touchstart', handleTouchStart);
             canvas.removeEventListener('touchmove', handleTouchMove);
             canvas.removeEventListener('touchend', handleTouchEnd);
@@ -1005,13 +1057,22 @@
             };
             document.getElementById('micBtn').onclick = startListening;
             
+            // Регулировка кисти
+            const slider = document.getElementById('brushSizeSlider');
+            const display = document.getElementById('brushSizeDisplay');
+            slider.oninput = function() {
+                brushSize = parseFloat(this.value);
+                display.textContent = brushSize;
+            };
+            document.getElementById('pressureToggle').onchange = function() {
+                usePressure = this.checked;
+            };
+            
             initSpeechRecognition();
             renderWordGrid();
             
-            // Загружаем иероглиф 上 при первом открытии
             if (!isWritingInitialized) {
                 isWritingInitialized = true;
-                // Ищем иероглиф 上 в списке
                 let shangFound = false;
                 for (let i = 0; i < allWordsList.length; i++) {
                     if (allWordsList[i].chinese === '上') {
@@ -1025,14 +1086,12 @@
                 }
                 loadCharForWriting(allWordsList[currentWordIndex] || allWordsList[0]);
             } else {
-                // Обновляем отображение текущего иероглифа
                 updateWritingDisplay();
                 clearCanvas();
                 drawGrid();
                 if (currentWritingChar) {
                     drawSampleChar(currentWritingChar);
                 }
-                // Обновляем активный элемент в сетке
                 document.querySelectorAll('.grid-char').forEach(el => {
                     el.classList.toggle('active-char', el.dataset.char === currentWritingChar);
                 });
@@ -1062,6 +1121,7 @@
             document.querySelectorAll('.grid-char').forEach(el => {
                 el.classList.toggle('active-char', el.dataset.char === char);
             });
+            document.getElementById('speechResult').classList.remove('show');
         }
 
         function openWritingForChar(char) {
@@ -1096,6 +1156,7 @@
             document.querySelectorAll('.grid-char').forEach(el => {
                 el.classList.toggle('active-char', el.dataset.char === data.chinese);
             });
+            document.getElementById('speechResult').classList.remove('show');
         }
 
         function updateWritingDisplay() {
@@ -1134,14 +1195,14 @@
         function drawSampleChar(char) {
             const size = canvas.width;
             ctx.save();
-            ctx.fillStyle = 'rgba(200, 180, 160, 0.25)';
+            ctx.fillStyle = 'rgba(180, 160, 140, 0.2)';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
-            let fontSize = size * 0.65;
-            if (char.length >= 2) fontSize = size * 0.45;
-            if (char.length >= 3) fontSize = size * 0.32;
-            if (char.length >= 4) fontSize = size * 0.25;
+            let fontSize = size * 0.75;
+            if (char.length >= 2) fontSize = size * 0.5;
+            if (char.length >= 3) fontSize = size * 0.35;
+            if (char.length >= 4) fontSize = size * 0.28;
             
             ctx.font = `${fontSize}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
             
@@ -1167,10 +1228,14 @@
         }
 
         function getLineWidth(pressure, speed) {
-            // Имитация кисти: давление + скорость влияют на толщину
-            const baseWidth = 4 + pressure * 10;
-            const speedFactor = Math.min(1, speed / 50);
-            return Math.max(2, baseWidth * (0.6 + 0.4 * (1 - speedFactor)));
+            let width = brushSize;
+            if (usePressure) {
+                // Имитация кисти: давление + скорость
+                const baseWidth = brushSize * 0.5 + pressure * brushSize * 0.8;
+                const speedFactor = Math.min(1, speed / 30);
+                width = Math.max(1, baseWidth * (0.7 + 0.3 * (1 - speedFactor)));
+            }
+            return width;
         }
 
         function startDraw(e) {
@@ -1198,13 +1263,11 @@
             const x = (e.clientX - rect.left) * (canvas.width / rect.width);
             const y = (e.clientY - rect.top) * (canvas.height / rect.height);
             
-            // Вычисляем скорость для изменения толщины
             const dx = x - lastX;
             const dy = y - lastY;
             const speed = Math.sqrt(dx * dx + dy * dy);
             
-            // Давление меняется плавно
-            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.15));
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.12));
             
             const lineWidth = getLineWidth(lastPressure, speed);
             
@@ -1218,14 +1281,14 @@
             ctx.lineTo(x, y);
             ctx.stroke();
             
-            // Добавляем небольшой "эффект кисти" — лёгкое размытие на концах
-            if (speed > 10) {
+            // Эффект растушёвки для имитации кисти
+            if (speed > 8 && lineWidth > 3) {
                 ctx.save();
-                ctx.globalAlpha = 0.3;
-                ctx.lineWidth = lineWidth * 0.6;
+                ctx.globalAlpha = 0.2;
+                ctx.lineWidth = lineWidth * 0.7;
                 ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(x, y);
+                ctx.moveTo(lastX - dx * 0.1, lastY - dy * 0.1);
+                ctx.lineTo(x - dx * 0.1, y - dy * 0.1);
                 ctx.stroke();
                 ctx.restore();
             }
@@ -1277,7 +1340,7 @@
             const dy = y - lastY;
             const speed = Math.sqrt(dx * dx + dy * dy);
             
-            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.15));
+            lastPressure = Math.max(0.2, Math.min(1, lastPressure + (Math.random() - 0.5) * 0.12));
             const lineWidth = getLineWidth(lastPressure, speed);
             
             ctx.strokeStyle = '#1a1a1a';
@@ -1290,13 +1353,13 @@
             ctx.lineTo(x, y);
             ctx.stroke();
             
-            if (speed > 10) {
+            if (speed > 8 && lineWidth > 3) {
                 ctx.save();
-                ctx.globalAlpha = 0.3;
-                ctx.lineWidth = lineWidth * 0.6;
+                ctx.globalAlpha = 0.2;
+                ctx.lineWidth = lineWidth * 0.7;
                 ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(x, y);
+                ctx.moveTo(lastX - dx * 0.1, lastY - dy * 0.1);
+                ctx.lineTo(x - dx * 0.1, y - dy * 0.1);
                 ctx.stroke();
                 ctx.restore();
             }
@@ -1361,17 +1424,14 @@
         renderKeySelector();
         renderWords();
 
-        // Инициализируем тетрадь при загрузке
         setTimeout(() => {
             if (document.getElementById('tab-writing').classList.contains('active')) {
                 initWritingTab();
             } else {
-                // Если тетрадь не активна, всё равно инициализируем в фоне
                 setTimeout(initWritingTab, 500);
             }
         }, 300);
 
-        // Делаем функции глобальными
         window.openWritingForChar = openWritingForChar;
         window.selectCharFromGrid = selectCharFromGrid;
         window.speakChinese = speakChinese;
