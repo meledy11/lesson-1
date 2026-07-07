@@ -478,6 +478,108 @@
             border-color: #FF6B35;
         }
         
+        /* ===== СТИЛИ ДЛЯ МАДЖОНГА ===== */
+        .mahjong-container {
+            background: white;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 4px solid #FFB347;
+            box-shadow: 0 12px 0 #D98F33;
+        }
+        
+        .mahjong-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        
+        .mahjong-tile {
+            background: linear-gradient(145deg, #FFF8F0, #FFE8D0);
+            border: 3px solid #FFB347;
+            border-radius: 16px;
+            padding: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #D98F33;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        .mahjong-tile:active { transform: translateY(3px); box-shadow: 0 1px 0 #D98F33; }
+        .mahjong-tile .tile-char {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #A64B2A;
+        }
+        .mahjong-tile .tile-pinyin {
+            font-size: 1rem;
+            color: #FF8C42;
+            margin-top: 0.2rem;
+        }
+        .mahjong-tile .tile-translation {
+            font-size: 0.9rem;
+            color: #8B5A2B;
+            margin-top: 0.2rem;
+        }
+        .mahjong-tile .tile-key {
+            font-size: 0.8rem;
+            color: #A64B2A;
+            background: #FFE0C0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            margin-top: 0.2rem;
+        }
+        .mahjong-tile.matched {
+            opacity: 0.4;
+            pointer-events: none;
+            transform: scale(0.9);
+            filter: grayscale(1);
+        }
+        .mahjong-tile.selected {
+            border-color: #FF6B35;
+            box-shadow: 0 4px 0 #C16F1A, 0 0 20px rgba(255,107,53,0.3);
+            transform: scale(1.05);
+        }
+        
+        .mahjong-score {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #A64B2A;
+            padding: 1rem;
+            background: #FFF8F0;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            border: 3px solid #FFD699;
+        }
+        .mahjong-score span { color: #FF6B35; font-size: 2.2rem; }
+        
+        .mahjong-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .mahjong-controls button {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+        }
+        .mahjong-controls button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
+        .btn-new-game { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; }
+        .btn-shuffle { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; }
+        
         footer {
             text-align: center;
             margin-top: 1.5rem;
@@ -514,6 +616,9 @@
             .speech-result .score { font-size: 2rem; }
             .speech-result .heard-text { font-size: 1.2rem; }
             .brush-control input[type="range"] { width: 120px; }
+            .mahjong-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+            .mahjong-tile { min-height: 70px; }
+            .mahjong-tile .tile-char { font-size: 2rem; }
         }
     </style>
 </head>
@@ -530,6 +635,8 @@
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="words">📚 Слова по ключам</button>
             <button class="tab-btn" data-tab="writing">✍️ Тетрадь + 🎤 Произношение</button>
+            <button class="tab-btn" data-tab="pinyin">🔤 Поиск по пиньинь</button>
+            <button class="tab-btn" data-tab="mahjong">🀄 Маджонг</button>
         </div>
         
         <!-- Вкладка: СЛОВА ПО КЛЮЧАМ -->
@@ -599,8 +706,40 @@
             </div>
         </div>
         
+        <!-- Вкладка: ПОИСК ПО ПИНЬИНЬ -->
+        <div class="tab-content" id="tab-pinyin">
+            <div class="search-section">
+                <input type="text" class="search-input" id="pinyinSearchInput" placeholder="🔤 Введите пиньинь (например: shi, ma, ni, chi)" autocomplete="off">
+            </div>
+            
+            <div class="total-badge" id="pinyinTotalBadge">📊 Введите пиньинь для поиска</div>
+            
+            <div class="fang-container" id="pinyinContainer"></div>
+        </div>
+        
+        <!-- Вкладка: МАДЖОНГ -->
+        <div class="tab-content" id="tab-mahjong">
+            <div class="mahjong-container">
+                <div class="mahjong-score">
+                    🏆 Очки: <span id="mahjongScore">0</span> | 
+                    🎯 Пар: <span id="mahjongPairs">0</span> / <span id="mahjongTotalPairs">0</span>
+                </div>
+                
+                <div style="text-align:center; padding:0.5rem; background:#FFF8F0; border-radius:20px; margin-bottom:1rem; font-size:1.2rem; color:#8B5A2B; border:2px solid #FFD699;">
+                    🀄 Найди пару: слово + его ключ. Нажимай на плитки!
+                </div>
+                
+                <div class="mahjong-grid" id="mahjongGrid"></div>
+                
+                <div class="mahjong-controls">
+                    <button class="btn-new-game" onclick="startMahjong()">🔄 Новая игра</button>
+                    <button class="btn-shuffle" onclick="shuffleMahjong()">🔀 Перемешать</button>
+                </div>
+            </div>
+        </div>
+        
         <footer>
-            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение!
+            🎧 Нажимай на иероглифы — слушай произношение! ✍️ Рисуй в тетради! 🎤 Тренируй произношение! 🀄 Играй в маджонг!
         </footer>
     </div>
     
@@ -860,6 +999,15 @@
                 if (tabName === 'writing') {
                     setTimeout(initWritingTab, 100);
                 }
+                if (tabName === 'pinyin') {
+                    const input = document.getElementById('pinyinSearchInput');
+                    if (input.value.trim()) {
+                        searchByPinyin(input.value);
+                    }
+                }
+                if (tabName === 'mahjong') {
+                    setTimeout(startMahjong, 100);
+                }
             });
         });
 
@@ -1000,6 +1148,99 @@
             renderWords();
         });
 
+        // ===== ПОИСК ПО ПИНЬИНЬ (БЕЗ УЧЁТА ТОНА) =====
+        function searchByPinyin(query) {
+            const container = document.getElementById('pinyinContainer');
+            const totalBadge = document.getElementById('pinyinTotalBadge');
+            
+            if (!query || query.trim() === '') {
+                container.innerHTML = `<div class="no-results">🔤 Введите пиньинь для поиска</div>`;
+                totalBadge.textContent = '📊 Введите пиньинь';
+                return;
+            }
+            
+            const searchQuery = query.trim().toLowerCase();
+            const cleanQuery = searchQuery.replace(/[0-9]/g, '');
+            
+            const results = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    const cleanPinyin = word.pinyin.replace(/[0-9]/g, '').toLowerCase();
+                    if (cleanPinyin.includes(cleanQuery)) {
+                        results.push({
+                            key: key,
+                            keyEmoji: data.emoji,
+                            keyMeaning: data.meaning,
+                            ...word
+                        });
+                    }
+                }
+            }
+            
+            if (results.length === 0) {
+                container.innerHTML = `<div class="no-results">😔 Ничего не найдено по пиньинь «${query}»</div>`;
+                totalBadge.textContent = `📊 0 слов найдено`;
+                return;
+            }
+            
+            let html = '';
+            let grouped = {};
+            for (const item of results) {
+                if (!grouped[item.key]) {
+                    grouped[item.key] = {
+                        emoji: item.keyEmoji,
+                        meaning: item.keyMeaning,
+                        words: []
+                    };
+                }
+                grouped[item.key].words.push(item);
+            }
+            
+            let totalFound = 0;
+            for (const key in grouped) {
+                const data = grouped[key];
+                const wordsHtml = data.words.map(word => {
+                    totalFound++;
+                    const safeChinese = word.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    return `
+                        <div class="fang-item">
+                            <div class="arrow">➜</div>
+                            <div class="word-group">
+                                <span class="chinese-word" onclick="speakChinese('${safeChinese}')">${word.chinese}</span>
+                                <span class="pinyin-word">${word.pinyin}</span>
+                                <span class="translation">— ${word.translation}</span>
+                                ${word.emoji ? `<span class="emoji">${word.emoji}</span>` : ''}
+                                ${word.hsk ? `<span class="hsk-badge">HSK ${word.hsk}</span>` : ''}
+                                <button class="speak-small-btn" onclick="event.stopPropagation(); speakChinese('${safeChinese}')">🔊</button>
+                                <button class="write-btn" onclick="event.stopPropagation(); openWritingForChar('${safeChinese}')">✍️ Рисовать</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                html += `
+                    <div style="margin-top: 1.5rem; padding: 0.8rem; background: #FFF8F0; border-radius: 30px; font-weight: bold; font-size:1.5rem; color: #A64B2A; border-left: 8px solid #FF6B35;">
+                        ${data.emoji} Ключ: <span style="font-size:2.5rem;">${key}</span> — ${data.meaning}
+                    </div>
+                    ${wordsHtml}
+                `;
+            }
+            
+            container.innerHTML = `
+                <div style="text-align:center; padding:0.8rem; background:#FFF1C1; border-radius:30px; margin-bottom:1.5rem; font-weight:bold; font-size:1.5rem;">
+                    🔤 Найдено: ${totalFound} слов по пиньинь «${query}»
+                </div>
+                ${html}
+            `;
+            totalBadge.textContent = `📊 Найдено: ${totalFound} слов`;
+        }
+
+        // ===== ОБРАБОТЧИК ПОИСКА ПО ПИНЬИНЬ =====
+        document.getElementById('pinyinSearchInput').addEventListener('input', function() {
+            searchByPinyin(this.value);
+        });
+
         // ===== ТЕТРАДЬ ДЛЯ РИСОВАНИЯ =====
         let canvas, ctx;
         let isDrawing = false;
@@ -1045,7 +1286,6 @@
             canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
             canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
             
-            // Кнопки
             document.getElementById('clearBtn').onclick = clearCanvas;
             document.getElementById('undoBtn').onclick = undoDraw;
             document.getElementById('nextCharBtn').onclick = nextChar;
@@ -1057,7 +1297,6 @@
             };
             document.getElementById('micBtn').onclick = startListening;
             
-            // Регулировка кисти
             const slider = document.getElementById('brushSizeSlider');
             const display = document.getElementById('brushSizeDisplay');
             slider.oninput = function() {
@@ -1230,7 +1469,6 @@
         function getLineWidth(pressure, speed) {
             let width = brushSize;
             if (usePressure) {
-                // Имитация кисти: давление + скорость
                 const baseWidth = brushSize * 0.5 + pressure * brushSize * 0.8;
                 const speedFactor = Math.min(1, speed / 30);
                 width = Math.max(1, baseWidth * (0.7 + 0.3 * (1 - speedFactor)));
@@ -1281,7 +1519,6 @@
             ctx.lineTo(x, y);
             ctx.stroke();
             
-            // Эффект растушёвки для имитации кисти
             if (speed > 8 && lineWidth > 3) {
                 ctx.save();
                 ctx.globalAlpha = 0.2;
@@ -1418,6 +1655,193 @@
             document.getElementById('speechResult').classList.remove('show');
         }
 
+        // ===== МАДЖОНГ =====
+        let mahjongTiles = [];
+        let mahjongSelected = null;
+        let mahjongScore = 0;
+        let mahjongMatched = 0;
+        let mahjongTotalPairs = 0;
+
+        function startMahjong() {
+            // Собираем все слова с ключами
+            const allTiles = [];
+            for (const key of KEY_NAMES) {
+                const data = WORDS_BY_KEY[key];
+                for (const word of data.words) {
+                    // Добавляем плитку-слово
+                    allTiles.push({
+                        id: Math.random().toString(36).substr(2, 9),
+                        type: 'word',
+                        key: key,
+                        chinese: word.chinese,
+                        pinyin: word.pinyin,
+                        translation: word.translation,
+                        emoji: word.emoji || '',
+                        hsk: word.hsk || '',
+                        matched: false
+                    });
+                    // Добавляем плитку-ключ
+                    allTiles.push({
+                        id: Math.random().toString(36).substr(2, 9),
+                        type: 'key',
+                        key: key,
+                        chinese: key,
+                        meaning: data.meaning,
+                        emoji: data.emoji,
+                        matched: false
+                    });
+                }
+            }
+            
+            // Перемешиваем
+            mahjongTiles = shuffleArray(allTiles);
+            mahjongSelected = null;
+            mahjongScore = 0;
+            mahjongMatched = 0;
+            mahjongTotalPairs = allTiles.length / 2;
+            
+            renderMahjong();
+            updateMahjongScore();
+        }
+
+        function shuffleMahjong() {
+            // Перемешиваем только несовпавшие плитки
+            const unmatched = mahjongTiles.filter(t => !t.matched);
+            const shuffled = shuffleArray(unmatched);
+            let index = 0;
+            for (let i = 0; i < mahjongTiles.length; i++) {
+                if (!mahjongTiles[i].matched) {
+                    mahjongTiles[i] = shuffled[index++];
+                }
+            }
+            mahjongSelected = null;
+            renderMahjong();
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function renderMahjong() {
+            const grid = document.getElementById('mahjongGrid');
+            let html = '';
+            for (const tile of mahjongTiles) {
+                const matchedClass = tile.matched ? 'matched' : '';
+                let content = '';
+                if (tile.type === 'word') {
+                    content = `
+                        <div class="tile-char">${tile.chinese}</div>
+                        <div class="tile-pinyin">${tile.pinyin}</div>
+                        <div class="tile-translation">${tile.translation}</div>
+                        <div class="tile-key">🔑 ${tile.key}</div>
+                    `;
+                } else {
+                    content = `
+                        <div class="tile-char">${tile.chinese}</div>
+                        <div class="tile-pinyin">${tile.emoji}</div>
+                        <div class="tile-translation">${tile.meaning}</div>
+                        <div class="tile-key">🔑 ключ</div>
+                    `;
+                }
+                html += `
+                    <div class="mahjong-tile ${matchedClass}" data-id="${tile.id}" onclick="clickMahjong('${tile.id}')">
+                        ${content}
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
+            
+            // Обновляем статистику
+            const matchedCount = mahjongTiles.filter(t => t.matched).length / 2;
+            document.getElementById('mahjongPairs').textContent = matchedCount;
+            document.getElementById('mahjongTotalPairs').textContent = mahjongTotalPairs;
+            
+            if (matchedCount === mahjongTotalPairs && mahjongTotalPairs > 0) {
+                setTimeout(() => {
+                    alert('🎉 Поздравляем! Вы нашли все пары!');
+                }, 300);
+            }
+        }
+
+        function clickMahjong(id) {
+            const tile = mahjongTiles.find(t => t.id === id);
+            if (!tile || tile.matched) return;
+            
+            if (mahjongSelected === null) {
+                // Выбираем первую плитку
+                mahjongSelected = tile;
+                highlightTile(id);
+                return;
+            }
+            
+            if (mahjongSelected.id === id) {
+                // Снимаем выделение
+                mahjongSelected = null;
+                unhighlightAll();
+                return;
+            }
+            
+            // Проверяем пару
+            const first = mahjongSelected;
+            const second = tile;
+            
+            // Проверяем: один ключ, одно слово с этим ключом
+            const isMatch = (first.type === 'key' && second.type === 'word' && first.key === second.key) ||
+                           (first.type === 'word' && second.type === 'key' && first.key === second.key);
+            
+            if (isMatch) {
+                // Нашли пару!
+                first.matched = true;
+                second.matched = true;
+                mahjongScore += 10;
+                mahjongMatched++;
+                mahjongSelected = null;
+                renderMahjong();
+                updateMahjongScore();
+            } else {
+                // Не совпало
+                mahjongSelected = null;
+                unhighlightAll();
+                renderMahjong();
+                // Эффект ошибки
+                const tiles = document.querySelectorAll('.mahjong-tile');
+                tiles.forEach(el => {
+                    if (el.dataset.id === first.id || el.dataset.id === second.id) {
+                        el.style.borderColor = '#FF6B6B';
+                        el.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            el.style.borderColor = '';
+                            el.style.transform = '';
+                        }, 400);
+                    }
+                });
+            }
+        }
+
+        function highlightTile(id) {
+            unhighlightAll();
+            const tiles = document.querySelectorAll('.mahjong-tile');
+            tiles.forEach(el => {
+                if (el.dataset.id === id) {
+                    el.classList.add('selected');
+                }
+            });
+        }
+
+        function unhighlightAll() {
+            document.querySelectorAll('.mahjong-tile.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+
+        function updateMahjongScore() {
+            document.getElementById('mahjongScore').textContent = mahjongScore;
+        }
+
         // ===== ИНИЦИАЛИЗАЦИЯ =====
         buildAllWordsList();
         updateStats();
@@ -1430,12 +1854,18 @@
             } else {
                 setTimeout(initWritingTab, 500);
             }
+            if (document.getElementById('tab-mahjong').classList.contains('active')) {
+                setTimeout(startMahjong, 200);
+            }
         }, 300);
 
         window.openWritingForChar = openWritingForChar;
         window.selectCharFromGrid = selectCharFromGrid;
         window.speakChinese = speakChinese;
         window.startListening = startListening;
+        window.startMahjong = startMahjong;
+        window.shuffleMahjong = shuffleMahjong;
+        window.clickMahjong = clickMahjong;
     </script>
 </body>
 </html>
