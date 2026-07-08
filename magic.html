@@ -805,7 +805,7 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ — ИСПРАВЛЕННАЯ ОЗВУЧКА
+        //  ПОЛНЫЙ СКРИПТ — ИСПРАВЛЕННАЯ ВЕРСИЯ
         // ============================================================
 
         console.log('🔍 Загрузка...');
@@ -848,7 +848,7 @@
         }
         window.speakChinese = speakChinese;
 
-        // ===== ОЗВУЧКА КЛЮЧА (только иероглиф) =====
+        // ===== ОЗВУЧКА ТЕКУЩЕГО КЛЮЧА =====
         function playSoundForCurrent() {
             if (magicCurrentChar) speakChinese(magicCurrentChar);
         }
@@ -916,15 +916,14 @@
         let magicCurrentChar = '上';
         let assocInterval = null;
 
+        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ КЛЮЧЕЙ (ИСПРАВЛЕНО) =====
         function buildAllWordsList() {
             allWordsList = [];
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 for (const key of KEY_NAMES) {
                     const data = WORDS_BY_KEY[key] || { meaning: 'ключ', emoji: '🔑' };
-                    let pinyin = key;
-                    if (data.words && data.words.length > 0 && data.words[0].pinyin) {
-                        pinyin = data.words[0].pinyin.split(' ')[0];
-                    }
+                    // ✅ Берем пиньинь из data.pinyin (отдельный пиньинь для ключа)
+                    let pinyin = data.pinyin || key;
                     allWordsList.push({
                         key: key,
                         chinese: key,
@@ -949,6 +948,7 @@
             magicCurrentChar = displayChar;
 
             document.getElementById('magicCharDisplay').textContent = displayChar;
+            // ✅ Используем data.pinyin (отдельный пиньинь для ключа)
             document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
             document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
