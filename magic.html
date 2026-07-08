@@ -750,7 +750,7 @@
                     <div class="magic-key" id="magicKeyDisplay">🔑 Ключ: 上</div>
                 </div>
                 <div class="magic-emoji-big" id="magicEmojiDisplay">⬆️</div>
-                <button class="magic-sound-btn" onclick="playSoundForCurrent()" title="Озвучить">🔊</button>
+                <button class="magic-sound-btn" onclick="playSoundForCurrent()" title="Озвучить ключ">🔊</button>
             </div>
 
             <!-- КНОПКИ -->
@@ -848,13 +848,13 @@
         }
         window.speakChinese = speakChinese;
 
-        // ===== ОЗВУЧКА ТЕКУЩЕГО =====
+        // ===== ОЗВУЧКА КЛЮЧА (только иероглиф) =====
         function playSoundForCurrent() {
             if (magicCurrentChar) speakChinese(magicCurrentChar);
         }
         window.playSoundForCurrent = playSoundForCurrent;
 
-        // ===== ОЗВУЧКА ПРИМЕРА (ИСПРАВЛЕННАЯ) =====
+        // ===== ОЗВУЧКА ПРИМЕРА (ПОЛНОЕ СЛОВО) =====
         function speakExample(text) {
             if (!text || text.trim() === '') {
                 if (magicCurrentChar) {
@@ -864,27 +864,21 @@
                 return;
             }
 
-            // Берем первый символ
-            const firstChar = text.trim().charAt(0);
-            const code = firstChar.charCodeAt(0);
-            const isChinese = code >= 0x4E00 && code <= 0x9FFF;
+            // Озвучиваем ВСЁ переданное слово/фразу
+            const fullText = text.trim();
+            speakChinese(fullText);
 
-            if (isChinese) {
-                speakChinese(firstChar);
-                highlightExampleItem(text);
-            } else if (magicCurrentChar) {
-                speakChinese(magicCurrentChar);
-                highlightExampleItem(text);
-            }
+            // Подсвечиваем пример
+            highlightExampleByText(fullText);
         }
         window.speakExample = speakExample;
 
-        // ===== ПОДСВЕТКА ПРИМЕРА =====
-        function highlightExampleItem(text) {
+        // ===== ПОДСВЕТКА ПРИМЕРА ПО ТЕКСТУ =====
+        function highlightExampleByText(text) {
             const items = document.querySelectorAll('.example-item');
             items.forEach(el => {
                 const charEl = el.querySelector('.ex-char');
-                if (charEl && charEl.textContent.trim() === text.trim()) {
+                if (charEl && charEl.textContent.trim() === text) {
                     el.style.borderColor = '#4FC3F7';
                     el.style.background = 'rgba(79,195,247,0.15)';
                     el.style.transform = 'scale(1.05)';
@@ -897,6 +891,7 @@
             });
         }
 
+        // ===== ПОДСВЕТКА ТЕКУЩЕГО КЛЮЧА =====
         function highlightCurrentExample() {
             const items = document.querySelectorAll('.example-item');
             items.forEach(el => {
@@ -966,9 +961,11 @@
             document.getElementById('magicStatus').style.color = '#FFB347';
             document.getElementById('magicResult').style.display = 'none';
 
+            // Озвучиваем ключ при загрузке
             speakChinese(magicCurrentChar);
         }
 
+        // ===== ОБНОВЛЕНИЕ ДЕТАЛЕЙ =====
         function updateDetails(data) {
             const container = document.getElementById('magicDetailsContent');
             if (!container) return;
@@ -989,7 +986,7 @@
                     for (let i = 0; i < etymology.parts.length; i++) {
                         const part = etymology.parts[i];
                         const pMeaning = etymology.partMeanings && etymology.partMeanings[i] ? etymology.partMeanings[i] :
-                            '';
+                        '';
                         html += `
                                 <div class="part-item">
                                     <div class="part-char">${part}</div>
@@ -1030,10 +1027,12 @@
                     const pinyin = w.pinyin || '';
                     const trans = w.translation || w.trans || '';
                     const emoji = w.emoji || '';
-                    // ✅ ИСПРАВЛЕНО: передаем полную строку char
-                    const soundText = char || magicCurrentChar;
+
+                    // Передаем ПОЛНОЕ слово для озвучки
+                    const fullWord = char || magicCurrentChar;
+
                     html += `
-                            <div class="example-item" onclick="speakExample('${soundText}')" title="Нажми для озвучивания">
+                            <div class="example-item" onclick="speakExample('${fullWord}')" title="Нажми для озвучивания примера">
                                 ${emoji ? `<span class="ex-emoji">${emoji}</span>` : ''}
                                 <span class="ex-char">${char}</span>
                                 ${pinyin ? `<span class="ex-pinyin">${pinyin}</span>` : ''}
@@ -1619,6 +1618,7 @@
             setTimeout(initMagic, 300);
         });
 
+        // ===== ЭКСПОРТ ГЛОБАЛЬНЫХ ФУНКЦИЙ =====
         window.magicNextChar = magicNextChar;
         window.magicPrevChar = magicPrevChar;
         window.magicRandom = magicRandom;
@@ -1629,9 +1629,10 @@
         window.speakChinese = speakChinese;
         window.speakExample = speakExample;
         window.playSoundForCurrent = playSoundForCurrent;
-        window.highlightExampleItem = highlightExampleItem;
+        window.highlightExampleByText = highlightExampleByText;
         window.highlightCurrentExample = highlightCurrentExample;
     </script>
 
 </body>
 </html>
+```
