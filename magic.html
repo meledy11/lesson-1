@@ -2,54 +2,973 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>🪄 Волшебная тетрадь</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            background: #1a0f08;
-            font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-            color: #f5e6d3;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            display: flex;
-            flex-direction: column;
-            background: radial-gradient(ellipse at 30% 20%, #2d1b0e, #0d0805);
-            padding: 0.5rem;
-            align-items: center;
-            justify-content: flex-start;
+            background: linear-gradient(145deg, #1a0f08, #2d1b0e);
+            font-family: 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            padding: 0.8rem;
+            min-height: 100vh;
+            color: #f5e6d3;
         }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            flex: 1;
-        }
-
-        /* ШАПКА — минимальная, только название */
+        
+        .container { max-width: 800px; margin: 0 auto; }
+        
         .header {
             text-align: center;
-            padding: 0.6rem 1rem;
             background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFB347);
             border-radius: 60px;
-            box-shadow: 0 6px 0 #C16F1A, 0 0 40px rgba(255,107,53,0.15);
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 0 #C16F1A, 0 0 60px rgba(255,107,53,0.2);
             color: white;
-            flex-shrink: 0;
         }
-        .header h1 {
-            font-size: 2rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.15);
+        .header h1 { font-size: 2.5rem; letter-spacing: 2px; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .header p { font-size: 1.2rem; margin-top: 0.3rem; opacity: 0.95; }
+        
+        .back-link {
+            display: inline-block;
+            background: white;
+            color: #A64B2A;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            border: 3px solid #FFB347;
+            box-shadow: 0 6px 0 #D98F33;
+            transition: 0.1s;
         }
-        .header p {
-            display: none; /* скрываем подзаголов
+        .back-link:active { transform: translateY(3px); box-shadow: 0 3px 0 #D98F33; }
+        
+        .magic-container {
+            background: linear-gradient(135deg, #1a0f08, #2d1b0e);
+            border-radius: 40px;
+            padding: 1.5rem;
+            border: 3px solid #FFB347;
+            box-shadow: 0 12px 0 #8B4513, inset 0 0 60px rgba(255,107,53,0.05);
+            text-align: center;
+        }
+        
+        .magic-info {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            background: rgba(255,255,255,0.03);
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,215,0,0.1);
+        }
+        
+        .magic-char {
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.15);
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
+            min-width: 50px;
+        }
+        
+        .magic-info-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .magic-pinyin {
+            font-size: 1rem;
+            color: #FFB347;
+            font-weight: 400;
+        }
+        
+        .magic-translation {
+            font-size: 0.9rem;
+            color: #b8956a;
+        }
+        
+        .magic-key {
+            font-size: 0.65rem;
+            color: #8B5A2B;
+        }
+        
+        .magic-emoji-big {
+            font-size: 2.5rem;
+            animation: fireEmoji 1s ease-in-out infinite alternate;
+        }
+        
+        .magic-buttons {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .magic-buttons button {
+            padding: 0.35rem 0.8rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+            transition: 0.1s;
+            color: white;
+        }
+        .magic-buttons button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+        
+        .btn-prev { background: linear-gradient(135deg, #2196F3, #1976D2); box-shadow: 0 3px 0 #0D47A1; }
+        .btn-next { background: linear-gradient(135deg, #4CAF50, #45a049); box-shadow: 0 3px 0 #2E7D32; }
+        .btn-random { background: linear-gradient(135deg, #9C27B0, #7B1FA2); box-shadow: 0 3px 0 #4A148C; }
+        .btn-show { background: linear-gradient(135deg, #FF6B35, #FF8C42); box-shadow: 0 3px 0 #C16F1A; padding: 0.35rem 1rem; font-size: 0.85rem; }
+        .btn-clear { background: linear-gradient(135deg, #FF6B6B, #e74c3c); box-shadow: 0 3px 0 #c0392b; }
+        
+        .canvas-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            background: rgba(255,255,255,0.03);
+            border-radius: 30px;
+            padding: 0.8rem;
+            border: 2px solid rgba(255,215,0,0.1);
+        }
+        
+        #magicCanvas {
+            width: 100%;
+            max-width: 550px;
+            aspect-ratio: 1/1;
+            background: radial-gradient(ellipse at center, #1a0f08 0%, #0d0805 100%);
+            border-radius: 20px;
+            touch-action: none;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
+            box-shadow: inset 0 0 60px rgba(255,215,0,0.03);
+            position: relative;
+            overflow: visible;
+        }
+        
+        #hanziContainer {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5%;
+            z-index: 1;
+        }
+        
+        #hanziContainer svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        #drawCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
+        }
+        
+        .magic-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: 20px;
+            z-index: 0;
+        }
+        
+        .magic-floating {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: 20px;
+            z-index: 3;
+        }
+        
+        .magic-status {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.8rem;
+            color: #b8956a;
+            font-size: 0.9rem;
+        }
+        
+        .magic-status span { color: #FFD700; font-weight: 600; }
+        .magic-status .status-text { color: #FFB347; font-weight: 600; }
+        
+        .btn-check {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            color: #2d1b0e;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #E6A100, 0 0 30px rgba(255,215,0,0.1);
+            transition: 0.2s;
+        }
+        .btn-check:active { transform: translateY(3px); box-shadow: 0 1px 0 #E6A100; }
+        
+        .magic-result {
+            margin-top: 0.8rem;
+            padding: 1rem;
+            border-radius: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            background: #FFD699;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #A64B2A;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 0 #C16F1A;
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @keyframes floatEmoji {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+            20% { opacity: 1; transform: translate(-50%, -60%) scale(1.2) rotate(20deg); }
+            80% { opacity: 1; transform: translate(-50%, -80%) scale(1) rotate(-10deg); }
+            100% { opacity: 0; transform: translate(-50%, -100%) scale(0.5) rotate(30deg); }
+        }
+        
+        @keyframes fireEmoji {
+            0% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 20px rgba(255,215,0,0.3)); }
+            100% { transform: scale(1.1) rotate(3deg); filter: drop-shadow(0 0 50px rgba(255,215,0,0.6)); }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .magic-char { font-size: 2.2rem; }
+            .magic-pinyin { font-size: 0.9rem; }
+            .magic-emoji-big { font-size: 2rem; }
+            .magic-buttons button { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+            .btn-show { padding: 0.25rem 0.8rem; }
+            .canvas-wrapper { padding: 0.4rem; }
+            #magicCanvas { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🪄 Волшебная тетрадь</h1>
+            <p>✨ Смотри, как иероглиф оживает! Обводи его и запоминай.</p>
+        </div>
+        
+        <a href="index.html" class="back-link">⬅️ На главную</a>
+        
+        <div class="magic-container">
+            <div class="magic-info">
+                <div class="magic-char" id="magicCharDisplay">上</div>
+                <div class="magic-info-text">
+                    <div class="magic-pinyin" id="magicPinyinDisplay">shàng</div>
+                    <div class="magic-translation" id="magicTranslationDisplay">верх, подниматься</div>
+                    <div class="magic-key" id="magicKeyDisplay">🔑 Ключ: 上</div>
+                </div>
+                <div class="magic-emoji-big" id="magicEmojiDisplay">⬆️</div>
+            </div>
+            
+            <div class="magic-buttons">
+                <button class="btn-prev" onclick="magicPrevChar()">⬅️</button>
+                <button class="btn-next" onclick="magicNextChar()">➡️</button>
+                <button class="btn-random" onclick="magicRandom()">🎲</button>
+                <button class="btn-show" onclick="magicAnimateDraw()">🪄 Показать</button>
+                <button class="btn-clear" onclick="magicClear()">🗑️</button>
+            </div>
+            
+            <div class="canvas-wrapper">
+                <div id="magicCanvas">
+                    <div id="hanziContainer"></div>
+                    <div class="magic-stars" id="magicStars"></div>
+                    <div class="magic-floating" id="magicFloatingEmojis"></div>
+                </div>
+            </div>
+            
+            <div class="magic-status">
+                <div>⭐ Очки: <span id="magicScore">0</span></div>
+                <div>🎯 Уровень: <span id="magicLevel">1</span></div>
+                <div class="status-text" id="magicStatus">🪄 Нажми "Показать"</div>
+            </div>
+            
+            <button class="btn-check" onclick="magicCheck()">✨ Проверить</button>
+            
+            <div class="magic-result" id="magicResult"></div>
+        </div>
+        
+        <footer>
+            🪄 Волшебная тетрадь — учи китайский с магией!
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js"></script>
+    <script src="keys-data.js"></script>
+    <script>
+    let speechSynth = window.speechSynthesis;
+    let currentUtterance = null;
+
+    function speakChinese(text, callback) {
+        if (!text || !speechSynth) {
+            if (callback) callback();
+            return;
+        }
+        if (currentUtterance) {
+            speechSynth.cancel();
+            currentUtterance = null;
+        }
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.7;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            const voices = speechSynth.getVoices();
+            const zhVoice = voices.find(v => v.lang.startsWith('zh'));
+            if (zhVoice) utterance.voice = zhVoice;
+            currentUtterance = utterance;
+            utterance.onend = function() {
+                currentUtterance = null;
+                if (callback) callback();
+            };
+            utterance.onerror = function() {
+                currentUtterance = null;
+                if (callback) callback();
+            };
+            speechSynth.speak(utterance);
+        }, 100);
+    }
+    window.speakChinese = speakChinese;
+    
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+    
+    // ===== ОСНОВНАЯ ЛОГИКА =====
+    let magicCurrentChar = '上';
+    let magicCharData = null;
+    let magicScore = 0;
+    let magicLevel = 1;
+    let magicCurrentIndex = 0;
+    let allWordsList = [];
+    let magicFloatingElements = [];
+    let magicIsDrawing = false;
+    let magicLastX = 0, magicLastY = 0;
+    let magicParticles = [];
+    let magicDrawPath = [];
+    let magicCanvas, magicCtx;
+    let isAnimating = false;
+    let currentWriter = null;
+    let magicSoundCtx = null;
+    let drawCanvas = null;
+    let emojiInterval = null;
+    
+    function initMagicSound() {
+        try {
+            magicSoundCtx = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {}
+    }
+    
+    function playMagicSound() {
+        try {
+            if (!magicSoundCtx) initMagicSound();
+            if (!magicSoundCtx) return;
+            const osc = magicSoundCtx.createOscillator();
+            const gain = magicSoundCtx.createGain();
+            osc.connect(gain);
+            gain.connect(magicSoundCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600 + Math.random() * 300, magicSoundCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900 + Math.random() * 200, magicSoundCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.03, magicSoundCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.005, magicSoundCtx.currentTime + 0.15);
+            osc.start(magicSoundCtx.currentTime);
+            osc.stop(magicSoundCtx.currentTime + 0.15);
+        } catch(e) {}
+    }
+    
+    function playMagicCompleteSound() {
+        try {
+            if (!magicSoundCtx) initMagicSound();
+            if (!magicSoundCtx) return;
+            const notes = [523, 659, 784, 1047];
+            notes.forEach((freq, i) => {
+                const osc = magicSoundCtx.createOscillator();
+                const gain = magicSoundCtx.createGain();
+                osc.connect(gain);
+                gain.connect(magicSoundCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, magicSoundCtx.currentTime + i * 0.1);
+                gain.gain.setValueAtTime(0.03, magicSoundCtx.currentTime + i * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.005, magicSoundCtx.currentTime + i * 0.1 + 0.2);
+                osc.start(magicSoundCtx.currentTime + i * 0.1);
+                osc.stop(magicSoundCtx.currentTime + i * 0.1 + 0.2);
+            });
+        } catch(e) {}
+    }
+    
+    function createMagicStars() {
+        const container = document.getElementById('magicStars');
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 0; i < 30; i++) {
+            const star = document.createElement('div');
+            const size = 1 + Math.random() * 2;
+            star.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                background: white;
+                border-radius: 50%;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                opacity: ${0.1 + Math.random() * 0.2};
+                animation: starTwinkle ${2 + Math.random() * 3}s ease-in-out ${Math.random() * 3}s infinite;
+                box-shadow: 0 0 ${size * 3}px rgba(255,215,0,0.05);
+                z-index: 0;
+            `;
+            container.appendChild(star);
+        }
+    }
+    
+    function buildAllWordsList() {
+        allWordsList = [];
+        for (const key of KEY_NAMES) {
+            const data = WORDS_BY_KEY[key];
+            allWordsList.push({
+                key: key,
+                chinese: key,
+                pinyin: key,
+                translation: data.meaning || 'ключ',
+                emoji: data.emoji || '🔑',
+                hsk: '1'
+            });
+        }
+        if (magicCurrentIndex >= allWordsList.length) {
+            magicCurrentIndex = 0;
+        }
+    }
+    
+    function getSingleChar(key) {
+        return key.charAt(0);
+    }
+    
+    function loadMagicChar(data) {
+        if (!data) return;
+        magicCharData = data;
+        const displayChar = getSingleChar(data.chinese);
+        magicCurrentChar = displayChar;
+        
+        document.getElementById('magicCharDisplay').textContent = displayChar;
+        document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
+        document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
+        document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
+        document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
+        
+        magicClear();
+        document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
+        document.getElementById('magicStatus').style.color = '#FFB347';
+        document.getElementById('magicResult').style.display = 'none';
+    }
+    
+    function magicNextChar() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicPrevChar() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicRandom() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = Math.floor(Math.random() * allWordsList.length);
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicClear() {
+        const container = document.getElementById('hanziContainer');
+        if (container) container.innerHTML = '';
+        
+        const oldCanvas = document.getElementById('drawCanvas');
+        if (oldCanvas) oldCanvas.remove();
+        
+        magicParticles = [];
+        magicDrawPath = [];
+        magicIsDrawing = false;
+        isAnimating = false;
+        
+        if (emojiInterval) {
+            clearInterval(emojiInterval);
+            emojiInterval = null;
+        }
+        
+        clearFloatingElements();
+        document.getElementById('magicResult').style.display = 'none';
+        
+        if (magicCtx) {
+            magicCtx.clearRect(0, 0, magicCanvas.width, magicCanvas.height);
+            drawMagicGrid();
+        }
+    }
+    
+    function initDrawingCanvas() {
+        const oldCanvas = document.getElementById('drawCanvas');
+        if (oldCanvas) oldCanvas.remove();
+        
+        const wrapper = document.getElementById('magicCanvas');
+        const canvas = document.createElement('canvas');
+        canvas.id = 'drawCanvas';
+        canvas.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
+        `;
+        wrapper.appendChild(canvas);
+        
+        drawCanvas = canvas;
+        magicCanvas = canvas;
+        magicCtx = canvas.getContext('2d');
+        
+        const rect = wrapper.getBoundingClientRect();
+        const size = Math.min(rect.width, 550);
+        canvas.width = size;
+        canvas.height = size;
+        
+        drawMagicGrid();
+    }
+    
+    function drawMagicGrid() {
+        if (!magicCtx) return;
+        const ctx = magicCtx;
+        const canvas = magicCanvas;
+        const size = canvas.width;
+        
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,215,0,0.04)';
+        ctx.lineWidth = 0.5;
+        for (let i = 1; i < 4; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * size / 4, 0);
+            ctx.lineTo(i * size / 4, size);
+            ctx.stroke();
+        }
+        for (let i = 1; i < 4; i++) {
+            ctx.beginPath();
+            ctx.moveTo(0, i * size / 4);
+            ctx.lineTo(size, i * size / 4);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+    
+    // ---- ЭМОДЗИ ТОЛЬКО ПО КРАЯМ ----
+    function createFloatingEmoji(emoji) {
+        const container = document.getElementById('magicFloatingEmojis');
+        if (!container) return;
+        
+        let x, y;
+        const side = Math.floor(Math.random() * 4);
+        const margin = 5 + Math.random() * 12;
+        const pos = margin + Math.random() * (80 - margin * 2);
+        
+        switch(side) {
+            case 0: x = margin; y = pos; break;
+            case 1: x = 80 - margin; y = pos; break;
+            case 2: x = pos; y = margin; break;
+            case 3: x = pos; y = 80 - margin; break;
+        }
+        
+        const size = 1.2 + Math.random() * 1.2;
+        const duration = 2.5 + Math.random() * 2;
+        const delay = Math.random() * 0.5;
+        
+        const el = document.createElement('div');
+        el.style.cssText = `
+            position: absolute;
+            left: ${x}%;
+            top: ${y}%;
+            font-size: ${size}rem;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.3) rotate(${Math.random() * 360}deg);
+            animation: floatEmoji ${duration}s ease-in-out ${delay}s forwards;
+            z-index: 5;
+            text-shadow: 0 0 30px rgba(255,215,0,0.2);
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.1));
+        `;
+        el.textContent = emoji;
+        container.appendChild(el);
+        
+        setTimeout(() => {
+            if (el.parentNode) el.remove();
+        }, (duration + delay) * 1000 + 500);
+    }
+    
+    function clearFloatingElements() {
+        const container = document.getElementById('magicFloatingEmojis');
+        if (container) container.innerHTML = '';
+    }
+    
+    // ---- ЧАСТИЦЫ ----
+    function createMagicParticle(x, y) {
+        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
+        magicParticles.push({
+            x: x + (Math.random() - 0.5) * 6,
+            y: y + (Math.random() - 0.5) * 6,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2 - 1,
+            life: 1,
+            decay: 0.015 + Math.random() * 0.015,
+            size: 1.5 + Math.random() * 3,
+            color: colors[Math.floor(Math.random() * colors.length)]
+        });
+    }
+    
+    function drawMagicParticles(ctx) {
+        for (let i = magicParticles.length - 1; i >= 0; i--) {
+            const p = magicParticles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.02;
+            p.life -= p.decay;
+            if (p.life <= 0) { magicParticles.splice(i, 1); continue; }
+            
+            ctx.save();
+            ctx.globalAlpha = p.life * 0.5;
+            ctx.fillStyle = p.color;
+            ctx.shadowColor = p.color;
+            ctx.shadowBlur = 6;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    
+    function drawUserPath(ctx, x1, y1, x2, y2) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = '#9C27B0';
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.5)';
+        ctx.shadowBlur = 12;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        ctx.restore();
+    }
+    
+    // ===== HANZI WRITER =====
+    function magicAnimateDraw() {
+        if (isAnimating) {
+            if (currentWriter) {
+                try { currentWriter.pauseAnimation(); } catch(e) {}
+            }
+            isAnimating = false;
+        }
+        
+        magicClear();
+        
+        const char = magicCurrentChar;
+        const container = document.getElementById('hanziContainer');
+        
+        if (typeof HanziWriter === 'undefined') {
+            document.getElementById('magicStatus').textContent = '❌ Hanzi Writer не загружен!';
+            document.getElementById('magicStatus').style.color = '#FF6B6B';
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        try {
+            currentWriter = HanziWriter.create(container.id, char, {
+                width: 400,
+                height: 400,
+                showOutline: false,
+                strokeColor: '#FFD700',
+                strokeAnimationSpeed: 1.0,
+                delayBetweenStrokes: 250,
+                showCharacter: false,
+                showHintAfterMisses: 0,
+                radicalColor: '#FFD700',
+                radicalStrokeColor: '#FFD700',
+                padding: 15
+            });
+            
+            document.getElementById('magicStatus').textContent = '✨ Волшебство...';
+            document.getElementById('magicStatus').style.color = '#FFD700';
+            isAnimating = true;
+            
+            currentWriter.animateCharacter({
+                onComplete: function() {
+                    isAnimating = false;
+                    document.getElementById('magicStatus').textContent = '✨ Обведи ключ!';
+                    document.getElementById('magicStatus').style.color = '#4CAF50';
+                    playMagicCompleteSound();
+                    
+                    initDrawingCanvas();
+                    
+                    const emoji = magicCharData?.emoji || '✨';
+                    if (emojiInterval) clearInterval(emojiInterval);
+                    emojiInterval = setInterval(() => {
+                        createFloatingEmoji(emoji);
+                    }, 700);
+                    
+                    setupDrawingEvents();
+                }
+            });
+            
+        } catch(e) {
+            console.error('Hanzi Writer ошибка:', e);
+            document.getElementById('magicStatus').textContent = '❌ Ошибка';
+            document.getElementById('magicStatus').style.color = '#FF6B6B';
+            isAnimating = false;
+        }
+    }
+    
+    function setupDrawingEvents() {
+        const wrapper = document.getElementById('magicCanvas');
+        wrapper.removeEventListener('mousedown', startDraw);
+        wrapper.removeEventListener('mousemove', draw);
+        wrapper.removeEventListener('mouseup', endDraw);
+        wrapper.removeEventListener('mouseleave', endDraw);
+        
+        wrapper.removeEventListener('touchstart', touchStart);
+        wrapper.removeEventListener('touchmove', touchMove);
+        wrapper.removeEventListener('touchend', touchEnd);
+        
+        wrapper.addEventListener('mousedown', startDraw);
+        wrapper.addEventListener('mousemove', draw);
+        wrapper.addEventListener('mouseup', endDraw);
+        wrapper.addEventListener('mouseleave', endDraw);
+        
+        wrapper.addEventListener('touchstart', touchStart, { passive: false });
+        wrapper.addEventListener('touchmove', touchMove, { passive: false });
+        wrapper.addEventListener('touchend', touchEnd, { passive: false });
+    }
+    
+    function getCoords(e) {
+        const rect = magicCanvas.getBoundingClientRect();
+        const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
+        const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
+        return { x, y };
+    }
+    
+    function startDraw(e) {
+        if (!magicCtx || isAnimating) return;
+        magicIsDrawing = true;
+        const { x, y } = getCoords(e);
+        magicLastX = x;
+        magicLastY = y;
+        createMagicParticle(x, y);
+        playMagicSound();
+    }
+    
+    function draw(e) {
+        if (!magicIsDrawing || !magicCtx || isAnimating) return;
+        e.preventDefault();
+        const { x, y } = getCoords(e);
+        drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+        magicDrawPath.push({ x, y });
+        if (Math.random() > 0.7) createMagicParticle(x, y);
+        if (Math.random() > 0.9) playMagicSound();
+        magicLastX = x;
+        magicLastY = y;
+    }
+    
+    function endDraw(e) {
+        if (magicIsDrawing) {
+            magicIsDrawing = false;
+            document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
+            document.getElementById('magicStatus').style.color = '#FFB347';
+            playMagicCompleteSound();
+        }
+    }
+    
+    function touchStart(e) {
+        e.preventDefault();
+        if (!magicCtx || isAnimating) return;
+        const touch = e.touches[0];
+        const rect = magicCanvas.getBoundingClientRect();
+        const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
+        const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
+        magicIsDrawing = true;
+        magicLastX = x;
+        magicLastY = y;
+        createMagicParticle(x, y);
+        playMagicSound();
+    }
+    
+    function touchMove(e) {
+        e.preventDefault();
+        if (!magicIsDrawing || !magicCtx || isAnimating) return;
+        const touch = e.touches[0];
+        const rect = magicCanvas.getBoundingClientRect();
+        const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
+        const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
+        drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+        magicDrawPath.push({ x, y });
+        if (Math.random() > 0.7) createMagicParticle(x, y);
+        if (Math.random() > 0.9) playMagicSound();
+        magicLastX = x;
+        magicLastY = y;
+    }
+    
+    function touchEnd(e) {
+        e.preventDefault();
+        if (magicIsDrawing) {
+            magicIsDrawing = false;
+            document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
+            document.getElementById('magicStatus').style.color = '#FFB347';
+            playMagicCompleteSound();
+        }
+    }
+    
+    // ---- ПРОВЕРКА ----
+    function magicCheck() {
+        const resultDiv = document.getElementById('magicResult');
+        resultDiv.style.display = 'block';
+        const hasDrawing = magicDrawPath.length > 0 || magicIsDrawing;
+        
+        if (hasDrawing) {
+            const points = 10 + Math.floor(Math.random() * 20);
+            magicScore += points;
+            magicLevel++;
+            document.getElementById('magicScore').textContent = magicScore;
+            document.getElementById('magicLevel').textContent = magicLevel;
+            
+            resultDiv.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(255,215,0,0.15)); border: 3px solid #FFD700; border-radius: 20px; padding: 1rem; animation: fadeIn 0.5s ease;">
+                    <div style="font-size:1.8rem; color:#FFD700;">✨ Волшебство удалось!</div>
+                    <div style="font-size:1.1rem; color:#4CAF50; margin-top:0.3rem;">⭐ +${points} очков магии!</div>
+                    <div style="font-size:1.5rem; color:#FFB347; margin-top:0.3rem;">
+                        ${magicCharData?.chinese} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
+                    </div>
+                    <div style="display:flex; gap:0.8rem; justify-content:center; margin-top:0.8rem; flex-wrap:wrap;">
+                        <button onclick="magicNextChar()" style="padding:0.4rem 1.2rem; border-radius:30px; border:none; background:linear-gradient(135deg,#4CAF50,#45a049); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #2E7D32;">➡️ Следующий</button>
+                        <button onclick="magicRandom()" style="padding:0.4rem 1.2rem; border-radius:30px; border:none; background:linear-gradient(135deg,#9C27B0,#7B1FA2); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #4A148C;">🎲 Случайный</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('magicStatus').textContent = '🌟 Отлично! Продолжай!';
+            document.getElementById('magicStatus').style.color = '#4CAF50';
+            playMagicCompleteSound();
+            speakChinese(magicCurrentChar);
+        } else {
+            resultDiv.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(255,215,0,0.05)); border: 3px solid #FF6B6B; border-radius: 20px; padding: 1rem; animation: fadeIn 0.5s ease;">
+                    <div style="font-size:1.3rem; color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
+                    <div style="font-size:1.1rem; color:#b8956a; margin-top:0.3rem;">
+                        ${magicCharData?.chinese} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // ---- ИНИЦИАЛИЗАЦИЯ ----
+    function initMagic() {
+        createMagicStars();
+        initMagicSound();
+        
+        if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length > 0) {
+            buildAllWordsList();
+            if (allWordsList.length > 0) {
+                magicCurrentIndex = 0;
+                loadMagicChar(allWordsList[0]);
+            }
+        } else {
+            setTimeout(() => {
+                if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length > 0) {
+                    buildAllWordsList();
+                    if (allWordsList.length > 0) {
+                        magicCurrentIndex = 0;
+                        loadMagicChar(allWordsList[0]);
+                    }
+                }
+            }, 500);
+        }
+        
+        document.getElementById('magicScore').textContent = magicScore;
+        document.getElementById('magicLevel').textContent = magicLevel;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initMagic, 300);
+    });
+    
+    window.magicNextChar = magicNextChar;
+    window.magicPrevChar = magicPrevChar;
+    window.magicRandom = magicRandom;
+    window.magicClear = magicClear;
+    window.magicAnimateDraw = magicAnimateDraw;
+    window.magicCheck = magicCheck;
+    window.speakChinese = speakChinese;
+    </script>
+</body>
+</html>
