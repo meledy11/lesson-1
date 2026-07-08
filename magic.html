@@ -36,13 +36,13 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
+            gap: 0.5rem;
             flex: 1;
         }
 
         .header {
             text-align: center;
-            padding: 0.5rem 1.2rem;
+            padding: 0.4rem 1.2rem;
             background: linear-gradient(135deg, #1a100a, #2d1b0e);
             border-radius: 60px;
             box-shadow: 0 4px 0 #0a0505, 0 0 40px rgba(255, 107, 53, 0.05);
@@ -51,14 +51,14 @@
             border: 1px solid #3d2b1e;
         }
         .header h1 {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             letter-spacing: 2px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.05);
         }
 
         .top-bar {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             align-items: center;
             flex-shrink: 0;
@@ -67,11 +67,11 @@
             display: inline-block;
             background: #1a100a;
             color: #f0d5b0;
-            padding: 0.4rem 1.4rem;
+            padding: 0.3rem 1.2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 2px solid #3d2b1e;
             box-shadow: 0 3px 0 #0a0505;
             transition: 0.08s;
@@ -86,10 +86,10 @@
             display: flex;
             gap: 0.3rem;
             flex: 1;
-            min-width: 160px;
+            min-width: 150px;
             background: #1a100a;
             border-radius: 50px;
-            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            padding: 0.15rem 0.15rem 0.15rem 0.8rem;
             border: 2px solid #3d2b1e;
             align-items: center;
         }
@@ -98,10 +98,10 @@
             background: transparent;
             border: none;
             color: #f0d5b0;
-            font-size: 0.85rem;
-            padding: 0.3rem 0;
+            font-size: 0.8rem;
+            padding: 0.2rem 0;
             outline: none;
-            min-width: 70px;
+            min-width: 60px;
         }
         .search-box input::placeholder {
             color: #5a4a3a;
@@ -110,11 +110,11 @@
             background: linear-gradient(135deg, #3d2b1e, #2d1b0e);
             border: none;
             color: #f0d5b0;
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 0.8rem;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: 0.08s;
             white-space: nowrap;
         }
@@ -131,47 +131,56 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
+        /* ===== ИНФО-СТРОКА — КРУПНО И КОНТРАСТНО ===== */
         .magic-info {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.5rem 0.8rem;
             border-radius: 16px;
-            border: 1px solid rgba(255, 215, 0, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.06);
             flex-shrink: 0;
         }
         .magic-char {
-            font-size: 2.4rem;
-            font-weight: 500;
+            font-size: 2.6rem;
+            font-weight: 600;
             color: #FFD700;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.06);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.08);
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
-            min-width: 40px;
+            min-width: 44px;
             text-align: center;
         }
         .magic-info-text {
             display: flex;
             flex-direction: column;
             text-align: left;
+            gap: 0.05rem;
         }
         .magic-pinyin {
-            font-size: 1rem;
-            color: #FFB347;
-            font-weight: 400;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #4FC3F7;
+            /* яркий голубой */
+            letter-spacing: 1px;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.1);
         }
         .magic-translation {
-            font-size: 0.8rem;
-            color: #8a7a6a;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #81C784;
+            /* яркий зелёный */
+            text-shadow: 0 0 30px rgba(129, 199, 132, 0.08);
         }
         .magic-key {
             font-size: 0.6rem;
             color: #5a4a3a;
+            margin-top: 0.1rem;
         }
         .magic-emoji-big {
             font-size: 2rem;
@@ -179,21 +188,45 @@
             margin-left: auto;
         }
 
+        /* ===== КНОПКА ЗВУКА ===== */
+        .magic-sound-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #3d2b1e;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0d5b0;
+            flex-shrink: 0;
+        }
+        .magic-sound-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 215, 0, 0.1);
+        }
+        .magic-sound-btn:hover {
+            background: rgba(255, 215, 0, 0.05);
+        }
+
         .magic-buttons {
             display: flex;
-            gap: 0.35rem;
+            gap: 0.25rem;
             flex-wrap: wrap;
             justify-content: center;
             flex-shrink: 0;
         }
         .magic-buttons button {
-            padding: 0.35rem 0.8rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 30px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             transition: 0.08s;
             color: white;
         }
@@ -216,7 +249,7 @@
         .btn-show {
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             box-shadow: 0 3px 0 #3a1a0a;
-            padding: 0.35rem 1.1rem;
+            padding: 0.25rem 0.9rem;
         }
         .btn-clear {
             background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
@@ -232,7 +265,7 @@
             padding: 0.4rem;
             border: 1px solid rgba(255, 215, 0, 0.03);
             flex: 1;
-            min-height: 50vh;
+            min-height: 45vh;
         }
 
         #magicCanvas {
@@ -283,7 +316,6 @@
             border-radius: 16px;
         }
 
-        /* ===== ЛЁГКОЕ МЕРЦАНИЕ ===== */
         .magic-twinkle {
             position: absolute;
             top: 0;
@@ -299,22 +331,21 @@
         .twinkle-dot {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.12);
+            background: rgba(255, 215, 0, 0.1);
             animation: twinklePulse 3-6s ease-in-out infinite alternate;
         }
 
         @keyframes twinklePulse {
             0% {
-                opacity: 0.03;
+                opacity: 0.02;
                 transform: scale(0.5);
             }
             100% {
-                opacity: 0.25;
+                opacity: 0.2;
                 transform: scale(1.2);
             }
         }
 
-        /* ===== ПАДАЮЩИЕ АССОЦИАТИВНЫЕ ЭМОДЗИ ПО КРАЯМ ===== */
         .magic-floating {
             position: absolute;
             top: 0;
@@ -331,9 +362,9 @@
             position: absolute;
             pointer-events: none;
             z-index: 4;
-            font-size: 2.2rem;
+            font-size: 2rem;
             opacity: 0;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.04);
             animation: fallDown 6-9s linear forwards;
         }
 
@@ -343,11 +374,11 @@
                 transform: translateY(-20px) scale(0.5) rotate(0deg);
             }
             10% {
-                opacity: 0.9;
+                opacity: 0.85;
                 transform: translateY(0px) scale(1) rotate(5deg);
             }
             90% {
-                opacity: 0.9;
+                opacity: 0.85;
             }
             100% {
                 opacity: 0;
@@ -357,11 +388,11 @@
 
         .magic-status {
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
             color: #6a5a4a;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
         .magic-status span {
@@ -374,12 +405,12 @@
         }
 
         .btn-check {
-            padding: 0.4rem 2rem;
+            padding: 0.3rem 1.8rem;
             border-radius: 50px;
             border: none;
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             color: #f0d5b0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 #2a1a0a, 0 0 30px rgba(255, 215, 0, 0.03);
@@ -403,12 +434,12 @@
 
         footer {
             text-align: center;
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.8rem;
             background: #1a100a;
             border-radius: 50px;
             font-weight: bold;
             color: #8a7a6a;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             box-shadow: 0 3px 0 #0a0505;
             flex-shrink: 0;
             border: 1px solid #2d1b0e;
@@ -438,69 +469,81 @@
 
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
             .magic-char {
                 font-size: 2rem;
                 min-width: 34px;
             }
+            .magic-pinyin {
+                font-size: 1.1rem;
+            }
+            .magic-translation {
+                font-size: 1rem;
+            }
             .magic-emoji-big {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             .magic-buttons button {
-                font-size: 0.75rem;
-                padding: 0.3rem 0.6rem;
+                font-size: 0.65rem;
+                padding: 0.2rem 0.5rem;
             }
             .btn-show {
-                padding: 0.3rem 0.9rem;
+                padding: 0.2rem 0.7rem;
             }
             .canvas-wrapper {
-                min-height: 40vh;
+                min-height: 38vh;
                 padding: 0.25rem;
             }
             #magicCanvas {
                 max-width: 100%;
             }
             .magic-status {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 gap: 0.6rem;
             }
             .btn-check {
-                font-size: 0.85rem;
-                padding: 0.3rem 1.4rem;
+                font-size: 0.8rem;
+                padding: 0.25rem 1.2rem;
             }
             .search-box input {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 min-width: 50px;
             }
             .search-box button {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.7rem;
+                font-size: 0.65rem;
+                padding: 0.15rem 0.6rem;
             }
             .back-link {
-                font-size: 0.8rem;
-                padding: 0.3rem 1.1rem;
+                font-size: 0.75rem;
+                padding: 0.25rem 1rem;
             }
             .magic-info {
-                padding: 0.2rem 0.5rem;
+                padding: 0.3rem 0.5rem;
+                gap: 0.4rem;
             }
             .magic-container {
                 padding: 0.5rem;
             }
             .assoc-emoji {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+            }
+            .magic-sound-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
             }
         }
 
         @media (min-width: 768px) {
             .canvas-wrapper {
-                min-height: 55vh;
+                min-height: 50vh;
             }
             #magicCanvas {
                 max-width: 600px;
             }
             .assoc-emoji {
-                font-size: 2.6rem;
+                font-size: 2.4rem;
             }
         }
     </style>
@@ -523,6 +566,7 @@
 
         <div class="magic-container">
 
+            <!-- ИНФО — КРУПНО И КОНТРАСТНО -->
             <div class="magic-info">
                 <div class="magic-char" id="magicCharDisplay">上</div>
                 <div class="magic-info-text">
@@ -531,6 +575,7 @@
                     <div class="magic-key" id="magicKeyDisplay">🔑 Ключ: 上</div>
                 </div>
                 <div class="magic-emoji-big" id="magicEmojiDisplay">⬆️</div>
+                <button class="magic-sound-btn" onclick="playSoundForCurrent()" title="Озвучить">🔊</button>
             </div>
 
             <div class="magic-buttons">
@@ -571,7 +616,7 @@
 
     <script>
         // ============================================================
-        //  СКРИПТ — ТОЛЬКО АССОЦИАТИВНЫЕ ЭМОДЗИ, БЕЗ ЛИШНИХ
+        //  СКРИПТ — КРУПНЫЙ ПИНЬИНЬ И ПЕРЕВОД + ЗВУК
         // ============================================================
 
         let speechSynth = window.speechSynthesis;
@@ -597,6 +642,14 @@
             }, 100);
         }
         window.speakChinese = speakChinese;
+
+        // Кнопка звука
+        function playSoundForCurrent() {
+            if (magicCurrentChar) {
+                speakChinese(magicCurrentChar);
+            }
+        }
+        window.playSoundForCurrent = playSoundForCurrent;
 
         let allWordsList = [];
         let magicCurrentIndex = 0;
@@ -645,6 +698,9 @@
             document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
             document.getElementById('magicStatus').style.color = '#FFB347';
             document.getElementById('magicResult').style.display = 'none';
+
+            // Автоматическое озвучивание
+            speakChinese(magicCurrentChar);
         }
 
         // ===== ЛЁГКОЕ МЕРЦАНИЕ =====
@@ -674,7 +730,7 @@
             }
         }
 
-        // ===== ТОЛЬКО АССОЦИАТИВНЫЕ ЭМОДЗИ =====
+        // ===== АССОЦИАТИВНЫЕ ЭМОДЗИ =====
         function startFallingEmojis(data) {
             if (assocInterval) {
                 clearInterval(assocInterval);
@@ -685,15 +741,13 @@
             if (!container) return;
             container.innerHTML = '';
 
-            // Собираем ТОЛЬКО ассоциативные эмодзи на основе перевода
             const translation = (data && data.translation) || '';
             const assocEmojis = [];
 
-            // Карта ассоциаций
             const associationMap = {
-                'вода': ['💧', '🌊', '💦'],
+                'вода': ['💧', '🌊'],
                 'огонь': ['🔥', '🌋'],
-                'дерево': ['🌳', '🌲', '🌿'],
+                'дерево': ['🌳', '🌲'],
                 'земля': ['🌍', '🌎'],
                 'металл': ['⚔️', '⚙️'],
                 'золото': ['💰', '✨'],
@@ -719,7 +773,6 @@
                 'поезд': ['🚂', '🚃'],
                 'велосипед': ['🚲', '🚴'],
                 'книга': ['📚', '📖'],
-                'письмо': ['✉️', '📧'],
                 'музыка': ['🎵', '🎶'],
                 'искусство': ['🎨', '🖌️'],
                 'спорт': ['⚽', '🏀'],
@@ -732,21 +785,16 @@
                 'животное': ['🐱', '🐶'],
                 'птица': ['🐦', '🦅'],
                 'рыба': ['🐟', '🐠'],
-                'насекомое': ['🐞', '🦋'],
                 'цветок': ['🌺', '🌷'],
                 'растение': ['🌱', '🌿'],
                 'время': ['⏰', '⌚'],
                 'день': ['🌞', '☀️'],
                 'ночь': ['🌙', '🌃'],
-                'утро': ['🌅', '☀️'],
-                'вечер': ['🌆', '🌇'],
                 'верх': ['⬆️', '☝️'],
                 'низ': ['⬇️', '👇'],
                 'левый': ['⬅️', '👈'],
                 'правый': ['➡️', '👉'],
                 'центр': ['🎯', '📍'],
-                'большой': ['📏', '🔍'],
-                'маленький': ['🔬', '🧪'],
                 'новый': ['🆕', '✨'],
                 'старый': ['🕰️', '📜'],
                 'хороший': ['👍', '✅'],
@@ -761,9 +809,7 @@
                 'свет': ['💡', '🔆'],
                 'тьма': ['🌑', '🌚'],
                 'жизнь': ['🌱', '💚'],
-                'смерть': ['💀', '⚰️'],
                 'мир': ['🕊️', '☮️'],
-                'война': ['⚔️', '💣'],
                 'любовь': ['❤️', '💕'],
                 'дружба': ['🤝', '👬'],
                 'семья': ['👨‍👩‍👦', '🏠'],
@@ -778,11 +824,9 @@
                 'океан': ['🌊', '🐋'],
             };
 
-            // Ищем ключевые слова в переводе
             let found = false;
             for (const [key, values] of Object.entries(associationMap)) {
                 if (translation.toLowerCase().includes(key)) {
-                    // Добавляем все эмодзи из этой группы
                     for (const emoji of values) {
                         if (!assocEmojis.includes(emoji)) {
                             assocEmojis.push(emoji);
@@ -792,12 +836,10 @@
                 }
             }
 
-            // Если есть основной эмодзи иероглифа — добавляем его
             if (data && data.emoji && data.emoji !== '🔑' && !assocEmojis.includes(data.emoji)) {
                 assocEmojis.push(data.emoji);
             }
 
-            // Если ничего не найдено — добавляем универсальные ассоциации по первому слову
             if (!found && assocEmojis.length < 2) {
                 const words = translation.split(/[,，、\s]+/);
                 for (const word of words) {
@@ -818,16 +860,13 @@
                 }
             }
 
-            // Если всё равно пусто — добавляем эмодзи самого иероглифа или базовый
             if (assocEmojis.length === 0) {
                 if (data && data.emoji) assocEmojis.push(data.emoji);
                 if (assocEmojis.length === 0) assocEmojis.push('🔑');
             }
 
-            // Ограничиваем до 6 уникальных
             const uniqueEmojis = [...new Set(assocEmojis)].slice(0, 6);
 
-            // Запускаем появление только ассоциативных эмодзи
             let index = 0;
             assocInterval = setInterval(() => {
                 const emoji = uniqueEmojis[index % uniqueEmojis.length];
@@ -835,7 +874,6 @@
                 index++;
             }, 1200);
 
-            // Первые несколько сразу
             setTimeout(() => {
                 for (let i = 0; i < Math.min(2, uniqueEmojis.length); i++) {
                     createFallingEmoji(uniqueEmojis[i], container);
@@ -862,7 +900,7 @@
 
             const duration = 6 + Math.random() * 4;
             const delay = Math.random() * 0.5;
-            const size = 2.0 + Math.random() * 1.2;
+            const size = 2.0 + Math.random() * 1.0;
 
             el.style.cssText = `
                     ${style}
@@ -1187,3 +1225,148 @@
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
             magicLastX = x;
+            magicLastY = y;
+        }
+
+        function endDraw(e) {
+            if (magicIsDrawing) {
+                magicIsDrawing = false;
+                document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
+                document.getElementById('magicStatus').style.color = '#FFB347';
+                playMagicCompleteSound();
+            }
+        }
+
+        function touchStart(e) {
+            e.preventDefault();
+            if (!magicCtx || isAnimating) return;
+            const touch = e.touches[0];
+            const rect = magicCanvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
+            magicIsDrawing = true;
+            magicLastX = x;
+            magicLastY = y;
+            createMagicParticle(x, y);
+            playMagicSound();
+        }
+
+        function touchMove(e) {
+            e.preventDefault();
+            if (!magicIsDrawing || !magicCtx || isAnimating) return;
+            const touch = e.touches[0];
+            const rect = magicCanvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
+            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+            magicDrawPath.push({ x, y });
+            if (Math.random() > 0.7) createMagicParticle(x, y);
+            if (Math.random() > 0.9) playMagicSound();
+            magicLastX = x;
+            magicLastY = y;
+        }
+
+        function touchEnd(e) {
+            e.preventDefault();
+            if (magicIsDrawing) {
+                magicIsDrawing = false;
+                document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
+                document.getElementById('magicStatus').style.color = '#FFB347';
+                playMagicCompleteSound();
+            }
+        }
+
+        let magicScore = 0;
+        let magicLevel = 1;
+
+        function magicCheck() {
+            const resultDiv = document.getElementById('magicResult');
+            resultDiv.style.display = 'block';
+            const hasDrawing = magicDrawPath.length > 0 || magicIsDrawing;
+
+            if (hasDrawing) {
+                const points = 10 + Math.floor(Math.random() * 20);
+                magicScore += points;
+                magicLevel++;
+                document.getElementById('magicScore').textContent = magicScore;
+                document.getElementById('magicLevel').textContent = magicLevel;
+
+                resultDiv.innerHTML = `
+                        <div style="background: linear-gradient(135deg, rgba(76,175,80,0.12), rgba(255,215,0,0.08)); border: 2px solid #FFD700; border-radius: 16px; padding: 0.8rem; animation: fadeIn 0.4s ease;">
+                            <div style="font-size:1.6rem; color:#FFD700;">✨ Волшебство удалось!</div>
+                            <div style="font-size:1rem; color:#4CAF50; margin-top:0.2rem;">⭐ +${points} очков магии!</div>
+                            <div style="font-size:1.3rem; color:#FFB347; margin-top:0.2rem;">
+                                ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
+                            </div>
+                            <div style="display:flex; gap:0.6rem; justify-content:center; margin-top:0.6rem; flex-wrap:wrap;">
+                                <button onclick="magicNextChar()" style="padding:0.3rem 1rem; border-radius:30px; border:none; background:linear-gradient(135deg,#1a4a2a,#0d3a1a); color:white; font-weight:bold; cursor:pointer; box-shadow:0 3px 0 #0a2a1a; font-size:0.8rem;">➡️ Следующий</button>
+                                <button onclick="magicRandom()" style="padding:0.3rem 1rem; border-radius:30px; border:none; background:linear-gradient(135deg,#3a1a4a,#2a0d3a); color:white; font-weight:bold; cursor:pointer; box-shadow:0 3px 0 #1a0a2a; font-size:0.8rem;">🎲 Случайный</button>
+                            </div>
+                        </div>
+                    `;
+
+                document.getElementById('magicStatus').textContent = '🌟 Отлично! Продолжай!';
+                document.getElementById('magicStatus').style.color = '#4CAF50';
+                playMagicCompleteSound();
+                speakChinese(magicCurrentChar);
+            } else {
+                resultDiv.innerHTML = `
+                        <div style="background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,215,0,0.03)); border: 2px solid #FF6B6B; border-radius: 16px; padding: 0.8rem; animation: fadeIn 0.4s ease;">
+                            <div style="font-size:1.2rem; color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
+                            <div style="font-size:1rem; color:#8a7a6a; margin-top:0.2rem;">
+                                ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
+                            </div>
+                        </div>
+                    `;
+            }
+        }
+
+        function initMagic() {
+            createTwinkle();
+            initMagicSound();
+
+            if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
+                buildAllWordsList();
+                if (allWordsList.length) {
+                    magicCurrentIndex = 0;
+                    loadMagicChar(allWordsList[0]);
+                }
+            } else {
+                setTimeout(() => {
+                    if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
+                        buildAllWordsList();
+                        if (allWordsList.length) {
+                            magicCurrentIndex = 0;
+                            loadMagicChar(allWordsList[0]);
+                        }
+                    }
+                }, 500);
+            }
+
+            document.getElementById('magicScore').textContent = magicScore;
+            document.getElementById('magicLevel').textContent = magicLevel;
+
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    magicSearch();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initMagic, 300);
+        });
+
+        window.magicNextChar = magicNextChar;
+        window.magicPrevChar = magicPrevChar;
+        window.magicRandom = magicRandom;
+        window.magicClear = magicClear;
+        window.magicAnimateDraw = magicAnimateDraw;
+        window.magicCheck = magicCheck;
+        window.magicSearch = magicSearch;
+        window.speakChinese = speakChinese;
+        window.playSoundForCurrent = playSoundForCurrent;
+    </script>
+
+</body>
+</html>
