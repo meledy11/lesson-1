@@ -364,43 +364,6 @@
         return arr;
     }
     
-    function createConfetti(element) {
-        const rect = element.getBoundingClientRect();
-        const colors = ['#FF6B35', '#FFB347', '#4CAF50', '#2196F3', '#9C27B0', '#FF6B6B', '#FFD700', '#FF1493', '#00CED1', '#FF4500'];
-        for (let i = 0; i < 20; i++) {
-            const confetti = document.createElement('div');
-            const size = 5 + Math.random() * 8;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const angle = Math.random() * 2 * Math.PI;
-            const distance = 30 + Math.random() * 80;
-            const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 30;
-            const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 30;
-            const rotation = Math.random() * 360;
-            confetti.style.cssText = `
-                position: fixed;
-                width: ${size}px;
-                height: ${size * 0.4}px;
-                background: ${color};
-                left: ${x}px;
-                top: ${y}px;
-                border-radius: 2px;
-                pointer-events: none;
-                z-index: 9999;
-                transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-                transform: rotate(${rotation}deg);
-                box-shadow: 0 0 10px rgba(255,255,255,0.1);
-            `;
-            document.body.appendChild(confetti);
-            setTimeout(() => {
-                confetti.style.left = (x + Math.cos(angle) * distance) + 'px';
-                confetti.style.top = (y + Math.sin(angle) * distance - 50) + 'px';
-                confetti.style.opacity = '0';
-                confetti.style.transform = `rotate(${rotation + Math.random() * 720}deg) scale(0.2)`;
-            }, 10);
-            setTimeout(() => confetti.remove(), 1000);
-        }
-    }
-    
     // ============================================================
     // ===== ВОЛШЕБНАЯ ТЕТРАДЬ =====
     // ============================================================
@@ -506,14 +469,13 @@
             });
         }
         allWordsList = shuffleArray(allWordsList);
-        // Убеждаемся, что currentIndex не выходит за пределы
         if (magicCurrentIndex >= allWordsList.length) {
             magicCurrentIndex = 0;
         }
     }
     
     // ============================================================
-    // ===== ГЕНЕРАЦИЯ ТОЧЕК ДЛЯ КАЛЛИГРАФИИ =====
+    // ===== ГЕНЕРАЦИЯ ТОЧЕК (ТОЛЬКО ЛИНИИ) =====
     // ============================================================
     
     function generateCharPoints(char, size) {
@@ -526,7 +488,7 @@
     function generatePointsFromStrokes(char, size) {
         const strokeData = KEY_STROKES[char];
         const points = [];
-        const numPointsPerStroke = 50;
+        const numPointsPerStroke = 60;
         
         for (const stroke of strokeData.strokes) {
             for (let i = 0; i < numPointsPerStroke; i++) {
@@ -575,7 +537,7 @@
     }
     
     // ============================================================
-    // ===== РИСОВАНИЕ КАЛЛИГРАФИИ (ЧЁРНЫЕ ЛИНИИ) =====
+    // ===== РИСОВАНИЕ КАЛЛИГРАФИИ (ЧЁРНЫЕ ТОНКИЕ ЛИНИИ) =====
     // ============================================================
     
     function drawMagicPath(ctx) {
@@ -583,39 +545,22 @@
         
         ctx.save();
         
-        // ЧЁРНАЯ КАЛЛИГРАФИЧЕСКАЯ ЛИНИЯ (как тушь)
+        // Тонкая чёрная каллиграфическая линия
         for (let i = 0; i < magicDrawPath.length - 1; i++) {
             const p1 = magicDrawPath[i];
             const p2 = magicDrawPath[i + 1];
             const progress = i / magicDrawPath.length;
-            
-            // Толщина линии: от 1.5 до 3px
-            const width = 1.5 + progress * 1.5;
+            const width = 1.5 + progress * 0.5;
             
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(20, 20, 20, ${0.7 + progress * 0.3})`;
+            ctx.strokeStyle = `rgba(10, 10, 10, ${0.8 + progress * 0.2})`;
             ctx.lineWidth = width;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
-            ctx.shadowBlur = 2;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
+            ctx.shadowBlur = 1;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
-            ctx.stroke();
-        }
-        
-        // Лёгкое свечение для чёткости
-        for (let i = 0; i < magicDrawPath.length - 1; i++) {
-            const p1 = magicDrawPath[i];
-            const p2 = magicDrawPath[i + 1];
-            
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = 'rgba(50, 50, 50, 0.15)';
-            ctx.lineWidth = 6;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
-            ctx.shadowBlur = 8;
             ctx.stroke();
         }
         
@@ -629,42 +574,32 @@
     function drawUserPath(ctx, x1, y1, x2, y2) {
         ctx.save();
         
-        // Яркая фиолетовая линия как фломастер
+        // Основная фиолетовая линия
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.strokeStyle = '#9C27B0';
-        ctx.lineWidth = 3.5;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.6)';
-        ctx.shadowBlur = 15;
+        ctx.lineWidth = 3;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.3)';
+        ctx.shadowBlur = 8;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.stroke();
-        
-        // Второй слой для яркости
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = 'rgba(206, 147, 216, 0.5)';
-        ctx.lineWidth = 8;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.2)';
-        ctx.shadowBlur = 25;
         ctx.stroke();
         
         ctx.restore();
     }
     
-    // ---- ЧАСТИЦЫ ----
+    // ---- ЧАСТИЦЫ (минимальные) ----
     function createMagicParticle(x, y) {
-        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#E1BEE7', '#FFD700'];
+        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8'];
         magicParticles.push({
-            x: x + (Math.random() - 0.5) * 8,
-            y: y + (Math.random() - 0.5) * 8,
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3 - 1.5,
+            x: x + (Math.random() - 0.5) * 6,
+            y: y + (Math.random() - 0.5) * 6,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2 - 1,
             life: 1,
-            decay: 0.01 + Math.random() * 0.015,
-            size: 2 + Math.random() * 4,
+            decay: 0.015 + Math.random() * 0.015,
+            size: 1.5 + Math.random() * 3,
             color: colors[Math.floor(Math.random() * colors.length)]
         });
     }
@@ -674,15 +609,15 @@
             const p = magicParticles[i];
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.03;
+            p.vy += 0.02;
             p.life -= p.decay;
             if (p.life <= 0) { magicParticles.splice(i, 1); continue; }
             
             ctx.save();
-            ctx.globalAlpha = p.life * 0.8;
-            ctx.shadowColor = p.color;
-            ctx.shadowBlur = 15;
+            ctx.globalAlpha = p.life * 0.5;
             ctx.fillStyle = p.color;
+            ctx.shadowColor = p.color;
+            ctx.shadowBlur = 6;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
             ctx.fill();
@@ -690,15 +625,14 @@
         }
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
+    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ (только по краям) ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
         
-        // Эмодзи только по краям
         let x, y;
         const side = Math.floor(Math.random() * 4);
-        const margin = 5 + Math.random() * 15;
+        const margin = 8 + Math.random() * 12;
         const pos = margin + Math.random() * (80 - margin * 2);
         
         switch(side) {
@@ -708,8 +642,8 @@
             case 3: x = pos; y = 80 - margin; break;
         }
         
-        const size = 1.5 + Math.random() * 1.5;
-        const duration = 2.5 + Math.random() * 2;
+        const size = 1.2 + Math.random() * 1;
+        const duration = 3 + Math.random() * 2;
         const delay = Math.random() * 0.5;
         
         const el = document.createElement('div');
@@ -736,52 +670,6 @@
         }, (duration + delay) * 1000 + 500);
     }
     
-    function showFloatingText(text, x, y, color) {
-        const container = document.getElementById('magicFloatingEmojis');
-        if (!container) return;
-        
-        const canvas = magicCanvas;
-        const rect = canvas.getBoundingClientRect();
-        const scaleX = rect.width / canvas.width;
-        const scaleY = rect.height / canvas.height;
-        
-        const el = document.createElement('div');
-        el.style.cssText = `
-            position: absolute;
-            left: ${Math.min(Math.max(x * scaleX, 20), rect.width - 20)}px;
-            top: ${Math.min(Math.max(y * scaleY - 20, 10), rect.height - 20)}px;
-            color: ${color};
-            font-size: 1rem;
-            font-weight: bold;
-            pointer-events: none;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5);
-            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-shadow: 0 0 20px rgba(255,215,0,0.3);
-            z-index: 10;
-            background: rgba(0,0,0,0.3);
-            padding: 0.1rem 0.6rem;
-            border-radius: 12px;
-            backdrop-filter: blur(4px);
-        `;
-        el.textContent = text;
-        container.appendChild(el);
-        magicFloatingElements.push(el);
-        
-        setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translate(-50%, -80%) scale(1)';
-        }, 50);
-        setTimeout(() => {
-            el.style.opacity = '0';
-            el.style.transform = 'translate(-50%, -120%) scale(0.8)';
-            setTimeout(() => {
-                if (el.parentNode) el.remove();
-                magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
-            }, 1000);
-        }, 1500);
-    }
-    
     function clearFloatingElements() {
         const container = document.getElementById('magicFloatingEmojis');
         if (container) container.innerHTML = '';
@@ -806,20 +694,15 @@
         document.getElementById('magicResult').style.display = 'none';
     }
     
-    // ============================================================
-    // ===== НАВИГАЦИЯ (ИСПРАВЛЕНА) =====
-    // ============================================================
-    
+    // ---- НАВИГАЦИЯ ----
     function magicNextChar() {
         if (allWordsList.length === 0) return;
-        // Переключаем на следующий индекс
         magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
     
     function magicPrevChar() {
         if (allWordsList.length === 0) return;
-        // Переключаем на предыдущий индекс
         magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
@@ -902,16 +785,15 @@
         document.getElementById('magicStatus').textContent = '✨ Волшебство...';
         document.getElementById('magicStatus').style.color = '#FFD700';
         
+        // Эмодзи плавают только по краям
         const emoji = magicCharData?.emoji || '✨';
         let emojiInterval = setInterval(() => {
             if (!magicAnimating) { clearInterval(emojiInterval); return; }
             createFloatingEmoji(emoji);
-        }, 500);
+        }, 800);
         
         let index = 0;
         const totalPoints = points.length;
-        const translation = magicCharData?.translation || 'ключ';
-        const pinyin = magicCharData?.pinyin || '';
         
         function animateStep() {
             if (!magicAnimating || index >= totalPoints) {
@@ -923,18 +805,12 @@
                 return;
             }
             
-            const count = Math.min(3, totalPoints - index);
+            const count = Math.min(4, totalPoints - index);
             for (let i = 0; i < count && index < totalPoints; i++) {
                 magicDrawPath.push(points[index]);
-                if (index % 3 === 0) {
+                if (index % 4 === 0) {
                     createMagicParticle(points[index].x, points[index].y);
-                    if (index % 30 === 0 && translation) {
-                        showFloatingText(translation, points[index].x, points[index].y + 35, '#b8956a');
-                    }
-                    if (index % 35 === 0 && pinyin) {
-                        showFloatingText(pinyin, points[index].x, points[index].y - 35, '#FFB347');
-                    }
-                    if (index % 8 === 0) playMagicSound();
+                    if (index % 10 === 0) playMagicSound();
                 }
                 index++;
             }
@@ -948,10 +824,7 @@
         animateStep();
     }
     
-    // ============================================================
-    // ===== РИСОВАНИЕ ПАЛОЧКОЙ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) =====
-    // ============================================================
-    
+    // ---- РИСОВАНИЕ ПАЛОЧКОЙ ----
     function magicStartDraw(e) {
         if (magicAnimating) {
             if (magicAnimationId) {
@@ -966,9 +839,7 @@
         const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
         magicLastX = x;
         magicLastY = y;
-        for (let i = 0; i < 3; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10);
-        }
+        createMagicParticle(x, y);
         playMagicSound();
     }
     
@@ -979,13 +850,10 @@
         const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
         
-        // Рисуем фиолетовым фломастером
         drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
         
-        for (let i = 0; i < 2; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
-        }
-        if (Math.random() > 0.8) playMagicSound();
+        if (Math.random() > 0.7) createMagicParticle(x, y);
+        if (Math.random() > 0.9) playMagicSound();
         magicLastX = x;
         magicLastY = y;
     }
@@ -1016,9 +884,7 @@
         magicIsDrawing = true;
         magicLastX = x;
         magicLastY = y;
-        for (let i = 0; i < 3; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10);
-        }
+        createMagicParticle(x, y);
         playMagicSound();
     }
     
@@ -1032,10 +898,8 @@
         
         drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
         
-        for (let i = 0; i < 2; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
-        }
-        if (Math.random() > 0.8) playMagicSound();
+        if (Math.random() > 0.7) createMagicParticle(x, y);
+        if (Math.random() > 0.9) playMagicSound();
         magicLastX = x;
         magicLastY = y;
     }
@@ -1063,31 +927,18 @@
             document.getElementById('magicLevel').textContent = magicLevel;
             
             resultDiv.innerHTML = `
-                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(255,215,0,0.15)); border: 3px solid #FFD700; border-radius: 20px; padding: 1.5rem; animation: fadeIn 0.5s ease;">
-                    <div style="font-size:2rem; color:#FFD700;">✨ Волшебство удалось!</div>
-                    <div style="font-size:1.2rem; color:#4CAF50; margin-top:0.5rem;">⭐ +${points} очков магии!</div>
-                    <div style="font-size:2rem; color:#FFB347; margin-top:0.3rem;">
+                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(255,215,0,0.15)); border: 3px solid #FFD700; border-radius: 20px; padding: 1rem; animation: fadeIn 0.5s ease;">
+                    <div style="font-size:1.8rem; color:#FFD700;">✨ Волшебство удалось!</div>
+                    <div style="font-size:1.1rem; color:#4CAF50; margin-top:0.3rem;">⭐ +${points} очков магии!</div>
+                    <div style="font-size:1.5rem; color:#FFB347; margin-top:0.3rem;">
                         ${magicCharData?.chinese} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                     </div>
-                    <div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem; flex-wrap:wrap;">
-                        <button onclick="magicNextChar()" style="padding:0.5rem 1.5rem; border-radius:30px; border:none; background:linear-gradient(135deg,#4CAF50,#45a049); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #2E7D32;">➡️ Следующий</button>
-                        <button onclick="magicRandom()" style="padding:0.5rem 1.5rem; border-radius:30px; border:none; background:linear-gradient(135deg,#9C27B0,#7B1FA2); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #4A148C;">🎲 Случайный</button>
+                    <div style="display:flex; gap:0.8rem; justify-content:center; margin-top:0.8rem; flex-wrap:wrap;">
+                        <button onclick="magicNextChar()" style="padding:0.4rem 1.2rem; border-radius:30px; border:none; background:linear-gradient(135deg,#4CAF50,#45a049); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #2E7D32;">➡️ Следующий</button>
+                        <button onclick="magicRandom()" style="padding:0.4rem 1.2rem; border-radius:30px; border:none; background:linear-gradient(135deg,#9C27B0,#7B1FA2); color:white; font-weight:bold; cursor:pointer; box-shadow:0 4px 0 #4A148C;">🎲 Случайный</button>
                     </div>
                 </div>
             `;
-            
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const fakeEl = document.createElement('div');
-                    fakeEl.getBoundingClientRect = () => ({
-                        left: window.innerWidth / 2 - 150 + Math.random() * 300,
-                        top: window.innerHeight / 2 - 150 + Math.random() * 300,
-                        width: 50,
-                        height: 50
-                    });
-                    createConfetti(fakeEl);
-                }, i * 80);
-            }
             
             document.getElementById('magicStatus').textContent = '🌟 Отлично! Продолжай!';
             document.getElementById('magicStatus').style.color = '#4CAF50';
@@ -1095,9 +946,9 @@
             speakChinese(magicCurrentChar);
         } else {
             resultDiv.innerHTML = `
-                <div style="background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(255,215,0,0.05)); border: 3px solid #FF6B6B; border-radius: 20px; padding: 1.5rem; animation: fadeIn 0.5s ease;">
-                    <div style="font-size:1.5rem; color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
-                    <div style="font-size:1.2rem; color:#b8956a; margin-top:0.5rem;">
+                <div style="background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(255,215,0,0.05)); border: 3px solid #FF6B6B; border-radius: 20px; padding: 1rem; animation: fadeIn 0.5s ease;">
+                    <div style="font-size:1.3rem; color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
+                    <div style="font-size:1.1rem; color:#b8956a; margin-top:0.3rem;">
                         ${magicCharData?.chinese} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                     </div>
                 </div>
