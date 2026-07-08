@@ -299,17 +299,17 @@
         .twinkle-dot {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.12);
             animation: twinklePulse 3-6s ease-in-out infinite alternate;
         }
 
         @keyframes twinklePulse {
             0% {
-                opacity: 0.05;
+                opacity: 0.03;
                 transform: scale(0.5);
             }
             100% {
-                opacity: 0.3;
+                opacity: 0.25;
                 transform: scale(1.2);
             }
         }
@@ -334,7 +334,7 @@
             font-size: 2.2rem;
             opacity: 0;
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
-            animation: fallDown 5-8s linear forwards;
+            animation: fallDown 6-9s linear forwards;
         }
 
         @keyframes fallDown {
@@ -571,7 +571,7 @@
 
     <script>
         // ============================================================
-        //  СКРИПТ — ЧЁРНЫЙ ФОН, ЛЁГКОЕ МЕРЦАНИЕ, ПАДАЮЩИЕ ЭМОДЗИ
+        //  СКРИПТ — ТОЛЬКО АССОЦИАТИВНЫЕ ЭМОДЗИ, БЕЗ ЛИШНИХ
         // ============================================================
 
         let speechSynth = window.speechSynthesis;
@@ -641,7 +641,6 @@
             document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
 
             magicClear();
-            // Запускаем падающие эмодзи для нового иероглифа
             startFallingEmojis(data);
             document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
             document.getElementById('magicStatus').style.color = '#FFB347';
@@ -654,11 +653,11 @@
             if (!container) return;
             container.innerHTML = '';
 
-            const count = 30 + Math.floor(Math.random() * 20);
+            const count = 25 + Math.floor(Math.random() * 15);
             for (let i = 0; i < count; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'twinkle-dot';
-                const size = 1 + Math.random() * 2.5;
+                const size = 1 + Math.random() * 2;
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
                 const duration = 3 + Math.random() * 4;
@@ -675,9 +674,8 @@
             }
         }
 
-        // ===== ПАДАЮЩИЕ АССОЦИАТИВНЫЕ ЭМОДЗИ =====
+        // ===== ТОЛЬКО АССОЦИАТИВНЫЕ ЭМОДЗИ =====
         function startFallingEmojis(data) {
-            // Останавливаем предыдущий интервал
             if (assocInterval) {
                 clearInterval(assocInterval);
                 assocInterval = null;
@@ -685,101 +683,162 @@
 
             const container = document.getElementById('magicFloatingEmojis');
             if (!container) return;
-
-            // Очищаем старые эмодзи
             container.innerHTML = '';
 
-            // Собираем эмодзи для ассоциаций
-            const emojis = [];
-            if (data && data.emoji) emojis.push(data.emoji);
-
-            // Добавляем дополнительные на основе перевода
+            // Собираем ТОЛЬКО ассоциативные эмодзи на основе перевода
             const translation = (data && data.translation) || '';
-            const extraEmojis = {
+            const assocEmojis = [];
+
+            // Карта ассоциаций
+            const associationMap = {
                 'вода': ['💧', '🌊', '💦'],
-                'огонь': ['🔥', '🌋', '💥'],
+                'огонь': ['🔥', '🌋'],
                 'дерево': ['🌳', '🌲', '🌿'],
-                'земля': ['🌍', '🌎', '🏔️'],
-                'металл': ['⚔️', '🔪', '⚙️'],
-                'золото': ['💰', '✨', '🌟'],
-                'небо': ['☁️', '🌈', '🌤️'],
-                'солнце': ['☀️', '🌞', '🌅'],
-                'луна': ['🌙', '🌛', '🌜'],
-                'звезда': ['⭐', '🌟', '✨'],
-                'человек': ['👤', '🧑', '👨'],
-                'женщина': ['👩', '💃', '👸'],
-                'мужчина': ['👨', '🦸', '🧔'],
-                'ребёнок': ['👶', '🧒', '👦'],
-                'рука': ['🖐️', '✋', '🤚'],
-                'нога': ['🦶', '👣', '🦵'],
-                'глаз': ['👁️', '👀', '👁️'],
-                'рот': ['👄', '👅', '💋'],
-                'сердце': ['❤️', '💖', '💗'],
-                'дом': ['🏠', '🏡', '🏘️'],
-                'город': ['🏙️', '🌆', '🌃'],
-                'дорога': ['🛣️', '🚗', '🚙'],
-                'машина': ['🚗', '🚕', '🚙'],
-                'самолёт': ['✈️', '🛩️', '🚀'],
-                'корабль': ['🚢', '⛵', '🛳️'],
-                'поезд': ['🚂', '🚃', '🚄'],
-                'велосипед': ['🚲', '🚴', '🚵'],
-                'книга': ['📚', '📖', '📕'],
-                'письмо': ['✉️', '📧', '📝'],
-                'музыка': ['🎵', '🎶', '🎼'],
-                'искусство': ['🎨', '🖌️', '🎭'],
-                'спорт': ['⚽', '🏀', '🎾'],
-                'игра': ['🎮', '🕹️', '🎲'],
-                'еда': ['🍕', '🍔', '🌮'],
-                'фрукт': ['🍎', '🍌', '🍇'],
-                'овощ': ['🥕', '🥦', '🍅'],
-                'сладкое': ['🍩', '🍪', '🧁'],
-                'напиток': ['☕', '🥤', '🧃'],
-                'животное': ['🐱', '🐶', '🐰'],
-                'птица': ['🐦', '🦅', '🐤'],
-                'рыба': ['🐟', '🐠', '🐡'],
-                'насекомое': ['🐞', '🦋', '🐝'],
-                'цветок': ['🌺', '🌷', '🌹'],
-                'растение': ['🌱', '🌿', '☘️'],
-                'время': ['⏰', '⌚', '🕐'],
-                'день': ['🌞', '☀️', '🌅'],
-                'ночь': ['🌙', '🌃', '🌌'],
-                'утро': ['🌅', '☀️', '🌤️'],
-                'вечер': ['🌆', '🌇', '🌃'],
+                'земля': ['🌍', '🌎'],
+                'металл': ['⚔️', '⚙️'],
+                'золото': ['💰', '✨'],
+                'небо': ['☁️', '🌈'],
+                'солнце': ['☀️', '🌞'],
+                'луна': ['🌙', '🌛'],
+                'звезда': ['⭐', '🌟'],
+                'человек': ['👤', '🧑'],
+                'женщина': ['👩', '💃'],
+                'мужчина': ['👨', '🦸'],
+                'ребёнок': ['👶', '🧒'],
+                'рука': ['🖐️', '✋'],
+                'нога': ['🦶', '👣'],
+                'глаз': ['👁️', '👀'],
+                'рот': ['👄', '👅'],
+                'сердце': ['❤️', '💖'],
+                'дом': ['🏠', '🏡'],
+                'город': ['🏙️', '🌆'],
+                'дорога': ['🛣️', '🚗'],
+                'машина': ['🚗', '🚕'],
+                'самолёт': ['✈️', '🛩️'],
+                'корабль': ['🚢', '⛵'],
+                'поезд': ['🚂', '🚃'],
+                'велосипед': ['🚲', '🚴'],
+                'книга': ['📚', '📖'],
+                'письмо': ['✉️', '📧'],
+                'музыка': ['🎵', '🎶'],
+                'искусство': ['🎨', '🖌️'],
+                'спорт': ['⚽', '🏀'],
+                'игра': ['🎮', '🎲'],
+                'еда': ['🍕', '🍔'],
+                'фрукт': ['🍎', '🍌'],
+                'овощ': ['🥕', '🥦'],
+                'сладкое': ['🍩', '🍪'],
+                'напиток': ['☕', '🥤'],
+                'животное': ['🐱', '🐶'],
+                'птица': ['🐦', '🦅'],
+                'рыба': ['🐟', '🐠'],
+                'насекомое': ['🐞', '🦋'],
+                'цветок': ['🌺', '🌷'],
+                'растение': ['🌱', '🌿'],
+                'время': ['⏰', '⌚'],
+                'день': ['🌞', '☀️'],
+                'ночь': ['🌙', '🌃'],
+                'утро': ['🌅', '☀️'],
+                'вечер': ['🌆', '🌇'],
+                'верх': ['⬆️', '☝️'],
+                'низ': ['⬇️', '👇'],
+                'левый': ['⬅️', '👈'],
+                'правый': ['➡️', '👉'],
+                'центр': ['🎯', '📍'],
+                'большой': ['📏', '🔍'],
+                'маленький': ['🔬', '🧪'],
+                'новый': ['🆕', '✨'],
+                'старый': ['🕰️', '📜'],
+                'хороший': ['👍', '✅'],
+                'плохой': ['👎', '❌'],
+                'красивый': ['🌸', '💐'],
+                'умный': ['🧠', '💡'],
+                'сильный': ['💪', '🏋️'],
+                'быстрый': ['⚡', '🏃'],
+                'медленный': ['🐢', '🦥'],
+                'горячий': ['🌡️', '🔥'],
+                'холодный': ['❄️', '🧊'],
+                'свет': ['💡', '🔆'],
+                'тьма': ['🌑', '🌚'],
+                'жизнь': ['🌱', '💚'],
+                'смерть': ['💀', '⚰️'],
+                'мир': ['🕊️', '☮️'],
+                'война': ['⚔️', '💣'],
+                'любовь': ['❤️', '💕'],
+                'дружба': ['🤝', '👬'],
+                'семья': ['👨‍👩‍👦', '🏠'],
+                'работа': ['💼', '📋'],
+                'учёба': ['📚', '🎓'],
+                'путь': ['🛤️', '🚶'],
+                'река': ['🏞️', '🌊'],
+                'гора': ['⛰️', '🗻'],
+                'лес': ['🌲', '🌳'],
+                'поле': ['🌾', '🌻'],
+                'море': ['🌊', '🏖️'],
+                'океан': ['🌊', '🐋'],
             };
 
-            for (const [key, values] of Object.entries(extraEmojis)) {
+            // Ищем ключевые слова в переводе
+            let found = false;
+            for (const [key, values] of Object.entries(associationMap)) {
                 if (translation.toLowerCase().includes(key)) {
-                    const count = Math.min(2, values.length);
-                    const shuffled = values.sort(() => Math.random() - 0.5);
-                    for (let i = 0; i < count; i++) {
-                        emojis.push(shuffled[i]);
+                    // Добавляем все эмодзи из этой группы
+                    for (const emoji of values) {
+                        if (!assocEmojis.includes(emoji)) {
+                            assocEmojis.push(emoji);
+                        }
+                    }
+                    found = true;
+                }
+            }
+
+            // Если есть основной эмодзи иероглифа — добавляем его
+            if (data && data.emoji && data.emoji !== '🔑' && !assocEmojis.includes(data.emoji)) {
+                assocEmojis.push(data.emoji);
+            }
+
+            // Если ничего не найдено — добавляем универсальные ассоциации по первому слову
+            if (!found && assocEmojis.length < 2) {
+                const words = translation.split(/[,，、\s]+/);
+                for (const word of words) {
+                    if (word.length > 1) {
+                        for (const [key, values] of Object.entries(associationMap)) {
+                            if (word.includes(key) || key.includes(word)) {
+                                for (const emoji of values) {
+                                    if (!assocEmojis.includes(emoji)) {
+                                        assocEmojis.push(emoji);
+                                    }
+                                }
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) break;
                     }
                 }
             }
 
-            // Добавляем магические эмодзи для атмосферы
-            const magicEmojis = ['✨', '⭐', '🌟', '💫', '🌠', '🔮', '🪄', '🌈', '🌌'];
-            const needed = Math.max(3, 5 - emojis.length);
-            for (let i = 0; i < needed; i++) {
-                emojis.push(magicEmojis[Math.floor(Math.random() * magicEmojis.length)]);
+            // Если всё равно пусто — добавляем эмодзи самого иероглифа или базовый
+            if (assocEmojis.length === 0) {
+                if (data && data.emoji) assocEmojis.push(data.emoji);
+                if (assocEmojis.length === 0) assocEmojis.push('🔑');
             }
 
-            // Ограничиваем до 8
-            const finalEmojis = emojis.slice(0, 8);
+            // Ограничиваем до 6 уникальных
+            const uniqueEmojis = [...new Set(assocEmojis)].slice(0, 6);
 
-            // Запускаем появление эмодзи с интервалом
+            // Запускаем появление только ассоциативных эмодзи
             let index = 0;
             assocInterval = setInterval(() => {
-                const emoji = finalEmojis[index % finalEmojis.length];
+                const emoji = uniqueEmojis[index % uniqueEmojis.length];
                 createFallingEmoji(emoji, container);
                 index++;
-            }, 800);
+            }, 1200);
 
             // Первые несколько сразу
             setTimeout(() => {
-                for (let i = 0; i < 3; i++) {
-                    const emoji = finalEmojis[i % finalEmojis.length];
-                    createFallingEmoji(emoji, container);
+                for (let i = 0; i < Math.min(2, uniqueEmojis.length); i++) {
+                    createFallingEmoji(uniqueEmojis[i], container);
                 }
             }, 300);
         }
@@ -788,9 +847,8 @@
             const el = document.createElement('div');
             el.className = 'assoc-emoji';
 
-            // Случайная сторона: лево или право
             const side = Math.random() > 0.5 ? 'left' : 'right';
-            const pos = 2 + Math.random() * 8; // 2-10% от края
+            const pos = 2 + Math.random() * 8;
 
             let style = '';
             if (side === 'left') {
@@ -799,16 +857,12 @@
                 style = `right: ${pos}%;`;
             }
 
-            // Случайная высота старта
             const startY = -5 - Math.random() * 15;
             style += ` top: ${startY}%;`;
 
-            // Случайная длительность падения
-            const duration = 5 + Math.random() * 4;
+            const duration = 6 + Math.random() * 4;
             const delay = Math.random() * 0.5;
-
-            // Случайный размер
-            const size = 1.6 + Math.random() * 1.2;
+            const size = 2.0 + Math.random() * 1.2;
 
             el.style.cssText = `
                     ${style}
@@ -817,13 +871,11 @@
                 `;
             el.textContent = emoji;
 
-            // Случайный поворот
             const rotation = -20 + Math.random() * 40;
             el.style.transform = `rotate(${rotation}deg)`;
 
             container.appendChild(el);
 
-            // Удаляем после анимации
             setTimeout(() => {
                 if (el.parentNode) el.remove();
             }, (duration + delay) * 1000 + 500);
@@ -891,7 +943,6 @@
             magicLastY = 0;
         let isAnimating = false;
         let currentWriter = null;
-        let emojiInterval = null;
         let magicSoundCtx = null;
 
         function initMagicSound() {
@@ -945,8 +996,6 @@
             magicDrawPath = [];
             magicIsDrawing = false;
             isAnimating = false;
-            if (emojiInterval) { clearInterval(emojiInterval);
-                emojiInterval = null; }
             document.getElementById('magicResult').style.display = 'none';
             if (magicCtx) {
                 magicCtx.clearRect(0, 0, magicCanvas.width, magicCanvas.height);
@@ -1138,147 +1187,3 @@
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
             magicLastX = x;
-            magicLastY = y;
-        }
-
-        function endDraw(e) {
-            if (magicIsDrawing) {
-                magicIsDrawing = false;
-                document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
-                document.getElementById('magicStatus').style.color = '#FFB347';
-                playMagicCompleteSound();
-            }
-        }
-
-        function touchStart(e) {
-            e.preventDefault();
-            if (!magicCtx || isAnimating) return;
-            const touch = e.touches[0];
-            const rect = magicCanvas.getBoundingClientRect();
-            const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
-            const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-            magicIsDrawing = true;
-            magicLastX = x;
-            magicLastY = y;
-            createMagicParticle(x, y);
-            playMagicSound();
-        }
-
-        function touchMove(e) {
-            e.preventDefault();
-            if (!magicIsDrawing || !magicCtx || isAnimating) return;
-            const touch = e.touches[0];
-            const rect = magicCanvas.getBoundingClientRect();
-            const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
-            const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
-            magicDrawPath.push({ x, y });
-            if (Math.random() > 0.7) createMagicParticle(x, y);
-            if (Math.random() > 0.9) playMagicSound();
-            magicLastX = x;
-            magicLastY = y;
-        }
-
-        function touchEnd(e) {
-            e.preventDefault();
-            if (magicIsDrawing) {
-                magicIsDrawing = false;
-                document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
-                document.getElementById('magicStatus').style.color = '#FFB347';
-                playMagicCompleteSound();
-            }
-        }
-
-        let magicScore = 0;
-        let magicLevel = 1;
-
-        function magicCheck() {
-            const resultDiv = document.getElementById('magicResult');
-            resultDiv.style.display = 'block';
-            const hasDrawing = magicDrawPath.length > 0 || magicIsDrawing;
-
-            if (hasDrawing) {
-                const points = 10 + Math.floor(Math.random() * 20);
-                magicScore += points;
-                magicLevel++;
-                document.getElementById('magicScore').textContent = magicScore;
-                document.getElementById('magicLevel').textContent = magicLevel;
-
-                resultDiv.innerHTML = `
-                        <div style="background: linear-gradient(135deg, rgba(76,175,80,0.12), rgba(255,215,0,0.08)); border: 2px solid #FFD700; border-radius: 16px; padding: 0.8rem; animation: fadeIn 0.4s ease;">
-                            <div style="font-size:1.6rem; color:#FFD700;">✨ Волшебство удалось!</div>
-                            <div style="font-size:1rem; color:#4CAF50; margin-top:0.2rem;">⭐ +${points} очков магии!</div>
-                            <div style="font-size:1.3rem; color:#FFB347; margin-top:0.2rem;">
-                                ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
-                            </div>
-                            <div style="display:flex; gap:0.6rem; justify-content:center; margin-top:0.6rem; flex-wrap:wrap;">
-                                <button onclick="magicNextChar()" style="padding:0.3rem 1rem; border-radius:30px; border:none; background:linear-gradient(135deg,#1a4a2a,#0d3a1a); color:white; font-weight:bold; cursor:pointer; box-shadow:0 3px 0 #0a2a1a; font-size:0.8rem;">➡️ Следующий</button>
-                                <button onclick="magicRandom()" style="padding:0.3rem 1rem; border-radius:30px; border:none; background:linear-gradient(135deg,#3a1a4a,#2a0d3a); color:white; font-weight:bold; cursor:pointer; box-shadow:0 3px 0 #1a0a2a; font-size:0.8rem;">🎲 Случайный</button>
-                            </div>
-                        </div>
-                    `;
-
-                document.getElementById('magicStatus').textContent = '🌟 Отлично! Продолжай!';
-                document.getElementById('magicStatus').style.color = '#4CAF50';
-                playMagicCompleteSound();
-                speakChinese(magicCurrentChar);
-            } else {
-                resultDiv.innerHTML = `
-                        <div style="background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,215,0,0.03)); border: 2px solid #FF6B6B; border-radius: 16px; padding: 0.8rem; animation: fadeIn 0.4s ease;">
-                            <div style="font-size:1.2rem; color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
-                            <div style="font-size:1rem; color:#8a7a6a; margin-top:0.2rem;">
-                                ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
-                            </div>
-                        </div>
-                    `;
-            }
-        }
-
-        function initMagic() {
-            createTwinkle();
-            initMagicSound();
-
-            if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
-                buildAllWordsList();
-                if (allWordsList.length) {
-                    magicCurrentIndex = 0;
-                    loadMagicChar(allWordsList[0]);
-                }
-            } else {
-                setTimeout(() => {
-                    if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
-                        buildAllWordsList();
-                        if (allWordsList.length) {
-                            magicCurrentIndex = 0;
-                            loadMagicChar(allWordsList[0]);
-                        }
-                    }
-                }, 500);
-            }
-
-            document.getElementById('magicScore').textContent = magicScore;
-            document.getElementById('magicLevel').textContent = magicLevel;
-
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    magicSearch();
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(initMagic, 300);
-        });
-
-        window.magicNextChar = magicNextChar;
-        window.magicPrevChar = magicPrevChar;
-        window.magicRandom = magicRandom;
-        window.magicClear = magicClear;
-        window.magicAnimateDraw = magicAnimateDraw;
-        window.magicCheck = magicCheck;
-        window.magicSearch = magicSearch;
-        window.speakChinese = speakChinese;
-    </script>
-
-</body>
-</html>
