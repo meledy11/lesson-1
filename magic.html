@@ -15,7 +15,7 @@
             color: #f5e6d3;
         }
         
-        .container { max-width: 850px; margin: 0 auto; }
+        .container { max-width: 800px; margin: 0 auto; }
         
         .header {
             text-align: center;
@@ -130,20 +130,19 @@
         .btn-show { background: linear-gradient(135deg, #FF6B35, #FF8C42); box-shadow: 0 3px 0 #C16F1A; padding: 0.35rem 1rem; font-size: 0.85rem; }
         .btn-clear { background: linear-gradient(135deg, #FF6B6B, #e74c3c); box-shadow: 0 3px 0 #c0392b; }
         
-        /* ===== БОЛЬШОЕ ОКНО ===== */
         .canvas-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             background: rgba(255,255,255,0.03);
             border-radius: 30px;
-            padding: 0.5rem;
+            padding: 0.8rem;
             border: 2px solid rgba(255,215,0,0.1);
         }
         
         #magicCanvas {
             width: 100%;
-            max-width: 650px;
+            max-width: 550px;
             aspect-ratio: 1/1;
             background: radial-gradient(ellipse at center, #1a0f08 0%, #0d0805 100%);
             border-radius: 20px;
@@ -163,7 +162,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3%;
+            padding: 5%;
             z-index: 1;
         }
         
@@ -172,12 +171,6 @@
             height: 100% !important;
             max-width: 100%;
             max-height: 100%;
-        }
-        
-        /* === АДАПТИВНЫЙ РАЗМЕР SVG === */
-        #hanziContainer svg g {
-            transform: scale(0.85) !important;
-            transform-origin: center !important;
         }
         
         #drawCanvas {
@@ -292,17 +285,8 @@
             .magic-emoji-big { font-size: 2rem; }
             .magic-buttons button { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
             .btn-show { padding: 0.25rem 0.8rem; }
-            .canvas-wrapper { padding: 0.3rem; }
+            .canvas-wrapper { padding: 0.4rem; }
             #magicCanvas { max-width: 100%; }
-            #hanziContainer svg g {
-                transform: scale(0.75) !important;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            #hanziContainer svg g {
-                transform: scale(0.65) !important;
-            }
         }
     </style>
 </head>
@@ -361,10 +345,6 @@
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js"></script>
     <script src="keys-data.js"></script>
     <script>
-    // ============================================================
-    // ===== ОЗВУЧКА =====
-    // ============================================================
-    
     let speechSynth = window.speechSynthesis;
     let currentUtterance = null;
 
@@ -400,10 +380,6 @@
     }
     window.speakChinese = speakChinese;
     
-    // ============================================================
-    // ===== ВСПОМОГАТЕЛЬНЫЕ =====
-    // ============================================================
-    
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -412,10 +388,7 @@
         return arr;
     }
     
-    // ============================================================
-    // ===== ВОЛШЕБНАЯ ТЕТРАДЬ =====
-    // ============================================================
-    
+    // ===== ОСНОВНАЯ ЛОГИКА =====
     let magicCurrentChar = '上';
     let magicCharData = null;
     let magicScore = 0;
@@ -434,7 +407,6 @@
     let drawCanvas = null;
     let emojiInterval = null;
     
-    // ---- ЗВУК ----
     function initMagicSound() {
         try {
             magicSoundCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -479,7 +451,6 @@
         } catch(e) {}
     }
     
-    // ---- ЗВЁЗДЫ ----
     function createMagicStars() {
         const container = document.getElementById('magicStars');
         if (!container) return;
@@ -504,7 +475,6 @@
         }
     }
     
-    // ---- ЗАГРУЗКА БАЗЫ ----
     function buildAllWordsList() {
         allWordsList = [];
         for (const key of KEY_NAMES) {
@@ -545,7 +515,6 @@
         document.getElementById('magicResult').style.display = 'none';
     }
     
-    // ---- НАВИГАЦИЯ ----
     function magicNextChar() {
         if (allWordsList.length === 0) {
             buildAllWordsList();
@@ -599,7 +568,6 @@
         }
     }
     
-    // ---- КАНВАС ----
     function initDrawingCanvas() {
         const oldCanvas = document.getElementById('drawCanvas');
         if (oldCanvas) oldCanvas.remove();
@@ -624,7 +592,7 @@
         magicCtx = canvas.getContext('2d');
         
         const rect = wrapper.getBoundingClientRect();
-        const size = Math.min(rect.width, 650);
+        const size = Math.min(rect.width, 550);
         canvas.width = size;
         canvas.height = size;
         
@@ -655,7 +623,7 @@
         ctx.restore();
     }
     
-    // ---- ЭМОДЗИ ПО КРАЯМ ----
+    // ---- ЭМОДЗИ ТОЛЬКО ПО КРАЯМ ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
@@ -778,8 +746,8 @@
         
         try {
             currentWriter = HanziWriter.create(container.id, char, {
-                width: 550,
-                height: 550,
+                width: 400,
+                height: 400,
                 showOutline: false,
                 strokeColor: '#FFD700',
                 strokeAnimationSpeed: 1.0,
@@ -788,7 +756,7 @@
                 showHintAfterMisses: 0,
                 radicalColor: '#FFD700',
                 radicalStrokeColor: '#FFD700',
-                padding: 20
+                padding: 15
             });
             
             document.getElementById('magicStatus').textContent = '✨ Волшебство...';
@@ -822,7 +790,6 @@
         }
     }
     
-    // ---- СОБЫТИЯ ДЛЯ ОБВЕДЕНИЯ ----
     function setupDrawingEvents() {
         const wrapper = document.getElementById('magicCanvas');
         wrapper.removeEventListener('mousedown', startDraw);
@@ -882,7 +849,6 @@
         }
     }
     
-    // ---- TOUCH ----
     function touchStart(e) {
         e.preventDefault();
         if (!magicCtx || isAnimating) return;
