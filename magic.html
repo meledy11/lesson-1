@@ -136,19 +136,52 @@
             justify-content: center;
             background: rgba(255,255,255,0.03);
             border-radius: 30px;
-            padding: 0.5rem;
+            padding: 0.8rem;
             border: 2px solid rgba(255,215,0,0.1);
         }
         
         #magicCanvas {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             aspect-ratio: 1/1;
             background: radial-gradient(ellipse at center, #1a0f08 0%, #0d0805 100%);
             border-radius: 20px;
             touch-action: none;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
             box-shadow: inset 0 0 60px rgba(255,215,0,0.03);
+            position: relative;
+            overflow: visible;
+        }
+        
+        #hanziContainer {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5%;
+            z-index: 1;
+        }
+        
+        #hanziContainer svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        #drawCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
         }
         
         .magic-stars {
@@ -160,6 +193,7 @@
             pointer-events: none;
             overflow: hidden;
             border-radius: 20px;
+            z-index: 0;
         }
         
         .magic-floating {
@@ -171,6 +205,7 @@
             pointer-events: none;
             overflow: hidden;
             border-radius: 20px;
+            z-index: 3;
         }
         
         .magic-status {
@@ -221,7 +256,6 @@
             box-shadow: 0 4px 0 #C16F1A;
         }
         
-        /* Анимации */
         @keyframes starTwinkle {
             0%, 100% { opacity: 0.2; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
@@ -251,6 +285,8 @@
             .magic-emoji-big { font-size: 2rem; }
             .magic-buttons button { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
             .btn-show { padding: 0.25rem 0.8rem; }
+            .canvas-wrapper { padding: 0.4rem; }
+            #magicCanvas { max-width: 100%; }
         }
     </style>
 </head>
@@ -264,7 +300,6 @@
         <a href="index.html" class="back-link">⬅️ На главную</a>
         
         <div class="magic-container">
-            <!-- Информация об иероглифе -->
             <div class="magic-info">
                 <div class="magic-char" id="magicCharDisplay">上</div>
                 <div class="magic-info-text">
@@ -275,7 +310,6 @@
                 <div class="magic-emoji-big" id="magicEmojiDisplay">⬆️</div>
             </div>
             
-            <!-- Кнопки -->
             <div class="magic-buttons">
                 <button class="btn-prev" onclick="magicPrevChar()">⬅️</button>
                 <button class="btn-next" onclick="magicNextChar()">➡️</button>
@@ -284,24 +318,22 @@
                 <button class="btn-clear" onclick="magicClear()">🗑️</button>
             </div>
             
-            <!-- Канвас -->
             <div class="canvas-wrapper">
-                <div id="magicCanvas" style="width:100%; max-width:500px; aspect-ratio:1/1; border-radius:20px; position:relative;"></div>
-                <div class="magic-stars" id="magicStars"></div>
-                <div class="magic-floating" id="magicFloatingEmojis"></div>
+                <div id="magicCanvas">
+                    <div id="hanziContainer"></div>
+                    <div class="magic-stars" id="magicStars"></div>
+                    <div class="magic-floating" id="magicFloatingEmojis"></div>
+                </div>
             </div>
             
-            <!-- Статус -->
             <div class="magic-status">
                 <div>⭐ Очки: <span id="magicScore">0</span></div>
                 <div>🎯 Уровень: <span id="magicLevel">1</span></div>
                 <div class="status-text" id="magicStatus">🪄 Нажми "Показать"</div>
             </div>
             
-            <!-- Кнопка проверки -->
             <button class="btn-check" onclick="magicCheck()">✨ Проверить</button>
             
-            <!-- Результат -->
             <div class="magic-result" id="magicResult"></div>
         </div>
         
@@ -310,15 +342,9 @@
         </footer>
     </div>
     
-    <!-- Hanzi Writer -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js"></script>
-    
     <script src="keys-data.js"></script>
     <script>
-    // ============================================================
-    // ===== ОЗВУЧКА =====
-    // ============================================================
-    
     let speechSynth = window.speechSynthesis;
     let currentUtterance = null;
 
@@ -354,10 +380,6 @@
     }
     window.speakChinese = speakChinese;
     
-    // ============================================================
-    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-    // ============================================================
-    
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -366,10 +388,7 @@
         return arr;
     }
     
-    // ============================================================
-    // ===== ВОЛШЕБНАЯ ТЕТРАДЬ =====
-    // ============================================================
-    
+    // ===== ОСНОВНАЯ ЛОГИКА =====
     let magicCurrentChar = '上';
     let magicCharData = null;
     let magicScore = 0;
@@ -382,13 +401,12 @@
     let magicParticles = [];
     let magicDrawPath = [];
     let magicCanvas, magicCtx;
-    let magicAnimating = false;
-    let magicAnimationId = null;
-    let magicSoundCtx = null;
-    let isMagicInitialized = false;
+    let isAnimating = false;
     let currentWriter = null;
+    let magicSoundCtx = null;
+    let drawCanvas = null;
+    let emojiInterval = null;
     
-    // ---- ЗВУК ----
     function initMagicSound() {
         try {
             magicSoundCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -433,7 +451,6 @@
         } catch(e) {}
     }
     
-    // ---- ЗВЁЗДЫ ----
     function createMagicStars() {
         const container = document.getElementById('magicStars');
         if (!container) return;
@@ -452,12 +469,12 @@
                 opacity: ${0.1 + Math.random() * 0.2};
                 animation: starTwinkle ${2 + Math.random() * 3}s ease-in-out ${Math.random() * 3}s infinite;
                 box-shadow: 0 0 ${size * 3}px rgba(255,215,0,0.05);
+                z-index: 0;
             `;
             container.appendChild(star);
         }
     }
     
-    // ---- ЗАГРУЗКА БАЗЫ ----
     function buildAllWordsList() {
         allWordsList = [];
         for (const key of KEY_NAMES) {
@@ -476,18 +493,13 @@
         }
     }
     
-    // ---- ПОЛУЧЕНИЕ ОДИНОЧНОГО ИЕРОГЛИФА ----
     function getSingleChar(key) {
-        // Если ключ — это слово из нескольких иероглифов, берём первый
         return key.charAt(0);
     }
     
-    // ---- ЗАГРУЗКА КЛЮЧА ----
     function loadMagicChar(data) {
         if (!data) return;
         magicCharData = data;
-        
-        // Берём первый иероглиф для отображения
         const displayChar = getSingleChar(data.chinese);
         magicCurrentChar = displayChar;
         
@@ -503,7 +515,6 @@
         document.getElementById('magicResult').style.display = 'none';
     }
     
-    // ---- НАВИГАЦИЯ ----
     function magicNextChar() {
         if (allWordsList.length === 0) {
             buildAllWordsList();
@@ -532,26 +543,25 @@
     }
     
     function magicClear() {
-        // Очищаем Hanzi Writer
-        const container = document.getElementById('magicCanvas');
-        if (container) {
-            container.innerHTML = '';
-            // Восстанавливаем канвас для рисования
-            initDrawingCanvas();
-        }
+        const container = document.getElementById('hanziContainer');
+        if (container) container.innerHTML = '';
         
-        if (magicAnimationId) {
-            cancelAnimationFrame(magicAnimationId);
-            magicAnimationId = null;
-        }
-        magicAnimating = false;
-        magicDrawPath = [];
+        const oldCanvas = document.getElementById('drawCanvas');
+        if (oldCanvas) oldCanvas.remove();
+        
         magicParticles = [];
+        magicDrawPath = [];
+        magicIsDrawing = false;
+        isAnimating = false;
+        
+        if (emojiInterval) {
+            clearInterval(emojiInterval);
+            emojiInterval = null;
+        }
         
         clearFloatingElements();
         document.getElementById('magicResult').style.display = 'none';
         
-        // Очищаем контекст рисования
         if (magicCtx) {
             magicCtx.clearRect(0, 0, magicCanvas.width, magicCanvas.height);
             drawMagicGrid();
@@ -559,25 +569,34 @@
     }
     
     function initDrawingCanvas() {
-        const container = document.getElementById('magicCanvas');
-        // Создаём canvas для рисования поверх Hanzi Writer
+        const oldCanvas = document.getElementById('drawCanvas');
+        if (oldCanvas) oldCanvas.remove();
+        
+        const wrapper = document.getElementById('magicCanvas');
         const canvas = document.createElement('canvas');
         canvas.id = 'drawCanvas';
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
-        canvas.style.pointerEvents = 'none';
-        container.appendChild(canvas);
+        canvas.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
+        `;
+        wrapper.appendChild(canvas);
         
+        drawCanvas = canvas;
         magicCanvas = canvas;
         magicCtx = canvas.getContext('2d');
         
-        const rect = container.getBoundingClientRect();
-        const size = Math.min(rect.width, 500);
+        const rect = wrapper.getBoundingClientRect();
+        const size = Math.min(rect.width, 550);
         canvas.width = size;
         canvas.height = size;
+        
+        drawMagicGrid();
     }
     
     function drawMagicGrid() {
@@ -604,14 +623,14 @@
         ctx.restore();
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
+    // ---- ЭМОДЗИ ТОЛЬКО ПО КРАЯМ ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
         
         let x, y;
         const side = Math.floor(Math.random() * 4);
-        const margin = 5 + Math.random() * 15;
+        const margin = 5 + Math.random() * 12;
         const pos = margin + Math.random() * (80 - margin * 2);
         
         switch(side) {
@@ -621,7 +640,7 @@
             case 3: x = pos; y = 80 - margin; break;
         }
         
-        const size = 1.5 + Math.random() * 1.5;
+        const size = 1.2 + Math.random() * 1.2;
         const duration = 2.5 + Math.random() * 2;
         const delay = Math.random() * 0.5;
         
@@ -641,21 +660,18 @@
         `;
         el.textContent = emoji;
         container.appendChild(el);
-        magicFloatingElements.push(el);
         
         setTimeout(() => {
             if (el.parentNode) el.remove();
-            magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
         }, (duration + delay) * 1000 + 500);
     }
     
     function clearFloatingElements() {
         const container = document.getElementById('magicFloatingEmojis');
         if (container) container.innerHTML = '';
-        magicFloatingElements = [];
     }
     
-    // ---- ЧАСТИЦЫ ДЛЯ ОБВЕДЕНИЯ ----
+    // ---- ЧАСТИЦЫ ----
     function createMagicParticle(x, y) {
         const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
         magicParticles.push({
@@ -691,136 +707,121 @@
         }
     }
     
-    // ---- РИСОВАНИЕ ОБВЕДЕНИЯ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) ----
     function drawUserPath(ctx, x1, y1, x2, y2) {
         ctx.save();
-        
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.strokeStyle = '#9C27B0';
-        ctx.lineWidth = 3;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.4)';
-        ctx.shadowBlur = 10;
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.5)';
+        ctx.shadowBlur = 12;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.stroke();
-        
-        // Второй слой для яркости
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = 'rgba(206, 147, 216, 0.3)';
-        ctx.lineWidth = 8;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.1)';
-        ctx.shadowBlur = 20;
-        ctx.stroke();
-        
         ctx.restore();
     }
     
-    // ============================================================
-    // ===== ГЛАВНАЯ ФУНКЦИЯ: АНИМАЦИЯ ЧЕРЕЗ HANZI WRITER =====
-    // ============================================================
-    
+    // ===== HANZI WRITER =====
     function magicAnimateDraw() {
-        // Очищаем всё
+        if (isAnimating) {
+            if (currentWriter) {
+                try { currentWriter.pauseAnimation(); } catch(e) {}
+            }
+            isAnimating = false;
+        }
+        
         magicClear();
         
         const char = magicCurrentChar;
-        const container = document.getElementById('magicCanvas');
+        const container = document.getElementById('hanziContainer');
         
-        // Проверяем, что Hanzi Writer загружен
         if (typeof HanziWriter === 'undefined') {
             document.getElementById('magicStatus').textContent = '❌ Hanzi Writer не загружен!';
             document.getElementById('magicStatus').style.color = '#FF6B6B';
             return;
         }
         
-        // Очищаем контейнер
         container.innerHTML = '';
         
-        // Создаём Hanzi Writer
         try {
             currentWriter = HanziWriter.create(container.id, char, {
-                width: 500,
-                height: 500,
+                width: 400,
+                height: 400,
                 showOutline: false,
                 strokeColor: '#FFD700',
-                strokeAnimationSpeed: 1.2,
-                delayBetweenStrokes: 300,
+                strokeAnimationSpeed: 1.0,
+                delayBetweenStrokes: 250,
                 showCharacter: false,
                 showHintAfterMisses: 0,
                 radicalColor: '#FFD700',
-                radicalStrokeColor: '#FFD700'
+                radicalStrokeColor: '#FFD700',
+                padding: 15
             });
             
             document.getElementById('magicStatus').textContent = '✨ Волшебство...';
             document.getElementById('magicStatus').style.color = '#FFD700';
+            isAnimating = true;
             
-            // Запускаем анимацию
             currentWriter.animateCharacter({
                 onComplete: function() {
-                    document.getElementById('magicStatus').textContent = '✨ Готово! Обведи ключ!';
+                    isAnimating = false;
+                    document.getElementById('magicStatus').textContent = '✨ Обведи ключ!';
                     document.getElementById('magicStatus').style.color = '#4CAF50';
                     playMagicCompleteSound();
                     
-                    // Создаём canvas для рисования поверх
                     initDrawingCanvas();
                     
-                    // Запускаем падающие эмодзи
                     const emoji = magicCharData?.emoji || '✨';
-                    let emojiInterval = setInterval(() => {
+                    if (emojiInterval) clearInterval(emojiInterval);
+                    emojiInterval = setInterval(() => {
                         createFloatingEmoji(emoji);
-                    }, 800);
+                    }, 700);
                     
-                    // Сохраняем интервал для очистки
-                    window._emojiInterval = emojiInterval;
+                    setupDrawingEvents();
                 }
             });
             
-            // Настраиваем события для обведения
-            setupDrawingEvents();
-            
         } catch(e) {
-            console.error('Ошибка Hanzi Writer:', e);
-            document.getElementById('magicStatus').textContent = '❌ Ошибка анимации';
+            console.error('Hanzi Writer ошибка:', e);
+            document.getElementById('magicStatus').textContent = '❌ Ошибка';
             document.getElementById('magicStatus').style.color = '#FF6B6B';
+            isAnimating = false;
         }
     }
     
-    // ---- НАСТРОЙКА СОБЫТИЙ ДЛЯ РИСОВАНИЯ ----
     function setupDrawingEvents() {
-        const container = document.getElementById('magicCanvas');
+        const wrapper = document.getElementById('magicCanvas');
+        wrapper.removeEventListener('mousedown', startDraw);
+        wrapper.removeEventListener('mousemove', draw);
+        wrapper.removeEventListener('mouseup', endDraw);
+        wrapper.removeEventListener('mouseleave', endDraw);
         
-        // Убираем старые обработчики
-        container.removeEventListener('mousedown', startDraw);
-        container.removeEventListener('mousemove', draw);
-        container.removeEventListener('mouseup', endDraw);
-        container.removeEventListener('mouseleave', endDraw);
+        wrapper.removeEventListener('touchstart', touchStart);
+        wrapper.removeEventListener('touchmove', touchMove);
+        wrapper.removeEventListener('touchend', touchEnd);
         
-        container.removeEventListener('touchstart', touchStart);
-        container.removeEventListener('touchmove', touchMove);
-        container.removeEventListener('touchend', touchEnd);
+        wrapper.addEventListener('mousedown', startDraw);
+        wrapper.addEventListener('mousemove', draw);
+        wrapper.addEventListener('mouseup', endDraw);
+        wrapper.addEventListener('mouseleave', endDraw);
         
-        // Добавляем новые
-        container.addEventListener('mousedown', startDraw);
-        container.addEventListener('mousemove', draw);
-        container.addEventListener('mouseup', endDraw);
-        container.addEventListener('mouseleave', endDraw);
-        
-        container.addEventListener('touchstart', touchStart, { passive: false });
-        container.addEventListener('touchmove', touchMove, { passive: false });
-        container.addEventListener('touchend', touchEnd, { passive: false });
+        wrapper.addEventListener('touchstart', touchStart, { passive: false });
+        wrapper.addEventListener('touchmove', touchMove, { passive: false });
+        wrapper.addEventListener('touchend', touchEnd, { passive: false });
     }
     
-    // ---- РИСОВАНИЕ ПАЛОЧКОЙ ----
-    function startDraw(e) {
-        if (!magicCtx) return;
-        magicIsDrawing = true;
+    function getCoords(e) {
         const rect = magicCanvas.getBoundingClientRect();
         const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
+        return { x, y };
+    }
+    
+    function startDraw(e) {
+        if (!magicCtx || isAnimating) return;
+        magicIsDrawing = true;
+        const { x, y } = getCoords(e);
         magicLastX = x;
         magicLastY = y;
         createMagicParticle(x, y);
@@ -828,14 +829,11 @@
     }
     
     function draw(e) {
-        if (!magicIsDrawing || !magicCtx) return;
+        if (!magicIsDrawing || !magicCtx || isAnimating) return;
         e.preventDefault();
-        const rect = magicCanvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
-        const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
-        
+        const { x, y } = getCoords(e);
         drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
-        
+        magicDrawPath.push({ x, y });
         if (Math.random() > 0.7) createMagicParticle(x, y);
         if (Math.random() > 0.9) playMagicSound();
         magicLastX = x;
@@ -851,10 +849,9 @@
         }
     }
     
-    // ---- TOUCH ----
     function touchStart(e) {
         e.preventDefault();
-        if (!magicCtx) return;
+        if (!magicCtx || isAnimating) return;
         const touch = e.touches[0];
         const rect = magicCanvas.getBoundingClientRect();
         const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
@@ -868,14 +865,13 @@
     
     function touchMove(e) {
         e.preventDefault();
-        if (!magicIsDrawing || !magicCtx) return;
+        if (!magicIsDrawing || !magicCtx || isAnimating) return;
         const touch = e.touches[0];
         const rect = magicCanvas.getBoundingClientRect();
         const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-        
         drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
-        
+        magicDrawPath.push({ x, y });
         if (Math.random() > 0.7) createMagicParticle(x, y);
         if (Math.random() > 0.9) playMagicSound();
         magicLastX = x;
@@ -896,8 +892,6 @@
     function magicCheck() {
         const resultDiv = document.getElementById('magicResult');
         resultDiv.style.display = 'block';
-        
-        // Проверяем, рисовал ли пользователь
         const hasDrawing = magicDrawPath.length > 0 || magicIsDrawing;
         
         if (hasDrawing) {
@@ -947,7 +941,6 @@
             if (allWordsList.length > 0) {
                 magicCurrentIndex = 0;
                 loadMagicChar(allWordsList[0]);
-                console.log('Инициализация загружена:', allWordsList[0].chinese);
             }
         } else {
             setTimeout(() => {
@@ -956,7 +949,6 @@
                     if (allWordsList.length > 0) {
                         magicCurrentIndex = 0;
                         loadMagicChar(allWordsList[0]);
-                        console.log('Инициализация загружена (отложенная):', allWordsList[0].chinese);
                     }
                 }
             }, 500);
@@ -964,15 +956,12 @@
         
         document.getElementById('magicScore').textContent = magicScore;
         document.getElementById('magicLevel').textContent = magicLevel;
-        isMagicInitialized = true;
     }
     
-    // Запуск
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(initMagic, 300);
     });
     
-    // Делаем функции глобальными
     window.magicNextChar = magicNextChar;
     window.magicPrevChar = magicPrevChar;
     window.magicRandom = magicRandom;
