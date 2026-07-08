@@ -250,7 +250,7 @@
             box-shadow: 0 3px 0 #2a0a0a;
         }
 
-        /* ===== КАНВАС — НЕ ТРОГАЕМ ===== */
+        /* ===== КАНВАС ===== */
         .canvas-wrapper {
             position: relative;
             display: flex;
@@ -339,7 +339,6 @@
             }
         }
 
-        /* ===== УБИРАЕМ ПАДАЮЩИЕ ЭМОДЗИ (оставляем только если есть в базе) ===== */
         .magic-floating {
             position: absolute;
             top: 0;
@@ -521,7 +520,7 @@
             padding: 0.3rem 0;
         }
 
-        /* ===== ПРИМЕРЫ — КРУПНЕЕ ===== */
+        /* ===== ПРИМЕРЫ ===== */
         .examples-grid {
             display: flex;
             gap: 0.5rem;
@@ -763,7 +762,7 @@
                 <button class="btn-clear" onclick="magicClear()">🗑️</button>
             </div>
 
-            <!-- КАНВАС — НЕ ТРОГАТЬ! -->
+            <!-- КАНВАС -->
             <div class="canvas-wrapper">
                 <div id="magicCanvas">
                     <div id="hanziContainer"></div>
@@ -806,7 +805,7 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ
+        //  ПОЛНЫЙ СКРИПТ — ИСПРАВЛЕННАЯ ОЗВУЧКА
         // ============================================================
 
         console.log('🔍 Загрузка...');
@@ -816,10 +815,16 @@
         let speechSynth = window.speechSynthesis;
         let currentUtterance = null;
 
+        // ===== ОСНОВНАЯ ФУНКЦИЯ ОЗВУЧКИ =====
         function speakChinese(text, callback) {
-            if (!text || !speechSynth) { if (callback) callback(); return; }
-            if (currentUtterance) { speechSynth.cancel();
-                currentUtterance = null; }
+            if (!text || !speechSynth) {
+                if (callback) callback();
+                return;
+            }
+            if (currentUtterance) {
+                speechSynth.cancel();
+                currentUtterance = null;
+            }
             setTimeout(() => {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'zh-CN';
@@ -830,17 +835,84 @@
                 const zhVoice = voices.find(v => v.lang.startsWith('zh'));
                 if (zhVoice) utterance.voice = zhVoice;
                 currentUtterance = utterance;
-                utterance.onend = function() { currentUtterance = null; if (callback) callback(); };
-                utterance.onerror = function() { currentUtterance = null; if (callback) callback(); };
+                utterance.onend = function() {
+                    currentUtterance = null;
+                    if (callback) callback();
+                };
+                utterance.onerror = function() {
+                    currentUtterance = null;
+                    if (callback) callback();
+                };
                 speechSynth.speak(utterance);
             }, 100);
         }
         window.speakChinese = speakChinese;
 
+        // ===== ОЗВУЧКА ТЕКУЩЕГО =====
         function playSoundForCurrent() {
             if (magicCurrentChar) speakChinese(magicCurrentChar);
         }
         window.playSoundForCurrent = playSoundForCurrent;
+
+        // ===== ОЗВУЧКА ПРИМЕРА (ИСПРАВЛЕННАЯ) =====
+        function speakExample(text) {
+            if (!text || text.trim() === '') {
+                if (magicCurrentChar) {
+                    speakChinese(magicCurrentChar);
+                    highlightCurrentExample();
+                }
+                return;
+            }
+
+            // Берем первый символ
+            const firstChar = text.trim().charAt(0);
+            const code = firstChar.charCodeAt(0);
+            const isChinese = code >= 0x4E00 && code <= 0x9FFF;
+
+            if (isChinese) {
+                speakChinese(firstChar);
+                highlightExampleItem(text);
+            } else if (magicCurrentChar) {
+                speakChinese(magicCurrentChar);
+                highlightExampleItem(text);
+            }
+        }
+        window.speakExample = speakExample;
+
+        // ===== ПОДСВЕТКА ПРИМЕРА =====
+        function highlightExampleItem(text) {
+            const items = document.querySelectorAll('.example-item');
+            items.forEach(el => {
+                const charEl = el.querySelector('.ex-char');
+                if (charEl && charEl.textContent.trim() === text.trim()) {
+                    el.style.borderColor = '#4FC3F7';
+                    el.style.background = 'rgba(79,195,247,0.15)';
+                    el.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        el.style.borderColor = 'rgba(255,215,0,0.06)';
+                        el.style.background = 'rgba(255,215,0,0.04)';
+                        el.style.transform = 'scale(1)';
+                    }, 700);
+                }
+            });
+        }
+
+        function highlightCurrentExample() {
+            const items = document.querySelectorAll('.example-item');
+            items.forEach(el => {
+                const charEl = el.querySelector('.ex-char');
+                if (charEl && charEl.textContent.includes(magicCurrentChar)) {
+                    el.style.borderColor = '#4FC3F7';
+                    el.style.background = 'rgba(79,195,247,0.15)';
+                    el.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        el.style.borderColor = 'rgba(255,215,0,0.06)';
+                        el.style.background = 'rgba(255,215,0,0.04)';
+                        el.style.transform = 'scale(1)';
+                    }, 700);
+                }
+            });
+        }
 
         // ===== ДАННЫЕ =====
         let allWordsList = [];
@@ -947,7 +1019,7 @@
                 html += `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен</div>`;
             }
 
-            // === ПРИМЕРЫ — КРУПНО И С ОЗВУЧКОЙ ===
+            // === ПРИМЕРЫ ===
             if (words && words.length > 0) {
                 html +=
                     `<div class="magic-details-title" style="font-size:0.85rem;margin-top:0.3rem;">📝 Примеры (${words.length}) <span style="font-size:0.6rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
@@ -958,7 +1030,8 @@
                     const pinyin = w.pinyin || '';
                     const trans = w.translation || w.trans || '';
                     const emoji = w.emoji || '';
-                    const soundText = char.charAt(0) || magicCurrentChar;
+                    // ✅ ИСПРАВЛЕНО: передаем полную строку char
+                    const soundText = char || magicCurrentChar;
                     html += `
                             <div class="example-item" onclick="speakExample('${soundText}')" title="Нажми для озвучивания">
                                 ${emoji ? `<span class="ex-emoji">${emoji}</span>` : ''}
@@ -980,25 +1053,6 @@
 
             container.innerHTML = html;
         }
-
-        // ===== ОЗВУЧКА ПРИМЕРА =====
-        function speakExample(text) {
-            if (text) {
-                speakChinese(text);
-                const items = document.querySelectorAll('.example-item');
-                items.forEach(el => {
-                    if (el.textContent.includes(text) || el.querySelector('.ex-char')?.textContent === text) {
-                        el.style.borderColor = '#4FC3F7';
-                        el.style.background = 'rgba(79,195,247,0.1)';
-                        setTimeout(() => {
-                            el.style.borderColor = 'rgba(255,215,0,0.06)';
-                            el.style.background = 'rgba(255,215,0,0.04)';
-                        }, 500);
-                    }
-                });
-            }
-        }
-        window.speakExample = speakExample;
 
         // ===== НАВИГАЦИЯ =====
         function magicNextChar() {
@@ -1080,7 +1134,7 @@
             }
         }
 
-        // ===== ПАДАЮЩИЕ ЭМОДЗИ — ТОЛЬКО ИЗ БАЗЫ =====
+        // ===== ПАДАЮЩИЕ ЭМОДЗИ =====
         function startFallingEmojis(data) {
             if (assocInterval) { clearInterval(assocInterval);
                 assocInterval = null; }
@@ -1089,7 +1143,6 @@
             container.innerHTML = '';
 
             const emojis = [];
-            // Только из data.emoji и из слов (w.emoji) — без getExtraEmojis!
             if (data && data.emoji) emojis.push(data.emoji);
             if (data && data.words) {
                 const wordEmojis = data.words
@@ -1100,7 +1153,6 @@
                     if (!emojis.includes(e)) emojis.push(e);
                 }
             }
-            // Если всё равно пусто — добавляем базовые
             if (emojis.length < 2) {
                 const fallback = ['✨', '⭐'];
                 for (const e of fallback) {
@@ -1532,7 +1584,6 @@
             createTwinkle();
             initMagicSound();
 
-            // Проверяем загрузку данных
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 buildAllWordsList();
                 if (allWordsList.length) {
@@ -1578,6 +1629,8 @@
         window.speakChinese = speakChinese;
         window.speakExample = speakExample;
         window.playSoundForCurrent = playSoundForCurrent;
+        window.highlightExampleItem = highlightExampleItem;
+        window.highlightCurrentExample = highlightCurrentExample;
     </script>
 
 </body>
