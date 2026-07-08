@@ -384,6 +384,7 @@
     let magicSoundCtx = null;
     let allWordsList = [];
     let magicFloatingElements = [];
+    let isMagicInitialized = false;
     
     // ---- ЗВУК ----
     function initMagicSound() {
@@ -468,47 +469,27 @@
                 hsk: '1'
             });
         }
-        allWordsList = shuffleArray(allWordsList);
+        // НЕ перемешиваем! Пусть идут по порядку ключей
+        // allWordsList = shuffleArray(allWordsList);
         if (magicCurrentIndex >= allWordsList.length) {
             magicCurrentIndex = 0;
         }
     }
     
-    // ============================================================
-    // ===== ГЕНЕРАЦИЯ ТОЧЕК (ТОЛЬКО ЛИНИИ) =====
-    // ============================================================
-    
+    // ---- ГЕНЕРАЦИЯ ТОЧЕК ----
     function generateCharPoints(char, size) {
-    // Проверяем, есть ли линии в KEY_STROKES
-    if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
-        const strokeData = KEY_STROKES[char];
-        const points = [];
-        const numPointsPerStroke = 60;
-        
-        for (const stroke of strokeData.strokes) {
-            for (let i = 0; i < numPointsPerStroke; i++) {
-                const t = i / numPointsPerStroke;
-                const totalSegments = stroke.length - 1;
-                const segIdx = Math.min(Math.floor(t * totalSegments), totalSegments - 1);
-                const segT = (t * totalSegments) - segIdx;
-                const p1 = stroke[segIdx];
-                const p2 = stroke[segIdx + 1];
-                const x = (p1.x + (p2.x - p1.x) * segT) * size;
-                const y = (p1.y + (p2.y - p1.y) * segT) * size;
-                points.push({ x, y });
-            }
+        // Проверяем, есть ли линии в KEY_STROKES
+        if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
+            return generatePointsFromStrokes(char, size);
         }
-        return points;
+        // Если нет — рисуем через canvas
+        return generatePointsFromImage(char, size);
     }
-    
-    // Если нет линий — используем запасной вариант
-    return generatePointsFromOutline(char, size);
-}
     
     function generatePointsFromStrokes(char, size) {
         const strokeData = KEY_STROKES[char];
         const points = [];
-        const numPointsPerStroke = 60;
+        const numPointsPerStroke = 50;
         
         for (const stroke of strokeData.strokes) {
             for (let i = 0; i < numPointsPerStroke; i++) {
@@ -526,29 +507,31 @@
         return points;
     }
     
-    function generatePointsFromOutline(char, size) {
+    function generatePointsFromImage(char, size) {
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
         const ctx = canvas.getContext('2d');
         
-        ctx.strokeStyle = '#FFFFFF';
-        ctx.lineWidth = Math.max(2, size / 30);
+        // Рисуем белым по чёрному для сканирования
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, size, size);
+        ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = `500 ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
-        ctx.strokeText(char, size/2, size/2 + size * 0.05);
+        ctx.font = `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
+        ctx.fillText(char, size/2, size/2 + size * 0.05);
         
         const imageData = ctx.getImageData(0, 0, size, size);
         const data = imageData.data;
-        const step = Math.max(1, Math.floor(size / 50));
+        const step = Math.max(1, Math.floor(size / 35));
         const points = [];
         
         for (let y = 0; y < size; y += step) {
             for (let x = 0; x < size; x += step) {
                 const i = (y * size + x) * 4;
                 const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
-                if (brightness > 30) {
+                if (brightness > 50) {
                     points.push({ x, y });
                 }
             }
@@ -556,16 +539,13 @@
         return points;
     }
     
-    // ============================================================
-    // ===== РИСОВАНИЕ КАЛЛИГРАФИИ (ЧЁРНЫЕ ТОНКИЕ ЛИНИИ) =====
-    // ============================================================
-    
+    // ---- РИСОВАНИЕ ----
     function drawMagicPath(ctx) {
         if (magicDrawPath.length < 2) return;
         
         ctx.save();
         
-        // Тонкая чёрная каллиграфическая линия
+        // Тонкая золотая каллиграфическая линия
         for (let i = 0; i < magicDrawPath.length - 1; i++) {
             const p1 = magicDrawPath[i];
             const p2 = magicDrawPath[i + 1];
@@ -575,10 +555,10 @@
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(10, 10, 10, ${0.8 + progress * 0.2})`;
+            ctx.strokeStyle = `rgba(255, 215, 0, ${0.7 + progress * 0.3})`;
             ctx.lineWidth = width;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
-            ctx.shadowBlur = 1;
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.1)';
+            ctx.shadowBlur = 3;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.stroke();
@@ -587,31 +567,36 @@
         ctx.restore();
     }
     
-    // ============================================================
-    // ===== РИСОВАНИЕ ОБВЕДЕНИЯ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) =====
-    // ============================================================
-    
     function drawUserPath(ctx, x1, y1, x2, y2) {
         ctx.save();
         
-        // Основная фиолетовая линия
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.strokeStyle = '#9C27B0';
         ctx.lineWidth = 3;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.3)';
-        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.4)';
+        ctx.shadowBlur = 10;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
+        ctx.stroke();
+        
+        // Второй слой для яркости
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = 'rgba(206, 147, 216, 0.3)';
+        ctx.lineWidth = 8;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.1)';
+        ctx.shadowBlur = 20;
         ctx.stroke();
         
         ctx.restore();
     }
     
-    // ---- ЧАСТИЦЫ (минимальные) ----
+    // ---- ЧАСТИЦЫ ----
     function createMagicParticle(x, y) {
-        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8'];
+        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
         magicParticles.push({
             x: x + (Math.random() - 0.5) * 6,
             y: y + (Math.random() - 0.5) * 6,
@@ -645,7 +630,7 @@
         }
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ (только по краям) ----
+    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
@@ -714,22 +699,34 @@
         document.getElementById('magicResult').style.display = 'none';
     }
     
-    // ---- НАВИГАЦИЯ ----
+    // ---- НАВИГАЦИЯ (ИСПРАВЛЕНА) ----
     function magicNextChar() {
-        if (allWordsList.length === 0) return;
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
         magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
+        console.log('Переключение на индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
     
     function magicPrevChar() {
-        if (allWordsList.length === 0) return;
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
         magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
+        console.log('Переключение на индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
     
     function magicRandom() {
-        if (allWordsList.length === 0) return;
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
         magicCurrentIndex = Math.floor(Math.random() * allWordsList.length);
+        console.log('Случайный индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
     
@@ -805,7 +802,6 @@
         document.getElementById('magicStatus').textContent = '✨ Волшебство...';
         document.getElementById('magicStatus').style.color = '#FFD700';
         
-        // Эмодзи плавают только по краям
         const emoji = magicCharData?.emoji || '✨';
         let emojiInterval = setInterval(() => {
             if (!magicAnimating) { clearInterval(emojiInterval); return; }
@@ -1010,6 +1006,7 @@
             if (allWordsList.length > 0) {
                 magicCurrentIndex = 0;
                 loadMagicChar(allWordsList[0]);
+                console.log('Инициализация загружена:', allWordsList[0].chinese);
             }
         } else {
             setTimeout(() => {
@@ -1018,6 +1015,7 @@
                     if (allWordsList.length > 0) {
                         magicCurrentIndex = 0;
                         loadMagicChar(allWordsList[0]);
+                        console.log('Инициализация загружена (отложенная):', allWordsList[0].chinese);
                     }
                 }
             }, 500);
@@ -1025,6 +1023,7 @@
         
         document.getElementById('magicScore').textContent = magicScore;
         document.getElementById('magicLevel').textContent = magicLevel;
+        isMagicInitialized = true;
     }
     
     // Запуск
