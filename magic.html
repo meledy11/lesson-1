@@ -54,20 +54,6 @@
             text-align: center;
         }
         
-        .magic-title {
-            color: #FFD700;
-            font-size: 1.6rem;
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-            text-shadow: 0 0 30px rgba(255,215,0,0.3);
-        }
-        
-        .magic-subtitle {
-            color: #b8956a;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        
         .magic-info {
             display: flex;
             gap: 0.8rem;
@@ -76,18 +62,18 @@
             align-items: center;
             margin-bottom: 0.8rem;
             background: rgba(255,255,255,0.03);
-            padding: 0.6rem;
+            padding: 0.5rem 0.8rem;
             border-radius: 20px;
             border: 1px solid rgba(255,215,0,0.1);
         }
         
         .magic-char {
-            font-size: 3.5rem;
-            font-weight: bold;
+            font-size: 2.8rem;
+            font-weight: 500;
             color: #FFD700;
-            text-shadow: 0 0 40px rgba(255,215,0,0.2);
+            text-shadow: 0 0 20px rgba(255,215,0,0.15);
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
-            min-width: 60px;
+            min-width: 50px;
         }
         
         .magic-info-text {
@@ -97,23 +83,23 @@
         }
         
         .magic-pinyin {
-            font-size: 1.4rem;
+            font-size: 1rem;
             color: #FFB347;
-            font-weight: bold;
+            font-weight: 400;
         }
         
         .magic-translation {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: #b8956a;
         }
         
         .magic-key {
-            font-size: 0.8rem;
+            font-size: 0.65rem;
             color: #8B5A2B;
         }
         
         .magic-emoji-big {
-            font-size: 3rem;
+            font-size: 2.5rem;
             animation: fireEmoji 1s ease-in-out infinite alternate;
         }
         
@@ -126,23 +112,23 @@
         }
         
         .magic-buttons button {
-            padding: 0.4rem 0.9rem;
+            padding: 0.35rem 0.8rem;
             border-radius: 30px;
             border: none;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-            font-size: 0.85rem;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+            font-size: 0.8rem;
             transition: 0.1s;
             color: white;
         }
-        .magic-buttons button:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+        .magic-buttons button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
         
-        .btn-prev { background: linear-gradient(135deg, #2196F3, #1976D2); box-shadow: 0 4px 0 #0D47A1; }
-        .btn-next { background: linear-gradient(135deg, #4CAF50, #45a049); box-shadow: 0 4px 0 #2E7D32; }
-        .btn-random { background: linear-gradient(135deg, #9C27B0, #7B1FA2); box-shadow: 0 4px 0 #4A148C; }
-        .btn-show { background: linear-gradient(135deg, #FF6B35, #FF8C42); box-shadow: 0 4px 0 #C16F1A; padding: 0.4rem 1.2rem; font-size: 0.9rem; }
-        .btn-clear { background: linear-gradient(135deg, #FF6B6B, #e74c3c); box-shadow: 0 4px 0 #c0392b; }
+        .btn-prev { background: linear-gradient(135deg, #2196F3, #1976D2); box-shadow: 0 3px 0 #0D47A1; }
+        .btn-next { background: linear-gradient(135deg, #4CAF50, #45a049); box-shadow: 0 3px 0 #2E7D32; }
+        .btn-random { background: linear-gradient(135deg, #9C27B0, #7B1FA2); box-shadow: 0 3px 0 #4A148C; }
+        .btn-show { background: linear-gradient(135deg, #FF6B35, #FF8C42); box-shadow: 0 3px 0 #C16F1A; padding: 0.35rem 1rem; font-size: 0.85rem; }
+        .btn-clear { background: linear-gradient(135deg, #FF6B6B, #e74c3c); box-shadow: 0 3px 0 #c0392b; }
         
         .canvas-wrapper {
             position: relative;
@@ -194,21 +180,21 @@
             justify-content: center;
             margin-top: 0.8rem;
             color: #b8956a;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
-        .magic-status span { color: #FFD700; font-weight: bold; }
-        .magic-status .status-text { color: #FFB347; font-weight: bold; }
+        .magic-status span { color: #FFD700; font-weight: 600; }
+        .magic-status .status-text { color: #FFB347; font-weight: 600; }
         
         .btn-check {
             margin-top: 0.5rem;
-            padding: 0.6rem 2rem;
+            padding: 0.5rem 1.8rem;
             border-radius: 50px;
             border: none;
             background: linear-gradient(135deg, #FFD700, #FFA000);
             color: #2d1b0e;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             box-shadow: 0 4px 0 #E6A100, 0 0 30px rgba(255,215,0,0.1);
             transition: 0.2s;
@@ -260,11 +246,11 @@
         
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8rem; }
-            .magic-char { font-size: 2.8rem; }
-            .magic-pinyin { font-size: 1.2rem; }
-            .magic-emoji-big { font-size: 2.5rem; }
-            .magic-buttons button { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
-            .btn-show { padding: 0.3rem 1rem; }
+            .magic-char { font-size: 2.2rem; }
+            .magic-pinyin { font-size: 0.9rem; }
+            .magic-emoji-big { font-size: 2rem; }
+            .magic-buttons button { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+            .btn-show { padding: 0.25rem 0.8rem; }
         }
     </style>
 </head>
@@ -452,10 +438,10 @@
             osc.connect(gain);
             gain.connect(magicSoundCtx.destination);
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(800 + Math.random() * 400, magicSoundCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200 + Math.random() * 300, magicSoundCtx.currentTime + 0.1);
-            gain.gain.setValueAtTime(0.06, magicSoundCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, magicSoundCtx.currentTime + 0.15);
+            osc.frequency.setValueAtTime(600 + Math.random() * 300, magicSoundCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900 + Math.random() * 200, magicSoundCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.03, magicSoundCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.005, magicSoundCtx.currentTime + 0.15);
             osc.start(magicSoundCtx.currentTime);
             osc.stop(magicSoundCtx.currentTime + 0.15);
         } catch(e) {}
@@ -473,8 +459,8 @@
                 gain.connect(magicSoundCtx.destination);
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, magicSoundCtx.currentTime + i * 0.1);
-                gain.gain.setValueAtTime(0.05, magicSoundCtx.currentTime + i * 0.1);
-                gain.gain.exponentialRampToValueAtTime(0.01, magicSoundCtx.currentTime + i * 0.1 + 0.2);
+                gain.gain.setValueAtTime(0.03, magicSoundCtx.currentTime + i * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.005, magicSoundCtx.currentTime + i * 0.1 + 0.2);
                 osc.start(magicSoundCtx.currentTime + i * 0.1);
                 osc.stop(magicSoundCtx.currentTime + i * 0.1 + 0.2);
             });
@@ -488,7 +474,7 @@
         container.innerHTML = '';
         for (let i = 0; i < 30; i++) {
             const star = document.createElement('div');
-            const size = 1 + Math.random() * 3;
+            const size = 1 + Math.random() * 2;
             star.style.cssText = `
                 position: absolute;
                 width: ${size}px;
@@ -497,9 +483,9 @@
                 border-radius: 50%;
                 left: ${Math.random() * 100}%;
                 top: ${Math.random() * 100}%;
-                opacity: ${0.1 + Math.random() * 0.3};
+                opacity: ${0.1 + Math.random() * 0.2};
                 animation: starTwinkle ${2 + Math.random() * 3}s ease-in-out ${Math.random() * 3}s infinite;
-                box-shadow: 0 0 ${size * 3}px rgba(255,215,0,0.1);
+                box-shadow: 0 0 ${size * 3}px rgba(255,215,0,0.05);
             `;
             container.appendChild(star);
         }
@@ -513,34 +499,34 @@
             allWordsList.push({
                 key: key,
                 chinese: key,
-                pinyin: data.meaning || key,
+                pinyin: key,
                 translation: data.meaning || 'ключ',
                 emoji: data.emoji || '🔑',
                 hsk: '1'
             });
         }
         allWordsList = shuffleArray(allWordsList);
+        // Убеждаемся, что currentIndex не выходит за пределы
+        if (magicCurrentIndex >= allWordsList.length) {
+            magicCurrentIndex = 0;
+        }
     }
     
     // ============================================================
-    // ===== ГЕНЕРАЦИЯ ТОЧЕК ТОЛЬКО ДЛЯ ЛИНИЙ (КАЛЛИГРАФИЯ) =====
+    // ===== ГЕНЕРАЦИЯ ТОЧЕК ДЛЯ КАЛЛИГРАФИИ =====
     // ============================================================
     
     function generateCharPoints(char, size) {
-        // 1. Сначала проверяем, есть ли линии в KEY_STROKES
         if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
             return generatePointsFromStrokes(char, size);
         }
-        
-        // 2. Если нет — генерируем точки из контура иероглифа
         return generatePointsFromOutline(char, size);
     }
     
-    // ---- Генерация из прописанных линий ----
     function generatePointsFromStrokes(char, size) {
         const strokeData = KEY_STROKES[char];
         const points = [];
-        const numPointsPerStroke = 45;
+        const numPointsPerStroke = 50;
         
         for (const stroke of strokeData.strokes) {
             for (let i = 0; i < numPointsPerStroke; i++) {
@@ -558,108 +544,22 @@
         return points;
     }
     
-    // ---- Генерация из контура иероглифа (без заливки) ----
     function generatePointsFromOutline(char, size) {
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
         const ctx = canvas.getContext('2d');
         
-        // Рисуем ТОЛЬКО контур (обводку), без заливки!
         ctx.strokeStyle = '#FFFFFF';
-        ctx.lineWidth = Math.max(4, size / 18);
+        ctx.lineWidth = Math.max(2, size / 30);
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        
-        // Пробуем разные шрифты
-        const fonts = [
-            `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif`,
-            `bold ${size * 0.7}px "SimSun", "SimHei", "KaiTi", serif`,
-            `bold ${size * 0.7}px "Songti SC", "STKaiti", serif`
-        ];
-        
-        let success = false;
-        for (const font of fonts) {
-            try {
-                ctx.font = font;
-                ctx.strokeText(char, size/2, size/2 + size * 0.05);
-                success = true;
-                break;
-            } catch(e) { continue; }
-        }
-        
-        if (!success) {
-            ctx.font = `bold ${size * 0.7}px "SimSun", serif`;
-            ctx.strokeText(char, size/2, size/2 + size * 0.05);
-        }
-        
-        // Сканируем только контурные пиксели
-        const imageData = ctx.getImageData(0, 0, size, size);
-        const data = imageData.data;
-        const step = Math.max(1, Math.floor(size / 45));
-        const points = [];
-        
-        // Сначала находим все пиксели с контуром
-        const edgePixels = [];
-        for (let y = 0; y < size; y += step) {
-            for (let x = 0; x < size; x += step) {
-                const i = (y * size + x) * 4;
-                const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
-                if (brightness > 50) {
-                    edgePixels.push({ x, y, brightness });
-                }
-            }
-        }
-        
-        // Фильтруем: оставляем только те, у которых есть соседи с меньшей яркостью (края)
-        for (const p of edgePixels) {
-            let isEdge = false;
-            const checkSize = step;
-            for (let dy = -checkSize; dy <= checkSize; dy += checkSize) {
-                for (let dx = -checkSize; dx <= checkSize; dx += checkSize) {
-                    if (dx === 0 && dy === 0) continue;
-                    const nx = p.x + dx;
-                    const ny = p.y + dy;
-                    if (nx >= 0 && nx < size && ny >= 0 && ny < size) {
-                        const ni = (ny * size + nx) * 4;
-                        const nb = (data[ni] + data[ni+1] + data[ni+2]) / 3;
-                        if (nb < 20) {
-                            isEdge = true;
-                            break;
-                        }
-                    }
-                }
-                if (isEdge) break;
-            }
-            if (isEdge) {
-                points.push({ x: p.x, y: p.y });
-            }
-        }
-        
-        // Если точек мало — используем более широкий захват
-        if (points.length < 30) {
-            return generatePointsFallback(char, size);
-        }
-        
-        return points;
-    }
-    
-    // ---- Запасной вариант ----
-    function generatePointsFallback(char, size) {
-        const canvas = document.createElement('canvas');
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        
-        ctx.fillStyle = '#FFFFFF';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
-        ctx.fillText(char, size/2, size/2 + size * 0.05);
+        ctx.font = `500 ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
+        ctx.strokeText(char, size/2, size/2 + size * 0.05);
         
         const imageData = ctx.getImageData(0, 0, size, size);
         const data = imageData.data;
-        const step = Math.max(1, Math.floor(size / 30));
+        const step = Math.max(1, Math.floor(size / 50));
         const points = [];
         
         for (let y = 0; y < size; y += step) {
@@ -674,58 +574,89 @@
         return points;
     }
     
-    // ---- РИСОВАНИЕ МАГИЧЕСКОГО ПУТИ ----
+    // ============================================================
+    // ===== РИСОВАНИЕ КАЛЛИГРАФИИ (ЧЁРНЫЕ ЛИНИИ) =====
+    // ============================================================
+    
     function drawMagicPath(ctx) {
         if (magicDrawPath.length < 2) return;
         
         ctx.save();
         
-        // Основная линия (золотая, светящаяся)
+        // ЧЁРНАЯ КАЛЛИГРАФИЧЕСКАЯ ЛИНИЯ (как тушь)
         for (let i = 0; i < magicDrawPath.length - 1; i++) {
             const p1 = magicDrawPath[i];
             const p2 = magicDrawPath[i + 1];
             const progress = i / magicDrawPath.length;
             
-            const r = 255;
-            const g = Math.floor(215 - progress * 40);
-            const b = Math.floor(0 + progress * 50);
-            const alpha = 0.7 + progress * 0.3;
-            const width = 2 + progress * 4;
+            // Толщина линии: от 1.5 до 3px
+            const width = 1.5 + progress * 1.5;
             
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            ctx.strokeStyle = `rgba(20, 20, 20, ${0.7 + progress * 0.3})`;
             ctx.lineWidth = width;
-            ctx.shadowColor = `rgba(255, 215, 0, ${0.4 + progress * 0.6})`;
-            ctx.shadowBlur = 15 + progress * 25;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+            ctx.shadowBlur = 2;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.stroke();
         }
         
-        // Свечение
+        // Лёгкое свечение для чёткости
         for (let i = 0; i < magicDrawPath.length - 1; i++) {
             const p1 = magicDrawPath[i];
             const p2 = magicDrawPath[i + 1];
-            const progress = i / magicDrawPath.length;
             
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(255, 215, 0, ${0.05 + progress * 0.15})`;
-            ctx.lineWidth = 10 + progress * 20;
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.05)';
-            ctx.shadowBlur = 40;
+            ctx.strokeStyle = 'rgba(50, 50, 50, 0.15)';
+            ctx.lineWidth = 6;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
+            ctx.shadowBlur = 8;
             ctx.stroke();
         }
         
         ctx.restore();
     }
     
+    // ============================================================
+    // ===== РИСОВАНИЕ ОБВЕДЕНИЯ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) =====
+    // ============================================================
+    
+    function drawUserPath(ctx, x1, y1, x2, y2) {
+        ctx.save();
+        
+        // Яркая фиолетовая линия как фломастер
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = '#9C27B0';
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.6)';
+        ctx.shadowBlur = 15;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        
+        // Второй слой для яркости
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = 'rgba(206, 147, 216, 0.5)';
+        ctx.lineWidth = 8;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.2)';
+        ctx.shadowBlur = 25;
+        ctx.stroke();
+        
+        ctx.restore();
+    }
+    
     // ---- ЧАСТИЦЫ ----
     function createMagicParticle(x, y) {
-        const colors = ['#FFD700', '#FFA500', '#FF6B35', '#FFB347', '#FF8C42', '#FF6B6B', '#4CAF50', '#2196F3'];
+        const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#E1BEE7', '#FFD700'];
         magicParticles.push({
             x: x + (Math.random() - 0.5) * 8,
             y: y + (Math.random() - 0.5) * 8,
@@ -759,12 +690,12 @@
         }
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ (только по краям, НЕ на иероглифе!) ----
+    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
         
-        // Эмодзи появляются ТОЛЬКО по краям, НЕ в центре где иероглиф!
+        // Эмодзи только по краям
         let x, y;
         const side = Math.floor(Math.random() * 4);
         const margin = 5 + Math.random() * 15;
@@ -864,9 +795,9 @@
         magicCurrentChar = data.chinese;
         
         document.getElementById('magicCharDisplay').textContent = data.chinese;
-        document.getElementById('magicPinyinDisplay').textContent = data.pinyin || 'ключ';
-        document.getElementById('magicTranslationDisplay').textContent = data.translation || '🔑';
-        document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.chinese}`;
+        document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
+        document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
+        document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
         document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
         
         magicClear();
@@ -875,15 +806,20 @@
         document.getElementById('magicResult').style.display = 'none';
     }
     
-    // ---- НАВИГАЦИЯ ----
+    // ============================================================
+    // ===== НАВИГАЦИЯ (ИСПРАВЛЕНА) =====
+    // ============================================================
+    
     function magicNextChar() {
         if (allWordsList.length === 0) return;
+        // Переключаем на следующий индекс
         magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
     
     function magicPrevChar() {
         if (allWordsList.length === 0) return;
+        // Переключаем на предыдущий индекс
         magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
         loadMagicChar(allWordsList[magicCurrentIndex]);
     }
@@ -1012,7 +948,10 @@
         animateStep();
     }
     
-    // ---- РИСОВАНИЕ ПАЛОЧКОЙ ----
+    // ============================================================
+    // ===== РИСОВАНИЕ ПАЛОЧКОЙ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) =====
+    // ============================================================
+    
     function magicStartDraw(e) {
         if (magicAnimating) {
             if (magicAnimationId) {
@@ -1040,19 +979,8 @@
         const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
         
-        const ctx = magicCtx;
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
-        ctx.lineWidth = 2.5;
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
-        ctx.shadowBlur = 12;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.beginPath();
-        ctx.moveTo(magicLastX, magicLastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.restore();
+        // Рисуем фиолетовым фломастером
+        drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
         
         for (let i = 0; i < 2; i++) {
             createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
@@ -1101,19 +1029,9 @@
         const rect = magicCanvas.getBoundingClientRect();
         const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-        const ctx = magicCtx;
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
-        ctx.lineWidth = 3.5;
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
-        ctx.shadowBlur = 12;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.beginPath();
-        ctx.moveTo(magicLastX, magicLastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.restore();
+        
+        drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+        
         for (let i = 0; i < 2; i++) {
             createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
         }
