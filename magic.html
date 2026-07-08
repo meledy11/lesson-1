@@ -434,6 +434,7 @@
     let magicCurrentIndex = 0;
     let magicSoundCtx = null;
     let allWordsList = [];
+    let magicFloatingElements = [];
     
     // ---- ЗВУК ----
     function initMagicSound() {
@@ -521,47 +522,144 @@
         allWordsList = shuffleArray(allWordsList);
     }
     
-    // ---- ГЕНЕРАЦИЯ ТОЧЕК ----
+    // ============================================================
+    // ===== ГЕНЕРАЦИЯ ТОЧЕК ТОЛЬКО ДЛЯ ЛИНИЙ (КАЛЛИГРАФИЯ) =====
+    // ============================================================
+    
     function generateCharPoints(char, size) {
-        // Проверяем, есть ли линии в KEY_STROKES
+        // 1. Сначала проверяем, есть ли линии в KEY_STROKES
         if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
-            const strokeData = KEY_STROKES[char];
-            const points = [];
-            const numPointsPerStroke = 35;
-            
-            for (const stroke of strokeData.strokes) {
-                for (let i = 0; i < numPointsPerStroke; i++) {
-                    const t = i / numPointsPerStroke;
-                    const totalSegments = stroke.length - 1;
-                    const segIdx = Math.min(Math.floor(t * totalSegments), totalSegments - 1);
-                    const segT = (t * totalSegments) - segIdx;
-                    const p1 = stroke[segIdx];
-                    const p2 = stroke[segIdx + 1];
-                    const x = (p1.x + (p2.x - p1.x) * segT) * size;
-                    const y = (p1.y + (p2.y - p1.y) * segT) * size;
-                    points.push({ x, y });
-                }
-            }
-            return points;
+            return generatePointsFromStrokes(char, size);
         }
         
-        // Если линий нет — сканируем изображение
-        return generateCharPointsFromImage(char, size);
+        // 2. Если нет — генерируем точки из контура иероглифа
+        return generatePointsFromOutline(char, size);
     }
     
-    function generateCharPointsFromImage(char, size) {
-        const ctx = document.createElement('canvas').getContext('2d');
-        ctx.canvas.width = size;
-        ctx.canvas.height = size;
+    // ---- Генерация из прописанных линий ----
+    function generatePointsFromStrokes(char, size) {
+        const strokeData = KEY_STROKES[char];
+        const points = [];
+        const numPointsPerStroke = 45;
+        
+        for (const stroke of strokeData.strokes) {
+            for (let i = 0; i < numPointsPerStroke; i++) {
+                const t = i / numPointsPerStroke;
+                const totalSegments = stroke.length - 1;
+                const segIdx = Math.min(Math.floor(t * totalSegments), totalSegments - 1);
+                const segT = (t * totalSegments) - segIdx;
+                const p1 = stroke[segIdx];
+                const p2 = stroke[segIdx + 1];
+                const x = (p1.x + (p2.x - p1.x) * segT) * size;
+                const y = (p1.y + (p2.y - p1.y) * segT) * size;
+                points.push({ x, y });
+            }
+        }
+        return points;
+    }
+    
+    // ---- Генерация из контура иероглифа (без заливки) ----
+    function generatePointsFromOutline(char, size) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        
+        // Рисуем ТОЛЬКО контур (обводку), без заливки!
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = Math.max(4, size / 18);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Пробуем разные шрифты
+        const fonts = [
+            `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif`,
+            `bold ${size * 0.7}px "SimSun", "SimHei", "KaiTi", serif`,
+            `bold ${size * 0.7}px "Songti SC", "STKaiti", serif`
+        ];
+        
+        let success = false;
+        for (const font of fonts) {
+            try {
+                ctx.font = font;
+                ctx.strokeText(char, size/2, size/2 + size * 0.05);
+                success = true;
+                break;
+            } catch(e) { continue; }
+        }
+        
+        if (!success) {
+            ctx.font = `bold ${size * 0.7}px "SimSun", serif`;
+            ctx.strokeText(char, size/2, size/2 + size * 0.05);
+        }
+        
+        // Сканируем только контурные пиксели
+        const imageData = ctx.getImageData(0, 0, size, size);
+        const data = imageData.data;
+        const step = Math.max(1, Math.floor(size / 45));
+        const points = [];
+        
+        // Сначала находим все пиксели с контуром
+        const edgePixels = [];
+        for (let y = 0; y < size; y += step) {
+            for (let x = 0; x < size; x += step) {
+                const i = (y * size + x) * 4;
+                const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
+                if (brightness > 50) {
+                    edgePixels.push({ x, y, brightness });
+                }
+            }
+        }
+        
+        // Фильтруем: оставляем только те, у которых есть соседи с меньшей яркостью (края)
+        for (const p of edgePixels) {
+            let isEdge = false;
+            const checkSize = step;
+            for (let dy = -checkSize; dy <= checkSize; dy += checkSize) {
+                for (let dx = -checkSize; dx <= checkSize; dx += checkSize) {
+                    if (dx === 0 && dy === 0) continue;
+                    const nx = p.x + dx;
+                    const ny = p.y + dy;
+                    if (nx >= 0 && nx < size && ny >= 0 && ny < size) {
+                        const ni = (ny * size + nx) * 4;
+                        const nb = (data[ni] + data[ni+1] + data[ni+2]) / 3;
+                        if (nb < 20) {
+                            isEdge = true;
+                            break;
+                        }
+                    }
+                }
+                if (isEdge) break;
+            }
+            if (isEdge) {
+                points.push({ x: p.x, y: p.y });
+            }
+        }
+        
+        // Если точек мало — используем более широкий захват
+        if (points.length < 30) {
+            return generatePointsFallback(char, size);
+        }
+        
+        return points;
+    }
+    
+    // ---- Запасной вариант ----
+    function generatePointsFallback(char, size) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        
         ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = `bold ${size * 0.75}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
+        ctx.font = `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
         ctx.fillText(char, size/2, size/2 + size * 0.05);
         
         const imageData = ctx.getImageData(0, 0, size, size);
         const data = imageData.data;
-        const step = Math.max(1, Math.floor(size / 35));
+        const step = Math.max(1, Math.floor(size / 30));
         const points = [];
         
         for (let y = 0; y < size; y += step) {
@@ -576,13 +674,13 @@
         return points;
     }
     
-    // ---- РИСОВАНИЕ ----
+    // ---- РИСОВАНИЕ МАГИЧЕСКОГО ПУТИ ----
     function drawMagicPath(ctx) {
         if (magicDrawPath.length < 2) return;
         
         ctx.save();
         
-        // Основная линия
+        // Основная линия (золотая, светящаяся)
         for (let i = 0; i < magicDrawPath.length - 1; i++) {
             const p1 = magicDrawPath[i];
             const p2 = magicDrawPath[i + 1];
@@ -629,13 +727,13 @@
     function createMagicParticle(x, y) {
         const colors = ['#FFD700', '#FFA500', '#FF6B35', '#FFB347', '#FF8C42', '#FF6B6B', '#4CAF50', '#2196F3'];
         magicParticles.push({
-            x: x + (Math.random() - 0.5) * 10,
-            y: y + (Math.random() - 0.5) * 10,
-            vx: (Math.random() - 0.5) * 4,
-            vy: (Math.random() - 0.5) * 4 - 2,
+            x: x + (Math.random() - 0.5) * 8,
+            y: y + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 3,
+            vy: (Math.random() - 0.5) * 3 - 1.5,
             life: 1,
-            decay: 0.008 + Math.random() * 0.015,
-            size: 2 + Math.random() * 5,
+            decay: 0.01 + Math.random() * 0.015,
+            size: 2 + Math.random() * 4,
             color: colors[Math.floor(Math.random() * colors.length)]
         });
     }
@@ -645,39 +743,45 @@
             const p = magicParticles[i];
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.04;
+            p.vy += 0.03;
             p.life -= p.decay;
             if (p.life <= 0) { magicParticles.splice(i, 1); continue; }
             
             ctx.save();
-            ctx.globalAlpha = p.life;
+            ctx.globalAlpha = p.life * 0.8;
             ctx.shadowColor = p.color;
-            ctx.shadowBlur = 20;
+            ctx.shadowBlur = 15;
             ctx.fillStyle = p.color;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 40;
-            ctx.globalAlpha = p.life * 0.3;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size * p.life * 2, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
         }
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
+    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ (только по краям, НЕ на иероглифе!) ----
     function createFloatingEmoji(emoji) {
         const container = document.getElementById('magicFloatingEmojis');
         if (!container) return;
         
-        const el = document.createElement('div');
-        const size = 1.5 + Math.random() * 2;
-        const x = 10 + Math.random() * 80;
-        const y = 10 + Math.random() * 80;
-        const duration = 2 + Math.random() * 2;
+        // Эмодзи появляются ТОЛЬКО по краям, НЕ в центре где иероглиф!
+        let x, y;
+        const side = Math.floor(Math.random() * 4);
+        const margin = 5 + Math.random() * 15;
+        const pos = margin + Math.random() * (80 - margin * 2);
+        
+        switch(side) {
+            case 0: x = margin; y = pos; break;
+            case 1: x = 80 - margin; y = pos; break;
+            case 2: x = pos; y = margin; break;
+            case 3: x = pos; y = 80 - margin; break;
+        }
+        
+        const size = 1.5 + Math.random() * 1.5;
+        const duration = 2.5 + Math.random() * 2;
         const delay = Math.random() * 0.5;
         
+        const el = document.createElement('div');
         el.style.cssText = `
             position: absolute;
             left: ${x}%;
@@ -689,10 +793,16 @@
             animation: floatEmoji ${duration}s ease-in-out ${delay}s forwards;
             z-index: 5;
             text-shadow: 0 0 30px rgba(255,215,0,0.2);
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.1));
         `;
         el.textContent = emoji;
         container.appendChild(el);
-        setTimeout(() => el.remove(), (duration + delay) * 1000 + 500);
+        magicFloatingElements.push(el);
+        
+        setTimeout(() => {
+            if (el.parentNode) el.remove();
+            magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
+        }, (duration + delay) * 1000 + 500);
     }
     
     function showFloatingText(text, x, y, color) {
@@ -707,10 +817,10 @@
         const el = document.createElement('div');
         el.style.cssText = `
             position: absolute;
-            left: ${x * scaleX}px;
-            top: ${y * scaleY}px;
+            left: ${Math.min(Math.max(x * scaleX, 20), rect.width - 20)}px;
+            top: ${Math.min(Math.max(y * scaleY - 20, 10), rect.height - 20)}px;
             color: ${color};
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             pointer-events: none;
             opacity: 0;
@@ -718,9 +828,14 @@
             transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-shadow: 0 0 20px rgba(255,215,0,0.3);
             z-index: 10;
+            background: rgba(0,0,0,0.3);
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
         `;
         el.textContent = text;
         container.appendChild(el);
+        magicFloatingElements.push(el);
         
         setTimeout(() => {
             el.style.opacity = '1';
@@ -729,17 +844,17 @@
         setTimeout(() => {
             el.style.opacity = '0';
             el.style.transform = 'translate(-50%, -120%) scale(0.8)';
-            setTimeout(() => el.remove(), 1000);
+            setTimeout(() => {
+                if (el.parentNode) el.remove();
+                magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
+            }, 1000);
         }, 1500);
     }
     
-    function updateFloatingEmojis() {
+    function clearFloatingElements() {
         const container = document.getElementById('magicFloatingEmojis');
-        if (container && container.children.length > 20) {
-            for (let i = 0; i < 5; i++) {
-                if (container.children[0]) container.children[0].remove();
-            }
-        }
+        if (container) container.innerHTML = '';
+        magicFloatingElements = [];
     }
     
     // ---- ЗАГРУЗКА КЛЮЧА ----
@@ -794,7 +909,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawMagicGrid();
         
-        document.getElementById('magicFloatingEmojis').innerHTML = '';
+        clearFloatingElements();
         document.getElementById('magicResult').style.display = 'none';
     }
     
@@ -804,7 +919,7 @@
         const size = canvas.width;
         
         ctx.save();
-        ctx.strokeStyle = 'rgba(255,215,0,0.05)';
+        ctx.strokeStyle = 'rgba(255,215,0,0.04)';
         ctx.lineWidth = 0.5;
         for (let i = 1; i < 4; i++) {
             ctx.beginPath();
@@ -839,7 +954,7 @@
         
         const points = generateCharPoints(char, size);
         if (points.length === 0) {
-            document.getElementById('magicStatus').textContent = '❌ Ошибка';
+            document.getElementById('magicStatus').textContent = '❌ Ошибка генерации';
             document.getElementById('magicStatus').style.color = '#FF6B6B';
             return;
         }
@@ -855,7 +970,7 @@
         let emojiInterval = setInterval(() => {
             if (!magicAnimating) { clearInterval(emojiInterval); return; }
             createFloatingEmoji(emoji);
-        }, 400);
+        }, 500);
         
         let index = 0;
         const totalPoints = points.length;
@@ -872,25 +987,24 @@
                 return;
             }
             
-            const count = Math.min(4, totalPoints - index);
+            const count = Math.min(3, totalPoints - index);
             for (let i = 0; i < count && index < totalPoints; i++) {
                 magicDrawPath.push(points[index]);
-                if (index % 2 === 0) {
+                if (index % 3 === 0) {
                     createMagicParticle(points[index].x, points[index].y);
-                    if (index % 25 === 0 && translation) {
-                        showFloatingText(translation, points[index].x, points[index].y + 40, '#b8956a');
+                    if (index % 30 === 0 && translation) {
+                        showFloatingText(translation, points[index].x, points[index].y + 35, '#b8956a');
                     }
-                    if (index % 30 === 0 && pinyin) {
-                        showFloatingText(pinyin, points[index].x, points[index].y - 40, '#FFB347');
+                    if (index % 35 === 0 && pinyin) {
+                        showFloatingText(pinyin, points[index].x, points[index].y - 35, '#FFB347');
                     }
-                    if (index % 6 === 0) playMagicSound();
+                    if (index % 8 === 0) playMagicSound();
                 }
                 index++;
             }
             
             drawMagicPath(ctx);
             drawMagicParticles(ctx);
-            updateFloatingEmojis();
             
             magicAnimationId = requestAnimationFrame(animateStep);
         }
@@ -913,8 +1027,8 @@
         const y = (e.clientY - rect.top) * (magicCanvas.height / rect.height);
         magicLastX = x;
         magicLastY = y;
-        for (let i = 0; i < 5; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 15, y + (Math.random() - 0.5) * 15);
+        for (let i = 0; i < 3; i++) {
+            createMagicParticle(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10);
         }
         playMagicSound();
     }
@@ -928,10 +1042,10 @@
         
         const ctx = magicCtx;
         ctx.save();
-        ctx.strokeStyle = 'rgba(255, 215, 0, 0.8)';
-        ctx.lineWidth = 3;
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
-        ctx.shadowBlur = 15;
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
+        ctx.shadowBlur = 12;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.beginPath();
@@ -940,10 +1054,10 @@
         ctx.stroke();
         ctx.restore();
         
-        for (let i = 0; i < 3; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 8, y + (Math.random() - 0.5) * 8);
+        for (let i = 0; i < 2; i++) {
+            createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
         }
-        if (Math.random() > 0.7) playMagicSound();
+        if (Math.random() > 0.8) playMagicSound();
         magicLastX = x;
         magicLastY = y;
     }
@@ -974,8 +1088,8 @@
         magicIsDrawing = true;
         magicLastX = x;
         magicLastY = y;
-        for (let i = 0; i < 5; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 15, y + (Math.random() - 0.5) * 15);
+        for (let i = 0; i < 3; i++) {
+            createMagicParticle(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10);
         }
         playMagicSound();
     }
@@ -989,10 +1103,10 @@
         const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
         const ctx = magicCtx;
         ctx.save();
-        ctx.strokeStyle = 'rgba(255, 215, 0, 0.8)';
-        ctx.lineWidth = 4;
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
-        ctx.shadowBlur = 15;
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
+        ctx.shadowBlur = 12;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.beginPath();
@@ -1000,10 +1114,10 @@
         ctx.lineTo(x, y);
         ctx.stroke();
         ctx.restore();
-        for (let i = 0; i < 3; i++) {
-            createMagicParticle(x + (Math.random() - 0.5) * 8, y + (Math.random() - 0.5) * 8);
+        for (let i = 0; i < 2; i++) {
+            createMagicParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6);
         }
-        if (Math.random() > 0.7) playMagicSound();
+        if (Math.random() > 0.8) playMagicSound();
         magicLastX = x;
         magicLastY = y;
     }
