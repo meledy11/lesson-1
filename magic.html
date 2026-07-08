@@ -134,7 +134,7 @@
             gap: 0.4rem;
         }
 
-        /* ===== ИНФО-СТРОКА — КРУПНО И КОНТРАСТНО ===== */
+        /* ===== ИНФО-СТРОКА ===== */
         .magic-info {
             display: flex;
             gap: 0.8rem;
@@ -166,7 +166,6 @@
             font-size: 1.4rem;
             font-weight: 600;
             color: #4FC3F7;
-            /* яркий голубой */
             letter-spacing: 1px;
             text-shadow: 0 0 30px rgba(79, 195, 247, 0.1);
         }
@@ -174,7 +173,6 @@
             font-size: 1.2rem;
             font-weight: 500;
             color: #81C784;
-            /* яркий зелёный */
             text-shadow: 0 0 30px rgba(129, 199, 132, 0.08);
         }
         .magic-key {
@@ -187,8 +185,6 @@
             animation: fireEmoji 1.2s ease-in-out infinite alternate;
             margin-left: auto;
         }
-
-        /* ===== КНОПКА ЗВУКА ===== */
         .magic-sound-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #3d2b1e;
@@ -265,7 +261,7 @@
             padding: 0.4rem;
             border: 1px solid rgba(255, 215, 0, 0.03);
             flex: 1;
-            min-height: 45vh;
+            min-height: 40vh;
         }
 
         #magicCanvas {
@@ -432,6 +428,123 @@
             flex-shrink: 0;
         }
 
+        /* ===== РАСШИФРОВКА — ТОЛЬКО ИЗ HANZI WRITER ===== */
+        .magic-details {
+            margin-top: 0.3rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            flex-shrink: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #3d2b1e transparent;
+        }
+        .magic-details::-webkit-scrollbar {
+            width: 4px;
+        }
+        .magic-details::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .magic-details::-webkit-scrollbar-thumb {
+            background: #3d2b1e;
+            border-radius: 4px;
+        }
+
+        .magic-details-title {
+            font-size: 0.8rem;
+            color: #8a7a6a;
+            margin-bottom: 0.3rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .magic-details-title span {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .magic-details-radical {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.4rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(255, 215, 0, 0.03);
+            border-radius: 12px;
+            border-left: 3px solid #FFD700;
+        }
+        .magic-details-radical .radical-char {
+            font-size: 2rem;
+            color: #FFD700;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
+            min-width: 40px;
+            text-align: center;
+        }
+        .magic-details-radical .radical-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .magic-details-radical .radical-name {
+            font-size: 1rem;
+            color: #4FC3F7;
+            font-weight: 500;
+        }
+        .magic-details-radical .radical-meaning {
+            font-size: 0.85rem;
+            color: #81C784;
+        }
+        .magic-details-radical .radical-source {
+            font-size: 0.6rem;
+            color: #5a4a3a;
+            margin-top: 0.1rem;
+        }
+
+        /* ===== ПРИМЕРЫ — ИЗ ВАШЕЙ БАЗЫ ===== */
+        .magic-details-examples {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.2rem;
+        }
+        .magic-details-examples .example-item {
+            background: rgba(255, 215, 0, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            border-radius: 10px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            color: #b8956a;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .magic-details-examples .example-item .ex-char {
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .magic-details-examples .example-item .ex-trans {
+            color: #8a7a6a;
+        }
+        .magic-details-examples .example-item .ex-pinyin {
+            color: #4FC3F7;
+            font-size: 0.65rem;
+        }
+        .magic-details-empty {
+            color: #5a4a3a;
+            font-size: 0.8rem;
+            font-style: italic;
+            padding: 0.3rem 0;
+        }
+
+        .magic-details-divider {
+            border: none;
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
+            margin: 0.3rem 0;
+        }
+
         footer {
             text-align: center;
             padding: 0.3rem 0.8rem;
@@ -492,7 +605,7 @@
                 padding: 0.2rem 0.7rem;
             }
             .canvas-wrapper {
-                min-height: 38vh;
+                min-height: 35vh;
                 padding: 0.25rem;
             }
             #magicCanvas {
@@ -533,17 +646,38 @@
                 height: 32px;
                 font-size: 1rem;
             }
+            .magic-details {
+                max-height: 150px;
+                padding: 0.4rem 0.6rem;
+            }
+            .magic-details-radical .radical-char {
+                font-size: 1.5rem;
+                min-width: 30px;
+            }
+            .magic-details-radical .radical-name {
+                font-size: 0.85rem;
+            }
+            .magic-details-radical .radical-meaning {
+                font-size: 0.75rem;
+            }
+            .magic-details-examples .example-item {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+            }
         }
 
         @media (min-width: 768px) {
             .canvas-wrapper {
-                min-height: 50vh;
+                min-height: 45vh;
             }
             #magicCanvas {
                 max-width: 600px;
             }
             .assoc-emoji {
                 font-size: 2.4rem;
+            }
+            .magic-details {
+                max-height: 220px;
             }
         }
     </style>
@@ -566,7 +700,7 @@
 
         <div class="magic-container">
 
-            <!-- ИНФО — КРУПНО И КОНТРАСТНО -->
+            <!-- ИНФО -->
             <div class="magic-info">
                 <div class="magic-char" id="magicCharDisplay">上</div>
                 <div class="magic-info-text">
@@ -604,6 +738,14 @@
 
             <div class="magic-result" id="magicResult"></div>
 
+            <!-- РАСШИФРОВКА + ПРИМЕРЫ -->
+            <div class="magic-details" id="magicDetails">
+                <div class="magic-details-title">📖 <span>Расшифровка ключа</span> <span style="font-size:0.6rem;color:#5a4a3a;">(Hanzi Writer)</span></div>
+                <div id="magicDetailsContent">
+                    <div class="magic-details-empty">Нажмите «Показать», чтобы увидеть разбор</div>
+                </div>
+            </div>
+
         </div>
 
         <footer>🪄 Волшебная тетрадь — учи китайский с магией!</footer>
@@ -616,7 +758,7 @@
 
     <script>
         // ============================================================
-        //  СКРИПТ — КРУПНЫЙ ПИНЬИНЬ И ПЕРЕВОД + ЗВУК
+        //  СКРИПТ — РАСШИФРОВКА ИЗ HANZI WRITER, ПРИМЕРЫ ИЗ keys-data.js
         // ============================================================
 
         let speechSynth = window.speechSynthesis;
@@ -643,7 +785,6 @@
         }
         window.speakChinese = speakChinese;
 
-        // Кнопка звука
         function playSoundForCurrent() {
             if (magicCurrentChar) {
                 speakChinese(magicCurrentChar);
@@ -651,11 +792,35 @@
         }
         window.playSoundForCurrent = playSoundForCurrent;
 
+        // ===== ДАННЫЕ ИЗ keys-data.js =====
         let allWordsList = [];
         let magicCurrentIndex = 0;
         let magicCharData = null;
         let magicCurrentChar = '上';
         let assocInterval = null;
+
+        // ===== ДАННЫЕ ПО КЛЮЧАМ ДЛЯ ПРИМЕРОВ (из keys-data.js) =====
+        // Примеры берутся из WORDS_BY_KEY, который загружен из keys-data.js
+        // Если WORDS_BY_KEY нет, используем локальную заглушку
+
+        function getExamplesFromBase(key) {
+            const examples = [];
+            if (typeof WORDS_BY_KEY !== 'undefined' && WORDS_BY_KEY[key]) {
+                const data = WORDS_BY_KEY[key];
+                if (data.examples) {
+                    return data.examples;
+                }
+                // Если в keys-data.js есть список слов с этим ключом
+                if (data.words) {
+                    return data.words.map(w => ({
+                        char: w,
+                        pinyin: w,
+                        trans: ''
+                    }));
+                }
+            }
+            return examples;
+        }
 
         function buildAllWordsList() {
             allWordsList = [];
@@ -681,6 +846,101 @@
 
         function getSingleChar(key) { return key.charAt(0); }
 
+        // ===== ФУНКЦИЯ РАСШИФРОВКИ =====
+        function updateDetails(charKey) {
+            const container = document.getElementById('magicDetailsContent');
+            if (!container) return;
+
+            // 1. Радикал из Hanzi Writer (визуальное выделение)
+            // Мы не можем получить радикал напрямую из API, поэтому используем данные из keys-data.js
+            // или определяем радикал по первому символу ключа
+            const radicalChar = charKey.charAt(0);
+            const radicalData = typeof WORDS_BY_KEY !== 'undefined' ? WORDS_BY_KEY[charKey] : null;
+
+            let radicalName = radicalChar;
+            let radicalMeaning = '';
+            let radicalSource = '🔍 Hanzi Writer (визуальное выделение)';
+
+            if (radicalData) {
+                radicalName = radicalData.meaning || radicalChar;
+                radicalMeaning = radicalData.emoji || '';
+            }
+
+            // 2. Примеры из базы keys-data.js
+            const examples = getExamplesFromBase(charKey);
+
+            let html = '';
+
+            // Радикал
+            html += `
+                    <div class="magic-details-radical">
+                        <div class="radical-char">${radicalChar}</div>
+                        <div class="radical-info">
+                            <div class="radical-name">${radicalName}</div>
+                            ${radicalMeaning ? `<div class="radical-meaning">${radicalMeaning}</div>` : ''}
+                            <div class="radical-source">${radicalSource}</div>
+                        </div>
+                    </div>
+                `;
+
+            // Примеры из базы
+            if (examples && examples.length > 0) {
+                html += `<div class="magic-details-title" style="font-size:0.7rem;margin-top:0.2rem;">📝 Примеры из базы keys-data.js</div>`;
+                html += `<div class="magic-details-examples">`;
+                for (const ex of examples) {
+                    const char = ex.char || ex;
+                    const pinyin = ex.pinyin || '';
+                    const trans = ex.trans || ex.translation || '';
+                    html += `
+                            <div class="example-item">
+                                <span class="ex-char">${char}</span>
+                                ${pinyin ? `<span class="ex-pinyin">${pinyin}</span>` : ''}
+                                ${trans ? `<span class="ex-trans">— ${trans}</span>` : ''}
+                            </div>
+                        `;
+                }
+                html += `</div>`;
+            } else {
+                // Если в базе нет примеров для этого ключа
+                // Пробуем найти в WORDS_BY_KEY слова, содержащие этот ключ
+                let foundWords = [];
+                if (typeof WORDS_BY_KEY !== 'undefined') {
+                    for (const [key, data] of Object.entries(WORDS_BY_KEY)) {
+                        if (key.includes(charKey) && key !== charKey) {
+                            foundWords.push({
+                                char: key,
+                                pinyin: key,
+                                trans: data.meaning || ''
+                            });
+                        }
+                    }
+                }
+                if (foundWords.length > 0) {
+                    html += `<div class="magic-details-title" style="font-size:0.7rem;margin-top:0.2rem;">📝 Слова с этим ключом:</div>`;
+                    html += `<div class="magic-details-examples">`;
+                    for (const ex of foundWords.slice(0, 6)) {
+                        html += `
+                                <div class="example-item">
+                                    <span class="ex-char">${ex.char}</span>
+                                    ${ex.pinyin ? `<span class="ex-pinyin">${ex.pinyin}</span>` : ''}
+                                    ${ex.trans ? `<span class="ex-trans">— ${ex.trans}</span>` : ''}
+                                </div>
+                            `;
+                    }
+                    html += `</div>`;
+                } else {
+                    html += `
+                            <div class="magic-details-empty">
+                                📭 Примеры для этого ключа не найдены в базе.
+                                <br>Добавьте их в keys-data.js в поле "examples".
+                            </div>
+                        `;
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
         function loadMagicChar(data) {
             if (!data) return;
             magicCharData = data;
@@ -693,13 +953,15 @@
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
             document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
 
+            // Обновляем расшифровку
+            updateDetails(data.key);
+
             magicClear();
             startFallingEmojis(data);
             document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
             document.getElementById('magicStatus').style.color = '#FFB347';
             document.getElementById('magicResult').style.display = 'none';
 
-            // Автоматическое озвучивание
             speakChinese(magicCurrentChar);
         }
 
