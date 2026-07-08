@@ -479,11 +479,31 @@
     // ============================================================
     
     function generateCharPoints(char, size) {
-        if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
-            return generatePointsFromStrokes(char, size);
+    // Проверяем, есть ли линии в KEY_STROKES
+    if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
+        const strokeData = KEY_STROKES[char];
+        const points = [];
+        const numPointsPerStroke = 60;
+        
+        for (const stroke of strokeData.strokes) {
+            for (let i = 0; i < numPointsPerStroke; i++) {
+                const t = i / numPointsPerStroke;
+                const totalSegments = stroke.length - 1;
+                const segIdx = Math.min(Math.floor(t * totalSegments), totalSegments - 1);
+                const segT = (t * totalSegments) - segIdx;
+                const p1 = stroke[segIdx];
+                const p2 = stroke[segIdx + 1];
+                const x = (p1.x + (p2.x - p1.x) * segT) * size;
+                const y = (p1.y + (p2.y - p1.y) * segT) * size;
+                points.push({ x, y });
+            }
         }
-        return generatePointsFromOutline(char, size);
+        return points;
     }
+    
+    // Если нет линий — используем запасной вариант
+    return generatePointsFromOutline(char, size);
+}
     
     function generatePointsFromStrokes(char, size) {
         const strokeData = KEY_STROKES[char];
