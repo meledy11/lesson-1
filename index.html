@@ -527,6 +527,7 @@
             <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
             <button class="tab-btn" data-tab="texts">📖 Тексты</button>
             <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
+            <button class="tab-btn" data-tab="magic">🪄 Волшебство</button>
         </div>
         
         <!-- ВКЛАДКА: УРОКИ -->
@@ -668,26 +669,50 @@
         </div>
         
         <!-- ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
-        <div class="tab-content" id="tab-texts">
-            <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
-            <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
-            <div class="texts-grid" id="textsContainer"></div>
+<div class="tab-content" id="tab-texts">
+    <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
+    <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
+    <div class="texts-grid" id="textsContainer"></div>
+</div>
+
+<!-- Вкладка: ВОЛШЕБНАЯ ТЕТРАДЬ -->
+<div class="tab-content" id="tab-magic">
+    <div class="speak-tip" style="background:linear-gradient(135deg,#2d1b0e,#1a0f08); border:3px solid #FFD700; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,0.2);">
+        🪄 Волшебная тетрадь — иероглифы оживают! Нажми на кнопку ниже, чтобы начать магию ✨
+    </div>
+    
+    <div class="keys-preview" style="background:linear-gradient(135deg,#1a0f08,#2d1b0e); border-color:#FFD700;">
+        <div class="big-icon">🪄</div>
+        <h2 style="color:#FFD700;">Волшебная тетрадь</h2>
+        <p style="color:#b8956a;">
+            ✨ Смотри, как иероглиф оживает!<br>
+            Обводи его волшебной палочкой — запоминай быстрее!<br>
+            🎈 Эмодзи, 🔊 звуки, 📝 пиньинь и перевод
+        </p>
+        <a href="magic.html" class="go-btn" style="background:linear-gradient(135deg,#FFD700,#FFA000); color:#2d1b0e; box-shadow:0 6px 0 #E6A100;">
+            🪄 Открыть волшебство
+        </a>
+        <div class="stats-mini" style="color:#b8956a;">
+            🌟 Изучай иероглифы как настоящий волшебник!
         </div>
-        
-        <!-- ВКЛАДКА: КЛЮЧИ -->
-        <div class="tab-content" id="tab-keys">
-            <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
-            <div class="keys-preview">
-                <div class="big-icon">🔑</div>
-                <h2>Все ключи китайского</h2>
-                <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
-                Нажимай на иероглифы — слушай произношение!</p>
-                <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
-                <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
-            </div>
-        </div>
-        
-        <footer>
+    </div>
+</div>
+
+<!-- ВКЛАДКА: КЛЮЧИ -->
+<div class="tab-content" id="tab-keys">
+    <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
+    <div class="keys-preview">
+        <div class="big-icon">🔑</div>
+        <h2>Все ключи китайского</h2>
+        <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
+        Нажимай на иероглифы — слушай произношение!</p>
+        <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
+        <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
+    </div>
+</div>
+
+<footer>
+   
             🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Учи слова по ключам — запоминай быстрее! 📖 Тексты с озвучкой! ❓ Учи вопросительные слова!
         </footer>
     </div>
