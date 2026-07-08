@@ -25,7 +25,7 @@
             display: flex;
             flex-direction: column;
             background: #0a0a0a;
-            padding: 0.6rem;
+            padding: 0.5rem;
             align-items: center;
             justify-content: flex-start;
         }
@@ -36,13 +36,13 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex: 1;
         }
 
         .header {
             text-align: center;
-            padding: 0.4rem 1.2rem;
+            padding: 0.3rem 1rem;
             background: linear-gradient(135deg, #1a100a, #2d1b0e);
             border-radius: 60px;
             box-shadow: 0 4px 0 #0a0505, 0 0 40px rgba(255, 107, 53, 0.05);
@@ -51,14 +51,14 @@
             border: 1px solid #3d2b1e;
         }
         .header h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             letter-spacing: 2px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.05);
         }
 
         .top-bar {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.3rem;
             flex-wrap: wrap;
             align-items: center;
             flex-shrink: 0;
@@ -67,11 +67,11 @@
             display: inline-block;
             background: #1a100a;
             color: #f0d5b0;
-            padding: 0.3rem 1.2rem;
+            padding: 0.25rem 1rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border: 2px solid #3d2b1e;
             box-shadow: 0 3px 0 #0a0505;
             transition: 0.08s;
@@ -86,10 +86,10 @@
             display: flex;
             gap: 0.3rem;
             flex: 1;
-            min-width: 150px;
+            min-width: 130px;
             background: #1a100a;
             border-radius: 50px;
-            padding: 0.15rem 0.15rem 0.15rem 0.8rem;
+            padding: 0.1rem 0.1rem 0.1rem 0.6rem;
             border: 2px solid #3d2b1e;
             align-items: center;
         }
@@ -98,10 +98,10 @@
             background: transparent;
             border: none;
             color: #f0d5b0;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             padding: 0.2rem 0;
             outline: none;
-            min-width: 60px;
+            min-width: 50px;
         }
         .search-box input::placeholder {
             color: #5a4a3a;
@@ -110,11 +110,11 @@
             background: linear-gradient(135deg, #3d2b1e, #2d1b0e);
             border: none;
             color: #f0d5b0;
-            padding: 0.2rem 0.8rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             transition: 0.08s;
             white-space: nowrap;
         }
@@ -124,64 +124,65 @@
 
         .magic-container {
             background: linear-gradient(135deg, #0f0a07, #1a100a);
-            border-radius: 28px;
-            padding: 0.8rem 0.8rem 1rem;
+            border-radius: 24px;
+            padding: 0.6rem 0.6rem 0.8rem;
             border: 2px solid #2d1b0e;
             box-shadow: 0 8px 0 #050303, inset 0 0 60px rgba(255, 107, 53, 0.02);
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.3rem;
+            min-height: 0;
         }
 
-        /* ===== ИНФО-СТРОКА — КРУПНО ===== */
+        /* ===== ИНФО-СТРОКА ===== */
         .magic-info {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.03);
-            padding: 0.6rem 0.8rem;
-            border-radius: 16px;
+            padding: 0.4rem 0.6rem;
+            border-radius: 14px;
             border: 1px solid rgba(255, 215, 0, 0.06);
             flex-shrink: 0;
         }
         .magic-char {
-            font-size: 3.2rem;
+            font-size: 2.6rem;
             font-weight: 700;
             color: #FFD700;
-            text-shadow: 0 0 50px rgba(255, 215, 0, 0.1);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.08);
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
-            min-width: 50px;
+            min-width: 44px;
             text-align: center;
         }
         .magic-info-text {
             display: flex;
             flex-direction: column;
             text-align: left;
-            gap: 0.05rem;
+            gap: 0.02rem;
         }
         .magic-pinyin {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #4FC3F7;
-            letter-spacing: 2px;
-            text-shadow: 0 0 40px rgba(79, 195, 247, 0.15);
+            letter-spacing: 1px;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.12);
         }
         .magic-translation {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #81C784;
-            text-shadow: 0 0 40px rgba(129, 199, 132, 0.1);
+            text-shadow: 0 0 30px rgba(129, 199, 132, 0.08);
         }
         .magic-key {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #5a4a3a;
-            margin-top: 0.1rem;
+            margin-top: 0.05rem;
         }
         .magic-emoji-big {
-            font-size: 2.4rem;
+            font-size: 2rem;
             animation: fireEmoji 1.2s ease-in-out infinite alternate;
             margin-left: auto;
         }
@@ -189,9 +190,9 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #3d2b1e;
             border-radius: 50%;
-            width: 42px;
-            height: 42px;
-            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: 0.15s;
             display: flex;
@@ -207,19 +208,19 @@
 
         .magic-buttons {
             display: flex;
-            gap: 0.25rem;
+            gap: 0.2rem;
             flex-wrap: wrap;
             justify-content: center;
             flex-shrink: 0;
         }
         .magic-buttons button {
-            padding: 0.3rem 0.7rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 30px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: 0.08s;
             color: white;
         }
@@ -242,35 +243,37 @@
         .btn-show {
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             box-shadow: 0 3px 0 #3a1a0a;
-            padding: 0.3rem 1rem;
+            padding: 0.25rem 0.9rem;
         }
         .btn-clear {
             background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
             box-shadow: 0 3px 0 #2a0a0a;
         }
 
+        /* ===== КАНВАС ===== */
         .canvas-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 0.4rem;
+            border-radius: 16px;
+            padding: 0.3rem;
             border: 1px solid rgba(255, 215, 0, 0.03);
-            flex: 1;
-            min-height: 40vh;
+            flex: 0 0 auto;
+            min-height: 30vh;
+            max-height: 55vh;
         }
 
         #magicCanvas {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
-            max-width: 650px;
+            max-width: 550px;
             background: #080808;
-            border-radius: 16px;
+            border-radius: 14px;
             touch-action: none;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
-            box-shadow: inset 0 0 80px rgba(255, 215, 0, 0.01);
+            box-shadow: inset 0 0 60px rgba(255, 215, 0, 0.01);
             overflow: visible;
             align-self: center;
             flex-shrink: 0;
@@ -285,7 +288,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4%;
+            padding: 3%;
             z-index: 1;
             pointer-events: none;
         }
@@ -305,7 +308,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 2;
-            border-radius: 16px;
+            border-radius: 14px;
         }
 
         .magic-twinkle {
@@ -316,13 +319,13 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            border-radius: 16px;
+            border-radius: 14px;
             z-index: 0;
         }
         .twinkle-dot {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.08);
             animation: twinklePulse 3-6s ease-in-out infinite alternate;
         }
         @keyframes twinklePulse {
@@ -331,7 +334,7 @@
                 transform: scale(0.5);
             }
             100% {
-                opacity: 0.2;
+                opacity: 0.15;
                 transform: scale(1.2);
             }
         }
@@ -344,16 +347,16 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            border-radius: 16px;
+            border-radius: 14px;
             z-index: 3;
         }
         .assoc-emoji {
             position: absolute;
             pointer-events: none;
             z-index: 4;
-            font-size: 2rem;
+            font-size: 1.6rem;
             opacity: 0;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.04);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.03);
             animation: fallDown 6-9s linear forwards;
         }
         @keyframes fallDown {
@@ -362,11 +365,11 @@
                 transform: translateY(-20px) scale(0.5) rotate(0deg);
             }
             10% {
-                opacity: 0.85;
+                opacity: 0.8;
                 transform: translateY(0px) scale(1) rotate(5deg);
             }
             90% {
-                opacity: 0.85;
+                opacity: 0.8;
             }
             100% {
                 opacity: 0;
@@ -376,11 +379,11 @@
 
         .magic-status {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             justify-content: center;
             color: #6a5a4a;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             flex-shrink: 0;
         }
         .magic-status span {
@@ -393,12 +396,12 @@
         }
 
         .btn-check {
-            padding: 0.3rem 1.8rem;
+            padding: 0.25rem 1.5rem;
             border-radius: 50px;
             border: none;
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             color: #f0d5b0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 #2a1a0a, 0 0 30px rgba(255, 215, 0, 0.03);
@@ -413,8 +416,8 @@
         }
 
         .magic-result {
-            padding: 0.5rem;
-            border-radius: 16px;
+            padding: 0.4rem;
+            border-radius: 14px;
             display: none;
             animation: fadeIn 0.4s ease;
             flex-shrink: 0;
@@ -422,13 +425,13 @@
 
         /* ===== РАСШИФРОВКА + ПРИМЕРЫ + РАЗБОР ===== */
         .magic-details {
-            margin-top: 0.3rem;
-            padding: 0.6rem 0.8rem;
+            margin-top: 0.2rem;
+            padding: 0.4rem 0.6rem;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
+            border-radius: 14px;
             border: 1px solid rgba(255, 215, 0, 0.04);
             flex-shrink: 0;
-            max-height: 320px;
+            max-height: 200px;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: #3d2b1e transparent;
@@ -443,130 +446,126 @@
             background: #3d2b1e;
             border-radius: 4px;
         }
+
         .magic-details-title {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
             color: #8a7a6a;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             align-items: center;
         }
         .magic-details-title span {
             color: #FFD700;
             font-weight: 600;
         }
-        .magic-details-divider {
-            border: none;
-            border-top: 1px solid rgba(255, 215, 0, 0.06);
-            margin: 0.4rem 0;
-        }
 
         /* ===== РАЗБОР ПО СОСТАВУ ===== */
         .etymology-parts {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             align-items: center;
-            padding: 0.4rem 0.6rem;
+            padding: 0.2rem 0.4rem;
             background: rgba(255, 215, 0, 0.03);
             border-radius: 10px;
             border: 1px solid rgba(255, 215, 0, 0.05);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .etymology-parts .part-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.05rem;
-            padding: 0.15rem 0.6rem;
+            gap: 0.02rem;
+            padding: 0.1rem 0.4rem;
             background: rgba(255, 215, 0, 0.05);
-            border-radius: 8px;
-            min-width: 40px;
+            border-radius: 6px;
+            min-width: 30px;
         }
         .etymology-parts .part-char {
-            font-size: 2rem;
+            font-size: 1.6rem;
             color: #FFD700;
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
         }
         .etymology-parts .part-meaning {
-            font-size: 0.65rem;
+            font-size: 0.45rem;
             color: #8a7a6a;
             text-align: center;
         }
         .etymology-parts .part-plus {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: #5a4a3a;
         }
         .etymology-parts .part-equals {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: #4FC3F7;
         }
         .etymology-explanation {
-            padding: 0.4rem 0.6rem;
-            background: rgba(76, 175, 80, 0.06);
-            border-radius: 10px;
+            padding: 0.2rem 0.4rem;
+            background: rgba(76, 175, 80, 0.05);
+            border-radius: 8px;
             border-left: 3px solid #4CAF50;
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #b8956a;
-            line-height: 1.5;
-            margin-bottom: 0.3rem;
+            line-height: 1.4;
+            margin-bottom: 0.2rem;
         }
         .etymology-explanation strong {
             color: #FFD700;
         }
         .no-etymology {
             color: #5a4a3a;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-style: italic;
-            padding: 0.3rem 0;
+            padding: 0.2rem 0;
         }
 
         /* ===== ПРИМЕРЫ ===== */
         .examples-grid {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.25rem;
             flex-wrap: wrap;
         }
         .example-item {
             background: rgba(255, 215, 0, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.05);
-            border-radius: 8px;
-            padding: 0.25rem 0.6rem;
-            font-size: 0.85rem;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            border-radius: 6px;
+            padding: 0.15rem 0.4rem;
+            font-size: 0.65rem;
             color: #b8956a;
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
         }
         .example-item .ex-char {
             color: #FFD700;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 0.8rem;
         }
         .example-item .ex-pinyin {
             color: #4FC3F7;
-            font-size: 0.7rem;
+            font-size: 0.55rem;
         }
         .example-item .ex-trans {
             color: #8a7a6a;
         }
         .example-item .ex-emoji {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
         .no-examples {
             color: #5a4a3a;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             font-style: italic;
         }
 
         footer {
             text-align: center;
-            padding: 0.3rem 0.8rem;
+            padding: 0.25rem 0.8rem;
             background: #1a100a;
             border-radius: 50px;
             font-weight: bold;
             color: #8a7a6a;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             box-shadow: 0 3px 0 #0a0505;
             flex-shrink: 0;
             border: 1px solid #2d1b0e;
@@ -578,15 +577,15 @@
                 filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.1));
             }
             100% {
-                transform: scale(1.1) rotate(3deg);
-                filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.2));
+                transform: scale(1.05) rotate(3deg);
+                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.15));
             }
         }
 
         @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(6px);
             }
             100% {
                 opacity: 1;
@@ -596,101 +595,106 @@
 
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 1.3rem;
-            }
-            .magic-char {
-                font-size: 2.4rem;
-                min-width: 38px;
-            }
-            .magic-pinyin {
-                font-size: 1.4rem;
-            }
-            .magic-translation {
                 font-size: 1.2rem;
             }
+            .magic-char {
+                font-size: 2.2rem;
+                min-width: 36px;
+            }
+            .magic-pinyin {
+                font-size: 1.3rem;
+            }
+            .magic-translation {
+                font-size: 1rem;
+            }
             .magic-emoji-big {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             .magic-sound-btn {
-                width: 36px;
-                height: 36px;
+                width: 32px;
+                height: 32px;
                 font-size: 1rem;
             }
             .magic-buttons button {
-                font-size: 0.65rem;
-                padding: 0.2rem 0.5rem;
+                font-size: 0.6rem;
+                padding: 0.2rem 0.45rem;
             }
             .btn-show {
                 padding: 0.2rem 0.7rem;
             }
             .canvas-wrapper {
-                min-height: 35vh;
-                padding: 0.25rem;
+                min-height: 28vh;
+                max-height: 45vh;
+                padding: 0.2rem;
             }
             #magicCanvas {
                 max-width: 100%;
             }
             .magic-status {
-                font-size: 0.7rem;
-                gap: 0.6rem;
+                font-size: 0.65rem;
+                gap: 0.5rem;
             }
             .btn-check {
-                font-size: 0.8rem;
-                padding: 0.25rem 1.2rem;
+                font-size: 0.75rem;
+                padding: 0.2rem 1rem;
             }
             .search-box input {
-                font-size: 0.7rem;
-                min-width: 50px;
+                font-size: 0.65rem;
+                min-width: 40px;
             }
             .search-box button {
-                font-size: 0.65rem;
-                padding: 0.15rem 0.6rem;
+                font-size: 0.6rem;
+                padding: 0.12rem 0.5rem;
             }
             .back-link {
-                font-size: 0.75rem;
-                padding: 0.25rem 1rem;
+                font-size: 0.7rem;
+                padding: 0.2rem 0.8rem;
             }
             .magic-info {
-                padding: 0.3rem 0.5rem;
-                gap: 0.4rem;
+                padding: 0.25rem 0.4rem;
+                gap: 0.3rem;
             }
             .magic-container {
-                padding: 0.5rem;
+                padding: 0.4rem;
             }
             .assoc-emoji {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
             .magic-details {
-                max-height: 240px;
-                padding: 0.4rem 0.6rem;
+                max-height: 150px;
+                padding: 0.3rem 0.4rem;
             }
             .etymology-parts .part-char {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             .etymology-explanation {
-                font-size: 0.85rem;
+                font-size: 0.7rem;
             }
             .example-item {
-                font-size: 0.7rem;
-                padding: 0.15rem 0.4rem;
+                font-size: 0.55rem;
+                padding: 0.1rem 0.3rem;
             }
             .example-item .ex-char {
-                font-size: 0.9rem;
+                font-size: 0.7rem;
+            }
+            .magic-details-title {
+                font-size: 0.6rem;
             }
         }
 
         @media (min-width: 768px) {
             .canvas-wrapper {
-                min-height: 45vh;
+                min-height: 35vh;
+                max-height: 50vh;
             }
             #magicCanvas {
-                max-width: 600px;
+                max-width: 500px;
             }
             .assoc-emoji {
-                font-size: 2.4rem;
+                font-size: 2rem;
             }
             .magic-details {
-                max-height: 340px;
+                max-height: 220px;
             }
         }
     </style>
@@ -706,7 +710,7 @@
         <div class="top-bar">
             <a href="index.html" class="back-link">⬅️ На главную</a>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 Пиньинь или перевод..." />
+                <input type="text" id="searchInput" placeholder="🔍 Поиск..." />
                 <button onclick="magicSearch()">Найти</button>
             </div>
         </div>
@@ -777,12 +781,10 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ ДЛЯ MAGIC.HTML
+        //  ПОЛНЫЙ СКРИПТ
         // ============================================================
 
-        console.log('🔍 Загрузка страницы...');
-        console.log('📚 KEY_NAMES:', typeof KEY_NAMES !== 'undefined' ? KEY_NAMES.length : 'НЕ ЗАГРУЖЕН');
-        console.log('📖 ETYMOLOGY:', typeof ETYMOLOGY !== 'undefined' ? Object.keys(ETYMOLOGY).length : 'НЕ ЗАГРУЖЕН');
+        console.log('🔍 Загрузка...');
 
         let speechSynth = window.speechSynthesis;
         let currentUtterance = null;
@@ -820,7 +822,6 @@
         let magicCurrentChar = '上';
         let assocInterval = null;
 
-        // ===== ПОСТРОЕНИЕ СПИСКА =====
         function buildAllWordsList() {
             allWordsList = [];
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
@@ -841,30 +842,27 @@
                 }
             }
             if (magicCurrentIndex >= allWordsList.length) magicCurrentIndex = 0;
-            console.log('📚 Построен список:', allWordsList.length, 'ключей');
+            console.log('📚 Загружено ключей:', allWordsList.length);
         }
 
         function getSingleChar(key) { return key.charAt(0); }
 
-        // ===== ДОПОЛНИТЕЛЬНЫЕ ЭМОДЗИ =====
         function getExtraEmojis(meaning) {
-            const emojiMap = {
-                'вода': ['💧', '🌊', '💦', '🏊'],
-                'огонь': ['🔥', '🌋', '💥', '🧯'],
-                'дерево': ['🌳', '🌲', '🌿', '🌱'],
-                'земля': ['🌍', '🌎', '🏔️', '🌾'],
-                'небо': ['☁️', '🌈', '🌤️', '☀️'],
+            const map = {
+                'вода': ['💧', '🌊', '💦'],
+                'огонь': ['🔥', '🌋', '💥'],
+                'дерево': ['🌳', '🌲', '🌿'],
+                'земля': ['🌍', '🌎', '🏔️'],
+                'небо': ['☁️', '🌈', '☀️'],
                 'солнце': ['☀️', '🌞', '🌅'],
                 'луна': ['🌙', '🌛', '🌜'],
                 'звезда': ['⭐', '🌟', '✨'],
-                'человек': ['👤', '🧑', '👨', '👩'],
+                'человек': ['👤', '🧑', '👨'],
                 'сердце': ['❤️', '💖', '💗'],
                 'дом': ['🏠', '🏡', '🏘️'],
-                'дорога': ['🛣️', '🚗', '🚙'],
                 'книга': ['📚', '📖', '📕'],
                 'музыка': ['🎵', '🎶', '🎼'],
                 'еда': ['🍕', '🍔', '🌮'],
-                'фрукт': ['🍎', '🍌', '🍇'],
                 'цветок': ['🌺', '🌷', '🌹'],
                 'время': ['⏰', '⌚', '🕐'],
                 'день': ['🌞', '☀️', '🌅'],
@@ -873,30 +871,23 @@
                 'низ': ['⬇️', '👇', '🔽'],
                 'любовь': ['❤️', '💕'],
                 'дружба': ['🤝', '👬'],
-                'семья': ['👨‍👩‍👦', '🏠'],
                 'работа': ['💼', '📋'],
                 'учёба': ['📚', '🎓'],
                 'гора': ['⛰️', '🗻'],
-                'лес': ['🌲', '🌳'],
-                'море': ['🌊', '🏖️'],
-                'свет': ['💡', '🔆']
+                'море': ['🌊', '🏖️']
             };
-
             const extra = [];
             const lower = meaning.toLowerCase();
-
-            for (const [key, emojis] of Object.entries(emojiMap)) {
+            for (const [key, emojis] of Object.entries(map)) {
                 if (lower.includes(key)) {
                     for (const e of emojis) {
                         if (!extra.includes(e)) extra.push(e);
                     }
                 }
             }
-
-            return extra.slice(0, 5);
+            return extra.slice(0, 4);
         }
 
-        // ===== ЗАГРУЗКА ИЕРОГЛИФА =====
         function loadMagicChar(data) {
             if (!data) return;
             magicCharData = data;
@@ -919,31 +910,21 @@
             speakChinese(magicCurrentChar);
         }
 
-        // ===== ОБНОВЛЕНИЕ РАЗБОРА И ПРИМЕРОВ =====
         function updateDetails(data) {
             const container = document.getElementById('magicDetailsContent');
             if (!container) return;
 
             const key = data.key;
-            console.log('🔍 Обновление деталей для:', key);
-
-            // Проверяем наличие ETYMOLOGY
             let etymology = null;
             if (typeof ETYMOLOGY !== 'undefined') {
                 etymology = ETYMOLOGY[key];
-                console.log('  ETYMOLOGY найдена для', key, ':', !!etymology);
-            } else {
-                console.warn('  ⚠️ ETYMOLOGY не определена!');
             }
-
             const words = data.words || [];
-            const meaning = data.translation || '';
 
             let html = '';
 
-            // === РАЗБОР ПО СОСТАВУ (из etymology-data.js) ===
+            // === РАЗБОР ===
             if (etymology) {
-                // Части
                 if (etymology.parts && etymology.parts.length > 0) {
                     html += `<div class="etymology-parts">`;
                     for (let i = 0; i < etymology.parts.length; i++) {
@@ -964,28 +945,27 @@
                         html += `<span class="part-equals">=</span>`;
                         html += `
                                 <div class="part-item" style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);">
-                                    <div class="part-char" style="font-size:2.2rem;">${etymology.result || key}</div>
-                                    ${etymology.resultMeaning ? `<div class="part-meaning" style="font-size:0.7rem;">${etymology.resultMeaning}</div>` : ''}
+                                    <div class="part-char" style="font-size:1.8rem;">${etymology.result || key}</div>
+                                    ${etymology.resultMeaning ? `<div class="part-meaning" style="font-size:0.6rem;">${etymology.resultMeaning}</div>` : ''}
                                 </div>
                             `;
                     }
                     html += `</div>`;
                 }
 
-                // Объяснение
                 if (etymology.explanation) {
                     html += `<div class="etymology-explanation">💡 ${etymology.explanation}</div>`;
                 }
             } else {
-                html += `<div class="no-etymology">📭 Разбор по составу для "${key}" пока не добавлен</div>`;
+                html += `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен</div>`;
             }
 
-            // === ПРИМЕРЫ (из keys-data.js) ===
+            // === ПРИМЕРЫ ===
             if (words && words.length > 0) {
                 html +=
-                    `<div class="magic-details-title" style="font-size:0.85rem;margin-top:0.3rem;">📝 Примеры слов (${words.length})</div>`;
+                    `<div class="magic-details-title" style="font-size:0.7rem;margin-top:0.2rem;">📝 Примеры (${words.length})</div>`;
                 html += `<div class="examples-grid">`;
-                const showWords = words.slice(0, 10);
+                const showWords = words.slice(0, 8);
                 for (const w of showWords) {
                     const char = w.chinese || w.char || '';
                     const pinyin = w.pinyin || '';
@@ -1000,13 +980,13 @@
                             </div>
                         `;
                 }
-                if (words.length > 10) {
+                if (words.length > 8) {
                     html +=
-                        `<div class="example-item" style="color:#5a4a3a;border-color:transparent;">+ ещё ${words.length - 10} слов</div>`;
+                        `<div class="example-item" style="color:#5a4a3a;border-color:transparent;">+ ещё ${words.length - 8}</div>`;
                 }
                 html += `</div>`;
             } else {
-                html += `<div class="no-examples">📭 Примеры для этого ключа не найдены</div>`;
+                html += `<div class="no-examples">📭 Нет примеров</div>`;
             }
 
             container.innerHTML = html;
@@ -1037,7 +1017,7 @@
         function magicSearch() {
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
             if (!query) {
-                document.getElementById('magicStatus').textContent = '✏️ Введите запрос для поиска';
+                document.getElementById('magicStatus').textContent = '✏️ Введите запрос';
                 document.getElementById('magicStatus').style.color = '#FFB347';
                 return;
             }
@@ -1055,7 +1035,7 @@
             );
 
             if (results.length === 0) {
-                document.getElementById('magicStatus').textContent = `❌ Ничего не найдено для "${query}"`;
+                document.getElementById('magicStatus').textContent = `❌ Не найдено "${query}"`;
                 document.getElementById('magicStatus').style.color = '#FF6B6B';
                 return;
             }
@@ -1065,7 +1045,7 @@
             if (idx !== -1) {
                 magicCurrentIndex = idx;
                 loadMagicChar(found);
-                document.getElementById('magicStatus').textContent = `🔍 Найдено: ${found.chinese} (${found.pinyin})`;
+                document.getElementById('magicStatus').textContent = `🔍 Найдено: ${found.chinese}`;
                 document.getElementById('magicStatus').style.color = '#4CAF50';
             }
         }
@@ -1075,8 +1055,7 @@
             const container = document.getElementById('magicTwinkle');
             if (!container) return;
             container.innerHTML = '';
-            const count = 25 + Math.floor(Math.random() * 15);
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < 20; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'twinkle-dot';
                 const size = 1 + Math.random() * 2;
@@ -1102,44 +1081,36 @@
             container.innerHTML = '';
 
             const emojis = [];
-
             if (data && data.emoji) emojis.push(data.emoji);
-
             if (data && data.words) {
-                const wordEmojis = data.words
-                    .filter(w => w.emoji)
-                    .map(w => w.emoji)
-                    .slice(0, 3);
+                const wordEmojis = data.words.filter(w => w.emoji).map(w => w.emoji).slice(0, 3);
                 for (const e of wordEmojis) {
                     if (!emojis.includes(e)) emojis.push(e);
                 }
             }
-
             if (data && data.translation) {
                 const extra = getExtraEmojis(data.translation);
                 for (const e of extra) {
                     if (!emojis.includes(e)) emojis.push(e);
                 }
             }
-
             if (emojis.length < 3) {
-                const fallback = ['✨', '⭐', '💫', '🌟', '🌈'];
+                const fallback = ['✨', '⭐', '💫'];
                 for (const e of fallback) {
                     if (!emojis.includes(e) && emojis.length < 5) emojis.push(e);
                 }
             }
 
-            const uniqueEmojis = [...new Set(emojis)].slice(0, 7);
-
+            const uniqueEmojis = [...new Set(emojis)].slice(0, 6);
             let index = 0;
             assocInterval = setInterval(() => {
                 const emoji = uniqueEmojis[index % uniqueEmojis.length];
                 createFallingEmoji(emoji, container);
                 index++;
-            }, 1200);
+            }, 1400);
 
             setTimeout(() => {
-                for (let i = 0; i < Math.min(3, uniqueEmojis.length); i++) {
+                for (let i = 0; i < Math.min(2, uniqueEmojis.length); i++) {
                     createFallingEmoji(uniqueEmojis[i], container);
                 }
             }, 300);
@@ -1155,7 +1126,7 @@
             style += ` top: ${startY}%;`;
             const duration = 6 + Math.random() * 4;
             const delay = Math.random() * 0.5;
-            const size = 2.0 + Math.random() * 1.2;
+            const size = 1.6 + Math.random() * 1.2;
             el.style.cssText = `${style} font-size: ${size}rem; animation: fallDown ${duration}s ease-in ${delay}s forwards;`;
             el.textContent = emoji;
             const rotation = -20 + Math.random() * 40;
@@ -1248,7 +1219,7 @@
                     height: 100%;
                     pointer-events: none;
                     z-index: 2;
-                    border-radius: 16px;
+                    border-radius: 14px;
                 `;
             wrapper.appendChild(canvas);
 
@@ -1257,7 +1228,7 @@
             magicCtx = canvas.getContext('2d');
 
             const rect = wrapper.getBoundingClientRect();
-            const size = Math.min(rect.width, 700);
+            const size = Math.min(rect.width, 650);
             canvas.width = size;
             canvas.height = size;
 
@@ -1321,30 +1292,25 @@
         }
 
         const UNSUPPORTED_CHARS = new Set([
-            '⺮', '⺰', '⺲', '⺳', '⺴', '⺵', '⺶', '⺷', '⺸', '⺹', '⺺', '⺻',
-            '辶', '辷', '辸', '辺', '辻', '込', '辽', '达', '辿', '迀', '迁', '迂',
-            '忄', '扌', '氵', '讠', '饣', '纟', '艹', '⺡', '⺨', '⺧', '⺪', '⺫'
+            '⺮', '辶', '忄', '扌', '氵', '讠', '饣', '纟', '艹', '⺡', '⺨'
         ]);
 
         function isHanziSupported(char) {
             if (!char || char.length === 0) return false;
             const code = char.charCodeAt(0);
             const isCJK = code >= 0x4E00 && code <= 0x9FFF;
-            const isExtA = code >= 0x3400 && code <= 0x4DBF;
-            const isExtB = code >= 0x20000 && code <= 0x2A6DF;
-            const isCJKCompatible = code >= 0xF900 && code <= 0xFAFF;
-            return (isCJK || isExtA || isExtB || isCJKCompatible) && !UNSUPPORTED_CHARS.has(char);
+            return isCJK && !UNSUPPORTED_CHARS.has(char);
         }
 
         function showStaticChar(container, char) {
             container.innerHTML = `
                     <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
-                        <div style="font-size:10rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
+                        <div style="font-size:8rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
                             ${char}
                         </div>
                     </div>
-                    <div style="position:absolute;bottom:10%;color:#5a4a3a;font-size:0.7rem;text-align:center;width:100%;z-index:0;">
-                        ⚡ Анимация не поддерживается для этого ключа
+                    <div style="position:absolute;bottom:8%;color:#5a4a3a;font-size:0.6rem;text-align:center;width:100%;z-index:0;">
+                        ⚡ Без анимации
                     </div>
                 `;
         }
@@ -1523,15 +1489,15 @@
                 document.getElementById('magicLevel').textContent = magicLevel;
 
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:16px;padding:0.8rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.6rem;color:#FFD700;">✨ Волшебство удалось!</div>
-                            <div style="font-size:1rem;color:#4CAF50;margin-top:0.2rem;">⭐ +${points} очков магии!</div>
-                            <div style="font-size:1.3rem;color:#FFB347;margin-top:0.2rem;">
+                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1.4rem;color:#FFD700;">✨ Волшебство удалось!</div>
+                            <div style="font-size:0.9rem;color:#4CAF50;margin-top:0.2rem;">⭐ +${points} очков!</div>
+                            <div style="font-size:1.1rem;color:#FFB347;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                             </div>
-                            <div style="display:flex;gap:0.6rem;justify-content:center;margin-top:0.6rem;flex-wrap:wrap;">
-                                <button onclick="magicNextChar()" style="padding:0.3rem 1rem;border-radius:30px;border:none;background:linear-gradient(135deg,#1a4a2a,#0d3a1a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #0a2a1a;font-size:0.8rem;">➡️ Следующий</button>
-                                <button onclick="magicRandom()" style="padding:0.3rem 1rem;border-radius:30px;border:none;background:linear-gradient(135deg,#3a1a4a,#2a0d3a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #1a0a2a;font-size:0.8rem;">🎲 Случайный</button>
+                            <div style="display:flex;gap:0.5rem;justify-content:center;margin-top:0.4rem;flex-wrap:wrap;">
+                                <button onclick="magicNextChar()" style="padding:0.25rem 0.8rem;border-radius:30px;border:none;background:linear-gradient(135deg,#1a4a2a,#0d3a1a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #0a2a1a;font-size:0.75rem;">➡️ Следующий</button>
+                                <button onclick="magicRandom()" style="padding:0.25rem 0.8rem;border-radius:30px;border:none;background:linear-gradient(135deg,#3a1a4a,#2a0d3a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #1a0a2a;font-size:0.75rem;">🎲 Случайный</button>
                             </div>
                         </div>
                     `;
@@ -1542,9 +1508,9 @@
                 speakChinese(magicCurrentChar);
             } else {
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:16px;padding:0.8rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.2rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
-                            <div style="font-size:1rem;color:#8a7a6a;margin-top:0.2rem;">
+                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1.1rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
+                            <div style="font-size:0.9rem;color:#8a7a6a;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                             </div>
                         </div>
@@ -1557,8 +1523,6 @@
             createTwinkle();
             initMagicSound();
 
-            console.log('🔧 Инициализация...');
-
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 buildAllWordsList();
                 if (allWordsList.length) {
@@ -1566,7 +1530,6 @@
                     loadMagicChar(allWordsList[0]);
                 }
             } else {
-                console.warn('⚠️ KEY_NAMES не загружен, ждём...');
                 setTimeout(() => {
                     if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                         buildAllWordsList();
@@ -1574,12 +1537,8 @@
                             magicCurrentIndex = 0;
                             loadMagicChar(allWordsList[0]);
                         }
-                    } else {
-                        console.error('❌ KEY_NAMES так и не загружен!');
-                        document.getElementById('magicDetailsContent').innerHTML =
-                            '<div class="no-etymology">❌ Ошибка загрузки базы данных</div>';
                     }
-                }, 1500);
+                }, 1000);
             }
 
             document.getElementById('magicScore').textContent = magicScore;
@@ -1591,12 +1550,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('📄 DOM загружен');
             setTimeout(initMagic, 300);
         });
-
-        // Флаг, что всё загружено
-        console.log('✅ Скрипт загружен');
 
         window.magicNextChar = magicNextChar;
         window.magicPrevChar = magicPrevChar;
