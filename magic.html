@@ -125,36 +125,36 @@
         .magic-container {
             background: linear-gradient(135deg, #0f0a07, #1a100a);
             border-radius: 24px;
-            padding: 0.6rem 0.6rem 0.8rem;
+            padding: 0.5rem 0.5rem 0.6rem;
             border: 2px solid #2d1b0e;
             box-shadow: 0 8px 0 #050303, inset 0 0 60px rgba(255, 107, 53, 0.02);
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.25rem;
             min-height: 0;
         }
 
         /* ===== ИНФО-СТРОКА ===== */
         .magic-info {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.03);
-            padding: 0.4rem 0.6rem;
-            border-radius: 14px;
+            padding: 0.3rem 0.5rem;
+            border-radius: 12px;
             border: 1px solid rgba(255, 215, 0, 0.06);
             flex-shrink: 0;
         }
         .magic-char {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 700;
             color: #FFD700;
             text-shadow: 0 0 40px rgba(255, 215, 0, 0.08);
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
-            min-width: 44px;
+            min-width: 38px;
             text-align: center;
         }
         .magic-info-text {
@@ -164,25 +164,25 @@
             gap: 0.02rem;
         }
         .magic-pinyin {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #4FC3F7;
             letter-spacing: 1px;
             text-shadow: 0 0 30px rgba(79, 195, 247, 0.12);
         }
         .magic-translation {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #81C784;
             text-shadow: 0 0 30px rgba(129, 199, 132, 0.08);
         }
         .magic-key {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: #5a4a3a;
             margin-top: 0.05rem;
         }
         .magic-emoji-big {
-            font-size: 2rem;
+            font-size: 1.8rem;
             animation: fireEmoji 1.2s ease-in-out infinite alternate;
             margin-left: auto;
         }
@@ -190,9 +190,9 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #3d2b1e;
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            font-size: 1.1rem;
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
             cursor: pointer;
             transition: 0.15s;
             display: flex;
@@ -214,13 +214,13 @@
             flex-shrink: 0;
         }
         .magic-buttons button {
-            padding: 0.25rem 0.6rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 30px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             transition: 0.08s;
             color: white;
         }
@@ -243,34 +243,34 @@
         .btn-show {
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             box-shadow: 0 3px 0 #3a1a0a;
-            padding: 0.25rem 0.9rem;
+            padding: 0.2rem 0.8rem;
         }
         .btn-clear {
             background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
             box-shadow: 0 3px 0 #2a0a0a;
         }
 
-        /* ===== КАНВАС — НЕ ТРОГАЕМ ===== */
+        /* ===== КАНВАС ===== */
         .canvas-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            padding: 0.3rem;
+            border-radius: 14px;
+            padding: 0.25rem;
             border: 1px solid rgba(255, 215, 0, 0.03);
             flex: 0 0 auto;
-            min-height: 35vh;
-            max-height: 55vh;
+            min-height: 30vh;
+            max-height: 50vh;
         }
 
         #magicCanvas {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
-            max-width: 600px;
+            max-width: 550px;
             background: #080808;
-            border-radius: 14px;
+            border-radius: 12px;
             touch-action: none;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
             box-shadow: inset 0 0 60px rgba(255, 215, 0, 0.01);
@@ -308,7 +308,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 2;
-            border-radius: 14px;
+            border-radius: 12px;
         }
 
         .magic-twinkle {
@@ -319,7 +319,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            border-radius: 14px;
+            border-radius: 12px;
             z-index: 0;
         }
         .twinkle-dot {
@@ -339,7 +339,6 @@
             }
         }
 
-        /* ===== УБИРАЕМ ПАДАЮЩИЕ ЭМОДЗИ (оставляем только если есть в базе) ===== */
         .magic-floating {
             position: absolute;
             top: 0;
@@ -348,14 +347,14 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            border-radius: 14px;
+            border-radius: 12px;
             z-index: 3;
         }
         .assoc-emoji {
             position: absolute;
             pointer-events: none;
             z-index: 4;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             opacity: 0;
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.03);
             animation: fallDown 6-9s linear forwards;
@@ -380,11 +379,11 @@
 
         .magic-status {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             justify-content: center;
             color: #6a5a4a;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             flex-shrink: 0;
         }
         .magic-status span {
@@ -397,12 +396,12 @@
         }
 
         .btn-check {
-            padding: 0.25rem 1.5rem;
+            padding: 0.2rem 1.2rem;
             border-radius: 50px;
             border: none;
             background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
             color: #f0d5b0;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 0 #2a1a0a, 0 0 30px rgba(255, 215, 0, 0.03);
@@ -417,8 +416,8 @@
         }
 
         .magic-result {
-            padding: 0.4rem;
-            border-radius: 14px;
+            padding: 0.3rem;
+            border-radius: 12px;
             display: none;
             animation: fadeIn 0.4s ease;
             flex-shrink: 0;
@@ -426,13 +425,13 @@
 
         /* ===== РАСШИФРОВКА + ПРИМЕРЫ + РАЗБОР ===== */
         .magic-details {
-            margin-top: 0.2rem;
-            padding: 0.4rem 0.6rem;
+            margin-top: 0.15rem;
+            padding: 0.3rem 0.5rem;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 215, 0, 0.04);
             flex-shrink: 0;
-            max-height: 300px;
+            max-height: 220px;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: #3d2b1e transparent;
@@ -449,9 +448,9 @@
         }
 
         .magic-details-title {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #8a7a6a;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             display: flex;
             gap: 0.4rem;
             align-items: center;
@@ -464,127 +463,141 @@
         /* ===== РАЗБОР ПО СОСТАВУ ===== */
         .etymology-parts {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             align-items: center;
-            padding: 0.3rem 0.5rem;
+            padding: 0.2rem 0.4rem;
             background: rgba(255, 215, 0, 0.03);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid rgba(255, 215, 0, 0.05);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .etymology-parts .part-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.02rem;
-            padding: 0.1rem 0.5rem;
+            padding: 0.05rem 0.35rem;
             background: rgba(255, 215, 0, 0.05);
             border-radius: 6px;
-            min-width: 34px;
+            min-width: 28px;
         }
         .etymology-parts .part-char {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #FFD700;
             font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
         }
         .etymology-parts .part-meaning {
-            font-size: 0.55rem;
+            font-size: 0.45rem;
             color: #8a7a6a;
             text-align: center;
         }
         .etymology-parts .part-plus {
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #5a4a3a;
         }
         .etymology-parts .part-equals {
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #4FC3F7;
         }
         .etymology-explanation {
-            padding: 0.3rem 0.5rem;
+            padding: 0.2rem 0.4rem;
             background: rgba(76, 175, 80, 0.05);
-            border-radius: 8px;
+            border-radius: 6px;
             border-left: 3px solid #4CAF50;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: #b8956a;
-            line-height: 1.5;
-            margin-bottom: 0.3rem;
+            line-height: 1.4;
+            margin-bottom: 0.2rem;
         }
         .etymology-explanation strong {
             color: #FFD700;
         }
         .no-etymology {
             color: #5a4a3a;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-style: italic;
-            padding: 0.3rem 0;
+            padding: 0.2rem 0;
         }
 
-        /* ===== ПРИМЕРЫ — КРУПНЕЕ ===== */
+        /* ===== ПРИМЕРЫ — 2 КОЛОНКИ, КОМПАКТНО ===== */
         .examples-grid {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3rem;
         }
         .example-item {
             background: rgba(255, 215, 0, 0.04);
             border: 1px solid rgba(255, 215, 0, 0.06);
-            border-radius: 10px;
-            padding: 0.4rem 0.8rem;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
             color: #b8956a;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
             cursor: pointer;
             transition: 0.15s;
             user-select: none;
+            flex-wrap: wrap;
         }
         .example-item:hover {
             background: rgba(255, 215, 0, 0.08);
             border-color: rgba(255, 215, 0, 0.15);
-            transform: scale(1.02);
         }
         .example-item:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
         .example-item .ex-char {
             color: #FFD700;
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
+            min-width: 1.8rem;
         }
         .example-item .ex-pinyin {
             color: #4FC3F7;
-            font-size: 0.9rem;
+            font-size: 0.65rem;
             font-weight: 500;
         }
         .example-item .ex-trans {
             color: #81C784;
-            font-size: 0.95rem;
+            font-size: 0.65rem;
         }
         .example-item .ex-emoji {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
         }
         .example-item .ex-sound {
-            font-size: 0.8rem;
+            font-size: 0.6rem;
             color: #5a4a3a;
-            margin-left: 0.2rem;
+            margin-left: auto;
+            opacity: 0.5;
         }
         .no-examples {
             color: #5a4a3a;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-style: italic;
+            padding: 0.2rem 0;
+            grid-column: 1 / -1;
+        }
+        .example-more {
+            color: #5a4a3a;
+            border-color: transparent !important;
+            cursor: default !important;
+            opacity: 0.6;
+            justify-content: center;
+            font-size: 0.75rem;
+            background: transparent !important;
+            grid-column: 1 / -1;
         }
 
         footer {
             text-align: center;
-            padding: 0.25rem 0.8rem;
+            padding: 0.2rem 0.8rem;
             background: #1a100a;
             border-radius: 50px;
             font-weight: bold;
             color: #8a7a6a;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             box-shadow: 0 3px 0 #0a0505;
             flex-shrink: 0;
             border: 1px solid #2d1b0e;
@@ -614,112 +627,127 @@
 
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .magic-char {
-                font-size: 2.2rem;
-                min-width: 36px;
+                font-size: 2rem;
+                min-width: 32px;
             }
             .magic-pinyin {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             .magic-translation {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             .magic-emoji-big {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
             }
             .magic-sound-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
+                width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
             }
             .magic-buttons button {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.45rem;
+                font-size: 0.55rem;
+                padding: 0.15rem 0.4rem;
             }
             .btn-show {
-                padding: 0.2rem 0.7rem;
+                padding: 0.15rem 0.6rem;
             }
             .canvas-wrapper {
-                min-height: 28vh;
-                max-height: 45vh;
-                padding: 0.2rem;
+                min-height: 25vh;
+                max-height: 40vh;
+                padding: 0.15rem;
             }
             #magicCanvas {
                 max-width: 100%;
             }
             .magic-status {
-                font-size: 0.65rem;
-                gap: 0.5rem;
+                font-size: 0.6rem;
+                gap: 0.4rem;
             }
             .btn-check {
-                font-size: 0.75rem;
-                padding: 0.2rem 1rem;
+                font-size: 0.7rem;
+                padding: 0.15rem 0.9rem;
             }
             .search-box input {
-                font-size: 0.65rem;
-                min-width: 40px;
+                font-size: 0.6rem;
+                min-width: 35px;
             }
             .search-box button {
-                font-size: 0.6rem;
-                padding: 0.12rem 0.5rem;
+                font-size: 0.55rem;
+                padding: 0.1rem 0.4rem;
             }
             .back-link {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.8rem;
+                font-size: 0.65rem;
+                padding: 0.15rem 0.7rem;
             }
             .magic-info {
-                padding: 0.25rem 0.4rem;
-                gap: 0.3rem;
+                padding: 0.2rem 0.35rem;
+                gap: 0.2rem;
             }
             .magic-container {
-                padding: 0.4rem;
+                padding: 0.35rem;
             }
             .assoc-emoji {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             .magic-details {
-                max-height: 200px;
-                padding: 0.3rem 0.4rem;
+                max-height: 160px;
+                padding: 0.2rem 0.35rem;
             }
             .etymology-parts .part-char {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
             .etymology-explanation {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
+            }
+            .examples-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.2rem;
             }
             .example-item {
-                font-size: 0.95rem;
-                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+                padding: 0.15rem 0.35rem;
+                gap: 0.2rem;
             }
             .example-item .ex-char {
-                font-size: 1.3rem;
+                font-size: 0.9rem;
+                min-width: 1.4rem;
             }
             .example-item .ex-pinyin {
-                font-size: 0.75rem;
+                font-size: 0.55rem;
             }
             .example-item .ex-trans {
-                font-size: 0.8rem;
+                font-size: 0.55rem;
             }
             .magic-details-title {
-                font-size: 0.7rem;
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            .magic-details {
+                max-height: 180px;
             }
         }
 
         @media (min-width: 768px) {
             .canvas-wrapper {
-                min-height: 38vh;
-                max-height: 52vh;
+                min-height: 35vh;
+                max-height: 48vh;
             }
             #magicCanvas {
-                max-width: 550px;
+                max-width: 500px;
             }
             .assoc-emoji {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             .magic-details {
-                max-height: 320px;
+                max-height: 250px;
             }
         }
     </style>
@@ -763,7 +791,7 @@
                 <button class="btn-clear" onclick="magicClear()">🗑️</button>
             </div>
 
-            <!-- КАНВАС — НЕ ТРОГАТЬ! -->
+            <!-- КАНВАС -->
             <div class="canvas-wrapper">
                 <div id="magicCanvas">
                     <div id="hanziContainer"></div>
@@ -812,6 +840,11 @@
         console.log('🔍 Загрузка...');
         console.log('📚 KEY_NAMES загружен?', typeof KEY_NAMES !== 'undefined');
         console.log('📖 ETYMOLOGY загружен?', typeof ETYMOLOGY !== 'undefined');
+
+        if (typeof ETYMOLOGY === 'undefined') {
+            console.warn('⚠️ ETYMOLOGY не загружена! Создаём пустую.');
+            var ETYMOLOGY = {};
+        }
 
         let speechSynth = window.speechSynthesis;
         let currentUtterance = null;
@@ -903,9 +936,23 @@
 
             const key = data.key;
             let etymology = null;
+
             if (typeof ETYMOLOGY !== 'undefined') {
-                etymology = ETYMOLOGY[key];
+                if (ETYMOLOGY[key]) {
+                    etymology = ETYMOLOGY[key];
+                } else if (ETYMOLOGY[data.chinese]) {
+                    etymology = ETYMOLOGY[data.chinese];
+                } else {
+                    const keys = Object.keys(ETYMOLOGY);
+                    for (const k of keys) {
+                        if (k.toLowerCase() === key.toLowerCase()) {
+                            etymology = ETYMOLOGY[k];
+                            break;
+                        }
+                    }
+                }
             }
+
             const words = data.words || [];
 
             let html = '';
@@ -932,8 +979,8 @@
                         html += `<span class="part-equals">=</span>`;
                         html += `
                                 <div class="part-item" style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);">
-                                    <div class="part-char" style="font-size:2rem;">${etymology.result || key}</div>
-                                    ${etymology.resultMeaning ? `<div class="part-meaning" style="font-size:0.6rem;">${etymology.resultMeaning}</div>` : ''}
+                                    <div class="part-char" style="font-size:1.8rem;">${etymology.result || key}</div>
+                                    ${etymology.resultMeaning ? `<div class="part-meaning" style="font-size:0.5rem;">${etymology.resultMeaning}</div>` : ''}
                                 </div>
                             `;
                     }
@@ -944,15 +991,16 @@
                     html += `<div class="etymology-explanation">💡 ${etymology.explanation}</div>`;
                 }
             } else {
-                html += `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен</div>`;
+                html +=
+                    `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен (ETYMOLOGY: ${Object.keys(ETYMOLOGY).length} ключей)</div>`;
             }
 
-            // === ПРИМЕРЫ — КРУПНО И С ОЗВУЧКОЙ ===
+            // === ПРИМЕРЫ — 2 КОЛОНКИ ===
             if (words && words.length > 0) {
                 html +=
-                    `<div class="magic-details-title" style="font-size:0.85rem;margin-top:0.3rem;">📝 Примеры (${words.length}) <span style="font-size:0.6rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
+                    `<div class="magic-details-title" style="font-size:0.7rem;margin-top:0.2rem;">📝 Примеры (${words.length}) <span style="font-size:0.5rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
                 html += `<div class="examples-grid">`;
-                const showWords = words.slice(0, 10);
+                const showWords = words.slice(0, 8);
                 for (const w of showWords) {
                     const char = w.chinese || w.char || '';
                     const pinyin = w.pinyin || '';
@@ -969,9 +1017,9 @@
                             </div>
                         `;
                 }
-                if (words.length > 10) {
+                if (words.length > 8) {
                     html +=
-                        `<div class="example-item" style="color:#5a4a3a;border-color:transparent;cursor:default;opacity:0.6;">+ ещё ${words.length - 10}</div>`;
+                        `<div class="example-item example-more">+ ещё ${words.length - 8} слов</div>`;
                 }
                 html += `</div>`;
             } else {
@@ -1063,7 +1111,7 @@
             const container = document.getElementById('magicTwinkle');
             if (!container) return;
             container.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 18; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'twinkle-dot';
                 const size = 1 + Math.random() * 2;
@@ -1080,7 +1128,7 @@
             }
         }
 
-        // ===== ПАДАЮЩИЕ ЭМОДЗИ — ТОЛЬКО ИЗ БАЗЫ =====
+        // ===== ПАДАЮЩИЕ ЭМОДЗИ =====
         function startFallingEmojis(data) {
             if (assocInterval) { clearInterval(assocInterval);
                 assocInterval = null; }
@@ -1089,18 +1137,13 @@
             container.innerHTML = '';
 
             const emojis = [];
-            // Только из data.emoji и из слов (w.emoji) — без getExtraEmojis!
             if (data && data.emoji) emojis.push(data.emoji);
             if (data && data.words) {
-                const wordEmojis = data.words
-                    .filter(w => w.emoji)
-                    .map(w => w.emoji)
-                    .slice(0, 3);
+                const wordEmojis = data.words.filter(w => w.emoji).map(w => w.emoji).slice(0, 3);
                 for (const e of wordEmojis) {
                     if (!emojis.includes(e)) emojis.push(e);
                 }
             }
-            // Если всё равно пусто — добавляем базовые
             if (emojis.length < 2) {
                 const fallback = ['✨', '⭐'];
                 for (const e of fallback) {
@@ -1116,13 +1159,13 @@
                 const emoji = uniqueEmojis[index % uniqueEmojis.length];
                 createFallingEmoji(emoji, container);
                 index++;
-            }, 1600);
+            }, 1800);
 
             setTimeout(() => {
                 for (let i = 0; i < Math.min(2, uniqueEmojis.length); i++) {
                     createFallingEmoji(uniqueEmojis[i], container);
                 }
-            }, 300);
+            }, 400);
         }
 
         function createFallingEmoji(emoji, container) {
@@ -1135,7 +1178,7 @@
             style += ` top: ${startY}%;`;
             const duration = 6 + Math.random() * 4;
             const delay = Math.random() * 0.5;
-            const size = 1.6 + Math.random() * 1.2;
+            const size = 1.4 + Math.random() * 1.0;
             el.style.cssText = `${style} font-size: ${size}rem; animation: fallDown ${duration}s ease-in ${delay}s forwards;`;
             el.textContent = emoji;
             const rotation = -20 + Math.random() * 40;
@@ -1228,7 +1271,7 @@
                     height: 100%;
                     pointer-events: none;
                     z-index: 2;
-                    border-radius: 14px;
+                    border-radius: 12px;
                 `;
             wrapper.appendChild(canvas);
 
@@ -1237,7 +1280,7 @@
             magicCtx = canvas.getContext('2d');
 
             const rect = wrapper.getBoundingClientRect();
-            const size = Math.min(rect.width, 650);
+            const size = Math.min(rect.width, 600);
             canvas.width = size;
             canvas.height = size;
 
@@ -1286,15 +1329,15 @@
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.strokeStyle = '#FF6B35';
-            ctx.lineWidth = 12;
+            ctx.lineWidth = 10;
             ctx.shadowColor = 'rgba(255,107,53,0.3)';
-            ctx.shadowBlur = 20;
+            ctx.shadowBlur = 18;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.stroke();
             ctx.shadowColor = 'rgba(255,215,0,0.15)';
-            ctx.shadowBlur = 35;
-            ctx.lineWidth = 14;
+            ctx.shadowBlur = 30;
+            ctx.lineWidth = 12;
             ctx.globalAlpha = 0.3;
             ctx.stroke();
             ctx.restore();
@@ -1314,11 +1357,11 @@
         function showStaticChar(container, char) {
             container.innerHTML = `
                     <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
-                        <div style="font-size:8rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
+                        <div style="font-size:7rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
                             ${char}
                         </div>
                     </div>
-                    <div style="position:absolute;bottom:8%;color:#5a4a3a;font-size:0.6rem;text-align:center;width:100%;z-index:0;">
+                    <div style="position:absolute;bottom:8%;color:#5a4a3a;font-size:0.55rem;text-align:center;width:100%;z-index:0;">
                         ⚡ Без анимации
                     </div>
                 `;
@@ -1498,15 +1541,15 @@
                 document.getElementById('magicLevel').textContent = magicLevel;
 
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.4rem;color:#FFD700;">✨ Волшебство удалось!</div>
-                            <div style="font-size:0.9rem;color:#4CAF50;margin-top:0.2rem;">⭐ +${points} очков!</div>
-                            <div style="font-size:1.1rem;color:#FFB347;margin-top:0.2rem;">
+                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:12px;padding:0.5rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1.2rem;color:#FFD700;">✨ Волшебство удалось!</div>
+                            <div style="font-size:0.8rem;color:#4CAF50;margin-top:0.15rem;">⭐ +${points} очков!</div>
+                            <div style="font-size:1rem;color:#FFB347;margin-top:0.15rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                             </div>
-                            <div style="display:flex;gap:0.5rem;justify-content:center;margin-top:0.4rem;flex-wrap:wrap;">
-                                <button onclick="magicNextChar()" style="padding:0.25rem 0.8rem;border-radius:30px;border:none;background:linear-gradient(135deg,#1a4a2a,#0d3a1a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #0a2a1a;font-size:0.75rem;">➡️ Следующий</button>
-                                <button onclick="magicRandom()" style="padding:0.25rem 0.8rem;border-radius:30px;border:none;background:linear-gradient(135deg,#3a1a4a,#2a0d3a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #1a0a2a;font-size:0.75rem;">🎲 Случайный</button>
+                            <div style="display:flex;gap:0.4rem;justify-content:center;margin-top:0.3rem;flex-wrap:wrap;">
+                                <button onclick="magicNextChar()" style="padding:0.2rem 0.7rem;border-radius:30px;border:none;background:linear-gradient(135deg,#1a4a2a,#0d3a1a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #0a2a1a;font-size:0.7rem;">➡️ Следующий</button>
+                                <button onclick="magicRandom()" style="padding:0.2rem 0.7rem;border-radius:30px;border:none;background:linear-gradient(135deg,#3a1a4a,#2a0d3a);color:white;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #1a0a2a;font-size:0.7rem;">🎲 Случайный</button>
                             </div>
                         </div>
                     `;
@@ -1517,9 +1560,9 @@
                 speakChinese(magicCurrentChar);
             } else {
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.1rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
-                            <div style="font-size:0.9rem;color:#8a7a6a;margin-top:0.2rem;">
+                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:12px;padding:0.5rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
+                            <div style="font-size:0.8rem;color:#8a7a6a;margin-top:0.15rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
                             </div>
                         </div>
@@ -1532,7 +1575,29 @@
             createTwinkle();
             initMagicSound();
 
-            // Проверяем загрузку данных
+            if (typeof ETYMOLOGY === 'undefined') {
+                console.warn('⚠️ ETYMOLOGY не определена!');
+                const script = document.createElement('script');
+                script.src = 'etymology-data.js';
+                script.onload = function() {
+                    console.log('✅ ETYMOLOGY загружена повторно!');
+                    if (typeof ETYMOLOGY !== 'undefined') {
+                        console.log('📖 ETYMOLOGY содержит', Object.keys(ETYMOLOGY).length, 'ключей');
+                    }
+                    initMagicContinue();
+                };
+                script.onerror = function() {
+                    console.error('❌ Не удалось загрузить etymology-data.js');
+                    initMagicContinue();
+                };
+                document.head.appendChild(script);
+            } else {
+                console.log('✅ ETYMOLOGY уже загружена, ключей:', Object.keys(ETYMOLOGY).length);
+                initMagicContinue();
+            }
+        }
+
+        function initMagicContinue() {
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 buildAllWordsList();
                 if (allWordsList.length) {
