@@ -286,7 +286,7 @@
             
             <!-- Канвас -->
             <div class="canvas-wrapper">
-                <canvas id="magicCanvas" width="500" height="500"></canvas>
+                <div id="magicCanvas" style="width:100%; max-width:500px; aspect-ratio:1/1; border-radius:20px; position:relative;"></div>
                 <div class="magic-stars" id="magicStars"></div>
                 <div class="magic-floating" id="magicFloatingEmojis"></div>
             </div>
@@ -310,8 +310,10 @@
         </footer>
     </div>
     
+    <!-- Hanzi Writer -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js"></script>
+    
     <script src="keys-data.js"></script>
-    <script src="key-strokes.js"></script>
     <script>
     // ============================================================
     // ===== ОЗВУЧКА =====
@@ -368,23 +370,23 @@
     // ===== ВОЛШЕБНАЯ ТЕТРАДЬ =====
     // ============================================================
     
-    let magicCanvas, magicCtx;
-    let magicIsDrawing = false;
-    let magicLastX = 0, magicLastY = 0;
     let magicCurrentChar = '上';
     let magicCharData = null;
     let magicScore = 0;
     let magicLevel = 1;
-    let magicAnimating = false;
-    let magicAnimationId = null;
-    let magicPoints = [];
-    let magicDrawPath = [];
-    let magicParticles = [];
     let magicCurrentIndex = 0;
-    let magicSoundCtx = null;
     let allWordsList = [];
     let magicFloatingElements = [];
+    let magicIsDrawing = false;
+    let magicLastX = 0, magicLastY = 0;
+    let magicParticles = [];
+    let magicDrawPath = [];
+    let magicCanvas, magicCtx;
+    let magicAnimating = false;
+    let magicAnimationId = null;
+    let magicSoundCtx = null;
     let isMagicInitialized = false;
+    let currentWriter = null;
     
     // ---- ЗВУК ----
     function initMagicSound() {
@@ -469,132 +471,191 @@
                 hsk: '1'
             });
         }
-        // НЕ перемешиваем! Пусть идут по порядку ключей
-        // allWordsList = shuffleArray(allWordsList);
         if (magicCurrentIndex >= allWordsList.length) {
             magicCurrentIndex = 0;
         }
     }
     
-    // ---- ГЕНЕРАЦИЯ ТОЧЕК ----
-    function generateCharPoints(char, size) {
-        // Проверяем, есть ли линии в KEY_STROKES
-        if (typeof KEY_STROKES !== 'undefined' && KEY_STROKES[char]) {
-            return generatePointsFromStrokes(char, size);
-        }
-        // Если нет — рисуем через canvas
-        return generatePointsFromImage(char, size);
+    // ---- ПОЛУЧЕНИЕ ОДИНОЧНОГО ИЕРОГЛИФА ----
+    function getSingleChar(key) {
+        // Если ключ — это слово из нескольких иероглифов, берём первый
+        return key.charAt(0);
     }
     
-    function generatePointsFromStrokes(char, size) {
-        const strokeData = KEY_STROKES[char];
-        const points = [];
-        const numPointsPerStroke = 50;
+    // ---- ЗАГРУЗКА КЛЮЧА ----
+    function loadMagicChar(data) {
+        if (!data) return;
+        magicCharData = data;
         
-        for (const stroke of strokeData.strokes) {
-            for (let i = 0; i < numPointsPerStroke; i++) {
-                const t = i / numPointsPerStroke;
-                const totalSegments = stroke.length - 1;
-                const segIdx = Math.min(Math.floor(t * totalSegments), totalSegments - 1);
-                const segT = (t * totalSegments) - segIdx;
-                const p1 = stroke[segIdx];
-                const p2 = stroke[segIdx + 1];
-                const x = (p1.x + (p2.x - p1.x) * segT) * size;
-                const y = (p1.y + (p2.y - p1.y) * segT) * size;
-                points.push({ x, y });
-            }
-        }
-        return points;
+        // Берём первый иероглиф для отображения
+        const displayChar = getSingleChar(data.chinese);
+        magicCurrentChar = displayChar;
+        
+        document.getElementById('magicCharDisplay').textContent = displayChar;
+        document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
+        document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
+        document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
+        document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
+        
+        magicClear();
+        document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
+        document.getElementById('magicStatus').style.color = '#FFB347';
+        document.getElementById('magicResult').style.display = 'none';
     }
     
-    function generatePointsFromImage(char, size) {
+    // ---- НАВИГАЦИЯ ----
+    function magicNextChar() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicPrevChar() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicRandom() {
+        if (allWordsList.length === 0) {
+            buildAllWordsList();
+            if (allWordsList.length === 0) return;
+        }
+        magicCurrentIndex = Math.floor(Math.random() * allWordsList.length);
+        loadMagicChar(allWordsList[magicCurrentIndex]);
+    }
+    
+    function magicClear() {
+        // Очищаем Hanzi Writer
+        const container = document.getElementById('magicCanvas');
+        if (container) {
+            container.innerHTML = '';
+            // Восстанавливаем канвас для рисования
+            initDrawingCanvas();
+        }
+        
+        if (magicAnimationId) {
+            cancelAnimationFrame(magicAnimationId);
+            magicAnimationId = null;
+        }
+        magicAnimating = false;
+        magicDrawPath = [];
+        magicParticles = [];
+        
+        clearFloatingElements();
+        document.getElementById('magicResult').style.display = 'none';
+        
+        // Очищаем контекст рисования
+        if (magicCtx) {
+            magicCtx.clearRect(0, 0, magicCanvas.width, magicCanvas.height);
+            drawMagicGrid();
+        }
+    }
+    
+    function initDrawingCanvas() {
+        const container = document.getElementById('magicCanvas');
+        // Создаём canvas для рисования поверх Hanzi Writer
         const canvas = document.createElement('canvas');
+        canvas.id = 'drawCanvas';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        container.appendChild(canvas);
+        
+        magicCanvas = canvas;
+        magicCtx = canvas.getContext('2d');
+        
+        const rect = container.getBoundingClientRect();
+        const size = Math.min(rect.width, 500);
         canvas.width = size;
         canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        
-        // Рисуем белым по чёрному для сканирования
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, size, size);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = `bold ${size * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
-        ctx.fillText(char, size/2, size/2 + size * 0.05);
-        
-        const imageData = ctx.getImageData(0, 0, size, size);
-        const data = imageData.data;
-        const step = Math.max(1, Math.floor(size / 35));
-        const points = [];
-        
-        for (let y = 0; y < size; y += step) {
-            for (let x = 0; x < size; x += step) {
-                const i = (y * size + x) * 4;
-                const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
-                if (brightness > 50) {
-                    points.push({ x, y });
-                }
-            }
-        }
-        return points;
     }
     
-    // ---- РИСОВАНИЕ ----
-    function drawMagicPath(ctx) {
-        if (magicDrawPath.length < 2) return;
+    function drawMagicGrid() {
+        if (!magicCtx) return;
+        const ctx = magicCtx;
+        const canvas = magicCanvas;
+        const size = canvas.width;
         
         ctx.save();
-        
-        // Тонкая золотая каллиграфическая линия
-        for (let i = 0; i < magicDrawPath.length - 1; i++) {
-            const p1 = magicDrawPath[i];
-            const p2 = magicDrawPath[i + 1];
-            const progress = i / magicDrawPath.length;
-            const width = 1.5 + progress * 0.5;
-            
+        ctx.strokeStyle = 'rgba(255,215,0,0.04)';
+        ctx.lineWidth = 0.5;
+        for (let i = 1; i < 4; i++) {
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(255, 215, 0, ${0.7 + progress * 0.3})`;
-            ctx.lineWidth = width;
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.1)';
-            ctx.shadowBlur = 3;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+            ctx.moveTo(i * size / 4, 0);
+            ctx.lineTo(i * size / 4, size);
             ctx.stroke();
         }
-        
+        for (let i = 1; i < 4; i++) {
+            ctx.beginPath();
+            ctx.moveTo(0, i * size / 4);
+            ctx.lineTo(size, i * size / 4);
+            ctx.stroke();
+        }
         ctx.restore();
     }
     
-    function drawUserPath(ctx, x1, y1, x2, y2) {
-        ctx.save();
+    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
+    function createFloatingEmoji(emoji) {
+        const container = document.getElementById('magicFloatingEmojis');
+        if (!container) return;
         
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = '#9C27B0';
-        ctx.lineWidth = 3;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.4)';
-        ctx.shadowBlur = 10;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
+        let x, y;
+        const side = Math.floor(Math.random() * 4);
+        const margin = 5 + Math.random() * 15;
+        const pos = margin + Math.random() * (80 - margin * 2);
         
-        // Второй слой для яркости
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = 'rgba(206, 147, 216, 0.3)';
-        ctx.lineWidth = 8;
-        ctx.shadowColor = 'rgba(156, 39, 176, 0.1)';
-        ctx.shadowBlur = 20;
-        ctx.stroke();
+        switch(side) {
+            case 0: x = margin; y = pos; break;
+            case 1: x = 80 - margin; y = pos; break;
+            case 2: x = pos; y = margin; break;
+            case 3: x = pos; y = 80 - margin; break;
+        }
         
-        ctx.restore();
+        const size = 1.5 + Math.random() * 1.5;
+        const duration = 2.5 + Math.random() * 2;
+        const delay = Math.random() * 0.5;
+        
+        const el = document.createElement('div');
+        el.style.cssText = `
+            position: absolute;
+            left: ${x}%;
+            top: ${y}%;
+            font-size: ${size}rem;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.3) rotate(${Math.random() * 360}deg);
+            animation: floatEmoji ${duration}s ease-in-out ${delay}s forwards;
+            z-index: 5;
+            text-shadow: 0 0 30px rgba(255,215,0,0.2);
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.1));
+        `;
+        el.textContent = emoji;
+        container.appendChild(el);
+        magicFloatingElements.push(el);
+        
+        setTimeout(() => {
+            if (el.parentNode) el.remove();
+            magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
+        }, (duration + delay) * 1000 + 500);
     }
     
-    // ---- ЧАСТИЦЫ ----
+    function clearFloatingElements() {
+        const container = document.getElementById('magicFloatingEmojis');
+        if (container) container.innerHTML = '';
+        magicFloatingElements = [];
+    }
+    
+    // ---- ЧАСТИЦЫ ДЛЯ ОБВЕДЕНИЯ ----
     function createMagicParticle(x, y) {
         const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
         magicParticles.push({
@@ -630,225 +691,132 @@
         }
     }
     
-    // ---- ПЛАВАЮЩИЕ ЭМОДЗИ ----
-    function createFloatingEmoji(emoji) {
-        const container = document.getElementById('magicFloatingEmojis');
-        if (!container) return;
-        
-        let x, y;
-        const side = Math.floor(Math.random() * 4);
-        const margin = 8 + Math.random() * 12;
-        const pos = margin + Math.random() * (80 - margin * 2);
-        
-        switch(side) {
-            case 0: x = margin; y = pos; break;
-            case 1: x = 80 - margin; y = pos; break;
-            case 2: x = pos; y = margin; break;
-            case 3: x = pos; y = 80 - margin; break;
-        }
-        
-        const size = 1.2 + Math.random() * 1;
-        const duration = 3 + Math.random() * 2;
-        const delay = Math.random() * 0.5;
-        
-        const el = document.createElement('div');
-        el.style.cssText = `
-            position: absolute;
-            left: ${x}%;
-            top: ${y}%;
-            font-size: ${size}rem;
-            pointer-events: none;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.3) rotate(${Math.random() * 360}deg);
-            animation: floatEmoji ${duration}s ease-in-out ${delay}s forwards;
-            z-index: 5;
-            text-shadow: 0 0 30px rgba(255,215,0,0.2);
-            filter: drop-shadow(0 0 10px rgba(255,215,0,0.1));
-        `;
-        el.textContent = emoji;
-        container.appendChild(el);
-        magicFloatingElements.push(el);
-        
-        setTimeout(() => {
-            if (el.parentNode) el.remove();
-            magicFloatingElements = magicFloatingElements.filter(e => e.parentNode);
-        }, (duration + delay) * 1000 + 500);
-    }
-    
-    function clearFloatingElements() {
-        const container = document.getElementById('magicFloatingEmojis');
-        if (container) container.innerHTML = '';
-        magicFloatingElements = [];
-    }
-    
-    // ---- ЗАГРУЗКА КЛЮЧА ----
-    function loadMagicChar(data) {
-        if (!data) return;
-        magicCharData = data;
-        magicCurrentChar = data.chinese;
-        
-        document.getElementById('magicCharDisplay').textContent = data.chinese;
-        document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
-        document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
-        document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
-        document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
-        
-        magicClear();
-        document.getElementById('magicStatus').textContent = '🪄 Нажми "Показать"';
-        document.getElementById('magicStatus').style.color = '#FFB347';
-        document.getElementById('magicResult').style.display = 'none';
-    }
-    
-    // ---- НАВИГАЦИЯ (ИСПРАВЛЕНА) ----
-    function magicNextChar() {
-        if (allWordsList.length === 0) {
-            buildAllWordsList();
-            if (allWordsList.length === 0) return;
-        }
-        magicCurrentIndex = (magicCurrentIndex + 1) % allWordsList.length;
-        console.log('Переключение на индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
-        loadMagicChar(allWordsList[magicCurrentIndex]);
-    }
-    
-    function magicPrevChar() {
-        if (allWordsList.length === 0) {
-            buildAllWordsList();
-            if (allWordsList.length === 0) return;
-        }
-        magicCurrentIndex = (magicCurrentIndex - 1 + allWordsList.length) % allWordsList.length;
-        console.log('Переключение на индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
-        loadMagicChar(allWordsList[magicCurrentIndex]);
-    }
-    
-    function magicRandom() {
-        if (allWordsList.length === 0) {
-            buildAllWordsList();
-            if (allWordsList.length === 0) return;
-        }
-        magicCurrentIndex = Math.floor(Math.random() * allWordsList.length);
-        console.log('Случайный индекс:', magicCurrentIndex, 'Ключ:', allWordsList[magicCurrentIndex].chinese);
-        loadMagicChar(allWordsList[magicCurrentIndex]);
-    }
-    
-    function magicClear() {
-        if (magicAnimationId) {
-            cancelAnimationFrame(magicAnimationId);
-            magicAnimationId = null;
-        }
-        magicAnimating = false;
-        magicPoints = [];
-        magicDrawPath = [];
-        magicParticles = [];
-        
-        const ctx = magicCtx;
-        const canvas = magicCanvas;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawMagicGrid();
-        
-        clearFloatingElements();
-        document.getElementById('magicResult').style.display = 'none';
-    }
-    
-    function drawMagicGrid() {
-        const ctx = magicCtx;
-        const canvas = magicCanvas;
-        const size = canvas.width;
-        
+    // ---- РИСОВАНИЕ ОБВЕДЕНИЯ (ФИОЛЕТОВЫЙ ФЛОМАСТЕР) ----
+    function drawUserPath(ctx, x1, y1, x2, y2) {
         ctx.save();
-        ctx.strokeStyle = 'rgba(255,215,0,0.04)';
-        ctx.lineWidth = 0.5;
-        for (let i = 1; i < 4; i++) {
-            ctx.beginPath();
-            ctx.moveTo(i * size / 4, 0);
-            ctx.lineTo(i * size / 4, size);
-            ctx.stroke();
-        }
-        for (let i = 1; i < 4; i++) {
-            ctx.beginPath();
-            ctx.moveTo(0, i * size / 4);
-            ctx.lineTo(size, i * size / 4);
-            ctx.stroke();
-        }
+        
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = '#9C27B0';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.4)';
+        ctx.shadowBlur = 10;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        
+        // Второй слой для яркости
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = 'rgba(206, 147, 216, 0.3)';
+        ctx.lineWidth = 8;
+        ctx.shadowColor = 'rgba(156, 39, 176, 0.1)';
+        ctx.shadowBlur = 20;
+        ctx.stroke();
+        
         ctx.restore();
     }
     
-    // ---- ВОЛШЕБНАЯ АНИМАЦИЯ ----
+    // ============================================================
+    // ===== ГЛАВНАЯ ФУНКЦИЯ: АНИМАЦИЯ ЧЕРЕЗ HANZI WRITER =====
+    // ============================================================
+    
     function magicAnimateDraw() {
-        if (magicAnimating) {
-            if (magicAnimationId) {
-                cancelAnimationFrame(magicAnimationId);
-                magicAnimationId = null;
-            }
-            magicAnimating = false;
-        }
+        // Очищаем всё
         magicClear();
         
         const char = magicCurrentChar;
-        const ctx = magicCtx;
-        const canvas = magicCanvas;
-        const size = canvas.width;
+        const container = document.getElementById('magicCanvas');
         
-        const points = generateCharPoints(char, size);
-        if (points.length === 0) {
-            document.getElementById('magicStatus').textContent = '❌ Ошибка генерации';
+        // Проверяем, что Hanzi Writer загружен
+        if (typeof HanziWriter === 'undefined') {
+            document.getElementById('magicStatus').textContent = '❌ Hanzi Writer не загружен!';
             document.getElementById('magicStatus').style.color = '#FF6B6B';
             return;
         }
         
-        magicPoints = points;
-        magicDrawPath = [];
-        magicParticles = [];
-        magicAnimating = true;
-        document.getElementById('magicStatus').textContent = '✨ Волшебство...';
-        document.getElementById('magicStatus').style.color = '#FFD700';
+        // Очищаем контейнер
+        container.innerHTML = '';
         
-        const emoji = magicCharData?.emoji || '✨';
-        let emojiInterval = setInterval(() => {
-            if (!magicAnimating) { clearInterval(emojiInterval); return; }
-            createFloatingEmoji(emoji);
-        }, 800);
-        
-        let index = 0;
-        const totalPoints = points.length;
-        
-        function animateStep() {
-            if (!magicAnimating || index >= totalPoints) {
-                magicAnimating = false;
-                clearInterval(emojiInterval);
-                document.getElementById('magicStatus').textContent = '✨ Готово! Обведи ключ!';
-                document.getElementById('magicStatus').style.color = '#4CAF50';
-                playMagicCompleteSound();
-                return;
-            }
+        // Создаём Hanzi Writer
+        try {
+            currentWriter = HanziWriter.create(container.id, char, {
+                width: 500,
+                height: 500,
+                showOutline: false,
+                strokeColor: '#FFD700',
+                strokeAnimationSpeed: 1.2,
+                delayBetweenStrokes: 300,
+                showCharacter: false,
+                showHintAfterMisses: 0,
+                radicalColor: '#FFD700',
+                radicalStrokeColor: '#FFD700'
+            });
             
-            const count = Math.min(4, totalPoints - index);
-            for (let i = 0; i < count && index < totalPoints; i++) {
-                magicDrawPath.push(points[index]);
-                if (index % 4 === 0) {
-                    createMagicParticle(points[index].x, points[index].y);
-                    if (index % 10 === 0) playMagicSound();
+            document.getElementById('magicStatus').textContent = '✨ Волшебство...';
+            document.getElementById('magicStatus').style.color = '#FFD700';
+            
+            // Запускаем анимацию
+            currentWriter.animateCharacter({
+                onComplete: function() {
+                    document.getElementById('magicStatus').textContent = '✨ Готово! Обведи ключ!';
+                    document.getElementById('magicStatus').style.color = '#4CAF50';
+                    playMagicCompleteSound();
+                    
+                    // Создаём canvas для рисования поверх
+                    initDrawingCanvas();
+                    
+                    // Запускаем падающие эмодзи
+                    const emoji = magicCharData?.emoji || '✨';
+                    let emojiInterval = setInterval(() => {
+                        createFloatingEmoji(emoji);
+                    }, 800);
+                    
+                    // Сохраняем интервал для очистки
+                    window._emojiInterval = emojiInterval;
                 }
-                index++;
-            }
+            });
             
-            drawMagicPath(ctx);
-            drawMagicParticles(ctx);
+            // Настраиваем события для обведения
+            setupDrawingEvents();
             
-            magicAnimationId = requestAnimationFrame(animateStep);
+        } catch(e) {
+            console.error('Ошибка Hanzi Writer:', e);
+            document.getElementById('magicStatus').textContent = '❌ Ошибка анимации';
+            document.getElementById('magicStatus').style.color = '#FF6B6B';
         }
+    }
+    
+    // ---- НАСТРОЙКА СОБЫТИЙ ДЛЯ РИСОВАНИЯ ----
+    function setupDrawingEvents() {
+        const container = document.getElementById('magicCanvas');
         
-        animateStep();
+        // Убираем старые обработчики
+        container.removeEventListener('mousedown', startDraw);
+        container.removeEventListener('mousemove', draw);
+        container.removeEventListener('mouseup', endDraw);
+        container.removeEventListener('mouseleave', endDraw);
+        
+        container.removeEventListener('touchstart', touchStart);
+        container.removeEventListener('touchmove', touchMove);
+        container.removeEventListener('touchend', touchEnd);
+        
+        // Добавляем новые
+        container.addEventListener('mousedown', startDraw);
+        container.addEventListener('mousemove', draw);
+        container.addEventListener('mouseup', endDraw);
+        container.addEventListener('mouseleave', endDraw);
+        
+        container.addEventListener('touchstart', touchStart, { passive: false });
+        container.addEventListener('touchmove', touchMove, { passive: false });
+        container.addEventListener('touchend', touchEnd, { passive: false });
     }
     
     // ---- РИСОВАНИЕ ПАЛОЧКОЙ ----
-    function magicStartDraw(e) {
-        if (magicAnimating) {
-            if (magicAnimationId) {
-                cancelAnimationFrame(magicAnimationId);
-                magicAnimationId = null;
-            }
-            magicAnimating = false;
-        }
+    function startDraw(e) {
+        if (!magicCtx) return;
         magicIsDrawing = true;
         const rect = magicCanvas.getBoundingClientRect();
         const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
@@ -859,8 +827,8 @@
         playMagicSound();
     }
     
-    function magicDraw(e) {
-        if (!magicIsDrawing) return;
+    function draw(e) {
+        if (!magicIsDrawing || !magicCtx) return;
         e.preventDefault();
         const rect = magicCanvas.getBoundingClientRect();
         const x = (e.clientX - rect.left) * (magicCanvas.width / rect.width);
@@ -874,7 +842,7 @@
         magicLastY = y;
     }
     
-    function magicEndDraw(e) {
+    function endDraw(e) {
         if (magicIsDrawing) {
             magicIsDrawing = false;
             document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
@@ -884,19 +852,13 @@
     }
     
     // ---- TOUCH ----
-    function magicTouchStart(e) {
+    function touchStart(e) {
         e.preventDefault();
+        if (!magicCtx) return;
         const touch = e.touches[0];
         const rect = magicCanvas.getBoundingClientRect();
         const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
         const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-        if (magicAnimating) {
-            if (magicAnimationId) {
-                cancelAnimationFrame(magicAnimationId);
-                magicAnimationId = null;
-            }
-            magicAnimating = false;
-        }
         magicIsDrawing = true;
         magicLastX = x;
         magicLastY = y;
@@ -904,9 +866,9 @@
         playMagicSound();
     }
     
-    function magicTouchMove(e) {
+    function touchMove(e) {
         e.preventDefault();
-        if (!magicIsDrawing) return;
+        if (!magicIsDrawing || !magicCtx) return;
         const touch = e.touches[0];
         const rect = magicCanvas.getBoundingClientRect();
         const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
@@ -920,12 +882,14 @@
         magicLastY = y;
     }
     
-    function magicTouchEnd(e) {
+    function touchEnd(e) {
         e.preventDefault();
-        magicIsDrawing = false;
-        document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
-        document.getElementById('magicStatus').style.color = '#FFB347';
-        playMagicCompleteSound();
+        if (magicIsDrawing) {
+            magicIsDrawing = false;
+            document.getElementById('magicStatus').textContent = '✨ Нажми "Проверить"!';
+            document.getElementById('magicStatus').style.color = '#FFB347';
+            playMagicCompleteSound();
+        }
     }
     
     // ---- ПРОВЕРКА ----
@@ -933,6 +897,7 @@
         const resultDiv = document.getElementById('magicResult');
         resultDiv.style.display = 'block';
         
+        // Проверяем, рисовал ли пользователь
         const hasDrawing = magicDrawPath.length > 0 || magicIsDrawing;
         
         if (hasDrawing) {
@@ -974,32 +939,8 @@
     
     // ---- ИНИЦИАЛИЗАЦИЯ ----
     function initMagic() {
-        magicCanvas = document.getElementById('magicCanvas');
-        magicCtx = magicCanvas.getContext('2d');
-        
-        const rect = magicCanvas.getBoundingClientRect();
-        const size = Math.min(rect.width, 500);
-        magicCanvas.width = size;
-        magicCanvas.height = size;
-        
-        magicCanvas.removeEventListener('mousedown', magicStartDraw);
-        magicCanvas.removeEventListener('mousemove', magicDraw);
-        magicCanvas.removeEventListener('mouseup', magicEndDraw);
-        magicCanvas.removeEventListener('mouseleave', magicEndDraw);
-        magicCanvas.addEventListener('mousedown', magicStartDraw);
-        magicCanvas.addEventListener('mousemove', magicDraw);
-        magicCanvas.addEventListener('mouseup', magicEndDraw);
-        magicCanvas.addEventListener('mouseleave', magicEndDraw);
-        
-        magicCanvas.removeEventListener('touchstart', magicTouchStart);
-        magicCanvas.removeEventListener('touchmove', magicTouchMove);
-        magicCanvas.removeEventListener('touchend', magicTouchEnd);
-        magicCanvas.addEventListener('touchstart', magicTouchStart, { passive: false });
-        magicCanvas.addEventListener('touchmove', magicTouchMove, { passive: false });
-        magicCanvas.addEventListener('touchend', magicTouchEnd, { passive: false });
-        
-        initMagicSound();
         createMagicStars();
+        initMagicSound();
         
         if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length > 0) {
             buildAllWordsList();
