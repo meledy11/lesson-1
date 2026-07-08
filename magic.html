@@ -339,6 +339,7 @@
             }
         }
 
+        /* ===== УБИРАЕМ ПАДАЮЩИЕ ЭМОДЗИ (оставляем только если есть в базе) ===== */
         .magic-floating {
             position: absolute;
             top: 0;
@@ -431,7 +432,7 @@
             border-radius: 14px;
             border: 1px solid rgba(255, 215, 0, 0.04);
             flex-shrink: 0;
-            max-height: 260px;
+            max-height: 300px;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: #3d2b1e transparent;
@@ -448,7 +449,7 @@
         }
 
         .magic-details-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #8a7a6a;
             margin-bottom: 0.3rem;
             display: flex;
@@ -463,7 +464,7 @@
         /* ===== РАЗБОР ПО СОСТАВУ ===== */
         .etymology-parts {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             align-items: center;
             padding: 0.3rem 0.5rem;
@@ -505,7 +506,7 @@
             background: rgba(76, 175, 80, 0.05);
             border-radius: 8px;
             border-left: 3px solid #4CAF50;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #b8956a;
             line-height: 1.5;
             margin-bottom: 0.3rem;
@@ -515,7 +516,7 @@
         }
         .no-etymology {
             color: #5a4a3a;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-style: italic;
             padding: 0.3rem 0;
         }
@@ -523,19 +524,19 @@
         /* ===== ПРИМЕРЫ — КРУПНЕЕ ===== */
         .examples-grid {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
         .example-item {
             background: rgba(255, 215, 0, 0.04);
             border: 1px solid rgba(255, 215, 0, 0.06);
-            border-radius: 8px;
-            padding: 0.3rem 0.7rem;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            padding: 0.4rem 0.8rem;
+            font-size: 1.1rem;
             color: #b8956a;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
             cursor: pointer;
             transition: 0.15s;
             user-select: none;
@@ -550,29 +551,29 @@
         }
         .example-item .ex-char {
             color: #FFD700;
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.5rem;
         }
         .example-item .ex-pinyin {
             color: #4FC3F7;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
         .example-item .ex-trans {
             color: #81C784;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
         .example-item .ex-emoji {
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         .example-item .ex-sound {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #5a4a3a;
-            margin-left: 0.1rem;
+            margin-left: 0.2rem;
         }
         .no-examples {
             color: #5a4a3a;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-style: italic;
         }
 
@@ -686,23 +687,23 @@
                 font-size: 1.4rem;
             }
             .etymology-explanation {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             .example-item {
-                font-size: 0.8rem;
-                padding: 0.2rem 0.5rem;
+                font-size: 0.95rem;
+                padding: 0.3rem 0.6rem;
             }
             .example-item .ex-char {
-                font-size: 1rem;
+                font-size: 1.3rem;
             }
             .example-item .ex-pinyin {
-                font-size: 0.65rem;
+                font-size: 0.75rem;
             }
             .example-item .ex-trans {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
             }
             .magic-details-title {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
             }
         }
 
@@ -718,7 +719,7 @@
                 font-size: 2rem;
             }
             .magic-details {
-                max-height: 280px;
+                max-height: 320px;
             }
         }
     </style>
@@ -809,6 +810,8 @@
         // ============================================================
 
         console.log('🔍 Загрузка...');
+        console.log('📚 KEY_NAMES загружен?', typeof KEY_NAMES !== 'undefined');
+        console.log('📖 ETYMOLOGY загружен?', typeof ETYMOLOGY !== 'undefined');
 
         let speechSynth = window.speechSynthesis;
         let currentUtterance = null;
@@ -871,47 +874,7 @@
 
         function getSingleChar(key) { return key.charAt(0); }
 
-        function getExtraEmojis(meaning) {
-            const map = {
-                'вода': ['💧', '🌊', '💦'],
-                'огонь': ['🔥', '🌋', '💥'],
-                'дерево': ['🌳', '🌲', '🌿'],
-                'земля': ['🌍', '🌎', '🏔️'],
-                'небо': ['☁️', '🌈', '☀️'],
-                'солнце': ['☀️', '🌞', '🌅'],
-                'луна': ['🌙', '🌛', '🌜'],
-                'звезда': ['⭐', '🌟', '✨'],
-                'человек': ['👤', '🧑', '👨'],
-                'сердце': ['❤️', '💖', '💗'],
-                'дом': ['🏠', '🏡', '🏘️'],
-                'книга': ['📚', '📖', '📕'],
-                'музыка': ['🎵', '🎶', '🎼'],
-                'еда': ['🍕', '🍔', '🌮'],
-                'цветок': ['🌺', '🌷', '🌹'],
-                'время': ['⏰', '⌚', '🕐'],
-                'день': ['🌞', '☀️', '🌅'],
-                'ночь': ['🌙', '🌃', '🌌'],
-                'верх': ['⬆️', '☝️', '🔝'],
-                'низ': ['⬇️', '👇', '🔽'],
-                'любовь': ['❤️', '💕'],
-                'дружба': ['🤝', '👬'],
-                'работа': ['💼', '📋'],
-                'учёба': ['📚', '🎓'],
-                'гора': ['⛰️', '🗻'],
-                'море': ['🌊', '🏖️']
-            };
-            const extra = [];
-            const lower = meaning.toLowerCase();
-            for (const [key, emojis] of Object.entries(map)) {
-                if (lower.includes(key)) {
-                    for (const e of emojis) {
-                        if (!extra.includes(e)) extra.push(e);
-                    }
-                }
-            }
-            return extra.slice(0, 4);
-        }
-
+        // ===== ЗАГРУЗКА ИЕРОГЛИФА =====
         function loadMagicChar(data) {
             if (!data) return;
             magicCharData = data;
@@ -984,10 +947,10 @@
                 html += `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен</div>`;
             }
 
-            // === ПРИМЕРЫ — С ОЗВУЧКОЙ ===
+            // === ПРИМЕРЫ — КРУПНО И С ОЗВУЧКОЙ ===
             if (words && words.length > 0) {
                 html +=
-                    `<div class="magic-details-title" style="font-size:0.8rem;margin-top:0.3rem;">📝 Примеры (${words.length}) <span style="font-size:0.55rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
+                    `<div class="magic-details-title" style="font-size:0.85rem;margin-top:0.3rem;">📝 Примеры (${words.length}) <span style="font-size:0.6rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
                 html += `<div class="examples-grid">`;
                 const showWords = words.slice(0, 10);
                 for (const w of showWords) {
@@ -995,7 +958,6 @@
                     const pinyin = w.pinyin || '';
                     const trans = w.translation || w.trans || '';
                     const emoji = w.emoji || '';
-                    // Собираем текст для озвучки (берём первый иероглиф)
                     const soundText = char.charAt(0) || magicCurrentChar;
                     html += `
                             <div class="example-item" onclick="speakExample('${soundText}')" title="Нажми для озвучивания">
@@ -1023,7 +985,6 @@
         function speakExample(text) {
             if (text) {
                 speakChinese(text);
-                // Визуальный эффект при нажатии
                 const items = document.querySelectorAll('.example-item');
                 items.forEach(el => {
                     if (el.textContent.includes(text) || el.querySelector('.ex-char')?.textContent === text) {
@@ -1119,7 +1080,7 @@
             }
         }
 
-        // ===== ПАДАЮЩИЕ ЭМОДЗИ =====
+        // ===== ПАДАЮЩИЕ ЭМОДЗИ — ТОЛЬКО ИЗ БАЗЫ =====
         function startFallingEmojis(data) {
             if (assocInterval) { clearInterval(assocInterval);
                 assocInterval = null; }
@@ -1128,33 +1089,34 @@
             container.innerHTML = '';
 
             const emojis = [];
+            // Только из data.emoji и из слов (w.emoji) — без getExtraEmojis!
             if (data && data.emoji) emojis.push(data.emoji);
             if (data && data.words) {
-                const wordEmojis = data.words.filter(w => w.emoji).map(w => w.emoji).slice(0, 3);
+                const wordEmojis = data.words
+                    .filter(w => w.emoji)
+                    .map(w => w.emoji)
+                    .slice(0, 3);
                 for (const e of wordEmojis) {
                     if (!emojis.includes(e)) emojis.push(e);
                 }
             }
-            if (data && data.translation) {
-                const extra = getExtraEmojis(data.translation);
-                for (const e of extra) {
-                    if (!emojis.includes(e)) emojis.push(e);
-                }
-            }
-            if (emojis.length < 3) {
-                const fallback = ['✨', '⭐', '💫'];
+            // Если всё равно пусто — добавляем базовые
+            if (emojis.length < 2) {
+                const fallback = ['✨', '⭐'];
                 for (const e of fallback) {
-                    if (!emojis.includes(e) && emojis.length < 5) emojis.push(e);
+                    if (!emojis.includes(e) && emojis.length < 3) emojis.push(e);
                 }
             }
 
-            const uniqueEmojis = [...new Set(emojis)].slice(0, 6);
+            const uniqueEmojis = [...new Set(emojis)].slice(0, 4);
+            if (uniqueEmojis.length === 0) return;
+
             let index = 0;
             assocInterval = setInterval(() => {
                 const emoji = uniqueEmojis[index % uniqueEmojis.length];
                 createFallingEmoji(emoji, container);
                 index++;
-            }, 1400);
+            }, 1600);
 
             setTimeout(() => {
                 for (let i = 0; i < Math.min(2, uniqueEmojis.length); i++) {
@@ -1570,6 +1532,7 @@
             createTwinkle();
             initMagicSound();
 
+            // Проверяем загрузку данных
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 buildAllWordsList();
                 if (allWordsList.length) {
@@ -1577,6 +1540,7 @@
                     loadMagicChar(allWordsList[0]);
                 }
             } else {
+                console.warn('KEY_NAMES не загружен, ждём...');
                 setTimeout(() => {
                     if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                         buildAllWordsList();
@@ -1584,8 +1548,12 @@
                             magicCurrentIndex = 0;
                             loadMagicChar(allWordsList[0]);
                         }
+                    } else {
+                        console.error('❌ KEY_NAMES так и не загружен!');
+                        document.getElementById('magicDetailsContent').innerHTML =
+                            '<div class="no-etymology">❌ Ошибка загрузки базы данных</div>';
                     }
-                }, 1000);
+                }, 1500);
             }
 
             document.getElementById('magicScore').textContent = magicScore;
