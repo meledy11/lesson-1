@@ -916,13 +916,12 @@
         let magicCurrentChar = '上';
         let assocInterval = null;
 
-        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ КЛЮЧЕЙ (ИСПРАВЛЕНО) =====
+        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ КЛЮЧЕЙ =====
         function buildAllWordsList() {
             allWordsList = [];
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 for (const key of KEY_NAMES) {
                     const data = WORDS_BY_KEY[key] || { meaning: 'ключ', emoji: '🔑' };
-                    // ✅ Берем пиньинь из data.pinyin (отдельный пиньинь для ключа)
                     let pinyin = data.pinyin || key;
                     allWordsList.push({
                         key: key,
@@ -948,7 +947,6 @@
             magicCurrentChar = displayChar;
 
             document.getElementById('magicCharDisplay').textContent = displayChar;
-            // ✅ Используем data.pinyin (отдельный пиньинь для ключа)
             document.getElementById('magicPinyinDisplay').textContent = data.pinyin || data.key;
             document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
@@ -1075,6 +1073,7 @@
             loadMagicChar(allWordsList[magicCurrentIndex]);
         }
 
+        // ===== УЛУЧШЕННАЯ ФУНКЦИЯ ПОИСКА =====
         function magicSearch() {
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
             if (!query) {
@@ -1082,18 +1081,51 @@
                 document.getElementById('magicStatus').style.color = '#FFB347';
                 return;
             }
+            
             if (!allWordsList.length) buildAllWordsList();
             if (!allWordsList.length) return;
 
-            const results = allWordsList.filter(item =>
-                item.pinyin.toLowerCase().includes(query) ||
-                item.translation.toLowerCase().includes(query) ||
-                item.chinese.includes(query) ||
-                (item.words && item.words.some(w =>
-                    w.chinese.includes(query) ||
-                    (w.translation && w.translation.toLowerCase().includes(query))
-                ))
-            );
+            const results = [];
+
+            // Поиск по ключам и их данным
+            for (const item of allWordsList) {
+                let score = 0;
+                const key = item.key;
+                const pinyin = item.pinyin || key;
+                const translation = item.translation || '';
+                const emoji = item.emoji || '';
+
+                // Поиск по ключу (иероглиф)
+                if (key.includes(query)) score += 10;
+                // Поиск по пиньинь ключа
+                if (pinyin.toLowerCase().includes(query)) score += 8;
+                // Поиск по переводу ключа
+                if (translation.toLowerCase().includes(query)) score += 6;
+                // Поиск по эмодзи
+                if (emoji.includes(query)) score += 5;
+
+                // Поиск по словам
+                if (item.words) {
+                    for (const word of item.words) {
+                        const wordChinese = word.chinese || word.char || '';
+                        const wordPinyin = word.pinyin || '';
+                        const wordTrans = word.translation || word.trans || '';
+                        const wordEmoji = word.emoji || '';
+
+                        if (wordChinese.includes(query)) score += 7;
+                        if (wordPinyin.toLowerCase().includes(query)) score += 7;
+                        if (wordTrans.toLowerCase().includes(query)) score += 5;
+                        if (wordEmoji.includes(query)) score += 3;
+                    }
+                }
+
+                if (score > 0) {
+                    results.push({ item, score });
+                }
+            }
+
+            // Сортировка по релевантности (чем выше score, тем лучше)
+            results.sort((a, b) => b.score - a.score);
 
             if (results.length === 0) {
                 document.getElementById('magicStatus').textContent = `❌ Не найдено "${query}"`;
@@ -1101,15 +1133,17 @@
                 return;
             }
 
-            const found = results[0];
+            // Показываем первый (самый релевантный) результат
+            const found = results[0].item;
             const idx = allWordsList.indexOf(found);
             if (idx !== -1) {
                 magicCurrentIndex = idx;
                 loadMagicChar(found);
-                document.getElementById('magicStatus').textContent = `🔍 Найдено: ${found.chinese}`;
+                document.getElementById('magicStatus').textContent = `🔍 Найдено: ${found.chinese} (совпадений: ${results.length})`;
                 document.getElementById('magicStatus').style.color = '#4CAF50';
             }
         }
+        window.magicSearch = magicSearch;
 
         // ===== МЕРЦАНИЕ =====
         function createTwinkle() {
@@ -1609,8 +1643,22 @@
             document.getElementById('magicScore').textContent = magicScore;
             document.getElementById('magicLevel').textContent = magicLevel;
 
+            // Улучшенная обработка поиска
             document.getElementById('searchInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') magicSearch();
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    magicSearch();
+                }
+            });
+
+            // Автопоиск при вводе (с задержкой)
+            let searchTimeout = null;
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    searchTimeout = setTimeout(magicSearch, 500);
+                }
             });
         }
 
@@ -1635,4 +1683,3 @@
 
 </body>
 </html>
-```
