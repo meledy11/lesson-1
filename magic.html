@@ -249,6 +249,14 @@
             background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
             box-shadow: 0 3px 0 #2a0a0a;
         }
+        .btn-repeat {
+            background: linear-gradient(135deg, #1a4a5a, #0d3a4a);
+            box-shadow: 0 3px 0 #0a2a3a;
+        }
+        .btn-practice {
+            background: linear-gradient(135deg, #4a2a5a, #3a1a4a);
+            box-shadow: 0 3px 0 #2a0a3a;
+        }
 
         /* ===== КАНВАС ===== */
         .canvas-wrapper {
@@ -272,7 +280,7 @@
             background: #080808;
             border-radius: 14px;
             touch-action: none;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FFD700\" opacity=\"0.8\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FFD700\" stroke-width=\"1.5\" opacity=\"0.3\"/></svg>') 16 16, crosshair;
             box-shadow: inset 0 0 60px rgba(255, 215, 0, 0.01);
             overflow: visible;
             align-self: center;
@@ -309,6 +317,95 @@
             pointer-events: none;
             z-index: 2;
             border-radius: 14px;
+        }
+
+        /* ===== ТЕТРАДЬ ДЛЯ ПРАКТИКИ ===== */
+        .practice-section {
+            display: none;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding: 0.4rem;
+            background: rgba(255, 215, 0, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            flex-shrink: 0;
+        }
+        .practice-section.active {
+            display: flex;
+        }
+        .practice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #8a7a6a;
+            font-size: 0.8rem;
+            padding: 0 0.2rem;
+        }
+        .practice-header span {
+            color: #FFD700;
+            font-weight: 600;
+        }
+        .practice-canvas-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 215, 0, 0.08);
+            touch-action: none;
+        }
+        #practiceCanvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            touch-action: none;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FFD700\" opacity=\"0.8\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FFD700\" stroke-width=\"1.5\" opacity=\"0.3\"/></svg>') 16 16, crosshair;
+        }
+        .practice-hint {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #5a4a3a;
+            font-size: 0.6rem;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .practice-controls {
+            display: flex;
+            gap: 0.3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .practice-controls button {
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.7rem;
+            color: white;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+            transition: 0.08s;
+        }
+        .practice-controls button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+        }
+        .btn-prac-clear {
+            background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
+            box-shadow: 0 3px 0 #2a0a0a;
+        }
+        .btn-prac-show {
+            background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
+            box-shadow: 0 3px 0 #3a1a0a;
+        }
+        .btn-prac-close {
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            box-shadow: 0 3px 0 #1a1a1a;
         }
 
         .magic-twinkle {
@@ -704,6 +801,9 @@
             .magic-details-title {
                 font-size: 0.7rem;
             }
+            .practice-canvas-wrapper {
+                max-width: 100%;
+            }
         }
 
         @media (min-width: 768px) {
@@ -719,6 +819,9 @@
             }
             .magic-details {
                 max-height: 320px;
+            }
+            .practice-canvas-wrapper {
+                max-width: 450px;
             }
         }
     </style>
@@ -759,6 +862,8 @@
                 <button class="btn-next" onclick="magicNextChar()">➡️</button>
                 <button class="btn-random" onclick="magicRandom()">🎲</button>
                 <button class="btn-show" onclick="magicAnimateDraw()">🪄 Показать</button>
+                <button class="btn-repeat" onclick="magicRepeat()">🔄 Повторить</button>
+                <button class="btn-practice" onclick="openPractice()">✏️ Тетрадь</button>
                 <button class="btn-clear" onclick="magicClear()">🗑️</button>
             </div>
 
@@ -768,6 +873,23 @@
                     <div id="hanziContainer"></div>
                     <div class="magic-twinkle" id="magicTwinkle"></div>
                     <div class="magic-floating" id="magicFloatingEmojis"></div>
+                </div>
+            </div>
+
+            <!-- ПРАКТИКА (ТЕТРАДЬ) -->
+            <div class="practice-section" id="practiceSection">
+                <div class="practice-header">
+                    <span>✏️ Тетрадь для практики</span>
+                    <span id="practiceCharDisplay">上</span>
+                </div>
+                <div class="practice-canvas-wrapper">
+                    <canvas id="practiceCanvas"></canvas>
+                    <div class="practice-hint">🎵 Рисуй с музыкой</div>
+                </div>
+                <div class="practice-controls">
+                    <button class="btn-prac-clear" onclick="clearPractice()">🗑️ Очистить</button>
+                    <button class="btn-prac-show" onclick="showPracticeHint()">👁️ Показать</button>
+                    <button class="btn-prac-close" onclick="closePractice()">✖️ Закрыть</button>
                 </div>
             </div>
 
@@ -805,7 +927,7 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ — ИСПРАВЛЕННАЯ ВЕРСИЯ
+        //  ПОЛНЫЙ СКРИПТ — С ТЕТРАДЬЮ ДЛЯ ПРАКТИКИ
         // ============================================================
 
         console.log('🔍 Загрузка...');
@@ -854,7 +976,7 @@
         }
         window.playSoundForCurrent = playSoundForCurrent;
 
-        // ===== ОЗВУЧКА ПРИМЕРА (ПОЛНОЕ СЛОВО) =====
+        // ===== ОЗВУЧКА ПРИМЕРА =====
         function speakExample(text) {
             if (!text || text.trim() === '') {
                 if (magicCurrentChar) {
@@ -863,17 +985,12 @@
                 }
                 return;
             }
-
-            // Озвучиваем ВСЁ переданное слово/фразу
             const fullText = text.trim();
             speakChinese(fullText);
-
-            // Подсвечиваем пример
             highlightExampleByText(fullText);
         }
         window.speakExample = speakExample;
 
-        // ===== ПОДСВЕТКА ПРИМЕРА ПО ТЕКСТУ =====
         function highlightExampleByText(text) {
             const items = document.querySelectorAll('.example-item');
             items.forEach(el => {
@@ -891,7 +1008,6 @@
             });
         }
 
-        // ===== ПОДСВЕТКА ТЕКУЩЕГО КЛЮЧА =====
         function highlightCurrentExample() {
             const items = document.querySelectorAll('.example-item');
             items.forEach(el => {
@@ -916,7 +1032,6 @@
         let magicCurrentChar = '上';
         let assocInterval = null;
 
-        // ===== ПОСТРОЕНИЕ СПИСКА ВСЕХ КЛЮЧЕЙ =====
         function buildAllWordsList() {
             allWordsList = [];
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
@@ -952,6 +1067,9 @@
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
             document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
 
+            // Обновляем отображение в тетради
+            document.getElementById('practiceCharDisplay').textContent = displayChar;
+
             magicClear();
             updateDetails(data);
             startFallingEmojis(data);
@@ -959,7 +1077,9 @@
             document.getElementById('magicStatus').style.color = '#FFB347';
             document.getElementById('magicResult').style.display = 'none';
 
-            // Озвучиваем ключ при загрузке
+            // Закрываем тетрадь при смене иероглифа
+            closePractice();
+
             speakChinese(magicCurrentChar);
         }
 
@@ -977,14 +1097,13 @@
 
             let html = '';
 
-            // === РАЗБОР ===
             if (etymology) {
                 if (etymology.parts && etymology.parts.length > 0) {
                     html += `<div class="etymology-parts">`;
                     for (let i = 0; i < etymology.parts.length; i++) {
                         const part = etymology.parts[i];
-                        const pMeaning = etymology.partMeanings && etymology.partMeanings[i] ? etymology.partMeanings[i] :
-                        '';
+                        const pMeaning = etymology.partMeanings && etymology.partMeanings[i] ? etymology.partMeanings[
+                            i] : '';
                         html += `
                                 <div class="part-item">
                                     <div class="part-char">${part}</div>
@@ -1014,7 +1133,6 @@
                 html += `<div class="no-etymology">📭 Разбор для "${key}" пока не добавлен</div>`;
             }
 
-            // === ПРИМЕРЫ ===
             if (words && words.length > 0) {
                 html +=
                     `<div class="magic-details-title" style="font-size:0.85rem;margin-top:0.3rem;">📝 Примеры (${words.length}) <span style="font-size:0.6rem;color:#5a4a3a;">(нажми для озвучивания)</span></div>`;
@@ -1025,8 +1143,6 @@
                     const pinyin = w.pinyin || '';
                     const trans = w.translation || w.trans || '';
                     const emoji = w.emoji || '';
-
-                    // Передаем ПОЛНОЕ слово для озвучки
                     const fullWord = char || magicCurrentChar;
 
                     html += `
@@ -1073,7 +1189,7 @@
             loadMagicChar(allWordsList[magicCurrentIndex]);
         }
 
-        // ===== УЛУЧШЕННАЯ ФУНКЦИЯ ПОИСКА =====
+        // ===== ПОИСК =====
         function magicSearch() {
             const query = document.getElementById('searchInput').value.trim().toLowerCase();
             if (!query) {
@@ -1081,13 +1197,11 @@
                 document.getElementById('magicStatus').style.color = '#FFB347';
                 return;
             }
-            
+
             if (!allWordsList.length) buildAllWordsList();
             if (!allWordsList.length) return;
 
             const results = [];
-
-            // Поиск по ключам и их данным
             for (const item of allWordsList) {
                 let score = 0;
                 const key = item.key;
@@ -1095,16 +1209,11 @@
                 const translation = item.translation || '';
                 const emoji = item.emoji || '';
 
-                // Поиск по ключу (иероглиф)
                 if (key.includes(query)) score += 10;
-                // Поиск по пиньинь ключа
                 if (pinyin.toLowerCase().includes(query)) score += 8;
-                // Поиск по переводу ключа
                 if (translation.toLowerCase().includes(query)) score += 6;
-                // Поиск по эмодзи
                 if (emoji.includes(query)) score += 5;
 
-                // Поиск по словам
                 if (item.words) {
                     for (const word of item.words) {
                         const wordChinese = word.chinese || word.char || '';
@@ -1124,7 +1233,6 @@
                 }
             }
 
-            // Сортировка по релевантности (чем выше score, тем лучше)
             results.sort((a, b) => b.score - a.score);
 
             if (results.length === 0) {
@@ -1133,7 +1241,6 @@
                 return;
             }
 
-            // Показываем первый (самый релевантный) результат
             const found = results[0].item;
             const idx = allWordsList.indexOf(found);
             if (idx !== -1) {
@@ -1240,6 +1347,348 @@
         let currentWriter = null;
         let magicSoundCtx = null;
 
+        // ===== ПРАКТИКА (ТЕТРАДЬ) =====
+        let practiceCtx = null;
+        let practiceCanvas = null;
+        let isPracticeDrawing = false;
+        let practiceLastX = 0,
+            practiceLastY = 0;
+        let practicePath = [];
+        let practiceSoundCtx = null;
+
+        function initPracticeSound() {
+            try { practiceSoundCtx = new(window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+        }
+
+        function playPracticeSound() {
+            try {
+                if (!practiceSoundCtx) initPracticeSound();
+                if (!practiceSoundCtx) return;
+                const osc = practiceSoundCtx.createOscillator();
+                const gain = practiceSoundCtx.createGain();
+                osc.connect(gain);
+                gain.connect(practiceSoundCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500 + Math.random() * 400, practiceSoundCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(700 + Math.random() * 300, practiceSoundCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.025, practiceSoundCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.003, practiceSoundCtx.currentTime + 0.12);
+                osc.start(practiceSoundCtx.currentTime);
+                osc.stop(practiceSoundCtx.currentTime + 0.12);
+            } catch (e) {}
+        }
+
+        function openPractice() {
+            const section = document.getElementById('practiceSection');
+            section.classList.add('active');
+            document.getElementById('practiceCharDisplay').textContent = magicCurrentChar;
+
+            // Инициализируем canvas для практики
+            setTimeout(() => {
+                initPracticeCanvas();
+            }, 100);
+
+            document.getElementById('magicStatus').textContent = '✏️ Рисуй в тетради!';
+            document.getElementById('magicStatus').style.color = '#4FC3F7';
+        }
+
+        function closePractice() {
+            const section = document.getElementById('practiceSection');
+            section.classList.remove('active');
+            if (practiceCtx) {
+                practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
+                drawPracticeGrid();
+            }
+            practicePath = [];
+            isPracticeDrawing = false;
+        }
+
+        function initPracticeCanvas() {
+            const canvas = document.getElementById('practiceCanvas');
+            const wrapper = canvas.parentElement;
+            const rect = wrapper.getBoundingClientRect();
+            const size = Math.min(rect.width, 500);
+
+            canvas.width = size * 2;
+            canvas.height = size * 2;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+
+            practiceCanvas = canvas;
+            practiceCtx = canvas.getContext('2d');
+
+            drawPracticeGrid();
+
+            // Настройка событий
+            canvas.removeEventListener('mousedown', practiceStartDraw);
+            canvas.removeEventListener('mousemove', practiceDraw);
+            canvas.removeEventListener('mouseup', practiceEndDraw);
+            canvas.removeEventListener('mouseleave', practiceEndDraw);
+            canvas.removeEventListener('touchstart', practiceTouchStart);
+            canvas.removeEventListener('touchmove', practiceTouchMove);
+            canvas.removeEventListener('touchend', practiceTouchEnd);
+
+            canvas.addEventListener('mousedown', practiceStartDraw);
+            canvas.addEventListener('mousemove', practiceDraw);
+            canvas.addEventListener('mouseup', practiceEndDraw);
+            canvas.addEventListener('mouseleave', practiceEndDraw);
+            canvas.addEventListener('touchstart', practiceTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', practiceTouchMove, { passive: false });
+            canvas.addEventListener('touchend', practiceTouchEnd, { passive: false });
+        }
+
+        function drawPracticeGrid() {
+            if (!practiceCtx) return;
+            const ctx = practiceCtx;
+            const w = practiceCanvas.width;
+            const h = practiceCanvas.height;
+
+            ctx.save();
+            ctx.clearRect(0, 0, w, h);
+
+            // Тёмный фон
+            ctx.fillStyle = 'rgba(10,10,10,0.9)';
+            ctx.fillRect(0, 0, w, h);
+
+            // Сетка тетради (клетки)
+            ctx.strokeStyle = 'rgba(255,215,0,0.04)';
+            ctx.lineWidth = 1;
+
+            // Основные линии
+            const step = w / 8;
+            for (let i = 0; i <= 8; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * step, 0);
+                ctx.lineTo(i * step, h);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i * step);
+                ctx.lineTo(w, i * step);
+                ctx.stroke();
+            }
+
+            // Центральные оси (более заметные)
+            ctx.strokeStyle = 'rgba(255,215,0,0.06)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(w / 2, 0);
+            ctx.lineTo(w / 2, h);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, h / 2);
+            ctx.lineTo(w, h / 2);
+            ctx.stroke();
+
+            // Рамка
+            ctx.strokeStyle = 'rgba(255,215,0,0.08)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(2, 2, w - 4, h - 4);
+
+            ctx.restore();
+        }
+
+        function drawPracticePath(ctx, x1, y1, x2, y2, pressure = 0.8) {
+            const distance = Math.hypot(x2 - x1, y2 - y1);
+            if (distance < 0.5) return;
+
+            const width = 2 + 6 * pressure;
+
+            ctx.save();
+
+            // Основная линия
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+
+            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+            gradient.addColorStop(0, '#FFD700');
+            gradient.addColorStop(0.5, '#FFAB00');
+            gradient.addColorStop(1, '#FF6F00');
+
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.3)';
+            ctx.shadowBlur = 15;
+            ctx.lineWidth = width;
+            ctx.strokeStyle = gradient;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+
+            // Внутреннее свечение
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = 'rgba(255, 200, 0, 0.1)';
+            ctx.lineWidth = width * 0.5;
+            ctx.strokeStyle = 'rgba(255, 255, 200, 0.2)';
+            ctx.stroke();
+
+            ctx.restore();
+
+            // Точка на кончике
+            const dotSize = 1.5 + Math.random() * 2.5;
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
+            ctx.shadowBlur = 20;
+            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2);
+            dotGrad.addColorStop(0, '#FFD700');
+            dotGrad.addColorStop(0.4, '#FFAB00');
+            dotGrad.addColorStop(1, 'rgba(255, 107, 0, 0)');
+            ctx.fillStyle = dotGrad;
+            ctx.beginPath();
+            ctx.arc(x2, y2, dotSize * 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.shadowBlur = 8;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.beginPath();
+            ctx.arc(x2, y2, dotSize * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function getPracticeCoords(e) {
+            const rect = practiceCanvas.getBoundingClientRect();
+            const scaleX = practiceCanvas.width / rect.width;
+            const scaleY = practiceCanvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            return { x, y };
+        }
+
+        function practiceStartDraw(e) {
+            if (!practiceCtx) return;
+            isPracticeDrawing = true;
+            const { x, y } = getPracticeCoords(e);
+            practiceLastX = x;
+            practiceLastY = y;
+            practicePath.push({ x, y });
+            playPracticeSound();
+            drawPracticePath(practiceCtx, x, y, x + 0.5, y + 0.5, 0.9);
+        }
+
+        function practiceDraw(e) {
+            if (!isPracticeDrawing || !practiceCtx) return;
+            e.preventDefault();
+            const { x, y } = getPracticeCoords(e);
+
+            const dx = x - practiceLastX;
+            const dy = y - practiceLastY;
+            const speed = Math.hypot(dx, dy);
+            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
+
+            drawPracticePath(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            practicePath.push({ x, y });
+
+            if (Math.random() > 0.8) playPracticeSound();
+
+            practiceLastX = x;
+            practiceLastY = y;
+        }
+
+        function practiceEndDraw(e) {
+            if (isPracticeDrawing) {
+                isPracticeDrawing = false;
+                playPracticeSound();
+            }
+        }
+
+        function practiceTouchStart(e) {
+            e.preventDefault();
+            if (!practiceCtx) return;
+            const touch = e.touches[0];
+            const rect = practiceCanvas.getBoundingClientRect();
+            const scaleX = practiceCanvas.width / rect.width;
+            const scaleY = practiceCanvas.height / rect.height;
+            const x = (touch.clientX - rect.left) * scaleX;
+            const y = (touch.clientY - rect.top) * scaleY;
+            isPracticeDrawing = true;
+            practiceLastX = x;
+            practiceLastY = y;
+            practicePath.push({ x, y });
+            playPracticeSound();
+            drawPracticePath(practiceCtx, x, y, x + 0.5, y + 0.5, 0.9);
+        }
+
+        function practiceTouchMove(e) {
+            e.preventDefault();
+            if (!isPracticeDrawing || !practiceCtx) return;
+            const touch = e.touches[0];
+            const rect = practiceCanvas.getBoundingClientRect();
+            const scaleX = practiceCanvas.width / rect.width;
+            const scaleY = practiceCanvas.height / rect.height;
+            const x = (touch.clientX - rect.left) * scaleX;
+            const y = (touch.clientY - rect.top) * scaleY;
+
+            const dx = x - practiceLastX;
+            const dy = y - practiceLastY;
+            const speed = Math.hypot(dx, dy);
+            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
+
+            drawPracticePath(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            practicePath.push({ x, y });
+
+            if (Math.random() > 0.8) playPracticeSound();
+
+            practiceLastX = x;
+            practiceLastY = y;
+        }
+
+        function practiceTouchEnd(e) {
+            e.preventDefault();
+            if (isPracticeDrawing) {
+                isPracticeDrawing = false;
+                playPracticeSound();
+            }
+        }
+
+        function clearPractice() {
+            if (practiceCtx) {
+                practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
+                drawPracticeGrid();
+            }
+            practicePath = [];
+        }
+
+        function showPracticeHint() {
+            // Показываем иероглиф поверх тетради (полупрозрачный)
+            if (!practiceCtx) return;
+            const ctx = practiceCtx;
+            const w = practiceCanvas.width;
+            const h = practiceCanvas.height;
+
+            ctx.save();
+            ctx.globalAlpha = 0.15;
+            ctx.fillStyle = '#FFD700';
+            ctx.font = `${w * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(magicCurrentChar, w / 2, h / 2);
+            ctx.restore();
+
+            // Через 2 секунды убираем подсказку
+            setTimeout(() => {
+                if (practiceCtx) {
+                    // Перерисовываем сетку и рисунок
+                    const tempPath = [...practicePath];
+                    practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
+                    drawPracticeGrid();
+                    // Восстанавливаем нарисованное
+                    if (tempPath.length > 1) {
+                        for (let i = 1; i < tempPath.length; i++) {
+                            const p1 = tempPath[i - 1];
+                            const p2 = tempPath[i];
+                            const dx = p2.x - p1.x;
+                            const dy = p2.y - p1.y;
+                            const speed = Math.hypot(dx, dy);
+                            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
+                            drawPracticePath(practiceCtx, p1.x, p1.y, p2.x, p2.y, pressure);
+                        }
+                    }
+                }
+            }, 2000);
+
+            document.getElementById('magicStatus').textContent = '👁️ Подсказка показана на 2 секунды';
+            document.getElementById('magicStatus').style.color = '#4FC3F7';
+        }
+
         function initMagicSound() {
             try { magicSoundCtx = new(window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
         }
@@ -1280,6 +1729,63 @@
                     osc.stop(magicSoundCtx.currentTime + i * 0.1 + 0.2);
                 });
             } catch (e) {}
+        }
+
+        function drawCalligraphicPath(ctx, x1, y1, x2, y2, pressure = 0.8) {
+            const distance = Math.hypot(x2 - x1, y2 - y1);
+            if (distance < 0.5) return;
+
+            const width = 2 + 6 * pressure;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+
+            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+            gradient.addColorStop(0, '#FFD700');
+            gradient.addColorStop(0.7, '#FFAB00');
+            gradient.addColorStop(1, '#FF6F00');
+
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
+            ctx.shadowBlur = 18;
+            ctx.lineWidth = width;
+            ctx.strokeStyle = gradient;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+
+            ctx.shadowBlur = 30;
+            ctx.shadowColor = 'rgba(255, 200, 0, 0.15)';
+            ctx.lineWidth = width * 0.5;
+            ctx.strokeStyle = 'rgba(255, 255, 200, 0.3)';
+            ctx.stroke();
+
+            ctx.restore();
+
+            const dotSize = 2 + Math.random() * 3;
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.6)';
+            ctx.shadowBlur = 25;
+            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2);
+            dotGrad.addColorStop(0, '#FFD700');
+            dotGrad.addColorStop(0.4, '#FFAB00');
+            dotGrad.addColorStop(1, 'rgba(255, 107, 0, 0)');
+            ctx.fillStyle = dotGrad;
+            ctx.beginPath();
+            ctx.arc(x2, y2, dotSize * 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.beginPath();
+            ctx.arc(x2, y2, dotSize * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            if (Math.random() > 0.6) {
+                createMagicParticle(x2 + (Math.random() - 0.5) * 4, y2 + (Math.random() - 0.5) * 4);
+            }
         }
 
         function magicClear() {
@@ -1365,26 +1871,6 @@
             });
         }
 
-        function drawUserPath(ctx, x1, y1, x2, y2) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = '#FF6B35';
-            ctx.lineWidth = 12;
-            ctx.shadowColor = 'rgba(255,107,53,0.3)';
-            ctx.shadowBlur = 20;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-            ctx.shadowColor = 'rgba(255,215,0,0.15)';
-            ctx.shadowBlur = 35;
-            ctx.lineWidth = 14;
-            ctx.globalAlpha = 0.3;
-            ctx.stroke();
-            ctx.restore();
-        }
-
         const UNSUPPORTED_CHARS = new Set([
             '⺮', '辶', '忄', '扌', '氵', '讠', '饣', '纟', '艹', '⺡', '⺨'
         ]);
@@ -1445,7 +1931,7 @@
                     currentWriter.animateCharacter({
                         onComplete: function() {
                             isAnimating = false;
-                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ!';
+                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ каллиграфическим маркером!';
                             document.getElementById('magicStatus').style.color = '#4CAF50';
                             playMagicCompleteSound();
                             initDrawingCanvas();
@@ -1465,6 +1951,61 @@
                 document.getElementById('magicStatus').textContent = '📖 Обведи ключ!';
                 document.getElementById('magicStatus').style.color = '#4CAF50';
                 playMagicCompleteSound();
+                initDrawingCanvas();
+                setupDrawingEvents();
+            }
+        }
+
+        // ===== ПОВТОР =====
+        function magicRepeat() {
+            magicClear();
+            const char = magicCurrentChar;
+            const container = document.getElementById('hanziContainer');
+            container.innerHTML = '';
+
+            const isSupported = isHanziSupported(char);
+
+            if (isSupported && typeof HanziWriter !== 'undefined') {
+                try {
+                    currentWriter = HanziWriter.create(container.id, char, {
+                        width: 400,
+                        height: 400,
+                        showOutline: false,
+                        strokeColor: '#FFD700',
+                        strokeAnimationSpeed: 1.2,
+                        delayBetweenStrokes: 200,
+                        showCharacter: false,
+                        showHintAfterMisses: 0,
+                        radicalColor: '#FFD700',
+                        radicalStrokeColor: '#FFD700',
+                        padding: 15
+                    });
+
+                    document.getElementById('magicStatus').textContent = '🔄 Повторный показ...';
+                    document.getElementById('magicStatus').style.color = '#4FC3F7';
+                    isAnimating = true;
+
+                    currentWriter.animateCharacter({
+                        onComplete: function() {
+                            isAnimating = false;
+                            document.getElementById('magicStatus').textContent = '🖌️ Теперь обведи сам!';
+                            document.getElementById('magicStatus').style.color = '#4CAF50';
+                            playMagicCompleteSound();
+                            initDrawingCanvas();
+                            setupDrawingEvents();
+                        }
+                    });
+                } catch (e) {
+                    showStaticChar(container, char);
+                    document.getElementById('magicStatus').textContent = '📖 Обведи ключ!';
+                    document.getElementById('magicStatus').style.color = '#4CAF50';
+                    initDrawingCanvas();
+                    setupDrawingEvents();
+                }
+            } else {
+                showStaticChar(container, char);
+                document.getElementById('magicStatus').textContent = '📖 Обведи ключ!';
+                document.getElementById('magicStatus').style.color = '#4CAF50';
                 initDrawingCanvas();
                 setupDrawingEvents();
             }
@@ -1504,16 +2045,25 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
+            drawCalligraphicPath(magicCtx, x, y, x + 0.5, y + 0.5, 0.9);
         }
 
         function draw(e) {
             if (!magicIsDrawing || !magicCtx || isAnimating) return;
             e.preventDefault();
             const { x, y } = getCoords(e);
-            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+
+            const dx = x - magicLastX;
+            const dy = y - magicLastY;
+            const speed = Math.hypot(dx, dy);
+            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 30));
+
+            drawCalligraphicPath(magicCtx, magicLastX, magicLastY, x, y, pressure);
             magicDrawPath.push({ x, y });
+
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
+
             magicLastX = x;
             magicLastY = y;
         }
@@ -1539,6 +2089,7 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
+            drawCalligraphicPath(magicCtx, x, y, x + 0.5, y + 0.5, 0.9);
         }
 
         function touchMove(e) {
@@ -1548,10 +2099,18 @@
             const rect = magicCanvas.getBoundingClientRect();
             const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
             const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
+
+            const dx = x - magicLastX;
+            const dy = y - magicLastY;
+            const speed = Math.hypot(dx, dy);
+            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 30));
+
+            drawCalligraphicPath(magicCtx, magicLastX, magicLastY, x, y, pressure);
             magicDrawPath.push({ x, y });
+
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
+
             magicLastX = x;
             magicLastY = y;
         }
@@ -1616,6 +2175,7 @@
         function initMagic() {
             createTwinkle();
             initMagicSound();
+            initPracticeSound();
 
             if (typeof KEY_NAMES !== 'undefined' && KEY_NAMES.length) {
                 buildAllWordsList();
@@ -1643,7 +2203,6 @@
             document.getElementById('magicScore').textContent = magicScore;
             document.getElementById('magicLevel').textContent = magicLevel;
 
-            // Улучшенная обработка поиска
             document.getElementById('searchInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -1651,7 +2210,6 @@
                 }
             });
 
-            // Автопоиск при вводе (с задержкой)
             let searchTimeout = null;
             document.getElementById('searchInput').addEventListener('input', function(e) {
                 clearTimeout(searchTimeout);
@@ -1672,8 +2230,13 @@
         window.magicRandom = magicRandom;
         window.magicClear = magicClear;
         window.magicAnimateDraw = magicAnimateDraw;
+        window.magicRepeat = magicRepeat;
         window.magicCheck = magicCheck;
         window.magicSearch = magicSearch;
+        window.openPractice = openPractice;
+        window.closePractice = closePractice;
+        window.clearPractice = clearPractice;
+        window.showPracticeHint = showPracticeHint;
         window.speakChinese = speakChinese;
         window.speakExample = speakExample;
         window.playSoundForCurrent = playSoundForCurrent;
