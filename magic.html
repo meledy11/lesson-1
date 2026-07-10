@@ -249,13 +249,13 @@
             background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
             box-shadow: 0 3px 0 #2a0a0a;
         }
-        .btn-repeat {
-            background: linear-gradient(135deg, #1a4a5a, #0d3a4a);
-            box-shadow: 0 3px 0 #0a2a3a;
-        }
         .btn-practice {
             background: linear-gradient(135deg, #4a2a5a, #3a1a4a);
             box-shadow: 0 3px 0 #2a0a3a;
+        }
+        .btn-repeat {
+            background: linear-gradient(135deg, #1a4a5a, #0d3a4a);
+            box-shadow: 0 3px 0 #0a2a3a;
         }
 
         /* ===== КАНВАС ===== */
@@ -280,7 +280,7 @@
             background: #080808;
             border-radius: 14px;
             touch-action: none;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FF6B35\" opacity=\"0.9\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FF6B35\" stroke-width=\"1.5\" opacity=\"0.4\"/></svg>') 16 16, crosshair;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
             box-shadow: inset 0 0 60px rgba(255, 215, 0, 0.01);
             overflow: visible;
             align-self: center;
@@ -333,7 +333,7 @@
         .twinkle-dot {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 107, 53, 0.08);
+            background: rgba(255, 215, 0, 0.08);
             animation: twinklePulse 3-6s ease-in-out infinite alternate;
         }
         @keyframes twinklePulse {
@@ -621,18 +621,12 @@
             width: 100%;
             max-width: 700px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding: 0.5rem 1rem;
             color: #f0d5b0;
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
-        }
-        .practice-overlay .practice-header span {
-            color: #FFD700;
-            font-weight: 700;
-            font-size: 1.6rem;
-            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
         }
         .practice-overlay .practice-close-btn {
             background: rgba(255, 255, 255, 0.05);
@@ -669,7 +663,7 @@
             height: 100%;
             border-radius: 16px;
             touch-action: none;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FF6B35\" opacity=\"0.9\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FF6B35\" stroke-width=\"1.5\" opacity=\"0.4\"/></svg>') 16 16, crosshair;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><text y=\"28\" font-size=\"28\">🪄</text></svg>') 0 28, pointer;
         }
 
         .practice-overlay .practice-hint {
@@ -723,17 +717,6 @@
             box-shadow: 0 3px 0 #3a1a0a;
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
         @keyframes fireEmoji {
             0% {
                 transform: scale(1) rotate(-3deg);
@@ -742,6 +725,17 @@
             100% {
                 transform: scale(1.05) rotate(3deg);
                 filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.15));
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
@@ -842,9 +836,6 @@
                 font-size: 1rem;
                 padding: 0.3rem 0.5rem;
             }
-            .practice-overlay .practice-header span {
-                font-size: 1.3rem;
-            }
             .practice-overlay .practice-controls button {
                 font-size: 0.7rem;
                 padding: 0.25rem 0.8rem;
@@ -944,11 +935,9 @@
         <footer>🪄 Волшебная тетрадь — учи китайский с магией!</footer>
     </div>
 
-    <!-- ===== ПОЛНОЭКРАННАЯ ТЕТРАДЬ ===== -->
+    <!-- ===== ПОЛНОЭКРАННАЯ ТЕТРАДЬ (БЕЗ ИЕРОГЛИФА ВНУТРИ) ===== -->
     <div class="practice-overlay" id="practiceOverlay">
         <div class="practice-header">
-            <span>✏️ Тетрадь</span>
-            <span id="practiceCharDisplay">上</span>
             <button class="practice-close-btn" onclick="closePractice()">✕</button>
         </div>
         <div class="practice-canvas-wrapper">
@@ -970,7 +959,7 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ — С ОРИГИНАЛЬНОЙ ОРАНЖЕВО-КРАСНОЙ КИСТЬЮ
+        //  ПОЛНЫЙ СКРИПТ — С ТОЧНО ТАКОЙ ЖЕ КИСТЬЮ КАК В ОСНОВНОМ РЕЖИМЕ
         // ============================================================
 
         console.log('🔍 Загрузка...');
@@ -1109,8 +1098,6 @@
             document.getElementById('magicTranslationDisplay').textContent = data.translation || 'ключ';
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
             document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
-
-            document.getElementById('practiceCharDisplay').textContent = displayChar;
 
             magicClear();
             updateDetails(data);
@@ -1421,7 +1408,6 @@
         function openPractice() {
             const overlay = document.getElementById('practiceOverlay');
             overlay.classList.add('active');
-            document.getElementById('practiceCharDisplay').textContent = magicCurrentChar;
             document.body.style.overflow = 'hidden';
 
             setTimeout(() => {
@@ -1491,12 +1477,12 @@
             ctx.fillStyle = 'rgba(8,8,8,0.95)';
             ctx.fillRect(0, 0, w, h);
 
-            // Сетка
-            ctx.strokeStyle = 'rgba(255,107,53,0.04)';
+            // Сетка (оранжевая, как в основном режиме)
+            ctx.strokeStyle = 'rgba(255,215,0,0.03)';
             ctx.lineWidth = 0.8;
 
-            const step = w / 8;
-            for (let i = 0; i <= 8; i++) {
+            const step = w / 4;
+            for (let i = 0; i <= 4; i++) {
                 ctx.beginPath();
                 ctx.moveTo(i * step, 0);
                 ctx.lineTo(i * step, h);
@@ -1508,7 +1494,7 @@
             }
 
             // Центральные оси
-            ctx.strokeStyle = 'rgba(255,107,53,0.06)';
+            ctx.strokeStyle = 'rgba(255,215,0,0.06)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(w / 2, 0);
@@ -1520,104 +1506,32 @@
             ctx.stroke();
 
             // Рамка
-            ctx.strokeStyle = 'rgba(255,107,53,0.08)';
+            ctx.strokeStyle = 'rgba(255,215,0,0.08)';
             ctx.lineWidth = 2;
             ctx.strokeRect(2, 2, w - 4, h - 4);
 
             ctx.restore();
         }
 
-        // ===== ОРИГИНАЛЬНАЯ ОРАНЖЕВО-КРАСНАЯ КАЛЛИГРАФИЧЕСКАЯ КИСТЬ =====
-        function drawCalligraphicBrush(ctx, x1, y1, x2, y2, pressure = 0.7) {
-            const distance = Math.hypot(x2 - x1, y2 - y1);
-            if (distance < 0.3) return;
-
-            const baseWidth = 3;
-            const width = baseWidth + 8 * pressure;
-
+        // ===== ТАКАЯ ЖЕ КИСТЬ КАК В ОСНОВНОМ РЕЖИМЕ =====
+        function drawPracticeBrush(ctx, x1, y1, x2, y2) {
             ctx.save();
-
-            // ОСНОВНОЙ ОРАНЖЕВО-КРАСНЫЙ ШТРИХ
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
-
-            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
-            gradient.addColorStop(0, '#FF6B35'); // яркий оранжевый
-            gradient.addColorStop(0.3, '#FF5722'); // огненно-оранжевый
-            gradient.addColorStop(0.6, '#E64A19'); // красно-оранжевый
-            gradient.addColorStop(0.85, '#D84315'); // тёмный красно-оранжевый
-            gradient.addColorStop(1, '#BF360C'); // тёмно-красный
-
-            ctx.shadowColor = 'rgba(255, 107, 53, 0.6)';
-            ctx.shadowBlur = 25;
-            ctx.lineWidth = width;
-            ctx.strokeStyle = gradient;
+            ctx.strokeStyle = '#FF6B35';
+            ctx.lineWidth = 12;
+            ctx.shadowColor = 'rgba(255,107,53,0.3)';
+            ctx.shadowBlur = 20;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.stroke();
-
-            // ЗОЛОТОЕ ВНУТРЕННЕЕ СВЕЧЕНИЕ
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.25)';
+            ctx.shadowColor = 'rgba(255,215,0,0.15)';
             ctx.shadowBlur = 35;
-            ctx.lineWidth = width * 0.3;
-            ctx.strokeStyle = 'rgba(255, 200, 100, 0.3)';
+            ctx.lineWidth = 14;
+            ctx.globalAlpha = 0.3;
             ctx.stroke();
-
             ctx.restore();
-
-            // === КАЛЛИГРАФИЧЕСКАЯ ТОЧКА НА КОНЧИКЕ ===
-            const dotSize = 2.5 + Math.random() * 3;
-            ctx.save();
-
-            ctx.shadowColor = 'rgba(255, 107, 53, 0.7)';
-            ctx.shadowBlur = 30;
-
-            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2.5);
-            dotGrad.addColorStop(0, '#FF6B35');
-            dotGrad.addColorStop(0.3, '#FF5722');
-            dotGrad.addColorStop(0.6, '#E64A19');
-            dotGrad.addColorStop(1, 'rgba(191, 54, 12, 0)');
-
-            ctx.fillStyle = dotGrad;
-            ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Центральная яркая точка
-            ctx.shadowColor = 'rgba(255, 200, 100, 0.3)';
-            ctx.shadowBlur = 15;
-            const centerGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 0.8);
-            centerGrad.addColorStop(0, 'rgba(255, 255, 220, 0.8)');
-            centerGrad.addColorStop(0.5, 'rgba(255, 200, 100, 0.5)');
-            centerGrad.addColorStop(1, 'rgba(255, 100, 0, 0)');
-            ctx.fillStyle = centerGrad;
-            ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 0.8, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-
-            // Искры
-            if (Math.random() > 0.5) {
-                for (let i = 0; i < 2; i++) {
-                    const sparkX = x2 + (Math.random() - 0.5) * 6;
-                    const sparkY = y2 + (Math.random() - 0.5) * 6;
-                    ctx.save();
-                    ctx.globalAlpha = 0.15 + Math.random() * 0.2;
-                    ctx.shadowColor = 'rgba(255, 107, 53, 0.3)';
-                    ctx.shadowBlur = 10;
-                    ctx.fillStyle = '#FF6B35';
-                    ctx.beginPath();
-                    ctx.arc(sparkX, sparkY, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                }
-            }
-
-            if (Math.random() > 0.7) {
-                createMagicParticle(x2 + (Math.random() - 0.5) * 4, y2 + (Math.random() - 0.5) * 4);
-            }
         }
 
         function getPracticeCoords(e) {
@@ -1637,7 +1551,7 @@
             practiceLastY = y;
             practicePath.push({ x, y });
             playPracticeSound();
-            drawCalligraphicBrush(practiceCtx, x, y, x + 1, y + 1, 0.9);
+            drawPracticeBrush(practiceCtx, x, y, x + 1, y + 1);
         }
 
         function practiceDraw(e) {
@@ -1645,12 +1559,7 @@
             e.preventDefault();
             const { x, y } = getPracticeCoords(e);
 
-            const dx = x - practiceLastX;
-            const dy = y - practiceLastY;
-            const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
-
-            drawCalligraphicBrush(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            drawPracticeBrush(practiceCtx, practiceLastX, practiceLastY, x, y);
             practicePath.push({ x, y });
 
             if (Math.random() > 0.85) playPracticeSound();
@@ -1680,7 +1589,7 @@
             practiceLastY = y;
             practicePath.push({ x, y });
             playPracticeSound();
-            drawCalligraphicBrush(practiceCtx, x, y, x + 1, y + 1, 0.9);
+            drawPracticeBrush(practiceCtx, x, y, x + 1, y + 1);
         }
 
         function practiceTouchMove(e) {
@@ -1693,12 +1602,7 @@
             const x = (touch.clientX - rect.left) * scaleX;
             const y = (touch.clientY - rect.top) * scaleY;
 
-            const dx = x - practiceLastX;
-            const dy = y - practiceLastY;
-            const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
-
-            drawCalligraphicBrush(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            drawPracticeBrush(practiceCtx, practiceLastX, practiceLastY, x, y);
             practicePath.push({ x, y });
 
             if (Math.random() > 0.85) playPracticeSound();
@@ -1735,12 +1639,12 @@
 
             ctx.save();
             ctx.globalAlpha = 0.12;
-            ctx.fillStyle = '#FF6B35';
+            ctx.fillStyle = '#FFD700';
             const fontSize = w * 0.65;
             ctx.font = `${fontSize}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.shadowColor = 'rgba(255,107,53,0.2)';
+            ctx.shadowColor = 'rgba(255,215,0,0.2)';
             ctx.shadowBlur = 30;
             ctx.fillText(magicCurrentChar, w / 2, h / 2);
             ctx.restore();
@@ -1757,11 +1661,7 @@
                         for (let i = 1; i < tempPath.length; i++) {
                             const p1 = tempPath[i - 1];
                             const p2 = tempPath[i];
-                            const dx = p2.x - p1.x;
-                            const dy = p2.y - p1.y;
-                            const speed = Math.hypot(dx, dy);
-                            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
-                            drawCalligraphicBrush(practiceCtx, p1.x, p1.y, p2.x, p2.y, pressure);
+                            drawPracticeBrush(practiceCtx, p1.x, p1.y, p2.x, p2.y);
                         }
                     }
                 }
@@ -1865,7 +1765,7 @@
             const ctx = magicCtx;
             const size = magicCanvas.width;
             ctx.save();
-            ctx.strokeStyle = 'rgba(255,107,53,0.03)';
+            ctx.strokeStyle = 'rgba(255,215,0,0.03)';
             ctx.lineWidth = 0.5;
             for (let i = 1; i < 4; i++) {
                 ctx.beginPath();
@@ -1883,7 +1783,7 @@
         }
 
         function createMagicParticle(x, y) {
-            const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FF6B35'];
+            const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
             magicParticles.push({
                 x: x + (Math.random() - 0.5) * 6,
                 y: y + (Math.random() - 0.5) * 6,
@@ -1894,6 +1794,26 @@
                 size: 1.5 + Math.random() * 3,
                 color: colors[Math.floor(Math.random() * colors.length)]
             });
+        }
+
+        function drawUserPath(ctx, x1, y1, x2, y2) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = '#FF6B35';
+            ctx.lineWidth = 12;
+            ctx.shadowColor = 'rgba(255,107,53,0.3)';
+            ctx.shadowBlur = 20;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+            ctx.shadowColor = 'rgba(255,215,0,0.15)';
+            ctx.shadowBlur = 35;
+            ctx.lineWidth = 14;
+            ctx.globalAlpha = 0.3;
+            ctx.stroke();
+            ctx.restore();
         }
 
         const UNSUPPORTED_CHARS = new Set([
@@ -1910,7 +1830,7 @@
         function showStaticChar(container, char) {
             container.innerHTML = `
                     <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
-                        <div style="font-size:8rem;color:#FF6B35;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,107,53,0.1);opacity:0.5;">
+                        <div style="font-size:8rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
                             ${char}
                         </div>
                     </div>
@@ -1939,24 +1859,24 @@
                         width: 400,
                         height: 400,
                         showOutline: false,
-                        strokeColor: '#FF6B35',
+                        strokeColor: '#FFD700',
                         strokeAnimationSpeed: 1.0,
                         delayBetweenStrokes: 250,
                         showCharacter: false,
                         showHintAfterMisses: 0,
-                        radicalColor: '#FF6B35',
-                        radicalStrokeColor: '#FF6B35',
+                        radicalColor: '#FFD700',
+                        radicalStrokeColor: '#FFD700',
                         padding: 15
                     });
 
                     document.getElementById('magicStatus').textContent = '✨ Волшебство...';
-                    document.getElementById('magicStatus').style.color = '#FF6B35';
+                    document.getElementById('magicStatus').style.color = '#FFD700';
                     isAnimating = true;
 
                     currentWriter.animateCharacter({
                         onComplete: function() {
                             isAnimating = false;
-                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ каллиграфической кистью!';
+                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ!';
                             document.getElementById('magicStatus').style.color = '#4CAF50';
                             playMagicCompleteSound();
                             initDrawingCanvas();
@@ -1995,13 +1915,13 @@
                         width: 400,
                         height: 400,
                         showOutline: false,
-                        strokeColor: '#FF6B35',
+                        strokeColor: '#FFD700',
                         strokeAnimationSpeed: 1.2,
                         delayBetweenStrokes: 200,
                         showCharacter: false,
                         showHintAfterMisses: 0,
-                        radicalColor: '#FF6B35',
-                        radicalStrokeColor: '#FF6B35',
+                        radicalColor: '#FFD700',
+                        radicalStrokeColor: '#FFD700',
                         padding: 15
                     });
 
@@ -2069,25 +1989,16 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
-            drawCalligraphicBrush(magicCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function draw(e) {
             if (!magicIsDrawing || !magicCtx || isAnimating) return;
             e.preventDefault();
             const { x, y } = getCoords(e);
-
-            const dx = x - magicLastX;
-            const dy = y - magicLastY;
-            const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 30));
-
-            drawCalligraphicBrush(magicCtx, magicLastX, magicLastY, x, y, pressure);
+            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
             magicDrawPath.push({ x, y });
-
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
-
             magicLastX = x;
             magicLastY = y;
         }
@@ -2113,7 +2024,6 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
-            drawCalligraphicBrush(magicCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function touchMove(e) {
@@ -2123,18 +2033,10 @@
             const rect = magicCanvas.getBoundingClientRect();
             const x = (touch.clientX - rect.left) * (magicCanvas.width / rect.width);
             const y = (touch.clientY - rect.top) * (magicCanvas.height / rect.height);
-
-            const dx = x - magicLastX;
-            const dy = y - magicLastY;
-            const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 30));
-
-            drawCalligraphicBrush(magicCtx, magicLastX, magicLastY, x, y, pressure);
+            drawUserPath(magicCtx, magicLastX, magicLastY, x, y);
             magicDrawPath.push({ x, y });
-
             if (Math.random() > 0.7) createMagicParticle(x, y);
             if (Math.random() > 0.9) playMagicSound();
-
             magicLastX = x;
             magicLastY = y;
         }
@@ -2166,8 +2068,8 @@
                 document.getElementById('magicLevel').textContent = magicLevel;
 
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,107,53,0.08));border:2px solid #FF6B35;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.4rem;color:#FF6B35;">✨ Волшебство удалось!</div>
+                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1.4rem;color:#FFD700;">✨ Волшебство удалось!</div>
                             <div style="font-size:0.9rem;color:#4CAF50;margin-top:0.2rem;">⭐ +${points} очков!</div>
                             <div style="font-size:1.1rem;color:#FFB347;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
@@ -2185,7 +2087,7 @@
                 speakChinese(magicCurrentChar);
             } else {
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,107,53,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
                             <div style="font-size:1.1rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
                             <div style="font-size:0.9rem;color:#8a7a6a;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
