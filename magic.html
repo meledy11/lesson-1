@@ -280,7 +280,7 @@
             background: #080808;
             border-radius: 14px;
             touch-action: none;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FFD700\" opacity=\"0.8\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FFD700\" stroke-width=\"1.5\" opacity=\"0.3\"/></svg>') 16 16, crosshair;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FF6B35\" opacity=\"0.9\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FF6B35\" stroke-width=\"1.5\" opacity=\"0.4\"/></svg>') 16 16, crosshair;
             box-shadow: inset 0 0 60px rgba(255, 215, 0, 0.01);
             overflow: visible;
             align-self: center;
@@ -319,95 +319,6 @@
             border-radius: 14px;
         }
 
-        /* ===== ТЕТРАДЬ ДЛЯ ПРАКТИКИ ===== */
-        .practice-section {
-            display: none;
-            flex-direction: column;
-            gap: 0.3rem;
-            padding: 0.4rem;
-            background: rgba(255, 215, 0, 0.02);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 215, 0, 0.06);
-            flex-shrink: 0;
-        }
-        .practice-section.active {
-            display: flex;
-        }
-        .practice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #8a7a6a;
-            font-size: 0.8rem;
-            padding: 0 0.2rem;
-        }
-        .practice-header span {
-            color: #FFD700;
-            font-weight: 600;
-        }
-        .practice-canvas-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            max-width: 500px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            border: 2px solid rgba(255, 215, 0, 0.08);
-            touch-action: none;
-        }
-        #practiceCanvas {
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            touch-action: none;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FFD700\" opacity=\"0.8\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FFD700\" stroke-width=\"1.5\" opacity=\"0.3\"/></svg>') 16 16, crosshair;
-        }
-        .practice-hint {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #5a4a3a;
-            font-size: 0.6rem;
-            text-align: center;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-        .practice-controls {
-            display: flex;
-            gap: 0.3rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .practice-controls button {
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.7rem;
-            color: white;
-            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
-            transition: 0.08s;
-        }
-        .practice-controls button:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-        }
-        .btn-prac-clear {
-            background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
-            box-shadow: 0 3px 0 #2a0a0a;
-        }
-        .btn-prac-show {
-            background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
-            box-shadow: 0 3px 0 #3a1a0a;
-        }
-        .btn-prac-close {
-            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
-            box-shadow: 0 3px 0 #1a1a1a;
-        }
-
         .magic-twinkle {
             position: absolute;
             top: 0;
@@ -422,7 +333,7 @@
         .twinkle-dot {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.08);
+            background: rgba(255, 107, 53, 0.08);
             animation: twinklePulse 3-6s ease-in-out infinite alternate;
         }
         @keyframes twinklePulse {
@@ -686,6 +597,143 @@
             border: 1px solid #2d1b0e;
         }
 
+        /* ===== ПОЛНОЭКРАННАЯ ТЕТРАДЬ ===== */
+        .practice-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .practice-overlay.active {
+            display: flex;
+        }
+
+        .practice-overlay .practice-header {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            color: #f0d5b0;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .practice-overlay .practice-header span {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.6rem;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif;
+        }
+        .practice-overlay .practice-close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #3d2b1e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #f0d5b0;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .practice-overlay .practice-close-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .practice-overlay .practice-canvas-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 1 / 1;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            border: 2px solid rgba(255, 107, 53, 0.1);
+            touch-action: none;
+            box-shadow: 0 0 60px rgba(255, 107, 53, 0.03);
+        }
+        #practiceCanvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            touch-action: none;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"3\" fill=\"%23FF6B35\" opacity=\"0.9\"/><path d=\"M16 16 L28 4 M16 16 L4 28 M16 16 L28 28 M16 16 L4 4\" stroke=\"%23FF6B35\" stroke-width=\"1.5\" opacity=\"0.4\"/></svg>') 16 16, crosshair;
+        }
+
+        .practice-overlay .practice-hint {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #5a4a3a;
+            font-size: 0.7rem;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0.5;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+        }
+
+        .practice-overlay .practice-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+            width: 100%;
+            max-width: 700px;
+        }
+        .practice-overlay .practice-controls button {
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: white;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+            transition: 0.08s;
+            flex: 1;
+            min-width: 80px;
+            max-width: 150px;
+        }
+        .practice-overlay .practice-controls button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+        }
+        .btn-prac-clear {
+            background: linear-gradient(135deg, #4a1a1a, #3a0d0d);
+            box-shadow: 0 3px 0 #2a0a0a;
+        }
+        .btn-prac-show {
+            background: linear-gradient(135deg, #5a3a1a, #4a2a0d);
+            box-shadow: 0 3px 0 #3a1a0a;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         @keyframes fireEmoji {
             0% {
                 transform: scale(1) rotate(-3deg);
@@ -694,17 +742,6 @@
             100% {
                 transform: scale(1.05) rotate(3deg);
                 filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.15));
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
 
@@ -801,8 +838,17 @@
             .magic-details-title {
                 font-size: 0.7rem;
             }
-            .practice-canvas-wrapper {
-                max-width: 100%;
+            .practice-overlay .practice-header {
+                font-size: 1rem;
+                padding: 0.3rem 0.5rem;
+            }
+            .practice-overlay .practice-header span {
+                font-size: 1.3rem;
+            }
+            .practice-overlay .practice-controls button {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.8rem;
+                min-width: 60px;
             }
         }
 
@@ -819,9 +865,6 @@
             }
             .magic-details {
                 max-height: 320px;
-            }
-            .practice-canvas-wrapper {
-                max-width: 450px;
             }
         }
     </style>
@@ -876,23 +919,6 @@
                 </div>
             </div>
 
-            <!-- ПРАКТИКА (ТЕТРАДЬ) -->
-            <div class="practice-section" id="practiceSection">
-                <div class="practice-header">
-                    <span>✏️ Тетрадь для практики</span>
-                    <span id="practiceCharDisplay">上</span>
-                </div>
-                <div class="practice-canvas-wrapper">
-                    <canvas id="practiceCanvas"></canvas>
-                    <div class="practice-hint">🎵 Рисуй с музыкой</div>
-                </div>
-                <div class="practice-controls">
-                    <button class="btn-prac-clear" onclick="clearPractice()">🗑️ Очистить</button>
-                    <button class="btn-prac-show" onclick="showPracticeHint()">👁️ Показать</button>
-                    <button class="btn-prac-close" onclick="closePractice()">✖️ Закрыть</button>
-                </div>
-            </div>
-
             <!-- СТАТУС -->
             <div class="magic-status">
                 <div>⭐ Очки: <span id="magicScore">0</span></div>
@@ -918,6 +944,23 @@
         <footer>🪄 Волшебная тетрадь — учи китайский с магией!</footer>
     </div>
 
+    <!-- ===== ПОЛНОЭКРАННАЯ ТЕТРАДЬ ===== -->
+    <div class="practice-overlay" id="practiceOverlay">
+        <div class="practice-header">
+            <span>✏️ Тетрадь</span>
+            <span id="practiceCharDisplay">上</span>
+            <button class="practice-close-btn" onclick="closePractice()">✕</button>
+        </div>
+        <div class="practice-canvas-wrapper">
+            <canvas id="practiceCanvas"></canvas>
+            <div class="practice-hint">🎵 Рисуй с музыкой</div>
+        </div>
+        <div class="practice-controls">
+            <button class="btn-prac-clear" onclick="clearPractice()">🗑️ Очистить</button>
+            <button class="btn-prac-show" onclick="showPracticeHint()">👁️ Подсказка</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js">
     </script>
     <script src="keys-data.js">
@@ -927,7 +970,7 @@
 
     <script>
         // ============================================================
-        //  ПОЛНЫЙ СКРИПТ — С ТЕТРАДЬЮ ДЛЯ ПРАКТИКИ
+        //  ПОЛНЫЙ СКРИПТ — С ОРИГИНАЛЬНОЙ ОРАНЖЕВО-КРАСНОЙ КИСТЬЮ
         // ============================================================
 
         console.log('🔍 Загрузка...');
@@ -1067,7 +1110,6 @@
             document.getElementById('magicKeyDisplay').textContent = `🔑 Ключ: ${data.key}`;
             document.getElementById('magicEmojiDisplay').textContent = data.emoji || '🔑';
 
-            // Обновляем отображение в тетради
             document.getElementById('practiceCharDisplay').textContent = displayChar;
 
             magicClear();
@@ -1077,9 +1119,7 @@
             document.getElementById('magicStatus').style.color = '#FFB347';
             document.getElementById('magicResult').style.display = 'none';
 
-            // Закрываем тетрадь при смене иероглифа
             closePractice();
-
             speakChinese(magicCurrentChar);
         }
 
@@ -1347,7 +1387,7 @@
         let currentWriter = null;
         let magicSoundCtx = null;
 
-        // ===== ПРАКТИКА (ТЕТРАДЬ) =====
+        // ===== ПРАКТИКА (ПОЛНОЭКРАННАЯ ТЕТРАДЬ) =====
         let practiceCtx = null;
         let practiceCanvas = null;
         let isPracticeDrawing = false;
@@ -1379,22 +1419,23 @@
         }
 
         function openPractice() {
-            const section = document.getElementById('practiceSection');
-            section.classList.add('active');
+            const overlay = document.getElementById('practiceOverlay');
+            overlay.classList.add('active');
             document.getElementById('practiceCharDisplay').textContent = magicCurrentChar;
+            document.body.style.overflow = 'hidden';
 
-            // Инициализируем canvas для практики
             setTimeout(() => {
                 initPracticeCanvas();
-            }, 100);
+            }, 150);
 
             document.getElementById('magicStatus').textContent = '✏️ Рисуй в тетради!';
             document.getElementById('magicStatus').style.color = '#4FC3F7';
         }
 
         function closePractice() {
-            const section = document.getElementById('practiceSection');
-            section.classList.remove('active');
+            const overlay = document.getElementById('practiceOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
             if (practiceCtx) {
                 practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
                 drawPracticeGrid();
@@ -1407,19 +1448,20 @@
             const canvas = document.getElementById('practiceCanvas');
             const wrapper = canvas.parentElement;
             const rect = wrapper.getBoundingClientRect();
-            const size = Math.min(rect.width, 500);
+            const size = Math.min(rect.width, 700);
 
-            canvas.width = size * 2;
-            canvas.height = size * 2;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
             canvas.style.width = size + 'px';
             canvas.style.height = size + 'px';
 
             practiceCanvas = canvas;
             practiceCtx = canvas.getContext('2d');
+            practiceCtx.scale(dpr, dpr);
 
             drawPracticeGrid();
 
-            // Настройка событий
             canvas.removeEventListener('mousedown', practiceStartDraw);
             canvas.removeEventListener('mousemove', practiceDraw);
             canvas.removeEventListener('mouseup', practiceEndDraw);
@@ -1440,21 +1482,19 @@
         function drawPracticeGrid() {
             if (!practiceCtx) return;
             const ctx = practiceCtx;
-            const w = practiceCanvas.width;
-            const h = practiceCanvas.height;
+            const w = practiceCanvas.width / (window.devicePixelRatio || 1);
+            const h = practiceCanvas.height / (window.devicePixelRatio || 1);
 
             ctx.save();
             ctx.clearRect(0, 0, w, h);
 
-            // Тёмный фон
-            ctx.fillStyle = 'rgba(10,10,10,0.9)';
+            ctx.fillStyle = 'rgba(8,8,8,0.95)';
             ctx.fillRect(0, 0, w, h);
 
-            // Сетка тетради (клетки)
-            ctx.strokeStyle = 'rgba(255,215,0,0.04)';
-            ctx.lineWidth = 1;
+            // Сетка
+            ctx.strokeStyle = 'rgba(255,107,53,0.04)';
+            ctx.lineWidth = 0.8;
 
-            // Основные линии
             const step = w / 8;
             for (let i = 0; i <= 8; i++) {
                 ctx.beginPath();
@@ -1467,8 +1507,8 @@
                 ctx.stroke();
             }
 
-            // Центральные оси (более заметные)
-            ctx.strokeStyle = 'rgba(255,215,0,0.06)';
+            // Центральные оси
+            ctx.strokeStyle = 'rgba(255,107,53,0.06)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(w / 2, 0);
@@ -1480,74 +1520,110 @@
             ctx.stroke();
 
             // Рамка
-            ctx.strokeStyle = 'rgba(255,215,0,0.08)';
+            ctx.strokeStyle = 'rgba(255,107,53,0.08)';
             ctx.lineWidth = 2;
             ctx.strokeRect(2, 2, w - 4, h - 4);
 
             ctx.restore();
         }
 
-        function drawPracticePath(ctx, x1, y1, x2, y2, pressure = 0.8) {
+        // ===== ОРИГИНАЛЬНАЯ ОРАНЖЕВО-КРАСНАЯ КАЛЛИГРАФИЧЕСКАЯ КИСТЬ =====
+        function drawCalligraphicBrush(ctx, x1, y1, x2, y2, pressure = 0.7) {
             const distance = Math.hypot(x2 - x1, y2 - y1);
-            if (distance < 0.5) return;
+            if (distance < 0.3) return;
 
-            const width = 2 + 6 * pressure;
+            const baseWidth = 3;
+            const width = baseWidth + 8 * pressure;
 
             ctx.save();
 
-            // Основная линия
+            // ОСНОВНОЙ ОРАНЖЕВО-КРАСНЫЙ ШТРИХ
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
 
             const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
-            gradient.addColorStop(0, '#FFD700');
-            gradient.addColorStop(0.5, '#FFAB00');
-            gradient.addColorStop(1, '#FF6F00');
+            gradient.addColorStop(0, '#FF6B35'); // яркий оранжевый
+            gradient.addColorStop(0.3, '#FF5722'); // огненно-оранжевый
+            gradient.addColorStop(0.6, '#E64A19'); // красно-оранжевый
+            gradient.addColorStop(0.85, '#D84315'); // тёмный красно-оранжевый
+            gradient.addColorStop(1, '#BF360C'); // тёмно-красный
 
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.3)';
-            ctx.shadowBlur = 15;
+            ctx.shadowColor = 'rgba(255, 107, 53, 0.6)';
+            ctx.shadowBlur = 25;
             ctx.lineWidth = width;
             ctx.strokeStyle = gradient;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.stroke();
 
-            // Внутреннее свечение
-            ctx.shadowBlur = 25;
-            ctx.shadowColor = 'rgba(255, 200, 0, 0.1)';
-            ctx.lineWidth = width * 0.5;
-            ctx.strokeStyle = 'rgba(255, 255, 200, 0.2)';
+            // ЗОЛОТОЕ ВНУТРЕННЕЕ СВЕЧЕНИЕ
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.25)';
+            ctx.shadowBlur = 35;
+            ctx.lineWidth = width * 0.3;
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.3)';
             ctx.stroke();
 
             ctx.restore();
 
-            // Точка на кончике
-            const dotSize = 1.5 + Math.random() * 2.5;
+            // === КАЛЛИГРАФИЧЕСКАЯ ТОЧКА НА КОНЧИКЕ ===
+            const dotSize = 2.5 + Math.random() * 3;
             ctx.save();
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
-            ctx.shadowBlur = 20;
-            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2);
-            dotGrad.addColorStop(0, '#FFD700');
-            dotGrad.addColorStop(0.4, '#FFAB00');
-            dotGrad.addColorStop(1, 'rgba(255, 107, 0, 0)');
+
+            ctx.shadowColor = 'rgba(255, 107, 53, 0.7)';
+            ctx.shadowBlur = 30;
+
+            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2.5);
+            dotGrad.addColorStop(0, '#FF6B35');
+            dotGrad.addColorStop(0.3, '#FF5722');
+            dotGrad.addColorStop(0.6, '#E64A19');
+            dotGrad.addColorStop(1, 'rgba(191, 54, 12, 0)');
+
             ctx.fillStyle = dotGrad;
             ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 1.5, 0, Math.PI * 2);
+            ctx.arc(x2, y2, dotSize * 2, 0, Math.PI * 2);
             ctx.fill();
 
-            ctx.shadowBlur = 8;
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            // Центральная яркая точка
+            ctx.shadowColor = 'rgba(255, 200, 100, 0.3)';
+            ctx.shadowBlur = 15;
+            const centerGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 0.8);
+            centerGrad.addColorStop(0, 'rgba(255, 255, 220, 0.8)');
+            centerGrad.addColorStop(0.5, 'rgba(255, 200, 100, 0.5)');
+            centerGrad.addColorStop(1, 'rgba(255, 100, 0, 0)');
+            ctx.fillStyle = centerGrad;
             ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 0.3, 0, Math.PI * 2);
+            ctx.arc(x2, y2, dotSize * 0.8, 0, Math.PI * 2);
             ctx.fill();
+
             ctx.restore();
+
+            // Искры
+            if (Math.random() > 0.5) {
+                for (let i = 0; i < 2; i++) {
+                    const sparkX = x2 + (Math.random() - 0.5) * 6;
+                    const sparkY = y2 + (Math.random() - 0.5) * 6;
+                    ctx.save();
+                    ctx.globalAlpha = 0.15 + Math.random() * 0.2;
+                    ctx.shadowColor = 'rgba(255, 107, 53, 0.3)';
+                    ctx.shadowBlur = 10;
+                    ctx.fillStyle = '#FF6B35';
+                    ctx.beginPath();
+                    ctx.arc(sparkX, sparkY, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            if (Math.random() > 0.7) {
+                createMagicParticle(x2 + (Math.random() - 0.5) * 4, y2 + (Math.random() - 0.5) * 4);
+            }
         }
 
         function getPracticeCoords(e) {
             const rect = practiceCanvas.getBoundingClientRect();
-            const scaleX = practiceCanvas.width / rect.width;
-            const scaleY = practiceCanvas.height / rect.height;
+            const scaleX = practiceCanvas.width / (window.devicePixelRatio || 1) / rect.width;
+            const scaleY = practiceCanvas.height / (window.devicePixelRatio || 1) / rect.height;
             const x = (e.clientX - rect.left) * scaleX;
             const y = (e.clientY - rect.top) * scaleY;
             return { x, y };
@@ -1561,7 +1637,7 @@
             practiceLastY = y;
             practicePath.push({ x, y });
             playPracticeSound();
-            drawPracticePath(practiceCtx, x, y, x + 0.5, y + 0.5, 0.9);
+            drawCalligraphicBrush(practiceCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function practiceDraw(e) {
@@ -1572,12 +1648,12 @@
             const dx = x - practiceLastX;
             const dy = y - practiceLastY;
             const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
+            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
 
-            drawPracticePath(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            drawCalligraphicBrush(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
             practicePath.push({ x, y });
 
-            if (Math.random() > 0.8) playPracticeSound();
+            if (Math.random() > 0.85) playPracticeSound();
 
             practiceLastX = x;
             practiceLastY = y;
@@ -1595,8 +1671,8 @@
             if (!practiceCtx) return;
             const touch = e.touches[0];
             const rect = practiceCanvas.getBoundingClientRect();
-            const scaleX = practiceCanvas.width / rect.width;
-            const scaleY = practiceCanvas.height / rect.height;
+            const scaleX = practiceCanvas.width / (window.devicePixelRatio || 1) / rect.width;
+            const scaleY = practiceCanvas.height / (window.devicePixelRatio || 1) / rect.height;
             const x = (touch.clientX - rect.left) * scaleX;
             const y = (touch.clientY - rect.top) * scaleY;
             isPracticeDrawing = true;
@@ -1604,7 +1680,7 @@
             practiceLastY = y;
             practicePath.push({ x, y });
             playPracticeSound();
-            drawPracticePath(practiceCtx, x, y, x + 0.5, y + 0.5, 0.9);
+            drawCalligraphicBrush(practiceCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function practiceTouchMove(e) {
@@ -1612,20 +1688,20 @@
             if (!isPracticeDrawing || !practiceCtx) return;
             const touch = e.touches[0];
             const rect = practiceCanvas.getBoundingClientRect();
-            const scaleX = practiceCanvas.width / rect.width;
-            const scaleY = practiceCanvas.height / rect.height;
+            const scaleX = practiceCanvas.width / (window.devicePixelRatio || 1) / rect.width;
+            const scaleY = practiceCanvas.height / (window.devicePixelRatio || 1) / rect.height;
             const x = (touch.clientX - rect.left) * scaleX;
             const y = (touch.clientY - rect.top) * scaleY;
 
             const dx = x - practiceLastX;
             const dy = y - practiceLastY;
             const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
+            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
 
-            drawPracticePath(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
+            drawCalligraphicBrush(practiceCtx, practiceLastX, practiceLastY, x, y, pressure);
             practicePath.push({ x, y });
 
-            if (Math.random() > 0.8) playPracticeSound();
+            if (Math.random() > 0.85) playPracticeSound();
 
             practiceLastX = x;
             practiceLastY = y;
@@ -1641,36 +1717,42 @@
 
         function clearPractice() {
             if (practiceCtx) {
-                practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
+                const dpr = window.devicePixelRatio || 1;
+                const w = practiceCanvas.width / dpr;
+                const h = practiceCanvas.height / dpr;
+                practiceCtx.clearRect(0, 0, w, h);
                 drawPracticeGrid();
             }
             practicePath = [];
         }
 
         function showPracticeHint() {
-            // Показываем иероглиф поверх тетради (полупрозрачный)
             if (!practiceCtx) return;
             const ctx = practiceCtx;
-            const w = practiceCanvas.width;
-            const h = practiceCanvas.height;
+            const dpr = window.devicePixelRatio || 1;
+            const w = practiceCanvas.width / dpr;
+            const h = practiceCanvas.height / dpr;
 
             ctx.save();
-            ctx.globalAlpha = 0.15;
-            ctx.fillStyle = '#FFD700';
-            ctx.font = `${w * 0.7}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
+            ctx.globalAlpha = 0.12;
+            ctx.fillStyle = '#FF6B35';
+            const fontSize = w * 0.65;
+            ctx.font = `${fontSize}px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "SimSun", sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(255,107,53,0.2)';
+            ctx.shadowBlur = 30;
             ctx.fillText(magicCurrentChar, w / 2, h / 2);
             ctx.restore();
 
-            // Через 2 секунды убираем подсказку
             setTimeout(() => {
                 if (practiceCtx) {
-                    // Перерисовываем сетку и рисунок
                     const tempPath = [...practicePath];
-                    practiceCtx.clearRect(0, 0, practiceCanvas.width, practiceCanvas.height);
+                    const dpr2 = window.devicePixelRatio || 1;
+                    const w2 = practiceCanvas.width / dpr2;
+                    const h2 = practiceCanvas.height / dpr2;
+                    practiceCtx.clearRect(0, 0, w2, h2);
                     drawPracticeGrid();
-                    // Восстанавливаем нарисованное
                     if (tempPath.length > 1) {
                         for (let i = 1; i < tempPath.length; i++) {
                             const p1 = tempPath[i - 1];
@@ -1678,14 +1760,14 @@
                             const dx = p2.x - p1.x;
                             const dy = p2.y - p1.y;
                             const speed = Math.hypot(dx, dy);
-                            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 40));
-                            drawPracticePath(practiceCtx, p1.x, p1.y, p2.x, p2.y, pressure);
+                            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 40));
+                            drawCalligraphicBrush(practiceCtx, p1.x, p1.y, p2.x, p2.y, pressure);
                         }
                     }
                 }
-            }, 2000);
+            }, 1500);
 
-            document.getElementById('magicStatus').textContent = '👁️ Подсказка показана на 2 секунды';
+            document.getElementById('magicStatus').textContent = '👁️ Подсказка показана';
             document.getElementById('magicStatus').style.color = '#4FC3F7';
         }
 
@@ -1729,63 +1811,6 @@
                     osc.stop(magicSoundCtx.currentTime + i * 0.1 + 0.2);
                 });
             } catch (e) {}
-        }
-
-        function drawCalligraphicPath(ctx, x1, y1, x2, y2, pressure = 0.8) {
-            const distance = Math.hypot(x2 - x1, y2 - y1);
-            if (distance < 0.5) return;
-
-            const width = 2 + 6 * pressure;
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-
-            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
-            gradient.addColorStop(0, '#FFD700');
-            gradient.addColorStop(0.7, '#FFAB00');
-            gradient.addColorStop(1, '#FF6F00');
-
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.4)';
-            ctx.shadowBlur = 18;
-            ctx.lineWidth = width;
-            ctx.strokeStyle = gradient;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-
-            ctx.shadowBlur = 30;
-            ctx.shadowColor = 'rgba(255, 200, 0, 0.15)';
-            ctx.lineWidth = width * 0.5;
-            ctx.strokeStyle = 'rgba(255, 255, 200, 0.3)';
-            ctx.stroke();
-
-            ctx.restore();
-
-            const dotSize = 2 + Math.random() * 3;
-            ctx.save();
-            ctx.shadowColor = 'rgba(255, 215, 0, 0.6)';
-            ctx.shadowBlur = 25;
-            const dotGrad = ctx.createRadialGradient(x2, y2, 0, x2, y2, dotSize * 2);
-            dotGrad.addColorStop(0, '#FFD700');
-            dotGrad.addColorStop(0.4, '#FFAB00');
-            dotGrad.addColorStop(1, 'rgba(255, 107, 0, 0)');
-            ctx.fillStyle = dotGrad;
-            ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 1.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.shadowBlur = 10;
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.beginPath();
-            ctx.arc(x2, y2, dotSize * 0.4, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
-
-            if (Math.random() > 0.6) {
-                createMagicParticle(x2 + (Math.random() - 0.5) * 4, y2 + (Math.random() - 0.5) * 4);
-            }
         }
 
         function magicClear() {
@@ -1840,7 +1865,7 @@
             const ctx = magicCtx;
             const size = magicCanvas.width;
             ctx.save();
-            ctx.strokeStyle = 'rgba(255,215,0,0.03)';
+            ctx.strokeStyle = 'rgba(255,107,53,0.03)';
             ctx.lineWidth = 0.5;
             for (let i = 1; i < 4; i++) {
                 ctx.beginPath();
@@ -1858,7 +1883,7 @@
         }
 
         function createMagicParticle(x, y) {
-            const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FFD700'];
+            const colors = ['#9C27B0', '#7B1FA2', '#AB47BC', '#CE93D8', '#FF6B35'];
             magicParticles.push({
                 x: x + (Math.random() - 0.5) * 6,
                 y: y + (Math.random() - 0.5) * 6,
@@ -1885,7 +1910,7 @@
         function showStaticChar(container, char) {
             container.innerHTML = `
                     <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
-                        <div style="font-size:8rem;color:#FFD700;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,215,0,0.1);opacity:0.5;">
+                        <div style="font-size:8rem;color:#FF6B35;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei','SimSun',sans-serif;text-shadow:0 0 60px rgba(255,107,53,0.1);opacity:0.5;">
                             ${char}
                         </div>
                     </div>
@@ -1914,24 +1939,24 @@
                         width: 400,
                         height: 400,
                         showOutline: false,
-                        strokeColor: '#FFD700',
+                        strokeColor: '#FF6B35',
                         strokeAnimationSpeed: 1.0,
                         delayBetweenStrokes: 250,
                         showCharacter: false,
                         showHintAfterMisses: 0,
-                        radicalColor: '#FFD700',
-                        radicalStrokeColor: '#FFD700',
+                        radicalColor: '#FF6B35',
+                        radicalStrokeColor: '#FF6B35',
                         padding: 15
                     });
 
                     document.getElementById('magicStatus').textContent = '✨ Волшебство...';
-                    document.getElementById('magicStatus').style.color = '#FFD700';
+                    document.getElementById('magicStatus').style.color = '#FF6B35';
                     isAnimating = true;
 
                     currentWriter.animateCharacter({
                         onComplete: function() {
                             isAnimating = false;
-                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ каллиграфическим маркером!';
+                            document.getElementById('magicStatus').textContent = '🖌️ Обведи ключ каллиграфической кистью!';
                             document.getElementById('magicStatus').style.color = '#4CAF50';
                             playMagicCompleteSound();
                             initDrawingCanvas();
@@ -1956,7 +1981,6 @@
             }
         }
 
-        // ===== ПОВТОР =====
         function magicRepeat() {
             magicClear();
             const char = magicCurrentChar;
@@ -1971,13 +1995,13 @@
                         width: 400,
                         height: 400,
                         showOutline: false,
-                        strokeColor: '#FFD700',
+                        strokeColor: '#FF6B35',
                         strokeAnimationSpeed: 1.2,
                         delayBetweenStrokes: 200,
                         showCharacter: false,
                         showHintAfterMisses: 0,
-                        radicalColor: '#FFD700',
-                        radicalStrokeColor: '#FFD700',
+                        radicalColor: '#FF6B35',
+                        radicalStrokeColor: '#FF6B35',
                         padding: 15
                     });
 
@@ -2045,7 +2069,7 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
-            drawCalligraphicPath(magicCtx, x, y, x + 0.5, y + 0.5, 0.9);
+            drawCalligraphicBrush(magicCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function draw(e) {
@@ -2056,9 +2080,9 @@
             const dx = x - magicLastX;
             const dy = y - magicLastY;
             const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 30));
+            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 30));
 
-            drawCalligraphicPath(magicCtx, magicLastX, magicLastY, x, y, pressure);
+            drawCalligraphicBrush(magicCtx, magicLastX, magicLastY, x, y, pressure);
             magicDrawPath.push({ x, y });
 
             if (Math.random() > 0.7) createMagicParticle(x, y);
@@ -2089,7 +2113,7 @@
             magicLastY = y;
             createMagicParticle(x, y);
             playMagicSound();
-            drawCalligraphicPath(magicCtx, x, y, x + 0.5, y + 0.5, 0.9);
+            drawCalligraphicBrush(magicCtx, x, y, x + 1, y + 1, 0.9);
         }
 
         function touchMove(e) {
@@ -2103,9 +2127,9 @@
             const dx = x - magicLastX;
             const dy = y - magicLastY;
             const speed = Math.hypot(dx, dy);
-            const pressure = Math.min(1, Math.max(0.3, 1 - speed / 30));
+            const pressure = Math.min(1, Math.max(0.25, 1 - speed / 30));
 
-            drawCalligraphicPath(magicCtx, magicLastX, magicLastY, x, y, pressure);
+            drawCalligraphicBrush(magicCtx, magicLastX, magicLastY, x, y, pressure);
             magicDrawPath.push({ x, y });
 
             if (Math.random() > 0.7) createMagicParticle(x, y);
@@ -2142,8 +2166,8 @@
                 document.getElementById('magicLevel').textContent = magicLevel;
 
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,215,0,0.08));border:2px solid #FFD700;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
-                            <div style="font-size:1.4rem;color:#FFD700;">✨ Волшебство удалось!</div>
+                        <div style="background:linear-gradient(135deg,rgba(76,175,80,0.12),rgba(255,107,53,0.08));border:2px solid #FF6B35;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                            <div style="font-size:1.4rem;color:#FF6B35;">✨ Волшебство удалось!</div>
                             <div style="font-size:0.9rem;color:#4CAF50;margin-top:0.2rem;">⭐ +${points} очков!</div>
                             <div style="font-size:1.1rem;color:#FFB347;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
@@ -2161,7 +2185,7 @@
                 speakChinese(magicCurrentChar);
             } else {
                 resultDiv.innerHTML = `
-                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,215,0,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
+                        <div style="background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(255,107,53,0.03));border:2px solid #FF6B6B;border-radius:14px;padding:0.6rem;animation:fadeIn 0.4s ease;">
                             <div style="font-size:1.1rem;color:#FF6B6B;">😅 Нажми "Показать" и обведи ключ!</div>
                             <div style="font-size:0.9rem;color:#8a7a6a;margin-top:0.2rem;">
                                 ${magicCharData?.chinese || '—'} — ${magicCharData?.translation || 'ключ'} ${magicCharData?.emoji || '🔑'}
