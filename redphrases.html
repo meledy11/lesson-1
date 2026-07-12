@@ -6,7 +6,6 @@
     <title>📕 Красная книга — китайские фразы</title>
 
     <style>
-        /* ===== ОБЩИЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +21,6 @@
             margin: 0 auto;
         }
 
-        /* ===== ЗАГОЛОВОК ===== */
         .header {
             text-align: center;
             padding: 20px 0 12px;
@@ -43,7 +41,6 @@
             margin-top: 4px;
         }
 
-        /* ===== СТАТИСТИКА ===== */
         .stats {
             display: flex;
             justify-content: center;
@@ -69,7 +66,6 @@
             color: #dc2626;
         }
 
-        /* ===== КНОПКИ КАТЕГОРИЙ ===== */
         .categories {
             display: flex;
             flex-wrap: wrap;
@@ -100,12 +96,6 @@
             border-color: #1a1a1a;
         }
 
-        .categories button.red-btn.active {
-            background: #dc2626;
-            border-color: #dc2626;
-        }
-
-        /* ===== ПОИСК ===== */
         .search {
             width: 100%;
             padding: 12px 18px;
@@ -121,7 +111,6 @@
             border-color: #1a1a1a;
         }
 
-        /* ===== КАРТОЧКА ФРАЗЫ ===== */
         .phrase-card {
             background: white;
             border-radius: 16px;
@@ -193,7 +182,6 @@
             color: #991b1b;
         }
 
-        /* ===== КНОПКА ОЗВУЧКИ ===== */
         .audio-btn {
             margin-top: 10px;
             padding: 6px 18px;
@@ -216,7 +204,6 @@
             color: white;
         }
 
-        /* ===== ПУСТОЙ РЕЗУЛЬТАТ ===== */
         .empty {
             text-align: center;
             padding: 40px 20px;
@@ -224,7 +211,6 @@
             font-size: 16px;
         }
 
-        /* ===== КНОПКА ВВЕРХ ===== */
         .scroll-top {
             position: fixed;
             bottom: 24px;
@@ -250,7 +236,6 @@
             display: block;
         }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 500px) {
             .phrase-card .chinese {
                 font-size: 28px;
@@ -265,57 +250,119 @@
             }
         }
 
-        /* ===== ИНДИКАТОР ЗАГРУЗКИ ===== */
         .loading {
             text-align: center;
             padding: 40px 20px;
             color: #999;
             font-size: 18px;
         }
+
         .loading .spinner {
             display: inline-block;
             animation: spin 1s linear infinite;
             font-size: 30px;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* ===== СТИЛИ ДЛЯ ОШИБОК ===== */
         .error-msg {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             color: #dc2626;
             font-size: 16px;
             background: #fef2f2;
             border-radius: 16px;
             border: 2px solid #dc2626;
+            margin: 10px 0;
         }
+
         .error-msg .hint {
             color: #666;
             font-size: 14px;
             margin-top: 10px;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .error-msg .hint .label {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .debug-panel {
+            background: #1a1a1a;
+            color: #0f0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            border: 1px solid #333;
+        }
+
+        .debug-panel .debug-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .debug-panel .debug-line {
+            color: #aaa;
+            padding: 2px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .debug-panel .debug-line.success {
+            color: #0f0;
+        }
+
+        .debug-panel .debug-line.error {
+            color: #ff4444;
+        }
+
+        .debug-panel .debug-line.warning {
+            color: #ffaa00;
+        }
+
+        .debug-panel .debug-line.info {
+            color: #66ccff;
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== ЗАГОЛОВОК ===== -->
     <div class="header">
         <h1>📕 <span class="red">Красная</span> книга</h1>
         <div class="sub">Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой</div>
     </div>
 
-    <!-- ===== СТАТИСТИКА ===== -->
+    <!-- ===== ПАНЕЛЬ ОТЛАДКИ ===== -->
+    <div class="debug-panel" id="debugPanel">
+        <div class="debug-title">🐞 КОНСОЛЬ ПРИЛОЖЕНИЯ:</div>
+        <div class="debug-line info">⏳ Инициализация...</div>
+    </div>
+
     <div class="stats" id="stats">
         <span>📄 Всего: <strong id="totalCount">0</strong></span>
         <span>🔴 Красная книга: <strong class="red-num" id="redCount">0</strong></span>
         <span>📂 Категорий: <strong id="catCount">0</strong></span>
     </div>
 
-    <!-- ===== ПОИСК ===== -->
     <input class="search" id="searchInput" type="text" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." />
 
-    <!-- ===== КНОПКИ КАТЕГОРИЙ ===== -->
     <div class="categories" id="categoryButtons">
         <button data-cat="all" class="active">📚 Все</button>
         <button data-cat="phrase">📄 Фразы</button>
@@ -324,7 +371,6 @@
         <button data-cat="work">💼 Работа</button>
     </div>
 
-    <!-- ===== СПИСОК ФРАЗ ===== -->
     <div id="phraseList">
         <div class="loading">
             <div class="spinner">⏳</div>
@@ -332,59 +378,157 @@
         </div>
     </div>
 
-    <!-- ===== КНОПКА ВВЕРХ ===== -->
     <button class="scroll-top" id="scrollTopBtn" title="Наверх">↑</button>
 
     <!-- ========================================================== -->
-    <!-- ПОДКЛЮЧАЕМ МАССИВ И ЛОГИКУ -->
+    <!-- ПОДКЛЮЧАЕМ МАССИВ -->
     <!-- ========================================================== -->
-
-    <!-- 1. Массив с фразами (отдельный файл) -->
     <script src="redphrases.js"></script>
 
-    <!-- 2. Основная логика отображения -->
+    <!-- ========================================================== -->
+    <!-- ЛОГИКА С ОТЛАДКОЙ -->
+    <!-- ========================================================== -->
     <script>
         // ============================================================
-        // ЗАГРУЗКА МАССИВА — ПОДДЕРЖИВАЕТ ОБА ИМЕНИ
+        // ФУНКЦИЯ ДЛЯ ВЫВОДА В ПАНЕЛЬ ОТЛАДКИ
+        // ============================================================
+
+        const debugPanel = document.getElementById('debugPanel');
+
+        function debugLog(message, type) {
+            const line = document.createElement('div');
+            line.className = 'debug-line ' + (type || 'info');
+            const time = new Date().toLocaleTimeString();
+            line.textContent = '[' + time + '] ' + message;
+            debugPanel.appendChild(line);
+            debugPanel.scrollTop = debugPanel.scrollHeight;
+
+            // Также выводим в консоль браузера
+            if (type === 'error') {
+                console.error(message);
+            } else if (type === 'warning') {
+                console.warn(message);
+            } else {
+                console.log(message);
+            }
+        }
+
+        debugLog('🚀 Страница загружена, начинаем поиск массива...', 'info');
+
+        // ============================================================
+        // ПОИСК МАССИВА
         // ============================================================
 
         let allPhrases = [];
+        let found = false;
 
-        // Проверяем все возможные имена массива
-        if (typeof window.allPhrases !== "undefined" && Array.isArray(window.allPhrases) && window.allPhrases.length > 0) {
-            allPhrases = window.allPhrases;
-            console.log("✅ Загружен массив window.allPhrases, фраз:", allPhrases.length);
-        } else if (typeof allPhrases !== "undefined" && Array.isArray(allPhrases) && allPhrases.length > 0) {
-            // Уже есть глобальный allPhrases — используем его
-            console.log("✅ Используем глобальный allPhrases, фраз:", allPhrases.length);
-        } else if (typeof redPhrases !== "undefined" && Array.isArray(redPhrases) && redPhrases.length > 0) {
-            allPhrases = redPhrases;
-            console.log("✅ Загружен массив redPhrases, фраз:", allPhrases.length);
-        } else if (typeof window.redPhrases !== "undefined" && Array.isArray(window.redPhrases) && window.redPhrases.length > 0) {
-            allPhrases = window.redPhrases;
-            console.log("✅ Загружен массив window.redPhrases, фраз:", allPhrases.length);
-        } else {
-            console.error("❌ Массив не найден! Проверь файл redphrases.js");
-            document.getElementById('phraseList').innerHTML = `
-                <div class="error-msg">
-                    ❌ Ошибка: массив не загружен!
-                    <div class="hint">
-                        Проверь, что файл <strong>redphrases.js</strong> лежит в той же папке.<br>
-                        И что в нём есть массив с именем <strong>allPhrases</strong> или <strong>redPhrases</strong>.
-                    </div>
-                </div>
-            `;
+        // Проверяем ВСЕ возможные имена
+        const possibleNames = [
+            'allPhrases',
+            'redPhrases',
+            'phrasesData',
+            'redPhrasesDB',
+            'phrasesDB',
+            'data'
+        ];
+
+        debugLog('🔍 Проверяем возможные имена массивов: ' + possibleNames.join(', '), 'info');
+
+        for (const name of possibleNames) {
+            try {
+                if (typeof window[name] !== 'undefined') {
+                    debugLog('📌 Найдена глобальная переменная: ' + name, 'info');
+                    if (Array.isArray(window[name])) {
+                        if (window[name].length > 0) {
+                            allPhrases = window[name];
+                            found = true;
+                            debugLog('✅ ЗАГРУЖЕН МАССИВ: ' + name + ', фраз: ' + allPhrases.length, 'success');
+                            break;
+                        } else {
+                            debugLog('⚠️ Массив ' + name + ' пуст (length=0)', 'warning');
+                        }
+                    } else {
+                        debugLog('⚠️ ' + name + ' существует, но НЕ массив (тип: ' + typeof window[name] + ')', 'warning');
+                    }
+                }
+            } catch (e) {
+                debugLog('❌ Ошибка при проверке ' + name + ': ' + e.message, 'error');
+            }
+        }
+
+        // Если не нашли — пробуем через Object.keys
+        if (!found) {
+            debugLog('🔍 Пробуем найти массив через Object.keys(window)...', 'info');
+            try {
+                const allKeys = Object.keys(window);
+                for (const key of allKeys) {
+                    try {
+                        if (window[key] && Array.isArray(window[key]) && window[key].length > 0) {
+                            // Проверяем, что это похоже на наш массив
+                            const firstItem = window[key][0];
+                            if (firstItem && typeof firstItem === 'object' && firstItem.chinese && firstItem.pinyin) {
+                                allPhrases = window[key];
+                                found = true;
+                                debugLog('✅ НАЙДЕН МАССИВ через Object.keys: ' + key + ', фраз: ' + allPhrases.length,
+                                'success');
+                                break;
+                            }
+                        }
+                    } catch (e) {}
+                }
+            } catch (e) {
+                debugLog('❌ Ошибка при Object.keys: ' + e.message, 'error');
+            }
         }
 
         // ============================================================
-        // ЛОГИКА ОТОБРАЖЕНИЯ ФРАЗ
+        // РЕЗУЛЬТАТ ПОИСКА
         // ============================================================
 
-        // ===== СОСТОЯНИЕ =====
+        if (!found || allPhrases.length === 0) {
+            debugLog('❌ МАССИВ НЕ НАЙДЕН!', 'error');
+
+            const errorHtml = `
+                <div class="error-msg">
+                    ❌ Массив с фразами НЕ ЗАГРУЖЕН!
+                    <div class="hint">
+                        <span class="label">🔍 Что проверено:</span>
+                        ✅ Файл redphrases.js должен лежать в той же папке<br>
+                        ✅ В нём должен быть массив с одним из имён:<br>
+                        &nbsp;&nbsp;• allPhrases<br>
+                        &nbsp;&nbsp;• redPhrases<br>
+                        &nbsp;&nbsp;• phrasesData<br>
+                        &nbsp;&nbsp;• redPhrasesDB<br>
+                        <br>
+                        <span class="label">📌 Текущий статус:</span>
+                        Массив не найден. Проверь:
+                        1. Файл <strong>redphrases.js</strong> существует в папке
+                        2. В нём есть объявление массива (const allPhrases = [...])
+                        3. В конце файла есть: if (typeof window !== "undefined") { window.allPhrases = allPhrases; }
+                        <br><br>
+                        <span class="label">💡 Совет:</span>
+                        Открой консоль браузера (F12) и посмотри ошибки загрузки.
+                    </div>
+                </div>
+            `;
+            document.getElementById('phraseList').innerHTML = errorHtml;
+            document.getElementById('totalCount').textContent = '0';
+            document.getElementById('redCount').textContent = '0';
+            document.getElementById('catCount').textContent = '0';
+        } else {
+            debugLog('✅ УСПЕШНО ЗАГРУЖЕНО! Фраз: ' + allPhrases.length, 'success');
+            debugLog('📂 Категории: ' + [...new Set(allPhrases.map(p => p.category))].join(', '), 'info');
+            // Запускаем отображение
+            render();
+        }
+
+        // ============================================================
+        // ОТОБРАЖЕНИЕ
+        // ============================================================
+
         let currentCategory = "all";
         let searchQuery = "";
 
-        // ===== DOM-ЭЛЕМЕНТЫ =====
         const phraseListEl = document.getElementById("phraseList");
         const searchInput = document.getElementById("searchInput");
         const totalCountEl = document.getElementById("totalCount");
@@ -392,13 +536,9 @@
         const catCountEl = document.getElementById("catCount");
         const scrollBtn = document.getElementById("scrollTopBtn");
 
-        // ===== ФИЛЬТРАЦИЯ =====
         function getFilteredPhrases() {
             return allPhrases.filter((p) => {
-                // Фильтр по категории
                 if (currentCategory !== "all" && p.category !== currentCategory) return false;
-
-                // Поиск
                 if (searchQuery.trim()) {
                     const q = searchQuery.trim().toLowerCase();
                     const inChinese = p.chinese.includes(q);
@@ -406,115 +546,87 @@
                     const inTranslation = p.translation.toLowerCase().includes(q);
                     if (!inChinese && !inPinyin && !inTranslation) return false;
                 }
-
                 return true;
             });
         }
 
-        // ===== РЕНДЕРИНГ =====
         function render() {
+            if (allPhrases.length === 0) return;
+
             const filtered = getFilteredPhrases();
             const total = allPhrases.length;
-            const categories = new Set(allPhrases.map((p) => p.category));
-            const catCount = categories.size;
 
-            // Статистика
             totalCountEl.textContent = total;
             redCountEl.textContent = total;
-            catCountEl.textContent = catCount;
-
-            if (allPhrases.length === 0) {
-                phraseListEl.innerHTML = `
-                    <div class="error-msg">
-                        ❌ Массив с фразами пуст или не загружен!
-                        <div class="hint">Проверь файл <strong>redphrases.js</strong></div>
-                    </div>
-                `;
-                return;
-            }
+            catCountEl.textContent = new Set(allPhrases.map(p => p.category)).size;
 
             if (filtered.length === 0) {
-                phraseListEl.innerHTML = `<div class="empty">😕 Ничего не найдено. Попробуйте изменить поиск.</div>`;
+                phraseListEl.innerHTML = `<div class="empty">😕 Ничего не найдено</div>`;
                 return;
             }
 
             let html = "";
             for (const p of filtered) {
-                const badgeHtml = `<span class="badge">🔴 Красная книга</span>`;
-
-                // Теги
-                let tagsHtml = `<span class="tag category-tag">${p.category}</span>`;
-                tagsHtml += `<span class="tag red-tag">🔴 Красная книга</span>`;
-
-                // Экранируем кавычки для озвучки
                 const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const isRed = p.red !== undefined ? p.red : true;
+                const borderColor = isRed ? '#dc2626' : '#3b82f6';
+                const bgColor = isRed ? '#fef2f2' : '#f0f7ff';
+                const badgeText = isRed ? '🔴 Красная книга' : '🔵 Аналог';
 
                 html += `
-                        <div class="phrase-card">
-                            <div class="chinese">${p.chinese} ${badgeHtml}</div>
-                            <div class="pinyin">${p.pinyin}</div>
-                            <div class="translation">${p.translation}</div>
-                            <div class="tags">${tagsHtml}</div>
-                            <button class="audio-btn" data-text="${safeChinese}">🔊 Прослушать</button>
+                    <div class="phrase-card" style="border-left-color:${borderColor}; background:${bgColor};">
+                        <div class="chinese">${p.chinese} <span class="badge">${badgeText}</span></div>
+                        <div class="pinyin">${p.pinyin}</div>
+                        <div class="translation">${p.translation}</div>
+                        <div class="tags">
+                            <span class="tag category-tag">📂 ${p.category}</span>
+                            ${isRed ? '<span class="tag red-tag">🔴 Красная книга</span>' : '<span class="tag category-tag">🔵 Аналог</span>'}
                         </div>
-                    `;
+                        <button class="audio-btn" data-text="${safeChinese}">🔊 Прослушать</button>
+                    </div>
+                `;
             }
 
             phraseListEl.innerHTML = html;
 
-            // ===== ОЗВУЧКА =====
             document.querySelectorAll(".audio-btn").forEach((btn) => {
                 btn.addEventListener("click", function () {
-                    const text = this.dataset.text;
-                    speakChinese(text, this);
+                    speakChinese(this.dataset.text, this);
                 });
             });
         }
 
-        // ===== ОЗВУЧКА (Web Speech API) =====
         function speakChinese(text, btn) {
             if (!window.speechSynthesis) {
-                alert("К сожалению, ваш браузер не поддерживает озвучку.");
+                alert("Озвучка не поддерживается");
                 return;
             }
-
-            // Отменяем текущую речь
             window.speechSynthesis.cancel();
-
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = "zh-CN";
             utterance.rate = 0.9;
-            utterance.pitch = 1;
-
-            // Ищем китайский голос
             const voices = window.speechSynthesis.getVoices();
-            const zhVoice = voices.find((v) => v.lang.startsWith("zh"));
+            const zhVoice = voices.find(v => v.lang.startsWith("zh"));
             if (zhVoice) utterance.voice = zhVoice;
-
-            // Визуальный фидбек
             if (btn) {
                 btn.textContent = "🔊 Говорит...";
                 btn.classList.add("playing");
             }
-
             utterance.onend = () => {
                 if (btn) {
                     btn.textContent = "🔊 Прослушать";
                     btn.classList.remove("playing");
                 }
             };
-
             utterance.onerror = () => {
                 if (btn) {
                     btn.textContent = "🔊 Прослушать";
                     btn.classList.remove("playing");
                 }
             };
-
             window.speechSynthesis.speak(utterance);
         }
 
-        // Загружаем голоса (для некоторых браузеров)
         if (window.speechSynthesis) {
             window.speechSynthesis.getVoices();
             window.speechSynthesis.onvoiceschanged = () => {
@@ -522,45 +634,51 @@
             };
         }
 
-        // ===== СОБЫТИЯ =====
-
-        // Поиск
         searchInput.addEventListener("input", (e) => {
             searchQuery = e.target.value;
             render();
         });
 
-        // Категории
         document.querySelectorAll("#categoryButtons button").forEach((btn) => {
             btn.addEventListener("click", function () {
-                document.querySelectorAll("#categoryButtons button").forEach((b) => b.classList.remove("active"));
+                document.querySelectorAll("#categoryButtons button").forEach(b => b.classList.remove("active"));
                 this.classList.add("active");
                 currentCategory = this.dataset.cat;
                 render();
             });
         });
 
-        // Кнопка "Наверх"
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 400) {
-                scrollBtn.classList.add("show");
-            } else {
-                scrollBtn.classList.remove("show");
-            }
+            scrollBtn.classList.toggle("show", window.scrollY > 400);
         });
 
         scrollBtn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // ===== СТАРТ =====
-        // Небольшая задержка для загрузки голосов
-        setTimeout(render, 100);
+        // ============================================================
+        // ПЕРЕХВАТ ОШИБОК
+        // ============================================================
 
-        console.log("✅ Страница загружена! Всего фраз:", allPhrases.length);
-        if (allPhrases.length > 0) {
-            console.log("📂 Категории:", [...new Set(allPhrases.map(p => p.category))]);
-        }
+        // Перехватываем ошибки window.onerror
+        window.onerror = function(message, source, lineno, colno, error) {
+            debugLog('❌ ОШИБКА: ' + message + ' (файл: ' + source + ', строка: ' + lineno + ')', 'error');
+            if (error && error.stack) {
+                debugLog('📋 Стек: ' + error.stack.substring(0, 300) + '...', 'error');
+            }
+            return false;
+        };
+
+        // Перехватываем ошибки Promise
+        window.addEventListener('unhandledrejection', function(event) {
+            debugLog('❌ НЕОБРАБОТАННЫЙ ПРОМЕС: ' + event.reason, 'error');
+            if (event.reason && event.reason.stack) {
+                debugLog('📋 Стек: ' + event.reason.stack.substring(0, 300) + '...', 'error');
+            }
+        });
+
+        debugLog('✅ Система отладки активирована!', 'success');
+        debugLog('📊 Всего фраз в массиве: ' + allPhrases.length, 'info');
     </script>
 
 </body>
