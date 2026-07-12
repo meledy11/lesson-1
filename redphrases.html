@@ -4,26 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📕 Красная книга — китайские фразы</title>
+    <!-- ===== HANZI WRITER (бесплатная рисовалка) ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js">
+    </script>
     <script src="redphrases.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+        html, body { height: 100%; overflow: hidden; }
         body {
             background: linear-gradient(145deg, #1a3a2a 0%, #0a1a0f 100%);
             font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
             padding: 10px;
             color: #f5e6d3;
         }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
+        .container { max-width: 1100px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; }
 
         /* ===== НАВИГАЦИЯ ===== */
         .nav-bar {
@@ -91,6 +85,7 @@
         }
         .stats-bar span { color: #d4c9a6; font-size: 0.8rem; font-weight: 600; }
         .stats-bar strong { color: #ffd700; font-size: 0.95rem; }
+        .stats-bar .voice-status { font-size: 0.75rem; }
 
         /* ===== ВКЛАДКИ ===== */
         .tabs {
@@ -388,8 +383,13 @@
         }
         .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
 
-        /* ===== ТЕТРАДЬ (ВЕСЬ ЭКРАН) ===== */
-        #tab-notebook { flex: 1; overflow: hidden; }
+        /* ===== ТЕТРАДЬ (С HANZI WRITER) ===== */
+        #tab-notebook {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
         .notebook-container {
             background: rgba(30, 25, 20, 0.85);
             border-radius: 20px;
@@ -397,7 +397,7 @@
             border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
-            height: 100%;
+            flex: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -405,59 +405,127 @@
         .notebook-container::-webkit-scrollbar { width: 4px; }
         .notebook-container::-webkit-scrollbar-thumb { background: #2ecc71; border-radius: 4px; }
 
-        .notebook-container .empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: #b8956a;
-            font-size: 1.2rem;
-            flex: 1;
+        /* ===== ВВОД ИЕРОГЛИФА ===== */
+        .char-input-section {
             display: flex;
-            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .char-input-section input {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 16px;
+            border: 2px solid rgba(255, 215, 0, 0.15);
+            border-radius: 60px;
+            background: rgba(30, 25, 20, 0.7);
+            color: #f5e6d3;
+            font-size: 1.2rem;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .char-input-section input::placeholder { color: #6b5a45; }
+        .char-input-section input:focus { border-color: rgba(255, 215, 0, 0.3); }
+        .char-input-section .input-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 3px 0 #b34e1a;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .char-input-section .input-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #b34e1a; }
+        .char-input-section .input-btn.secondary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 3px 0 #1d4ed8;
+        }
+        .char-input-section .input-btn.secondary:active { box-shadow: 0 1px 0 #1d4ed8; }
+
+        /* ===== HANZI WRITER КОНТЕЙНЕР ===== */
+        .hanzi-container {
+            background: #fffef9;
+            border-radius: 16px;
+            padding: 8px;
+            border: 2px solid #c8aa6e;
+            display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            min-height: 200px;
+            position: relative;
         }
-        .notebook-container .empty .big-icon { font-size: 3.5rem; margin-bottom: 14px; opacity: 0.5; }
+        .hanzi-container .hw-target {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+        }
+        .hanzi-container .placeholder {
+            color: #b8956a;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* ===== СПИСОК СОХРАНЁННЫХ ===== */
+        .saved-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 6px;
+        }
+        .saved-list::-webkit-scrollbar { width: 4px; }
+        .saved-list::-webkit-scrollbar-thumb { background: #2ecc71; border-radius: 4px; }
 
         .notebook-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             transition: 0.15s;
+            cursor: pointer;
         }
         .notebook-item:hover { background: rgba(255, 255, 255, 0.02); border-radius: 12px; }
         .notebook-item .char {
-            font-size: clamp(2.8rem, 7vw, 4.2rem);
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
             font-weight: 700;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             color: #f5e6d3;
-            cursor: pointer;
-            min-width: 60px;
+            min-width: 50px;
         }
-        .notebook-item .char:hover { text-shadow: 0 0 40px rgba(255, 215, 0, 0.1); }
         .notebook-item .info {
             color: #d4c9a6;
-            font-size: 1.1rem;
+            font-size: 1rem;
             flex: 1;
-            min-width: 130px;
+            min-width: 100px;
         }
         .notebook-item .info .pinyin { color: #d4a373; }
         .notebook-item .actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
         .notebook-item .speak-mini {
             background: linear-gradient(135deg, #ff6b35, #ff8c42);
             border: none;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: 0.15s;
             box-shadow: 0 2px 0 #b34e1a;
@@ -470,11 +538,11 @@
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             border: none;
             color: white;
-            padding: 6px 16px;
+            padding: 4px 14px;
             border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             box-shadow: 0 2px 0 #8a2a1a;
             transition: 0.15s;
         }
@@ -483,12 +551,12 @@
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             border: none;
             color: white;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            margin-top: 12px;
+            margin-top: 8px;
             align-self: center;
             box-shadow: 0 2px 0 #8a2a1a;
             transition: 0.15s;
@@ -496,9 +564,26 @@
             flex-shrink: 0;
         }
         .notebook-clear-all:active { transform: translateY(2px); box-shadow: 0 0 0 #8a2a1a; }
+        .empty-notebook {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b8956a;
+            font-size: 1.1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .empty-notebook .big-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
 
         /* ===== КАЛЛИГРАФИЯ ===== */
-        #tab-canvas { flex: 1; overflow: hidden; }
+        #tab-canvas {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
         .canvas-container {
             background: rgba(30, 25, 20, 0.7);
             border-radius: 20px;
@@ -506,7 +591,7 @@
             border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(5px);
-            height: 100%;
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -518,7 +603,7 @@
             padding: 8px;
             border: 2px solid #c8aa6e;
             display: inline-block;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         .canvas-wrapper canvas {
             display: block;
@@ -544,9 +629,9 @@
             font-size: 0.85rem;
             transition: 0.15s;
             font-family: inherit;
-            box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
         }
-        .canvas-tools button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+        .canvas-tools button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
         .canvas-tools .clear-btn { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
         .canvas-tools .trace-btn { background: linear-gradient(135deg, #2980b9, #3498db); color: white; }
         .canvas-tools .check-btn { background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; }
@@ -554,12 +639,12 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             padding: 0;
             min-width: unset;
-            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
         }
-        .canvas-tools .color-btn.active { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.2), 0 2px 0 rgba(0,0,0,0.2); }
+        .canvas-tools .color-btn.active { border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.2); }
         .quality-bar {
             background: rgba(30, 25, 20, 0.5);
             height: 8px;
@@ -581,7 +666,8 @@
         @media (max-width: 600px) {
             body { padding: 6px; }
             .nav-bar { padding: 8px 12px; }
-            .nav-bar .back-btn, .nav-bar .notebook-link { padding: 6px 14px; font-size: 0.75rem; }
+            .nav-bar .back-btn,
+            .nav-bar .notebook-link { padding: 6px 14px; font-size: 0.75rem; }
             .nav-bar .title { font-size: 1rem; }
             .stats-bar { gap: 6px; padding: 6px 12px; }
             .stats-bar span { font-size: 0.65rem; }
@@ -591,9 +677,10 @@
             .dialog-card { padding: 12px 16px; }
             .dialog-line .cn { font-size: clamp(1.4rem, 5vw, 2rem); }
             .notebook-container { padding: 10px 14px; }
-            .notebook-item { padding: 10px 12px; }
-            .notebook-item .char { font-size: clamp(2.2rem, 7vw, 3.2rem); }
-            .notebook-item .info { font-size: 0.9rem; }
+            .char-input-section input { font-size: 1rem; padding: 8px 14px; }
+            .char-input-section .input-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .hanzi-container { min-height: 150px; }
+            .hanzi-container .hw-target { max-width: 280px; }
             .canvas-wrapper canvas { max-width: 100%; }
             .canvas-tools button { padding: 6px 14px; font-size: 0.75rem; }
         }
@@ -601,786 +688,1024 @@
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- ===== НАВИГАЦИЯ ===== -->
-    <div class="nav-bar">
-        <a href="index.html" class="back-btn">◀ На главную</a>
-        <span class="title">📕 Красная книга</span>
-        <a href="#" class="notebook-link" id="notebookNav">📓 Тетрадь</a>
-    </div>
-
-    <!-- ===== СТАТИСТИКА ===== -->
-    <div class="stats-bar" id="statsBar">
-        <span>📄 Всего: <strong id="totalCount">0</strong></span>
-        <span>🔴 Красная: <strong id="redCount">0</strong></span>
-        <span>🔵 Аналоги: <strong id="analogCount">0</strong></span>
-        <span>💬 Диалогов: <strong id="dialogCount">0</strong></span>
-        <span>📓 В тетради: <strong id="notebookCount">0</strong></span>
-    </div>
-
-    <!-- ===== ВКЛАДКИ ===== -->
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="groups">📚 Группы</button>
-        <button class="tab-btn" data-tab="dialogues">💬 Диалоги</button>
-        <button class="tab-btn" data-tab="notebook">📓 Тетрадь</button>
-        <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
-    </div>
-
-    <!-- ========================================================== -->
-    <!-- ВКЛАДКА: ГРУППЫ -->
-    <!-- ========================================================== -->
-    <div class="tab-content active" id="tab-groups">
-        <input class="search" id="searchInput" type="text" placeholder="🔍 Поиск по группе или фразе..." />
-        <div class="categories" id="categoryButtons">
-            <button data-cat="all" class="active">📚 Все</button>
-            <button data-cat="phrase">📄 Фразы</button>
-            <button data-cat="travel">✈️ Путешествия</button>
-            <button data-cat="food">🍜 Еда</button>
-            <button data-cat="work">💼 Работа</button>
+        <!-- ===== НАВИГАЦИЯ ===== -->
+        <div class="nav-bar">
+            <a href="index.html" class="back-btn">◀ На главную</a>
+            <span class="title">📕 Красная книга</span>
+            <a href="#" class="notebook-link" id="notebookNav">📓 Тетрадь</a>
         </div>
-        <div class="groups-scroll" id="groupsContainer"></div>
-    </div>
 
-    <!-- ========================================================== -->
-    <!-- ВКЛАДКА: ДИАЛОГИ -->
-    <!-- ========================================================== -->
-    <div class="tab-content" id="tab-dialogues">
-        <div class="dialogues-scroll" id="dialoguesContainer"></div>
-    </div>
-
-    <!-- ========================================================== -->
-    <!-- ВКЛАДКА: ТЕТРАДЬ (ВЕСЬ ЭКРАН) -->
-    <!-- ========================================================== -->
-    <div class="tab-content" id="tab-notebook">
-        <div class="notebook-container" id="notebookContainer">
-            <div class="empty">
-                <div class="big-icon">📓</div>
-                Здесь будут сохранённые фразы для повторения
-            </div>
+        <!-- ===== СТАТИСТИКА ===== -->
+        <div class="stats-bar" id="statsBar">
+            <span>📄 Всего: <strong id="totalCount">0</strong></span>
+            <span>🔴 Красная: <strong id="redCount">0</strong></span>
+            <span>🔵 Аналоги: <strong id="analogCount">0</strong></span>
+            <span>💬 Диалогов: <strong id="dialogCount">0</strong></span>
+            <span>📓 В тетради: <strong id="notebookCount">0</strong></span>
+            <span class="voice-status" id="voiceStatus">🔊 Проверка...</span>
         </div>
-    </div>
 
-    <!-- ========================================================== -->
-    <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
-    <!-- ========================================================== -->
-    <div class="tab-content" id="tab-canvas">
-        <div class="canvas-container">
-            <div class="canvas-wrapper">
-                <canvas id="calligraphyCanvas"></canvas>
-            </div>
-            <div class="quality-bar"><div class="quality-fill" id="qFill"></div></div>
-            <div class="quality-text" id="qText">🖌️ Рисуй иероглифы каллиграфической кистью</div>
-            <div class="canvas-tools">
-                <button class="clear-btn" id="canvasClear">🧽 Очистить</button>
-                <button class="trace-btn" id="canvasTrace">👁️ Показать образец</button>
-                <button class="check-btn" id="canvasCheck">✅ Проверить</button>
-                <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
-                    <button class="color-btn active" data-color="#1a1a1a" style="background:#1a1a1a;"></button>
-                    <button class="color-btn" data-color="#c0392b" style="background:#c0392b;"></button>
-                    <button class="color-btn" data-color="#d4a017" style="background:#d4a017;"></button>
-                    <button class="color-btn" data-color="#2471a3" style="background:#2471a3;"></button>
-                </span>
-            </div>
+        <!-- ===== ВКЛАДКИ ===== -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="groups">📚 Группы</button>
+            <button class="tab-btn" data-tab="dialogues">💬 Диалоги</button>
+            <button class="tab-btn" data-tab="notebook">📓 Тетрадь</button>
+            <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
         </div>
-    </div>
 
-</div>
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: ГРУППЫ -->
+        <!-- ========================================================== -->
+        <div class="tab-content active" id="tab-groups">
+            <input class="search" id="searchInput" type="text" placeholder="🔍 Поиск по группе или фразе..." />
+            <div class="categories" id="categoryButtons">
+                <button data-cat="all" class="active">📚 Все</button>
+                <button data-cat="phrase">📄 Фразы</button>
+                <button data-cat="travel">✈️ Путешествия</button>
+                <button data-cat="food">🍜 Еда</button>
+                <button data-cat="work">💼 Работа</button>
+            </div>
+            <div class="groups-scroll" id="groupsContainer"></div>
+        </div>
 
-<script>
-// ============================================================
-// 1. ЗАГРУЗКА МАССИВА
-// ============================================================
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: ДИАЛОГИ -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-dialogues">
+            <div class="dialogues-scroll" id="dialoguesContainer"></div>
+        </div>
 
-let allPhrases = [];
-let allDialogues = [];
-let notebook = JSON.parse(localStorage.getItem('chinese_redbook_notebook') || '[]');
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: ТЕТРАДЬ (С HANZI WRITER) -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-notebook">
+            <div class="notebook-container" id="notebookContainer">
 
-if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookData.length > 0) {
-    allPhrases = redBookData;
-} else if (typeof allPhrases !== 'undefined' && Array.isArray(allPhrases) && allPhrases.length > 0) {
-    allPhrases = allPhrases;
-} else if (typeof redPhrases !== 'undefined' && Array.isArray(redPhrases) && redPhrases.length > 0) {
-    allPhrases = redPhrases;
-} else if (typeof window.redBookData !== 'undefined' && Array.isArray(window.redBookData) && window.redBookData.length > 0) {
-    allPhrases = window.redBookData;
-}
-
-if (typeof redBookDialogues !== 'undefined' && Array.isArray(redBookDialogues) && redBookDialogues.length > 0) {
-    allDialogues = redBookDialogues;
-} else if (typeof window.redBookDialogues !== 'undefined' && Array.isArray(window.redBookDialogues) && window.redBookDialogues.length > 0) {
-    allDialogues = window.redBookDialogues;
-} else if (typeof dialogues !== 'undefined' && Array.isArray(dialogues) && dialogues.length > 0) {
-    allDialogues = dialogues;
-}
-
-console.log("📄 Всего фраз:", allPhrases.length);
-console.log("💬 Всего диалогов:", allDialogues.length);
-
-// ============================================================
-// 2. ГРУППЫ
-// ============================================================
-
-const groups = [
-    { id: 'decisions', icon: '💭', title: 'Решения и намерения', keywords: ['决定', '选好', '想好', '同意', '反对', '答应', '保证'] },
-    { id: 'greetings', icon: '👋', title: 'Приветствия и прощания', keywords: ['你好', '怎么样', '见', '好久', '最近', '欢迎'] },
-    { id: 'feelings', icon: '😊', title: 'Чувства и состояния', keywords: ['喜欢', '讨厌', '累', '饿', '饱', '困', '饿死', '累死'] },
-    { id: 'actions', icon: '🏃', title: 'Действия и движения', keywords: ['走', '回去', '过来', '过去', '去', '来', '开'] },
-    { id: 'requests', icon: '🙏', title: 'Просьбы и помощь', keywords: ['帮', '忙', '送', '陪', '让', '借'] },
-    { id: 'time', icon: '⏰', title: 'Время и спешка', keywords: ['时间', '赶', '急', '等', '迟', '晚', '早', '快', '慢', '马上'] },
-    { id: 'food', icon: '🍜', title: 'Еда и напитки', keywords: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账'] },
-    { id: 'work', icon: '💼', title: 'Работа и учёба', keywords: ['工作', '学习', '会议', '安排', '记录', '主持', '议程', '项目'] },
-    { id: 'weather', icon: '🌤️', title: 'Погода и природа', keywords: ['雨', '雪', '风', '天', '晴', '阴', '云', '冷', '热'] },
-    { id: 'communication', icon: '📱', title: 'Общение и связь', keywords: ['说', '话', '电话', '沟通', '联系', '确认', '邮件', '发送'] },
-    { id: 'travel', icon: '✈️', title: 'Путешествия', keywords: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全', '小心'] },
-    { id: 'emotions', icon: '❤️', title: 'Эмоции и реакции', keywords: ['开心', '难过', '担心', '紧张', '兴奋', '感动', '失望', '生气'] }
-];
-
-let searchQuery = '';
-let collapsedGroups = new Set();
-let currentCategory = 'all';
-
-function getPhrasesForGroup(group) {
-    return allPhrases.filter(p => {
-        const text = p.chinese + ' ' + p.pinyin + ' ' + p.translation;
-        return group.keywords.some(kw => text.includes(kw));
-    });
-}
-
-function renderGroups() {
-    const container = document.getElementById('groupsContainer');
-    document.getElementById('totalCount').textContent = allPhrases.length;
-    document.getElementById('redCount').textContent = allPhrases.filter(p => p.red !== false).length;
-    document.getElementById('analogCount').textContent = allPhrases.filter(p => p.red === false).length;
-    document.getElementById('dialogCount').textContent = allDialogues.length;
-    document.getElementById('notebookCount').textContent = notebook.length;
-
-    let html = '';
-    let visibleGroups = 0;
-
-    for (const group of groups) {
-        let phrases = getPhrasesForGroup(group);
-        if (currentCategory !== 'all') {
-            phrases = phrases.filter(p => p.category === currentCategory);
-        }
-        if (searchQuery.trim()) {
-            const q = searchQuery.trim().toLowerCase();
-            phrases = phrases.filter(p => p.chinese.includes(q) || p.pinyin.toLowerCase().includes(q) || 
-                p.translation.toLowerCase().includes(q) || group.title.toLowerCase().includes(q));
-        }
-        if (phrases.length === 0) continue;
-        visibleGroups++;
-
-        const isCollapsed = collapsedGroups.has(group.id);
-
-        html += `
-            <div class="group-container">
-                <div class="group-header ${isCollapsed ? 'collapsed' : ''}" data-group="${group.id}">
-                    <span class="icon">${group.icon}</span>
-                    <span class="title">${group.title}</span>
-                    <span class="count">${phrases.length} фраз</span>
-                    <span class="arrow">▼</span>
+                <!-- ВВОД ИЕРОГЛИФА -->
+                <div class="char-input-section">
+                    <input type="text" id="hanziInput" placeholder="Введите иероглиф..." maxlength="1" autocomplete="off">
+                    <button class="input-btn" id="showHanziBtn">✍️ Показать</button>
+                    <button class="input-btn secondary" id="addToNotebookBtn">📓 Сохранить</button>
                 </div>
-                <div class="group-phrases ${isCollapsed ? 'collapsed' : ''}">
-        `;
 
-        for (const p of phrases) {
-            const isRed = p.red !== false;
-            const badgeClass = isRed ? 'red' : 'analog';
-            const badgeText = isRed ? '🔴' : '🔵';
-            const isSaved = notebook.some(n => n.char === p.chinese);
-            const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                <!-- ОКНО HANZI WRITER -->
+                <div class="hanzi-container" id="hanziContainer">
+                    <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф и нажмите "Показать"</div>
+                    <div class="hw-target" id="hwTarget"></div>
+                </div>
 
-            html += `
-                <div class="phrase-card">
-                    <div class="chinese" onclick="speakChinese('${safeChinese}')">
-                        ${p.chinese}
-                        <span class="mini-badge ${badgeClass}">${badgeText}</span>
-                    </div>
-                    <div class="info">
-                        <div class="pinyin">${p.pinyin}</div>
-                        <div class="translation">${p.translation}</div>
-                        <div class="tags">
-                            <span class="tag category">📂 ${p.category}</span>
-                            ${isRed ? '<span class="tag" style="color:#ff6b6b;">🔴 Красная</span>' : '<span class="tag" style="color:#6ea8fe;">🔵 Аналог</span>'}
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button class="audio-mini" onclick="speakChinese('${safeChinese}')">🔊</button>
-                        <button class="save-btn ${isSaved ? 'saved' : ''}" data-char="${safeChinese}" data-pinyin="${p.pinyin}" data-translation="${p.translation}" onclick="toggleNotebook('${safeChinese}', '${p.pinyin}', '${p.translation}')">
-                            ${isSaved ? '✓' : '📓'}
-                        </button>
+                <!-- СПИСОК СОХРАНЁННЫХ -->
+                <div class="saved-list" id="savedList">
+                    <div class="empty-notebook">
+                        <div class="big-icon">📓</div>
+                        Здесь будут сохранённые фразы и иероглифы
                     </div>
                 </div>
-            `;
-        }
 
-        html += `
+                <button class="notebook-clear-all" id="clearNotebookBtn">🗑️ Очистить всё</button>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-canvas">
+            <div class="canvas-container">
+                <div class="canvas-wrapper">
+                    <canvas id="calligraphyCanvas"></canvas>
+                </div>
+                <div class="quality-bar"><div class="quality-fill" id="qFill"></div></div>
+                <div class="quality-text" id="qText">🖌️ Рисуй иероглифы каллиграфической кистью</div>
+                <div class="canvas-tools">
+                    <button class="clear-btn" id="canvasClear">🧽 Очистить</button>
+                    <button class="trace-btn" id="canvasTrace">👁️ Показать образец</button>
+                    <button class="check-btn" id="canvasCheck">✅ Проверить</button>
+                    <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
+                        <button class="color-btn active" data-color="#1a1a1a" style="background:#1a1a1a;"></button>
+                        <button class="color-btn" data-color="#c0392b" style="background:#c0392b;"></button>
+                        <button class="color-btn" data-color="#d4a017" style="background:#d4a017;"></button>
+                        <button class="color-btn" data-color="#2471a3" style="background:#2471a3;"></button>
+                    </span>
                 </div>
             </div>
-        `;
-    }
+        </div>
 
-    if (visibleGroups === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:#b8956a;font-size:1.1rem;">🔍 Ничего не найдено</div>`;
-        return;
-    }
+    </div>
 
-    container.innerHTML = html;
+    <script>
+        // ============================================================
+        // 1. ЗАГРУЗКА МАССИВА
+        // ============================================================
 
-    document.querySelectorAll('.group-header').forEach(header => {
-        header.addEventListener('click', function() {
-            const groupId = this.dataset.group;
-            const phrases = this.nextElementSibling;
-            const isCollapsed = phrases.classList.contains('collapsed');
-            if (isCollapsed) {
-                phrases.classList.remove('collapsed');
-                this.classList.remove('collapsed');
-                collapsedGroups.delete(groupId);
+        let allPhrases = [];
+        let allDialogues = [];
+        let notebook = JSON.parse(localStorage.getItem('chinese_redbook_notebook') || '[]');
+
+        if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookData.length > 0) {
+            allPhrases = redBookData;
+        } else if (typeof allPhrases !== 'undefined' && Array.isArray(allPhrases) && allPhrases.length > 0) {
+            allPhrases = allPhrases;
+        } else if (typeof redPhrases !== 'undefined' && Array.isArray(redPhrases) && redPhrases.length > 0) {
+            allPhrases = redPhrases;
+        } else if (typeof window.redBookData !== 'undefined' && Array.isArray(window.redBookData) && window
+            .redBookData.length > 0) {
+            allPhrases = window.redBookData;
+        }
+
+        if (typeof redBookDialogues !== 'undefined' && Array.isArray(redBookDialogues) && redBookDialogues.length > 0) {
+            allDialogues = redBookDialogues;
+        } else if (typeof window.redBookDialogues !== 'undefined' && Array.isArray(window.redBookDialogues) && window
+            .redBookDialogues.length > 0) {
+            allDialogues = window.redBookDialogues;
+        } else if (typeof dialogues !== 'undefined' && Array.isArray(dialogues) && dialogues.length > 0) {
+            allDialogues = dialogues;
+        }
+
+        console.log("📄 Всего фраз:", allPhrases.length);
+        console.log("💬 Всего диалогов:", allDialogues.length);
+
+        // ============================================================
+        // 2. ГРУППЫ
+        // ============================================================
+
+        const groups = [
+            { id: 'decisions', icon: '💭', title: 'Решения и намерения', keywords: ['决定', '选好', '想好', '同意', '反对',
+                    '答应', '保证'
+                ] },
+            { id: 'greetings', icon: '👋', title: 'Приветствия и прощания', keywords: ['你好', '怎么样', '见', '好久', '最近',
+                    '欢迎'
+                ] },
+            { id: 'feelings', icon: '😊', title: 'Чувства и состояния', keywords: ['喜欢', '讨厌', '累', '饿', '饱', '困',
+                    '饿死', '累死'
+                ] },
+            { id: 'actions', icon: '🏃', title: 'Действия и движения', keywords: ['走', '回去', '过来', '过去', '去', '来',
+                    '开'
+                ] },
+            { id: 'requests', icon: '🙏', title: 'Просьбы и помощь', keywords: ['帮', '忙', '送', '陪', '让', '借'] },
+            { id: 'time', icon: '⏰', title: 'Время и спешка', keywords: ['时间', '赶', '急', '等', '迟', '晚', '早', '快',
+                    '慢', '马上'
+                ] },
+            { id: 'food', icon: '🍜', title: 'Еда и напитки', keywords: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账'] },
+            { id: 'work', icon: '💼', title: 'Работа и учёба', keywords: ['工作', '学习', '会议', '安排', '记录', '主持', '议程',
+                    '项目'
+                ] },
+            { id: 'weather', icon: '🌤️', title: 'Погода и природа', keywords: ['雨', '雪', '风', '天', '晴', '阴', '云',
+                    '冷', '热'
+                ] },
+            { id: 'communication', icon: '📱', title: 'Общение и связь', keywords: ['说', '话', '电话', '沟通', '联系',
+                    '确认', '邮件', '发送'
+                ] },
+            { id: 'travel', icon: '✈️', title: 'Путешествия', keywords: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全',
+                    '小心'
+                ] },
+            { id: 'emotions', icon: '❤️', title: 'Эмоции и реакции', keywords: ['开心', '难过', '担心', '紧张', '兴奋', '感动',
+                    '失望', '生气'
+                ] }
+        ];
+
+        let searchQuery = '';
+        let collapsedGroups = new Set();
+        let currentCategory = 'all';
+
+        function getPhrasesForGroup(group) {
+            return allPhrases.filter(p => {
+                const text = p.chinese + ' ' + p.pinyin + ' ' + p.translation;
+                return group.keywords.some(kw => text.includes(kw));
+            });
+        }
+
+        function renderGroups() {
+            const container = document.getElementById('groupsContainer');
+            document.getElementById('totalCount').textContent = allPhrases.length;
+            document.getElementById('redCount').textContent = allPhrases.filter(p => p.red !== false).length;
+            document.getElementById('analogCount').textContent = allPhrases.filter(p => p.red === false).length;
+            document.getElementById('dialogCount').textContent = allDialogues.length;
+            document.getElementById('notebookCount').textContent = notebook.length;
+
+            let html = '';
+            let visibleGroups = 0;
+
+            for (const group of groups) {
+                let phrases = getPhrasesForGroup(group);
+                if (currentCategory !== 'all') {
+                    phrases = phrases.filter(p => p.category === currentCategory);
+                }
+                if (searchQuery.trim()) {
+                    const q = searchQuery.trim().toLowerCase();
+                    phrases = phrases.filter(p => p.chinese.includes(q) || p.pinyin.toLowerCase().includes(q) ||
+                        p.translation.toLowerCase().includes(q) || group.title.toLowerCase().includes(q));
+                }
+                if (phrases.length === 0) continue;
+                visibleGroups++;
+
+                const isCollapsed = collapsedGroups.has(group.id);
+
+                html += `
+                            <div class="group-container">
+                                <div class="group-header ${isCollapsed ? 'collapsed' : ''}" data-group="${group.id}">
+                                    <span class="icon">${group.icon}</span>
+                                    <span class="title">${group.title}</span>
+                                    <span class="count">${phrases.length} фраз</span>
+                                    <span class="arrow">▼</span>
+                                </div>
+                                <div class="group-phrases ${isCollapsed ? 'collapsed' : ''}">
+                        `;
+
+                for (const p of phrases) {
+                    const isRed = p.red !== false;
+                    const badgeClass = isRed ? 'red' : 'analog';
+                    const badgeText = isRed ? '🔴' : '🔵';
+                    const isSaved = notebook.some(n => n.char === p.chinese);
+                    const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                    html += `
+                                    <div class="phrase-card">
+                                        <div class="chinese" onclick="speakChinese('${safeChinese}')">
+                                            ${p.chinese}
+                                            <span class="mini-badge ${badgeClass}">${badgeText}</span>
+                                        </div>
+                                        <div class="info">
+                                            <div class="pinyin">${p.pinyin}</div>
+                                            <div class="translation">${p.translation}</div>
+                                            <div class="tags">
+                                                <span class="tag category">📂 ${p.category}</span>
+                                                ${isRed ? '<span class="tag" style="color:#ff6b6b;">🔴 Красная</span>' : '<span class="tag" style="color:#6ea8fe;">🔵 Аналог</span>'}
+                                            </div>
+                                        </div>
+                                        <div class="actions">
+                                            <button class="audio-mini" onclick="speakChinese('${safeChinese}')">🔊</button>
+                                            <button class="save-btn ${isSaved ? 'saved' : ''}" data-char="${safeChinese}" data-pinyin="${p.pinyin}" data-translation="${p.translation}" onclick="toggleNotebook('${safeChinese}', '${p.pinyin}', '${p.translation}')">
+                                                ${isSaved ? '✓' : '📓'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                }
+
+                html += `
+                                </div>
+                            </div>
+                        `;
+            }
+
+            if (visibleGroups === 0) {
+                container.innerHTML =
+                    `<div style="text-align:center;padding:40px 20px;color:#b8956a;font-size:1.1rem;">🔍 Ничего не найдено</div>`;
+                return;
+            }
+
+            container.innerHTML = html;
+
+            document.querySelectorAll('.group-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const groupId = this.dataset.group;
+                    const phrases = this.nextElementSibling;
+                    const isCollapsed = phrases.classList.contains('collapsed');
+                    if (isCollapsed) {
+                        phrases.classList.remove('collapsed');
+                        this.classList.remove('collapsed');
+                        collapsedGroups.delete(groupId);
+                    } else {
+                        phrases.classList.add('collapsed');
+                        this.classList.add('collapsed');
+                        collapsedGroups.add(groupId);
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // 3. ДИАЛОГИ
+        // ============================================================
+
+        function renderDialogues() {
+            const container = document.getElementById('dialoguesContainer');
+            if (allDialogues.length === 0) {
+                container.innerHTML =
+                    `<div style="text-align:center;padding:40px 20px;color:#b8956a;font-size:1.1rem;">💬 Диалогов пока нет</div>`;
+                return;
+            }
+
+            let html = '';
+            for (const d of allDialogues) {
+                let phrasesHtml = '';
+                if (d.phrases && d.phrases.length > 0) {
+                    phrasesHtml = d.phrases.map(p => {
+                        const isRed = allPhrases.some(fp => fp.chinese === p && fp.red !== false);
+                        return `<span class="dp ${isRed ? 'red' : ''}">${p}</span>`;
+                    }).join(' ');
+                }
+
+                let linesHtml = '';
+                for (const line of d.lines) {
+                    const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    linesHtml += `
+                                    <div class="dialog-line">
+                                        <span class="sp">${line.speaker}</span>
+                                        <span class="cn" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
+                                        <span class="py">${line.pinyin}</span>
+                                        <span class="ru">— ${line.russian}</span>
+                                    </div>
+                                `;
+                }
+
+                const fullText = d.lines.map(l => l.chinese).join('。');
+                const safeFull = fullText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                html += `
+                            <div class="dialog-card">
+                                <div class="dialog-title">💬 ${d.title}</div>
+                                ${phrasesHtml ? `<div class="dialog-phrases">📌 Фразы: ${phrasesHtml}</div>` : ''}
+                                ${linesHtml}
+                                <button class="dialog-speak-btn" onclick="speakChinese('${safeFull}')">🔊 Весь диалог</button>
+                            </div>
+                        `;
+            }
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // 4. ТЕТРАДЬ + HANZI WRITER
+        // ============================================================
+
+        let hanziWriterInstance = null;
+        let currentHanziChar = '';
+
+        function initHanziWriter(char) {
+            const target = document.getElementById('hwTarget');
+            const placeholder = document.getElementById('hanziPlaceholder');
+
+            // Очищаем старый экземпляр
+            if (hanziWriterInstance) {
+                try { hanziWriterInstance.destroy(); } catch (e) {}
+                hanziWriterInstance = null;
+            }
+
+            if (!char || char.length === 0) {
+                target.style.display = 'none';
+                placeholder.style.display = 'block';
+                return;
+            }
+
+            target.style.display = 'block';
+            placeholder.style.display = 'none';
+            currentHanziChar = char;
+
+            try {
+                const containerWidth = target.parentElement.clientWidth - 16;
+                const size = Math.min(containerWidth, 400);
+
+                hanziWriterInstance = HanziWriter.create(target, char, {
+                    width: size,
+                    height: size,
+                    padding: 8,
+                    strokeColor: '#1a1a1a',
+                    radicalColor: '#c0392b',
+                    strokeAnimationSpeed: 1.2,
+                    characterColor: '#2d1b0e',
+                    outlineColor: '#b8956a',
+                    strokeFadeDuration: 300,
+                });
+
+                // Автоматически показываем анимацию
+                setTimeout(() => {
+                    if (hanziWriterInstance) {
+                        hanziWriterInstance.animateCharacter();
+                    }
+                }, 300);
+
+            } catch (e) {
+                console.error('Hanzi Writer ошибка:', e);
+                placeholder.style.display = 'block';
+                placeholder.textContent = '❌ Ошибка: ' + e.message;
+                target.style.display = 'none';
+            }
+        }
+
+        function showHanziFromInput() {
+            const input = document.getElementById('hanziInput');
+            const char = input.value.trim();
+            if (char && char.length === 1) {
+                initHanziWriter(char);
             } else {
-                phrases.classList.add('collapsed');
-                this.classList.add('collapsed');
-                collapsedGroups.add(groupId);
+                document.getElementById('hanziPlaceholder').textContent = '⚠️ Введите один иероглиф';
+                document.getElementById('hanziPlaceholder').style.display = 'block';
+                document.getElementById('hwTarget').style.display = 'none';
+            }
+        }
+
+        function addCurrentCharToNotebook() {
+            const char = currentHanziChar;
+            if (!char) {
+                showToast('⚠️ Сначала введите иероглиф и нажмите "Показать"');
+                return;
+            }
+
+            // Проверяем, есть ли уже в тетради
+            if (notebook.some(n => n.char === char)) {
+                showToast(`⚠️ "${char}" уже есть в тетради`);
+                return;
+            }
+
+            // Ищем перевод и пиньинь в массиве
+            let pinyin = '';
+            let translation = '';
+            const found = allPhrases.find(p => p.chinese === char);
+            if (found) {
+                pinyin = found.pinyin;
+                translation = found.translation;
+            }
+
+            notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
+            localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+            renderNotebook();
+            document.getElementById('notebookCount').textContent = notebook.length;
+            showToast(`✅ "${char}" сохранён в тетрадь!`);
+        }
+
+        function renderNotebook() {
+            const container = document.getElementById('savedList');
+            if (notebook.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-notebook">
+                                <div class="big-icon">📓</div>
+                                Здесь будут сохранённые фразы и иероглифы
+                            </div>
+                        `;
+                return;
+            }
+
+            let html = '';
+            for (const item of notebook) {
+                const safeChar = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                html += `
+                            <div class="notebook-item" onclick="loadCharToHanzi('${safeChar}')">
+                                <span class="char">${item.char}</span>
+                                <span class="info">
+                                    <span class="pinyin">${item.pinyin || ''}</span>
+                                    ${item.translation ? `— ${item.translation}` : ''}
+                                </span>
+                                <div class="actions">
+                                    <button class="speak-mini" onclick="event.stopPropagation(); speakChinese('${safeChar}')">🔊</button>
+                                    <button class="remove-btn" onclick="event.stopPropagation(); removeFromNotebook('${safeChar}')">✖</button>
+                                </div>
+                            </div>
+                        `;
+            }
+            container.innerHTML = html;
+        }
+
+        function loadCharToHanzi(char) {
+            document.getElementById('hanziInput').value = char;
+            initHanziWriter(char);
+        }
+
+        function removeFromNotebook(char) {
+            const idx = notebook.findIndex(n => n.char === char);
+            if (idx >= 0) {
+                notebook.splice(idx, 1);
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                document.getElementById('notebookCount').textContent = notebook.length;
+                showToast(`❌ "${char}" удалён`);
+            }
+        }
+
+        function clearNotebook() {
+            if (notebook.length === 0) return;
+            if (confirm('Удалить все фразы из тетради?')) {
+                notebook = [];
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                document.getElementById('notebookCount').textContent = 0;
+                showToast('🗑️ Тетрадь очищена');
+            }
+        }
+
+        function toggleNotebook(char, pinyin, translation) {
+            const idx = notebook.findIndex(n => n.char === char);
+            if (idx >= 0) {
+                notebook.splice(idx, 1);
+                showToast(`❌ "${char}" удалён из тетради`);
+            } else {
+                notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
+                showToast(`✅ "${char}" добавлен в тетрадь!`);
+            }
+            localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+            renderGroups();
+            renderNotebook();
+            document.getElementById('notebookCount').textContent = notebook.length;
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style.cssText =
+                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:50px;z-index:3000;font-size:1rem;font-weight:600;box-shadow:0 5px 20px rgba(0,0,0,0.3);';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2000);
+        }
+
+        // ============================================================
+        // 5. ОЗВУЧКА
+        // ============================================================
+
+        let chineseVoice = null;
+        let speechReady = false;
+
+        function loadChineseVoice() {
+            if (!window.speechSynthesis) {
+                console.warn('⚠️ SpeechSynthesis не поддерживается');
+                updateVoiceStatus(false);
+                return;
+            }
+            const voices = speechSynthesis.getVoices();
+            chineseVoice = voices.find(v => v.lang.startsWith('zh')) || null;
+            speechReady = true;
+            console.log('🔊 Голосов загружено:', voices.length);
+            console.log('🔊 Китайский голос:', chineseVoice ? chineseVoice.name : 'НЕ НАЙДЕН');
+            updateVoiceStatus(!!chineseVoice);
+        }
+
+        function updateVoiceStatus(hasVoice) {
+            const el = document.getElementById('voiceStatus');
+            if (!el) return;
+            if (!window.speechSynthesis) {
+                el.textContent = '🔊 Озвучка: ❌';
+                el.style.color = '#e74c3c';
+                return;
+            }
+            if (hasVoice) {
+                el.textContent = '🔊 Озвучка: ✅';
+                el.style.color = '#2ecc71';
+            } else {
+                el.textContent = '🔊 Озвучка: ⏳';
+                el.style.color = '#f39c12';
+            }
+        }
+
+        if (window.speechSynthesis) {
+            loadChineseVoice();
+            speechSynthesis.onvoiceschanged = function() {
+                loadChineseVoice();
+            };
+            setTimeout(loadChineseVoice, 500);
+            setTimeout(loadChineseVoice, 1500);
+        } else {
+            console.warn('⚠️ Браузер не поддерживает SpeechSynthesis');
+            updateVoiceStatus(false);
+        }
+
+        function speakChinese(text) {
+            if (!text || !window.speechSynthesis) return;
+            try { window.speechSynthesis.cancel(); } catch (e) {}
+
+            setTimeout(() => {
+                try {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'zh-CN';
+                    utterance.rate = 0.7;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+
+                    let voice = chineseVoice;
+                    if (!voice) {
+                        const voices = speechSynthesis.getVoices();
+                        voice = voices.find(v => v.lang.startsWith('zh'));
+                    }
+                    if (voice) utterance.voice = voice;
+
+                    window.speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.error('❌ Ошибка озвучки:', e);
+                }
+            }, 50);
+        }
+        window.speakChinese = speakChinese;
+
+        // ============================================================
+        // 6. КАЛЛИГРАФИЯ (ПЛАВНАЯ КИСТЬ)
+        // ============================================================
+
+        const canvasConfig = {
+            size: 500,
+            padding: 28,
+            brushWidth: 16,
+            exampleOpacity: 0.25,
+            gridColor: '#b8956a',
+            gridColorCenter: '#d4b896',
+            strokeColor: '#1a0f0a',
+            exampleColor: '#9b59b6',
+            checkThreshold: 0.40,
+            checkGoodThreshold: 0.25
+        };
+
+        let canvas, ctx, isDrawing = false,
+            lastX, lastY, lastWidth, lastTime, strokeLen = 0;
+        let canvasHistory = [];
+        let currentColor = '#1a1a1a';
+        let canvasRefData = null;
+        let exampleVisible = false;
+
+        function initCanvas() {
+            canvas = document.getElementById('calligraphyCanvas');
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const size = Math.min(rect.width - 16, 500);
+            canvas.width = canvas.height = size;
+            canvasConfig.size = size;
+            ctx = canvas.getContext('2d', { willReadFrequently: true });
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawMiziGeGrid(ctx, size, canvasConfig.padding);
+            ctx.lineWidth = canvasConfig.brushWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.globalAlpha = 1;
+            canvasRefData = null;
+            exampleVisible = false;
+            setupDrawing(canvas);
+            document.getElementById('qFill').style.width = '0%';
+            document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы каллиграфической кистью';
+            canvasHistory = [];
+        }
+
+        function drawMiziGeGrid(ctx, size, padding) {
+            const inner = size - padding * 2;
+            const center = size / 2;
+            ctx.save();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = canvasConfig.gridColor;
+            ctx.strokeRect(padding, padding, inner, inner);
+            ctx.setLineDash([6, 4]);
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = canvasConfig.gridColorCenter;
+            ctx.beginPath();
+            ctx.moveTo(center, padding);
+            ctx.lineTo(center, size - padding);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(padding, center);
+            ctx.lineTo(size - padding, center);
+            ctx.stroke();
+            ctx.setLineDash([3, 3]);
+            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = canvasConfig.gridColor;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(size - padding, size - padding);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(size - padding, padding);
+            ctx.lineTo(padding, size - padding);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        }
+
+        function setupDrawing(canvas) {
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX - rect.left) * canvas.width / rect.width,
+                    y: (e.clientY - rect.top) * canvas.height / rect.height,
+                    pressure: Math.max(0.1, e.pressure || 0.5)
+                };
+            }
+
+            function start(e) {
+                e.preventDefault();
+                isDrawing = true;
+                strokeLen = 0;
+                const p = getPos(e);
+                lastX = p.x;
+                lastY = p.y;
+                lastTime = performance.now();
+                lastWidth = canvasConfig.brushWidth * 0.5;
+                saveCanvasState();
+
+                // ТОЧКА В НАЧАЛЕ
+                const dotRadius = canvasConfig.brushWidth * 0.3;
+                const grad = ctx.createRadialGradient(p.x - dotRadius * 0.3, p.y - dotRadius * 0.3, 1, p.x, p.y,
+                dotRadius);
+                grad.addColorStop(0, currentColor);
+                grad.addColorStop(0.7, currentColor);
+                grad.addColorStop(1, currentColor + '55');
+                ctx.fillStyle = grad;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = currentColor + '44';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.fillStyle = currentColor;
+                ctx.shadowBlur = 1;
+                ctx.shadowColor = currentColor;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, lastWidth / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+
+                const p = getPos(e);
+                const now = performance.now();
+                const dt = Math.max(1, now - lastTime);
+                const dx = p.x - lastX;
+                const dy = p.y - lastY;
+                const dist = Math.hypot(dx, dy);
+                const speed = dist / dt;
+                strokeLen += dist;
+
+                const pressureFactor = 0.15 + p.pressure * 0.85;
+                const speedFactor = Math.max(0.08, 1 - (speed / 0.9));
+                let targetW = canvasConfig.brushWidth * pressureFactor * speedFactor;
+                if (strokeLen < 20) targetW *= (0.3 + 0.7 * (strokeLen / 20));
+                targetW = Math.max(2, Math.min(canvasConfig.brushWidth * 1.9, targetW));
+
+                const newW = lastWidth * 0.6 + targetW * 0.4;
+
+                ctx.save();
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = newW;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.shadowBlur = 0.5;
+                ctx.shadowColor = currentColor + '33';
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+
+                const midX = (lastX + p.x) / 2;
+                const midY = (lastY + p.y) / 2;
+                const midW = (lastWidth + newW) / 2;
+                if (dist > 2) {
+                    ctx.beginPath();
+                    ctx.ellipse(midX, midY, midW / 2, midW / 2.2, Math.atan2(dy, dx) + Math.PI / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+
+                lastX = p.x;
+                lastY = p.y;
+                lastWidth = newW;
+                lastTime = now;
+            }
+
+            function stop() {
+                if (!isDrawing) return;
+                isDrawing = false;
+
+                const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
+                ctx.save();
+                ctx.fillStyle = currentColor;
+                ctx.shadowBlur = 0;
+                for (let i = 1; i <= 10; i++) {
+                    const t = i / 10;
+                    const tw = lastWidth * Math.pow(1 - t, 1.8);
+                    const tx = lastX + Math.cos(angle) * t * 5;
+                    const ty = lastY + Math.sin(angle) * t * 5;
+                    ctx.beginPath();
+                    ctx.ellipse(tx, ty, tw / 2, tw / 2.8, angle, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+
+                saveCanvasState();
+            }
+
+            canvas.addEventListener('pointerdown', start);
+            canvas.addEventListener('pointermove', draw);
+            canvas.addEventListener('pointerup', stop);
+            canvas.addEventListener('pointerleave', stop);
+            canvas.addEventListener('pointercancel', stop);
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stop);
+            canvas.addEventListener('mouseleave', stop);
+        }
+
+        function saveCanvasState() {
+            canvasHistory.push(canvas.toDataURL());
+            if (canvasHistory.length > 20) canvasHistory.shift();
+        }
+
+        function clearCanvas() {
+            canvasHistory = [];
+            const size = canvasConfig.size;
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawMiziGeGrid(ctx, size, canvasConfig.padding);
+            canvasRefData = null;
+            exampleVisible = false;
+            document.getElementById('qFill').style.width = '0%';
+            document.getElementById('qText').textContent = '🧽 Очищено';
+            document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
+        }
+
+        function showExample(char) {
+            clearCanvas();
+            const size = canvasConfig.size;
+            const inner = size - canvasConfig.padding * 2;
+            ctx.save();
+            ctx.globalAlpha = canvasConfig.exampleOpacity;
+            ctx.fillStyle = canvasConfig.exampleColor;
+            ctx.font = `900 ${Math.floor(inner * 0.82)}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(char, size / 2, size / 2 + size * 0.02);
+            ctx.restore();
+            canvasRefData = ctx.getImageData(0, 0, size, size);
+            exampleVisible = true;
+            document.getElementById('canvasTrace').textContent = '🙈 Скрыть образец';
+            document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
+        }
+
+        function hideExample() {
+            const size = canvasConfig.size;
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawMiziGeGrid(ctx, size, canvasConfig.padding);
+            canvasRefData = null;
+            exampleVisible = false;
+            document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
+            document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы каллиграфической кистью';
+        }
+
+        function checkQuality() {
+            if (!canvasRefData) {
+                document.getElementById('qText').textContent = '👁️ Сначала покажи образец';
+                return;
+            }
+            const size = canvasConfig.size;
+            const current = ctx.getImageData(0, 0, size, size);
+            const dRef = canvasRefData.data;
+            const dCur = current.data;
+            let match = 0,
+                totalRef = 0,
+                userOutside = 0;
+            const threshold = 235;
+            for (let i = 0; i < dRef.length; i += 4) {
+                const isRef = (dRef[i] < threshold || dRef[i + 1] < threshold || dRef[i + 2] < threshold);
+                const isUser = (dCur[i] < threshold || dCur[i + 1] < threshold || dCur[i + 2] < threshold);
+                if (isRef) { totalRef++; if (isUser) match++; } else if (isUser) { userOutside++; }
+            }
+            if (totalRef === 0) {
+                document.getElementById('qText').textContent = '📝 Нет эталона для сравнения';
+                return;
+            }
+            const precision = match / totalRef;
+            const recall = match / (totalRef + userOutside + 0.001);
+            const f1 = 2 * (precision * recall) / (precision + recall + 0.001);
+            const pct = Math.round(f1 * 100);
+            const fill = document.getElementById('qFill');
+            const text = document.getElementById('qText');
+            fill.style.width = pct + '%';
+            if (f1 > canvasConfig.checkThreshold) {
+                fill.style.background = '#2ecc71';
+                text.textContent = `🌟 Отлично! ${pct}% совпадение`;
+            } else if (f1 > canvasConfig.checkGoodThreshold) {
+                fill.style.background = '#f39c12';
+                text.textContent = `👍 Хорошо! ${pct}% совпадение`;
+            } else {
+                fill.style.background = '#e67e22';
+                text.textContent = `📝 Продолжай тренироваться (${pct}%)`;
+            }
+        }
+
+        // ============================================================
+        // 7. ВКЛАДКИ
+        // ============================================================
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById('tab-' + tabName).classList.add('active');
+                if (tabName === 'notebook') {
+                    renderNotebook();
+                    // Переинициализируем Hanzi Writer при переключении
+                    setTimeout(() => {
+                        const input = document.getElementById('hanziInput');
+                        if (input.value.trim()) {
+                            initHanziWriter(input.value.trim());
+                        }
+                    }, 100);
+                }
+                if (tabName === 'dialogues') renderDialogues();
+                if (tabName === 'canvas') setTimeout(initCanvas, 50);
+            });
+        });
+
+        // ============================================================
+        // 8. СОБЫТИЯ
+        // ============================================================
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            searchQuery = this.value;
+            renderGroups();
+        });
+
+        document.querySelectorAll('#categoryButtons button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.cat;
+                renderGroups();
+            });
+        });
+
+        document.getElementById('notebookNav').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.querySelector('[data-tab="notebook"]').classList.add('active');
+            document.getElementById('tab-notebook').classList.add('active');
+            renderNotebook();
+            setTimeout(() => {
+                const input = document.getElementById('hanziInput');
+                if (input.value.trim()) {
+                    initHanziWriter(input.value.trim());
+                }
+            }, 100);
+        });
+
+        // Hanzi Writer события
+        document.getElementById('showHanziBtn').addEventListener('click', showHanziFromInput);
+        document.getElementById('hanziInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') showHanziFromInput();
+        });
+        document.getElementById('addToNotebookBtn').addEventListener('click', addCurrentCharToNotebook);
+        document.getElementById('clearNotebookBtn').addEventListener('click', clearNotebook);
+
+        // ============================================================
+        // 9. КАНВАС — СОБЫТИЯ
+        // ============================================================
+
+        document.getElementById('canvasClear').addEventListener('click', clearCanvas);
+
+        document.getElementById('canvasTrace').addEventListener('click', function() {
+            if (exampleVisible) {
+                hideExample();
+            } else {
+                const char = prompt('Введите иероглиф для показа:', '永');
+                if (char && char.length === 1) {
+                    showExample(char);
+                }
             }
         });
-    });
-}
 
-// ============================================================
-// 3. ДИАЛОГИ
-// ============================================================
+        document.getElementById('canvasCheck').addEventListener('click', checkQuality);
 
-function renderDialogues() {
-    const container = document.getElementById('dialoguesContainer');
-    if (allDialogues.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:#b8956a;font-size:1.1rem;">💬 Диалогов пока нет</div>`;
-        return;
-    }
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentColor = this.dataset.color;
+            });
+        });
 
-    let html = '';
-    for (const d of allDialogues) {
-        let phrasesHtml = '';
-        if (d.phrases && d.phrases.length > 0) {
-            phrasesHtml = d.phrases.map(p => {
-                const isRed = allPhrases.some(fp => fp.chinese === p && fp.red !== false);
-                return `<span class="dp ${isRed ? 'red' : ''}">${p}</span>`;
-            }).join(' ');
-        }
+        // ============================================================
+        // 10. СТАРТ
+        // ============================================================
 
-        let linesHtml = '';
-        for (const line of d.lines) {
-            const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            linesHtml += `
-                <div class="dialog-line">
-                    <span class="sp">${line.speaker}</span>
-                    <span class="cn" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
-                    <span class="py">${line.pinyin}</span>
-                    <span class="ru">— ${line.russian}</span>
-                </div>
-            `;
-        }
+        setTimeout(() => {
+            renderGroups();
+            renderDialogues();
+            renderNotebook();
+            setTimeout(initCanvas, 100);
+            // Инициализируем Hanzi Writer с пустым состоянием
+            setTimeout(() => {
+                initHanziWriter('');
+            }, 200);
+        }, 200);
 
-        const fullText = d.lines.map(l => l.chinese).join('。');
-        const safeFull = fullText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        console.log("✅ Красная книга загружена! Фраз:", allPhrases.length);
+        console.log("💬 Диалогов:", allDialogues.length);
 
-        html += `
-            <div class="dialog-card">
-                <div class="dialog-title">💬 ${d.title}</div>
-                ${phrasesHtml ? `<div class="dialog-phrases">📌 Фразы: ${phrasesHtml}</div>` : ''}
-                ${linesHtml}
-                <button class="dialog-speak-btn" onclick="speakChinese('${safeFull}')">🔊 Весь диалог</button>
-            </div>
-        `;
-    }
-    container.innerHTML = html;
-}
-
-// ============================================================
-// 4. ТЕТРАДЬ
-// ============================================================
-
-function toggleNotebook(char, pinyin, translation) {
-    const idx = notebook.findIndex(n => n.char === char);
-    if (idx >= 0) {
-        notebook.splice(idx, 1);
-        showToast(`❌ "${char}" удалён из тетради`);
-    } else {
-        notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
-        showToast(`✅ "${char}" добавлен в тетрадь!`);
-    }
-    localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-    renderGroups();
-    renderNotebook();
-    document.getElementById('notebookCount').textContent = notebook.length;
-}
-
-function renderNotebook() {
-    const container = document.getElementById('notebookContainer');
-    if (notebook.length === 0) {
-        container.innerHTML = `
-            <div class="empty">
-                <div class="big-icon">📓</div>
-                Здесь будут сохранённые фразы для повторения
-            </div>
-        `;
-        return;
-    }
-    let html = '';
-    for (const item of notebook) {
-        const safeChar = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-        html += `
-            <div class="notebook-item">
-                <span class="char" onclick="speakChinese('${safeChar}')">${item.char}</span>
-                <span class="info">
-                    <span class="pinyin">${item.pinyin || ''}</span>
-                    — ${item.translation || ''}
-                </span>
-                <div class="actions">
-                    <button class="speak-mini" onclick="speakChinese('${safeChar}')">🔊</button>
-                    <button class="remove-btn" onclick="toggleNotebook('${safeChar}')">✖</button>
-                </div>
-            </div>
-        `;
-    }
-    html += `
-        <button class="notebook-clear-all" onclick="clearNotebook()">🗑️ Очистить всё</button>
-    `;
-    container.innerHTML = html;
-}
-
-function clearNotebook() {
-    if (notebook.length === 0) return;
-    if (confirm('Удалить все фразы из тетради?')) {
-        notebook = [];
-        localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-        renderNotebook();
-        document.getElementById('notebookCount').textContent = 0;
-        showToast('🗑️ Тетрадь очищена');
-    }
-}
-
-function showToast(msg) {
-    const t = document.createElement('div');
-    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:50px;z-index:3000;font-size:1rem;font-weight:600;box-shadow:0 5px 20px rgba(0,0,0,0.3);';
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 2000);
-}
-
-// ============================================================
-// 5. ОЗВУЧКА
-// ============================================================
-
-let chineseVoice = null;
-function loadChineseVoice() {
-    if (!window.speechSynthesis) return;
-    const voices = speechSynthesis.getVoices();
-    chineseVoice = voices.find(v => v.lang.startsWith('zh')) || null;
-}
-if (window.speechSynthesis) {
-    speechSynthesis.onvoiceschanged = loadChineseVoice;
-    setTimeout(loadChineseVoice, 100);
-}
-
-function speakChinese(text) {
-    if (!text || !window.speechSynthesis) return;
-    speechSynthesis.cancel();
-    setTimeout(() => {
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'zh-CN';
-        u.rate = 0.7;
-        if (chineseVoice) u.voice = chineseVoice;
-        speechSynthesis.speak(u);
-    }, 50);
-}
-window.speakChinese = speakChinese;
-
-// ============================================================
-// 6. КАЛЛИГРАФИЯ (ПЛАВНАЯ КИСТЬ)
-// ============================================================
-
-const canvasConfig = {
-    size: 500,
-    padding: 28,
-    brushWidth: 16,
-    exampleOpacity: 0.25,
-    gridColor: '#b8956a',
-    gridColorCenter: '#d4b896',
-    strokeColor: '#1a0f0a',
-    exampleColor: '#9b59b6',
-    checkThreshold: 0.40,
-    checkGoodThreshold: 0.25
-};
-
-let canvas, ctx, isDrawing = false, lastX, lastY, lastWidth, lastTime, strokeLen = 0;
-let canvasHistory = [];
-let currentColor = '#1a1a1a';
-let canvasRefData = null;
-let exampleVisible = false;
-
-function initCanvas() {
-    canvas = document.getElementById('calligraphyCanvas');
-    const rect = canvas.parentElement.getBoundingClientRect();
-    const size = Math.min(rect.width - 16, 500);
-    canvas.width = canvas.height = size;
-    canvasConfig.size = size;
-    ctx = canvas.getContext('2d', { willReadFrequently: true });
-    ctx.fillStyle = '#fffef9';
-    ctx.fillRect(0, 0, size, size);
-    drawMiziGeGrid(ctx, size, canvasConfig.padding);
-    ctx.lineWidth = canvasConfig.brushWidth;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.globalAlpha = 1;
-    canvasRefData = null;
-    exampleVisible = false;
-    setupDrawing(canvas);
-    document.getElementById('qFill').style.width = '0%';
-    document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы каллиграфической кистью';
-    canvasHistory = [];
-}
-
-function drawMiziGeGrid(ctx, size, padding) {
-    const inner = size - padding * 2;
-    const center = size / 2;
-    ctx.save();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = canvasConfig.gridColor;
-    ctx.strokeRect(padding, padding, inner, inner);
-    ctx.setLineDash([6, 4]);
-    ctx.lineWidth = 1.2;
-    ctx.strokeStyle = canvasConfig.gridColorCenter;
-    ctx.beginPath();
-    ctx.moveTo(center, padding);
-    ctx.lineTo(center, size - padding);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(padding, center);
-    ctx.lineTo(size - padding, center);
-    ctx.stroke();
-    ctx.setLineDash([3, 3]);
-    ctx.lineWidth = 0.8;
-    ctx.strokeStyle = canvasConfig.gridColor;
-    ctx.beginPath();
-    ctx.moveTo(padding, padding);
-    ctx.lineTo(size - padding, size - padding);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(size - padding, padding);
-    ctx.lineTo(padding, size - padding);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.restore();
-}
-
-function setupDrawing(canvas) {
-    function getPos(e) {
-        const rect = canvas.getBoundingClientRect();
-        return {
-            x: (e.clientX - rect.left) * canvas.width / rect.width,
-            y: (e.clientY - rect.top) * canvas.height / rect.height,
-            pressure: Math.max(0.1, e.pressure || 0.5)
-        };
-    }
-
-    function start(e) {
-        e.preventDefault();
-        isDrawing = true;
-        strokeLen = 0;
-        const p = getPos(e);
-        lastX = p.x;
-        lastY = p.y;
-        lastTime = performance.now();
-        lastWidth = canvasConfig.brushWidth * 0.5;
-        saveCanvasState();
-
-        // ТОЧКА В НАЧАЛЕ (как чернила)
-        const dotRadius = canvasConfig.brushWidth * 0.3;
-        const grad = ctx.createRadialGradient(p.x - dotRadius*0.3, p.y - dotRadius*0.3, 1, p.x, p.y, dotRadius);
-        grad.addColorStop(0, currentColor);
-        grad.addColorStop(0.7, currentColor);
-        grad.addColorStop(1, currentColor + '55');
-        ctx.fillStyle = grad;
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = currentColor + '44';
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, dotRadius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 1;
-        ctx.shadowColor = currentColor;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, lastWidth / 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-    }
-
-    function draw(e) {
-        if (!isDrawing) return;
-        e.preventDefault();
-
-        const p = getPos(e);
-        const now = performance.now();
-        const dt = Math.max(1, now - lastTime);
-        const dx = p.x - lastX;
-        const dy = p.y - lastY;
-        const dist = Math.hypot(dx, dy);
-        const speed = dist / dt;
-        strokeLen += dist;
-
-        // ПЛАВНАЯ СМЕНА ТОЛЩИНЫ ОТ НАЖАТИЯ
-        const pressureFactor = 0.15 + p.pressure * 0.85;
-        const speedFactor = Math.max(0.08, 1 - (speed / 0.9));
-        let targetW = canvasConfig.brushWidth * pressureFactor * speedFactor;
-        if (strokeLen < 20) targetW *= (0.3 + 0.7 * (strokeLen / 20));
-        targetW = Math.max(2, Math.min(canvasConfig.brushWidth * 1.9, targetW));
-
-        // ПЛАВНЫЙ ПЕРЕХОД
-        const newW = lastWidth * 0.6 + targetW * 0.4;
-
-        // РИСУЕМ ПЛАВНЫМИ ДУГАМИ
-        ctx.save();
-        ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 0.5;
-        ctx.shadowColor = currentColor + '33';
-
-        const steps = Math.max(1, Math.floor(dist / 1.5));
-        for (let i = 1; i <= steps; i++) {
-            const t = i / steps;
-            const ix = lastX + dx * t;
-            const iy = lastY + dy * t;
-            const iw = lastWidth + (newW - lastWidth) * t;
-            const angle = Math.atan2(dy, dx) + Math.PI/2;
-            ctx.beginPath();
-            ctx.ellipse(ix, iy, iw/2, iw/1.8, angle, 0, Math.PI*2);
-            ctx.fill();
-        }
-
-        // ЗАПОЛНЕНИЕ ПРОМЕЖУТКОВ
-        const midX = (lastX + p.x) / 2;
-        const midY = (lastY + p.y) / 2;
-        const midW = (lastWidth + newW) / 2;
-        ctx.beginPath();
-        ctx.ellipse(midX, midY, midW/2, midW/1.9, Math.atan2(dy, dx) + Math.PI/2, 0, Math.PI*2);
-        ctx.fill();
-
-        ctx.restore();
-
-        lastX = p.x;
-        lastY = p.y;
-        lastWidth = newW;
-        lastTime = now;
-    }
-
-    function stop() {
-        if (!isDrawing) return;
-        isDrawing = false;
-
-        // ЗАВЕРШАЮЩИЙ ШТРИХ
-        const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
-        ctx.save();
-        ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 0;
-        for (let i = 1; i <= 10; i++) {
-            const t = i / 10;
-            const tw = lastWidth * Math.pow(1 - t, 1.8);
-            const tx = lastX + Math.cos(angle) * t * 5;
-            const ty = lastY + Math.sin(angle) * t * 5;
-            ctx.beginPath();
-            ctx.ellipse(tx, ty, tw/2, tw/2.8, angle, 0, Math.PI*2);
-            ctx.fill();
-        }
-        ctx.restore();
-
-        saveCanvasState();
-    }
-
-    canvas.addEventListener('pointerdown', start);
-    canvas.addEventListener('pointermove', draw);
-    canvas.addEventListener('pointerup', stop);
-    canvas.addEventListener('pointerleave', stop);
-    canvas.addEventListener('pointercancel', stop);
-
-    canvas.addEventListener('mousedown', start);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stop);
-    canvas.addEventListener('mouseleave', stop);
-}
-
-function saveCanvasState() {
-    canvasHistory.push(canvas.toDataURL());
-    if (canvasHistory.length > 20) canvasHistory.shift();
-}
-
-function clearCanvas() {
-    canvasHistory = [];
-    const size = canvasConfig.size;
-    ctx.fillStyle = '#fffef9';
-    ctx.fillRect(0, 0, size, size);
-    drawMiziGeGrid(ctx, size, canvasConfig.padding);
-    canvasRefData = null;
-    exampleVisible = false;
-    document.getElementById('qFill').style.width = '0%';
-    document.getElementById('qText').textContent = '🧽 Очищено';
-    document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
-}
-
-function showExample(char) {
-    clearCanvas();
-    const size = canvasConfig.size;
-    const inner = size - canvasConfig.padding * 2;
-    ctx.save();
-    ctx.globalAlpha = canvasConfig.exampleOpacity;
-    ctx.fillStyle = canvasConfig.exampleColor;
-    ctx.font = `900 ${Math.floor(inner * 0.82)}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(char, size / 2, size / 2 + size * 0.02);
-    ctx.restore();
-    canvasRefData = ctx.getImageData(0, 0, size, size);
-    exampleVisible = true;
-    document.getElementById('canvasTrace').textContent = '🙈 Скрыть образец';
-    document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
-}
-
-function hideExample() {
-    const size = canvasConfig.size;
-    ctx.fillStyle = '#fffef9';
-    ctx.fillRect(0, 0, size, size);
-    drawMiziGeGrid(ctx, size, canvasConfig.padding);
-    canvasRefData = null;
-    exampleVisible = false;
-    document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
-    document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы каллиграфической кистью';
-}
-
-function checkQuality() {
-    if (!canvasRefData) {
-        document.getElementById('qText').textContent = '👁️ Сначала покажи образец';
-        return;
-    }
-    const size = canvasConfig.size;
-    const current = ctx.getImageData(0, 0, size, size);
-    const dRef = canvasRefData.data;
-    const dCur = current.data;
-    let match = 0, totalRef = 0, userOutside = 0;
-    const threshold = 235;
-    for (let i = 0; i < dRef.length; i += 4) {
-        const isRef = (dRef[i] < threshold || dRef[i+1] < threshold || dRef[i+2] < threshold);
-        const isUser = (dCur[i] < threshold || dCur[i+1] < threshold || dCur[i+2] < threshold);
-        if (isRef) { totalRef++; if (isUser) match++; }
-        else if (isUser) { userOutside++; }
-    }
-    if (totalRef === 0) {
-        document.getElementById('qText').textContent = '📝 Нет эталона для сравнения';
-        return;
-    }
-    const precision = match / totalRef;
-    const recall = match / (totalRef + userOutside + 0.001);
-    const f1 = 2 * (precision * recall) / (precision + recall + 0.001);
-    const pct = Math.round(f1 * 100);
-    const fill = document.getElementById('qFill');
-    const text = document.getElementById('qText');
-    fill.style.width = pct + '%';
-    if (f1 > canvasConfig.checkThreshold) {
-        fill.style.background = '#2ecc71';
-        text.textContent = `🌟 Отлично! ${pct}% совпадение`;
-    } else if (f1 > canvasConfig.checkGoodThreshold) {
-        fill.style.background = '#f39c12';
-        text.textContent = `👍 Хорошо! ${pct}% совпадение`;
-    } else {
-        fill.style.background = '#e67e22';
-        text.textContent = `📝 Продолжай тренироваться (${pct}%)`;
-    }
-}
-
-// ============================================================
-// 7. ВКЛАДКИ
-// ============================================================
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        const tabName = this.dataset.tab;
-        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-        document.getElementById('tab-' + tabName).classList.add('active');
-        if (tabName === 'notebook') renderNotebook();
-        if (tabName === 'dialogues') renderDialogues();
-        if (tabName === 'canvas') setTimeout(initCanvas, 50);
-    });
-});
-
-// ============================================================
-// 8. СОБЫТИЯ
-// ============================================================
-
-document.getElementById('searchInput').addEventListener('input', function() {
-    searchQuery = this.value;
-    renderGroups();
-});
-
-document.querySelectorAll('#categoryButtons button').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentCategory = this.dataset.cat;
-        renderGroups();
-    });
-});
-
-document.getElementById('notebookNav').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-    document.querySelector('[data-tab="notebook"]').classList.add('active');
-    document.getElementById('tab-notebook').classList.add('active');
-    renderNotebook();
-});
-
-// ============================================================
-// 9. КАНВАС — СОБЫТИЯ
-// ============================================================
-
-document.getElementById('canvasClear').addEventListener('click', clearCanvas);
-
-document.getElementById('canvasTrace').addEventListener('click', function() {
-    if (exampleVisible) {
-        hideExample();
-    } else {
-        const char = prompt('Введите иероглиф для показа:', '永');
-        if (char && char.length === 1) {
-            showExample(char);
-        }
-    }
-});
-
-document.getElementById('canvasCheck').addEventListener('click', checkQuality);
-
-document.querySelectorAll('.color-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentColor = this.dataset.color;
-    });
-});
-
-// ============================================================
-// 10. СТАРТ
-// ============================================================
-
-setTimeout(() => {
-    renderGroups();
-    renderDialogues();
-    renderNotebook();
-    setTimeout(initCanvas, 100);
-}, 200);
-
-console.log("✅ Красная книга загружена! Фраз:", allPhrases.length);
-console.log("💬 Диалогов:", allDialogues.length);
-</script>
+        // Делаем функции глобальными
+        window.speakChinese = speakChinese;
+        window.toggleNotebook = toggleNotebook;
+        window.removeFromNotebook = removeFromNotebook;
+        window.loadCharToHanzi = loadCharToHanzi;
+        window.initHanziWriter = initHanziWriter;
+        window.showHanziFromInput = showHanziFromInput;
+        window.addCurrentCharToNotebook = addCurrentCharToNotebook;
+        window.renderNotebook = renderNotebook;
+        window.clearNotebook = clearNotebook;
+        window.showToast = showToast;
+    </script>
 
 </body>
 </html>
