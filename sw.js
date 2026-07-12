@@ -4,7 +4,7 @@
 
 const REPO_NAME = 'lesson-1';
 const BASE_PATH = `/${REPO_NAME}/`;
-const CACHE_NAME = 'chinese-lesson-v6';
+const CACHE_NAME = 'chinese-lesson-v7';
 
 // ============================================================
 // ФАЙЛЫ ДЛЯ КЕШИРОВАНИЯ
@@ -52,6 +52,12 @@ const FILES_TO_CACHE = [
     // ===== НОВЫЕ СТРАНИЦЫ =====
     `${BASE_PATH}magic.html`,
     `${BASE_PATH}question-words.html`,
+
+    // ============================================================
+    // ===== ⭐ ДОБАВЛЯЕМ КРАСНУЮ КНИГУ ⭐ =====
+    // ============================================================
+    `${BASE_PATH}redphrases.html`,
+    `${BASE_PATH}redphrases.js`,
 
     // ===== ИКОНКИ =====
     `${BASE_PATH}favicon.ico`,
@@ -133,6 +139,7 @@ self.addEventListener('activate', event => {
         }).then(() => {
             console.log('✅ Service Worker активирован!');
             console.log('📦 Версия кеша:', CACHE_NAME);
+            console.log('📕 Красная книга добавлена в кеш!');
             return self.clients.claim();
         })
     );
@@ -261,3 +268,4 @@ self.addEventListener('message', event => {
 console.log('✅ Service Worker загружен!');
 console.log('📦 Версия кеша:', CACHE_NAME);
 console.log('📋 Файлов для кеширования:', FILES_TO_CACHE.length);
+console.log('📕 Красная книга добавлена в кеш!');
