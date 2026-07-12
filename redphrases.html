@@ -803,6 +803,7 @@
             <button class="tab-btn" data-tab="quiz">🎮 Викторина</button>
             <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
         </div>
+
         <!-- ========================================================== -->
         <!-- ВКЛАДКА: ГРУППЫ -->
         <!-- ========================================================== -->
@@ -826,7 +827,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) — ДО 4 ИЕРОГЛИФОВ -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-hanzi">
             <div class="hanzi-section">
@@ -1197,7 +1198,7 @@
         }
 
         // ============================================================
-        // 5. HANZI WRITER (ДО 4 ИЕРОГЛИФОВ)
+        // 5. HANZI WRITER
         // ============================================================
 
         function initHanziWriter(chars) {
@@ -1778,22 +1779,53 @@
         }
 
         // ============================================================
-        // 11. СОБЫТИЯ
+        // 11. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК (ОТДЕЛЬНЫЙ БЛОК)
         // ============================================================
 
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.onclick = function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-                this.classList.add('active');
+        // Находим все кнопки и контент
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        console.log('📌 Найдено кнопок:', tabButtons.length);
+        console.log('📌 Найдено контентов:', tabContents.length);
+
+        // Функция переключения вкладки
+        function switchTab(tabName) {
+            // Скрываем все вкладки
+            tabContents.forEach(tc => tc.classList.remove('active'));
+
+            // Показываем нужную
+            const target = document.getElementById('tab-' + tabName);
+            if (target) {
+                target.classList.add('active');
+                console.log('✅ Показана вкладка:', tabName);
+            } else {
+                console.error('❌ Вкладка не найдена:', tabName);
+            }
+
+            // Обновляем активную кнопку
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Навешиваем обработчики на кнопки
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 const tabName = this.dataset.tab;
-                document.getElementById('tab-' + tabName).classList.add('active');
+                console.log('🔘 Нажата вкладка:', tabName);
+                switchTab(tabName);
+
+                // Дополнительные действия при переключении
                 if (tabName === 'notebook') renderNotebook();
                 if (tabName === 'dialogues') renderDialogues();
                 if (tabName === 'hanzi') {
                     setTimeout(() => {
                         const input = document.getElementById('hanziInput');
-                        if (input.value.trim()) {
+                        if (input && input.value.trim()) {
                             const chars = [...input.value.trim()];
                             initHanziWriter(chars.slice(0, 4));
                         }
@@ -1802,101 +1834,149 @@
                 if (tabName === 'quiz') setTimeout(initQuiz, 50);
                 if (tabName === 'canvas') setTimeout(initCanvas, 50);
                 currentTab = tabName;
-            };
+            });
         });
 
-        document.getElementById('searchInput').oninput = function() {
+        // ============================================================
+        // 12. ПОИСК И КАТЕГОРИИ
+        // ============================================================
+
+        document.getElementById('searchInput').addEventListener('input', function() {
             searchQuery = this.value;
             renderGroups();
-        };
+        });
 
         document.querySelectorAll('#categoryButtons button').forEach(btn => {
-            btn.onclick = function() {
+            btn.addEventListener('click', function() {
                 document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentCategory = this.dataset.cat;
                 renderGroups();
-            };
+            });
         });
 
-        document.getElementById('notebookNav').onclick = function(e) {
+        document.getElementById('notebookNav').addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-            document.querySelector('[data-tab="notebook"]').classList.add('active');
-            document.getElementById('tab-notebook').classList.add('active');
-            renderNotebook();
-        };
-
-        // Hanzi
-        document.getElementById('showHanziBtn').onclick = showHanzi;
-        document.getElementById('repeatHanziBtn').onclick = repeatHanzi;
-        document.getElementById('hanziInput').onkeydown = function(e) {
-            if (e.key === 'Enter') { e.preventDefault();
-                showHanzi(); }
-        };
-        document.getElementById('hanziInput').oninput = function() {
-            const val = this.value.trim();
-            if (val.length > 0) {
-                const chars = [...val];
-                if (chars.length <= 4) initHanziWriter(chars);
-                else { const limited = chars.slice(0, 4);
-                    this.value = limited.join('');
-                    initHanziWriter(limited); }
-            } else initHanziWriter([]);
-        };
-
-        document.getElementById('speedSlider').oninput = function() {
-            hanziSpeed = parseFloat(this.value);
-            document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1) + 'x';
-            const input = document.getElementById('hanziInput');
-            if (input.value.trim()) {
-                const chars = [...input.value.trim()];
-                initHanziWriter(chars.slice(0, 4));
-            }
-        };
-
-        // Дневник
-        document.getElementById('clearNotebookBtn').onclick = clearNotebook;
-        document.getElementById('exportNotebookBtn').onclick = exportNotebook;
-
-        // Викторина
-        document.getElementById('quizNext').onclick = nextQuestion;
-        document.getElementById('quizRestart').onclick = restartQuiz;
-        document.getElementById('quizHint').onclick = giveHint;
-        document.querySelectorAll('#quizDifficulty button').forEach(btn => {
-            btn.onclick = function() {
-                setQuizDifficulty(this.dataset.level);
-            };
+            switchTab('notebook');
         });
 
-        // Каллиграфия
-        document.getElementById('canvasClear').onclick = clearCanvas;
-        document.getElementById('canvasUndo').onclick = undoCanvas;
-        document.getElementById('canvasTrace').onclick = function() {
+        // ============================================================
+        // 13. HANZI WRITER СОБЫТИЯ
+        // ============================================================
+
+        const showBtn = document.getElementById('showHanziBtn');
+        const repeatBtn = document.getElementById('repeatHanziBtn');
+        const hanziInput = document.getElementById('hanziInput');
+
+        if (showBtn) showBtn.addEventListener('click', showHanzi);
+        if (repeatBtn) repeatBtn.addEventListener('click', repeatHanzi);
+        if (hanziInput) {
+            hanziInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    showHanzi();
+                }
+            });
+            hanziInput.addEventListener('input', function() {
+                const val = this.value.trim();
+                if (val.length > 0) {
+                    const chars = [...val];
+                    if (chars.length <= 4) initHanziWriter(chars);
+                    else {
+                        const limited = chars.slice(0, 4);
+                        this.value = limited.join('');
+                        initHanziWriter(limited);
+                    }
+                } else {
+                    initHanziWriter([]);
+                }
+            });
+        }
+
+        const speedSlider = document.getElementById('speedSlider');
+        if (speedSlider) {
+            speedSlider.addEventListener('input', function() {
+                hanziSpeed = parseFloat(this.value);
+                document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1) + 'x';
+                const input = document.getElementById('hanziInput');
+                if (input && input.value.trim()) {
+                    const chars = [...input.value.trim()];
+                    initHanziWriter(chars.slice(0, 4));
+                }
+            });
+        }
+
+        // ============================================================
+        // 14. ДНЕВНИК СОБЫТИЯ
+        // ============================================================
+
+        const clearBtn = document.getElementById('clearNotebookBtn');
+        const exportBtn = document.getElementById('exportNotebookBtn');
+
+        if (clearBtn) clearBtn.addEventListener('click', clearNotebook);
+        if (exportBtn) exportBtn.addEventListener('click', exportNotebook);
+
+        // ============================================================
+        // 15. ВИКТОРИНА СОБЫТИЯ
+        // ============================================================
+
+        const quizNext = document.getElementById('quizNext');
+        const quizRestart = document.getElementById('quizRestart');
+        const quizHint = document.getElementById('quizHint');
+
+        if (quizNext) quizNext.addEventListener('click', nextQuestion);
+        if (quizRestart) quizRestart.addEventListener('click', restartQuiz);
+        if (quizHint) quizHint.addEventListener('click', giveHint);
+
+        document.querySelectorAll('#quizDifficulty button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                setQuizDifficulty(this.dataset.level);
+            });
+        });
+
+        // ============================================================
+        // 16. КАЛЛИГРАФИЯ СОБЫТИЯ
+        // ============================================================
+
+        const canvasClear = document.getElementById('canvasClear');
+        const canvasUndo = document.getElementById('canvasUndo');
+        const canvasTrace = document.getElementById('canvasTrace');
+        const canvasCheck = document.getElementById('canvasCheck');
+        const canvasSaveImg = document.getElementById('canvasSaveImg');
+        const brushSizeSlider = document.getElementById('brushSizeSlider');
+
+        if (canvasClear) canvasClear.addEventListener('click', clearCanvas);
+        if (canvasUndo) canvasUndo.addEventListener('click', undoCanvas);
+        if (canvasTrace) canvasTrace.addEventListener('click', function() {
             if (exampleVisible) hideExample();
             else showExample();
-        };
-        document.getElementById('canvasCheck').onclick = checkQuality;
-        document.getElementById('canvasSaveImg').onclick = saveCanvasImage;
+        });
+        if (canvasCheck) canvasCheck.addEventListener('click', checkQuality);
+        if (canvasSaveImg) canvasSaveImg.addEventListener('click', saveCanvasImage);
 
-        document.getElementById('brushSizeSlider').oninput = function() {
-            brushSize = parseInt(this.value);
-            document.getElementById('brushSizeValue').textContent = brushSize;
-        };
+        if (brushSizeSlider) {
+            brushSizeSlider.addEventListener('input', function() {
+                brushSize = parseInt(this.value);
+                document.getElementById('brushSizeValue').textContent = brushSize;
+            });
+        }
 
         document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.onclick = function() {
+            btn.addEventListener('click', function() {
                 document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentColor = this.dataset.color;
-            };
+            });
         });
 
         // ============================================================
-        // 12. СТАРТ
+        // 17. СТАРТ
         // ============================================================
 
+        // Активируем первую вкладку
+        switchTab('groups');
+
+        // Загружаем данные
         setTimeout(() => {
             renderGroups();
             renderDialogues();
@@ -1924,6 +2004,9 @@
         window.undoCanvas = undoCanvas;
         window.saveCanvasImage = saveCanvasImage;
         window.exportNotebook = exportNotebook;
+        window.switchTab = switchTab;
+
+        console.log('✅ Приложение загружено!');
     </script>
 
 </body>
