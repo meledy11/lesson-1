@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📕 Красная книга — китайские фразы</title>
+
+    <style>
+        /* ===== ОБЩИЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 16px;
+            color: #1a1a1a;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .header {
+            text-align: center;
+            padding: 20px 0 12px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .header h1 .red {
+            color: #dc2626;
+        }
+
+        .header .sub {
+            color: #888;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        /* ===== СТАТИСТИКА ===== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 14px 24px;
+            border-radius: 14px;
+            margin: 12px 0 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .stats span {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .stats strong {
+            color: #1a1a1a;
+        }
+
+        .stats .red-num {
+            color: #dc2626;
+        }
+
+        /* ===== КНОПКИ КАТЕГОРИЙ ===== */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .categories button {
+            padding: 8px 18px;
+            border: 2px solid #ddd;
+            border-radius: 24px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .categories button:hover {
+            border-color: #999;
+            transform: scale(1.03);
+        }
+
+        .categories button.active {
+            background: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
+        }
+
+        .categories button.red-btn.active {
+            background: #dc2626;
+            border-color: #dc2626;
+        }
+
+        /* ===== ПОИСК ===== */
+        .search {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.2s;
+            margin-bottom: 18px;
+        }
+
+        .search:focus {
+            border-color: #1a1a1a;
+        }
+
+        /* ===== КАРТОЧКА ФРАЗЫ ===== */
+        .phrase-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid #dc2626;
+            transition: all 0.2s;
+        }
+
+        .phrase-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            letter-spacing: 0.3px;
+            margin-left: 8px;
+        }
+
+        .phrase-card .chinese {
+            font-size: 34px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .phrase-card .pinyin {
+            font-size: 17px;
+            color: #999;
+            margin: 2px 0 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .phrase-card .translation {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 400;
+        }
+
+        .phrase-card .tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .phrase-card .tags .tag {
+            font-size: 12px;
+            background: #f0f0f0;
+            padding: 3px 14px;
+            border-radius: 14px;
+            color: #555;
+        }
+
+        .phrase-card .tags .tag.category-tag {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .phrase-card .tags .tag.red-tag {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        /* ===== КНОПКА ОЗВУЧКИ ===== */
+        .audio-btn {
+            margin-top: 10px;
+            padding: 6px 18px;
+            background: #e5e7eb;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1a1a1a;
+        }
+
+        .audio-btn:hover {
+            background: #d1d5db;
+            transform: scale(1.04);
+        }
+
+        .audio-btn.playing {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* ===== ПУСТОЙ РЕЗУЛЬТАТ ===== */
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 16px;
+        }
+
+        /* ===== КНОПКА ВВЕРХ ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .scroll-top:hover {
+            transform: scale(1.1);
+        }
+
+        .scroll-top.show {
+            display: block;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 500px) {
+            .phrase-card .chinese {
+                font-size: 28px;
+            }
+            .phrase-card .translation {
+                font-size: 16px;
+            }
+            .stats {
+                gap: 12px;
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ЗАГОЛОВОК ===== -->
+    <div class="header">
+        <h1>📕 <span class="red">Красная</span> книга</h1>
+        <div class="sub">Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой</div>
+    </div>
+
+    <!-- ===== СТАТИСТИКА ===== -->
+    <div class="stats" id="stats">
+        <span>📄 Всего: <strong id="totalCount">0</strong></span>
+        <span>🔴 Красная книга: <strong class="red-num" id="redCount">0</strong></span>
+        <span>📂 Категорий: <strong id="catCount">0</strong></span>
+    </div>
+
+    <!-- ===== ПОИСК ===== -->
+    <input class="search" id="searchInput" type="text" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." />
+
+    <!-- ===== КНОПКИ КАТЕГОРИЙ ===== -->
+    <div class="categories" id="categoryButtons">
+        <button data-cat="all" class="active">📚 Все</button>
+        <button data-cat="phrase">📄 Фразы</button>
+        <button data-cat="travel">✈️ Путешествия</button>
+        <button data-cat="food">🍜 Еда</button>
+        <button data-cat="work">💼 Работа</button>
+    </div>
+
+    <!-- ===== СПИСОК ФРАЗ ===== -->
+    <div id="phraseList"></div>
+
+    <!-- ===== КНОПКА ВВЕРХ ===== -->
+    <button class="scroll-top" id="scrollTopBtn" title="Наверх">↑</button>
+
+    <!-- ========================================================== -->
+    <!-- ПОДКЛЮЧАЕМ МАССИВ И ЛОГИКУ -->
+    <!-- ========================================================== -->
+
+    <!-- 1. Массив с фразами (отдельный файл) -->
+    <script src="redphrases.js"></script>
+
+    <!-- 2. Основная логика отображения -->
+    <script>
+        // ============================================================
+        // ЛОГИКА ОТОБРАЖЕНИЯ ФРАЗ
+        // ============================================================
+
+        // Проверяем, что массив загружен
+        const allPhrases = typeof redPhrases !== "undefined" ? redPhrases : [];
+
+        // ===== СОСТОЯНИЕ =====
+        let currentCategory = "all";
+        let searchQuery = "";
+
+        // ===== DOM-ЭЛЕМЕНТЫ =====
+        const phraseListEl = document.getElementById("phraseList");
+        const searchInput = document.getElementById("searchInput");
+        const totalCountEl = document.getElementById("totalCount");
+        const redCountEl = document.getElementById("redCount");
+        const catCountEl = document.getElementById("catCount");
+        const scrollBtn = document.getElementById("scrollTopBtn");
+
+        // ===== ФИЛЬТРАЦИЯ =====
+        function getFilteredPhrases() {
+            return allPhrases.filter((p) => {
+                // Фильтр по категории
+                if (currentCategory !== "all" && p.category !== currentCategory) return false;
+
+                // Поиск
+                if (searchQuery.trim()) {
+                    const q = searchQuery.trim().toLowerCase();
+                    const inChinese = p.chinese.includes(q);
+                    const inPinyin = p.pinyin.toLowerCase().includes(q);
+                    const inTranslation = p.translation.toLowerCase().includes(q);
+                    if (!inChinese && !inPinyin && !inTranslation) return false;
+                }
+
+                return true;
+            });
+        }
+
+        // ===== РЕНДЕРИНГ =====
+        function render() {
+            const filtered = getFilteredPhrases();
+            const total = allPhrases.length;
+            const categories = new Set(allPhrases.map((p) => p.category));
+            const catCount = categories.size;
+
+            // Статистика
+            totalCountEl.textContent = total;
+            redCountEl.textContent = total;
+            catCountEl.textContent = catCount;
+
+            if (filtered.length === 0) {
+                phraseListEl.innerHTML = `<div class="empty">😕 Ничего не найдено. Попробуйте изменить поиск.</div>`;
+                return;
+            }
+
+            let html = "";
+            for (const p of filtered) {
+                const badgeHtml = `<span class="badge">🔴 Красная книга</span>`;
+
+                // Теги
+                let tagsHtml = `<span class="tag category-tag">${p.category}</span>`;
+                tagsHtml += `<span class="tag red-tag">🔴 Красная книга</span>`;
+
+                html += `
+                        <div class="phrase-card">
+                            <div class="chinese">${p.chinese} ${badgeHtml}</div>
+                            <div class="pinyin">${p.pinyin}</div>
+                            <div class="translation">${p.translation}</div>
+                            <div class="tags">${tagsHtml}</div>
+                            <button class="audio-btn" data-text="${p.chinese}">🔊 Прослушать</button>
+                        </div>
+                    `;
+            }
+
+            phraseListEl.innerHTML = html;
+
+            // ===== ОЗВУЧКА =====
+            document.querySelectorAll(".audio-btn").forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const text = this.dataset.text;
+                    speakChinese(text, this);
+                });
+            });
+        }
+
+        // ===== ОЗВУЧКА (Web Speech API) =====
+        function speakChinese(text, btn) {
+            if (!window.speechSynthesis) {
+                alert("К сожалению, ваш браузер не поддерживает озвучку.");
+                return;
+            }
+
+            // Отменяем текущую речь
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "zh-CN";
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+
+            // Ищем китайский голос
+            const voices = window.speechSynthesis.getVoices();
+            const zhVoice = voices.find((v) => v.lang.startsWith("zh"));
+            if (zhVoice) utterance.voice = zhVoice;
+
+            // Визуальный фидбек
+            if (btn) {
+                btn.textContent = "🔊 Говорит...";
+                btn.classList.add("playing");
+            }
+
+            utterance.onend = () => {
+                if (btn) {
+                    btn.textContent = "🔊 Прослушать";
+                    btn.classList.remove("playing");
+                }
+            };
+
+            utterance.onerror = () => {
+                if (btn) {
+                    btn.textContent = "🔊 Прослушать";
+                    btn.classList.remove("playing");
+                }
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Загружаем голоса (для некоторых браузеров)
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // ===== СОБЫТИЯ =====
+
+        // Поиск
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = e.target.value;
+            render();
+        });
+
+        // Категории
+        document.querySelectorAll("#categoryButtons button").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll("#categoryButtons button").forEach((b) => b.classList.remove("active"));
+                this.classList.add("active");
+                currentCategory = this.dataset.cat;
+                render();
+            });
+        });
+
+        // Кнопка "Наверх"
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add("show");
+            } else {
+                scrollBtn.classList.remove("show");
+            }
+        });
+
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // ===== СТАРТ =====
+        render();
+
+        console.log("✅ Страница загружена! Всего фраз:", allPhrases.length);
+        console.log("📂 Категории:", [...new Set(allPhrases.map(p => p.category))]);
+    </script>
+
+</body>
+</html>
