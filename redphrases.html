@@ -733,7 +733,7 @@
             opacity: 0.4;
         }
 
-        /* ===== КАЛЛИГРАФИЯ — УВЕЛИЧЕННОЕ ОКНО ===== */
+        /* ===== КАЛЛИГРАФИЯ ===== */
         #tab-canvas {
             flex: 1;
             flex-direction: column;
@@ -1049,7 +1049,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ (УВЕЛИЧЕННАЯ) -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-canvas">
             <div class="canvas-container">
@@ -1347,7 +1347,7 @@
         }
 
         // ============================================================
-        // 5. HANZI WRITER (РИСОВАЛКА) — ИСПРАВЛЕНО
+        // 5. HANZI WRITER (РИСОВАЛКА)
         // ============================================================
 
         function initHanziWriter(chars) {
@@ -1356,17 +1356,11 @@
             const wrapper = document.getElementById('hanziWrapper');
             const label = document.getElementById('charLabel');
 
-            // Уничтожаем старый экземпляр
             if (hanziWriter) {
-                try {
-                    hanziWriter.destroy();
-                } catch (e) {
-                    console.log('Очистка Hanzi Writer');
-                }
+                try { hanziWriter.destroy(); } catch (e) {}
                 hanziWriter = null;
             }
 
-            // Очищаем целевой элемент
             target.innerHTML = '';
             target.style.display = 'block';
 
@@ -1382,12 +1376,10 @@
             label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
 
             try {
-                // Получаем размер контейнера
                 const wrapperRect = wrapper.getBoundingClientRect();
                 const size = Math.min(wrapperRect.width - 16, 400, window.innerHeight * 0.4);
                 const text = chars.join('');
 
-                // Создаём новый экземпляр
                 hanziWriter = HanziWriter.create(target, text, {
                     width: Math.max(size, 200),
                     height: Math.max(size, 200),
@@ -1400,7 +1392,6 @@
                     showHintAfterMisses: 1,
                 });
 
-                // Запускаем анимацию
                 setTimeout(() => {
                     if (hanziWriter) {
                         hanziWriter.animateCharacter();
@@ -1408,7 +1399,6 @@
                 }, 300);
 
             } catch (e) {
-                console.error('Ошибка Hanzi Writer:', e);
                 placeholder.style.display = 'block';
                 placeholder.textContent = '❌ Ошибка: ' + e.message;
                 target.style.display = 'none';
@@ -1515,17 +1505,18 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 7. КАЛЛИГРАФИЯ — УВЕЛИЧЕННАЯ И ОПТИМИЗИРОВАННАЯ
+        // 7. КАЛЛИГРАФИЯ — ИСПРАВЛЕННАЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
-            lastX, lastY, lastWidth, lastTime, strokeLen = 0;
+            lastX, lastY, lastWidth, lastTime;
         let canvasHistory = [];
         let currentColor = '#1a1a1a';
         let canvasRefData = null;
         let exampleVisible = false;
         let brushSize = 8;
         let canvasInitialized = false;
+        let savedExampleChars = '';
 
         function initCanvas() {
             canvas = document.getElementById('calligraphyCanvas');
@@ -1544,11 +1535,23 @@
             ctx.fillStyle = '#fffef9';
             ctx.fillRect(0, 0, size, size);
             drawGrid(ctx, size);
-            canvasRefData = null;
-            exampleVisible = false;
-            canvasHistory = [];
+
+            // Восстанавливаем сохранённый образец
+            if (savedExampleChars) {
+                drawExample(savedExampleChars);
+                exampleVisible = true;
+                document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
+                document.getElementById('qText').textContent = `🖌️ Обводи образец "${savedExampleChars}"`;
+                canvasRefData = ctx.getImageData(0, 0, size, size);
+            } else {
+                canvasRefData = null;
+                exampleVisible = false;
+                document.getElementById('canvasTrace').textContent = '👁️ Образец';
+                document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
+            }
+
             document.getElementById('qFill').style.width = '0%';
-            document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
+            canvasHistory = [];
             document.getElementById('canvasUndo').style.display = 'none';
 
             if (!canvasInitialized) {
@@ -1577,6 +1580,31 @@
             ctx.restore();
         }
 
+        function drawExample(chars) {
+            const size = canvas.width;
+            ctx.save();
+            ctx.globalAlpha = 0.2;
+            ctx.fillStyle = '#9b59b6';
+            const fontSize = size * 0.5;
+            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Рисуем несколько иероглифов
+            const charsArray = [...chars];
+            if (charsArray.length === 1) {
+                ctx.fillText(chars, size / 2, size / 2 + size * 0.02);
+            } else {
+                const spacing = size / (charsArray.length + 1);
+                for (let i = 0; i < charsArray.length; i++) {
+                    const x = spacing * (i + 1);
+                    const y = size / 2 + size * 0.02;
+                    ctx.fillText(charsArray[i], x, y);
+                }
+            }
+            ctx.restore();
+        }
+
         function setupDrawing() {
             function getPos(e) {
                 const rect = canvas.getBoundingClientRect();
@@ -1598,8 +1626,7 @@
                 lastX = p.x;
                 lastY = p.y;
                 lastTime = performance.now();
-                lastWidth = brushSize * 0.4;
-                strokeLen = 0;
+                lastWidth = brushSize * 0.3;
                 saveCanvasState();
                 document.getElementById('canvasUndo').style.display = 'inline-block';
             }
@@ -1611,18 +1638,21 @@
                 const now = performance.now();
                 const dt = Math.max(1, now - lastTime);
                 const dist = Math.hypot(p.x - lastX, p.y - lastY);
-                if (dist < 1) return;
+
+                if (dist < 0.5) {
+                    lastX = p.x;
+                    lastY = p.y;
+                    lastTime = now;
+                    return;
+                }
 
                 const speed = dist / dt;
-                strokeLen += dist;
-
                 const pressureFactor = 0.3 + p.pressure * 0.7;
-                const speedFactor = Math.max(0.15, 1 - (speed / 0.6));
+                const speedFactor = Math.max(0.2, 1 - (speed / 0.5));
                 let w = brushSize * pressureFactor * speedFactor;
-                if (strokeLen < 20) w *= (0.4 + 0.6 * (strokeLen / 20));
-                w = Math.max(1.5, Math.min(brushSize * 1.8, w));
+                w = Math.max(1.5, Math.min(brushSize * 1.5, w));
 
-                const newW = lastWidth * 0.5 + w * 0.5;
+                const newW = lastWidth * 0.4 + w * 0.6;
 
                 ctx.save();
                 ctx.strokeStyle = currentColor;
@@ -1632,19 +1662,16 @@
                 ctx.shadowBlur = 1;
                 ctx.shadowColor = currentColor + '22';
 
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(p.x, p.y);
-                ctx.stroke();
+                // Рисуем линию с интерполяцией для плавности
+                const steps = Math.max(1, Math.floor(dist / 1.5));
+                for (let i = 0; i <= steps; i++) {
+                    const t = i / steps;
+                    const x = lastX + (p.x - lastX) * t;
+                    const y = lastY + (p.y - lastY) * t;
+                    const wStep = lastWidth + (newW - lastWidth) * t;
 
-                // Добавляем эффект кисти
-                const midX = (lastX + p.x) / 2;
-                const midY = (lastY + p.y) / 2;
-                const midW = (lastWidth + newW) / 2;
-                if (dist > 3) {
                     ctx.beginPath();
-                    ctx.ellipse(midX, midY, midW / 2, midW / 2.5, Math.atan2(p.y - lastY, p.x - lastX) + Math.PI / 2, 0, Math
-                        .PI * 2);
+                    ctx.arc(x, y, wStep / 2, 0, Math.PI * 2);
                     ctx.fill();
                 }
 
@@ -1659,23 +1686,7 @@
             function stop(e) {
                 if (!isDrawing) return;
                 isDrawing = false;
-                if (strokeLen > 5) {
-                    const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
-                    ctx.save();
-                    ctx.fillStyle = currentColor;
-                    ctx.shadowBlur = 0;
-                    for (let i = 1; i <= 8; i++) {
-                        const t = i / 8;
-                        const tw = lastWidth * Math.pow(1 - t, 2.0);
-                        const tx = lastX + Math.cos(angle) * t * 4;
-                        const ty = lastY + Math.sin(angle) * t * 4;
-                        ctx.beginPath();
-                        ctx.ellipse(tx, ty, tw / 2, tw / 3, angle, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    ctx.restore();
-                    saveCanvasState();
-                }
+                saveCanvasState();
             }
 
             // Удаляем старые обработчики
@@ -1708,6 +1719,11 @@
                 if (canvasHistory.length <= 1) {
                     document.getElementById('canvasUndo').style.display = 'none';
                 }
+                // Восстанавливаем образец, если он был
+                if (exampleVisible && savedExampleChars) {
+                    drawExample(savedExampleChars);
+                    canvasRefData = ctx.getImageData(0, 0, size, size);
+                }
             };
             img.src = canvasHistory[canvasHistory.length - 1];
         }
@@ -1717,29 +1733,33 @@
             ctx.fillStyle = '#fffef9';
             ctx.fillRect(0, 0, size, size);
             drawGrid(ctx, size);
-            canvasRefData = null;
-            exampleVisible = false;
+
+            if (exampleVisible && savedExampleChars) {
+                drawExample(savedExampleChars);
+                canvasRefData = ctx.getImageData(0, 0, size, size);
+            } else {
+                canvasRefData = null;
+            }
+
             document.getElementById('qFill').style.width = '0%';
-            document.getElementById('qText').textContent = '🧽 Очищено';
-            document.getElementById('canvasTrace').textContent = '👁️ Образец';
+            document.getElementById('qText').textContent = exampleVisible ? `🖌️ Обводи образец "${savedExampleChars}"` :
+                '🧽 Очищено';
             canvasHistory = [];
             document.getElementById('canvasUndo').style.display = 'none';
         }
 
         function showExample() {
-            const char = prompt('Введите иероглиф для образца (1 символ):', '永');
-            if (!char || char.length !== 1) return;
+            const char = prompt('Введите иероглиф(ы) для образца (до 4 символов):', savedExampleChars || '永');
+            if (!char || char.length === 0 || char.length > 4) {
+                if (char && char.length > 4) {
+                    showToast('⚠️ Можно ввести не более 4 иероглифов');
+                }
+                return;
+            }
+            savedExampleChars = char;
             clearCanvas();
+            drawExample(char);
             const size = canvas.width;
-            ctx.save();
-            ctx.globalAlpha = 0.2;
-            ctx.fillStyle = '#9b59b6';
-            const fontSize = size * 0.7;
-            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(char, size / 2, size / 2 + size * 0.02);
-            ctx.restore();
             canvasRefData = ctx.getImageData(0, 0, size, size);
             exampleVisible = true;
             document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
@@ -1755,6 +1775,7 @@
             exampleVisible = false;
             document.getElementById('canvasTrace').textContent = '👁️ Образец';
             document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
+            // Сохраняем, что образец скрыт, но не удаляем savedExampleChars
         }
 
         function checkQuality() {
@@ -1800,8 +1821,7 @@
         }
 
         // ============================================================
-        // 8. ОБНОВЛЕНИЕ СТАТИСТИКИ
-        // ============================================================
+        // 8. ОБНОВЛЕНИЕ СТАТИСТИКИ        // ============================================================
 
         function updateStats() {
             document.getElementById('totalCount').textContent = allPhrases.length;
@@ -1829,18 +1849,15 @@
         // ============================================================
 
         function switchTab(tabName) {
-            // Скрываем все вкладки
             document.querySelectorAll('.tab-content').forEach(tc => {
                 tc.classList.remove('active');
             });
 
-            // Показываем нужную
             const target = document.getElementById('tab-' + tabName);
             if (target) {
                 target.classList.add('active');
             }
 
-            // Обновляем кнопки
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.dataset.tab === tabName) {
@@ -1848,7 +1865,6 @@
                 }
             });
 
-            // Дополнительные действия при переключении
             if (tabName === 'notebook') {
                 renderNotebook();
             }
@@ -1904,7 +1920,6 @@
             switchTab('notebook');
         });
 
-        // Hanzi
         document.getElementById('showHanziBtn').addEventListener('click', showHanzi);
         document.getElementById('repeatHanziBtn').addEventListener('click', repeatHanzi);
         document.getElementById('hanziInput').addEventListener('keydown', function(e) {
@@ -1935,16 +1950,17 @@
             }
         });
 
-        // Дневник
         document.getElementById('clearNotebookBtn').addEventListener('click', clearNotebook);
         document.getElementById('exportNotebookBtn').addEventListener('click', exportNotebook);
 
-        // Каллиграфия
         document.getElementById('canvasClear').addEventListener('click', clearCanvas);
         document.getElementById('canvasUndo').addEventListener('click', undoCanvas);
         document.getElementById('canvasTrace').addEventListener('click', function() {
-            if (exampleVisible) hideExample();
-            else showExample();
+            if (exampleVisible) {
+                hideExample();
+            } else {
+                showExample();
+            }
         });
         document.getElementById('canvasCheck').addEventListener('click', checkQuality);
         document.getElementById('canvasSaveImg').addEventListener('click', saveCanvasImage);
@@ -1964,10 +1980,8 @@
         // 12. СТАРТ
         // ============================================================
 
-        // Стартуем с вкладкой "Фразы"
         switchTab('groups');
 
-        // Обработка изменения размера окна
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
@@ -1994,7 +2008,6 @@
             setTimeout(() => initHanziWriter([]), 200);
         }, 200);
 
-        // Глобальные функции
         window.speakChinese = speakChinese;
         window.toggleNotebook = toggleNotebook;
         window.removeFromNotebook = removeFromNotebook;
