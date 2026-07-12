@@ -1,10 +1,10 @@
 // ============================================================
-// redphrases.js — ПОЛНАЯ КРАСНАЯ КНИГА + ДИАЛОГИ
-// Все фразы из переписки (101 шт.) + 8 диалогов
+// redphrases.js — ПОЛНАЯ КРАСНАЯ КНИГА + АНАЛОГИ + ДИАЛОГИ
+// Все фразы из переписки (101 шт.) + аналоги (138 шт.) + 8 диалогов
 // ============================================================
 
 // ============================================================
-// 1. ВСЕ ФРАЗЫ (КРАСНАЯ КНИГА)
+// 1. ВСЕ ФРАЗЫ (КРАСНАЯ КНИГА) — 101 шт.
 // ============================================================
 
 const redBookData = [
@@ -144,6 +144,284 @@ const redBookData = [
     { id: 99, chinese: "别客气", pinyin: "bié kè qi", translation: "Не стесняйся / Не стоит", category: "phrase", red: true },
     { id: 100, chinese: "太好吃了", pinyin: "tài hǎo chī le", translation: "Очень вкусно", category: "food", red: true },
     { id: 101, chinese: "谢谢款待", pinyin: "xiè xie kuǎn dài", translation: "Спасибо за угощение", category: "food", red: true },
+
+    // ============================================================
+    // 19. АНАЛОГИ (red: false) — 138 шт.
+    // ============================================================
+
+    // ---- Аналоги к "我决定了" ----
+    { id: 102, chinese: "我选好了", pinyin: "wǒ xuǎn hǎo le", translation: "Я выбрал", category: "phrase", red: false },
+    { id: 103, chinese: "我想好了", pinyin: "wǒ xiǎng hǎo le", translation: "Я придумал / Я решил", category: "phrase", red: false },
+
+    // ---- Аналоги к "我拨回去" ----
+    { id: 104, chinese: "我打回去", pinyin: "wǒ dǎ huíqù", translation: "Я перезвоню", category: "phrase", red: false },
+    { id: 105, chinese: "我回电话", pinyin: "wǒ huí diànhuà", translation: "Я перезвоню", category: "phrase", red: false },
+
+    // ---- Аналоги к "我挺好的" ----
+    { id: 106, chinese: "我很好", pinyin: "wǒ hěn hǎo", translation: "У меня всё хорошо", category: "phrase", red: false },
+    { id: 107, chinese: "我还不错", pinyin: "wǒ hái bù cuò", translation: "У меня неплохо", category: "phrase", red: false },
+
+    // ---- Аналоги к "我听好了" ----
+    { id: 108, chinese: "我记住了", pinyin: "wǒ jì zhù le", translation: "Я запомнил", category: "phrase", red: false },
+    { id: 109, chinese: "我明白了", pinyin: "wǒ míng bái le", translation: "Я понял", category: "phrase", red: false },
+
+    // ---- Аналоги к "对不起，迟到了" ----
+    { id: 110, chinese: "抱歉，来晚了", pinyin: "bàoqiàn, lái wǎn le", translation: "Простите, пришёл поздно", category: "phrase", red: false },
+    { id: 111, chinese: "不好意思，迟到了", pinyin: "bù hǎoyìsi, chídào le", translation: "Извините, опоздал", category: "phrase", red: false },
+
+    // ---- Аналоги к "危险" ----
+    { id: 112, chinese: "小心", pinyin: "xiǎoxīn", translation: "Осторожно", category: "travel", red: false },
+    { id: 113, chinese: "有危险", pinyin: "yǒu wēixiǎn", translation: "Есть опасность", category: "travel", red: false },
+
+    // ---- Аналоги к "我送你" ----
+    { id: 114, chinese: "我送你回家", pinyin: "wǒ sòng nǐ huí jiā", translation: "Я провожу тебя домой", category: "travel", red: false },
+    { id: 115, chinese: "我陪你去", pinyin: "wǒ péi nǐ qù", translation: "Я провожу тебя / Пойду с тобой", category: "travel", red: false },
+
+    // ---- Аналоги к "回家" ----
+    { id: 116, chinese: "回家吧", pinyin: "huí jiā ba", translation: "Давай вернёмся домой", category: "travel", red: false },
+    { id: 117, chinese: "该回家了", pinyin: "gāi huí jiā le", translation: "Пора возвращаться домой", category: "travel", red: false },
+
+    // ---- Аналоги к "再考虑一下" ----
+    { id: 118, chinese: "我考虑考虑", pinyin: "wǒ kǎolǜ kǎolǜ", translation: "Я подумаю (ещё)", category: "phrase", red: false },
+    { id: 119, chinese: "让我想想", pinyin: "ràng wǒ xiǎng xiǎng", translation: "Дай мне подумать", category: "phrase", red: false },
+
+    // ---- Аналоги к "我不吃了" ----
+    { id: 120, chinese: "我不饿", pinyin: "wǒ bù è", translation: "Я не голоден", category: "food", red: false },
+    { id: 121, chinese: "我饱了", pinyin: "wǒ bǎo le", translation: "Я сыт", category: "food", red: false },
+    { id: 122, chinese: "我吃够了", pinyin: "wǒ chī gòu le", translation: "Я наелся", category: "food", red: false },
+
+    // ---- Аналоги к "别做梦了" ----
+    { id: 123, chinese: "别想了", pinyin: "bié xiǎng le", translation: "Даже не думай", category: "phrase", red: false },
+    { id: 124, chinese: "不可能", pinyin: "bù kěnéng", translation: "Невозможно", category: "phrase", red: false },
+    { id: 125, chinese: "想得美", pinyin: "xiǎng dé měi", translation: "Размечтался", category: "phrase", red: false },
+
+    // ---- Аналоги к "我不回去" ----
+    { id: 126, chinese: "我不走了", pinyin: "wǒ bù zǒu le", translation: "Я не ухожу", category: "phrase", red: false },
+    { id: 127, chinese: "我留在这儿", pinyin: "wǒ liú zài zhèr", translation: "Я останусь здесь", category: "phrase", red: false },
+
+    // ---- Аналоги к "我赶时间" ----
+    { id: 128, chinese: "我时间很紧", pinyin: "wǒ shíjiān hěn jǐn", translation: "У меня мало времени", category: "phrase", red: false },
+    { id: 129, chinese: "我没时间", pinyin: "wǒ méi shíjiān", translation: "У меня нет времени", category: "phrase", red: false },
+
+    // ---- Аналоги к "买单" ----
+    { id: 130, chinese: "结账", pinyin: "jié zhàng", translation: "Счёт / Рассчитаться", category: "food", red: false },
+    { id: 131, chinese: "我来买单", pinyin: "wǒ lái mǎi dān", translation: "Я плачу", category: "food", red: false },
+
+    // ---- Аналоги к "千真万确" ----
+    { id: 132, chinese: "绝对是真的", pinyin: "juéduì shì zhēn de", translation: "Абсолютно правда", category: "phrase", red: false },
+    { id: 133, chinese: "没错", pinyin: "méi cuò", translation: "Правильно / Не ошибся", category: "phrase", red: false },
+
+    // ---- Аналоги к "借过一下" ----
+    { id: 134, chinese: "让一下", pinyin: "ràng yī xià", translation: "Пропустите / Уступите", category: "travel", red: false },
+    { id: 135, chinese: "请让一让", pinyin: "qǐng ràng yī ràng", translation: "Пожалуйста, посторонитесь", category: "travel", red: false },
+
+    // ---- Аналоги к "来日方长" ----
+    { id: 136, chinese: "以后再说", pinyin: "yǐhòu zài shuō", translation: "Потом поговорим", category: "phrase", red: false },
+    { id: 137, chinese: "有的是时间", pinyin: "yǒu de shì shíjiān", translation: "Времени полно", category: "phrase", red: false },
+
+    // ---- Аналоги к "你确定" ----
+    { id: 138, chinese: "你肯定吗？", pinyin: "nǐ kěndìng ma?", translation: "Ты уверен?", category: "phrase", red: false },
+    { id: 139, chinese: "真的假的？", pinyin: "zhēn de jiǎ de?", translation: "Правда или нет?", category: "phrase", red: false },
+
+    // ---- Аналоги к "做得好" ----
+    { id: 140, chinese: "干得漂亮", pinyin: "gàn de piàoliang", translation: "Красиво сделано", category: "work", red: false },
+    { id: 141, chinese: "真棒", pinyin: "zhēn bàng", translation: "Отлично / Молодец", category: "phrase", red: false },
+
+    // ---- Аналоги к "你好厉害" ----
+    { id: 142, chinese: "你真牛", pinyin: "nǐ zhēn niú", translation: "Ты мощный", category: "phrase", red: false },
+    { id: 143, chinese: "你真棒", pinyin: "nǐ zhēn bàng", translation: "Ты молодец", category: "phrase", red: false },
+
+    // ---- Аналоги к "庆祝一下" ----
+    { id: 144, chinese: "我们去庆祝吧", pinyin: "wǒmen qù qìngzhù ba", translation: "Давай отметим", category: "phrase", red: false },
+    { id: 145, chinese: "喝一杯吧", pinyin: "hē yī bēi ba", translation: "Давай выпьем", category: "phrase", red: false },
+
+    // ---- Аналоги к "我不同意" ----
+    { id: 146, chinese: "我反对", pinyin: "wǒ fǎnduì", translation: "Я против", category: "phrase", red: false },
+    { id: 147, chinese: "我不赞成", pinyin: "wǒ bù zànchéng", translation: "Я не поддерживаю", category: "phrase", red: false },
+
+    // ---- Аналоги к "我忘记了" ----
+    { id: 148, chinese: "我忘了", pinyin: "wǒ wàng le", translation: "Я забыл (коротко)", category: "phrase", red: false },
+    { id: 149, chinese: "我想不起来了", pinyin: "wǒ xiǎng bù qǐlái le", translation: "Я не могу вспомнить", category: "phrase", red: false },
+
+    // ---- Аналоги к "我累了" ----
+    { id: 150, chinese: "我困了", pinyin: "wǒ kùn le", translation: "Я хочу спать", category: "phrase", red: false },
+    { id: 151, chinese: "我累死了", pinyin: "wǒ lèi sǐ le", translation: "Я смертельно устал", category: "phrase", red: false },
+
+    // ---- Аналоги к "给你" ----
+    { id: 152, chinese: "拿去", pinyin: "ná qù", translation: "Возьми / Забирай", category: "phrase", red: false },
+    { id: 153, chinese: "送给你", pinyin: "sòng gěi nǐ", translation: "Дарю тебе", category: "phrase", red: false },
+
+    // ---- Аналоги к "你猜" ----
+    { id: 154, chinese: "猜猜看", pinyin: "cāi cāi kàn", translation: "Угадай-ка", category: "phrase", red: false },
+    { id: 155, chinese: "你猜猜", pinyin: "nǐ cāi cāi", translation: "Ты угадай", category: "phrase", red: false },
+
+    // ---- Аналоги к "你放心吧" ----
+    { id: 156, chinese: "你放心", pinyin: "nǐ fàng xīn", translation: "Будь спокоен", category: "phrase", red: false },
+    { id: 157, chinese: "交给我吧", pinyin: "jiāo gěi wǒ ba", translation: "Оставь это мне", category: "phrase", red: false },
+
+    // ---- Аналоги к "关门" ----
+    { id: 158, chinese: "把门关上", pinyin: "bǎ mén guān shàng", translation: "Закрой дверь (до конца)", category: "phrase", red: false },
+    { id: 159, chinese: "门关好了吗？", pinyin: "mén guān hǎo le ma?", translation: "Дверь закрыта?", category: "phrase", red: false },
+
+    // ---- Аналоги к "你在哪？" ----
+    { id: 160, chinese: "你在哪里？", pinyin: "nǐ zài nǎlǐ?", translation: "Где ты? (формально)", category: "phrase", red: false },
+    { id: 161, chinese: "你在哪儿？", pinyin: "nǐ zài nǎr?", translation: "Где ты? (разговорно)", category: "phrase", red: false },
+
+    // ---- Аналоги к "我不喜欢" ----
+    { id: 162, chinese: "我讨厌", pinyin: "wǒ tǎoyàn", translation: "Я ненавижу", category: "phrase", red: false },
+    { id: 163, chinese: "我不爱吃", pinyin: "wǒ bù ài chī", translation: "Я не люблю есть (что-то)", category: "food", red: false },
+
+    // ---- Аналоги к "最近怎么样？" ----
+    { id: 164, chinese: "最近好吗？", pinyin: "zuì jìn hǎo ma?", translation: "Как дела? (в последнее время)", category: "phrase", red: false },
+    { id: 165, chinese: "你怎么样？", pinyin: "nǐ zěnme yàng?", translation: "Как ты? / Как дела?", category: "phrase", red: false },
+
+    // ---- Аналоги к "别动" ----
+    { id: 166, chinese: "别说话", pinyin: "bié shuō huà", translation: "Не говори / Молчи", category: "phrase", red: false },
+    { id: 167, chinese: "站着别动", pinyin: "zhàn zhe bié dòng", translation: "Стой и не двигайся", category: "phrase", red: false },
+
+    // ---- Аналоги к "准备好了吗？" ----
+    { id: 168, chinese: "你好了吗？", pinyin: "nǐ hǎo le ma?", translation: "Ты готов? (коротко)", category: "phrase", red: false },
+    { id: 169, chinese: "准备好了", pinyin: "zhǔn bèi hǎo le", translation: "Готов", category: "phrase", red: false },
+
+    // ---- Аналоги к "起床了" ----
+    { id: 170, chinese: "快起床", pinyin: "kuài qǐ chuáng", translation: "Быстро вставай", category: "phrase", red: false },
+    { id: 171, chinese: "该起床了", pinyin: "gāi qǐ chuáng le", translation: "Пора вставать", category: "phrase", red: false },
+
+    // ---- Аналоги к "我吃饱了" ----
+    { id: 172, chinese: "我吃好了", pinyin: "wǒ chī hǎo le", translation: "Я поел (хорошо)", category: "food", red: false },
+    { id: 173, chinese: "我吃够了", pinyin: "wǒ chī gòu le", translation: "Я наелся", category: "food", red: false },
+
+    // ---- Аналоги к "我饿了" ----
+    { id: 174, chinese: "我好饿", pinyin: "wǒ hǎo è", translation: "Я очень голоден", category: "food", red: false },
+    { id: 175, chinese: "我饿死了", pinyin: "wǒ è sǐ le", translation: "Умираю с голоду", category: "food", red: false },
+
+    // ---- Аналоги к "该回家了" ----
+    { id: 176, chinese: "我该走了", pinyin: "wǒ gāi zǒu le", translation: "Мне пора идти", category: "travel", red: false },
+    { id: 177, chinese: "时候不早了", pinyin: "shíhòu bù zǎo le", translation: "Уже поздно", category: "travel", red: false },
+
+    // ---- Аналоги к "帮我个忙" ----
+    { id: 178, chinese: "帮个忙", pinyin: "bāng gè máng", translation: "Сделай одолжение", category: "phrase", red: false },
+    { id: 179, chinese: "帮我一下", pinyin: "bāng wǒ yī xià", translation: "Помоги на секунду", category: "phrase", red: false },
+
+    // ---- Аналоги к "我要走了" ----
+    { id: 180, chinese: "我得走了", pinyin: "wǒ děi zǒu le", translation: "Мне нужно идти", category: "travel", red: false },
+    { id: 181, chinese: "我先走了", pinyin: "wǒ xiān zǒu le", translation: "Я пойду первый", category: "travel", red: false },
+
+    // ---- Аналоги к "够了" ----
+    { id: 182, chinese: "够了够了", pinyin: "gòu le gòu le", translation: "Хватит-хватит", category: "phrase", red: false },
+    { id: 183, chinese: "别再说了", pinyin: "bié zài shuō le", translation: "Хватит говорить", category: "phrase", red: false },
+
+    // ---- Аналоги к "下雨了" ----
+    { id: 184, chinese: "要下雨了", pinyin: "yào xià yǔ le", translation: "Собирается дождь", category: "travel", red: false },
+    { id: 185, chinese: "雨停了", pinyin: "yǔ tíng le", translation: "Дождь перестал", category: "travel", red: false },
+
+    // ---- Аналоги к "打扰了" ----
+    { id: 186, chinese: "打扰一下", pinyin: "dǎ rǎo yī xià", translation: "Извините на секунду", category: "phrase", red: false },
+    { id: 187, chinese: "抱歉", pinyin: "bào qiàn", translation: "Прошу прощения", category: "phrase", red: false },
+
+    // ---- Аналоги к "干什么呢？" ----
+    { id: 188, chinese: "你在干嘛？", pinyin: "nǐ zài gàn má?", translation: "Что делаешь? (разговорно)", category: "phrase", red: false },
+    { id: 189, chinese: "你在做什么？", pinyin: "nǐ zài zuò shénme?", translation: "Что делаешь? (формально)", category: "phrase", red: false },
+
+    // ---- Аналоги к "这是什么？" ----
+    { id: 190, chinese: "这什么东西？", pinyin: "zhè shénme dōngxi?", translation: "Что это за штука?", category: "phrase", red: false },
+    { id: 191, chinese: "这是什么意思？", pinyin: "zhè shì shénme yìsi?", translation: "Что это значит?", category: "phrase", red: false },
+
+    // ---- Аналоги к "你是谁？" ----
+    { id: 192, chinese: "你哪位？", pinyin: "nǐ nǎ wèi?", translation: "Кто вы? (вежливо)", category: "phrase", red: false },
+    { id: 193, chinese: "他是谁？", pinyin: "tā shì shéi?", translation: "Кто он?", category: "phrase", red: false },
+
+    // ---- Аналоги к "试试看" ----
+    { id: 194, chinese: "试试吧", pinyin: "shì shì ba", translation: "Попробуй", category: "phrase", red: false },
+    { id: 195, chinese: "试一下", pinyin: "shì yī xià", translation: "Попробуй на секунду", category: "phrase", red: false },
+
+    // ---- Аналоги к "太棒了" ----
+    { id: 196, chinese: "太好了", pinyin: "tài hǎo le", translation: "Отлично / Замечательно", category: "phrase", red: false },
+    { id: 197, chinese: "很棒", pinyin: "hěn bàng", translation: "Отлично / Супер", category: "phrase", red: false },
+
+    // ---- Аналоги к "不用了" ----
+    { id: 198, chinese: "不要了", pinyin: "bù yào le", translation: "Не хочу / Не надо", category: "phrase", red: false },
+    { id: 199, chinese: "算了吧", pinyin: "suàn le ba", translation: "Забей / Оставь", category: "phrase", red: false },
+
+    // ---- Аналоги к "别担心" ----
+    { id: 200, chinese: "别着急", pinyin: "bié zháo jí", translation: "Не переживай", category: "phrase", red: false },
+    { id: 201, chinese: "没事的", pinyin: "méi shì de", translation: "Всё нормально", category: "phrase", red: false },
+
+    // ---- Аналоги к "注意安全" ----
+    { id: 202, chinese: "小心安全", pinyin: "xiǎoxīn ānquán", translation: "Береги себя", category: "travel", red: false },
+    { id: 203, chinese: "注意身体", pinyin: "zhùyì shēntǐ", translation: "Береги здоровье", category: "travel", red: false },
+
+    // ---- Аналоги к "久等了" ----
+    { id: 204, chinese: "让你久等了", pinyin: "ràng nǐ jiǔ děng le", translation: "Заставил тебя долго ждать", category: "phrase", red: false },
+    { id: 205, chinese: "等很久了吗？", pinyin: "děng hěn jiǔ le ma?", translation: "Долго ждал?", category: "phrase", red: false },
+
+    // ---- Аналоги к "怎么办？" ----
+    { id: 206, chinese: "怎么处理？", pinyin: "zěnme chǔlǐ?", translation: "Как решить?", category: "phrase", red: false },
+    { id: 207, chinese: "有什么办法？", pinyin: "yǒu shénme bànfǎ?", translation: "Есть какой-то выход?", category: "phrase", red: false },
+
+    // ---- Аналоги к "你怎么了？" ----
+    { id: 208, chinese: "你没事吧？", pinyin: "nǐ méi shì ba?", translation: "Ты в порядке?", category: "phrase", red: false },
+    { id: 209, chinese: "你还好吗？", pinyin: "nǐ hái hǎo ma?", translation: "Ты как?", category: "phrase", red: false },
+
+    // ---- Аналоги к "等一等" ----
+    { id: 210, chinese: "等一下", pinyin: "děng yī xià", translation: "Подожди секунду", category: "phrase", red: false },
+    { id: 211, chinese: "等等我", pinyin: "děng děng wǒ", translation: "Подожди меня", category: "phrase", red: false },
+
+    // ---- Аналоги к "我不介意" ----
+    { id: 212, chinese: "无所谓", pinyin: "wú suǒ wèi", translation: "Без разницы", category: "phrase", red: false },
+    { id: 213, chinese: "没问题", pinyin: "méi wèntí", translation: "Без проблем", category: "phrase", red: false },
+
+    // ---- Аналоги к "我答应你" ----
+    { id: 214, chinese: "我保证", pinyin: "wǒ bǎozhèng", translation: "Я гарантирую", category: "phrase", red: false },
+    { id: 215, chinese: "一言为定", pinyin: "yī yán wéi dìng", translation: "Договорились", category: "phrase", red: false },
+
+    // ---- Аналоги к "坐吧" ----
+    { id: 216, chinese: "请坐", pinyin: "qǐng zuò", translation: "Присаживайтесь, пожалуйста", category: "phrase", red: false },
+    { id: 217, chinese: "坐下来吧", pinyin: "zuò xiàlái ba", translation: "Садись", category: "phrase", red: false },
+
+    // ---- Аналоги к "吃饭了" ----
+    { id: 218, chinese: "开饭了", pinyin: "kāi fàn le", translation: "Еда готова", category: "food", red: false },
+    { id: 219, chinese: "来吃饭吧", pinyin: "lái chīfàn ba", translation: "Идите есть", category: "food", red: false },
+
+    // ---- Аналоги к "我不知道" ----
+    { id: 220, chinese: "我不清楚", pinyin: "wǒ bù qīngchu", translation: "Я не в курсе", category: "phrase", red: false },
+    { id: 221, chinese: "我不确定", pinyin: "wǒ bù quèdìng", translation: "Я не уверен", category: "phrase", red: false },
+
+    // ---- Аналоги к "小心点" ----
+    { id: 222, chinese: "小心", pinyin: "xiǎoxīn", translation: "Осторожно", category: "travel", red: false },
+    { id: 223, chinese: "注意安全", pinyin: "zhùyì ānquán", translation: "Береги себя", category: "travel", red: false },
+
+    // ---- Аналоги к "请进" ----
+    { id: 224, chinese: "进来吧", pinyin: "jìnlái ba", translation: "Заходи", category: "phrase", red: false },
+    { id: 225, chinese: "欢迎光临", pinyin: "huānyíng guānglín", translation: "Добро пожаловать", category: "phrase", red: false },
+
+    // ---- Аналоги к "辛苦了" ----
+    { id: 226, chinese: "你辛苦了", pinyin: "nǐ xīnkǔ le", translation: "Ты устал / Спасибо за труд", category: "work", red: false },
+    { id: 227, chinese: "辛苦辛苦", pinyin: "xīnkǔ xīnkǔ", translation: "Спасибо за труды", category: "work", red: false },
+
+    // ---- Аналоги к "明天见" ----
+    { id: 228, chinese: "回头见", pinyin: "huítóu jiàn", translation: "Увидимся позже", category: "phrase", red: false },
+    { id: 229, chinese: "一会儿见", pinyin: "yīhuìr jiàn", translation: "Увидимся скоро", category: "phrase", red: false },
+
+    // ---- Аналоги к "真厉害" ----
+    { id: 230, chinese: "太厉害了", pinyin: "tài lìhai le", translation: "Очень круто", category: "phrase", red: false },
+    { id: 231, chinese: "真棒", pinyin: "zhēn bàng", translation: "Молодец", category: "phrase", red: false },
+
+    // ---- Аналоги к "太贵了" ----
+    { id: 232, chinese: "有点贵", pinyin: "yǒu diǎn guì", translation: "Дороговато", category: "travel", red: false },
+    { id: 233, chinese: "太便宜了", pinyin: "tài piányi le", translation: "Слишком дёшево", category: "travel", red: false },
+
+    // ---- Аналоги к "关灯" ----
+    { id: 234, chinese: "把灯关上", pinyin: "bǎ dēng guān shàng", translation: "Выключи свет", category: "phrase", red: false },
+    { id: 235, chinese: "灯关了", pinyin: "dēng guān le", translation: "Свет выключился", category: "phrase", red: false },
+
+    // ---- Аналоги к "开灯" ----
+    { id: 236, chinese: "把灯打开", pinyin: "bǎ dēng dǎ kāi", translation: "Включи свет", category: "phrase", red: false },
+    { id: 237, chinese: "灯开了", pinyin: "dēng kāi le", translation: "Свет включился", category: "phrase", red: false },
+
+    // ---- Аналоги к "几点了？" ----
+    { id: 238, chinese: "现在几点？", pinyin: "xiànzài jǐ diǎn?", translation: "Который сейчас час?", category: "phrase", red: false },
+    { id: 239, chinese: "几点了？", pinyin: "jǐ diǎn le?", translation: "Который час?", category: "phrase", red: false },
 ];
 
 // ============================================================
@@ -292,4 +570,5 @@ if (typeof window !== "undefined") {
 console.log("✅ redphrases.js загружен!");
 console.log("📄 Всего фраз:", redBookData.length);
 console.log("🔴 Красная книга:", redBookData.filter(p => p.red === true).length);
+console.log("🔵 Аналоги:", redBookData.filter(p => p.red === false).length);
 console.log("💬 Всего диалогов:", redBookDialogues.length);
