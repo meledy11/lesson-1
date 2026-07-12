@@ -9,6 +9,7 @@
     <script src="redphrases.js">
     </script>
     <style>
+        /* Все стили как раньше, без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -34,7 +35,6 @@
             flex-direction: column;
         }
 
-        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -85,7 +85,6 @@
             box-shadow: 0 1px 0 #1a7a3a;
         }
 
-        /* ===== СТАТИСТИКА ===== */
         .stats {
             display: flex;
             justify-content: center;
@@ -108,7 +107,6 @@
             font-size: 1rem;
         }
 
-        /* ===== ВКЛАДКИ ===== */
         .tabs {
             display: flex;
             gap: 6px;
@@ -151,7 +149,6 @@
             display: flex;
         }
 
-        /* ===== СКРОЛЛ ===== */
         .scroll-area {
             flex: 1;
             overflow-y: auto;
@@ -166,7 +163,7 @@
             border-radius: 4px;
         }
 
-        /* ===== ГРУППЫ (ФРАЗЫ) ===== */
+        /* ГРУППЫ (ФРАЗЫ) - стили без изменений */
         .search {
             width: 100%;
             padding: 12px 18px;
@@ -354,7 +351,7 @@
             background: #f39c12;
         }
 
-        /* ===== ДИАЛОГИ ===== */
+        /* ДИАЛОГИ */
         .dialog-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
@@ -441,7 +438,7 @@
             box-shadow: 0 1px 0 #1d4ed8;
         }
 
-        /* ===== РИСОВАЛКА (HANZI WRITER) ===== */
+        /* РИСОВАЛКА (HANZI WRITER) */
         #tab-hanzi {
             flex-direction: column;
             gap: 8px;
@@ -585,7 +582,7 @@
             pointer-events: none;
         }
 
-        /* ===== ДНЕВНИК ===== */
+        /* ДНЕВНИК */
         #tab-notebook {
             flex-direction: column;
             flex: 1;
@@ -748,7 +745,7 @@
             opacity: 0.4;
         }
 
-        /* ===== КАЛЛИГРАФИЯ — МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ===== */
+        /* ===== КАЛЛИГРАФИЯ — ИСПРАВЛЕННАЯ ===== */
         #tab-canvas {
             flex: 1;
             flex-direction: column;
@@ -1070,7 +1067,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ — МОБИЛЬНАЯ ОПТИМИЗАЦИЯ -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ (ИСПРАВЛЕННАЯ) -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-canvas">
             <div class="canvas-container">
@@ -1526,11 +1523,11 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 7. КАЛЛИГРАФИЯ — МОБИЛЬНАЯ ОПТИМИЗАЦИЯ
+        // 7. КАЛЛИГРАФИЯ — ПОЛНОСТЬЮ ПЕРЕПИСАНА
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
-            lastX, lastY, lastWidth;
+            lastX, lastY;
         let canvasHistory = [];
         let currentColor = '#1a1a1a';
         let canvasRefData = null;
@@ -1538,7 +1535,6 @@
         let brushSize = 8;
         let canvasInitialized = false;
         let savedExampleChars = '';
-        let lastDrawTime = 0;
 
         function initCanvas() {
             canvas = document.getElementById('calligraphyCanvas');
@@ -1548,15 +1544,14 @@
             const maxSize = Math.min(wrapper.clientWidth - 12, 550, window.innerHeight * 0.55);
             const size = Math.max(maxSize, 250);
 
-            // Сохраняем текущее состояние canvas перед изменением размера
-            const oldData = canvas.toDataURL();
-
             canvas.width = size;
             canvas.height = size;
             canvas.style.width = size + 'px';
             canvas.style.height = size + 'px';
 
             ctx = canvas.getContext('2d');
+            // Явно задаём режим наложения
+            ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#fffef9';
             ctx.fillRect(0, 0, size, size);
             drawGrid(ctx, size);
@@ -1608,7 +1603,7 @@
         function drawExample(chars) {
             const size = canvas.width;
             ctx.save();
-            ctx.globalAlpha = 0.25;
+            ctx.globalAlpha = 0.2;
             ctx.fillStyle = '#9b59b6';
             const fontSize = size * 0.5;
             ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
@@ -1649,8 +1644,7 @@
 
                 return {
                     x: (clientX - rect.left) * scaleX,
-                    y: (clientY - rect.top) * scaleY,
-                    pressure: e.pressure || 0.5
+                    y: (clientY - rect.top) * scaleY
                 };
             }
 
@@ -1660,8 +1654,6 @@
                 const p = getPos(e);
                 lastX = p.x;
                 lastY = p.y;
-                lastWidth = brushSize * 0.3;
-                lastDrawTime = performance.now();
                 saveCanvasState();
                 document.getElementById('canvasUndo').style.display = 'inline-block';
             }
@@ -1669,51 +1661,29 @@
             function draw(e) {
                 if (!isDrawing) return;
                 e.preventDefault();
-
-                const now = performance.now();
                 const p = getPos(e);
                 const dist = Math.hypot(p.x - lastX, p.y - lastY);
-
                 if (dist < 0.5) {
+                    // Если очень близко, просто обновляем координаты
                     lastX = p.x;
                     lastY = p.y;
                     return;
                 }
 
-                // Плавное изменение ширины
-                const speed = dist / Math.max(1, now - lastDrawTime);
-                const pressureFactor = 0.3 + p.pressure * 0.7;
-                const speedFactor = Math.max(0.2, 1 - (speed / 0.8));
-                let w = brushSize * pressureFactor * speedFactor;
-                w = Math.max(2, Math.min(brushSize * 1.8, w));
-
-                const newW = lastWidth * 0.4 + w * 0.6;
-
                 ctx.save();
+                ctx.globalCompositeOperation = 'source-over'; // гарантия
                 ctx.strokeStyle = currentColor;
-                ctx.lineWidth = newW;
+                ctx.lineWidth = brushSize;
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
-
-                // Рисуем линию с интерполяцией
-                const steps = Math.max(1, Math.floor(dist / 1.2));
-                for (let i = 0; i <= steps; i++) {
-                    const t = i / steps;
-                    const x = lastX + (p.x - lastX) * t;
-                    const y = lastY + (p.y - lastY) * t;
-                    const wStep = lastWidth + (newW - lastWidth) * t;
-
-                    ctx.beginPath();
-                    ctx.arc(x, y, wStep / 2, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
                 ctx.restore();
 
                 lastX = p.x;
                 lastY = p.y;
-                lastWidth = newW;
-                lastDrawTime = now;
             }
 
             function stop(e) {
@@ -1722,7 +1692,7 @@
                 saveCanvasState();
             }
 
-            // Поддержка touch и mouse
+            // Удаляем старые обработчики
             canvas.removeEventListener('pointerdown', start);
             canvas.removeEventListener('pointermove', draw);
             canvas.removeEventListener('pointerup', stop);
@@ -1732,14 +1702,12 @@
             canvas.removeEventListener('touchmove', draw);
             canvas.removeEventListener('touchend', stop);
 
-            // Используем pointer events для лучшей совместимости
             canvas.addEventListener('pointerdown', start);
             canvas.addEventListener('pointermove', draw);
             canvas.addEventListener('pointerup', stop);
             canvas.addEventListener('pointerleave', stop);
             canvas.addEventListener('pointercancel', stop);
 
-            // Touch fallback
             canvas.addEventListener('touchstart', start, { passive: false });
             canvas.addEventListener('touchmove', draw, { passive: false });
             canvas.addEventListener('touchend', stop, { passive: false });
@@ -1806,7 +1774,6 @@
             exampleVisible = true;
             document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
             document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
-            // Сохраняем в localStorage для сохранения между сессиями
             try {
                 localStorage.setItem('chinese_example_chars', char);
             } catch (e) {}
@@ -1929,7 +1896,6 @@
                 }, 150);
             }
             if (tabName === 'canvas') {
-                // Восстанавливаем сохранённый образец из localStorage
                 try {
                     const saved = localStorage.getItem('chinese_example_chars');
                     if (saved && !savedExampleChars) {
@@ -2035,7 +2001,6 @@
 
         switchTab('groups');
 
-        // Восстанавливаем сохранённый образец
         try {
             const saved = localStorage.getItem('chinese_example_chars');
             if (saved) {
