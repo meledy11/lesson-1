@@ -973,5 +973,54 @@
             });
         }
     </script>
+    <script>
+    // ============================================================
+    // ПРИНУДИТЕЛЬНОЕ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+    // ============================================================
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('✅ DOM загружен');
+
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        console.log('📌 Кнопок:', tabs.length);
+        console.log('📌 Контентов:', contents.length);
+
+        // Скрываем всё
+        contents.forEach(tc => tc.classList.remove('active'));
+
+        // Показываем только "Группы"
+        const first = document.getElementById('tab-groups');
+        if (first) {
+            first.classList.add('active');
+            console.log('✅ Показаны Группы');
+        }
+
+        tabs.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                console.log('🔘 Нажато:', tabName);
+
+                tabs.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                contents.forEach(tc => tc.classList.remove('active'));
+
+                const target = document.getElementById('tab-' + tabName);
+                if (target) {
+                    target.classList.add('active');
+                    console.log('✅ Показано:', tabName);
+                }
+            });
+        });
+
+        // Активируем первую кнопку
+        const firstBtn = document.querySelector('.tab-btn');
+        if (firstBtn) firstBtn.classList.add('active');
+
+        console.log('✅ Вкладки настроены!');
+    });
+</script>
 </body>
 </html>
