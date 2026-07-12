@@ -1,5 +1,5 @@
 // ============================================================
-// allPhrases.js — ПОЛНАЯ КРАСНАЯ КНИГА + ДИАЛОГИ
+// redphrases.js — ПОЛНАЯ КРАСНАЯ КНИГА + ДИАЛОГИ
 // Все фразы из переписки (101 шт.) + 8 диалогов
 // ============================================================
 
@@ -7,7 +7,7 @@
 // 1. ВСЕ ФРАЗЫ (КРАСНАЯ КНИГА)
 // ============================================================
 
-const allPhrases = [
+const redBookData = [
     // ==================== 1. ПЕРВАЯ ПАРТИЯ ====================
     { id: 1, chinese: "我决定了", pinyin: "wǒ juédìng le", translation: "Я решил", category: "phrase", red: true },
     { id: 2, chinese: "我拨回去", pinyin: "wǒ bō huíqù", translation: "Я перезвоню", category: "phrase", red: true },
@@ -150,7 +150,7 @@ const allPhrases = [
 // 2. ДИАЛОГИ (8 шт.) — с привязкой к фразам
 // ============================================================
 
-const dialogues = [
+const redBookDialogues = [
     // ----- ДИАЛОГ 1: Опоздание -----
     {
         id: "d1",
@@ -281,15 +281,15 @@ const dialogues = [
 // ============================================================
 
 if (typeof module !== "undefined" && module.exports) {
-    module.exports = { allPhrases, dialogues };
+    module.exports = { redBookData, redBookDialogues };
 }
 
 if (typeof window !== "undefined") {
-    window.allPhrases = allPhrases;
-    window.dialogues = dialogues;
+    window.redBookData = redBookData;
+    window.redBookDialogues = redBookDialogues;
 }
 
-console.log("✅ allPhrases.js загружен!");
-console.log("📄 Всего фраз:", allPhrases.length);
-console.log("🔴 Красная книга:", allPhrases.filter(p => p.red === true).length);
-console.log("💬 Всего диалогов:", dialogues.length);
+console.log("✅ redphrases.js загружен!");
+console.log("📄 Всего фраз:", redBookData.length);
+console.log("🔴 Красная книга:", redBookData.filter(p => p.red === true).length);
+console.log("💬 Всего диалогов:", redBookDialogues.length);
