@@ -266,4 +266,30 @@ const dialogues = [
             { speaker: "B", chinese: "谢谢！打扰了！", pinyin: "xièxie! dǎrǎo le!", russian: "Спасибо! Прошу прощения за беспокойство!" },
             { speaker: "A", chinese: "不打扰！坐吧，别客气！", pinyin: "bù dǎrǎo! zuò ba, bié kèqi!", russian: "Не беспокоишь! Садись, не стесняйся!" },
             { speaker: "B", chinese: "好的，谢谢！", pinyin: "hǎo de, xièxie!", russian: "Хорошо, спасибо!" },
-            { speaker: "A", chinese
+            { speaker: "A", chinese: "吃饭了！快来尝尝我做的菜！", pinyin: "chīfàn le! kuài lái chángchang wǒ zuò de cài!", russian: "Пора есть! Идите попробуйте мои блюда!" },
+            { speaker: "B", chinese: "太好吃了！", pinyin: "tài hǎochī le!", russian: "Очень вкусно!" },
+            { speaker: "A", chinese: "再吃点吧！", pinyin: "zài chī diǎn ba!", russian: "Ещё поешь!" },
+            { speaker: "B", chinese: "我吃饱了，真的吃不下了。", pinyin: "wǒ chī bǎo le, zhēn de chī bù xià le.", russian: "Я наелся, реально больше не могу." },
+            { speaker: "A", chinese: "那好吧，辛苦了！", pinyin: "nà hǎo ba, xīnkǔ le!", russian: "Ну ладно, спасибо за труды!" },
+            { speaker: "B", chinese: "谢谢你的款待！", pinyin: "xièxie nǐ de kuǎndài!", russian: "Спасибо за угощение!" },
+        ],
+    },
+];
+
+// ============================================================
+// ЭКСПОРТ
+// ============================================================
+
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = { allPhrases, dialogues };
+}
+
+if (typeof window !== "undefined") {
+    window.allPhrases = allPhrases;
+    window.dialogues = dialogues;
+}
+
+console.log("✅ allPhrases.js загружен!");
+console.log("📄 Всего фраз:", allPhrases.length);
+console.log("🔴 Красная книга:", allPhrases.filter(p => p.red === true).length);
+console.log("💬 Всего диалогов:", dialogues.length);
