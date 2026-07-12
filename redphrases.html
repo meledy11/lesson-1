@@ -15,7 +15,7 @@
             color: #f5e6d3;
         }
         .container { max-width: 1100px; margin: 0 auto; }
-        
+
         /* ===== НАВИГАЦИЯ ===== */
         .nav-bar {
             display: flex;
@@ -78,11 +78,7 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 215, 0, 0.06);
         }
-        .stats-bar span {
-            color: #d4c9a6;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
+        .stats-bar span { color: #d4c9a6; font-size: 0.95rem; font-weight: 600; }
         .stats-bar strong { color: #ffd700; font-size: 1.1rem; }
 
         /* ===== ВКЛАДКИ ===== */
@@ -160,7 +156,6 @@
             border-color: #ff6b35;
             box-shadow: 0 4px 20px rgba(255, 107, 53, 0.15);
         }
-        .categories button:hover { border-color: rgba(255, 215, 0, 0.15); }
 
         /* ===== ГРУППА ===== */
         .group-container { margin-bottom: 24px; animation: fadeIn 0.4s ease; }
@@ -186,7 +181,7 @@
         .group-phrases { overflow: hidden; transition: max-height 0.4s ease; max-height: 10000px; }
         .group-phrases.collapsed { max-height: 0; }
 
-        /* ===== КАРТОЧКА ФРАЗЫ (БОЛЬШАЯ, КОНТРАСТНАЯ) ===== */
+        /* ===== КАРТОЧКА ФРАЗЫ (КРУПНО) ===== */
         .phrase-card {
             background: rgba(30, 25, 20, 0.7);
             border-radius: 24px;
@@ -205,7 +200,7 @@
         }
         .phrase-card:hover { transform: translateX(8px); border-left-color: #ff6b35; box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
         .phrase-card .chinese {
-            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 800;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             color: #f5e6d3;
@@ -219,7 +214,7 @@
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.04);
         }
         .phrase-card .chinese .mini-badge {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             padding: 4px 14px;
             border-radius: 50px;
             font-weight: 700;
@@ -233,17 +228,8 @@
             flex: 2;
             min-width: 180px;
         }
-        .phrase-card .pinyin {
-            font-size: clamp(1.2rem, 2vw, 1.6rem);
-            color: #d4a373;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .phrase-card .translation {
-            font-size: clamp(1.3rem, 2vw, 1.7rem);
-            color: #f5e6d3;
-            font-weight: 500;
-        }
+        .phrase-card .pinyin { font-size: clamp(1.2rem, 2vw, 1.6rem); color: #d4a373; font-weight: 500; letter-spacing: 0.5px; }
+        .phrase-card .translation { font-size: clamp(1.3rem, 2vw, 1.7rem); color: #f5e6d3; font-weight: 500; }
         .phrase-card .tags {
             display: flex;
             flex-wrap: wrap;
@@ -299,7 +285,7 @@
         .phrase-card .save-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1a7a3a; }
         .phrase-card .save-btn.saved { background: linear-gradient(135deg, #f39c12, #e67e22); box-shadow: 0 3px 0 #b36b0f; }
 
-        /* ===== ДИАЛОГИ ===== */
+        /* ===== ДИАЛОГИ (КРУПНО) ===== */
         .dialog-card {
             background: rgba(30, 25, 20, 0.7);
             border-radius: 24px;
@@ -311,116 +297,182 @@
             border: 1px solid rgba(59, 130, 246, 0.06);
         }
         .dialog-card .dialog-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #f5e6d3;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         .dialog-card .dialog-phrases {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #b8956a;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .dialog-card .dialog-phrases .dp {
             background: rgba(255, 255, 255, 0.04);
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 12px;
-            margin-right: 4px;
+            margin-right: 6px;
             display: inline-block;
             margin-bottom: 4px;
             color: #d4c9a6;
+            font-size: 0.95rem;
         }
         .dialog-card .dialog-phrases .dp.red { background: rgba(220, 38, 38, 0.15); color: #ff6b6b; }
         .dialog-line {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px 18px;
-            padding: 8px 0;
+            gap: 8px 20px;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
         .dialog-line:last-child { border-bottom: none; }
-        .dialog-line .sp { font-weight: 700; color: #3b82f6; min-width: 30px; font-size: 1rem; }
-        .dialog-line .cn { font-size: 1.3rem; font-weight: 600; font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif; color: #f5e6d3; cursor: pointer; }
-        .dialog-line .cn:hover { text-shadow: 0 0 20px rgba(255, 215, 0, 0.08); }
-        .dialog-line .py { font-size: 0.9rem; color: #d4a373; }
-        .dialog-line .ru { font-size: 1rem; color: #d4c9a6; }
-        .dialog-speak-btn {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border: none;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 50px;
+        .dialog-line .sp {
             font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 3px 0 #1d4ed8;
-            transition: 0.15s;
-            margin-top: 10px;
-            font-family: inherit;
+            color: #3b82f6;
+            min-width: 32px;
+            font-size: 1.1rem;
         }
-        .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
-
-        /* ===== ТЕТРАДЬ (ВЕСЬ ЭКРАН) ===== */
-        .notebook-container {
-            background: rgba(30, 25, 20, 0.7);
-            border-radius: 28px;
-            padding: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.06);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-            min-height: 60vh;
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-        }
-        .notebook-container .empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: #b8956a;
-            font-size: 1.3rem;
-        }
-        .notebook-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .notebook-item .char {
-            font-size: 2.8rem;
+        .dialog-line .cn {
+            font-size: clamp(2rem, 5vw, 3.2rem);
             font-weight: 700;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             color: #f5e6d3;
             cursor: pointer;
+            line-height: 1.3;
+            min-width: 80px;
         }
-        .notebook-item .char:hover { text-shadow: 0 0 30px rgba(255, 215, 0, 0.08); }
-        .notebook-item .info { color: #d4c9a6; font-size: 1.05rem; }
+        .dialog-line .cn:hover { text-shadow: 0 0 30px rgba(255, 215, 0, 0.08); }
+        .dialog-line .py {
+            font-size: 1rem;
+            color: #d4a373;
+            align-self: center;
+        }
+        .dialog-line .ru {
+            font-size: 1.05rem;
+            color: #d4c9a6;
+            align-self: center;
+        }
+        .dialog-speak-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #1d4ed8;
+            transition: 0.15s;
+            margin-top: 12px;
+            font-family: inherit;
+        }
+        .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
+
+        /* ===== ТЕТРАДЬ (КРУПНО) ===== */
+        .notebook-container {
+            background: rgba(30, 25, 20, 0.85);
+            border-radius: 28px;
+            padding: 24px;
+            border: 2px solid rgba(255, 215, 0, 0.08);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+            min-height: 70vh;
+            max-height: 75vh;
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .notebook-container .empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: #b8956a;
+            font-size: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .notebook-container .empty .big-icon { font-size: 4rem; margin-bottom: 16px; opacity: 0.5; }
+        .notebook-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 12px;
+            transition: 0.15s;
+        }
+        .notebook-item:hover { background: rgba(255, 255, 255, 0.02); }
+        .notebook-item .char {
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            font-weight: 700;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
+            color: #f5e6d3;
+            cursor: pointer;
+            min-width: 70px;
+        }
+        .notebook-item .char:hover { text-shadow: 0 0 40px rgba(255, 215, 0, 0.1); }
+        .notebook-item .info {
+            color: #d4c9a6;
+            font-size: 1.2rem;
+            flex: 1;
+            min-width: 150px;
+        }
         .notebook-item .info .pinyin { color: #d4a373; }
+        .notebook-item .actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .notebook-item .speak-mini {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 2px 0 #b34e1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notebook-item .speak-mini:active { transform: translateY(2px); box-shadow: 0 0 0 #b34e1a; }
         .notebook-item .remove-btn {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             border: none;
             color: white;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             box-shadow: 0 2px 0 #8a2a1a;
+            transition: 0.15s;
         }
         .notebook-item .remove-btn:active { transform: translateY(2px); box-shadow: 0 0 0 #8a2a1a; }
-        .notebook-item .speak-mini {
-            background: none;
+        .notebook-clear-all {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             border: none;
-            font-size: 1.4rem;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            padding: 4px 10px;
-            border-radius: 50%;
+            margin-top: 16px;
+            align-self: center;
+            box-shadow: 0 2px 0 #8a2a1a;
             transition: 0.15s;
-            color: #d4c9a6;
+            font-family: inherit;
         }
-        .notebook-item .speak-mini:hover { background: rgba(255, 255, 255, 0.04); }
+        .notebook-clear-all:active { transform: translateY(2px); box-shadow: 0 0 0 #8a2a1a; }
 
-        /* ===== КАЛЛИГРАФИЯ (ВЕСЬ ЭКРАН) ===== */
+        /* ===== КАЛЛИГРАФИЯ ===== */
         .canvas-container {
             background: rgba(30, 25, 20, 0.7);
             border-radius: 28px;
@@ -429,7 +481,11 @@
             box-shadow: 0 8px 40px rgba(0,0,0,0.2);
             text-align: center;
             backdrop-filter: blur(5px);
-            min-height: 60vh;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .canvas-wrapper {
             background: #fffef9;
@@ -526,9 +582,15 @@
             .stats-bar { gap: 8px; padding: 10px 14px; }
             .stats-bar span { font-size: 0.75rem; }
             .tab-btn { padding: 8px 16px; font-size: 0.8rem; }
-            .dialog-line { flex-direction: column; gap: 2px; }
-            .dialog-line .cn { font-size: 1.1rem; }
+            .dialog-line { flex-direction: column; gap: 4px; }
+            .dialog-line .cn { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+            .dialog-line .py { font-size: 0.85rem; }
+            .dialog-line .ru { font-size: 0.9rem; }
+            .dialog-card { padding: 16px 18px; }
             .canvas-wrapper canvas { max-width: 100%; }
+            .notebook-item { padding: 12px 16px; }
+            .notebook-item .char { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+            .notebook-item .info { font-size: 1rem; }
         }
     </style>
 </head>
@@ -587,7 +649,10 @@
     <!-- ========================================================== -->
     <div class="tab-content" id="tab-notebook">
         <div class="notebook-container" id="notebookContainer">
-            <div class="empty">📓 Здесь будут сохранённые фразы для повторения</div>
+            <div class="empty">
+                <div class="big-icon">📓</div>
+                Здесь будут сохранённые фразы для повторения
+            </div>
         </div>
     </div>
 
@@ -856,7 +921,12 @@ function toggleNotebook(char, pinyin, translation) {
 function renderNotebook() {
     const container = document.getElementById('notebookContainer');
     if (notebook.length === 0) {
-        container.innerHTML = `<div class="empty">📓 Здесь будут сохранённые фразы для повторения</div>`;
+        container.innerHTML = `
+            <div class="empty">
+                <div class="big-icon">📓</div>
+                Здесь будут сохранённые фразы для повторения
+            </div>
+        `;
         return;
     }
     let html = '';
@@ -865,15 +935,32 @@ function renderNotebook() {
         html += `
             <div class="notebook-item">
                 <span class="char" onclick="speakChinese('${safeChar}')">${item.char}</span>
-                <span class="info"><span class="pinyin">${item.pinyin || ''}</span> — ${item.translation || ''}</span>
-                <div style="display:flex;gap:8px;align-items:center;">
+                <span class="info">
+                    <span class="pinyin">${item.pinyin || ''}</span>
+                    — ${item.translation || ''}
+                </span>
+                <div class="actions">
                     <button class="speak-mini" onclick="speakChinese('${safeChar}')">🔊</button>
-                    <button class="remove-btn" onclick="toggleNotebook('${safeChar}')">✖</button>
+                    <button class="remove-btn" onclick="toggleNotebook('${safeChar}')">✖ Удалить</button>
                 </div>
             </div>
         `;
     }
+    html += `
+        <button class="notebook-clear-all" onclick="clearNotebook()">🗑️ Очистить всё</button>
+    `;
     container.innerHTML = html;
+}
+
+function clearNotebook() {
+    if (notebook.length === 0) return;
+    if (confirm('Удалить все фразы из тетради?')) {
+        notebook = [];
+        localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+        renderNotebook();
+        document.getElementById('notebookCount').textContent = 0;
+        showToast('🗑️ Тетрадь очищена');
+    }
 }
 
 function showToast(msg) {
@@ -913,14 +1000,14 @@ function speakChinese(text) {
 window.speakChinese = speakChinese;
 
 // ============================================================
-// 6. КАЛЛИГРАФИЯ (с толстой кистью)
+// 6. КАЛЛИГРАФИЧЕСКАЯ КИСТЬ (ПЛАВНАЯ)
 // ============================================================
 
 const canvasConfig = {
     size: 500,
     padding: 28,
     brushWidth: 16,
-    exampleOpacity: 0.3,
+    exampleOpacity: 0.25,
     gridColor: '#b8956a',
     gridColorCenter: '#d4b896',
     strokeColor: '#1a0f0a',
@@ -1008,10 +1095,26 @@ function setupDrawing(canvas) {
         lastX = p.x;
         lastY = p.y;
         lastTime = performance.now();
-        lastWidth = canvasConfig.brushWidth * 0.6;
+        lastWidth = canvasConfig.brushWidth * 0.5;
         saveCanvasState();
+
+        // ===== ТОЧКА В НАЧАЛЕ (как чернила) =====
+        const dotRadius = canvasConfig.brushWidth * 0.35;
+        const grad = ctx.createRadialGradient(p.x - dotRadius*0.3, p.y - dotRadius*0.3, 1, p.x, p.y, dotRadius);
+        grad.addColorStop(0, currentColor);
+        grad.addColorStop(0.7, currentColor);
+        grad.addColorStop(1, currentColor + '55');
+        ctx.fillStyle = grad;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = currentColor + '44';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, dotRadius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Тонкая начальная линия
         ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 1.5;
+        ctx.shadowBlur = 1;
         ctx.shadowColor = currentColor;
         ctx.beginPath();
         ctx.arc(p.x, p.y, lastWidth / 2, 0, Math.PI * 2);
@@ -1022,6 +1125,7 @@ function setupDrawing(canvas) {
     function draw(e) {
         if (!isDrawing) return;
         e.preventDefault();
+
         const p = getPos(e);
         const now = performance.now();
         const dt = Math.max(1, now - lastTime);
@@ -1031,28 +1135,44 @@ function setupDrawing(canvas) {
         const speed = dist / dt;
         strokeLen += dist;
 
-        const pressureFactor = 0.3 + p.pressure * 0.7;
-        const speedFactor = Math.max(0.12, 1 - (speed / 1.2));
+        // ===== ПЛАВНАЯ СМЕНА ТОЛЩИНЫ ОТ НАЖАТИЯ =====
+        const pressureFactor = 0.15 + p.pressure * 0.85;
+        const speedFactor = Math.max(0.08, 1 - (speed / 0.9));
         let targetW = canvasConfig.brushWidth * pressureFactor * speedFactor;
-        if (strokeLen < 18) targetW *= (0.5 + 0.5 * (strokeLen / 18));
-        targetW = Math.max(2.5, Math.min(canvasConfig.brushWidth * 1.8, targetW));
-        const newW = lastWidth * 0.65 + targetW * 0.35;
+        if (strokeLen < 20) targetW *= (0.3 + 0.7 * (strokeLen / 20));
+        targetW = Math.max(2, Math.min(canvasConfig.brushWidth * 1.9, targetW));
 
+        // ===== ПЛАВНЫЙ ПЕРЕХОД =====
+        const newW = lastWidth * 0.6 + targetW * 0.4;
+
+        // ===== РИСУЕМ ПЛАВНЫМИ ДУГАМИ =====
         ctx.save();
         ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 0.8;
-        ctx.shadowColor = currentColor;
+        ctx.shadowBlur = 0.5;
+        ctx.shadowColor = currentColor + '33';
 
-        const steps = Math.max(1, Math.floor(dist / 2));
+        const steps = Math.max(1, Math.floor(dist / 1.5));
         for (let i = 1; i <= steps; i++) {
             const t = i / steps;
             const ix = lastX + dx * t;
             const iy = lastY + dy * t;
             const iw = lastWidth + (newW - lastWidth) * t;
+
+            // Каллиграфический овал вместо круга
+            const angle = Math.atan2(dy, dx) + Math.PI/2;
             ctx.beginPath();
-            ctx.arc(ix, iy, iw / 2, 0, Math.PI * 2);
+            ctx.ellipse(ix, iy, iw/2, iw/1.8, angle, 0, Math.PI*2);
             ctx.fill();
         }
+
+        // ===== ЗАПОЛНЕНИЕ ПРОМЕЖУТКОВ ДЛЯ ПЛАВНОСТИ =====
+        const midX = (lastX + p.x) / 2;
+        const midY = (lastY + p.y) / 2;
+        const midW = (lastWidth + newW) / 2;
+        ctx.beginPath();
+        ctx.ellipse(midX, midY, midW/2, midW/1.9, Math.atan2(dy, dx) + Math.PI/2, 0, Math.PI*2);
+        ctx.fill();
+
         ctx.restore();
 
         lastX = p.x;
@@ -1064,18 +1184,25 @@ function setupDrawing(canvas) {
     function stop() {
         if (!isDrawing) return;
         isDrawing = false;
+
+        // ===== ЗАВЕРШАЮЩИЙ ШТРИХ (как у кисти) =====
         const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
         ctx.save();
         ctx.fillStyle = currentColor;
         ctx.shadowBlur = 0;
-        for (let i = 1; i <= 10; i++) {
-            const t = i / 10;
-            const tw = lastWidth * Math.pow(1 - t, 1.6);
+        for (let i = 1; i <= 12; i++) {
+            const t = i / 12;
+            const tw = lastWidth * Math.pow(1 - t, 1.8);
+            const tx = lastX + Math.cos(angle) * t * 6;
+            const ty = lastY + Math.sin(angle) * t * 6;
             ctx.beginPath();
-            ctx.ellipse(lastX + Math.cos(angle) * t * 5, lastY + Math.sin(angle) * t * 5, tw/2, tw/3.5, angle, 0, Math.PI*2);
+            ctx.ellipse(tx, ty, tw/2, tw/2.8, angle, 0, Math.PI*2);
             ctx.fill();
         }
         ctx.restore();
+
+        // Сохраняем состояние для отмены
+        saveCanvasState();
     }
 
     canvas.addEventListener('pointerdown', start);
@@ -1083,6 +1210,12 @@ function setupDrawing(canvas) {
     canvas.addEventListener('pointerup', stop);
     canvas.addEventListener('pointerleave', stop);
     canvas.addEventListener('pointercancel', stop);
+
+    // Поддержка мыши без пера
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stop);
+    canvas.addEventListener('mouseleave', stop);
 }
 
 function saveCanvasState() {
