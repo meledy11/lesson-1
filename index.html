@@ -540,6 +540,79 @@
         }
         .redbook-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #C16F1A; }
         .redbook-empty { text-align: center; padding: 2rem; color: #999; }
+        
+        /* ===== СТИЛИ ДЛЯ ДИАЛОГОВ ===== */
+        .dialog-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .dialog-card .dialog-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 0.3rem;
+        }
+        .dialog-card .dialog-phrases {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+        }
+        .dialog-card .dialog-phrases .dp { background: #f0f0f0; padding: 2px 10px; border-radius: 12px; margin-right: 4px; display: inline-block; margin-bottom: 4px; }
+        .dialog-card .dialog-phrases .dp.red { background: #fecaca; color: #991b1b; }
+        .dialog-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .dialog-line:last-child { border-bottom: none; }
+        .dialog-line .sp { font-weight: 600; color: #3b82f6; min-width: 30px; }
+        .dialog-line .cn { font-size: 1.1rem; font-weight: 500; font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; cursor: pointer; }
+        .dialog-line .cn:hover { background: #f0f0f0; border-radius: 8px; }
+        .dialog-line .py { font-size: 0.85rem; color: #999; }
+        .dialog-line .ru { font-size: 0.95rem; color: #555; }
+        .dialog-speak-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            color: white;
+            font-size: 1rem;
+            padding: 6px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #1d4ed8;
+            transition: 0.1s;
+            margin-top: 0.5rem;
+        }
+        .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
+        
+        /* ===== СТИЛИ ДЛЯ ВКЛАДКИ ФРАЗ ===== */
+        .redbook-sub-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .redbook-sub-tab {
+            background: white;
+            border: 2px solid #FFB347;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.1s;
+        }
+        .redbook-sub-tab.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white;
+            border-color: #FF6B35;
+        }
     </style>
     <meta name="theme-color" content="#FF6B35">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -743,10 +816,18 @@
 
         <!-- ВКЛАДКА: КРАСНАЯ КНИГА -->
         <div class="tab-content" id="tab-redbook">
-            <div class="speak-tip">📕 Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой 🔴</div>
+            <div class="speak-tip">📕 Все фразы, диалоги и аналоги — с пиньинем, переводом и озвучкой 🔴</div>
             
             <div style="background:white; border-radius:30px; padding:1.5rem; border:3px solid #FFB347; box-shadow:0 10px 0 #D98F33; margin-bottom:1rem;">
-                <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:1rem;">
+                <!-- Подвкладки -->
+                <div class="redbook-sub-tabs" id="redbookSubTabs">
+                    <button class="redbook-sub-tab active" data-sub="phrases">📄 Фразы</button>
+                    <button class="redbook-sub-tab" data-sub="analogs">🔵 Аналоги</button>
+                    <button class="redbook-sub-tab" data-sub="dialogues">💬 Диалоги</button>
+                    <button class="redbook-sub-tab" data-sub="all">📚 Всё вместе</button>
+                </div>
+                
+                <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:1rem;" id="redbookFilterButtons">
                     <button class="filter-btn active" data-filter="all" style="background:linear-gradient(135deg,#FF6B35,#FF8C42); color:white; border-color:#FF6B35;">📚 Все</button>
                     <button class="filter-btn" data-filter="phrase" style="background:white; border:2px solid #FFB347;">📄 Фразы</button>
                     <button class="filter-btn" data-filter="food" style="background:white; border:2px solid #FFB347;">🍜 Еда</button>
@@ -758,10 +839,10 @@
                     <input type="text" id="redbookSearch" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." style="flex:1; padding:0.8rem 1rem; border:none; border-radius:50px; font-size:1rem; outline:none; font-family:inherit;">
                 </div>
                 
-                <div class="stats-info" id="redbookStats">📊 Всего: 0 фраз | 🔴 Красная книга: 0</div>
+                <div class="stats-info" id="redbookStats">📊 Всего: 0 фраз | 🔴 Красная книга: 0 | 🔵 Аналоги: 0 | 💬 Диалогов: 0</div>
                 
                 <div id="redbookResults" style="max-height:600px; overflow-y:auto;">
-                    <div style="text-align:center; padding:2rem; color:#8B5A2B;">📖 Загрузка фраз...</div>
+                    <div style="text-align:center; padding:2rem; color:#8B5A2B;">📖 Загрузка...</div>
                 </div>
             </div>
         </div>
@@ -1015,14 +1096,13 @@
         // ============================================================
 
         let currentFilter = 'all';
+        let currentSubTab = 'phrases';
         let redbookSearchQuery = '';
 
-        function renderRedbook() {
-            const container = document.getElementById('redbookResults');
-            const statsDiv = document.getElementById('redbookStats');
-            
-            // Проверяем массив — ищем по разным именам
+        function getRedbookData() {
             let phrases = null;
+            let dialogues = null;
+            
             if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookData.length > 0) {
                 phrases = redBookData;
             } else if (typeof allPhrases !== 'undefined' && Array.isArray(allPhrases) && allPhrases.length > 0) {
@@ -1035,13 +1115,30 @@
                 phrases = window.allPhrases;
             }
             
-            if (!phrases || phrases.length === 0) {
+            if (typeof redBookDialogues !== 'undefined' && Array.isArray(redBookDialogues) && redBookDialogues.length > 0) {
+                dialogues = redBookDialogues;
+            } else if (typeof window.redBookDialogues !== 'undefined' && Array.isArray(window.redBookDialogues) && window.redBookDialogues.length > 0) {
+                dialogues = window.redBookDialogues;
+            }
+            
+            return { phrases, dialogues };
+        }
+
+        function renderRedbook() {
+            const container = document.getElementById('redbookResults');
+            const statsDiv = document.getElementById('redbookStats');
+            
+            const data = getRedbookData();
+            const phrases = data.phrases;
+            const dialogues = data.dialogues;
+            
+            if ((!phrases || phrases.length === 0) && (!dialogues || dialogues.length === 0)) {
                 container.innerHTML = `
                     <div style="text-align:center; padding:2rem; color:#dc2626; background:#fef2f2; border-radius:16px; border:2px solid #dc2626;">
-                        ❌ Массив не загружен!
+                        ❌ Данные не загружены!
                         <div style="color:#666; font-size:14px; margin-top:10px;">
                             Проверь, что файл <strong>redphrases.js</strong> лежит в той же папке.<br>
-                            И что в нём есть массив с именем <strong>redBookData</strong> или <strong>allPhrases</strong>.
+                            И что в нём есть массивы <strong>redBookData</strong> и <strong>redBookDialogues</strong>.
                         </div>
                     </div>
                 `;
@@ -1049,69 +1146,168 @@
                 return;
             }
             
-            // Фильтрация
-            let filtered = phrases.filter(p => {
-                if (currentFilter !== 'all' && p.category !== currentFilter) return false;
-                const q = redbookSearchQuery.trim().toLowerCase();
-                if (q) {
-                    const inChinese = p.chinese.includes(q);
-                    const inPinyin = p.pinyin.toLowerCase().includes(q);
-                    const inTranslation = p.translation.toLowerCase().includes(q);
-                    if (!inChinese && !inPinyin && !inTranslation) return false;
+            // Подсчёт статистики
+            const totalPhrases = phrases ? phrases.length : 0;
+            const redTotal = phrases ? phrases.filter(p => p.red === true).length : 0;
+            const analogTotal = phrases ? phrases.filter(p => p.red === false).length : 0;
+            const dialogTotal = dialogues ? dialogues.length : 0;
+            
+            let filteredItems = [];
+            let isDialog = false;
+            
+            // В зависимости от подвкладки
+            if (currentSubTab === 'dialogues') {
+                // Показываем только диалоги
+                if (dialogues && dialogues.length > 0) {
+                    filteredItems = dialogues.map(d => ({ type: 'dialog', data: d }));
                 }
-                return true;
-            });
+                isDialog = true;
+            } else if (currentSubTab === 'phrases') {
+                // Только красная книга (red: true)
+                if (phrases) {
+                    filteredItems = phrases.filter(p => p.red === true).map(p => ({ type: 'phrase', data: p }));
+                }
+            } else if (currentSubTab === 'analogs') {
+                // Только аналоги (red: false)
+                if (phrases) {
+                    filteredItems = phrases.filter(p => p.red === false).map(p => ({ type: 'phrase', data: p }));
+                }
+            } else {
+                // Всё вместе
+                if (phrases) {
+                    filteredItems = phrases.map(p => ({ type: 'phrase', data: p }));
+                }
+                if (dialogues) {
+                    filteredItems = filteredItems.concat(dialogues.map(d => ({ type: 'dialog', data: d })));
+                }
+            }
+            
+            // Фильтр по категории (только для фраз)
+            if (currentFilter !== 'all' && !isDialog) {
+                filteredItems = filteredItems.filter(item => 
+                    item.type === 'phrase' && item.data.category === currentFilter
+                );
+            }
+            
+            // Поиск
+            if (redbookSearchQuery.trim()) {
+                const q = redbookSearchQuery.trim().toLowerCase();
+                filteredItems = filteredItems.filter(item => {
+                    if (item.type === 'phrase') {
+                        const p = item.data;
+                        return p.chinese.includes(q) || p.pinyin.toLowerCase().includes(q) || p.translation.toLowerCase().includes(q);
+                    } else {
+                        const d = item.data;
+                        return d.title.toLowerCase().includes(q) || d.lines.some(l => 
+                            l.chinese.includes(q) || l.russian.toLowerCase().includes(q)
+                        );
+                    }
+                });
+            }
             
             // Статистика
-            const total = phrases.length;
-            const redTotal = phrases.filter(p => p.red === true).length;
-            const analogTotal = phrases.filter(p => p.red === false).length;
-            statsDiv.innerHTML = `📊 Всего: ${total} фраз | 🔴 Красная книга: ${redTotal} | 🔵 Аналоги: ${analogTotal} | 🔍 Найдено: ${filtered.length}`;
+            statsDiv.innerHTML = `📊 Фраз: ${totalPhrases} | 🔴 Красная книга: ${redTotal} | 🔵 Аналоги: ${analogTotal} | 💬 Диалогов: ${dialogTotal} | 🔍 Найдено: ${filteredItems.length}`;
             
-            if (filtered.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:2rem; color:#999;">😕 Ничего не найдено</div>';
+            if (filteredItems.length === 0) {
+                container.innerHTML = '<div class="redbook-empty">😕 Ничего не найдено</div>';
                 return;
             }
             
             let html = '';
-            for (const p of filtered) {
-                const isRed = p.red === true;
-                const borderColor = isRed ? '#dc2626' : '#3b82f6';
-                const bgColor = isRed ? '#fef2f2' : '#f0f7ff';
-                const badge = isRed 
-                    ? '<span style="background:#dc2626; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔴 Красная книга</span>' 
-                    : '<span style="background:#3b82f6; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔵 Аналог</span>';
-                const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                
-                html += `
-                    <div class="redbook-card" style="border-left-color:${borderColor}; background:${bgColor};">
-                        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;">
-                            <div>
-                                <div class="chinese">
-                                    <span onclick="speakChinese('${safeChinese}')">${p.chinese}</span>
-                                    ${badge}
+            for (const item of filteredItems) {
+                if (item.type === 'phrase') {
+                    const p = item.data;
+                    const isRed = p.red === true;
+                    const borderColor = isRed ? '#dc2626' : '#3b82f6';
+                    const bgColor = isRed ? '#fef2f2' : '#f0f7ff';
+                    const badge = isRed 
+                        ? '<span style="background:#dc2626; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔴 Красная книга</span>' 
+                        : '<span style="background:#3b82f6; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔵 Аналог</span>';
+                    const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    
+                    html += `
+                        <div class="redbook-card" style="border-left-color:${borderColor}; background:${bgColor};">
+                            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <div class="chinese">
+                                        <span onclick="speakChinese('${safeChinese}')">${p.chinese}</span>
+                                        ${badge}
+                                    </div>
+                                    <div class="pinyin">${p.pinyin}</div>
+                                    <div class="translation">${p.translation}</div>
+                                    <div class="tags">
+                                        <span class="tag category">📂 ${p.category}</span>
+                                        ${isRed ? '<span class="tag red-tag">🔴 Красная книга</span>' : '<span class="tag analog-tag">🔵 Аналог</span>'}
+                                    </div>
                                 </div>
-                                <div class="pinyin">${p.pinyin}</div>
-                                <div class="translation">${p.translation}</div>
-                                <div class="tags">
-                                    <span class="tag category">📂 ${p.category}</span>
-                                    ${isRed ? '<span class="tag red-tag">🔴 Красная книга</span>' : '<span class="tag analog-tag">🔵 Аналог</span>'}
-                                </div>
+                                <button class="redbook-speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
                             </div>
-                            <button class="redbook-speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else if (item.type === 'dialog') {
+                    const d = item.data;
+                    // Собираем фразы из диалога
+                    let phrasesHtml = '';
+                    if (d.phrases && d.phrases.length > 0) {
+                        phrasesHtml = d.phrases.map(p => {
+                            const isRed = phrases ? phrases.some(fp => fp.chinese === p && fp.red === true) : false;
+                            return `<span class="dp ${isRed ? 'red' : ''}">${p}</span>`;
+                        }).join(' ');
+                    }
+                    
+                    let linesHtml = '';
+                    for (const line of d.lines) {
+                        const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                        linesHtml += `
+                            <div class="dialog-line">
+                                <span class="sp">${line.speaker}</span>
+                                <span class="cn" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
+                                <span class="py">${line.pinyin}</span>
+                                <span class="ru">— ${line.russian}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    const fullDialogText = d.lines.map(l => l.chinese).join('。');
+                    const safeFullText = fullDialogText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    
+                    html += `
+                        <div class="dialog-card">
+                            <div class="dialog-title">💬 ${d.title}</div>
+                            ${phrasesHtml ? `<div class="dialog-phrases">📌 Фразы: ${phrasesHtml}</div>` : ''}
+                            ${linesHtml}
+                            <button class="dialog-speak-btn" onclick="speakChinese('${safeFullText}')">🔊 Весь диалог</button>
+                        </div>
+                    `;
+                }
             }
+            
             container.innerHTML = html;
         }
 
         // ===== СОБЫТИЯ ДЛЯ КРАСНОЙ КНИГИ =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Фильтры
-            document.querySelectorAll('#tab-redbook .filter-btn').forEach(btn => {
+            // Подвкладки
+            document.querySelectorAll('#redbookSubTabs .redbook-sub-tab').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('#tab-redbook .filter-btn').forEach(b => {
+                    document.querySelectorAll('#redbookSubTabs .redbook-sub-tab').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSubTab = this.dataset.sub;
+                    // Показываем/скрываем фильтры категорий
+                    const filterButtons = document.getElementById('redbookFilterButtons');
+                    if (currentSubTab === 'dialogues') {
+                        filterButtons.style.display = 'none';
+                    } else {
+                        filterButtons.style.display = 'flex';
+                    }
+                    renderRedbook();
+                });
+            });
+            
+            // Фильтры категорий
+            document.querySelectorAll('#redbookFilterButtons .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#redbookFilterButtons .filter-btn').forEach(b => {
                         b.classList.remove('active');
                         b.style.background = 'white';
                         b.style.color = '#A64B2A';
