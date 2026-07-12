@@ -2008,6 +2008,66 @@
 
         console.log('✅ Приложение загружено!');
     </script>
+<script>
+    // ============================================================
+    // ПРИНУДИТЕЛЬНОЕ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+    // ============================================================
 
+    // Ждём полной загрузки страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('✅ DOM загружен, настраиваем вкладки...');
+
+        // Находим все кнопки и контент
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        console.log('📌 Найдено кнопок:', tabs.length);
+        console.log('📌 Найдено контентов:', contents.length);
+
+        // Скрываем все вкладки
+        contents.forEach(tc => tc.classList.remove('active'));
+
+        // Показываем только первую (Группы)
+        const firstTab = document.getElementById('tab-groups');
+        if (firstTab) {
+            firstTab.classList.add('active');
+            console.log('✅ Показана вкладка: groups');
+        }
+
+        // Навешиваем обработчики
+        tabs.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                console.log('🔘 Нажата вкладка:', this.dataset.tab);
+
+                // Убираем активный класс со всех кнопок
+                tabs.forEach(b => b.classList.remove('active'));
+
+                // Добавляем активный класс на нажатую
+                this.classList.add('active');
+
+                // Скрываем все вкладки
+                contents.forEach(tc => tc.classList.remove('active'));
+
+                // Показываем нужную
+                const tabId = this.dataset.tab;
+                const target = document.getElementById('tab-' + tabId);
+                if (target) {
+                    target.classList.add('active');
+                    console.log('✅ Показана вкладка:', tabId);
+                } else {
+                    console.error('❌ Вкладка не найдена:', tabId);
+                }
+            });
+        });
+
+        // Активируем первую кнопку
+        const firstBtn = document.querySelector('.tab-btn');
+        if (firstBtn) {
+            firstBtn.classList.add('active');
+        }
+
+        console.log('✅ Вкладки настроены!');
+    });
+</script>
 </body>
 </html>
