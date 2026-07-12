@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📕 Красная книга — китайские фразы</title>
-    <!-- ===== HANZI WRITER (бесплатная рисовалка) ===== -->
+    <!-- ===== HANZI WRITER ===== -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.3/dist/hanzi-writer.min.js">
     </script>
     <script src="redphrases.js"></script>
@@ -383,33 +383,32 @@
         .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
 
         /* ========================================================== */
-        /* ===== ВКЛАДКА: РИСОВАЛКА + ДНЕВНИК (ОТДЕЛЬНО) ===== */
+        /* ===== ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) ===== */
         /* ========================================================== */
-        #tab-notebook {
+        #tab-hanzi {
             flex: 1;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
-        /* ---- ВЕРХНЯЯ ЧАСТЬ: РИСОВАЛКА ---- */
-        .writer-section {
-            background: rgba(30, 25, 20, 0.7);
+        .hanzi-section {
+            background: rgba(30, 25, 20, 0.75);
             border-radius: 20px;
-            padding: 12px 16px 14px;
+            padding: 14px 18px 16px;
             border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(5px);
             flex-shrink: 0;
         }
-        .writer-section .input-row {
+        .hanzi-section .input-row {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
-        .writer-section .input-row input {
+        .hanzi-section .input-row input {
             flex: 1;
             min-width: 120px;
             padding: 10px 16px;
@@ -422,9 +421,9 @@
             outline: none;
             transition: all 0.3s;
         }
-        .writer-section .input-row input::placeholder { color: #6b5a45; font-size: 0.9rem; }
-        .writer-section .input-row input:focus { border-color: rgba(255, 215, 0, 0.3); }
-        .writer-section .input-row button {
+        .hanzi-section .input-row input::placeholder { color: #6b5a45; font-size: 0.9rem; }
+        .hanzi-section .input-row input:focus { border-color: rgba(255, 215, 0, 0.3); }
+        .hanzi-section .input-row button {
             padding: 10px 22px;
             border: none;
             border-radius: 60px;
@@ -436,27 +435,15 @@
             box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
             white-space: nowrap;
         }
-        .writer-section .input-row button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
-        .writer-section .input-row .btn-show {
+        .hanzi-section .input-row button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
+        .hanzi-section .input-row .btn-show {
             background: linear-gradient(135deg, #ff6b35, #ff8c42);
             color: white;
             box-shadow: 0 3px 0 #b34e1a;
         }
-        .writer-section .input-row .btn-show:active { box-shadow: 0 1px 0 #b34e1a; }
-        .writer-section .input-row .btn-save {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            box-shadow: 0 3px 0 #1a7a3a;
-        }
-        .writer-section .input-row .btn-save:active { box-shadow: 0 1px 0 #1a7a3a; }
-        .writer-section .input-row .btn-clear-all {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            box-shadow: 0 3px 0 #8a2a1a;
-        }
-        .writer-section .input-row .btn-clear-all:active { box-shadow: 0 1px 0 #8a2a1a; }
+        .hanzi-section .input-row .btn-show:active { box-shadow: 0 1px 0 #b34e1a; }
 
-        .writer-section .hanzi-wrapper {
+        .hanzi-section .hanzi-wrapper {
             background: #fffef9;
             border-radius: 16px;
             padding: 6px;
@@ -464,15 +451,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 180px;
+            min-height: 200px;
             position: relative;
         }
-        .writer-section .hanzi-wrapper .hw-target {
+        .hanzi-section .hanzi-wrapper .hw-target {
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             aspect-ratio: 1/1;
         }
-        .writer-section .hanzi-wrapper .placeholder {
+        .hanzi-section .hanzi-wrapper .placeholder {
             color: #b8956a;
             font-size: 1.1rem;
             text-align: center;
@@ -481,11 +468,20 @@
             pointer-events: none;
         }
 
-        /* ---- НИЖНЯЯ ЧАСТЬ: ДНЕВНИК ---- */
-        .notebook-section {
-            background: rgba(30, 25, 20, 0.7);
+        /* ========================================================== */
+        /* ===== ВКЛАДКА: ДНЕВНИК ===== */
+        /* ========================================================== */
+        #tab-notebook {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notebook-container {
+            background: rgba(30, 25, 20, 0.75);
             border-radius: 20px;
-            padding: 10px 16px 12px;
+            padding: 14px 18px 16px;
             border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(5px);
@@ -493,9 +489,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 120px;
         }
-        .notebook-section .section-title {
+        .notebook-container .section-title {
             font-size: 0.85rem;
             color: #b8956a;
             font-weight: 600;
@@ -505,19 +500,32 @@
             justify-content: space-between;
             align-items: center;
         }
-        .notebook-section .section-title .count {
+        .notebook-container .section-title .count {
             background: rgba(255, 215, 0, 0.08);
             padding: 2px 12px;
             border-radius: 50px;
             font-size: 0.7rem;
         }
-        .notebook-section .saved-list {
+        .notebook-container .section-title .clear-btn {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border: none;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+        .notebook-container .section-title .clear-btn:hover { background: rgba(231, 76, 60, 0.25); }
+        .notebook-container .saved-list {
             flex: 1;
             overflow-y: auto;
             padding-right: 4px;
         }
-        .notebook-section .saved-list::-webkit-scrollbar { width: 3px; }
-        .notebook-section .saved-list::-webkit-scrollbar-thumb { background: #2ecc71; border-radius: 4px; }
+        .notebook-container .saved-list::-webkit-scrollbar { width: 3px; }
+        .notebook-container .saved-list::-webkit-scrollbar-thumb { background: #2ecc71; border-radius: 4px; }
 
         .notebook-item {
             display: flex;
@@ -594,7 +602,9 @@
         }
         .empty-notebook .big-icon { font-size: 2.5rem; margin-bottom: 8px; opacity: 0.4; }
 
-        /* ===== КАЛЛИГРАФИЯ (кисть) ===== */
+        /* ========================================================== */
+        /* ===== ВКЛАДКА: КАЛЛИГРАФИЯ (кисть) ===== */
+        /* ========================================================== */
         #tab-canvas {
             flex: 1;
             overflow: hidden;
@@ -693,23 +703,24 @@
             .phrase-card .chinese { font-size: clamp(1.6rem, 6vw, 2.4rem); }
             .dialog-card { padding: 12px 16px; }
             .dialog-line .cn { font-size: clamp(1.4rem, 5vw, 2rem); }
-            .writer-section { padding: 10px 12px; }
-            .writer-section .input-row input { font-size: 1rem; padding: 8px 14px; }
-            .writer-section .input-row button { padding: 8px 14px; font-size: 0.8rem; }
-            .writer-section .hanzi-wrapper { min-height: 140px; }
-            .writer-section .hanzi-wrapper .hw-target { max-width: 280px; }
-            .notebook-section { padding: 8px 12px; min-height: 100px; }
+            .hanzi-section { padding: 10px 12px; }
+            .hanzi-section .input-row input { font-size: 1rem; padding: 8px 14px; min-width: 80px; }
+            .hanzi-section .input-row button { padding: 8px 14px; font-size: 0.8rem; }
+            .hanzi-section .hanzi-wrapper { min-height: 140px; }
+            .hanzi-section .hanzi-wrapper .hw-target { max-width: 280px; }
+            .notebook-container { padding: 10px 12px; }
             .notebook-item .char { font-size: clamp(1.5rem, 5vw, 2.2rem); }
+            .notebook-item .info { font-size: 0.8rem; }
             .canvas-wrapper canvas { max-width: 100%; }
             .canvas-tools button { padding: 6px 14px; font-size: 0.75rem; }
         }
         @media (max-width: 400px) {
-            .writer-section .input-row input { min-width: 80px; font-size: 0.9rem; }
-            .writer-section .input-row button { padding: 6px 10px; font-size: 0.7rem; }
-            .writer-section .hanzi-wrapper .hw-target { max-width: 200px; }
-            .notebook-item { padding: 6px 8px; }
+            .hanzi-section .input-row input { font-size: 0.9rem; padding: 6px 10px; min-width: 60px; }
+            .hanzi-section .input-row button { padding: 6px 10px; font-size: 0.7rem; }
+            .hanzi-section .hanzi-wrapper .hw-target { max-width: 200px; }
+            .notebook-item { padding: 4px 8px; }
             .notebook-item .char { font-size: 1.4rem; }
-            .notebook-item .info { font-size: 0.75rem; min-width: 60px; }
+            .notebook-item .info { font-size: 0.7rem; min-width: 50px; }
         }
     </style>
 </head>
@@ -721,7 +732,7 @@
         <div class="nav-bar">
             <a href="index.html" class="back-btn">◀ На главную</a>
             <span class="title">📕 Красная книга</span>
-            <a href="#" class="notebook-link" id="notebookNav">📓 Тетрадь</a>
+            <a href="#" class="notebook-link" id="notebookNav">📓 Дневник</a>
         </div>
 
         <!-- ===== СТАТИСТИКА ===== -->
@@ -730,14 +741,15 @@
             <span>🔴 Красная: <strong id="redCount">0</strong></span>
             <span>🔵 Аналоги: <strong id="analogCount">0</strong></span>
             <span>💬 Диалогов: <strong id="dialogCount">0</strong></span>
-            <span>📓 В тетради: <strong id="notebookCount">0</strong></span>
+            <span>📓 В дневнике: <strong id="notebookCount">0</strong></span>
         </div>
 
         <!-- ===== ВКЛАДКИ ===== -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="groups">📚 Группы</button>
             <button class="tab-btn" data-tab="dialogues">💬 Диалоги</button>
-            <button class="tab-btn" data-tab="notebook">✍️ Рисовалка</button>
+            <button class="tab-btn" data-tab="hanzi">✍️ Рисовалка</button>
+            <button class="tab-btn" data-tab="notebook">📓 Дневник</button>
             <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
         </div>
 
@@ -764,42 +776,44 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА + ДНЕВНИК (ОТДЕЛЬНОЕ ОКНО) -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) -->
         <!-- ========================================================== -->
-        <div class="tab-content" id="tab-notebook">
-
-            <!-- === РИСОВАЛКА === -->
-            <div class="writer-section">
+        <div class="tab-content" id="tab-hanzi">
+            <div class="hanzi-section">
                 <div class="input-row">
                     <input type="text" id="hanziInput" placeholder="Введите иероглиф..." maxlength="1" autocomplete="off">
                     <button class="btn-show" id="showHanziBtn">✍️ Показать</button>
-                    <button class="btn-save" id="addToNotebookBtn">📓 Сохранить</button>
-                    <button class="btn-clear-all" id="clearNotebookBtn">🗑️ Очистить</button>
                 </div>
                 <div class="hanzi-wrapper" id="hanziWrapper">
                     <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф и нажмите "Показать"</div>
                     <div class="hw-target" id="hwTarget"></div>
                 </div>
             </div>
+        </div>
 
-            <!-- === ДНЕВНИК === -->
-            <div class="notebook-section">
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: ДНЕВНИК -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-notebook">
+            <div class="notebook-container">
                 <div class="section-title">
-                    <span>📓 Дневник</span>
-                    <span class="count" id="notebookCountLabel">0</span>
+                    <span>📓 Все сохранённые фразы и иероглифы</span>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="count" id="notebookCountLabel">0</span>
+                        <button class="clear-btn" id="clearNotebookBtn">🗑️ Очистить</button>
+                    </div>
                 </div>
                 <div class="saved-list" id="savedList">
                     <div class="empty-notebook">
                         <div class="big-icon">📓</div>
-                        Сохраняйте иероглифы для повторения
+                        Сохраняйте фразы и иероглифы для повторения
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ (кисть) -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-canvas">
             <div class="canvas-container">
@@ -1057,7 +1071,92 @@
         }
 
         // ============================================================
-        // 4. ТЕТРАДЬ + HANZI WRITER (ОТДЕЛЬНОЕ ОКНО)
+        // 4. ТЕТРАДЬ
+        // ============================================================
+
+        function toggleNotebook(char, pinyin, translation) {
+            const idx = notebook.findIndex(n => n.char === char);
+            if (idx >= 0) {
+                notebook.splice(idx, 1);
+                showToast(`❌ "${char}" удалён из дневника`);
+            } else {
+                notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
+                showToast(`✅ "${char}" добавлен в дневник!`);
+            }
+            localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+            renderGroups();
+            renderNotebook();
+            document.getElementById('notebookCount').textContent = notebook.length;
+            document.getElementById('notebookCountLabel').textContent = notebook.length;
+        }
+
+        function renderNotebook() {
+            const container = document.getElementById('savedList');
+            if (notebook.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-notebook">
+                                <div class="big-icon">📓</div>
+                                Сохраняйте фразы и иероглифы для повторения
+                            </div>
+                        `;
+                return;
+            }
+
+            let html = '';
+            for (const item of notebook) {
+                const safeChar = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                html += `
+                            <div class="notebook-item" onclick="loadCharToHanzi('${safeChar}')">
+                                <span class="char">${item.char}</span>
+                                <span class="info">
+                                    <span class="pinyin">${item.pinyin || ''}</span>
+                                    ${item.translation ? `— ${item.translation}` : ''}
+                                </span>
+                                <div class="actions">
+                                    <button class="speak-mini" onclick="event.stopPropagation(); speakChinese('${safeChar}')">🔊</button>
+                                    <button class="remove-btn" onclick="event.stopPropagation(); removeFromNotebook('${safeChar}')">✖</button>
+                                </div>
+                            </div>
+                        `;
+            }
+            container.innerHTML = html;
+        }
+
+        function removeFromNotebook(char) {
+            const idx = notebook.findIndex(n => n.char === char);
+            if (idx >= 0) {
+                notebook.splice(idx, 1);
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                document.getElementById('notebookCount').textContent = notebook.length;
+                document.getElementById('notebookCountLabel').textContent = notebook.length;
+                showToast(`❌ "${char}" удалён`);
+            }
+        }
+
+        function clearNotebook() {
+            if (notebook.length === 0) return;
+            if (confirm('Удалить всё из дневника?')) {
+                notebook = [];
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                document.getElementById('notebookCount').textContent = 0;
+                document.getElementById('notebookCountLabel').textContent = 0;
+                showToast('🗑️ Дневник очищен');
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style.cssText =
+                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:50px;z-index:3000;font-size:1rem;font-weight:600;box-shadow:0 5px 20px rgba(0,0,0,0.3);';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2000);
+        }
+
+        // ============================================================
+        // 5. HANZI WRITER
         // ============================================================
 
         let hanziWriterInstance = null;
@@ -1119,6 +1218,8 @@
             const char = input.value.trim();
             if (char && char.length === 1) {
                 initHanziWriter(char);
+                // Автоматически сохраняем в дневник
+                addToNotebook(char);
             } else {
                 const placeholder = document.getElementById('hanziPlaceholder');
                 placeholder.textContent = '⚠️ Введите один иероглиф';
@@ -1127,13 +1228,8 @@
             }
         }
 
-        function addCurrentCharToNotebook() {
-            const char = currentHanziChar || document.getElementById('hanziInput').value.trim();
-            if (!char || char.length !== 1) {
-                showToast('⚠️ Сначала введите иероглиф и нажмите "Показать"');
-                return;
-            }
-
+        function addToNotebook(char) {
+            if (!char || char.length !== 1) return;
             if (notebook.some(n => n.char === char)) {
                 showToast(`⚠️ "${char}" уже есть в дневнике`);
                 return;
@@ -1152,97 +1248,22 @@
             renderNotebook();
             document.getElementById('notebookCount').textContent = notebook.length;
             document.getElementById('notebookCountLabel').textContent = notebook.length;
-            showToast(`✅ "${char}" сохранён!`);
-        }
-
-        function renderNotebook() {
-            const container = document.getElementById('savedList');
-            if (notebook.length === 0) {
-                container.innerHTML = `
-                            <div class="empty-notebook">
-                                <div class="big-icon">📓</div>
-                                Сохраняйте иероглифы для повторения
-                            </div>
-                        `;
-                return;
-            }
-
-            let html = '';
-            for (const item of notebook) {
-                const safeChar = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                html += `
-                            <div class="notebook-item" onclick="loadCharToHanzi('${safeChar}')">
-                                <span class="char">${item.char}</span>
-                                <span class="info">
-                                    <span class="pinyin">${item.pinyin || ''}</span>
-                                    ${item.translation ? `— ${item.translation}` : ''}
-                                </span>
-                                <div class="actions">
-                                    <button class="speak-mini" onclick="event.stopPropagation(); speakChinese('${safeChar}')">🔊</button>
-                                    <button class="remove-btn" onclick="event.stopPropagation(); removeFromNotebook('${safeChar}')">✖</button>
-                                </div>
-                            </div>
-                        `;
-            }
-            container.innerHTML = html;
+            showToast(`✅ "${char}" сохранён в дневник!`);
         }
 
         function loadCharToHanzi(char) {
+            // Переключаемся на вкладку Hanzi
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.querySelector('[data-tab="hanzi"]').classList.add('active');
+            document.getElementById('tab-hanzi').classList.add('active');
+
             document.getElementById('hanziInput').value = char;
-            initHanziWriter(char);
-        }
-
-        function removeFromNotebook(char) {
-            const idx = notebook.findIndex(n => n.char === char);
-            if (idx >= 0) {
-                notebook.splice(idx, 1);
-                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-                renderNotebook();
-                document.getElementById('notebookCount').textContent = notebook.length;
-                document.getElementById('notebookCountLabel').textContent = notebook.length;
-                showToast(`❌ "${char}" удалён`);
-            }
-        }
-
-        function clearNotebook() {
-            if (notebook.length === 0) return;
-            if (confirm('Удалить все иероглифы из дневника?')) {
-                notebook = [];
-                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-                renderNotebook();
-                document.getElementById('notebookCount').textContent = 0;
-                document.getElementById('notebookCountLabel').textContent = 0;
-                showToast('🗑️ Дневник очищен');
-            }
-        }
-
-        function toggleNotebook(char, pinyin, translation) {
-            const idx = notebook.findIndex(n => n.char === char);
-            if (idx >= 0) {
-                notebook.splice(idx, 1);
-                showToast(`❌ "${char}" удалён из дневника`);
-            } else {
-                notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
-                showToast(`✅ "${char}" добавлен в дневник!`);
-            }
-            localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-            renderGroups();
-            renderNotebook();
-            document.getElementById('notebookCount').textContent = notebook.length;
-            document.getElementById('notebookCountLabel').textContent = notebook.length;
-        }
-
-        function showToast(msg) {
-            const t = document.createElement('div');
-            t.style.cssText =
-                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:50px;z-index:3000;font-size:1rem;font-weight:600;box-shadow:0 5px 20px rgba(0,0,0,0.3);';
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(() => t.remove(), 2000);
+            setTimeout(() => initHanziWriter(char), 100);
         }
 
         // ============================================================
-        // 5. ОЗВУЧКА
+        // 6. ОЗВУЧКА
         // ============================================================
 
         let chineseVoice = null;
@@ -1279,7 +1300,7 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 6. КАЛЛИГРАФИЯ (кисть)
+        // 7. КАЛЛИГРАФИЯ (кисть)
         // ============================================================
 
         const canvasConfig = {
@@ -1572,7 +1593,7 @@
         }
 
         // ============================================================
-        // 7. ВКЛАДКИ
+        // 8. ВКЛАДКИ И СОБЫТИЯ
         // ============================================================
 
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1585,6 +1606,9 @@
                 if (tabName === 'notebook') {
                     renderNotebook();
                     document.getElementById('notebookCountLabel').textContent = notebook.length;
+                }
+                if (tabName === 'dialogues') renderDialogues();
+                if (tabName === 'hanzi') {
                     setTimeout(() => {
                         const input = document.getElementById('hanziInput');
                         if (input.value.trim()) {
@@ -1592,20 +1616,17 @@
                         }
                     }, 100);
                 }
-                if (tabName === 'dialogues') renderDialogues();
                 if (tabName === 'canvas') setTimeout(initCanvas, 50);
             });
         });
 
-        // ============================================================
-        // 8. СОБЫТИЯ
-        // ============================================================
-
+        // Поиск
         document.getElementById('searchInput').addEventListener('input', function() {
             searchQuery = this.value;
             renderGroups();
         });
 
+        // Категории
         document.querySelectorAll('#categoryButtons button').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove('active'));
@@ -1615,6 +1636,7 @@
             });
         });
 
+        // Кнопка "Дневник" в навигации
         document.getElementById('notebookNav').addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1623,28 +1645,19 @@
             document.getElementById('tab-notebook').classList.add('active');
             renderNotebook();
             document.getElementById('notebookCountLabel').textContent = notebook.length;
-            setTimeout(() => {
-                const input = document.getElementById('hanziInput');
-                if (input.value.trim()) {
-                    initHanziWriter(input.value.trim());
-                }
-            }, 100);
         });
 
-        // Hanzi Writer события
+        // Hanzi Writer
         document.getElementById('showHanziBtn').addEventListener('click', showHanziFromInput);
         document.getElementById('hanziInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') showHanziFromInput();
         });
-        document.getElementById('addToNotebookBtn').addEventListener('click', addCurrentCharToNotebook);
+
+        // Дневник
         document.getElementById('clearNotebookBtn').addEventListener('click', clearNotebook);
 
-        // ============================================================
-        // 9. КАНВАС — СОБЫТИЯ
-        // ============================================================
-
+        // Каллиграфия
         document.getElementById('canvasClear').addEventListener('click', clearCanvas);
-
         document.getElementById('canvasTrace').addEventListener('click', function() {
             if (exampleVisible) {
                 hideExample();
@@ -1655,7 +1668,6 @@
                 }
             }
         });
-
         document.getElementById('canvasCheck').addEventListener('click', checkQuality);
 
         document.querySelectorAll('.color-btn').forEach(btn => {
@@ -1667,7 +1679,7 @@
         });
 
         // ============================================================
-        // 10. СТАРТ
+        // 9. СТАРТ
         // ============================================================
 
         setTimeout(() => {
@@ -1691,7 +1703,6 @@
         window.loadCharToHanzi = loadCharToHanzi;
         window.initHanziWriter = initHanziWriter;
         window.showHanziFromInput = showHanziFromInput;
-        window.addCurrentCharToNotebook = addCurrentCharToNotebook;
         window.renderNotebook = renderNotebook;
         window.clearNotebook = clearNotebook;
         window.showToast = showToast;
