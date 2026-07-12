@@ -11,7 +11,7 @@
             background: linear-gradient(145deg, #1a3a2a 0%, #0a1a0f 100%);
             min-height: 100vh;
             font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
-            padding: 12px;
+            padding: 10px;
             color: #f5e6d3;
         }
         .container { max-width: 1100px; margin: 0 auto; }
@@ -21,31 +21,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(30, 25, 20, 0.7);
-            padding: 10px 18px;
+            background: rgba(30, 25, 20, 0.85);
+            padding: 12px 20px;
             border-radius: 60px;
             margin-bottom: 12px;
             flex-wrap: wrap;
             gap: 8px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.08);
         }
         .nav-bar .back-btn {
             background: linear-gradient(135deg, #5a4a3a, #3a2a1a);
             color: #f7e05e;
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 1rem;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: 0.15s;
             box-shadow: 0 3px 0 #2a1a0a;
         }
         .nav-bar .back-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #2a1a0a; }
         .nav-bar .title {
-            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
             font-weight: 700;
             background: linear-gradient(135deg, #ffd700, #ff6b35);
             -webkit-background-clip: text;
@@ -53,12 +54,12 @@
         }
         .nav-bar .notebook-link {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 40px;
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 1rem;
             box-shadow: 0 3px 0 #1a7a3a;
             transition: 0.15s;
         }
@@ -68,10 +69,10 @@
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
-            background: rgba(30, 25, 20, 0.6);
-            padding: 10px 16px;
+            background: rgba(30, 25, 20, 0.7);
+            padding: 12px 20px;
             border-radius: 60px;
             margin-bottom: 12px;
             backdrop-filter: blur(5px);
@@ -79,38 +80,38 @@
         }
         .stats-bar span {
             color: #d4c9a6;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
-        .stats-bar strong { color: #ffd700; }
+        .stats-bar strong { color: #ffd700; font-size: 1.1rem; }
 
         /* ===== ВКЛАДКИ ===== */
         .tabs {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 10px 0 14px;
+            margin: 10px 0 16px;
         }
         .tab-btn {
             background: rgba(45, 27, 14, 0.6);
             color: #b8956a;
             border: 2px solid rgba(255, 215, 0, 0.08);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             transition: all 0.2s;
             font-family: inherit;
             backdrop-filter: blur(5px);
         }
-        .tab-btn:hover { border-color: rgba(255, 215, 0, 0.2); transform: translateY(-2px); }
+        .tab-btn:hover { border-color: rgba(255, 215, 0, 0.25); transform: translateY(-2px); }
         .tab-btn.active {
             background: linear-gradient(135deg, #ff6b35, #ff8c42);
             color: white;
             border-color: #ff6b35;
-            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.25);
         }
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
@@ -118,37 +119,37 @@
         /* ===== ПОИСК ===== */
         .search {
             width: 100%;
-            padding: 14px 22px;
+            padding: 16px 24px;
             border: 2px solid rgba(255, 215, 0, 0.08);
             border-radius: 60px;
-            background: rgba(30, 25, 20, 0.7);
+            background: rgba(30, 25, 20, 0.8);
             color: #f5e6d3;
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-size: 1.1rem;
             outline: none;
             transition: all 0.3s;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             font-family: inherit;
             backdrop-filter: blur(5px);
         }
-        .search::placeholder { color: #6b5a45; }
-        .search:focus { border-color: rgba(255, 215, 0, 0.2); box-shadow: 0 8px 40px rgba(255, 215, 0, 0.03); }
+        .search::placeholder { color: #8b7355; font-size: 1rem; }
+        .search:focus { border-color: rgba(255, 215, 0, 0.2); box-shadow: 0 8px 40px rgba(255, 215, 0, 0.04); }
 
         /* ===== КАТЕГОРИИ ===== */
         .categories {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
         .categories button {
-            padding: 6px 16px;
+            padding: 8px 20px;
             border: 2px solid rgba(255, 215, 0, 0.06);
             border-radius: 50px;
             background: rgba(30, 25, 20, 0.5);
-            color: #8b7355;
-            font-size: 0.7rem;
-            font-weight: 500;
+            color: #b8956a;
+            font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -159,107 +160,108 @@
             border-color: #ff6b35;
             box-shadow: 0 4px 20px rgba(255, 107, 53, 0.15);
         }
+        .categories button:hover { border-color: rgba(255, 215, 0, 0.15); }
 
         /* ===== ГРУППА ===== */
-        .group-container { margin-bottom: 20px; animation: fadeIn 0.4s ease; }
+        .group-container { margin-bottom: 24px; animation: fadeIn 0.4s ease; }
         .group-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 20px;
-            background: rgba(30, 25, 20, 0.5);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 215, 0, 0.04);
-            margin-bottom: 10px;
+            gap: 12px;
+            padding: 16px 24px;
+            background: rgba(30, 25, 20, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            margin-bottom: 12px;
             cursor: pointer;
             transition: all 0.2s;
             backdrop-filter: blur(5px);
         }
-        .group-header:hover { background: rgba(30, 25, 20, 0.7); border-color: rgba(255, 215, 0, 0.08); }
-        .group-header .icon { font-size: clamp(1.5rem, 2.5vw, 2rem); }
-        .group-header .title { font-size: clamp(1rem, 1.8vw, 1.3rem); font-weight: 600; color: #f5e6d3; }
-        .group-header .count { margin-left: auto; color: #8b7355; font-size: 0.75rem; background: rgba(255,255,255,0.04); padding: 2px 14px; border-radius: 50px; }
-        .group-header .arrow { color: #8b7355; transition: transform 0.3s; font-size: 0.9rem; }
+        .group-header:hover { background: rgba(30, 25, 20, 0.8); border-color: rgba(255, 215, 0, 0.1); }
+        .group-header .icon { font-size: 2rem; }
+        .group-header .title { font-size: 1.4rem; font-weight: 700; color: #f5e6d3; }
+        .group-header .count { margin-left: auto; color: #b8956a; font-size: 0.9rem; background: rgba(255,255,255,0.05); padding: 4px 16px; border-radius: 50px; }
+        .group-header .arrow { color: #b8956a; transition: transform 0.3s; font-size: 1.2rem; }
         .group-header.collapsed .arrow { transform: rotate(-90deg); }
         .group-phrases { overflow: hidden; transition: max-height 0.4s ease; max-height: 10000px; }
         .group-phrases.collapsed { max-height: 0; }
 
-        /* ===== КАРТОЧКА ФРАЗЫ (БОЛЬШАЯ, ПАПИРУС) ===== */
+        /* ===== КАРТОЧКА ФРАЗЫ (БОЛЬШАЯ, КОНТРАСТНАЯ) ===== */
         .phrase-card {
-            background: linear-gradient(145deg, #f5ede4, #e8d5c0);
-            background-image: radial-gradient(circle at 20% 30%, rgba(255, 245, 200, 0.4) 1%, transparent 1.5%);
-            background-size: 30px 30px;
-            border-radius: 20px;
-            padding: 20px 24px;
-            margin-bottom: 10px;
-            border-left: 6px solid #c8aa6e;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,240,0.3);
+            background: rgba(30, 25, 20, 0.7);
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin-bottom: 12px;
+            border-left: 6px solid #ffd700;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
             animation: fadeIn 0.4s ease both;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 215, 0, 0.04);
         }
-        .phrase-card:hover { transform: translateX(6px); border-left-color: #ffd700; box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+        .phrase-card:hover { transform: translateX(8px); border-left-color: #ff6b35; box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
         .phrase-card .chinese {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
             font-weight: 800;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
-            color: #3c2a1f;
+            color: #f5e6d3;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             flex: 1;
-            min-width: 120px;
-            text-shadow: 0 1px 2px rgba(255,255,240,0.3);
+            min-width: 140px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.04);
         }
         .phrase-card .chinese .mini-badge {
-            font-size: clamp(0.45rem, 0.6vw, 0.55rem);
-            padding: 2px 12px;
+            font-size: 0.65rem;
+            padding: 4px 14px;
             border-radius: 50px;
             font-weight: 700;
         }
-        .phrase-card .chinese .mini-badge.red { background: rgba(220, 38, 38, 0.15); color: #c0392b; }
-        .phrase-card .chinese .mini-badge.analog { background: rgba(59, 130, 246, 0.12); color: #2980b9; }
+        .phrase-card .chinese .mini-badge.red { background: rgba(220, 38, 38, 0.2); color: #ff6b6b; border: 1px solid rgba(220, 38, 38, 0.15); }
+        .phrase-card .chinese .mini-badge.analog { background: rgba(59, 130, 246, 0.15); color: #6ea8fe; border: 1px solid rgba(59, 130, 246, 0.1); }
         .phrase-card .info {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
             flex: 2;
-            min-width: 160px;
+            min-width: 180px;
         }
         .phrase-card .pinyin {
-            font-size: clamp(1rem, 1.5vw, 1.2rem);
-            color: #8e6b3a;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            color: #d4a373;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
         .phrase-card .translation {
-            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-            color: #4a3a2a;
+            font-size: clamp(1.3rem, 2vw, 1.7rem);
+            color: #f5e6d3;
             font-weight: 500;
         }
         .phrase-card .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 4px;
+            gap: 6px;
+            margin-top: 6px;
         }
         .phrase-card .tags .tag {
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            padding: 2px 12px;
+            font-size: 0.7rem;
+            padding: 4px 14px;
             border-radius: 50px;
-            background: rgba(60, 42, 31, 0.06);
-            color: #6b5a4a;
-            border: 1px solid rgba(60, 42, 31, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            color: #b8956a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .phrase-card .tags .tag.category { background: rgba(41, 128, 185, 0.08); color: #2980b9; }
+        .phrase-card .tags .tag.category { background: rgba(41, 128, 185, 0.1); color: #6ea8fe; border-color: rgba(41, 128, 185, 0.06); }
         .phrase-card .actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -267,10 +269,10 @@
             background: linear-gradient(135deg, #ff6b35, #ff8c42);
             border: none;
             color: white;
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 3px 0 #b34e1a;
@@ -283,10 +285,10 @@
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             border: none;
             color: white;
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 3px 0 #1a7a3a;
@@ -295,76 +297,144 @@
             justify-content: center;
         }
         .phrase-card .save-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1a7a3a; }
-        .phrase-card .save-btn.saved { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .phrase-card .save-btn.saved { background: linear-gradient(135deg, #f39c12, #e67e22); box-shadow: 0 3px 0 #b36b0f; }
 
-        /* ===== ТЕТРАДЬ ===== */
+        /* ===== ДИАЛОГИ ===== */
+        .dialog-card {
+            background: rgba(30, 25, 20, 0.7);
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            border-left: 6px solid #3b82f6;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(59, 130, 246, 0.06);
+        }
+        .dialog-card .dialog-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f5e6d3;
+            margin-bottom: 4px;
+        }
+        .dialog-card .dialog-phrases {
+            font-size: 0.9rem;
+            color: #b8956a;
+            margin-bottom: 10px;
+        }
+        .dialog-card .dialog-phrases .dp {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 12px;
+            border-radius: 12px;
+            margin-right: 4px;
+            display: inline-block;
+            margin-bottom: 4px;
+            color: #d4c9a6;
+        }
+        .dialog-card .dialog-phrases .dp.red { background: rgba(220, 38, 38, 0.15); color: #ff6b6b; }
+        .dialog-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 18px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .dialog-line:last-child { border-bottom: none; }
+        .dialog-line .sp { font-weight: 700; color: #3b82f6; min-width: 30px; font-size: 1rem; }
+        .dialog-line .cn { font-size: 1.3rem; font-weight: 600; font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif; color: #f5e6d3; cursor: pointer; }
+        .dialog-line .cn:hover { text-shadow: 0 0 20px rgba(255, 215, 0, 0.08); }
+        .dialog-line .py { font-size: 0.9rem; color: #d4a373; }
+        .dialog-line .ru { font-size: 1rem; color: #d4c9a6; }
+        .dialog-speak-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #1d4ed8;
+            transition: 0.15s;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+        .dialog-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #1d4ed8; }
+
+        /* ===== ТЕТРАДЬ (ВЕСЬ ЭКРАН) ===== */
         .notebook-container {
-            background: linear-gradient(145deg, #f5ede4, #e8d5c0);
+            background: rgba(30, 25, 20, 0.7);
             border-radius: 28px;
             padding: 20px;
-            border: 2px solid #c8aa6e;
+            border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-            min-height: 300px;
+            min-height: 60vh;
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
         }
         .notebook-container .empty {
             text-align: center;
-            padding: 40px 20px;
-            color: #8b7355;
-            font-size: 1.1rem;
+            padding: 60px 20px;
+            color: #b8956a;
+            font-size: 1.3rem;
         }
         .notebook-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(60, 42, 31, 0.08);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
         .notebook-item .char {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 700;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
-            color: #3c2a1f;
+            color: #f5e6d3;
             cursor: pointer;
         }
-        .notebook-item .info { color: #6b5a4a; font-size: 0.9rem; }
+        .notebook-item .char:hover { text-shadow: 0 0 30px rgba(255, 215, 0, 0.08); }
+        .notebook-item .info { color: #d4c9a6; font-size: 1.05rem; }
+        .notebook-item .info .pinyin { color: #d4a373; }
         .notebook-item .remove-btn {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             border: none;
             color: white;
-            padding: 4px 14px;
+            padding: 6px 18px;
             border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             box-shadow: 0 2px 0 #8a2a1a;
         }
         .notebook-item .remove-btn:active { transform: translateY(2px); box-shadow: 0 0 0 #8a2a1a; }
         .notebook-item .speak-mini {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             cursor: pointer;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 50%;
             transition: 0.15s;
+            color: #d4c9a6;
         }
-        .notebook-item .speak-mini:hover { background: rgba(60, 42, 31, 0.06); }
+        .notebook-item .speak-mini:hover { background: rgba(255, 255, 255, 0.04); }
 
-        /* ===== КАЛЛИГРАФИЯ ===== */
+        /* ===== КАЛЛИГРАФИЯ (ВЕСЬ ЭКРАН) ===== */
         .canvas-container {
-            background: linear-gradient(145deg, #f5ede4, #e8d5c0);
+            background: rgba(30, 25, 20, 0.7);
             border-radius: 28px;
             padding: 20px;
-            border: 2px solid #c8aa6e;
+            border: 2px solid rgba(255, 215, 0, 0.06);
             box-shadow: 0 8px 40px rgba(0,0,0,0.2);
             text-align: center;
+            backdrop-filter: blur(5px);
+            min-height: 60vh;
         }
         .canvas-wrapper {
             background: #fffef9;
             border-radius: 18px;
-            padding: 8px;
+            padding: 10px;
             border: 2px solid #c8aa6e;
             display: inline-block;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
@@ -372,25 +442,25 @@
         .canvas-wrapper canvas {
             display: block;
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             aspect-ratio: 1/1;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="rgba(255,107,53,0.3)" stroke="%23ff6b35" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="%23ff6b35"/></svg>') 12 12, auto;
             touch-action: none;
         }
         .canvas-tools {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 14px;
+            margin-top: 16px;
         }
         .canvas-tools button {
-            padding: 8px 20px;
+            padding: 10px 24px;
             border: none;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             transition: 0.15s;
             font-family: inherit;
             box-shadow: 0 3px 0 rgba(0,0,0,0.2);
@@ -400,43 +470,44 @@
         .canvas-tools .trace-btn { background: linear-gradient(135deg, #2980b9, #3498db); color: white; }
         .canvas-tools .check-btn { background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; }
         .canvas-tools .color-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid rgba(255,255,255,0.1);
             padding: 0;
             min-width: unset;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
         }
-        .canvas-tools .color-btn.active { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+        .canvas-tools .color-btn.active { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.2), 0 2px 0 rgba(0,0,0,0.2); }
         .canvas-examples {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: 14px;
         }
         .canvas-examples button {
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 40px;
-            background: rgba(60, 42, 31, 0.1);
-            border: 1px solid rgba(60, 42, 31, 0.1);
-            color: #6b5a4a;
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            color: #f5e6d3;
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             cursor: pointer;
             transition: 0.15s;
         }
-        .canvas-examples button:hover { background: rgba(60, 42, 31, 0.15); border-color: #c8aa6e; }
+        .canvas-examples button:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 215, 0, 0.12); }
         .quality-bar {
-            background: #2c2118;
-            height: 8px;
+            background: rgba(30, 25, 20, 0.5);
+            height: 10px;
             border-radius: 10px;
-            margin: 12px auto;
-            max-width: 300px;
+            margin: 14px auto;
+            max-width: 350px;
             overflow: hidden;
         }
         .quality-fill { height: 100%; background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71); width: 0%; transition: width 0.5s ease; }
-        .quality-text { font-size: 0.8rem; color: #8b7355; margin-top: 4px; }
+        .quality-text { font-size: 1rem; color: #d4c9a6; margin-top: 6px; font-weight: 500; }
 
         /* ===== АНИМАЦИИ ===== */
         @keyframes fadeIn {
@@ -446,13 +517,18 @@
 
         /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 600px) {
-            body { padding: 8px; }
-            .phrase-card { padding: 14px 16px; flex-direction: column; align-items: stretch; }
-            .phrase-card .chinese { font-size: clamp(2rem, 8vw, 2.8rem); }
+            body { padding: 6px; }
+            .phrase-card { padding: 16px 18px; flex-direction: column; align-items: stretch; }
+            .phrase-card .chinese { font-size: clamp(2.2rem, 9vw, 3.2rem); }
             .phrase-card .actions { align-self: flex-end; }
-            .nav-bar { padding: 8px 12px; }
-            .stats-bar { gap: 6px; padding: 8px 12px; }
-            .stats-bar span { font-size: 0.7rem; }
+            .nav-bar { padding: 10px 14px; }
+            .nav-bar .back-btn, .nav-bar .notebook-link { padding: 8px 16px; font-size: 0.85rem; }
+            .stats-bar { gap: 8px; padding: 10px 14px; }
+            .stats-bar span { font-size: 0.75rem; }
+            .tab-btn { padding: 8px 16px; font-size: 0.8rem; }
+            .dialog-line { flex-direction: column; gap: 2px; }
+            .dialog-line .cn { font-size: 1.1rem; }
+            .canvas-wrapper canvas { max-width: 100%; }
         }
     </style>
 </head>
@@ -472,12 +548,14 @@
         <span>📄 Всего: <strong id="totalCount">0</strong></span>
         <span>🔴 Красная книга: <strong id="redCount">0</strong></span>
         <span>🔵 Аналоги: <strong id="analogCount">0</strong></span>
+        <span>💬 Диалогов: <strong id="dialogCount">0</strong></span>
         <span>📓 В тетради: <strong id="notebookCount">0</strong></span>
     </div>
 
     <!-- ===== ВКЛАДКИ ===== -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="groups">📚 Группы</button>
+        <button class="tab-btn" data-tab="dialogues">💬 Диалоги</button>
         <button class="tab-btn" data-tab="notebook">📓 Тетрадь</button>
         <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
     </div>
@@ -495,6 +573,13 @@
             <button data-cat="work">💼 Работа</button>
         </div>
         <div id="groupsContainer"></div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- ВКЛАДКА: ДИАЛОГИ -->
+    <!-- ========================================================== -->
+    <div class="tab-content" id="tab-dialogues">
+        <div id="dialoguesContainer"></div>
     </div>
 
     <!-- ========================================================== -->
@@ -520,7 +605,7 @@
                 <button class="clear-btn" id="canvasClear">🧽 Очистить</button>
                 <button class="trace-btn" id="canvasTrace">👁️ Показать образец</button>
                 <button class="check-btn" id="canvasCheck">✅ Проверить</button>
-                <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
+                <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
                     <button class="color-btn active" data-color="#1a1a1a" style="background:#1a1a1a;"></button>
                     <button class="color-btn" data-color="#c0392b" style="background:#c0392b;"></button>
                     <button class="color-btn" data-color="#d4a017" style="background:#d4a017;"></button>
@@ -547,6 +632,7 @@
 // ============================================================
 
 let allPhrases = [];
+let allDialogues = [];
 let notebook = JSON.parse(localStorage.getItem('chinese_redbook_notebook') || '[]');
 
 if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookData.length > 0) {
@@ -559,7 +645,16 @@ if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookD
     allPhrases = window.redBookData;
 }
 
+if (typeof redBookDialogues !== 'undefined' && Array.isArray(redBookDialogues) && redBookDialogues.length > 0) {
+    allDialogues = redBookDialogues;
+} else if (typeof window.redBookDialogues !== 'undefined' && Array.isArray(window.redBookDialogues) && window.redBookDialogues.length > 0) {
+    allDialogues = window.redBookDialogues;
+} else if (typeof dialogues !== 'undefined' && Array.isArray(dialogues) && dialogues.length > 0) {
+    allDialogues = dialogues;
+}
+
 console.log("📄 Всего фраз:", allPhrases.length);
+console.log("💬 Всего диалогов:", allDialogues.length);
 
 // ============================================================
 // 2. ГРУППЫ
@@ -596,6 +691,7 @@ function renderGroups() {
     document.getElementById('totalCount').textContent = allPhrases.length;
     document.getElementById('redCount').textContent = allPhrases.filter(p => p.red !== false).length;
     document.getElementById('analogCount').textContent = allPhrases.filter(p => p.red === false).length;
+    document.getElementById('dialogCount').textContent = allDialogues.length;
     document.getElementById('notebookCount').textContent = notebook.length;
 
     let html = '';
@@ -645,7 +741,7 @@ function renderGroups() {
                         <div class="translation">${p.translation}</div>
                         <div class="tags">
                             <span class="tag category">📂 ${p.category}</span>
-                            ${isRed ? '<span class="tag" style="color:#c0392b;">🔴 Красная книга</span>' : '<span class="tag" style="color:#2980b9;">🔵 Аналог</span>'}
+                            ${isRed ? '<span class="tag" style="color:#ff6b6b;">🔴 Красная книга</span>' : '<span class="tag" style="color:#6ea8fe;">🔵 Аналог</span>'}
                         </div>
                     </div>
                     <div class="actions">
@@ -665,7 +761,7 @@ function renderGroups() {
     }
 
     if (visibleGroups === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:#8b7355;font-size:1.1rem;">🔍 Ничего не найдено</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#b8956a;font-size:1.2rem;">🔍 Ничего не найдено</div>`;
         return;
     }
 
@@ -690,7 +786,56 @@ function renderGroups() {
 }
 
 // ============================================================
-// 3. ТЕТРАДЬ
+// 3. ДИАЛОГИ
+// ============================================================
+
+function renderDialogues() {
+    const container = document.getElementById('dialoguesContainer');
+    if (allDialogues.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#b8956a;font-size:1.2rem;">💬 Диалогов пока нет</div>`;
+        return;
+    }
+
+    let html = '';
+    for (const d of allDialogues) {
+        let phrasesHtml = '';
+        if (d.phrases && d.phrases.length > 0) {
+            phrasesHtml = d.phrases.map(p => {
+                const isRed = allPhrases.some(fp => fp.chinese === p && fp.red !== false);
+                return `<span class="dp ${isRed ? 'red' : ''}">${p}</span>`;
+            }).join(' ');
+        }
+
+        let linesHtml = '';
+        for (const line of d.lines) {
+            const safeChinese = line.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            linesHtml += `
+                <div class="dialog-line">
+                    <span class="sp">${line.speaker}</span>
+                    <span class="cn" onclick="speakChinese('${safeChinese}')">${line.chinese}</span>
+                    <span class="py">${line.pinyin}</span>
+                    <span class="ru">— ${line.russian}</span>
+                </div>
+            `;
+        }
+
+        const fullText = d.lines.map(l => l.chinese).join('。');
+        const safeFull = fullText.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+        html += `
+            <div class="dialog-card">
+                <div class="dialog-title">💬 ${d.title}</div>
+                ${phrasesHtml ? `<div class="dialog-phrases">📌 Фразы: ${phrasesHtml}</div>` : ''}
+                ${linesHtml}
+                <button class="dialog-speak-btn" onclick="speakChinese('${safeFull}')">🔊 Весь диалог</button>
+            </div>
+        `;
+    }
+    container.innerHTML = html;
+}
+
+// ============================================================
+// 4. ТЕТРАДЬ
 // ============================================================
 
 function toggleNotebook(char, pinyin, translation) {
@@ -720,8 +865,8 @@ function renderNotebook() {
         html += `
             <div class="notebook-item">
                 <span class="char" onclick="speakChinese('${safeChar}')">${item.char}</span>
-                <span class="info">${item.pinyin || ''} — ${item.translation || ''}</span>
-                <div style="display:flex;gap:6px;align-items:center;">
+                <span class="info"><span class="pinyin">${item.pinyin || ''}</span> — ${item.translation || ''}</span>
+                <div style="display:flex;gap:8px;align-items:center;">
                     <button class="speak-mini" onclick="speakChinese('${safeChar}')">🔊</button>
                     <button class="remove-btn" onclick="toggleNotebook('${safeChar}')">✖</button>
                 </div>
@@ -733,14 +878,14 @@ function renderNotebook() {
 
 function showToast(msg) {
     const t = document.createElement('div');
-    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:50px;z-index:3000;font-size:15px;box-shadow:0 5px 20px rgba(0,0,0,0.3);font-weight:600;';
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:14px 28px;border-radius:50px;z-index:3000;font-size:1.1rem;font-weight:600;box-shadow:0 5px 20px rgba(0,0,0,0.3);';
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 2000);
 }
 
 // ============================================================
-// 4. ОЗВУЧКА
+// 5. ОЗВУЧКА
 // ============================================================
 
 let chineseVoice = null;
@@ -768,13 +913,13 @@ function speakChinese(text) {
 window.speakChinese = speakChinese;
 
 // ============================================================
-// 5. КАЛЛИГРАФИЯ
+// 6. КАЛЛИГРАФИЯ (с толстой кистью)
 // ============================================================
 
 const canvasConfig = {
     size: 500,
     padding: 28,
-    brushWidth: 14,
+    brushWidth: 16,
     exampleOpacity: 0.3,
     gridColor: '#b8956a',
     gridColorCenter: '#d4b896',
@@ -863,10 +1008,10 @@ function setupDrawing(canvas) {
         lastX = p.x;
         lastY = p.y;
         lastTime = performance.now();
-        lastWidth = canvasConfig.brushWidth * 0.7;
+        lastWidth = canvasConfig.brushWidth * 0.6;
         saveCanvasState();
         ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 1;
+        ctx.shadowBlur = 1.5;
         ctx.shadowColor = currentColor;
         ctx.beginPath();
         ctx.arc(p.x, p.y, lastWidth / 2, 0, Math.PI * 2);
@@ -887,15 +1032,15 @@ function setupDrawing(canvas) {
         strokeLen += dist;
 
         const pressureFactor = 0.3 + p.pressure * 0.7;
-        const speedFactor = Math.max(0.15, 1 - (speed / 1.2));
+        const speedFactor = Math.max(0.12, 1 - (speed / 1.2));
         let targetW = canvasConfig.brushWidth * pressureFactor * speedFactor;
-        if (strokeLen < 20) targetW *= (0.6 + 0.4 * (strokeLen / 20));
-        targetW = Math.max(3, Math.min(canvasConfig.brushWidth * 1.6, targetW));
-        const newW = lastWidth * 0.7 + targetW * 0.3;
+        if (strokeLen < 18) targetW *= (0.5 + 0.5 * (strokeLen / 18));
+        targetW = Math.max(2.5, Math.min(canvasConfig.brushWidth * 1.8, targetW));
+        const newW = lastWidth * 0.65 + targetW * 0.35;
 
         ctx.save();
         ctx.fillStyle = currentColor;
-        ctx.shadowBlur = 0.5;
+        ctx.shadowBlur = 0.8;
         ctx.shadowColor = currentColor;
 
         const steps = Math.max(1, Math.floor(dist / 2));
@@ -923,11 +1068,11 @@ function setupDrawing(canvas) {
         ctx.save();
         ctx.fillStyle = currentColor;
         ctx.shadowBlur = 0;
-        for (let i = 1; i <= 8; i++) {
-            const t = i / 8;
-            const tw = lastWidth * Math.pow(1 - t, 1.5);
+        for (let i = 1; i <= 10; i++) {
+            const t = i / 10;
+            const tw = lastWidth * Math.pow(1 - t, 1.6);
             ctx.beginPath();
-            ctx.ellipse(lastX + Math.cos(angle) * t * 4, lastY + Math.sin(angle) * t * 4, tw/2, tw/3, angle, 0, Math.PI*2);
+            ctx.ellipse(lastX + Math.cos(angle) * t * 5, lastY + Math.sin(angle) * t * 5, tw/2, tw/3.5, angle, 0, Math.PI*2);
             ctx.fill();
         }
         ctx.restore();
@@ -954,11 +1099,12 @@ function clearCanvas() {
     canvasRefData = null;
     exampleVisible = false;
     document.getElementById('qFill').style.width = '0%';
-    document.getElementById('qText').textContent = '🖌️ Очищено';
+    document.getElementById('qText').textContent = '🧽 Очищено';
     document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
 }
 
 function showExample(char) {
+    clearCanvas();
     const size = canvasConfig.size;
     const inner = size - canvasConfig.padding * 2;
     ctx.save();
@@ -972,6 +1118,7 @@ function showExample(char) {
     canvasRefData = ctx.getImageData(0, 0, size, size);
     exampleVisible = true;
     document.getElementById('canvasTrace').textContent = '🙈 Скрыть образец';
+    document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
 }
 
 function hideExample() {
@@ -982,6 +1129,7 @@ function hideExample() {
     canvasRefData = null;
     exampleVisible = false;
     document.getElementById('canvasTrace').textContent = '👁️ Показать образец';
+    document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы каллиграфической кистью';
 }
 
 function checkQuality() {
@@ -1025,7 +1173,7 @@ function checkQuality() {
 }
 
 // ============================================================
-// 6. ВКЛАДКИ
+// 7. ВКЛАДКИ
 // ============================================================
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1036,12 +1184,13 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
         document.getElementById('tab-' + tabName).classList.add('active');
         if (tabName === 'notebook') renderNotebook();
+        if (tabName === 'dialogues') renderDialogues();
         if (tabName === 'canvas') setTimeout(initCanvas, 50);
     });
 });
 
 // ============================================================
-// 7. СОБЫТИЯ
+// 8. СОБЫТИЯ
 // ============================================================
 
 document.getElementById('searchInput').addEventListener('input', function() {
@@ -1068,7 +1217,7 @@ document.getElementById('notebookNav').addEventListener('click', function(e) {
 });
 
 // ============================================================
-// 8. КАНВАС — СОБЫТИЯ
+// 9. КАНВАС — СОБЫТИЯ
 // ============================================================
 
 document.getElementById('canvasClear').addEventListener('click', clearCanvas);
@@ -1096,22 +1245,23 @@ document.querySelectorAll('.color-btn').forEach(btn => {
 
 document.querySelectorAll('#canvasExamples button').forEach(btn => {
     btn.addEventListener('click', function() {
-        clearCanvas();
         showExample(this.dataset.char);
     });
 });
 
 // ============================================================
-// 9. СТАРТ
+// 10. СТАРТ
 // ============================================================
 
 setTimeout(() => {
     renderGroups();
+    renderDialogues();
     renderNotebook();
     setTimeout(initCanvas, 100);
 }, 200);
 
 console.log("✅ Красная книга загружена! Фраз:", allPhrases.length);
+console.log("💬 Диалогов:", allDialogues.length);
 </script>
 
 </body>
