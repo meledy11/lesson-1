@@ -497,6 +497,49 @@
             color: #A64B2A;
             font-size: 0.8rem;
         }
+        
+        /* ===== СТИЛИ ДЛЯ КРАСНОЙ КНИГИ ===== */
+        .redbook-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-left: 5px solid #dc2626;
+            transition: 0.2s;
+        }
+        .redbook-card:hover { transform: translateX(4px); }
+        .redbook-card .chinese {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .redbook-card .chinese span { cursor: pointer; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(255,255,255,0.5); }
+        .redbook-card .pinyin { color: #888; font-size: 1rem; margin: 0.2rem 0 0.3rem; }
+        .redbook-card .translation { color: #1a1a1a; font-size: 1.1rem; }
+        .redbook-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+        .redbook-card .tags .tag { font-size: 0.7rem; padding: 2px 12px; border-radius: 12px; }
+        .redbook-card .tags .tag.category { background: #dbeafe; color: #1d4ed8; }
+        .redbook-card .tags .tag.red-tag { background: #fecaca; color: #991b1b; }
+        .redbook-card .tags .tag.analog-tag { background: #dbeafe; color: #1d4ed8; }
+        .redbook-speak-btn {
+            background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #C16F1A;
+            transition: 0.1s;
+            margin-top: 0.5rem;
+        }
+        .redbook-speak-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #C16F1A; }
+        .redbook-empty { text-align: center; padding: 2rem; color: #999; }
     </style>
     <meta name="theme-color" content="#FF6B35">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -518,19 +561,19 @@
             <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой | 🔑 Ключи 🎧</p>
         </div>
         
-    <div class="tabs-nav">
-    <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
-    <button class="tab-btn" data-tab="games">🎮 Игры</button>
-    <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
-    <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
-    <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
-    <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
-    <button class="tab-btn" data-tab="texts">📖 Тексты</button>
-    <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
-    <!-- ===== ССЫЛКА НА КРАСНУЮ КНИГУ ===== -->
-    <a href="redphrases.html" class="tab-btn" style="text-decoration:none; display:inline-block; background:linear-gradient(135deg,#dc2626,#b91c1c); color:white; border-color:#dc2626;">📕 Красная книга</a>
-    <button class="tab-btn" data-tab="magic">🪄 Волшебство</button>
-</div>
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+            <button class="tab-btn" data-tab="games">🎮 Игры</button>
+            <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
+            <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
+            <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
+            <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
+            <button class="tab-btn" data-tab="texts">📖 Тексты</button>
+            <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
+            <button class="tab-btn" data-tab="redbook">📕 Красная книга</button>
+            <button class="tab-btn" data-tab="magic">🪄 Волшебство</button>
+        </div>
+        
         <!-- ВКЛАДКА: УРОКИ -->
         <div class="tab-content active" id="tab-lessons">
             <div class="speak-tip">🌟 Выбери урок и начинай учить иероглифы с удовольствием! 🌟</div>
@@ -540,7 +583,6 @@
                     <p>Самые нужные иероглифы с разбором, проверкой пиньиня и рисовалкой</p>
                     <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #E67E22;">🎯 127 слов + разбор на части</div>
                 </a>
-                <!-- ===== НОВАЯ КАРТОЧКА: ВОПРОСИТЕЛЬНЫЕ СЛОВА ===== -->
                 <a href="question-words.html" class="lesson-card">
                     <h2>❓ Все вопросительные слова</h2>
                     <p>8 пар сравнений + 12 счётных слов + 2 игры + Правила порядка слов</p>
@@ -670,73 +712,74 @@
         </div>
         
         <!-- ВКЛАДКА: ТЕКСТЫ С ОЗВУЧКОЙ -->
-<div class="tab-content" id="tab-texts">
-    <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
-    <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
-    <div class="texts-grid" id="textsContainer"></div>
-</div>
+        <div class="tab-content" id="tab-texts">
+            <div class="speak-tip">🌟 Нажми на иероглиф — услышишь произношение. Нажми на кнопку "🔊 Весь текст" — озвучится вся история! 🌟</div>
+            <div class="lesson-selector-texts" id="lessonSelectorTexts"></div>
+            <div class="texts-grid" id="textsContainer"></div>
+        </div>
 
-<!-- Вкладка: ВОЛШЕБНАЯ ТЕТРАДЬ -->
-<div class="tab-content" id="tab-magic">
-    <div class="speak-tip" style="background:linear-gradient(135deg,#2d1b0e,#1a0f08); border:3px solid #FFD700; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,0.2);">
-        🪄 Волшебная тетрадь — иероглифы оживают! Нажми на кнопку ниже, чтобы начать магию ✨
-    </div>
-    
-    <div class="keys-preview" style="background:linear-gradient(135deg,#1a0f08,#2d1b0e); border-color:#FFD700;">
-        <div class="big-icon">🪄</div>
-        <h2 style="color:#FFD700;">Волшебная тетрадь</h2>
-        <p style="color:#b8956a;">
-            ✨ Смотри, как иероглиф оживает!<br>
-            Обводи его волшебной палочкой — запоминай быстрее!<br>
-            🎈 Эмодзи, 🔊 звуки, 📝 пиньинь и перевод
-        </p>
-        <a href="magic.html" class="go-btn" style="background:linear-gradient(135deg,#FFD700,#FFA000); color:#2d1b0e; box-shadow:0 6px 0 #E6A100;">
-            🪄 Открыть волшебство
-        </a>
-        <div class="stats-mini" style="color:#b8956a;">
-            🌟 Изучай иероглифы как настоящий волшебник!
+        <!-- ВКЛАДКА: ВОЛШЕБНАЯ ТЕТРАДЬ -->
+        <div class="tab-content" id="tab-magic">
+            <div class="speak-tip" style="background:linear-gradient(135deg,#2d1b0e,#1a0f08); border:3px solid #FFD700; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,0.2);">
+                🪄 Волшебная тетрадь — иероглифы оживают! Нажми на кнопку ниже, чтобы начать магию ✨
+            </div>
+            
+            <div class="keys-preview" style="background:linear-gradient(135deg,#1a0f08,#2d1b0e); border-color:#FFD700;">
+                <div class="big-icon">🪄</div>
+                <h2 style="color:#FFD700;">Волшебная тетрадь</h2>
+                <p style="color:#b8956a;">
+                    ✨ Смотри, как иероглиф оживает!<br>
+                    Обводи его волшебной палочкой — запоминай быстрее!<br>
+                    🎈 Эмодзи, 🔊 звуки, 📝 пиньинь и перевод
+                </p>
+                <a href="magic.html" class="go-btn" style="background:linear-gradient(135deg,#FFD700,#FFA000); color:#2d1b0e; box-shadow:0 6px 0 #E6A100;">
+                    🪄 Открыть волшебство
+                </a>
+                <div class="stats-mini" style="color:#b8956a;">
+                    🌟 Изучай иероглифы как настоящий волшебник!
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<!-- ВКЛАДКА: КРАСНАЯ КНИГА -->
-<div class="tab-content" id="tab-redbook">
-    <div class="speak-tip">📕 Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой 🔴</div>
-    
-    <div style="background:white; border-radius:30px; padding:1.5rem; border:3px solid #FFB347; box-shadow:0 10px 0 #D98F33; margin-bottom:1rem;">
-        <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:1rem;">
-            <button class="filter-btn active" data-filter="all" style="background:linear-gradient(135deg,#FF6B35,#FF8C42); color:white; border-color:#FF6B35;">📚 Все</button>
-            <button class="filter-btn" data-filter="phrase" style="background:white; border:2px solid #FFB347;">📄 Фразы</button>
-            <button class="filter-btn" data-filter="food" style="background:white; border:2px solid #FFB347;">🍜 Еда</button>
-            <button class="filter-btn" data-filter="travel" style="background:white; border:2px solid #FFB347;">✈️ Путешествия</button>
-            <button class="filter-btn" data-filter="work" style="background:white; border:2px solid #FFB347;">💼 Работа</button>
-        </div>
-        
-        <div class="search-box" style="margin-bottom:0.5rem;">
-            <input type="text" id="redbookSearch" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." style="flex:1; padding:0.8rem 1rem; border:none; border-radius:50px; font-size:1rem; outline:none; font-family:inherit;">
-        </div>
-        
-        <div class="stats-info" id="redbookStats">📊 Всего: 0 фраз | 🔴 Красная книга: 0</div>
-        
-        <div id="redbookResults" style="max-height:600px; overflow-y:auto;">
-            <div style="text-align:center; padding:2rem; color:#8B5A2B;">📖 Загрузка фраз...</div>
-        </div>
-    </div>
-</div>
-<!-- ВКЛАДКА: КЛЮЧИ -->
-<div class="tab-content" id="tab-keys">
-    <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
-    <div class="keys-preview">
-        <div class="big-icon">🔑</div>
-        <h2>Все ключи китайского</h2>
-        <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
-        Нажимай на иероглифы — слушай произношение!</p>
-        <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
-        <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
-    </div>
-</div>
 
-<footer>
-   
+        <!-- ВКЛАДКА: КРАСНАЯ КНИГА -->
+        <div class="tab-content" id="tab-redbook">
+            <div class="speak-tip">📕 Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой 🔴</div>
+            
+            <div style="background:white; border-radius:30px; padding:1.5rem; border:3px solid #FFB347; box-shadow:0 10px 0 #D98F33; margin-bottom:1rem;">
+                <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:1rem;">
+                    <button class="filter-btn active" data-filter="all" style="background:linear-gradient(135deg,#FF6B35,#FF8C42); color:white; border-color:#FF6B35;">📚 Все</button>
+                    <button class="filter-btn" data-filter="phrase" style="background:white; border:2px solid #FFB347;">📄 Фразы</button>
+                    <button class="filter-btn" data-filter="food" style="background:white; border:2px solid #FFB347;">🍜 Еда</button>
+                    <button class="filter-btn" data-filter="travel" style="background:white; border:2px solid #FFB347;">✈️ Путешествия</button>
+                    <button class="filter-btn" data-filter="work" style="background:white; border:2px solid #FFB347;">💼 Работа</button>
+                </div>
+                
+                <div class="search-box" style="margin-bottom:0.5rem;">
+                    <input type="text" id="redbookSearch" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." style="flex:1; padding:0.8rem 1rem; border:none; border-radius:50px; font-size:1rem; outline:none; font-family:inherit;">
+                </div>
+                
+                <div class="stats-info" id="redbookStats">📊 Всего: 0 фраз | 🔴 Красная книга: 0</div>
+                
+                <div id="redbookResults" style="max-height:600px; overflow-y:auto;">
+                    <div style="text-align:center; padding:2rem; color:#8B5A2B;">📖 Загрузка фраз...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: КЛЮЧИ -->
+        <div class="tab-content" id="tab-keys">
+            <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
+            <div class="keys-preview">
+                <div class="big-icon">🔑</div>
+                <h2>Все ключи китайского</h2>
+                <p>Более 40 ключей и 230+ слов сгруппированы по радикалам.<br>
+                Нажимай на иероглифы — слушай произношение!</p>
+                <a href="keys.html" class="go-btn">🚀 Перейти к ключам</a>
+                <div class="stats-mini" id="keysStats">📊 Загрузка статистики...</div>
+            </div>
+        </div>
+
+        <footer>
             🌟 Нажимай на иероглифы — слушай произношение! 🀄 Играй в маджонг для запоминания ключей! 🔑 Учи слова по ключам — запоминай быстрее! 📖 Тексты с озвучкой! ❓ Учи вопросительные слова!
         </footer>
     </div>
@@ -746,6 +789,8 @@
     <script src="phrases-db.js"></script>
     <script src="texts-db.js"></script>
     <script src="keys-data.js"></script>
+    <!-- ===== ПОДКЛЮЧАЕМ КРАСНУЮ КНИГУ ===== -->
+    <script src="redphrases.js"></script>
     
     <script>
         let deferredPrompt = null;
@@ -780,6 +825,7 @@
                 if (tabName === 'dictionary') { updateStats(); searchDictionary(); }
                 if (tabName === 'texts' && typeof TEXTS_DB !== 'undefined') { renderTextsViewer(); }
                 if (tabName === 'keys') { updateKeysStats(); }
+                if (tabName === 'redbook') { setTimeout(renderRedbook, 100); }
             });
         });
         
@@ -963,6 +1009,136 @@
                 statsDiv.innerHTML = '📊 Загрузка... (убедитесь, что keys-data.js загружен)';
             }
         }
+        
+        // ============================================================
+        // КРАСНАЯ КНИГА — логика для вкладки
+        // ============================================================
+
+        let currentFilter = 'all';
+        let redbookSearchQuery = '';
+
+        function renderRedbook() {
+            const container = document.getElementById('redbookResults');
+            const statsDiv = document.getElementById('redbookStats');
+            
+            // Проверяем массив — ищем по разным именам
+            let phrases = null;
+            if (typeof redBookData !== 'undefined' && Array.isArray(redBookData) && redBookData.length > 0) {
+                phrases = redBookData;
+            } else if (typeof allPhrases !== 'undefined' && Array.isArray(allPhrases) && allPhrases.length > 0) {
+                phrases = allPhrases;
+            } else if (typeof redPhrases !== 'undefined' && Array.isArray(redPhrases) && redPhrases.length > 0) {
+                phrases = redPhrases;
+            } else if (typeof window.redBookData !== 'undefined' && Array.isArray(window.redBookData) && window.redBookData.length > 0) {
+                phrases = window.redBookData;
+            } else if (typeof window.allPhrases !== 'undefined' && Array.isArray(window.allPhrases) && window.allPhrases.length > 0) {
+                phrases = window.allPhrases;
+            }
+            
+            if (!phrases || phrases.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:2rem; color:#dc2626; background:#fef2f2; border-radius:16px; border:2px solid #dc2626;">
+                        ❌ Массив не загружен!
+                        <div style="color:#666; font-size:14px; margin-top:10px;">
+                            Проверь, что файл <strong>redphrases.js</strong> лежит в той же папке.<br>
+                            И что в нём есть массив с именем <strong>redBookData</strong> или <strong>allPhrases</strong>.
+                        </div>
+                    </div>
+                `;
+                statsDiv.innerHTML = '📊 Ошибка загрузки';
+                return;
+            }
+            
+            // Фильтрация
+            let filtered = phrases.filter(p => {
+                if (currentFilter !== 'all' && p.category !== currentFilter) return false;
+                const q = redbookSearchQuery.trim().toLowerCase();
+                if (q) {
+                    const inChinese = p.chinese.includes(q);
+                    const inPinyin = p.pinyin.toLowerCase().includes(q);
+                    const inTranslation = p.translation.toLowerCase().includes(q);
+                    if (!inChinese && !inPinyin && !inTranslation) return false;
+                }
+                return true;
+            });
+            
+            // Статистика
+            const total = phrases.length;
+            const redTotal = phrases.filter(p => p.red === true).length;
+            const analogTotal = phrases.filter(p => p.red === false).length;
+            statsDiv.innerHTML = `📊 Всего: ${total} фраз | 🔴 Красная книга: ${redTotal} | 🔵 Аналоги: ${analogTotal} | 🔍 Найдено: ${filtered.length}`;
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:2rem; color:#999;">😕 Ничего не найдено</div>';
+                return;
+            }
+            
+            let html = '';
+            for (const p of filtered) {
+                const isRed = p.red === true;
+                const borderColor = isRed ? '#dc2626' : '#3b82f6';
+                const bgColor = isRed ? '#fef2f2' : '#f0f7ff';
+                const badge = isRed 
+                    ? '<span style="background:#dc2626; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔴 Красная книга</span>' 
+                    : '<span style="background:#3b82f6; color:white; font-size:10px; font-weight:700; padding:2px 12px; border-radius:12px; margin-left:8px;">🔵 Аналог</span>';
+                const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                
+                html += `
+                    <div class="redbook-card" style="border-left-color:${borderColor}; background:${bgColor};">
+                        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+                            <div>
+                                <div class="chinese">
+                                    <span onclick="speakChinese('${safeChinese}')">${p.chinese}</span>
+                                    ${badge}
+                                </div>
+                                <div class="pinyin">${p.pinyin}</div>
+                                <div class="translation">${p.translation}</div>
+                                <div class="tags">
+                                    <span class="tag category">📂 ${p.category}</span>
+                                    ${isRed ? '<span class="tag red-tag">🔴 Красная книга</span>' : '<span class="tag analog-tag">🔵 Аналог</span>'}
+                                </div>
+                            </div>
+                            <button class="redbook-speak-btn" onclick="speakChinese('${safeChinese}')">🔊</button>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // ===== СОБЫТИЯ ДЛЯ КРАСНОЙ КНИГИ =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Фильтры
+            document.querySelectorAll('#tab-redbook .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#tab-redbook .filter-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = 'white';
+                        b.style.color = '#A64B2A';
+                        b.style.borderColor = '#FFB347';
+                    });
+                    this.classList.add('active');
+                    this.style.background = 'linear-gradient(135deg,#FF6B35,#FF8C42)';
+                    this.style.color = 'white';
+                    this.style.borderColor = '#FF6B35';
+                    currentFilter = this.dataset.filter;
+                    renderRedbook();
+                });
+            });
+            
+            // Поиск
+            document.getElementById('redbookSearch')?.addEventListener('input', function() {
+                redbookSearchQuery = this.value;
+                renderRedbook();
+            });
+        });
+
+        // Первый рендер при загрузке
+        setTimeout(() => {
+            if (document.getElementById('tab-redbook').classList.contains('active')) {
+                renderRedbook();
+            }
+        }, 300);
         
         // ===== ИНИЦИАЛИЗАЦИЯ =====
         setTimeout(() => {
