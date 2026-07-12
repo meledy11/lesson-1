@@ -351,15 +351,18 @@
         let allPhrases = [];
 
         // Проверяем все возможные имена массива
-        if (typeof allPhrases !== "undefined" && Array.isArray(allPhrases) && allPhrases.length > 0) {
+        if (typeof window.allPhrases !== "undefined" && Array.isArray(window.allPhrases) && window.allPhrases.length > 0) {
+            allPhrases = window.allPhrases;
+            console.log("✅ Загружен массив window.allPhrases, фраз:", allPhrases.length);
+        } else if (typeof allPhrases !== "undefined" && Array.isArray(allPhrases) && allPhrases.length > 0) {
             // Уже есть глобальный allPhrases — используем его
             console.log("✅ Используем глобальный allPhrases, фраз:", allPhrases.length);
         } else if (typeof redPhrases !== "undefined" && Array.isArray(redPhrases) && redPhrases.length > 0) {
             allPhrases = redPhrases;
             console.log("✅ Загружен массив redPhrases, фраз:", allPhrases.length);
-        } else if (typeof window.allPhrases !== "undefined" && Array.isArray(window.allPhrases) && window.allPhrases.length > 0) {
-            allPhrases = window.allPhrases;
-            console.log("✅ Загружен массив window.allPhrases, фраз:", allPhrases.length);
+        } else if (typeof window.redPhrases !== "undefined" && Array.isArray(window.redPhrases) && window.redPhrases.length > 0) {
+            allPhrases = window.redPhrases;
+            console.log("✅ Загружен массив window.redPhrases, фраз:", allPhrases.length);
         } else {
             console.error("❌ Массив не найден! Проверь файл redphrases.js");
             document.getElementById('phraseList').innerHTML = `
