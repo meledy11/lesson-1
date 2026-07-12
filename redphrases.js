@@ -1,10 +1,10 @@
 // ============================================================
 // redphrases.js — ПОЛНАЯ КРАСНАЯ КНИГА + АНАЛОГИ + ДИАЛОГИ
-// Все фразы из переписки (101 шт.) + аналоги (138 шт.) + 8 диалогов
+// Все фразы из переписки + аналоги + 8 диалогов
 // ============================================================
 
 // ============================================================
-// 1. ВСЕ ФРАЗЫ (КРАСНАЯ КНИГА) — 101 шт.
+// 1. ВСЕ ФРАЗЫ (КРАСНАЯ КНИГА) — 119 шт.
 // ============================================================
 
 const redBookData = [
@@ -146,7 +146,40 @@ const redBookData = [
     { id: 101, chinese: "谢谢款待", pinyin: "xiè xie kuǎn dài", translation: "Спасибо за угощение", category: "food", red: true },
 
     // ============================================================
-    // 19. АНАЛОГИ (red: false) — 138 шт.
+    // 19. НОВЫЕ ФРАЗЫ ИЗ ПЕРЕПИСКИ (добавлены позже)
+    // ============================================================
+    { id: 240, chinese: "多少钱？", pinyin: "duō shao qián?", translation: "Сколько стоит?", category: "travel", red: true },
+    { id: 241, chinese: "快点", pinyin: "kuài diǎn", translation: "Быстрее / Поторопись", category: "phrase", red: true },
+    { id: 242, chinese: "等一会儿", pinyin: "děng yī huìr", translation: "Подожди немного", category: "phrase", red: true },
+    { id: 243, chinese: "好久不见", pinyin: "hǎo jiǔ bù jiàn", translation: "Давно не виделись", category: "phrase", red: true },
+    { id: 244, chinese: "沟通", pinyin: "gōu tōng", translation: "Общаться / Коммуникация", category: "phrase", red: true },
+    { id: 245, chinese: "联系", pinyin: "lián xì", translation: "Связь / Контакт", category: "phrase", red: true },
+    { id: 246, chinese: "确认", pinyin: "què rèn", translation: "Подтвердить", category: "phrase", red: true },
+    { id: 251, chinese: "邮件", pinyin: "yóu jiàn", translation: "Электронная почта / Письмо", category: "phrase", red: true },
+    { id: 252, chinese: "马上", pinyin: "mǎ shàng", translation: "Сейчас / Немедленно", category: "phrase", red: true },
+    { id: 253, chinese: "发送", pinyin: "fā sòng", translation: "Отправить", category: "phrase", red: true },
+    { id: 254, chinese: "推迟", pinyin: "tuī chí", translation: "Отложить / Перенести", category: "phrase", red: true },
+    { id: 259, chinese: "安排", pinyin: "ān pái", translation: "Организовать / Устроить", category: "phrase", red: true },
+    { id: 260, chinese: "很慢", pinyin: "hěn màn", translation: "Очень медленно", category: "phrase", red: true },
+    { id: 263, chinese: "提前", pinyin: "tí qián", translation: "Заранее / Заблаговременно", category: "phrase", red: true },
+    { id: 264, chinese: "尽快", pinyin: "jǐn kuài", translation: "Как можно скорее", category: "phrase", red: true },
+    { id: 267, chinese: "议程", pinyin: "yì chéng", translation: "Повестка дня / Программа", category: "phrase", red: true },
+    { id: 268, chinese: "主持", pinyin: "zhǔ chí", translation: "Ведущий / Руководить", category: "phrase", red: true },
+    { id: 269, chinese: "准时", pinyin: "zhǔn shí", translation: "Вовремя / Пунктуально", category: "phrase", red: true },
+    { id: 273, chinese: "记录", pinyin: "jì lù", translation: "Записывать / Запись", category: "phrase", red: true },
+    { id: 274, chinese: "会议", pinyin: "huì yì", translation: "Совещание / Встреча", category: "phrase", red: true },
+    { id: 275, chinese: "开会", pinyin: "kāi huì", translation: "Проводить совещание", category: "phrase", red: true },
+    { id: 279, chinese: "昨天下雨了", pinyin: "zuó tiān xià yǔ le", translation: "Вчера был дождь", category: "travel", red: true },
+    { id: 280, chinese: "明天下雪", pinyin: "míng tiān xià xuě", translation: "Завтра будет снег", category: "travel", red: true },
+    { id: 281, chinese: "阴天", pinyin: "yīn tiān", translation: "Пасмурно / Облачно", category: "travel", red: true },
+    { id: 282, chinese: "今天晴天", pinyin: "jīn tiān qíng tiān", translation: "Сегодня солнечно", category: "travel", red: true },
+    { id: 284, chinese: "大风", pinyin: "dà fēng", translation: "Сильный ветер", category: "travel", red: true },
+    { id: 285, chinese: "雨天", pinyin: "yǔ tiān", translation: "Дождливый день", category: "travel", red: true },
+    { id: 286, chinese: "今天天气怎么样？", pinyin: "jīn tiān tiān qì zěn me yàng?", translation: "Какая сегодня погода?", category: "travel", red: true },
+    { id: 287, chinese: "多云", pinyin: "duō yún", translation: "Облачно", category: "travel", red: true },
+
+    // ============================================================
+    // 20. АНАЛОГИ (red: false)
     // ============================================================
 
     // ---- Аналоги к "我决定了" ----
@@ -422,6 +455,24 @@ const redBookData = [
     // ---- Аналоги к "几点了？" ----
     { id: 238, chinese: "现在几点？", pinyin: "xiànzài jǐ diǎn?", translation: "Который сейчас час?", category: "phrase", red: false },
     { id: 239, chinese: "几点了？", pinyin: "jǐ diǎn le?", translation: "Который час?", category: "phrase", red: false },
+    
+    // ---- Аналоги к новым фразам ----
+    { id: 288, chinese: "交流", pinyin: "jiāo liú", translation: "Общение / Коммуникация", category: "phrase", red: false },
+    { id: 289, chinese: "联络", pinyin: "lián luò", translation: "Связаться", category: "phrase", red: false },
+    { id: 290, chinese: "确定", pinyin: "què dìng", translation: "Определить / Утвердить", category: "phrase", red: false },
+    { id: 291, chinese: "电邮", pinyin: "diàn yóu", translation: "Электронная почта", category: "phrase", red: false },
+    { id: 292, chinese: "立刻", pinyin: "lì kè", translation: "Немедленно", category: "phrase", red: false },
+    { id: 293, chinese: "寄出", pinyin: "jì chū", translation: "Отправить (письмо)", category: "phrase", red: false },
+    { id: 294, chinese: "延期", pinyin: "yán qī", translation: "Перенести / Отложить", category: "phrase", red: false },
+    { id: 295, chinese: "计划", pinyin: "jì huà", translation: "Планировать", category: "phrase", red: false },
+    { id: 296, chinese: "太慢了", pinyin: "tài màn le", translation: "Слишком медленно", category: "phrase", red: false },
+    { id: 297, chinese: "提早", pinyin: "tí zǎo", translation: "Заблаговременно / Пораньше", category: "phrase", red: false },
+    { id: 298, chinese: "赶快", pinyin: "gǎn kuài", translation: "Быстрее / Поторопись", category: "phrase", red: false },
+    { id: 299, chinese: "日程", pinyin: "rì chéng", translation: "Расписание / План", category: "phrase", red: false },
+    { id: 300, chinese: "主持人", pinyin: "zhǔ chí rén", translation: "Ведущий", category: "phrase", red: false },
+    { id: 301, chinese: "按时", pinyin: "àn shí", translation: "Вовремя / Пунктуально", category: "phrase", red: false },
+    { id: 302, chinese: "纪要", pinyin: "jì yào", translation: "Протокол / Конспект", category: "phrase", red: false },
+    { id: 303, chinese: "研讨会", pinyin: "yán tǎo huì", translation: "Семинар / Обсуждение", category: "phrase", red: false },
 ];
 
 // ============================================================
