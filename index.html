@@ -518,17 +518,18 @@
             <p>🎧 Уроки | Игры | Словарь | Слоги | Карточки фраз | Тексты с озвучкой | 🔑 Ключи 🎧</p>
         </div>
         
-        <div class="tabs-nav">
-            <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
-            <button class="tab-btn" data-tab="games">🎮 Игры</button>
-            <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
-            <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
-            <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
-            <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
-            <button class="tab-btn" data-tab="texts">📖 Тексты</button>
-            <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
-            <button class="tab-btn" data-tab="magic">🪄 Волшебство</button>
-        </div>
+    <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="lessons">📖 Уроки</button>
+    <button class="tab-btn" data-tab="games">🎮 Игры</button>
+    <button class="tab-btn" data-tab="dictionary">📚 Словарь</button>
+    <button class="tab-btn" data-tab="syllables">🎵 Слоги</button>
+    <button class="tab-btn" data-tab="hsk1">📘 HSK 1</button>
+    <button class="tab-btn" data-tab="phrases">📇 Карточки</button>
+    <button class="tab-btn" data-tab="texts">📖 Тексты</button>
+    <button class="tab-btn" data-tab="keys">🔑 Ключи</button>
+    <button class="tab-btn" data-tab="redbook">📕 Красная книга</button>
+    <button class="tab-btn" data-tab="magic">🪄 Волшебство</button>
+</div>
         
         <!-- ВКЛАДКА: УРОКИ -->
         <div class="tab-content active" id="tab-lessons">
@@ -697,7 +698,30 @@
         </div>
     </div>
 </div>
-
+<!-- ВКЛАДКА: КРАСНАЯ КНИГА -->
+<div class="tab-content" id="tab-redbook">
+    <div class="speak-tip">📕 Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой 🔴</div>
+    
+    <div style="background:white; border-radius:30px; padding:1.5rem; border:3px solid #FFB347; box-shadow:0 10px 0 #D98F33; margin-bottom:1rem;">
+        <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:1rem;">
+            <button class="filter-btn active" data-filter="all" style="background:linear-gradient(135deg,#FF6B35,#FF8C42); color:white; border-color:#FF6B35;">📚 Все</button>
+            <button class="filter-btn" data-filter="phrase" style="background:white; border:2px solid #FFB347;">📄 Фразы</button>
+            <button class="filter-btn" data-filter="food" style="background:white; border:2px solid #FFB347;">🍜 Еда</button>
+            <button class="filter-btn" data-filter="travel" style="background:white; border:2px solid #FFB347;">✈️ Путешествия</button>
+            <button class="filter-btn" data-filter="work" style="background:white; border:2px solid #FFB347;">💼 Работа</button>
+        </div>
+        
+        <div class="search-box" style="margin-bottom:0.5rem;">
+            <input type="text" id="redbookSearch" placeholder="🔍 Поиск по иероглифам, пиньиню или переводу..." style="flex:1; padding:0.8rem 1rem; border:none; border-radius:50px; font-size:1rem; outline:none; font-family:inherit;">
+        </div>
+        
+        <div class="stats-info" id="redbookStats">📊 Всего: 0 фраз | 🔴 Красная книга: 0</div>
+        
+        <div id="redbookResults" style="max-height:600px; overflow-y:auto;">
+            <div style="text-align:center; padding:2rem; color:#8B5A2B;">📖 Загрузка фраз...</div>
+        </div>
+    </div>
+</div>
 <!-- ВКЛАДКА: КЛЮЧИ -->
 <div class="tab-content" id="tab-keys">
     <div class="speak-tip">🔑 Запоминай слова по ключам (радикалам) — стрелки показывают связь с основным словом! 📚</div>
