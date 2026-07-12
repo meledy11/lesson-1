@@ -345,23 +345,29 @@
     <!-- 2. Основная логика отображения -->
     <script>
         // ============================================================
-        // ЗАГРУЗКА МАССИВА redPhrases
+        // ЗАГРУЗКА МАССИВА — ПОДДЕРЖИВАЕТ ОБА ИМЕНИ
         // ============================================================
 
-        // Используем массив redPhrases из файла redphrases.js
         let allPhrases = [];
 
-        if (typeof redPhrases !== "undefined" && Array.isArray(redPhrases)) {
+        // Проверяем все возможные имена массива
+        if (typeof allPhrases !== "undefined" && Array.isArray(allPhrases) && allPhrases.length > 0) {
+            // Уже есть глобальный allPhrases — используем его
+            console.log("✅ Используем глобальный allPhrases, фраз:", allPhrases.length);
+        } else if (typeof redPhrases !== "undefined" && Array.isArray(redPhrases) && redPhrases.length > 0) {
             allPhrases = redPhrases;
             console.log("✅ Загружен массив redPhrases, фраз:", allPhrases.length);
+        } else if (typeof window.allPhrases !== "undefined" && Array.isArray(window.allPhrases) && window.allPhrases.length > 0) {
+            allPhrases = window.allPhrases;
+            console.log("✅ Загружен массив window.allPhrases, фраз:", allPhrases.length);
         } else {
-            console.error("❌ Массив redPhrases не найден! Проверь файл redphrases.js");
+            console.error("❌ Массив не найден! Проверь файл redphrases.js");
             document.getElementById('phraseList').innerHTML = `
                 <div class="error-msg">
-                    ❌ Ошибка: массив <strong>redPhrases</strong> не загружен!
+                    ❌ Ошибка: массив не загружен!
                     <div class="hint">
                         Проверь, что файл <strong>redphrases.js</strong> лежит в той же папке.<br>
-                        И что в нём есть массив с именем <strong>redPhrases</strong>.
+                        И что в нём есть массив с именем <strong>allPhrases</strong> или <strong>redPhrases</strong>.
                     </div>
                 </div>
             `;
