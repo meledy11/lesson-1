@@ -268,7 +268,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ===== СТИЛИ ДЛЯ ОШИБОК ===== */
         .error-msg {
             text-align: center;
             padding: 30px 20px;
@@ -291,11 +290,6 @@
             font-family: monospace;
             white-space: pre-wrap;
             word-break: break-all;
-        }
-
-        .error-msg .hint .label {
-            color: #dc2626;
-            font-weight: bold;
         }
 
         .debug-panel {
@@ -349,7 +343,6 @@
         <div class="sub">Все фразы, которые ты собирала — с пиньинем, переводом и озвучкой</div>
     </div>
 
-    <!-- ===== ПАНЕЛЬ ОТЛАДКИ ===== -->
     <div class="debug-panel" id="debugPanel">
         <div class="debug-title">🐞 КОНСОЛЬ ПРИЛОЖЕНИЯ:</div>
         <div class="debug-line info">⏳ Инициализация...</div>
@@ -380,14 +373,10 @@
 
     <button class="scroll-top" id="scrollTopBtn" title="Наверх">↑</button>
 
-    <!-- ========================================================== -->
-    <!-- ПОДКЛЮЧАЕМ МАССИВ -->
-    <!-- ========================================================== -->
+    <!-- ===== ПОДКЛЮЧАЕМ МАССИВ ===== -->
     <script src="redphrases.js"></script>
 
-    <!-- ========================================================== -->
-    <!-- ЛОГИКА С ОТЛАДКОЙ -->
-    <!-- ========================================================== -->
+    <!-- ===== ЛОГИКА С ОТЛАДКОЙ ===== -->
     <script>
         // ============================================================
         // ФУНКЦИЯ ДЛЯ ВЫВОДА В ПАНЕЛЬ ОТЛАДКИ
@@ -402,124 +391,56 @@
             line.textContent = '[' + time + '] ' + message;
             debugPanel.appendChild(line);
             debugPanel.scrollTop = debugPanel.scrollHeight;
-
-            // Также выводим в консоль браузера
-            if (type === 'error') {
-                console.error(message);
-            } else if (type === 'warning') {
-                console.warn(message);
-            } else {
-                console.log(message);
-            }
+            if (type === 'error') console.error(message);
+            else if (type === 'warning') console.warn(message);
+            else console.log(message);
         }
 
-        debugLog('🚀 Страница загружена, начинаем поиск массива...', 'info');
+        debugLog('🚀 Страница загружена, ищем массив redBookData...', 'info');
 
         // ============================================================
-        // ПОИСК МАССИВА
+        // ЗАГРУЗКА МАССИВА redBookData
         // ============================================================
 
-        let allPhrases = [];
-        let found = false;
+        let phrases = [];
 
-        // Проверяем ВСЕ возможные имена
-        const possibleNames = [
-            'allPhrases',
-            'redPhrases',
-            'phrasesData',
-            'redPhrasesDB',
-            'phrasesDB',
-            'data'
-        ];
-
-        debugLog('🔍 Проверяем возможные имена массивов: ' + possibleNames.join(', '), 'info');
-
-        for (const name of possibleNames) {
-            try {
-                if (typeof window[name] !== 'undefined') {
-                    debugLog('📌 Найдена глобальная переменная: ' + name, 'info');
-                    if (Array.isArray(window[name])) {
-                        if (window[name].length > 0) {
-                            allPhrases = window[name];
-                            found = true;
-                            debugLog('✅ ЗАГРУЖЕН МАССИВ: ' + name + ', фраз: ' + allPhrases.length, 'success');
-                            break;
-                        } else {
-                            debugLog('⚠️ Массив ' + name + ' пуст (length=0)', 'warning');
-                        }
-                    } else {
-                        debugLog('⚠️ ' + name + ' существует, но НЕ массив (тип: ' + typeof window[name] + ')', 'warning');
-                    }
-                }
-            } catch (e) {
-                debugLog('❌ Ошибка при проверке ' + name + ': ' + e.message, 'error');
-            }
-        }
-
-        // Если не нашли — пробуем через Object.keys
-        if (!found) {
-            debugLog('🔍 Пробуем найти массив через Object.keys(window)...', 'info');
-            try {
-                const allKeys = Object.keys(window);
-                for (const key of allKeys) {
-                    try {
-                        if (window[key] && Array.isArray(window[key]) && window[key].length > 0) {
-                            // Проверяем, что это похоже на наш массив
-                            const firstItem = window[key][0];
-                            if (firstItem && typeof firstItem === 'object' && firstItem.chinese && firstItem.pinyin) {
-                                allPhrases = window[key];
-                                found = true;
-                                debugLog('✅ НАЙДЕН МАССИВ через Object.keys: ' + key + ', фраз: ' + allPhrases.length,
-                                'success');
-                                break;
-                            }
-                        }
-                    } catch (e) {}
-                }
-            } catch (e) {
-                debugLog('❌ Ошибка при Object.keys: ' + e.message, 'error');
-            }
-        }
-
-        // ============================================================
-        // РЕЗУЛЬТАТ ПОИСКА
-        // ============================================================
-
-        if (!found || allPhrases.length === 0) {
-            debugLog('❌ МАССИВ НЕ НАЙДЕН!', 'error');
-
-            const errorHtml = `
-                <div class="error-msg">
-                    ❌ Массив с фразами НЕ ЗАГРУЖЕН!
-                    <div class="hint">
-                        <span class="label">🔍 Что проверено:</span>
-                        ✅ Файл redphrases.js должен лежать в той же папке<br>
-                        ✅ В нём должен быть массив с одним из имён:<br>
-                        &nbsp;&nbsp;• allPhrases<br>
-                        &nbsp;&nbsp;• redPhrases<br>
-                        &nbsp;&nbsp;• phrasesData<br>
-                        &nbsp;&nbsp;• redPhrasesDB<br>
-                        <br>
-                        <span class="label">📌 Текущий статус:</span>
-                        Массив не найден. Проверь:
-                        1. Файл <strong>redphrases.js</strong> существует в папке
-                        2. В нём есть объявление массива (const allPhrases = [...])
-                        3. В конце файла есть: if (typeof window !== "undefined") { window.allPhrases = allPhrases; }
-                        <br><br>
-                        <span class="label">💡 Совет:</span>
-                        Открой консоль браузера (F12) и посмотри ошибки загрузки.
-                    </div>
-                </div>
-            `;
-            document.getElementById('phraseList').innerHTML = errorHtml;
-            document.getElementById('totalCount').textContent = '0';
-            document.getElementById('redCount').textContent = '0';
-            document.getElementById('catCount').textContent = '0';
+        if (typeof window.redBookData !== 'undefined' && Array.isArray(window.redBookData) && window.redBookData.length > 0) {
+            phrases = window.redBookData;
+            debugLog('✅ ЗАГРУЖЕН МАССИВ redBookData, фраз: ' + phrases.length, 'success');
         } else {
-            debugLog('✅ УСПЕШНО ЗАГРУЖЕНО! Фраз: ' + allPhrases.length, 'success');
-            debugLog('📂 Категории: ' + [...new Set(allPhrases.map(p => p.category))].join(', '), 'info');
-            // Запускаем отображение
-            render();
+            debugLog('❌ МАССИВ redBookData НЕ НАЙДЕН!', 'error');
+
+            // Проверяем другие возможные имена
+            const names = ['allPhrases', 'redPhrases', 'phrasesData'];
+            for (const name of names) {
+                if (typeof window[name] !== 'undefined' && Array.isArray(window[name]) && window[name].length > 0) {
+                    phrases = window[name];
+                    debugLog('✅ Найден массив ' + name + ', фраз: ' + phrases.length, 'success');
+                    break;
+                }
+            }
+
+            if (phrases.length === 0) {
+                document.getElementById('phraseList').innerHTML = `
+                    <div class="error-msg">
+                        ❌ Массив redBookData НЕ ЗАГРУЖЕН!
+                        <div class="hint">
+                            🔍 Что проверено:<br>
+                            ✅ Файл redphrases.js должен лежать в той же папке<br>
+                            ✅ В нём должен быть массив <strong>redBookData</strong><br>
+                            <br>
+                            📌 Проверь:<br>
+                            1. Файл <strong>redphrases.js</strong> существует<br>
+                            2. В конце файла есть: window.redBookData = redBookData;<br>
+                            3. Открой консоль (F12) и посмотри ошибки
+                        </div>
+                    </div>
+                `;
+                document.getElementById('totalCount').textContent = '0';
+                document.getElementById('redCount').textContent = '0';
+                document.getElementById('catCount').textContent = '0';
+                return;
+            }
         }
 
         // ============================================================
@@ -537,7 +458,7 @@
         const scrollBtn = document.getElementById("scrollTopBtn");
 
         function getFilteredPhrases() {
-            return allPhrases.filter((p) => {
+            return phrases.filter((p) => {
                 if (currentCategory !== "all" && p.category !== currentCategory) return false;
                 if (searchQuery.trim()) {
                     const q = searchQuery.trim().toLowerCase();
@@ -551,14 +472,14 @@
         }
 
         function render() {
-            if (allPhrases.length === 0) return;
+            if (phrases.length === 0) return;
 
             const filtered = getFilteredPhrases();
-            const total = allPhrases.length;
+            const total = phrases.length;
 
             totalCountEl.textContent = total;
             redCountEl.textContent = total;
-            catCountEl.textContent = new Set(allPhrases.map(p => p.category)).size;
+            catCountEl.textContent = new Set(phrases.map(p => p.category)).size;
 
             if (filtered.length === 0) {
                 phraseListEl.innerHTML = `<div class="empty">😕 Ничего не найдено</div>`;
@@ -656,29 +577,11 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // ============================================================
-        // ПЕРЕХВАТ ОШИБОК
-        // ============================================================
+        // ===== СТАРТ =====
+        setTimeout(render, 100);
 
-        // Перехватываем ошибки window.onerror
-        window.onerror = function(message, source, lineno, colno, error) {
-            debugLog('❌ ОШИБКА: ' + message + ' (файл: ' + source + ', строка: ' + lineno + ')', 'error');
-            if (error && error.stack) {
-                debugLog('📋 Стек: ' + error.stack.substring(0, 300) + '...', 'error');
-            }
-            return false;
-        };
-
-        // Перехватываем ошибки Promise
-        window.addEventListener('unhandledrejection', function(event) {
-            debugLog('❌ НЕОБРАБОТАННЫЙ ПРОМЕС: ' + event.reason, 'error');
-            if (event.reason && event.reason.stack) {
-                debugLog('📋 Стек: ' + event.reason.stack.substring(0, 300) + '...', 'error');
-            }
-        });
-
-        debugLog('✅ Система отладки активирована!', 'success');
-        debugLog('📊 Всего фраз в массиве: ' + allPhrases.length, 'info');
+        debugLog('📊 Категории: ' + [...new Set(phrases.map(p => p.category))].join(', '), 'info');
+        debugLog('✅ Страница готова!', 'success');
     </script>
 
 </body>
