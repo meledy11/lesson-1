@@ -547,13 +547,15 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 200px;
+            min-height: 250px;
+            width: 100%;
         }
         .hanzi-section .hanzi-wrapper .hw-target {
             width: 100%;
             max-width: 100%;
             aspect-ratio: 1/1;
             max-height: 100%;
+            min-height: 200px;
         }
         .hanzi-section .hanzi-wrapper .placeholder {
             color: #b8956a;
@@ -731,7 +733,7 @@
             opacity: 0.4;
         }
 
-        /* ===== КАЛЛИГРАФИЯ ===== */
+        /* ===== КАЛЛИГРАФИЯ — УВЕЛИЧЕННОЕ ОКНО ===== */
         #tab-canvas {
             flex: 1;
             flex-direction: column;
@@ -755,17 +757,19 @@
         .canvas-wrapper {
             background: #fffef9;
             border-radius: 12px;
-            padding: 4px;
+            padding: 6px;
             border: 2px solid #c8aa6e;
             display: inline-block;
             max-width: 100%;
+            width: 100%;
+            max-width: 550px;
         }
         .canvas-wrapper canvas {
             display: block;
             width: 100%;
-            max-width: 450px;
             aspect-ratio: 1/1;
             touch-action: none;
+            cursor: crosshair;
         }
         .canvas-tools {
             display: flex;
@@ -783,6 +787,7 @@
             font-size: 0.85rem;
             font-family: inherit;
             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.1s;
         }
         .canvas-tools button:active {
             transform: translateY(2px);
@@ -816,9 +821,11 @@
             padding: 0;
             min-width: unset;
             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.1s;
         }
         .canvas-tools .color-btn.active {
             border-color: #ffd700;
+            transform: scale(1.1);
         }
 
         .canvas-tools .brush-control {
@@ -908,7 +915,10 @@
                 padding: 8px 12px;
             }
             .hanzi-section .hanzi-wrapper {
-                min-height: 150px;
+                min-height: 180px;
+            }
+            .canvas-wrapper {
+                max-width: 100%;
             }
             .canvas-wrapper canvas {
                 max-width: 100%;
@@ -1039,7 +1049,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ (УВЕЛИЧЕННАЯ) -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-canvas">
             <div class="canvas-container">
@@ -1337,7 +1347,7 @@
         }
 
         // ============================================================
-        // 5. HANZI WRITER (РИСОВАЛКА)
+        // 5. HANZI WRITER (РИСОВАЛКА) — ИСПРАВЛЕНО
         // ============================================================
 
         function initHanziWriter(chars) {
@@ -1346,41 +1356,59 @@
             const wrapper = document.getElementById('hanziWrapper');
             const label = document.getElementById('charLabel');
 
+            // Уничтожаем старый экземпляр
             if (hanziWriter) {
-                try { hanziWriter.destroy(); } catch (e) {}
+                try {
+                    hanziWriter.destroy();
+                } catch (e) {
+                    console.log('Очистка Hanzi Writer');
+                }
                 hanziWriter = null;
             }
 
+            // Очищаем целевой элемент
+            target.innerHTML = '';
+            target.style.display = 'block';
+
             if (!chars || chars.length === 0) {
-                target.style.display = 'none';
                 placeholder.style.display = 'block';
                 placeholder.textContent = '📖 Введите иероглиф(ы) и нажмите "Показать"';
                 label.textContent = '';
+                target.style.display = 'none';
                 return;
             }
 
-            target.style.display = 'block';
             placeholder.style.display = 'none';
             label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
 
             try {
-                const size = Math.min(wrapper.clientWidth - 16, 400);
+                // Получаем размер контейнера
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const size = Math.min(wrapperRect.width - 16, 400, window.innerHeight * 0.4);
                 const text = chars.join('');
 
+                // Создаём новый экземпляр
                 hanziWriter = HanziWriter.create(target, text, {
-                    width: size,
-                    height: size,
+                    width: Math.max(size, 200),
+                    height: Math.max(size, 200),
                     padding: 6,
                     strokeColor: '#1a1a1a',
                     radicalColor: '#c0392b',
                     strokeAnimationSpeed: hanziSpeed,
+                    showCharacter: false,
+                    showOutline: true,
+                    showHintAfterMisses: 1,
                 });
 
+                // Запускаем анимацию
                 setTimeout(() => {
-                    if (hanziWriter) hanziWriter.animateCharacter();
-                }, 200);
+                    if (hanziWriter) {
+                        hanziWriter.animateCharacter();
+                    }
+                }, 300);
 
             } catch (e) {
+                console.error('Ошибка Hanzi Writer:', e);
                 placeholder.style.display = 'block';
                 placeholder.textContent = '❌ Ошибка: ' + e.message;
                 target.style.display = 'none';
@@ -1447,7 +1475,7 @@
         function loadToHanzi(char) {
             switchTab('hanzi');
             document.getElementById('hanziInput').value = char;
-            setTimeout(() => initHanziWriter([char]), 100);
+            setTimeout(() => initHanziWriter([char]), 200);
         }
 
         // ============================================================
@@ -1487,7 +1515,7 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 7. КАЛЛИГРАФИЯ
+        // 7. КАЛЛИГРАФИЯ — УВЕЛИЧЕННАЯ И ОПТИМИЗИРОВАННАЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -1497,27 +1525,40 @@
         let canvasRefData = null;
         let exampleVisible = false;
         let brushSize = 8;
+        let canvasInitialized = false;
 
         function initCanvas() {
             canvas = document.getElementById('calligraphyCanvas');
-            const rect = canvas.parentElement.getBoundingClientRect();
-            const size = Math.min(rect.width - 16, 450);
-            canvas.width = canvas.height = size;
+            if (!canvas) return;
+
+            const wrapper = canvas.parentElement;
+            const maxSize = Math.min(wrapper.clientWidth - 12, 550, window.innerHeight * 0.55);
+            const size = Math.max(maxSize, 250);
+
+            canvas.width = size;
+            canvas.height = size;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+
             ctx = canvas.getContext('2d');
             ctx.fillStyle = '#fffef9';
             ctx.fillRect(0, 0, size, size);
             drawGrid(ctx, size);
             canvasRefData = null;
             exampleVisible = false;
-            setupDrawing();
+            canvasHistory = [];
             document.getElementById('qFill').style.width = '0%';
             document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
-            canvasHistory = [];
             document.getElementById('canvasUndo').style.display = 'none';
+
+            if (!canvasInitialized) {
+                setupDrawing();
+                canvasInitialized = true;
+            }
         }
 
         function drawGrid(ctx, size) {
-            const p = 20,
+            const p = size * 0.05,
                 c = size / 2;
             ctx.save();
             ctx.strokeStyle = '#e8e0d8';
@@ -1539,9 +1580,13 @@
         function setupDrawing() {
             function getPos(e) {
                 const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
                 return {
-                    x: (e.clientX - rect.left) * canvas.width / rect.width,
-                    y: (e.clientY - rect.top) * canvas.height / rect.height,
+                    x: (clientX - rect.left) * scaleX,
+                    y: (clientY - rect.top) * scaleY,
                     pressure: e.pressure || 0.5
                 };
             }
@@ -1553,7 +1598,8 @@
                 lastX = p.x;
                 lastY = p.y;
                 lastTime = performance.now();
-                lastWidth = brushSize * 0.5;
+                lastWidth = brushSize * 0.4;
+                strokeLen = 0;
                 saveCanvasState();
                 document.getElementById('canvasUndo').style.display = 'inline-block';
             }
@@ -1565,36 +1611,39 @@
                 const now = performance.now();
                 const dt = Math.max(1, now - lastTime);
                 const dist = Math.hypot(p.x - lastX, p.y - lastY);
+                if (dist < 1) return;
+
                 const speed = dist / dt;
                 strokeLen += dist;
 
-                const pressureFactor = 0.2 + p.pressure * 0.8;
-                const speedFactor = Math.max(0.1, 1 - (speed / 0.8));
+                const pressureFactor = 0.3 + p.pressure * 0.7;
+                const speedFactor = Math.max(0.15, 1 - (speed / 0.6));
                 let w = brushSize * pressureFactor * speedFactor;
-                if (strokeLen < 15) w *= (0.3 + 0.7 * (strokeLen / 15));
-                w = Math.max(2, Math.min(brushSize * 1.5, w));
+                if (strokeLen < 20) w *= (0.4 + 0.6 * (strokeLen / 20));
+                w = Math.max(1.5, Math.min(brushSize * 1.8, w));
 
-                const newW = lastWidth * 0.6 + w * 0.4;
+                const newW = lastWidth * 0.5 + w * 0.5;
 
                 ctx.save();
                 ctx.strokeStyle = currentColor;
                 ctx.lineWidth = newW;
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
-                ctx.shadowBlur = 0.5;
-                ctx.shadowColor = currentColor + '33';
+                ctx.shadowBlur = 1;
+                ctx.shadowColor = currentColor + '22';
 
                 ctx.beginPath();
                 ctx.moveTo(lastX, lastY);
                 ctx.lineTo(p.x, p.y);
                 ctx.stroke();
 
+                // Добавляем эффект кисти
                 const midX = (lastX + p.x) / 2;
                 const midY = (lastY + p.y) / 2;
                 const midW = (lastWidth + newW) / 2;
-                if (dist > 2) {
+                if (dist > 3) {
                     ctx.beginPath();
-                    ctx.ellipse(midX, midY, midW / 2, midW / 2.2, Math.atan2(p.y - lastY, p.x - lastX) + Math.PI / 2, 0, Math
+                    ctx.ellipse(midX, midY, midW / 2, midW / 2.5, Math.atan2(p.y - lastY, p.x - lastX) + Math.PI / 2, 0, Math
                         .PI * 2);
                     ctx.fill();
                 }
@@ -1607,35 +1656,40 @@
                 lastTime = now;
             }
 
-            function stop() {
+            function stop(e) {
                 if (!isDrawing) return;
                 isDrawing = false;
-                const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
-                ctx.save();
-                ctx.fillStyle = currentColor;
-                ctx.shadowBlur = 0;
-                for (let i = 1; i <= 10; i++) {
-                    const t = i / 10;
-                    const tw = lastWidth * Math.pow(1 - t, 1.8);
-                    const tx = lastX + Math.cos(angle) * t * 5;
-                    const ty = lastY + Math.sin(angle) * t * 5;
-                    ctx.beginPath();
-                    ctx.ellipse(tx, ty, tw / 2, tw / 2.8, angle, 0, Math.PI * 2);
-                    ctx.fill();
+                if (strokeLen > 5) {
+                    const angle = Math.atan2(lastY - (lastY - 1), lastX - (lastX - 1)) || 0;
+                    ctx.save();
+                    ctx.fillStyle = currentColor;
+                    ctx.shadowBlur = 0;
+                    for (let i = 1; i <= 8; i++) {
+                        const t = i / 8;
+                        const tw = lastWidth * Math.pow(1 - t, 2.0);
+                        const tx = lastX + Math.cos(angle) * t * 4;
+                        const ty = lastY + Math.sin(angle) * t * 4;
+                        ctx.beginPath();
+                        ctx.ellipse(tx, ty, tw / 2, tw / 3, angle, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                    saveCanvasState();
                 }
-                ctx.restore();
-                saveCanvasState();
             }
+
+            // Удаляем старые обработчики
+            canvas.removeEventListener('pointerdown', start);
+            canvas.removeEventListener('pointermove', draw);
+            canvas.removeEventListener('pointerup', stop);
+            canvas.removeEventListener('pointerleave', stop);
+            canvas.removeEventListener('pointercancel', stop);
 
             canvas.addEventListener('pointerdown', start);
             canvas.addEventListener('pointermove', draw);
             canvas.addEventListener('pointerup', stop);
             canvas.addEventListener('pointerleave', stop);
             canvas.addEventListener('pointercancel', stop);
-            canvas.addEventListener('mousedown', start);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stop);
-            canvas.addEventListener('mouseleave', stop);
         }
 
         function saveCanvasState() {
@@ -1680,7 +1734,8 @@
             ctx.save();
             ctx.globalAlpha = 0.2;
             ctx.fillStyle = '#9b59b6';
-            ctx.font = `900 ${size * 0.7}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
+            const fontSize = size * 0.7;
+            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(char, size / 2, size / 2 + size * 0.02);
@@ -1809,10 +1864,10 @@
                     } else {
                         initHanziWriter([]);
                     }
-                }, 100);
+                }, 150);
             }
             if (tabName === 'canvas') {
-                setTimeout(initCanvas, 50);
+                setTimeout(initCanvas, 100);
             }
             if (tabName === 'groups') {
                 renderGroups();
@@ -1912,12 +1967,30 @@
         // Стартуем с вкладкой "Фразы"
         switchTab('groups');
 
+        // Обработка изменения размера окна
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (document.getElementById('tab-canvas').classList.contains('active')) {
+                    initCanvas();
+                }
+                if (document.getElementById('tab-hanzi').classList.contains('active')) {
+                    const input = document.getElementById('hanziInput');
+                    if (input && input.value.trim()) {
+                        const chars = [...input.value.trim()];
+                        initHanziWriter(chars.slice(0, 4));
+                    }
+                }
+            }, 300);
+        });
+
         setTimeout(() => {
             renderGroups();
             renderDialogues();
             renderNotebook();
             updateStats();
-            setTimeout(initCanvas, 100);
+            setTimeout(() => initCanvas(), 150);
             setTimeout(() => initHanziWriter([]), 200);
         }, 200);
 
