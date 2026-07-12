@@ -264,6 +264,37 @@
                 padding: 12px 16px;
             }
         }
+
+        /* ===== ИНДИКАТОР ЗАГРУЗКИ ===== */
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 18px;
+        }
+        .loading .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+            font-size: 30px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-msg {
+            text-align: center;
+            padding: 40px 20px;
+            color: #dc2626;
+            font-size: 16px;
+            background: #fef2f2;
+            border-radius: 16px;
+            border: 2px solid #dc2626;
+        }
+        .error-msg .hint {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -294,7 +325,12 @@
     </div>
 
     <!-- ===== СПИСОК ФРАЗ ===== -->
-    <div id="phraseList"></div>
+    <div id="phraseList">
+        <div class="loading">
+            <div class="spinner">⏳</div>
+            <div style="margin-top:10px;">Загрузка фраз...</div>
+        </div>
+    </div>
 
     <!-- ===== КНОПКА ВВЕРХ ===== -->
     <button class="scroll-top" id="scrollTopBtn" title="Наверх">↑</button>
@@ -309,11 +345,31 @@
     <!-- 2. Основная логика отображения -->
     <script>
         // ============================================================
-        // ЛОГИКА ОТОБРАЖЕНИЯ ФРАЗ
+        // ЗАГРУЗКА МАССИВА redPhrases
         // ============================================================
 
-        // Проверяем, что массив загружен
-        const allPhrases = typeof redPhrases !== "undefined" ? redPhrases : [];
+        // Используем массив redPhrases из файла redphrases.js
+        let allPhrases = [];
+
+        if (typeof redPhrases !== "undefined" && Array.isArray(redPhrases)) {
+            allPhrases = redPhrases;
+            console.log("✅ Загружен массив redPhrases, фраз:", allPhrases.length);
+        } else {
+            console.error("❌ Массив redPhrases не найден! Проверь файл redphrases.js");
+            document.getElementById('phraseList').innerHTML = `
+                <div class="error-msg">
+                    ❌ Ошибка: массив <strong>redPhrases</strong> не загружен!
+                    <div class="hint">
+                        Проверь, что файл <strong>redphrases.js</strong> лежит в той же папке.<br>
+                        И что в нём есть массив с именем <strong>redPhrases</strong>.
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // ЛОГИКА ОТОБРАЖЕНИЯ ФРАЗ
+        // ============================================================
 
         // ===== СОСТОЯНИЕ =====
         let currentCategory = "all";
@@ -358,6 +414,16 @@
             redCountEl.textContent = total;
             catCountEl.textContent = catCount;
 
+            if (allPhrases.length === 0) {
+                phraseListEl.innerHTML = `
+                    <div class="error-msg">
+                        ❌ Массив с фразами пуст или не загружен!
+                        <div class="hint">Проверь файл <strong>redphrases.js</strong></div>
+                    </div>
+                `;
+                return;
+            }
+
             if (filtered.length === 0) {
                 phraseListEl.innerHTML = `<div class="empty">😕 Ничего не найдено. Попробуйте изменить поиск.</div>`;
                 return;
@@ -371,13 +437,16 @@
                 let tagsHtml = `<span class="tag category-tag">${p.category}</span>`;
                 tagsHtml += `<span class="tag red-tag">🔴 Красная книга</span>`;
 
+                // Экранируем кавычки для озвучки
+                const safeChinese = p.chinese.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
                 html += `
                         <div class="phrase-card">
                             <div class="chinese">${p.chinese} ${badgeHtml}</div>
                             <div class="pinyin">${p.pinyin}</div>
                             <div class="translation">${p.translation}</div>
                             <div class="tags">${tagsHtml}</div>
-                            <button class="audio-btn" data-text="${p.chinese}">🔊 Прослушать</button>
+                            <button class="audio-btn" data-text="${safeChinese}">🔊 Прослушать</button>
                         </div>
                     `;
             }
@@ -476,10 +545,13 @@
         });
 
         // ===== СТАРТ =====
-        render();
+        // Небольшая задержка для загрузки голосов
+        setTimeout(render, 100);
 
         console.log("✅ Страница загружена! Всего фраз:", allPhrases.length);
-        console.log("📂 Категории:", [...new Set(allPhrases.map(p => p.category))]);
+        if (allPhrases.length > 0) {
+            console.log("📂 Категории:", [...new Set(allPhrases.map(p => p.category))]);
+        }
     </script>
 
 </body>
