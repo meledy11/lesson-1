@@ -858,6 +858,284 @@ const redBookDialogues = [
             { speaker: "A", chinese: "好！晚上我们一起吃饭吧！", pinyin: "hǎo! wǎnshang wǒmen yīqǐ chīfàn ba!", russian: "Хорошо! Вечером поужинаем вместе!" },
         ],
     },
+    // ============================================================
+// ДОПОЛНИТЕЛЬНЫЕ ДИАЛОГИ (16-30)
+// ============================================================
+
+// ----- ДИАЛОГ 16: В такси -----
+{
+    id: "d16",
+    title: "В такси",
+    phrases: ["出租车", "去哪儿？", "左转", "右转", "直走", "停车", "多少钱？", "机场"],
+    lines: [
+        { speaker: "A", chinese: "师傅，去机场。", pinyin: "shīfu, qù jīchǎng.", russian: "Водитель, в аэропорт." },
+        { speaker: "B", chinese: "好的，您赶时间吗？", pinyin: "hǎo de, nín gǎn shíjiān ma?", russian: "Хорошо, вы спешите?" },
+        { speaker: "A", chinese: "对，我赶时间，请快点。", pinyin: "duì, wǒ gǎn shíjiān, qǐng kuài diǎn.", russian: "Да, я спешу, пожалуйста, быстрее." },
+        { speaker: "B", chinese: "前面左转还是右转？", pinyin: "qiánmiàn zuǒzhuǎn háishì yòuzhuǎn?", russian: "Впереди налево или направо?" },
+        { speaker: "A", chinese: "左转，然后直走。", pinyin: "zuǒzhuǎn, ránhòu zhí zǒu.", russian: "Налево, потом прямо." },
+        { speaker: "B", chinese: "到了，停车吗？", pinyin: "dào le, tíngchē ma?", russian: "Приехали, парковаться?" },
+        { speaker: "A", chinese: "对，停车。多少钱？", pinyin: "duì, tíngchē. duōshao qián?", russian: "Да, остановитесь. Сколько?" },
+        { speaker: "B", chinese: "八十块。", pinyin: "bāshí kuài.", russian: "Восемьдесят юаней." },
+        { speaker: "A", chinese: "给你，谢谢！", pinyin: "gěi nǐ, xièxie!", russian: "Держите, спасибо!" },
+    ],
+},
+
+// ----- ДИАЛОГ 17: Заказ еды по телефону -----
+{
+    id: "d17",
+    title: "Заказ еды по телефону",
+    phrases: ["点外卖", "菜单", "好吃", "米饭", "水", "多少钱？", "送餐"],
+    lines: [
+        { speaker: "A", chinese: "你好，我想点外卖。", pinyin: "nǐ hǎo, wǒ xiǎng diǎn wàimài.", russian: "Здравствуйте, я хочу заказать доставку." },
+        { speaker: "B", chinese: "好的，您想点什么？", pinyin: "hǎo de, nín xiǎng diǎn shénme?", russian: "Хорошо, что хотите заказать?" },
+        { speaker: "A", chinese: "我要一份炒饭和一杯水。", pinyin: "wǒ yào yī fèn chǎofàn hé yī bēi shuǐ.", russian: "Я хочу жареный рис и стакан воды." },
+        { speaker: "B", chinese: "还要别的吗？", pinyin: "háiyào bié de ma?", russian: "Что-нибудь ещё?" },
+        { speaker: "A", chinese: "不要了，多少钱？", pinyin: "bùyào le, duōshao qián?", russian: "Нет, сколько?" },
+        { speaker: "B", chinese: "三十五块。", pinyin: "sānshíwǔ kuài.", russian: "Тридцать пять юаней." },
+        { speaker: "A", chinese: "好，多久送到？", pinyin: "hǎo, duō jiǔ sòng dào?", russian: "Хорошо, через сколько доставят?" },
+        { speaker: "B", chinese: "三十分钟。", pinyin: "sānshí fēnzhōng.", russian: "Через тридцать минут." },
+        { speaker: "A", chinese: "谢谢！", pinyin: "xièxie!", russian: "Спасибо!" },
+    ],
+},
+
+// ----- ДИАЛОГ 18: В гостинице -----
+{
+    id: "d18",
+    title: "В гостинице",
+    phrases: ["房间", "多少钱？", "护照", "钥匙", "早餐", "洗澡", "睡觉"],
+    lines: [
+        { speaker: "A", chinese: "你好，我要一个房间。", pinyin: "nǐ hǎo, wǒ yào yīgè fángjiān.", russian: "Здравствуйте, мне нужен номер." },
+        { speaker: "B", chinese: "单人间还是双人间？", pinyin: "dānrénjiān háishì shuāngrénjiān?", russian: "Одноместный или двухместный?" },
+        { speaker: "A", chinese: "单人间，多少钱一晚？", pinyin: "dānrénjiān, duōshao qián yī wǎn?", russian: "Одноместный, сколько за ночь?" },
+        { speaker: "B", chinese: "三百块一晚。", pinyin: "sān bǎi kuài yī wǎn.", russian: "Триста юаней за ночь." },
+        { speaker: "A", chinese: "可以，给我护照。", pinyin: "kěyǐ, gěi wǒ hùzhào.", russian: "Можно, дайте мне паспорт." },
+        { speaker: "B", chinese: "这是您的钥匙，房间在二楼。", pinyin: "zhè shì nín de yàoshi, fángjiān zài èr lóu.", russian: "Это ваш ключ, номер на втором этаже." },
+        { speaker: "A", chinese: "早餐有吗？", pinyin: "zǎocān yǒu ma?", russian: "Завтрак есть?" },
+        { speaker: "B", chinese: "有，早上七点到九点。", pinyin: "yǒu, zǎoshang qī diǎn dào jiǔ diǎn.", russian: "Да, с семи до девяти утра." },
+        { speaker: "A", chinese: "太好了，我要洗澡睡觉了。", pinyin: "tài hǎo le, wǒ yào xǐzǎo shuìjiào le.", russian: "Отлично, я пойду мыться и спать." },
+    ],
+},
+
+// ----- ДИАЛОГ 19: Разговор о погоде -----
+{
+    id: "d19",
+    title: "Разговор о погоде",
+    phrases: ["天气", "今天天气怎么样？", "下雨", "晴天", "冷", "热", "舒服", "出门"],
+    lines: [
+        { speaker: "A", chinese: "今天天气怎么样？", pinyin: "jīntiān tiānqì zěnmeyàng?", russian: "Какая сегодня погода?" },
+        { speaker: "B", chinese: "今天很冷，还下雨。", pinyin: "jīntiān hěn lěng, hái xiàyǔ.", russian: "Сегодня холодно, ещё и дождь." },
+        { speaker: "A", chinese: "真的吗？昨天还很热。", pinyin: "zhēn de ma? zuótiān hái hěn rè.", russian: "Правда? Вчера ещё было жарко." },
+        { speaker: "B", chinese: "对，天气变化很大。", pinyin: "duì, tiānqì biànhuà hěn dà.", russian: "Да, погода очень меняется." },
+        { speaker: "A", chinese: "明天会晴天吗？", pinyin: "míngtiān huì qíngtiān ma?", russian: "Завтра будет солнечно?" },
+        { speaker: "B", chinese: "天气预报说，明天晴天。", pinyin: "tiānqì yùbào shuō, míngtiān qíngtiān.", russian: "Прогноз погоды говорит, завтра будет солнечно." },
+        { speaker: "A", chinese: "那太好了，我们可以出门。", pinyin: "nà tài hǎo le, wǒmen kěyǐ chūmén.", russian: "Отлично, мы сможем выйти из дома." },
+        { speaker: "B", chinese: "对，天气很舒服。", pinyin: "duì, tiānqì hěn shūfu.", russian: "Да, погода будет комфортной." },
+    ],
+},
+
+// ----- ДИАЛОГ 20: В банке -----
+{
+    id: "d20",
+    title: "В банке",
+    phrases: ["银行", "换钱", "现金", "信用卡", "汇率", "护照", "排队", "等待"],
+    lines: [
+        { speaker: "A", chinese: "你好，我想换钱。", pinyin: "nǐ hǎo, wǒ xiǎng huàn qián.", russian: "Здравствуйте, я хочу обменять деньги." },
+        { speaker: "B", chinese: "好的，您要换多少？", pinyin: "hǎo de, nín yào huàn duōshao?", russian: "Хорошо, сколько хотите обменять?" },
+        { speaker: "A", chinese: "我要换五百美元。汇率多少？", pinyin: "wǒ yào huàn wǔbǎi měiyuán. huìlǜ duōshao?", russian: "Я хочу обменять пятьсот долларов. Какой курс?" },
+        { speaker: "B", chinese: "今天的汇率是六点八。", pinyin: "jīntiān de huìlǜ shì liù diǎn bā.", russian: "Сегодняшний курс — шесть целых восемь десятых." },
+        { speaker: "A", chinese: "可以，给我现金。", pinyin: "kěyǐ, gěi wǒ xiànjīn.", russian: "Хорошо, дайте мне наличные." },
+        { speaker: "B", chinese: "请出示您的护照。", pinyin: "qǐng chūshì nín de hùzhào.", russian: "Пожалуйста, покажите ваш паспорт." },
+        { speaker: "A", chinese: "给你。要排队吗？", pinyin: "gěi nǐ. yào páiduì ma?", russian: "Держите. Нужно стоять в очереди?" },
+        { speaker: "B", chinese: "对，请排队等待。", pinyin: "duì, qǐng páiduì děngdài.", russian: "Да, пожалуйста, стойте в очереди и ждите." },
+    ],
+},
+
+// ----- ДИАЛОГ 21: На почте -----
+{
+    id: "d21",
+    title: "На почте",
+    phrases: ["邮件", "寄", "包裹", "邮票", "地址", "多少钱？", "收到"],
+    lines: [
+        { speaker: "A", chinese: "你好，我想寄一个包裹。", pinyin: "nǐ hǎo, wǒ xiǎng jì yīgè bāoguǒ.", russian: "Здравствуйте, я хочу отправить посылку." },
+        { speaker: "B", chinese: "寄到哪里？", pinyin: "jì dào nǎlǐ?", russian: "Куда отправляете?" },
+        { speaker: "A", chinese: "寄到俄罗斯。", pinyin: "jì dào Éluósī.", russian: "В Россию." },
+        { speaker: "B", chinese: "要寄什么？", pinyin: "yào jì shénme?", russian: "Что отправляете?" },
+        { speaker: "A", chinese: "一件衣服和两本书。", pinyin: "yī jiàn yīfu hé liǎng běn shū.", russian: "Одежду и две книги." },
+        { speaker: "B", chinese: "地址写好了吗？", pinyin: "dìzhǐ xiě hǎo le ma?", russian: "Адрес написали?" },
+        { speaker: "A", chinese: "写好了，给你。", pinyin: "xiě hǎo le, gěi nǐ.", russian: "Написал, держите." },
+        { speaker: "B", chinese: "邮费是一百二十块。", pinyin: "yóufèi shì yībǎi èrshí kuài.", russian: "Почтовые расходы — сто двадцать юаней." },
+        { speaker: "A", chinese: "多久能收到？", pinyin: "duō jiǔ néng shōudào?", russian: "Через сколько получат?" },
+        { speaker: "B", chinese: "大概两周。", pinyin: "dàgài liǎng zhōu.", russian: "Примерно две недели." },
+        { speaker: "A", chinese: "好的，谢谢！", pinyin: "hǎo de, xièxie!", russian: "Хорошо, спасибо!" },
+    ],
+},
+
+// ----- ДИАЛОГ 22: В аптеке -----
+{
+    id: "d22",
+    title: "В аптеке",
+    phrases: ["药店", "感冒", "发烧", "吃药", "头痛", "医生", "中药", "西药"],
+    lines: [
+        { speaker: "A", chinese: "你好，我感冒了。", pinyin: "nǐ hǎo, wǒ gǎnmào le.", russian: "Здравствуйте, я простудился." },
+        { speaker: "B", chinese: "有什么症状？", pinyin: "yǒu shénme zhèngzhuàng?", russian: "Какие симптомы?" },
+        { speaker: "A", chinese: "头痛，还发烧。", pinyin: "tóutòng, hái fāshāo.", russian: "Голова болит, ещё и температура." },
+        { speaker: "B", chinese: "这是感冒药，一天三次。", pinyin: "zhè shì gǎnmào yào, yītiān sān cì.", russian: "Это лекарство от простуды, три раза в день." },
+        { speaker: "A", chinese: "要喝热水吗？", pinyin: "yào hē rè shuǐ ma?", russian: "Нужно пить горячую воду?" },
+        { speaker: "B", chinese: "对，多喝热水，多休息。", pinyin: "duì, duō hē rè shuǐ, duō xiūxi.", russian: "Да, больше пейте горячей воды и отдыхайте." },
+        { speaker: "A", chinese: "中药还是西药好？", pinyin: "zhōngyào háishì xīyào hǎo?", russian: "Китайские или западные лекарства лучше?" },
+        { speaker: "B", chinese: "西药效果快，中药效果好。", pinyin: "xīyào xiàoguǒ kuài, zhōngyào xiàoguǒ hǎo.", russian: "Западные быстрее действуют, китайские лучше эффект." },
+        { speaker: "A", chinese: "我吃西药吧，谢谢！", pinyin: "wǒ chī xīyào ba, xièxie!", russian: "Я возьму западные, спасибо!" },
+    ],
+},
+
+// ----- ДИАЛОГ 23: В парикмахерской -----
+{
+    id: "d23",
+    title: "В парикмахерской",
+    phrases: ["剪头发", "长", "短", "好看", "颜色", "染发", "镜子", "满意"],
+    lines: [
+        { speaker: "A", chinese: "你好，我要剪头发。", pinyin: "nǐ hǎo, wǒ yào jiǎn tóufa.", russian: "Здравствуйте, я хочу подстричься." },
+        { speaker: "B", chinese: "要剪短吗？", pinyin: "yào jiǎn duǎn ma?", russian: "Короче?" },
+        { speaker: "A", chinese: "对，剪短一点。", pinyin: "duì, jiǎn duǎn yīdiǎn.", russian: "Да, немного короче." },
+        { speaker: "B", chinese: "洗头吗？", pinyin: "xǐ tóu ma?", russian: "Мыть голову?" },
+        { speaker: "A", chinese: "洗，谢谢！", pinyin: "xǐ, xièxie!", russian: "Да, спасибо!" },
+        { speaker: "B", chinese: "剪好了，您看满意吗？", pinyin: "jiǎn hǎo le, nín kàn mǎnyì ma?", russian: "Всё готово, вы довольны?" },
+        { speaker: "A", chinese: "好看！很满意！", pinyin: "hǎokàn! hěn mǎnyì!", russian: "Красиво! Очень доволен!" },
+        { speaker: "B", chinese: "要染发吗？", pinyin: "yào rǎnfà ma?", russian: "Покрасить волосы?" },
+        { speaker: "A", chinese: "不要了，下次吧。多少钱？", pinyin: "bùyào le, xiàcì ba. duōshao qián?", russian: "Нет, в следующий раз. Сколько?" },
+        { speaker: "B", chinese: "五十块。", pinyin: "wǔshí kuài.", russian: "Пятьдесят юаней." },
+        { speaker: "A", chinese: "给你，谢谢！", pinyin: "gěi nǐ, xièxie!", russian: "Держите, спасибо!" },
+    ],
+},
+
+// ----- ДИАЛОГ 24: Планирование путешествия -----
+{
+    id: "d24",
+    title: "Планирование путешествия",
+    phrases: ["旅游", "飞机", "酒店", "景点", "护照", "签证", "行李箱", "地图"],
+    lines: [
+        { speaker: "A", chinese: "假期你去哪旅游？", pinyin: "jiàqī nǐ qù nǎ lǚyóu?", russian: "Куда поедешь в отпуск?" },
+        { speaker: "B", chinese: "我去北京旅游。", pinyin: "wǒ qù Běijīng lǚyóu.", russian: "Я еду в Пекин." },
+        { speaker: "A", chinese: "坐飞机还是火车？", pinyin: "zuò fēijī háishì huǒchē?", russian: "Самолётом или поездом?" },
+        { speaker: "B", chinese: "坐飞机，快一点。", pinyin: "zuò fēijī, kuài yīdiǎn.", russian: "Самолётом, быстрее." },
+        { speaker: "A", chinese: "酒店订好了吗？", pinyin: "jiǔdiàn dìng hǎo le ma?", russian: "Отель забронировал?" },
+        { speaker: "B", chinese: "订好了，在市中心。", pinyin: "dìng hǎo le, zài shìzhōngxīn.", russian: "Да, в центре города." },
+        { speaker: "A", chinese: "带行李箱吗？", pinyin: "dài xínglǐxiāng ma?", russian: "Берёшь чемодан?" },
+        { speaker: "B", chinese: "带！还要带地图。", pinyin: "dài! háiyào dài dìtú.", russian: "Да! И карту возьму." },
+        { speaker: "A", chinese: "护照和签证呢？", pinyin: "hùzhào hé qiānzhèng ne?", russian: "Паспорт и виза?" },
+        { speaker: "B", chinese: "都准备好了！", pinyin: "dōu zhǔnbèi hǎo le!", russian: "Всё готово!" },
+    ],
+},
+
+// ----- ДИАЛОГ 25: В спортзале -----
+{
+    id: "d25",
+    title: "В спортзале",
+    phrases: ["健身房", "运动", "跑步", "游泳", "健身", "身体", "健康", "累"],
+    lines: [
+        { speaker: "A", chinese: "你经常运动吗？", pinyin: "nǐ jīngcháng yùndòng ma?", russian: "Ты часто занимаешься спортом?" },
+        { speaker: "B", chinese: "对，我每天都去健身房。", pinyin: "duì, wǒ měitiān dōu qù jiànshēnfáng.", russian: "Да, я каждый день хожу в спортзал." },
+        { speaker: "A", chinese: "你做什么运动？", pinyin: "nǐ zuò shénme yùndòng?", russian: "Каким спортом занимаешься?" },
+        { speaker: "B", chinese: "跑步和游泳。", pinyin: "pǎobù hé yóuyǒng.", russian: "Бегаю и плаваю." },
+        { speaker: "A", chinese: "你身体很好！", pinyin: "nǐ shēntǐ hěn hǎo!", russian: "У тебя хорошее здоровье!" },
+        { speaker: "B", chinese: "谢谢！运动让我健康。", pinyin: "xièxie! yùndòng ràng wǒ jiànkāng.", russian: "Спасибо! Спорт делает меня здоровым." },
+        { speaker: "A", chinese: "我也想去健身房。", pinyin: "wǒ yě xiǎng qù jiànshēnfáng.", russian: "Я тоже хочу ходить в спортзал." },
+        { speaker: "B", chinese: "跟我一起吧！", pinyin: "gēn wǒ yīqǐ ba!", russian: "Пойдём вместе!" },
+        { speaker: "A", chinese: "好！不过会很累吧？", pinyin: "hǎo! bùguò huì hěn lèi ba?", russian: "Хорошо! Но будет тяжело, правда?" },
+        { speaker: "B", chinese: "慢慢来，不着急。", pinyin: "mànmàn lái, bù zháojí.", russian: "Потихоньку, не торопись." },
+    ],
+},
+
+// ----- ДИАЛОГ 26: День рождения -----
+{
+    id: "d26",
+    title: "День рождения",
+    phrases: ["生日快乐", "礼物", "蛋糕", "朋友", "开心", "庆祝", "唱歌", "许愿"],
+    lines: [
+        { speaker: "A", chinese: "生日快乐！", pinyin: "shēngrì kuàilè!", russian: "С днём рождения!" },
+        { speaker: "B", chinese: "谢谢！", pinyin: "xièxie!", russian: "Спасибо!" },
+        { speaker: "A", chinese: "这是给你的礼物。", pinyin: "zhè shì gěi nǐ de lǐwù.", russian: "Это тебе подарок." },
+        { speaker: "B", chinese: "哇！是什么？", pinyin: "wā! shì shénme?", russian: "Вау! Что?" },
+        { speaker: "A", chinese: "打开看看吧！", pinyin: "dǎkāi kànkan ba!", russian: "Открой и посмотри!" },
+        { speaker: "B", chinese: "太漂亮了！我很开心！", pinyin: "tài piàoliang le! wǒ hěn kāixīn!", russian: "Очень красиво! Я очень рад!" },
+        { speaker: "A", chinese: "还有蛋糕！", pinyin: "háiyǒu dàngāo!", russian: "Ещё и торт!" },
+        { speaker: "B", chinese: "太棒了！我们一起庆祝吧！", pinyin: "tài bàng le! wǒmen yīqǐ qìngzhù ba!", russian: "Отлично! Давайте вместе отпразднуем!" },
+        { speaker: "A", chinese: "先许愿，再唱歌！", pinyin: "xiān xǔyuàn, zài chànggē!", russian: "Сначала загадай желание, потом пой песню!" },
+        { speaker: "B", chinese: "好的！我许愿了！", pinyin: "hǎo de! wǒ xǔyuàn le!", russian: "Хорошо! Я загадал желание!" },
+    ],
+},
+
+// ----- ДИАЛОГ 27: Потеря вещей -----
+{
+    id: "d27",
+    title: "Потеря вещей",
+    phrases: ["丢了", "手机", "钱包", "怎么办？", "找", "警察", "急", "别急"],
+    lines: [
+        { speaker: "A", chinese: "我的手机丢了！怎么办？", pinyin: "wǒ de shǒujī diū le! zěnme bàn?", russian: "Я потерял телефон! Что делать?" },
+        { speaker: "B", chinese: "别急，你记得在哪丢的吗？", pinyin: "bié jí, nǐ jìde zài nǎ diū de ma?", russian: "Не волнуйся, помнишь, где потерял?" },
+        { speaker: "A", chinese: "可能在咖啡厅。", pinyin: "kěnéng zài kāfēitīng.", russian: "Возможно, в кафе." },
+        { speaker: "B", chinese: "那我们回去找找。", pinyin: "nà wǒmen huíqù zhǎozhao.", russian: "Тогда вернёмся и поищем." },
+        { speaker: "A", chinese: "如果找不到怎么办？", pinyin: "rúguǒ zhǎo bù dào zěnme bàn?", russian: "А если не найдём?" },
+        { speaker: "B", chinese: "那就报警！", pinyin: "nà jiù bàojǐng!", russian: "Тогда вызывай полицию!" },
+        { speaker: "A", chinese: "我的钱包也在里面！", pinyin: "wǒ de qiánbāo yě zài lǐmiàn!", russian: "Мой кошелёк тоже там!" },
+        { speaker: "B", chinese: "别急，我们马上去找！", pinyin: "bié jí, wǒmen mǎshàng qù zhǎo!", russian: "Не волнуйся, мы сейчас пойдём искать!" },
+    ],
+},
+
+// ----- ДИАЛОГ 28: О работе -----
+{
+    id: "d28",
+    title: "Разговор о работе",
+    phrases: ["工作", "忙", "累", "同事", "老板", "工资", "加班", "辞职"],
+    lines: [
+        { speaker: "A", chinese: "你最近工作怎么样？", pinyin: "nǐ zuìjìn gōngzuò zěnmeyàng?", russian: "Как у тебя в последнее время с работой?" },
+        { speaker: "B", chinese: "很忙，也很累。", pinyin: "hěn máng, yě hěn lèi.", russian: "Очень занят и устал." },
+        { speaker: "A", chinese: "你经常加班吗？", pinyin: "nǐ jīngcháng jiābān ma?", russian: "Ты часто работаешь сверхурочно?" },
+        { speaker: "B", chinese: "对，最近每天加班。", pinyin: "duì, zuìjìn měitiān jiābān.", russian: "Да, в последнее время каждый день." },
+        { speaker: "A", chinese: "你的老板怎么样？", pinyin: "nǐ de lǎobǎn zěnmeyàng?", russian: "Как твой начальник?" },
+        { speaker: "B", chinese: "老板很好，但是工资不高。", pinyin: "lǎobǎn hěn hǎo, dànshì gōngzī bù gāo.", russian: "Начальник хороший, но зарплата маленькая." },
+        { speaker: "A", chinese: "你想辞职吗？", pinyin: "nǐ xiǎng cízhí ma?", russian: "Хочешь уволиться?" },
+        { speaker: "B", chinese: "我在考虑。", pinyin: "wǒ zài kǎolǜ.", russian: "Я думаю об этом." },
+        { speaker: "A", chinese: "同事怎么样？", pinyin: "tóngshì zěnmeyàng?", russian: "Как коллеги?" },
+        { speaker: "B", chinese: "同事很好，我喜欢他们！", pinyin: "tóngshì hěn hǎo, wǒ xǐhuān tāmen!", russian: "Коллеги хорошие, я их люблю!" },
+    ],
+},
+
+// ----- ДИАЛОГ 29: В парке -----
+{
+    id: "d29",
+    title: "В парке",
+    phrases: ["公园", "散步", "花", "树", "鸟", "大自然", "舒服", "拍照"],
+    lines: [
+        { speaker: "A", chinese: "今天天气真好，我们去公园吧。", pinyin: "jīntiān tiānqì zhēn hǎo, wǒmen qù gōngyuán ba.", russian: "Сегодня погода отличная, давайте пойдём в парк." },
+        { speaker: "B", chinese: "好主意！我们可以散步。", pinyin: "hǎo zhǔyi! wǒmen kěyǐ sànbù.", russian: "Хорошая идея! Мы можем прогуляться." },
+        { speaker: "A", chinese: "你看那些花，太漂亮了！", pinyin: "nǐ kàn nàxiē huā, tài piàoliang le!", russian: "Посмотри на эти цветы, очень красивые!" },
+        { speaker: "B", chinese: "还有树和鸟！", pinyin: "háiyǒu shù hé niǎo!", russian: "Ещё деревья и птицы!" },
+        { speaker: "A", chinese: "大自然真美！", pinyin: "dàzìrán zhēn měi!", russian: "Природа очень красивая!" },
+        { speaker: "B", chinese: "在这里真舒服。", pinyin: "zài zhèlǐ zhēn shūfu.", russian: "Здесь очень комфортно." },
+        { speaker: "A", chinese: "我们拍照吧！", pinyin: "wǒmen pāizhào ba!", russian: "Давайте сфотографируемся!" },
+        { speaker: "B", chinese: "好！笑一个！", pinyin: "hǎo! xiào yīgè!", russian: "Хорошо! Улыбнись!" },
+        { speaker: "A", chinese: "这张照片很好看！", pinyin: "zhè zhāng zhàopiàn hěn hǎokàn!", russian: "Эта фотография очень красивая!" },
+    ],
+},
+
+// ----- ДИАЛОГ 30: Поздравления и пожелания -----
+{
+    id: "d30",
+    title: "Поздравления и пожелания",
+    phrases: ["恭喜", "祝你好运", "加油", "新年快乐", "圣诞节快乐", "生日快乐", "身体健康", "万事如意"],
+    lines: [
+        { speaker: "A", chinese: "恭喜你！你成功了！", pinyin: "gōngxǐ nǐ! nǐ chénggōng le!", russian: "Поздравляю! Ты добился успеха!" },
+        { speaker: "B", chinese: "谢谢！你真好！", pinyin: "xièxie! nǐ zhēn hǎo!", russian: "Спасибо! Ты такой добрый!" },
+        { speaker: "A", chinese: "祝你好运！", pinyin: "zhù nǐ hǎoyùn!", russian: "Удачи тебе!" },
+        { speaker: "B", chinese: "也祝你好运！加油！", pinyin: "yě zhù nǐ hǎoyùn! jiāyóu!", russian: "И тебе удачи! Держись!" },
+        { speaker: "A", chinese: "新年快乐！", pinyin: "xīnnián kuàilè!", russian: "С Новым годом!" },
+        { speaker: "B", chinese: "新年快乐！身体健康！", pinyin: "xīnnián kuàilè! shēntǐ jiànkāng!", russian: "С Новым годом! Крепкого здоровья!" },
+        { speaker: "A", chinese: "圣诞节快乐！", pinyin: "shèngdàn jié kuàilè!", russian: "С Рождеством!" },
+        { speaker: "B", chinese: "也祝你圣诞节快乐！万事如意！", pinyin: "yě zhù nǐ shèngdàn jié kuàilè! wànshì rúyì!", russian: "И тебе счастливого Рождества! Пусть все желания сбудутся!" },
+        { speaker: "A", chinese: "生日快乐！祝你开心！", pinyin: "shēngrì kuàilè! zhù nǐ kāixīn!", russian: "С днём рождения! Будь счастлив!" },
+    ],
+},
 ];
 
 // ============================================================
