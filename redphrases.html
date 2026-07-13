@@ -9,7 +9,7 @@
     <script src="redphrases.js">
     </script>
     <style>
-        /* Все стили как раньше, без изменений */
+        /* ===== ВСЕ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -163,7 +163,6 @@
             border-radius: 4px;
         }
 
-        /* ГРУППЫ (ФРАЗЫ) - стили без изменений */
         .search {
             width: 100%;
             padding: 12px 18px;
@@ -745,7 +744,7 @@
             opacity: 0.4;
         }
 
-        /* ===== КАЛЛИГРАФИЯ — ИСПРАВЛЕННАЯ ===== */
+        /* КАЛЛИГРАФИЯ */
         #tab-canvas {
             flex: 1;
             flex-direction: column;
@@ -1007,6 +1006,14 @@
                 <button data-cat="travel">✈️ Путешествия</button>
                 <button data-cat="food">🍜 Еда</button>
                 <button data-cat="work">💼 Работа</button>
+                <button data-cat="shop">🛍️ Покупки</button>
+                <button data-cat="emotion">❤️ Эмоции</button>
+                <button data-cat="family">👨‍👩‍👧‍👦 Семья</button>
+                <button data-cat="health">🏥 Здоровье</button>
+                <button data-cat="time">⏰ Время</button>
+                <button data-cat="tech">💻 Технологии</button>
+                <button data-cat="nature">🌿 Природа</button>
+                <button data-cat="num">🔢 Числа</button>
             </div>
             <div class="scroll-area" id="groupsContainer"></div>
         </div>
@@ -1067,7 +1074,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ (ИСПРАВЛЕННАЯ) -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-canvas">
             <div class="canvas-container">
@@ -1111,26 +1118,81 @@
         let notebook = JSON.parse(localStorage.getItem('chinese_redbook_notebook') || '[]');
         let collapsedGroups = JSON.parse(localStorage.getItem('chinese_collapsed_groups') || '{}');
 
-        if (typeof redBookData !== 'undefined') allPhrases = redBookData;
-        else if (typeof allPhrases !== 'undefined') allPhrases = allPhrases;
-        else if (typeof redPhrases !== 'undefined') allPhrases = redPhrases;
+        // Загружаем данные из redphrases.js
+        if (typeof redBookData !== 'undefined') {
+            allPhrases = redBookData;
+            console.log('✅ Загружено фраз:', allPhrases.length);
+        } else if (typeof allPhrases !== 'undefined') {
+            // уже есть
+        } else if (typeof redPhrases !== 'undefined') {
+            allPhrases = redPhrases;
+        }
 
-        if (typeof redBookDialogues !== 'undefined') allDialogues = redBookDialogues;
-        else if (typeof dialogues !== 'undefined') allDialogues = dialogues;
+        if (typeof redBookDialogues !== 'undefined') {
+            allDialogues = redBookDialogues;
+            console.log('✅ Загружено диалогов:', allDialogues.length);
+        } else if (typeof dialogues !== 'undefined') {
+            allDialogues = dialogues;
+        }
+
+        // ============================================================
+        // 2. ГРУППЫ (РАСШИРЕННЫЕ)
+        // ============================================================
 
         const groups = [
-            { id: 'decisions', icon: '💭', title: 'Решения', keywords: ['决定', '选好', '想好', '同意', '反对', '答应', '保证'] },
-            { id: 'greetings', icon: '👋', title: 'Приветствия', keywords: ['你好', '怎么样', '见', '好久', '最近', '欢迎'] },
-            { id: 'feelings', icon: '😊', title: 'Чувства', keywords: ['喜欢', '讨厌', '累', '饿', '饱', '困', '饿死', '累死'] },
-            { id: 'actions', icon: '🏃', title: 'Действия', keywords: ['走', '回去', '过来', '过去', '去', '来', '开'] },
-            { id: 'requests', icon: '🙏', title: 'Просьбы', keywords: ['帮', '忙', '送', '陪', '让', '借'] },
-            { id: 'time', icon: '⏰', title: 'Время', keywords: ['时间', '赶', '急', '等', '迟', '晚', '早', '快', '慢', '马上'] },
-            { id: 'food', icon: '🍜', title: 'Еда', keywords: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账'] },
-            { id: 'work', icon: '💼', title: 'Работа', keywords: ['工作', '学习', '会议', '安排', '记录', '主持', '议程', '项目'] },
-            { id: 'weather', icon: '🌤️', title: 'Погода', keywords: ['雨', '雪', '风', '天', '晴', '阴', '云', '冷', '热'] },
-            { id: 'communication', icon: '📱', title: 'Общение', keywords: ['说', '话', '电话', '沟通', '联系', '确认', '邮件', '发送'] },
-            { id: 'travel', icon: '✈️', title: 'Путешествия', keywords: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全', '小心'] },
-            { id: 'emotions', icon: '❤️', title: 'Эмоции', keywords: ['开心', '难过', '担心', '紧张', '兴奋', '感动', '失望', '生气'] }
+            { id: 'decisions', icon: '💭', title: 'Решения', keywords: ['决定', '选好', '想好', '同意', '反对', '答应', '保证',
+                    '确认', '安排'
+                ] },
+            { id: 'greetings', icon: '👋', title: 'Приветствия', keywords: ['你好', '怎么样', '见', '好久', '最近', '欢迎', '认识'] },
+            { id: 'feelings', icon: '😊', title: 'Чувства', keywords: ['喜欢', '讨厌', '累', '饿', '饱', '困', '饿死', '累死', '羡慕',
+                    '失望', '无聊', '烦', '开心', '难过', '担心', '生气'
+                ] },
+            { id: 'actions', icon: '🏃', title: 'Действия', keywords: ['走', '回去', '过来', '过去', '去', '来', '开', '停车',
+                    '走路', '开车', '跑步', '游泳', '运动'
+                ] },
+            { id: 'requests', icon: '🙏', title: 'Просьбы', keywords: ['帮', '忙', '送', '陪', '让', '借', '需要', '可以吗'] },
+            { id: 'time', icon: '⏰', title: 'Время', keywords: ['时间', '赶', '急', '等', '迟', '晚', '早', '快', '慢', '马上',
+                    '现在', '今天', '明天', '昨天', '星期', '周末', '年', '月', '日'
+                ] },
+            { id: 'food', icon: '🍜', title: 'Еда', keywords: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账', '菜单', '点菜',
+                    '好吃', '难吃', '米饭', '面条', '饺子', '包子', '汤', '鱼', '鸡肉', '猪肉', '牛肉', '蔬菜', '水果', '苹果', '香蕉',
+                    '水', '茶', '咖啡', '啤酒', '果汁', '辣', '咸', '甜', '酸', '外卖'
+                ] },
+            { id: 'work', icon: '💼', title: 'Работа', keywords: ['工作', '学习', '会议', '安排', '记录', '主持', '议程', '项目',
+                    '邮件', '发送', '推迟', '提前', '尽快', '准时', '公司', '同事', '老板', '工资', '加班', '辞职'
+                ] },
+            { id: 'weather', icon: '🌤️', title: 'Погода', keywords: ['雨', '雪', '风', '天', '晴', '阴', '云', '冷', '热',
+                    '天气', '温度'
+                ] },
+            { id: 'communication', icon: '📱', title: 'Общение', keywords: ['说', '话', '电话', '沟通', '联系', '确认', '邮件',
+                    '发送', '微信', '抖音', '上网', '搜索', '导航', '视频'
+                ] },
+            { id: 'travel', icon: '✈️', title: 'Путешествия', keywords: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全', '小心',
+                    '出租车', '公交车', '飞机', '船', '护照', '签证', '行李箱', '登机', '酒店', '房间', '钥匙'
+                ] },
+            { id: 'emotions', icon: '❤️', title: 'Эмоции (расш.)', keywords: ['开心', '难过', '担心', '紧张', '兴奋', '感动', '失望',
+                    '生气', '害怕', '累', '无聊', '烦', '幸福'
+                ] },
+            { id: 'family', icon: '👨‍👩‍👧‍👦', title: 'Семья', keywords: ['爸爸', '妈妈', '哥哥', '姐姐', '弟弟', '妹妹', '朋友', '女朋友',
+                    '男朋友', '老师', '学生', '同事', '邻居', '家人', '结婚', '单身', '孩子'
+                ] },
+            { id: 'health', icon: '🏥', title: 'Здоровье', keywords: ['生病', '感冒', '头痛', '肚子痛', '发烧', '吃药', '医生', '医院',
+                    '身体', '休息', '喝水', '健康', '运动', '跑步', '游泳', '健身房'
+                ] },
+            { id: 'tech', icon: '💻', title: 'Технологии', keywords: ['手机', '电脑', '网络', 'WiFi', '密码', '充电', '电池', '下载',
+                    '上传', '拍照', '视频', '打电话', '发信息', '微信', '抖音', '上网', '搜索', '导航', '应用', '软件', '淘宝', '京东',
+                    '快递', '评价', '退货', '付款', '收货'
+                ] },
+            { id: 'nature', icon: '🌿', title: 'Природа', keywords: ['动物', '猫', '狗', '鸟', '花', '树', '草', '山', '水', '天空',
+                    '月亮', '星星', '太阳', '海', '河', '湖', '森林', '公园', '花园', '大自然'
+                ] },
+            { id: 'shop', icon: '🛍️', title: 'Покупки', keywords: ['超市', '商店', '买东西', '卖东西', '便宜', '贵', '打折', '现金',
+                    '信用卡', '微信支付', '支付宝', '试', '尺码', '颜色', '红色', '蓝色', '白色', '黑色', '黄色', '绿色', '衣服', '鞋子',
+                    '包', '收据'
+                ] },
+            { id: 'numbers', icon: '🔢', title: 'Числа', keywords: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
+                    '百', '千', '万', '块', '毛'
+                ] },
         ];
 
         let searchQuery = '';
@@ -1139,7 +1201,7 @@
         let hanziWriter = null;
 
         // ============================================================
-        // 2. ГРУППЫ (ФРАЗЫ)
+        // 3. ГРУППЫ (ФРАЗЫ) — ФУНКЦИИ
         // ============================================================
 
         function getPhrasesForGroup(group) {
@@ -1226,12 +1288,12 @@
         }
 
         // ============================================================
-        // 3. ДИАЛОГИ
+        // 4. ДИАЛОГИ
         // ============================================================
 
         function renderDialogues() {
             const container = document.getElementById('dialoguesContainer');
-            if (allDialogues.length === 0) {
+            if (!allDialogues || allDialogues.length === 0) {
                 container.innerHTML = `<div class="empty"><span class="icon">💬</span>Диалогов нет</div>`;
                 return;
             }
@@ -1275,7 +1337,7 @@
         }
 
         // ============================================================
-        // 4. ДНЕВНИК
+        // 5. ДНЕВНИК
         // ============================================================
 
         function toggleNotebook(char, pinyin, translation) {
@@ -1365,7 +1427,7 @@
         }
 
         // ============================================================
-        // 5. HANZI WRITER (РИСОВАЛКА)
+        // 6. HANZI WRITER (РИСОВАЛКА)
         // ============================================================
 
         function initHanziWriter(chars) {
@@ -1398,6 +1460,14 @@
                 const size = Math.min(wrapperRect.width - 16, 400, window.innerHeight * 0.4);
                 const text = chars.join('');
 
+                // Проверяем, что HanziWriter доступен
+                if (typeof HanziWriter === 'undefined') {
+                    placeholder.style.display = 'block';
+                    placeholder.textContent = '⚠️ Библиотека не загружена. Проверьте подключение.';
+                    target.style.display = 'none';
+                    return;
+                }
+
                 hanziWriter = HanziWriter.create(target, text, {
                     width: Math.max(size, 200),
                     height: Math.max(size, 200),
@@ -1417,6 +1487,7 @@
                 }, 300);
 
             } catch (e) {
+                console.error('HanziWriter error:', e);
                 placeholder.style.display = 'block';
                 placeholder.textContent = '❌ Ошибка: ' + e.message;
                 target.style.display = 'none';
@@ -1487,7 +1558,7 @@
         }
 
         // ============================================================
-        // 6. ОЗВУЧКА
+        // 7. ОЗВУЧКА
         // ============================================================
 
         let chineseVoice = null;
@@ -1523,7 +1594,7 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 7. КАЛЛИГРАФИЯ — ПОЛНОСТЬЮ ПЕРЕПИСАНА
+        // 8. КАЛЛИГРАФИЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -1550,13 +1621,11 @@
             canvas.style.height = size + 'px';
 
             ctx = canvas.getContext('2d');
-            // Явно задаём режим наложения
             ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#fffef9';
             ctx.fillRect(0, 0, size, size);
             drawGrid(ctx, size);
 
-            // Восстанавливаем образец
             if (savedExampleChars) {
                 drawExample(savedExampleChars);
                 exampleVisible = true;
@@ -1664,14 +1733,13 @@
                 const p = getPos(e);
                 const dist = Math.hypot(p.x - lastX, p.y - lastY);
                 if (dist < 0.5) {
-                    // Если очень близко, просто обновляем координаты
                     lastX = p.x;
                     lastY = p.y;
                     return;
                 }
 
                 ctx.save();
-                ctx.globalCompositeOperation = 'source-over'; // гарантия
+                ctx.globalCompositeOperation = 'source-over';
                 ctx.strokeStyle = currentColor;
                 ctx.lineWidth = brushSize;
                 ctx.lineCap = 'round';
@@ -1692,7 +1760,6 @@
                 saveCanvasState();
             }
 
-            // Удаляем старые обработчики
             canvas.removeEventListener('pointerdown', start);
             canvas.removeEventListener('pointermove', draw);
             canvas.removeEventListener('pointerup', stop);
@@ -1729,7 +1796,6 @@
                 if (canvasHistory.length <= 1) {
                     document.getElementById('canvasUndo').style.display = 'none';
                 }
-                // Восстанавливаем образец
                 if (exampleVisible && savedExampleChars) {
                     drawExample(savedExampleChars);
                     canvasRefData = ctx.getImageData(0, 0, size, size);
@@ -1833,7 +1899,7 @@
         }
 
         // ============================================================
-        // 8. ОБНОВЛЕНИЕ СТАТИСТИКИ
+        // 9. ОБНОВЛЕНИЕ СТАТИСТИКИ
         // ============================================================
 
         function updateStats() {
@@ -1845,20 +1911,29 @@
         }
 
         // ============================================================
-        // 9. ТОСТЫ
+        // 10. ТОСТЫ
         // ============================================================
 
         function showToast(msg) {
-            const t = document.createElement('div');
-            t.style.cssText =
+            const t = document.getElementById('toastMsg');
+            if (t) {
+                t.textContent = msg;
+                t.style.display = 'block';
+                clearTimeout(t._hide);
+                t._hide = setTimeout(() => t.style.display = 'none', 1800);
+                return;
+            }
+            const el = document.createElement('div');
+            el.id = 'toastMsg';
+            el.style.cssText =
                 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:10px 20px;border-radius:40px;z-index:9999;font-size:0.95rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:90%;text-align:center;';
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(() => t.remove(), 1800);
+            el.textContent = msg;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1800);
         }
 
         // ============================================================
-        // 10. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+        // 11. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
         // ============================================================
 
         function switchTab(tabName) {
@@ -1917,7 +1992,7 @@
         });
 
         // ============================================================
-        // 11. СОБЫТИЯ
+        // 12. СОБЫТИЯ
         // ============================================================
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -1996,7 +2071,7 @@
         });
 
         // ============================================================
-        // 12. СТАРТ
+        // 13. СТАРТ
         // ============================================================
 
         switchTab('groups');
@@ -2053,6 +2128,8 @@
         window.checkQuality = checkQuality;
 
         console.log('✅ Приложение загружено!');
+        console.log('📄 Всего фраз:', allPhrases.length);
+        console.log('💬 Всего диалогов:', allDialogues.length);
     </script>
 
 </body>
