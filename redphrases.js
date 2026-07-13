@@ -1332,10 +1332,10 @@ const redBookDialogues = [
         { speaker: "B", chinese: "知道！中国茶道很讲究。", pinyin: "zhīdào! Zhōngguó chádào hěn jiǎngjiu.", russian: "Да! Китайская чайная церемония очень изысканная." },
         { speaker: "A", chinese: "泡茶要用热水。", pinyin: "pào chá yào yòng rè shuǐ.", russian: "Для заваривания чая нужна горячая вода." },
         { speaker: "B", chinese: "对，用好看的茶杯。", pinyin: "duì, yòng hǎokàn de chábēi.", russian: "Да, и красивая чашка." },
-        { speaker: "A", chinese: "这茶好香啊！", pinyin: "zhè chá hǎo xiāng a!", russian: "Какой ароматный чай!" },
-    ],
-}
-];
+        { speaker: "A", chinese: "这茶好香啊！", pinyin: "zhè chá hǎo xiāng a!", russian: "Какой ароматный чай!" }
+    ]
+}  // ← НЕТ запятой (это последний элемент массива)
+]; // ← Закрытие массива
 
 // ============================================================
 // ЭКСПОРТ
