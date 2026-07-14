@@ -9,6 +9,7 @@
     <script src="redphrases.js">
     </script>
     <style>
+        /* ===== ВСЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -34,6 +35,7 @@
             flex-direction: column;
         }
 
+        /* ВЕРХНЯЯ ПАНЕЛЬ */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -57,6 +59,7 @@
             font-weight: bold;
             font-size: 1.1rem;
             box-shadow: 0 3px 0 #2a1a0a;
+            cursor: pointer;
         }
         .top-bar .back-btn:active {
             transform: translateY(2px);
@@ -78,12 +81,14 @@
             font-weight: bold;
             font-size: 1.1rem;
             box-shadow: 0 3px 0 #1a7a3a;
+            cursor: pointer;
         }
         .top-bar .notebook-link:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #1a7a3a;
         }
 
+        /* СТАТИСТИКА */
         .stats {
             display: flex;
             justify-content: center;
@@ -106,6 +111,7 @@
             font-size: 1.2rem;
         }
 
+        /* ВКЛАДКИ */
         .tabs {
             display: flex;
             gap: 8px;
@@ -148,6 +154,7 @@
             display: flex;
         }
 
+        /* СКРОЛЛ */
         .scroll-area {
             flex: 1;
             overflow-y: auto;
@@ -162,6 +169,7 @@
             border-radius: 4px;
         }
 
+        /* ПОИСК */
         .search {
             width: 100%;
             padding: 14px 20px;
@@ -183,6 +191,7 @@
             border-color: rgba(255, 215, 0, 0.2);
         }
 
+        /* КАТЕГОРИИ */
         .categories {
             display: flex;
             flex-wrap: wrap;
@@ -210,6 +219,7 @@
             border-color: #ff6b35;
         }
 
+        /* ГРУППЫ */
         .group-header {
             display: flex;
             align-items: center;
@@ -258,6 +268,7 @@
             max-height: 0;
         }
 
+        /* КАРТОЧКА ФРАЗЫ */
         .phrase-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
@@ -350,6 +361,7 @@
             background: #f39c12;
         }
 
+        /* ДИАЛОГИ */
         .dialog-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
@@ -445,6 +457,453 @@
             box-shadow: 0 1px 0 #1d4ed8;
         }
 
+        /* РИСОВАЛКА (HANZI WRITER) */
+        #tab-hanzi {
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+        #tab-hanzi.active {
+            display: flex;
+        }
+
+        .hanzi-section {
+            background: rgba(30, 25, 20, 0.6);
+            border-radius: 16px;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 215, 0, 0.06);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .hanzi-section .input-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+        .hanzi-section .input-row input {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 16px;
+            border: 2px solid rgba(255, 215, 0, 0.1);
+            border-radius: 40px;
+            background: rgba(30, 25, 20, 0.6);
+            color: #f5e6d3;
+            font-size: 1.4rem;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
+            outline: none;
+            maxlength: 4;
+        }
+        .hanzi-section .input-row input::placeholder {
+            color: #6b5a45;
+            font-size: 1rem;
+        }
+        .hanzi-section .input-row input:focus {
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+        .hanzi-section .input-row button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hanzi-section .input-row button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        .hanzi-section .input-row .repeat-btn {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .hanzi-section .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .hanzi-section .speed-control label {
+            font-size: 0.9rem;
+            color: #b8956a;
+            font-weight: 600;
+        }
+        .hanzi-section .speed-control input[type="range"] {
+            flex: 1;
+            min-width: 80px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            outline: none;
+        }
+        .hanzi-section .speed-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #ff6b35;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .hanzi-section .speed-control .speed-value {
+            font-size: 0.9rem;
+            color: #d4c9a6;
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .hanzi-section .hanzi-wrapper {
+            background: #fffef9;
+            border-radius: 12px;
+            padding: 4px;
+            border: 2px solid #c8aa6e;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 280px;
+            width: 100%;
+        }
+        .hanzi-section .hanzi-wrapper .hw-target {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 1/1;
+            max-height: 100%;
+            min-height: 200px;
+        }
+        .hanzi-section .hanzi-wrapper .placeholder {
+            color: #b8956a;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 16px;
+            position: absolute;
+            pointer-events: none;
+        }
+        .hanzi-section .hanzi-wrapper .char-label {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            color: #b8956a;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* ДНЕВНИК */
+        #tab-notebook {
+            flex-direction: column;
+            flex: 1;
+        }
+        #tab-notebook.active {
+            display: flex;
+        }
+
+        .notebook-container {
+            background: rgba(30, 25, 20, 0.6);
+            border-radius: 16px;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 215, 0, 0.06);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .notebook-container .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .notebook-container .header .count {
+            background: rgba(255, 215, 0, 0.06);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #b8956a;
+        }
+        .notebook-container .header .actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .notebook-container .header .clear-btn {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .notebook-container .header .clear-btn:hover {
+            background: rgba(231, 76, 60, 0.25);
+        }
+        .notebook-container .header .export-btn {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .notebook-container .header .export-btn:hover {
+            background: rgba(59, 130, 246, 0.25);
+        }
+
+        .notebook-container .list {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .notebook-container .list::-webkit-scrollbar {
+            width: 3px;
+        }
+        .notebook-container .list::-webkit-scrollbar-thumb {
+            background: #2ecc71;
+            border-radius: 4px;
+        }
+
+        .notebook-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            gap: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .notebook-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .notebook-item .char {
+            font-size: 2.6rem;
+            font-weight: 700;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
+            color: #f5e6d3;
+            min-width: 50px;
+        }
+        .notebook-item .info {
+            color: #d4c9a6;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 80px;
+        }
+        .notebook-item .info .pinyin {
+            color: #b8956a;
+        }
+        .notebook-item .date {
+            font-size: 0.7rem;
+            color: #b8956a;
+            opacity: 0.5;
+            min-width: 60px;
+        }
+        .notebook-item .actions {
+            display: flex;
+            gap: 4px;
+        }
+        .notebook-item .actions button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .notebook-item .actions button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+        }
+        .notebook-item .actions .speak-btn {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+        }
+        .notebook-item .actions .remove-btn {
+            background: #e74c3c;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* КАЛЛИГРАФИЯ */
+        #tab-canvas {
+            flex: 1;
+            flex-direction: column;
+        }
+        #tab-canvas.active {
+            display: flex;
+        }
+
+        .canvas-container {
+            background: rgba(30, 25, 20, 0.6);
+            border-radius: 16px;
+            padding: 12px;
+            border: 2px solid rgba(255, 215, 0, 0.06);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 0;
+        }
+        .canvas-wrapper {
+            background: #fffef9;
+            border-radius: 12px;
+            padding: 6px;
+            border: 2px solid #c8aa6e;
+            display: inline-block;
+            max-width: 100%;
+            width: 100%;
+            max-width: 550px;
+            touch-action: none;
+        }
+        .canvas-wrapper canvas {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1/1;
+            touch-action: none;
+            cursor: crosshair;
+            background: #fffef9;
+        }
+        .canvas-tools {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .canvas-tools button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.1s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .canvas-tools button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+        }
+        .canvas-tools .undo-btn {
+            background: #3b82f6;
+            color: white;
+        }
+        .canvas-tools .clear-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .canvas-tools .trace-btn {
+            background: #8b5cf6;
+            color: white;
+        }
+        .canvas-tools .check-btn {
+            background: #2ecc71;
+            color: white;
+        }
+        .canvas-tools .save-img-btn {
+            background: #f39c12;
+            color: white;
+        }
+        .canvas-tools .color-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+            min-width: unset;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.1s;
+            touch-action: manipulation;
+        }
+        .canvas-tools .color-btn.active {
+            border-color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .canvas-tools .brush-control {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .canvas-tools .brush-control label {
+            font-size: 0.8rem;
+            color: #b8956a;
+        }
+        .canvas-tools .brush-control input[type="range"] {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            outline: none;
+        }
+        .canvas-tools .brush-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #ff6b35;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .canvas-tools .brush-control .brush-value {
+            font-size: 0.8rem;
+            color: #b8956a;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .quality-bar {
+            background: rgba(30, 25, 20, 0.4);
+            height: 6px;
+            border-radius: 10px;
+            margin: 6px auto 4px;
+            max-width: 200px;
+            overflow: hidden;
+        }
+        .quality-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .quality-text {
+            font-size: 0.95rem;
+            color: #b8956a;
+            margin-top: 2px;
+            text-align: center;
+        }
+
         .empty {
             text-align: center;
             padding: 30px;
@@ -523,6 +982,12 @@
                 font-size: 0.8rem;
                 padding: 6px 12px;
             }
+            .hanzi-section .hanzi-wrapper {
+                min-height: 200px;
+            }
+            .notebook-item .char {
+                font-size: 2rem;
+            }
         }
         @media (max-width: 480px) {
             .phrase-card .chinese {
@@ -585,6 +1050,27 @@
                 font-size: 0.7rem;
                 padding: 4px 10px;
             }
+            .hanzi-section .input-row input {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            .hanzi-section .input-row button {
+                font-size: 0.85rem;
+                padding: 8px 14px;
+            }
+            .hanzi-section .hanzi-wrapper {
+                min-height: 160px;
+            }
+            .notebook-item .char {
+                font-size: 1.6rem;
+            }
+            .notebook-item .info {
+                font-size: 0.8rem;
+            }
+            .canvas-tools button {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -594,9 +1080,9 @@
 
         <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ ===== -->
         <div class="top-bar">
-            <a href="#" class="back-btn">◀ На главную</a>
+            <span class="back-btn" onclick="switchTab('groups')">◀ Фразы</span>
             <span class="title">📕 Красная книга</span>
-            <a href="#" class="notebook-link" id="notebookNav">📓 Дневник</a>
+            <span class="notebook-link" id="notebookNav">📓 Дневник</span>
         </div>
 
         <!-- ===== СТАТИСТИКА ===== -->
@@ -608,7 +1094,7 @@
             <span>В дневнике: <strong id="notebookCount">0</strong></span>
         </div>
 
-        <!-- ===== ВКЛАДКИ (ГЕНЕРИРУЮТСЯ ДИНАМИЧЕСКИ) ===== -->
+        <!-- ===== ВКЛАДКИ (ДИНАМИЧЕСКИ) ===== -->
         <div class="tabs" id="tabsContainer"></div>
 
         <!-- ========================================================== -->
@@ -625,6 +1111,87 @@
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-dialogues">
             <div class="scroll-area" id="dialoguesContainer"></div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-hanzi">
+            <div class="hanzi-section">
+                <div class="input-row">
+                    <input type="text" id="hanziInput" placeholder="Введите иероглиф(ы) до 4..." maxlength="4" autocomplete="off">
+                    <button id="showHanziBtn">✍️ Показать</button>
+                    <button class="repeat-btn" id="repeatHanziBtn">🔄 Повтор</button>
+                </div>
+                <div class="speed-control">
+                    <label for="speedSlider">🐢 Скорость:</label>
+                    <input type="range" id="speedSlider" min="0.3" max="2.5" step="0.1" value="1.0">
+                    <span class="speed-value" id="speedValue">1.0x</span>
+                    <label style="margin-left:8px;font-size:0.85rem;">
+                        <input type="checkbox" id="autoSaveToggle" checked> Автосохранение
+                    </label>
+                </div>
+                <div class="hanzi-wrapper" id="hanziWrapper">
+                    <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф(ы) и нажмите "Показать"</div>
+                    <div class="hw-target" id="hwTarget"></div>
+                    <div class="char-label" id="charLabel"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: ДНЕВНИК -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-notebook">
+            <div class="notebook-container">
+                <div class="header">
+                    <span>📓 Сохранённые</span>
+                    <div class="actions">
+                        <span class="count" id="notebookCountLabel">0</span>
+                        <button class="export-btn" id="exportNotebookBtn">📤 Экспорт</button>
+                        <button class="clear-btn" id="clearNotebookBtn">🗑️ Очистить</button>
+                    </div>
+                </div>
+                <div class="list" id="savedList">
+                    <div class="empty">
+                        <span class="icon">📓</span>
+                        Сохраняйте фразы и иероглифы для повторения
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
+        <!-- ========================================================== -->
+        <div class="tab-content" id="tab-canvas">
+            <div class="canvas-container">
+                <div class="canvas-wrapper" id="canvasWrapper">
+                    <canvas id="calligraphyCanvas"></canvas>
+                </div>
+                <div class="quality-bar"><div class="quality-fill" id="qFill"></div></div>
+                <div class="quality-text" id="qText">🖌️ Рисуй иероглифы кистью</div>
+                <div class="canvas-tools">
+                    <button class="undo-btn" id="canvasUndo">↩️ Отменить</button>
+                    <button class="clear-btn" id="canvasClear">🧽 Очистить</button>
+                    <button class="trace-btn" id="canvasTrace">👁️ Образец</button>
+                    <button class="check-btn" id="canvasCheck">✅ Проверить</button>
+                    <button class="save-img-btn" id="canvasSaveImg">💾 Сохранить PNG</button>
+                </div>
+                <div class="canvas-tools" style="margin-top:4px;">
+                    <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
+                        <button class="color-btn active" data-color="#1a1a1a" style="background:#1a1a1a;"></button>
+                        <button class="color-btn" data-color="#c0392b" style="background:#c0392b;"></button>
+                        <button class="color-btn" data-color="#d4a017" style="background:#d4a017;"></button>
+                        <button class="color-btn" data-color="#2471a3" style="background:#2471a3;"></button>
+                    </span>
+                    <span class="brush-control">
+                        <label for="brushSizeSlider">🖌️</label>
+                        <input type="range" id="brushSizeSlider" min="2" max="20" value="8">
+                        <span class="brush-value" id="brushSizeValue">8</span>
+                    </span>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -644,22 +1211,17 @@
             allPhrases = redBookData;
         } else if (typeof window.redBookData !== 'undefined') {
             allPhrases = window.redBookData;
-        } else if (typeof allPhrases !== 'undefined') {
-            // уже есть
-        } else if (typeof redPhrases !== 'undefined') {
-            allPhrases = redPhrases;
         }
 
         if (typeof redBookDialogues !== 'undefined') {
             allDialogues = redBookDialogues;
         } else if (typeof window.redBookDialogues !== 'undefined') {
             allDialogues = window.redBookDialogues;
-        } else if (typeof dialogues !== 'undefined') {
-            allDialogues = dialogues;
         }
 
         console.log('📄 Всего фраз:', allPhrases.length);
         console.log('💬 Всего диалогов:', allDialogues.length);
+        console.log('📓 В дневнике:', notebook.length);
 
         // ============================================================
         // 2. ДИНАМИЧЕСКИЕ ВКЛАДКИ
@@ -668,6 +1230,9 @@
         const TAB_CONFIG = [
             { id: 'groups', icon: '📚', label: 'Фразы' },
             { id: 'dialogues', icon: '💬', label: 'Диалоги' },
+            { id: 'hanzi', icon: '✍️', label: 'Рисовалка' },
+            { id: 'notebook', icon: '📓', label: 'Дневник' },
+            { id: 'canvas', icon: '🖌️', label: 'Каллиграфия' },
         ];
 
         function renderTabs() {
@@ -973,16 +1538,217 @@
             }
             localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
             renderGroups();
+            renderNotebook();
             updateStats();
         }
 
         function renderNotebook() {
-            // Просто обновляем счётчик в статистике
-            updateStats();
+            const container = document.getElementById('savedList');
+            if (notebook.length === 0) {
+                container.innerHTML =
+                    `<div class="empty"><span class="icon">📓</span>Сохраняйте фразы и иероглифы для повторения</div>`;
+                document.getElementById('notebookCountLabel').textContent = '0';
+                return;
+            }
+
+            let html = '';
+            for (const item of notebook) {
+                const safe = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const date = new Date(item.added);
+                const dateStr = date.toLocaleDateString('ru-RU') + ' ' + date.toLocaleTimeString('ru-RU', { hour: '2-digit',
+                    minute: '2-digit' });
+                html += `
+                            <div class="notebook-item" onclick="loadToHanzi('${safe}')">
+                                <span class="char">${item.char}</span>
+                                <span class="info">
+                                    <span class="pinyin">${item.pinyin || ''}</span>
+                                    ${item.translation ? `— ${item.translation}` : ''}
+                                </span>
+                                <span class="date">${dateStr}</span>
+                                <div class="actions">
+                                    <button class="speak-btn" onclick="event.stopPropagation(); speakChinese('${safe}')">🔊</button>
+                                    <button class="remove-btn" onclick="event.stopPropagation(); removeFromNotebook('${safe}')">✖</button>
+                                </div>
+                            </div>
+                        `;
+            }
+            container.innerHTML = html;
+            document.getElementById('notebookCountLabel').textContent = notebook.length;
+        }
+
+        function removeFromNotebook(char) {
+            const idx = notebook.findIndex(n => n.char === char);
+            if (idx >= 0) {
+                notebook.splice(idx, 1);
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                updateStats();
+                showToast(`❌ "${char}" удалён`);
+            }
+        }
+
+        function clearNotebook() {
+            if (notebook.length === 0) return;
+            if (confirm('Удалить всё из дневника?')) {
+                notebook = [];
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                updateStats();
+                showToast('🗑️ Дневник очищен');
+            }
+        }
+
+        function exportNotebook() {
+            if (notebook.length === 0) {
+                showToast('📓 Дневник пуст');
+                return;
+            }
+            const data = JSON.stringify(notebook, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'chinese_notebook_' + new Date().toISOString().slice(0, 10) + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('✅ Дневник экспортирован');
         }
 
         // ============================================================
-        // 7. ОЗВУЧКА
+        // 7. HANZI WRITER (РИСОВАЛКА)
+        // ============================================================
+
+        let hanziWriter = null;
+        let hanziSpeed = 1.0;
+
+        function initHanziWriter(chars) {
+            const target = document.getElementById('hwTarget');
+            const placeholder = document.getElementById('hanziPlaceholder');
+            const wrapper = document.getElementById('hanziWrapper');
+            const label = document.getElementById('charLabel');
+
+            if (hanziWriter) {
+                try { hanziWriter.destroy(); } catch (e) {}
+                hanziWriter = null;
+            }
+
+            target.innerHTML = '';
+            target.style.display = 'block';
+
+            if (!chars || chars.length === 0) {
+                placeholder.style.display = 'block';
+                placeholder.textContent = '📖 Введите иероглиф(ы) и нажмите "Показать"';
+                label.textContent = '';
+                target.style.display = 'none';
+                return;
+            }
+
+            placeholder.style.display = 'none';
+            label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
+
+            try {
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const size = Math.min(wrapperRect.width - 16, 500, window.innerHeight * 0.5);
+                const text = chars.join('');
+
+                if (typeof HanziWriter === 'undefined') {
+                    placeholder.style.display = 'block';
+                    placeholder.textContent = '⚠️ Библиотека не загружена. Проверьте подключение.';
+                    target.style.display = 'none';
+                    return;
+                }
+
+                hanziWriter = HanziWriter.create(target, text, {
+                    width: Math.max(size, 200),
+                    height: Math.max(size, 200),
+                    padding: 6,
+                    strokeColor: '#1a1a1a',
+                    radicalColor: '#c0392b',
+                    strokeAnimationSpeed: hanziSpeed,
+                    showCharacter: false,
+                    showOutline: true,
+                    showHintAfterMisses: 1,
+                });
+
+                setTimeout(() => {
+                    if (hanziWriter) {
+                        hanziWriter.animateCharacter();
+                    }
+                }, 300);
+
+            } catch (e) {
+                console.error('HanziWriter error:', e);
+                placeholder.style.display = 'block';
+                placeholder.textContent = '❌ Ошибка: ' + e.message;
+                target.style.display = 'none';
+                label.textContent = '';
+            }
+        }
+
+        function showHanzi() {
+            const input = document.getElementById('hanziInput');
+            const raw = input.value.trim();
+            if (!raw) {
+                document.getElementById('hanziPlaceholder').textContent = '⚠️ Введите иероглиф(ы)';
+                document.getElementById('hanziPlaceholder').style.display = 'block';
+                document.getElementById('hwTarget').style.display = 'none';
+                document.getElementById('charLabel').textContent = '';
+                return;
+            }
+
+            const chars = [...raw];
+            if (chars.length > 4) {
+                const limited = chars.slice(0, 4);
+                document.getElementById('hanziInput').value = limited.join('');
+                initHanziWriter(limited);
+                return;
+            }
+
+            initHanziWriter(chars);
+
+            if (document.getElementById('autoSaveToggle').checked) {
+                for (const char of chars) {
+                    if (!notebook.some(n => n.char === char)) {
+                        let pinyin = '',
+                            translation = '';
+                        const found = allPhrases.find(p => p.chinese === char);
+                        if (found) { pinyin = found.pinyin;
+                            translation = found.translation; }
+                        notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
+                    }
+                }
+                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
+                renderNotebook();
+                updateStats();
+                showToast(`✅ Сохранено: ${chars.join(', ')}`);
+            }
+        }
+
+        function repeatHanzi() {
+            const input = document.getElementById('hanziInput');
+            const raw = input.value.trim();
+            if (!raw) {
+                showToast('⚠️ Сначала введите иероглиф');
+                return;
+            }
+            const chars = [...raw];
+            if (chars.length > 4) {
+                const limited = chars.slice(0, 4);
+                document.getElementById('hanziInput').value = limited.join('');
+                initHanziWriter(limited);
+            } else {
+                initHanziWriter(chars);
+            }
+        }
+
+        function loadToHanzi(char) {
+            switchTab('hanzi');
+            document.getElementById('hanziInput').value = char;
+            setTimeout(() => initHanziWriter([char]), 200);
+        }
+
+        // ============================================================
+        // 8. ОЗВУЧКА
         // ============================================================
 
         let chineseVoice = null;
@@ -1015,29 +1781,314 @@
                 } catch (e) {}
             }, 50);
         }
-        window.speakChinese = speakChinese;
 
         // ============================================================
-        // 8. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+        // 9. КАЛЛИГРАФИЯ
         // ============================================================
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-            const target = document.getElementById('tab-' + tabName);
-            if (target) target.classList.add('active');
+        let canvas, ctx, isDrawing = false,
+            lastX, lastY;
+        let canvasHistory = [];
+        let currentColor = '#1a1a1a';
+        let canvasRefData = null;
+        let exampleVisible = false;
+        let brushSize = 8;
+        let canvasInitialized = false;
+        let savedExampleChars = '';
 
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tabName) btn.classList.add('active');
-            });
+        function initCanvas() {
+            canvas = document.getElementById('calligraphyCanvas');
+            if (!canvas) return;
 
-            if (tabName === 'dialogues') renderDialogues();
-            if (tabName === 'groups') renderGroups();
+            const wrapper = canvas.parentElement;
+            const maxSize = Math.min(wrapper.clientWidth - 12, 550, window.innerHeight * 0.55);
+            const size = Math.max(maxSize, 250);
+
+            canvas.width = size;
+            canvas.height = size;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+
+            ctx = canvas.getContext('2d');
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawGrid(ctx, size);
+
+            if (savedExampleChars) {
+                drawExample(savedExampleChars);
+                exampleVisible = true;
+                document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
+                document.getElementById('qText').textContent = `🖌️ Обводи образец "${savedExampleChars}"`;
+                canvasRefData = ctx.getImageData(0, 0, size, size);
+            } else {
+                canvasRefData = null;
+                exampleVisible = false;
+                document.getElementById('canvasTrace').textContent = '👁️ Образец';
+                document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
+            }
+
+            document.getElementById('qFill').style.width = '0%';
+            canvasHistory = [];
+            document.getElementById('canvasUndo').style.display = 'none';
+
+            if (!canvasInitialized) {
+                setupDrawing();
+                canvasInitialized = true;
+            }
         }
-        window.switchTab = switchTab;
+
+        function drawGrid(ctx, size) {
+            const p = size * 0.05,
+                c = size / 2;
+            ctx.save();
+            ctx.strokeStyle = '#e8e0d8';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(p, p, size - p * 2, size - p * 2);
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath();
+            ctx.moveTo(c, p);
+            ctx.lineTo(c, size - p);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(p, c);
+            ctx.lineTo(size - p, c);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        }
+
+        function drawExample(chars) {
+            const size = canvas.width;
+            ctx.save();
+            ctx.globalAlpha = 0.2;
+            ctx.fillStyle = '#9b59b6';
+            const fontSize = size * 0.5;
+            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            const charsArray = [...chars];
+            if (charsArray.length === 1) {
+                ctx.fillText(chars, size / 2, size / 2 + size * 0.02);
+            } else {
+                const spacing = size / (charsArray.length + 1);
+                for (let i = 0; i < charsArray.length; i++) {
+                    const x = spacing * (i + 1);
+                    const y = size / 2 + size * 0.02;
+                    ctx.fillText(charsArray[i], x, y);
+                }
+            }
+            ctx.restore();
+        }
+
+        function setupDrawing() {
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                let clientX, clientY;
+
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else if (e.changedTouches && e.changedTouches.length > 0) {
+                    clientX = e.changedTouches[0].clientX;
+                    clientY = e.changedTouches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                return {
+                    x: (clientX - rect.left) * scaleX,
+                    y: (clientY - rect.top) * scaleY
+                };
+            }
+
+            function start(e) {
+                e.preventDefault();
+                isDrawing = true;
+                const p = getPos(e);
+                lastX = p.x;
+                lastY = p.y;
+                saveCanvasState();
+                document.getElementById('canvasUndo').style.display = 'inline-block';
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const p = getPos(e);
+                const dist = Math.hypot(p.x - lastX, p.y - lastY);
+                if (dist < 0.5) {
+                    lastX = p.x;
+                    lastY = p.y;
+                    return;
+                }
+
+                ctx.save();
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+                ctx.restore();
+
+                lastX = p.x;
+                lastY = p.y;
+            }
+
+            function stop(e) {
+                if (!isDrawing) return;
+                isDrawing = false;
+                saveCanvasState();
+            }
+
+            canvas.removeEventListener('pointerdown', start);
+            canvas.removeEventListener('pointermove', draw);
+            canvas.removeEventListener('pointerup', stop);
+            canvas.removeEventListener('pointerleave', stop);
+            canvas.removeEventListener('pointercancel', stop);
+            canvas.removeEventListener('touchstart', start);
+            canvas.removeEventListener('touchmove', draw);
+            canvas.removeEventListener('touchend', stop);
+
+            canvas.addEventListener('pointerdown', start);
+            canvas.addEventListener('pointermove', draw);
+            canvas.addEventListener('pointerup', stop);
+            canvas.addEventListener('pointerleave', stop);
+            canvas.addEventListener('pointercancel', stop);
+
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stop, { passive: false });
+        }
+
+        function saveCanvasState() {
+            canvasHistory.push(canvas.toDataURL());
+            if (canvasHistory.length > 30) canvasHistory.shift();
+        }
+
+        function undoCanvas() {
+            if (canvasHistory.length < 2) return;
+            canvasHistory.pop();
+            const img = new Image();
+            img.onload = function() {
+                const size = canvas.width;
+                ctx.clearRect(0, 0, size, size);
+                ctx.drawImage(img, 0, 0);
+                if (canvasHistory.length <= 1) {
+                    document.getElementById('canvasUndo').style.display = 'none';
+                }
+                if (exampleVisible && savedExampleChars) {
+                    drawExample(savedExampleChars);
+                    canvasRefData = ctx.getImageData(0, 0, size, size);
+                }
+            };
+            img.src = canvasHistory[canvasHistory.length - 1];
+        }
+
+        function clearCanvas() {
+            const size = canvas.width;
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawGrid(ctx, size);
+
+            if (exampleVisible && savedExampleChars) {
+                drawExample(savedExampleChars);
+                canvasRefData = ctx.getImageData(0, 0, size, size);
+            } else {
+                canvasRefData = null;
+            }
+
+            document.getElementById('qFill').style.width = '0%';
+            document.getElementById('qText').textContent = exampleVisible ? `🖌️ Обводи образец "${savedExampleChars}"` :
+                '🧽 Очищено';
+            canvasHistory = [];
+            document.getElementById('canvasUndo').style.display = 'none';
+        }
+
+        function showExample() {
+            const char = prompt('Введите иероглиф(ы) для образца (до 4 символов):', savedExampleChars || '永');
+            if (!char || char.length === 0 || char.length > 4) {
+                if (char && char.length > 4) {
+                    showToast('⚠️ Можно ввести не более 4 иероглифов');
+                }
+                return;
+            }
+            savedExampleChars = char;
+            clearCanvas();
+            drawExample(char);
+            const size = canvas.width;
+            canvasRefData = ctx.getImageData(0, 0, size, size);
+            exampleVisible = true;
+            document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
+            document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
+            try {
+                localStorage.setItem('chinese_example_chars', char);
+            } catch (e) {}
+        }
+
+        function hideExample() {
+            const size = canvas.width;
+            ctx.fillStyle = '#fffef9';
+            ctx.fillRect(0, 0, size, size);
+            drawGrid(ctx, size);
+            canvasRefData = null;
+            exampleVisible = false;
+            document.getElementById('canvasTrace').textContent = '👁️ Образец';
+            document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
+        }
+
+        function checkQuality() {
+            if (!canvasRefData) {
+                document.getElementById('qText').textContent = '👁️ Сначала покажи образец';
+                return;
+            }
+            const size = canvas.width;
+            const current = ctx.getImageData(0, 0, size, size);
+            const dRef = canvasRefData.data;
+            const dCur = current.data;
+            let match = 0,
+                totalRef = 0,
+                userOutside = 0;
+            const threshold = 235;
+            for (let i = 0; i < dRef.length; i += 4) {
+                const isRef = (dRef[i] < threshold || dRef[i + 1] < threshold || dRef[i + 2] < threshold);
+                const isUser = (dCur[i] < threshold || dCur[i + 1] < threshold || dCur[i + 2] < threshold);
+                if (isRef) { totalRef++;
+                    if (isUser) match++; } else if (isUser) { userOutside++; }
+            }
+            if (totalRef === 0) {
+                document.getElementById('qText').textContent = '📝 Нет эталона';
+                return;
+            }
+            const pct = Math.round(2 * (match / totalRef) * (match / (totalRef + userOutside + 0.001)) /
+                ((match / totalRef) + (match / (totalRef + userOutside + 0.001)) + 0.001) * 100);
+            const fill = document.getElementById('qFill');
+            const text = document.getElementById('qText');
+            fill.style.width = pct + '%';
+            if (pct > 60) { fill.style.background = '#2ecc71';
+                text.textContent = `🌟 Отлично! ${pct}%`; } else if (pct > 35) { fill.style.background = '#f39c12';
+                text.textContent = `👍 Хорошо! ${pct}%`; } else { fill.style.background = '#e67e22';
+                text.textContent = `📝 Продолжай (${pct}%)`; }
+        }
+
+        function saveCanvasImage() {
+            const link = document.createElement('a');
+            link.download = 'calligraphy_' + new Date().toISOString().slice(0, 10) + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('💾 Рисунок сохранён');
+        }
 
         // ============================================================
-        // 9. ОБНОВЛЕНИЕ СТАТИСТИКИ
+        // 10. ОБНОВЛЕНИЕ СТАТИСТИКИ
         // ============================================================
 
         function updateStats() {
@@ -1049,7 +2100,7 @@
         }
 
         // ============================================================
-        // 10. ТОСТЫ
+        // 11. ТОСТЫ
         // ============================================================
 
         function showToast(msg) {
@@ -1071,7 +2122,46 @@
         }
 
         // ============================================================
-        // 11. СОБЫТИЯ
+        // 12. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+        // ============================================================
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            const target = document.getElementById('tab-' + tabName);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabName) btn.classList.add('active');
+            });
+
+            if (tabName === 'dialogues') renderDialogues();
+            if (tabName === 'groups') renderGroups();
+            if (tabName === 'notebook') renderNotebook();
+            if (tabName === 'hanzi') {
+                setTimeout(() => {
+                    const input = document.getElementById('hanziInput');
+                    if (input && input.value.trim()) {
+                        const chars = [...input.value.trim()];
+                        initHanziWriter(chars.slice(0, 4));
+                    } else {
+                        initHanziWriter([]);
+                    }
+                }, 150);
+            }
+            if (tabName === 'canvas') {
+                try {
+                    const saved = localStorage.getItem('chinese_example_chars');
+                    if (saved && !savedExampleChars) {
+                        savedExampleChars = saved;
+                    }
+                } catch (e) {}
+                setTimeout(initCanvas, 100);
+            }
+        }
+
+        // ============================================================
+        // 13. СОБЫТИЯ
         // ============================================================
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -1081,20 +2171,104 @@
 
         document.getElementById('notebookNav').addEventListener('click', function(e) {
             e.preventDefault();
-            // Показываем уведомление о дневнике
-            const count = notebook.length;
-            showToast(`📓 В дневнике ${count} записей`);
+            switchTab('notebook');
+        });
+
+        document.getElementById('showHanziBtn').addEventListener('click', showHanzi);
+        document.getElementById('repeatHanziBtn').addEventListener('click', repeatHanzi);
+        document.getElementById('hanziInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault();
+                showHanzi(); }
+        });
+        document.getElementById('hanziInput').addEventListener('input', function() {
+            const val = this.value.trim();
+            if (val.length > 0) {
+                const chars = [...val];
+                if (chars.length <= 4) initHanziWriter(chars);
+                else {
+                    const limited = chars.slice(0, 4);
+                    this.value = limited.join('');
+                    initHanziWriter(limited);
+                }
+            } else {
+                initHanziWriter([]);
+            }
+        });
+        document.getElementById('speedSlider').addEventListener('input', function() {
+            hanziSpeed = parseFloat(this.value);
+            document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1) + 'x';
+            const input = document.getElementById('hanziInput');
+            if (input && input.value.trim()) {
+                const chars = [...input.value.trim()];
+                initHanziWriter(chars.slice(0, 4));
+            }
+        });
+
+        document.getElementById('clearNotebookBtn').addEventListener('click', clearNotebook);
+        document.getElementById('exportNotebookBtn').addEventListener('click', exportNotebook);
+
+        document.getElementById('canvasClear').addEventListener('click', clearCanvas);
+        document.getElementById('canvasUndo').addEventListener('click', undoCanvas);
+        document.getElementById('canvasTrace').addEventListener('click', function() {
+            if (exampleVisible) {
+                hideExample();
+            } else {
+                showExample();
+            }
+        });
+        document.getElementById('canvasCheck').addEventListener('click', checkQuality);
+        document.getElementById('canvasSaveImg').addEventListener('click', saveCanvasImage);
+        document.getElementById('brushSizeSlider').addEventListener('input', function() {
+            brushSize = parseInt(this.value);
+            document.getElementById('brushSizeValue').textContent = brushSize;
+        });
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentColor = this.dataset.color;
+            });
         });
 
         // ============================================================
-        // 12. СТАРТ
+        // 14. СТАРТ
         // ============================================================
 
         renderTabs();
         renderCategoryButtons();
         renderGroups();
         renderDialogues();
+        renderNotebook();
         updateStats();
+
+        try {
+            const saved = localStorage.getItem('chinese_example_chars');
+            if (saved) {
+                savedExampleChars = saved;
+            }
+        } catch (e) {}
+
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (document.getElementById('tab-canvas').classList.contains('active')) {
+                    initCanvas();
+                }
+                if (document.getElementById('tab-hanzi').classList.contains('active')) {
+                    const input = document.getElementById('hanziInput');
+                    if (input && input.value.trim()) {
+                        const chars = [...input.value.trim()];
+                        initHanziWriter(chars.slice(0, 4));
+                    }
+                }
+            }, 300);
+        });
+
+        setTimeout(() => {
+            initCanvas();
+            initHanziWriter([]);
+        }, 300);
 
         // Переключаем на первую вкладку
         switchTab('groups');
@@ -1104,9 +2278,24 @@
         console.log('💬 Всего диалогов:', allDialogues.length);
         console.log('📓 В дневнике:', notebook.length);
 
+        // Экспортируем функции в глобальную область
         window.toggleNotebook = toggleNotebook;
+        window.removeFromNotebook = removeFromNotebook;
+        window.loadToHanzi = loadToHanzi;
         window.speakChinese = speakChinese;
         window.switchTab = switchTab;
+        window.showToast = showToast;
+        window.initHanziWriter = initHanziWriter;
+        window.showHanzi = showHanzi;
+        window.repeatHanzi = repeatHanzi;
+        window.undoCanvas = undoCanvas;
+        window.saveCanvasImage = saveCanvasImage;
+        window.exportNotebook = exportNotebook;
+        window.initCanvas = initCanvas;
+        window.clearCanvas = clearCanvas;
+        window.showExample = showExample;
+        window.hideExample = hideExample;
+        window.checkQuality = checkQuality;
     </script>
 
 </body>
