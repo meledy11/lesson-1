@@ -9,7 +9,7 @@
     <script src="redphrases.js">
     </script>
     <style>
-        /* ===== ВСЕ СТИЛИ ===== */
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -35,7 +35,7 @@
             flex-direction: column;
         }
 
-        /* ВЕРХНЯЯ ПАНЕЛЬ */
+        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -50,7 +50,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 215, 0, 0.08);
         }
-        .top-bar .back-btn {
+        .top-bar .menu-btn {
             background: #5a4a3a;
             color: #f7e05e;
             padding: 8px 20px;
@@ -60,8 +60,10 @@
             font-size: 1.1rem;
             box-shadow: 0 3px 0 #2a1a0a;
             cursor: pointer;
+            border: none;
+            font-family: inherit;
         }
-        .top-bar .back-btn:active {
+        .top-bar .menu-btn:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #2a1a0a;
         }
@@ -71,6 +73,7 @@
             background: linear-gradient(135deg, #ffd700, #ff6b35);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
         .top-bar .notebook-link {
             background: #2ecc71;
@@ -82,13 +85,15 @@
             font-size: 1.1rem;
             box-shadow: 0 3px 0 #1a7a3a;
             cursor: pointer;
+            border: none;
+            font-family: inherit;
         }
         .top-bar .notebook-link:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #1a7a3a;
         }
 
-        /* СТАТИСТИКА */
+        /* ===== СТАТИСТИКА ===== */
         .stats {
             display: flex;
             justify-content: center;
@@ -111,7 +116,7 @@
             font-size: 1.2rem;
         }
 
-        /* ВКЛАДКИ */
+        /* ===== ВКЛАДКИ ===== */
         .tabs {
             display: flex;
             gap: 8px;
@@ -144,22 +149,26 @@
             border-color: #ff6b35;
             box-shadow: 0 4px 20px rgba(255, 107, 53, 0.2);
         }
+
+        /* ===== КОНТЕНТ ВКЛАДОК ===== */
         .tab-content {
             display: none;
             flex: 1;
             overflow: hidden;
             flex-direction: column;
+            min-height: 0;
         }
         .tab-content.active {
             display: flex;
         }
 
-        /* СКРОЛЛ */
+        /* ===== СКРОЛЛ НА ВСЮ ВЫСОТУ ===== */
         .scroll-area {
             flex: 1;
             overflow-y: auto;
             padding-right: 4px;
             -webkit-overflow-scrolling: touch;
+            min-height: 0;
         }
         .scroll-area::-webkit-scrollbar {
             width: 6px;
@@ -169,7 +178,7 @@
             border-radius: 4px;
         }
 
-        /* ПОИСК */
+        /* ===== ПОИСК ===== */
         .search {
             width: 100%;
             padding: 14px 20px;
@@ -191,7 +200,7 @@
             border-color: rgba(255, 215, 0, 0.2);
         }
 
-        /* КАТЕГОРИИ */
+        /* ===== КАТЕГОРИИ ===== */
         .categories {
             display: flex;
             flex-wrap: wrap;
@@ -219,7 +228,7 @@
             border-color: #ff6b35;
         }
 
-        /* ГРУППЫ */
+        /* ===== ГРУППЫ ===== */
         .group-header {
             display: flex;
             align-items: center;
@@ -268,7 +277,7 @@
             max-height: 0;
         }
 
-        /* КАРТОЧКА ФРАЗЫ */
+        /* ===== КАРТОЧКА ФРАЗЫ ===== */
         .phrase-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
@@ -361,7 +370,7 @@
             background: #f39c12;
         }
 
-        /* ДИАЛОГИ */
+        /* ===== ДИАЛОГИ ===== */
         .dialog-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
@@ -457,7 +466,7 @@
             box-shadow: 0 1px 0 #1d4ed8;
         }
 
-        /* РИСОВАЛКА (HANZI WRITER) */
+        /* ===== РИСОВАЛКА (HANZI WRITER) ===== */
         #tab-hanzi {
             flex-direction: column;
             gap: 8px;
@@ -601,7 +610,7 @@
             pointer-events: none;
         }
 
-        /* ДНЕВНИК */
+        /* ===== ДНЕВНИК ===== */
         #tab-notebook {
             flex-direction: column;
             flex: 1;
@@ -751,7 +760,7 @@
             font-size: 0.8rem;
         }
 
-        /* КАЛЛИГРАФИЯ */
+        /* ===== КАЛЛИГРАФИЯ ===== */
         #tab-canvas {
             flex: 1;
             flex-direction: column;
@@ -917,6 +926,121 @@
             opacity: 0.4;
         }
 
+        /* ===== ГЛАВНОЕ МЕНЮ (ОВЕРЛЕЙ) ===== */
+        .main-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            animation: fadeIn 0.3s ease;
+        }
+        .main-menu-overlay.active {
+            display: flex;
+        }
+        .main-menu-overlay .menu-container {
+            background: rgba(30, 25, 20, 0.95);
+            border-radius: 30px;
+            padding: 40px 50px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid rgba(255, 215, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .main-menu-overlay .menu-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .main-menu-overlay .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.04);
+            color: #f5e6d3;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            font-family: inherit;
+            width: 100%;
+            text-align: left;
+        }
+        .main-menu-overlay .menu-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.2);
+            transform: translateX(4px);
+        }
+        .main-menu-overlay .menu-item .icon {
+            font-size: 2rem;
+            min-width: 40px;
+        }
+        .main-menu-overlay .menu-close {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 12px;
+            transition: all 0.2s;
+        }
+        .main-menu-overlay .menu-close:hover {
+            background: rgba(231, 76, 60, 0.25);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== ТОСТ ===== */
+        #toastMsg {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 9999;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            text-align: center;
+        }
+
         /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 768px) {
             body {
@@ -928,9 +1052,9 @@
             .top-bar .title {
                 font-size: 1.4rem;
             }
-            .top-bar .back-btn,
+            .top-bar .menu-btn,
             .top-bar .notebook-link {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 padding: 6px 14px;
             }
             .stats {
@@ -987,6 +1111,20 @@
             }
             .notebook-item .char {
                 font-size: 2rem;
+            }
+            .main-menu-overlay .menu-container {
+                padding: 30px 25px;
+            }
+            .main-menu-overlay .menu-title {
+                font-size: 1.8rem;
+            }
+            .main-menu-overlay .menu-item {
+                font-size: 1rem;
+                padding: 12px 16px;
+            }
+            .main-menu-overlay .menu-item .icon {
+                font-size: 1.6rem;
+                min-width: 32px;
             }
         }
         @media (max-width: 480px) {
@@ -1071,6 +1209,21 @@
                 font-size: 0.75rem;
                 padding: 6px 12px;
             }
+            .main-menu-overlay .menu-container {
+                padding: 20px 16px;
+            }
+            .main-menu-overlay .menu-title {
+                font-size: 1.4rem;
+            }
+            .main-menu-overlay .menu-item {
+                font-size: 0.9rem;
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            .main-menu-overlay .menu-item .icon {
+                font-size: 1.3rem;
+                min-width: 28px;
+            }
         }
     </style>
 </head>
@@ -1080,9 +1233,9 @@
 
         <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ ===== -->
         <div class="top-bar">
-            <span class="back-btn" onclick="switchTab('groups')">◀ Фразы</span>
-            <span class="title">📕 Красная книга</span>
-            <span class="notebook-link" id="notebookNav">📓 Дневник</span>
+            <button class="menu-btn" id="menuBtn">☰ Меню</button>
+            <span class="title" onclick="switchTab('groups')">📕 Красная книга</span>
+            <button class="notebook-link" id="notebookNav">📓 Дневник</button>
         </div>
 
         <!-- ===== СТАТИСТИКА ===== -->
@@ -1195,6 +1348,34 @@
         </div>
 
     </div>
+
+    <!-- ===== ГЛАВНОЕ МЕНЮ (ОВЕРЛЕЙ) ===== -->
+    <div class="main-menu-overlay" id="mainMenu">
+        <div class="menu-container">
+            <div class="menu-title">📕 Красная книга</div>
+
+            <button class="menu-item" onclick="closeMenu(); switchTab('groups')">
+                <span class="icon">📚</span> Фразы
+            </button>
+            <button class="menu-item" onclick="closeMenu(); switchTab('dialogues')">
+                <span class="icon">💬</span> Диалоги
+            </button>
+            <button class="menu-item" onclick="closeMenu(); switchTab('hanzi')">
+                <span class="icon">✍️</span> Рисовалка
+            </button>
+            <button class="menu-item" onclick="closeMenu(); switchTab('notebook')">
+                <span class="icon">📓</span> Дневник
+            </button>
+            <button class="menu-item" onclick="closeMenu(); switchTab('canvas')">
+                <span class="icon">🖌️</span> Каллиграфия
+            </button>
+
+            <button class="menu-close" onclick="closeMenu()">✖ Закрыть</button>
+        </div>
+    </div>
+
+    <!-- ===== ТОСТ ===== -->
+    <div id="toastMsg"></div>
 
     <script>
         // ============================================================
@@ -2104,25 +2285,27 @@
         // ============================================================
 
         function showToast(msg) {
-            const t = document.getElementById('toastMsg');
-            if (t) {
-                t.textContent = msg;
-                t.style.display = 'block';
-                clearTimeout(t._hide);
-                t._hide = setTimeout(() => t.style.display = 'none', 1800);
-                return;
-            }
-            const el = document.createElement('div');
-            el.id = 'toastMsg';
-            el.style.cssText =
-                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:40px;z-index:9999;font-size:1.1rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:90%;text-align:center;';
+            const el = document.getElementById('toastMsg');
             el.textContent = msg;
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 1800);
+            el.style.display = 'block';
+            clearTimeout(el._hide);
+            el._hide = setTimeout(() => { el.style.display = 'none'; }, 1800);
         }
 
         // ============================================================
-        // 12. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+        // 12. ГЛАВНОЕ МЕНЮ
+        // ============================================================
+
+        function openMenu() {
+            document.getElementById('mainMenu').classList.add('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('mainMenu').classList.remove('active');
+        }
+
+        // ============================================================
+        // 13. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
         // ============================================================
 
         function switchTab(tabName) {
@@ -2158,10 +2341,13 @@
                 } catch (e) {}
                 setTimeout(initCanvas, 100);
             }
+
+            // Закрываем меню при переключении
+            closeMenu();
         }
 
         // ============================================================
-        // 13. СОБЫТИЯ
+        // 14. СОБЫТИЯ
         // ============================================================
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -2172,6 +2358,18 @@
         document.getElementById('notebookNav').addEventListener('click', function(e) {
             e.preventDefault();
             switchTab('notebook');
+        });
+
+        document.getElementById('menuBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            openMenu();
+        });
+
+        // Закрытие меню по клику вне контейнера
+        document.getElementById('mainMenu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMenu();
+            }
         });
 
         document.getElementById('showHanziBtn').addEventListener('click', showHanzi);
@@ -2231,7 +2429,7 @@
         });
 
         // ============================================================
-        // 14. СТАРТ
+        // 15. СТАРТ
         // ============================================================
 
         renderTabs();
@@ -2296,6 +2494,8 @@
         window.showExample = showExample;
         window.hideExample = hideExample;
         window.checkQuality = checkQuality;
+        window.openMenu = openMenu;
+        window.closeMenu = closeMenu;
     </script>
 
 </body>
