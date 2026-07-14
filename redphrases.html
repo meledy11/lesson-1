@@ -9,7 +9,6 @@
     <script src="redphrases.js">
     </script>
     <style>
-        /* ===== ВСЕ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +27,7 @@
             color: #f5e6d3;
         }
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             height: 100%;
             display: flex;
@@ -40,11 +39,11 @@
             justify-content: space-between;
             align-items: center;
             background: rgba(30, 25, 20, 0.85);
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 40px;
             margin-bottom: 8px;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             flex-shrink: 0;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 215, 0, 0.08);
@@ -52,11 +51,11 @@
         .top-bar .back-btn {
             background: #5a4a3a;
             color: #f7e05e;
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             box-shadow: 0 3px 0 #2a1a0a;
         }
         .top-bar .back-btn:active {
@@ -64,7 +63,7 @@
             box-shadow: 0 1px 0 #2a1a0a;
         }
         .top-bar .title {
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #ffd700, #ff6b35);
             -webkit-background-clip: text;
@@ -72,12 +71,12 @@
         }
         .top-bar .notebook-link {
             background: #2ecc71;
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 40px;
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             box-shadow: 0 3px 0 #1a7a3a;
         }
         .top-bar .notebook-link:active {
@@ -88,10 +87,10 @@
         .stats {
             display: flex;
             justify-content: center;
-            gap: 14px;
+            gap: 18px;
             flex-wrap: wrap;
             background: rgba(30, 25, 20, 0.6);
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 40px;
             margin-bottom: 8px;
             flex-shrink: 0;
@@ -100,16 +99,16 @@
         }
         .stats span {
             color: #b8956a;
-            font-size: 0.85rem;
+            font-size: 1rem;
         }
         .stats strong {
             color: #ffd700;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
 
         .tabs {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 8px;
@@ -119,11 +118,11 @@
             background: rgba(45, 27, 14, 0.6);
             color: #b8956a;
             border: 2px solid rgba(255, 215, 0, 0.08);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 40px;
             font-weight: 700;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             transition: all 0.2s;
             font-family: inherit;
             backdrop-filter: blur(5px);
@@ -156,7 +155,7 @@
             -webkit-overflow-scrolling: touch;
         }
         .scroll-area::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
         .scroll-area::-webkit-scrollbar-thumb {
             background: #b8956a;
@@ -165,12 +164,12 @@
 
         .search {
             width: 100%;
-            padding: 12px 18px;
+            padding: 14px 20px;
             border: 2px solid rgba(255, 215, 0, 0.08);
             border-radius: 40px;
             background: rgba(30, 25, 20, 0.7);
             color: #f5e6d3;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             outline: none;
             margin-bottom: 8px;
             font-family: inherit;
@@ -178,7 +177,7 @@
         }
         .search::placeholder {
             color: #6b5a45;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         .search:focus {
             border-color: rgba(255, 215, 0, 0.2);
@@ -193,12 +192,12 @@
             flex-shrink: 0;
         }
         .categories button {
-            padding: 6px 14px;
+            padding: 8px 16px;
             border: 2px solid rgba(255, 215, 0, 0.06);
             border-radius: 30px;
             background: rgba(30, 25, 20, 0.4);
             color: #b8956a;
-            font-size: 0.85rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -214,8 +213,8 @@
         .group-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
+            gap: 12px;
+            padding: 14px 20px;
             background: rgba(30, 25, 20, 0.5);
             border-radius: 12px;
             border: 1px solid rgba(255, 215, 0, 0.04);
@@ -227,25 +226,25 @@
             background: rgba(30, 25, 20, 0.7);
         }
         .group-header .icon {
-            font-size: 1.6rem;
+            font-size: 2rem;
         }
         .group-header .title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: #f5e6d3;
         }
         .group-header .count {
             margin-left: auto;
             color: #b8956a;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.04);
-            padding: 2px 12px;
+            padding: 4px 14px;
             border-radius: 30px;
         }
         .group-header .arrow {
             color: #b8956a;
             transition: transform 0.3s;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         .group-header.collapsed .arrow {
             transform: rotate(-90deg);
@@ -261,38 +260,39 @@
 
         .phrase-card {
             background: rgba(30, 25, 20, 0.6);
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 6px;
-            border-left: 4px solid #ffd700;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 8px;
+            border-left: 6px solid #ffd700;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
         .phrase-card:hover {
             transform: translateX(4px);
             background: rgba(30, 25, 20, 0.75);
         }
         .phrase-card .chinese {
-            font-size: 2.6rem;
+            font-size: 3.4rem;
             font-weight: 700;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             color: #f5e6d3;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
-            min-width: 80px;
+            min-width: 100px;
             -webkit-tap-highlight-color: transparent;
+            line-height: 1.2;
         }
         .phrase-card .chinese:hover {
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.08);
         }
         .phrase-card .chinese .badge {
-            font-size: 0.6rem;
-            padding: 2px 10px;
+            font-size: 0.7rem;
+            padding: 3px 12px;
             border-radius: 30px;
             font-weight: 700;
         }
@@ -308,27 +308,27 @@
             display: flex;
             flex-direction: column;
             flex: 2;
-            min-width: 120px;
+            min-width: 150px;
         }
         .phrase-card .pinyin {
-            font-size: 1.05rem;
+            font-size: 1.3rem;
             color: #b8956a;
         }
         .phrase-card .translation {
-            font-size: 1.15rem;
+            font-size: 1.4rem;
             color: #d4c9a6;
         }
         .phrase-card .actions {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             align-items: center;
         }
         .phrase-card .actions button {
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: none;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             cursor: pointer;
             transition: 0.15s;
             box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
@@ -350,32 +350,39 @@
             background: #f39c12;
         }
 
-        /* ДИАЛОГИ */
         .dialog-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 10px;
-            border-left: 5px solid #3b82f6;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            border-left: 6px solid #3b82f6;
         }
         .dialog-card .title {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #f5e6d3;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+        }
+        .dialog-card .category-tag {
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 12px;
+            border-radius: 30px;
+            color: #b8956a;
+            margin-left: 10px;
         }
         .dialog-card .phrases-list {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: #b8956a;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .dialog-card .phrases-list .dp {
             background: rgba(255, 255, 255, 0.04);
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 8px;
             margin-right: 6px;
             display: inline-block;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         .dialog-card .phrases-list .dp.red {
             background: rgba(220, 38, 38, 0.15);
@@ -384,8 +391,8 @@
         .dialog-line {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px 16px;
-            padding: 6px 0;
+            gap: 6px 20px;
+            padding: 8px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
         .dialog-line:last-child {
@@ -394,27 +401,28 @@
         .dialog-line .sp {
             font-weight: 700;
             color: #3b82f6;
-            min-width: 30px;
-            font-size: 1rem;
+            min-width: 35px;
+            font-size: 1.2rem;
         }
         .dialog-line .cn {
-            font-size: 2rem;
+            font-size: 2.6rem;
             font-weight: 600;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             color: #f5e6d3;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            line-height: 1.2;
         }
         .dialog-line .cn:hover {
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.08);
         }
         .dialog-line .py {
-            font-size: 0.95rem;
+            font-size: 1.15rem;
             color: #b8956a;
             align-self: center;
         }
         .dialog-line .ru {
-            font-size: 1.05rem;
+            font-size: 1.25rem;
             color: #d4c9a6;
             align-self: center;
         }
@@ -422,13 +430,13 @@
             background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             cursor: pointer;
             box-shadow: 0 3px 0 #1d4ed8;
-            margin-top: 8px;
+            margin-top: 10px;
             font-family: inherit;
             -webkit-tap-highlight-color: transparent;
         }
@@ -437,531 +445,145 @@
             box-shadow: 0 1px 0 #1d4ed8;
         }
 
-        /* РИСОВАЛКА (HANZI WRITER) */
-        #tab-hanzi {
-            flex-direction: column;
-            gap: 8px;
-            flex: 1;
-        }
-        #tab-hanzi.active {
-            display: flex;
-        }
-
-        .hanzi-section {
-            background: rgba(30, 25, 20, 0.6);
-            border-radius: 16px;
-            padding: 12px 16px;
-            border: 2px solid rgba(255, 215, 0, 0.06);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-        .hanzi-section .input-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-            flex-shrink: 0;
-        }
-        .hanzi-section .input-row input {
-            flex: 1;
-            min-width: 100px;
-            padding: 10px 16px;
-            border: 2px solid rgba(255, 215, 0, 0.1);
-            border-radius: 40px;
-            background: rgba(30, 25, 20, 0.6);
-            color: #f5e6d3;
-            font-size: 1.2rem;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
-            outline: none;
-            maxlength: 4;
-        }
-        .hanzi-section .input-row input::placeholder {
-            color: #6b5a45;
-            font-size: 1rem;
-        }
-        .hanzi-section .input-row input:focus {
-            border-color: rgba(255, 215, 0, 0.2);
-        }
-        .hanzi-section .input-row button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            font-family: inherit;
-            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
-            background: linear-gradient(135deg, #ff6b35, #ff8c42);
-            color: white;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .hanzi-section .input-row button:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-        }
-        .hanzi-section .input-row .repeat-btn {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-
-        .hanzi-section .speed-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-        }
-        .hanzi-section .speed-control label {
-            font-size: 0.8rem;
-            color: #b8956a;
-            font-weight: 600;
-        }
-        .hanzi-section .speed-control input[type="range"] {
-            flex: 1;
-            min-width: 80px;
-            height: 4px;
-            -webkit-appearance: none;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            outline: none;
-        }
-        .hanzi-section .speed-control input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #ff6b35;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .hanzi-section .speed-control .speed-value {
-            font-size: 0.8rem;
-            color: #d4c9a6;
-            min-width: 30px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .hanzi-section .hanzi-wrapper {
-            background: #fffef9;
-            border-radius: 12px;
-            padding: 4px;
-            border: 2px solid #c8aa6e;
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            min-height: 250px;
-            width: 100%;
-        }
-        .hanzi-section .hanzi-wrapper .hw-target {
-            width: 100%;
-            max-width: 100%;
-            aspect-ratio: 1/1;
-            max-height: 100%;
-            min-height: 200px;
-        }
-        .hanzi-section .hanzi-wrapper .placeholder {
-            color: #b8956a;
-            font-size: 1.1rem;
-            text-align: center;
-            padding: 16px;
-            position: absolute;
-            pointer-events: none;
-        }
-        .hanzi-section .hanzi-wrapper .char-label {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            color: #b8956a;
-            font-size: 0.7rem;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* ДНЕВНИК */
-        #tab-notebook {
-            flex-direction: column;
-            flex: 1;
-        }
-        #tab-notebook.active {
-            display: flex;
-        }
-
-        .notebook-container {
-            background: rgba(30, 25, 20, 0.6);
-            border-radius: 16px;
-            padding: 12px 16px;
-            border: 2px solid rgba(255, 215, 0, 0.06);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-        .notebook-container .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .notebook-container .header .count {
-            background: rgba(255, 215, 0, 0.06);
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #b8956a;
-        }
-        .notebook-container .header .actions {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .notebook-container .header .clear-btn {
-            background: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
-            border: none;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: inherit;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .notebook-container .header .clear-btn:hover {
-            background: rgba(231, 76, 60, 0.25);
-        }
-        .notebook-container .header .export-btn {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            border: none;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: inherit;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .notebook-container .header .export-btn:hover {
-            background: rgba(59, 130, 246, 0.25);
-        }
-
-        .notebook-container .list {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .notebook-container .list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .notebook-container .list::-webkit-scrollbar-thumb {
-            background: #2ecc71;
-            border-radius: 4px;
-        }
-
-        .notebook-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            gap: 8px;
-            cursor: pointer;
-            border-radius: 8px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .notebook-item:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        .notebook-item .char {
-            font-size: 2rem;
-            font-weight: 700;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
-            color: #f5e6d3;
-            min-width: 40px;
-        }
-        .notebook-item .info {
-            color: #d4c9a6;
-            font-size: 0.9rem;
-            flex: 1;
-            min-width: 80px;
-        }
-        .notebook-item .info .pinyin {
-            color: #b8956a;
-        }
-        .notebook-item .date {
-            font-size: 0.65rem;
-            color: #b8956a;
-            opacity: 0.5;
-            min-width: 60px;
-        }
-        .notebook-item .actions {
-            display: flex;
-            gap: 4px;
-        }
-        .notebook-item .actions button {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .notebook-item .actions button:active {
-            transform: translateY(2px);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
-        }
-        .notebook-item .actions .speak-btn {
-            background: linear-gradient(135deg, #ff6b35, #ff8c42);
-            color: white;
-        }
-        .notebook-item .actions .remove-btn {
-            background: #e74c3c;
-            color: white;
-            font-weight: bold;
-            font-size: 0.7rem;
-        }
-
         .empty {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: #b8956a;
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         .empty .icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             opacity: 0.4;
         }
 
-        /* КАЛЛИГРАФИЯ */
-        #tab-canvas {
-            flex: 1;
-            flex-direction: column;
-        }
-        #tab-canvas.active {
-            display: flex;
-        }
-
-        .canvas-container {
-            background: rgba(30, 25, 20, 0.6);
-            border-radius: 16px;
-            padding: 12px;
-            border: 2px solid rgba(255, 215, 0, 0.06);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 0;
-        }
-        .canvas-wrapper {
-            background: #fffef9;
-            border-radius: 12px;
-            padding: 6px;
-            border: 2px solid #c8aa6e;
-            display: inline-block;
-            max-width: 100%;
-            width: 100%;
-            max-width: 550px;
-            touch-action: none;
-        }
-        .canvas-wrapper canvas {
-            display: block;
-            width: 100%;
-            aspect-ratio: 1/1;
-            touch-action: none;
-            cursor: crosshair;
-            background: #fffef9;
-        }
-        .canvas-tools {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 8px;
-        }
-        .canvas-tools button {
-            padding: 6px 16px;
-            border: none;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: inherit;
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.1s;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
-        .canvas-tools button:active {
-            transform: translateY(2px);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
-        }
-        .canvas-tools .undo-btn {
-            background: #3b82f6;
-            color: white;
-        }
-        .canvas-tools .clear-btn {
-            background: #e74c3c;
-            color: white;
-        }
-        .canvas-tools .trace-btn {
-            background: #8b5cf6;
-            color: white;
-        }
-        .canvas-tools .check-btn {
-            background: #2ecc71;
-            color: white;
-        }
-        .canvas-tools .save-img-btn {
-            background: #f39c12;
-            color: white;
-        }
-        .canvas-tools .color-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            padding: 0;
-            min-width: unset;
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.1s;
-            touch-action: manipulation;
-        }
-        .canvas-tools .color-btn.active {
-            border-color: #ffd700;
-            transform: scale(1.1);
-        }
-
-        .canvas-tools .brush-control {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .canvas-tools .brush-control label {
-            font-size: 0.65rem;
-            color: #b8956a;
-        }
-        .canvas-tools .brush-control input[type="range"] {
-            width: 60px;
-            height: 4px;
-            -webkit-appearance: none;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            outline: none;
-        }
-        .canvas-tools .brush-control input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            background: #ff6b35;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .canvas-tools .brush-control .brush-value {
-            font-size: 0.65rem;
-            color: #b8956a;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .quality-bar {
-            background: rgba(30, 25, 20, 0.4);
-            height: 6px;
-            border-radius: 10px;
-            margin: 6px auto 4px;
-            max-width: 200px;
-            overflow: hidden;
-        }
-        .quality-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        .quality-text {
-            font-size: 0.85rem;
-            color: #b8956a;
-            margin-top: 2px;
-            text-align: center;
-        }
-
         /* ===== АДАПТАЦИЯ ===== */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             body {
                 padding: 4px;
             }
             .top-bar {
-                padding: 6px 12px;
+                padding: 8px 14px;
             }
             .top-bar .title {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+            }
+            .top-bar .back-btn,
+            .top-bar .notebook-link {
+                font-size: 0.9rem;
+                padding: 6px 14px;
             }
             .stats {
-                gap: 8px;
-                padding: 4px 12px;
+                gap: 10px;
+                padding: 6px 14px;
             }
             .stats span {
-                font-size: 0.7rem;
-            }
-            .tab-btn {
-                padding: 6px 14px;
-                font-size: 0.75rem;
-            }
-            .phrase-card .chinese {
-                font-size: 1.8rem;
-            }
-            .dialog-line .cn {
-                font-size: 1.4rem;
-            }
-            .dialog-line .ru {
-                font-size: 0.9rem;
-            }
-            .hanzi-section {
-                padding: 8px 12px;
-            }
-            .hanzi-section .hanzi-wrapper {
-                min-height: 180px;
-            }
-            .canvas-wrapper {
-                max-width: 100%;
-            }
-            .canvas-wrapper canvas {
-                max-width: 100%;
-            }
-            .notebook-item .char {
-                font-size: 1.6rem;
-            }
-        }
-        @media (max-width: 400px) {
-            .phrase-card .chinese {
-                font-size: 1.4rem;
-            }
-            .dialog-line .cn {
-                font-size: 1.2rem;
-            }
-            .hanzi-section .input-row input {
-                font-size: 0.9rem;
-                padding: 6px 12px;
-                min-width: 70px;
-            }
-            .hanzi-section .input-row button {
-                padding: 6px 14px;
                 font-size: 0.8rem;
             }
-            .notebook-item .char {
-                font-size: 1.3rem;
+            .stats strong {
+                font-size: 1rem;
+            }
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .phrase-card .chinese {
+                font-size: 2.6rem;
+            }
+            .phrase-card .translation {
+                font-size: 1.1rem;
+            }
+            .phrase-card .pinyin {
+                font-size: 1rem;
+            }
+            .dialog-line .cn {
+                font-size: 2rem;
+            }
+            .dialog-line .ru {
+                font-size: 1rem;
+            }
+            .dialog-line .py {
+                font-size: 0.9rem;
+            }
+            .dialog-card .title {
+                font-size: 1.4rem;
+            }
+            .group-header .title {
+                font-size: 1.1rem;
+            }
+            .group-header .icon {
+                font-size: 1.4rem;
+            }
+            .search {
+                font-size: 1rem;
+                padding: 10px 16px;
+            }
+            .categories button {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .phrase-card .chinese {
+                font-size: 2rem;
+            }
+            .phrase-card .translation {
+                font-size: 0.95rem;
+            }
+            .phrase-card .pinyin {
+                font-size: 0.85rem;
+            }
+            .phrase-card {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .phrase-card .actions button {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .dialog-line .cn {
+                font-size: 1.6rem;
+            }
+            .dialog-line .ru {
+                font-size: 0.85rem;
+            }
+            .dialog-line .py {
+                font-size: 0.8rem;
+            }
+            .dialog-card {
+                padding: 14px 16px;
+            }
+            .dialog-card .title {
+                font-size: 1.2rem;
+            }
+            .top-bar .title {
+                font-size: 1.1rem;
+            }
+            .stats span {
+                font-size: 0.65rem;
+            }
+            .tab-btn {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+            .group-header .title {
+                font-size: 0.95rem;
+            }
+            .group-header .icon {
+                font-size: 1.2rem;
+            }
+            .group-header {
+                padding: 10px 14px;
+            }
+            .search {
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+            .categories button {
+                font-size: 0.7rem;
+                padding: 4px 10px;
             }
         }
     </style>
@@ -972,7 +594,7 @@
 
         <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ ===== -->
         <div class="top-bar">
-            <a href="index.html" class="back-btn">◀ На главную</a>
+            <a href="#" class="back-btn">◀ На главную</a>
             <span class="title">📕 Красная книга</span>
             <a href="#" class="notebook-link" id="notebookNav">📓 Дневник</a>
         </div>
@@ -986,35 +608,15 @@
             <span>В дневнике: <strong id="notebookCount">0</strong></span>
         </div>
 
-        <!-- ===== ВКЛАДКИ ===== -->
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="groups">📚 Фразы</button>
-            <button class="tab-btn" data-tab="dialogues">💬 Диалоги</button>
-            <button class="tab-btn" data-tab="hanzi">✍️ Рисовалка</button>
-            <button class="tab-btn" data-tab="notebook">📓 Дневник</button>
-            <button class="tab-btn" data-tab="canvas">🖌️ Каллиграфия</button>
-        </div>
+        <!-- ===== ВКЛАДКИ (ГЕНЕРИРУЮТСЯ ДИНАМИЧЕСКИ) ===== -->
+        <div class="tabs" id="tabsContainer"></div>
 
         <!-- ========================================================== -->
         <!-- ВКЛАДКА: ГРУППЫ (ФРАЗЫ) -->
         <!-- ========================================================== -->
-        <div class="tab-content active" id="tab-groups">
+        <div class="tab-content" id="tab-groups">
             <input class="search" id="searchInput" placeholder="🔍 Поиск по группам и фразам..." />
-            <div class="categories" id="categoryButtons">
-                <button data-cat="all" class="active">📚 Все</button>
-                <button data-cat="phrase">📄 Фразы</button>
-                <button data-cat="travel">✈️ Путешествия</button>
-                <button data-cat="food">🍜 Еда</button>
-                <button data-cat="work">💼 Работа</button>
-                <button data-cat="shop">🛍️ Покупки</button>
-                <button data-cat="emotion">❤️ Эмоции</button>
-                <button data-cat="family">👨‍👩‍👧‍👦 Семья</button>
-                <button data-cat="health">🏥 Здоровье</button>
-                <button data-cat="time">⏰ Время</button>
-                <button data-cat="tech">💻 Технологии</button>
-                <button data-cat="nature">🌿 Природа</button>
-                <button data-cat="num">🔢 Числа</button>
-            </div>
+            <div class="categories" id="categoryButtons"></div>
             <div class="scroll-area" id="groupsContainer"></div>
         </div>
 
@@ -1023,87 +625,6 @@
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-dialogues">
             <div class="scroll-area" id="dialoguesContainer"></div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) -->
-        <!-- ========================================================== -->
-        <div class="tab-content" id="tab-hanzi">
-            <div class="hanzi-section">
-                <div class="input-row">
-                    <input type="text" id="hanziInput" placeholder="Введите иероглиф(ы) до 4..." maxlength="4" autocomplete="off">
-                    <button id="showHanziBtn">✍️ Показать</button>
-                    <button class="repeat-btn" id="repeatHanziBtn">🔄 Повтор</button>
-                </div>
-                <div class="speed-control">
-                    <label for="speedSlider">🐢 Скорость:</label>
-                    <input type="range" id="speedSlider" min="0.3" max="2.5" step="0.1" value="1.0">
-                    <span class="speed-value" id="speedValue">1.0x</span>
-                    <label style="margin-left:8px;font-size:0.75rem;">
-                        <input type="checkbox" id="autoSaveToggle" checked> Автосохранение
-                    </label>
-                </div>
-                <div class="hanzi-wrapper" id="hanziWrapper">
-                    <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф(ы) и нажмите "Показать"</div>
-                    <div class="hw-target" id="hwTarget"></div>
-                    <div class="char-label" id="charLabel"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ВКЛАДКА: ДНЕВНИК -->
-        <!-- ========================================================== -->
-        <div class="tab-content" id="tab-notebook">
-            <div class="notebook-container">
-                <div class="header">
-                    <span>📓 Сохранённые</span>
-                    <div class="actions">
-                        <span class="count" id="notebookCountLabel">0</span>
-                        <button class="export-btn" id="exportNotebookBtn">📤 Экспорт</button>
-                        <button class="clear-btn" id="clearNotebookBtn">🗑️ Очистить</button>
-                    </div>
-                </div>
-                <div class="list" id="savedList">
-                    <div class="empty">
-                        <span class="icon">📓</span>
-                        Сохраняйте фразы и иероглифы для повторения
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ВКЛАДКА: КАЛЛИГРАФИЯ -->
-        <!-- ========================================================== -->
-        <div class="tab-content" id="tab-canvas">
-            <div class="canvas-container">
-                <div class="canvas-wrapper" id="canvasWrapper">
-                    <canvas id="calligraphyCanvas"></canvas>
-                </div>
-                <div class="quality-bar"><div class="quality-fill" id="qFill"></div></div>
-                <div class="quality-text" id="qText">🖌️ Рисуй иероглифы кистью</div>
-                <div class="canvas-tools">
-                    <button class="undo-btn" id="canvasUndo">↩️ Отменить</button>
-                    <button class="clear-btn" id="canvasClear">🧽 Очистить</button>
-                    <button class="trace-btn" id="canvasTrace">👁️ Образец</button>
-                    <button class="check-btn" id="canvasCheck">✅ Проверить</button>
-                    <button class="save-img-btn" id="canvasSaveImg">💾 Сохранить PNG</button>
-                </div>
-                <div class="canvas-tools" style="margin-top:4px;">
-                    <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
-                        <button class="color-btn active" data-color="#1a1a1a" style="background:#1a1a1a;"></button>
-                        <button class="color-btn" data-color="#c0392b" style="background:#c0392b;"></button>
-                        <button class="color-btn" data-color="#d4a017" style="background:#d4a017;"></button>
-                        <button class="color-btn" data-color="#2471a3" style="background:#2471a3;"></button>
-                    </span>
-                    <span class="brush-control">
-                        <label for="brushSizeSlider">🖌️</label>
-                        <input type="range" id="brushSizeSlider" min="2" max="20" value="8">
-                        <span class="brush-value" id="brushSizeValue">8</span>
-                    </span>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -1118,10 +639,11 @@
         let notebook = JSON.parse(localStorage.getItem('chinese_redbook_notebook') || '[]');
         let collapsedGroups = JSON.parse(localStorage.getItem('chinese_collapsed_groups') || '{}');
 
-        // Загружаем данные из redphrases.js
+        // Загружаем данные
         if (typeof redBookData !== 'undefined') {
             allPhrases = redBookData;
-            console.log('✅ Загружено фраз:', allPhrases.length);
+        } else if (typeof window.redBookData !== 'undefined') {
+            allPhrases = window.redBookData;
         } else if (typeof allPhrases !== 'undefined') {
             // уже есть
         } else if (typeof redPhrases !== 'undefined') {
@@ -1130,84 +652,178 @@
 
         if (typeof redBookDialogues !== 'undefined') {
             allDialogues = redBookDialogues;
-            console.log('✅ Загружено диалогов:', allDialogues.length);
+        } else if (typeof window.redBookDialogues !== 'undefined') {
+            allDialogues = window.redBookDialogues;
         } else if (typeof dialogues !== 'undefined') {
             allDialogues = dialogues;
         }
 
+        console.log('📄 Всего фраз:', allPhrases.length);
+        console.log('💬 Всего диалогов:', allDialogues.length);
+
         // ============================================================
-        // 2. ГРУППЫ (РАСШИРЕННЫЕ)
+        // 2. ДИНАМИЧЕСКИЕ ВКЛАДКИ
         // ============================================================
 
-        const groups = [
-            { id: 'decisions', icon: '💭', title: 'Решения', keywords: ['决定', '选好', '想好', '同意', '反对', '答应', '保证',
-                    '确认', '安排'
-                ] },
-            { id: 'greetings', icon: '👋', title: 'Приветствия', keywords: ['你好', '怎么样', '见', '好久', '最近', '欢迎', '认识'] },
-            { id: 'feelings', icon: '😊', title: 'Чувства', keywords: ['喜欢', '讨厌', '累', '饿', '饱', '困', '饿死', '累死', '羡慕',
-                    '失望', '无聊', '烦', '开心', '难过', '担心', '生气'
-                ] },
-            { id: 'actions', icon: '🏃', title: 'Действия', keywords: ['走', '回去', '过来', '过去', '去', '来', '开', '停车',
-                    '走路', '开车', '跑步', '游泳', '运动'
-                ] },
-            { id: 'requests', icon: '🙏', title: 'Просьбы', keywords: ['帮', '忙', '送', '陪', '让', '借', '需要', '可以吗'] },
-            { id: 'time', icon: '⏰', title: 'Время', keywords: ['时间', '赶', '急', '等', '迟', '晚', '早', '快', '慢', '马上',
-                    '现在', '今天', '明天', '昨天', '星期', '周末', '年', '月', '日'
-                ] },
-            { id: 'food', icon: '🍜', title: 'Еда', keywords: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账', '菜单', '点菜',
-                    '好吃', '难吃', '米饭', '面条', '饺子', '包子', '汤', '鱼', '鸡肉', '猪肉', '牛肉', '蔬菜', '水果', '苹果', '香蕉',
-                    '水', '茶', '咖啡', '啤酒', '果汁', '辣', '咸', '甜', '酸', '外卖'
-                ] },
-            { id: 'work', icon: '💼', title: 'Работа', keywords: ['工作', '学习', '会议', '安排', '记录', '主持', '议程', '项目',
-                    '邮件', '发送', '推迟', '提前', '尽快', '准时', '公司', '同事', '老板', '工资', '加班', '辞职'
-                ] },
-            { id: 'weather', icon: '🌤️', title: 'Погода', keywords: ['雨', '雪', '风', '天', '晴', '阴', '云', '冷', '热',
-                    '天气', '温度'
-                ] },
-            { id: 'communication', icon: '📱', title: 'Общение', keywords: ['说', '话', '电话', '沟通', '联系', '确认', '邮件',
-                    '发送', '微信', '抖音', '上网', '搜索', '导航', '视频'
-                ] },
-            { id: 'travel', icon: '✈️', title: 'Путешествия', keywords: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全', '小心',
-                    '出租车', '公交车', '飞机', '船', '护照', '签证', '行李箱', '登机', '酒店', '房间', '钥匙'
-                ] },
-            { id: 'emotions', icon: '❤️', title: 'Эмоции (расш.)', keywords: ['开心', '难过', '担心', '紧张', '兴奋', '感动', '失望',
-                    '生气', '害怕', '累', '无聊', '烦', '幸福'
-                ] },
-            { id: 'family', icon: '👨‍👩‍👧‍👦', title: 'Семья', keywords: ['爸爸', '妈妈', '哥哥', '姐姐', '弟弟', '妹妹', '朋友', '女朋友',
-                    '男朋友', '老师', '学生', '同事', '邻居', '家人', '结婚', '单身', '孩子'
-                ] },
-            { id: 'health', icon: '🏥', title: 'Здоровье', keywords: ['生病', '感冒', '头痛', '肚子痛', '发烧', '吃药', '医生', '医院',
-                    '身体', '休息', '喝水', '健康', '运动', '跑步', '游泳', '健身房'
-                ] },
-            { id: 'tech', icon: '💻', title: 'Технологии', keywords: ['手机', '电脑', '网络', 'WiFi', '密码', '充电', '电池', '下载',
-                    '上传', '拍照', '视频', '打电话', '发信息', '微信', '抖音', '上网', '搜索', '导航', '应用', '软件', '淘宝', '京东',
-                    '快递', '评价', '退货', '付款', '收货'
-                ] },
-            { id: 'nature', icon: '🌿', title: 'Природа', keywords: ['动物', '猫', '狗', '鸟', '花', '树', '草', '山', '水', '天空',
-                    '月亮', '星星', '太阳', '海', '河', '湖', '森林', '公园', '花园', '大自然'
-                ] },
-            { id: 'shop', icon: '🛍️', title: 'Покупки', keywords: ['超市', '商店', '买东西', '卖东西', '便宜', '贵', '打折', '现金',
-                    '信用卡', '微信支付', '支付宝', '试', '尺码', '颜色', '红色', '蓝色', '白色', '黑色', '黄色', '绿色', '衣服', '鞋子',
-                    '包', '收据'
-                ] },
-            { id: 'numbers', icon: '🔢', title: 'Числа', keywords: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十',
-                    '百', '千', '万', '块', '毛'
-                ] },
+        const TAB_CONFIG = [
+            { id: 'groups', icon: '📚', label: 'Фразы' },
+            { id: 'dialogues', icon: '💬', label: 'Диалоги' },
         ];
+
+        function renderTabs() {
+            const container = document.getElementById('tabsContainer');
+            container.innerHTML = '';
+            TAB_CONFIG.forEach((tab, index) => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+                btn.dataset.tab = tab.id;
+                btn.textContent = `${tab.icon} ${tab.label}`;
+                btn.addEventListener('click', () => switchTab(tab.id));
+                container.appendChild(btn);
+            });
+        }
+
+        // ============================================================
+        // 3. КАТЕГОРИИ (ДИНАМИЧЕСКИ)
+        // ============================================================
+
+        function getUniqueCategories() {
+            const cats = new Set();
+            allPhrases.forEach(p => {
+                if (p.category) cats.add(p.category);
+            });
+            return ['all', ...Array.from(cats)];
+        }
+
+        function renderCategoryButtons() {
+            const container = document.getElementById('categoryButtons');
+            const categories = getUniqueCategories();
+            const labels = {
+                all: '📚 Все',
+                life: '💭 Жизнь',
+                food: '🍜 Еда',
+                travel: '✈️ Путешествия',
+                work: '💼 Работа',
+                shop: '🛍️ Покупки',
+                emotion: '❤️ Эмоции',
+                family: '👨‍👩‍👧‍👦 Семья',
+                health: '🏥 Здоровье',
+                time: '⏰ Время',
+                tech: '💻 Технологии',
+                nature: '🌿 Природа',
+                num: '🔢 Числа',
+                weather: '🌤️ Погода'
+            };
+            container.innerHTML = '';
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.dataset.cat = cat;
+                btn.textContent = labels[cat] || cat;
+                if (cat === 'all') btn.classList.add('active');
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove(
+                    'active'));
+                    btn.classList.add('active');
+                    currentCategory = cat;
+                    renderGroups();
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        // ============================================================
+        // 4. ГРУППЫ (ДИНАМИЧЕСКИ)
+        // ============================================================
+
+        const groupKeywords = {
+            decisions: ['决定', '选好', '想好', '同意', '反对', '答应', '保证', '确认', '安排'],
+            greetings: ['你好', '怎么样', '见', '好久', '最近', '欢迎', '认识'],
+            feelings: ['喜欢', '讨厌', '累', '饿', '饱', '困', '羡慕', '失望', '无聊', '烦', '开心', '难过', '担心', '生气'],
+            actions: ['走', '回去', '过来', '过去', '去', '来', '开', '停车', '走路', '开车', '跑步', '游泳', '运动'],
+            requests: ['帮', '忙', '送', '陪', '让', '借', '需要', '可以吗'],
+            time: ['时间', '赶', '急', '等', '迟', '晚', '早', '快', '慢', '马上', '现在', '今天', '明天', '昨天', '星期', '周末', '年',
+                '月', '日'
+            ],
+            food: ['吃', '喝', '饭', '饿', '饱', '火锅', '买单', '结账', '菜单', '点菜', '好吃', '难吃', '米饭', '面条', '饺子', '包子',
+                '汤', '鱼', '鸡肉', '猪肉', '牛肉', '蔬菜', '水果', '苹果', '香蕉', '水', '茶', '咖啡', '啤酒', '果汁', '辣', '咸',
+                '甜', '酸', '外卖'
+            ],
+            work: ['工作', '学习', '会议', '安排', '记录', '主持', '议程', '项目', '邮件', '发送', '推迟', '提前', '尽快', '准时', '公司',
+                '同事', '老板', '工资', '加班', '辞职'
+            ],
+            weather: ['雨', '雪', '风', '天', '晴', '阴', '云', '冷', '热', '天气', '温度'],
+            communication: ['说', '话', '电话', '沟通', '联系', '确认', '邮件', '发送', '微信', '抖音', '上网', '搜索', '导航', '视频'],
+            travel: ['路', '机场', '火车站', '地铁', '票', '顺风', '安全', '小心', '出租车', '公交车', '飞机', '船', '护照', '签证',
+                '行李箱', '登机', '酒店', '房间', '钥匙'
+            ],
+            emotions: ['开心', '难过', '担心', '紧张', '兴奋', '感动', '失望', '生气', '害怕', '累', '无聊', '烦', '幸福'],
+            family: ['爸爸', '妈妈', '哥哥', '姐姐', '弟弟', '妹妹', '朋友', '女朋友', '男朋友', '老师', '学生', '同事', '邻居', '家人',
+                '结婚', '单身', '孩子'
+            ],
+            health: ['生病', '感冒', '头痛', '肚子痛', '发烧', '吃药', '医生', '医院', '身体', '休息', '喝水', '健康', '运动', '跑步',
+                '游泳', '健身房'
+            ],
+            tech: ['手机', '电脑', '网络', 'WiFi', '密码', '充电', '电池', '下载', '上传', '拍照', '视频', '打电话', '发信息', '微信',
+                '抖音', '上网', '搜索', '导航', '应用', '软件', '淘宝', '京东', '快递', '评价', '退货', '付款', '收货'
+            ],
+            nature: ['动物', '猫', '狗', '鸟', '花', '树', '草', '山', '水', '天空', '月亮', '星星', '太阳', '海', '河', '湖', '森林',
+                '公园', '花园', '大自然'
+            ],
+            shop: ['超市', '商店', '买东西', '卖东西', '便宜', '贵', '打折', '现金', '信用卡', '微信支付', '支付宝', '试', '尺码', '颜色',
+                '红色', '蓝色', '白色', '黑色', '黄色', '绿色', '衣服', '鞋子', '包', '收据'
+            ],
+            numbers: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '块', '毛'],
+        };
+
+        const groupIcons = {
+            decisions: '💭',
+            greetings: '👋',
+            feelings: '😊',
+            actions: '🏃',
+            requests: '🙏',
+            time: '⏰',
+            food: '🍜',
+            work: '💼',
+            weather: '🌤️',
+            communication: '📱',
+            travel: '✈️',
+            emotions: '❤️',
+            family: '👨‍👩‍👧‍👦',
+            health: '🏥',
+            tech: '💻',
+            nature: '🌿',
+            shop: '🛍️',
+            numbers: '🔢'
+        };
+
+        const groupTitles = {
+            decisions: 'Решения',
+            greetings: 'Приветствия',
+            feelings: 'Чувства',
+            actions: 'Действия',
+            requests: 'Просьбы',
+            time: 'Время',
+            food: 'Еда',
+            work: 'Работа',
+            weather: 'Погода',
+            communication: 'Общение',
+            travel: 'Путешествия',
+            emotions: 'Эмоции',
+            family: 'Семья',
+            health: 'Здоровье',
+            tech: 'Технологии',
+            nature: 'Природа',
+            shop: 'Покупки',
+            numbers: 'Числа'
+        };
 
         let searchQuery = '';
         let currentCategory = 'all';
-        let hanziSpeed = 1.0;
-        let hanziWriter = null;
 
-        // ============================================================
-        // 3. ГРУППЫ (ФРАЗЫ) — ФУНКЦИИ
-        // ============================================================
-
-        function getPhrasesForGroup(group) {
+        function getPhrasesForGroup(keywords) {
             return allPhrases.filter(p => {
                 const text = p.chinese + ' ' + p.pinyin + ' ' + p.translation;
-                return group.keywords.some(kw => text.includes(kw));
+                return keywords.some(kw => text.includes(kw));
             });
         }
 
@@ -1217,26 +833,28 @@
             let html = '';
             let visible = 0;
 
-            for (const group of groups) {
-                let phrases = getPhrasesForGroup(group);
+            for (const [groupId, keywords] of Object.entries(groupKeywords)) {
+                let phrases = getPhrasesForGroup(keywords);
                 if (currentCategory !== 'all') phrases = phrases.filter(p => p.category === currentCategory);
                 if (searchQuery.trim()) {
                     const q = searchQuery.trim().toLowerCase();
                     phrases = phrases.filter(p =>
                         p.chinese.includes(q) || p.pinyin.toLowerCase().includes(q) ||
-                        p.translation.toLowerCase().includes(q) || group.title.toLowerCase().includes(q)
+                        p.translation.toLowerCase().includes(q) || groupTitles[groupId].toLowerCase().includes(q)
                     );
                 }
                 if (phrases.length === 0) continue;
                 visible++;
 
-                const isCollapsed = collapsedGroups[group.id] || false;
+                const isCollapsed = collapsedGroups[groupId] || false;
+                const icon = groupIcons[groupId] || '📄';
+                const title = groupTitles[groupId] || groupId;
 
                 html += `
                             <div class="group-container">
-                                <div class="group-header ${isCollapsed ? 'collapsed' : ''}" data-group="${group.id}">
-                                    <span class="icon">${group.icon}</span>
-                                    <span class="title">${group.title}</span>
+                                <div class="group-header ${isCollapsed ? 'collapsed' : ''}" data-group="${groupId}">
+                                    <span class="icon">${icon}</span>
+                                    <span class="title">${title}</span>
                                     <span class="count">${phrases.length}</span>
                                     <span class="arrow">▼</span>
                                 </div>
@@ -1288,7 +906,7 @@
         }
 
         // ============================================================
-        // 4. ДИАЛОГИ
+        // 5. ДИАЛОГИ
         // ============================================================
 
         function renderDialogues() {
@@ -1323,10 +941,14 @@
 
                 const full = d.lines.map(l => l.chinese).join('。');
                 const safeFull = full.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                const category = d.category || '';
 
                 html += `
                             <div class="dialog-card">
-                                <div class="title">💬 ${d.title}</div>
+                                <div class="title">
+                                    💬 ${d.title}
+                                    ${category ? `<span class="category-tag">#${category}</span>` : ''}
+                                </div>
                                 ${phrases ? `<div class="phrases-list">📌 ${phrases}</div>` : ''}
                                 ${lines}
                                 <button class="dialog-speak-btn" onclick="speakChinese('${safeFull}')">🔊 Весь диалог</button>
@@ -1337,7 +959,7 @@
         }
 
         // ============================================================
-        // 5. ДНЕВНИК
+        // 6. ДНЕВНИК
         // ============================================================
 
         function toggleNotebook(char, pinyin, translation) {
@@ -1351,210 +973,12 @@
             }
             localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
             renderGroups();
-            renderNotebook();
             updateStats();
         }
 
         function renderNotebook() {
-            const container = document.getElementById('savedList');
-            if (notebook.length === 0) {
-                container.innerHTML =
-                    `<div class="empty"><span class="icon">📓</span>Сохраняйте фразы и иероглифы для повторения</div>`;
-                return;
-            }
-
-            let html = '';
-            for (const item of notebook) {
-                const safe = item.char.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                const date = new Date(item.added);
-                const dateStr = date.toLocaleDateString('ru-RU') + ' ' + date.toLocaleTimeString('ru-RU', { hour: '2-digit',
-                    minute: '2-digit' });
-                html += `
-                            <div class="notebook-item" onclick="loadToHanzi('${safe}')">
-                                <span class="char">${item.char}</span>
-                                <span class="info">
-                                    <span class="pinyin">${item.pinyin || ''}</span>
-                                    ${item.translation ? `— ${item.translation}` : ''}
-                                </span>
-                                <span class="date">${dateStr}</span>
-                                <div class="actions">
-                                    <button class="speak-btn" onclick="event.stopPropagation(); speakChinese('${safe}')">🔊</button>
-                                    <button class="remove-btn" onclick="event.stopPropagation(); removeFromNotebook('${safe}')">✖</button>
-                                </div>
-                            </div>
-                        `;
-            }
-            container.innerHTML = html;
-            document.getElementById('notebookCountLabel').textContent = notebook.length;
-        }
-
-        function removeFromNotebook(char) {
-            const idx = notebook.findIndex(n => n.char === char);
-            if (idx >= 0) {
-                notebook.splice(idx, 1);
-                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-                renderNotebook();
-                updateStats();
-                showToast(`❌ "${char}" удалён`);
-            }
-        }
-
-        function clearNotebook() {
-            if (notebook.length === 0) return;
-            if (confirm('Удалить всё из дневника?')) {
-                notebook = [];
-                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-                renderNotebook();
-                updateStats();
-                showToast('🗑️ Дневник очищен');
-            }
-        }
-
-        function exportNotebook() {
-            if (notebook.length === 0) {
-                showToast('📓 Дневник пуст');
-                return;
-            }
-            const data = JSON.stringify(notebook, null, 2);
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'chinese_notebook_' + new Date().toISOString().slice(0, 10) + '.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('✅ Дневник экспортирован');
-        }
-
-        // ============================================================
-        // 6. HANZI WRITER (РИСОВАЛКА)
-        // ============================================================
-
-        function initHanziWriter(chars) {
-            const target = document.getElementById('hwTarget');
-            const placeholder = document.getElementById('hanziPlaceholder');
-            const wrapper = document.getElementById('hanziWrapper');
-            const label = document.getElementById('charLabel');
-
-            if (hanziWriter) {
-                try { hanziWriter.destroy(); } catch (e) {}
-                hanziWriter = null;
-            }
-
-            target.innerHTML = '';
-            target.style.display = 'block';
-
-            if (!chars || chars.length === 0) {
-                placeholder.style.display = 'block';
-                placeholder.textContent = '📖 Введите иероглиф(ы) и нажмите "Показать"';
-                label.textContent = '';
-                target.style.display = 'none';
-                return;
-            }
-
-            placeholder.style.display = 'none';
-            label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
-
-            try {
-                const wrapperRect = wrapper.getBoundingClientRect();
-                const size = Math.min(wrapperRect.width - 16, 400, window.innerHeight * 0.4);
-                const text = chars.join('');
-
-                // Проверяем, что HanziWriter доступен
-                if (typeof HanziWriter === 'undefined') {
-                    placeholder.style.display = 'block';
-                    placeholder.textContent = '⚠️ Библиотека не загружена. Проверьте подключение.';
-                    target.style.display = 'none';
-                    return;
-                }
-
-                hanziWriter = HanziWriter.create(target, text, {
-                    width: Math.max(size, 200),
-                    height: Math.max(size, 200),
-                    padding: 6,
-                    strokeColor: '#1a1a1a',
-                    radicalColor: '#c0392b',
-                    strokeAnimationSpeed: hanziSpeed,
-                    showCharacter: false,
-                    showOutline: true,
-                    showHintAfterMisses: 1,
-                });
-
-                setTimeout(() => {
-                    if (hanziWriter) {
-                        hanziWriter.animateCharacter();
-                    }
-                }, 300);
-
-            } catch (e) {
-                console.error('HanziWriter error:', e);
-                placeholder.style.display = 'block';
-                placeholder.textContent = '❌ Ошибка: ' + e.message;
-                target.style.display = 'none';
-                label.textContent = '';
-            }
-        }
-
-        function showHanzi() {
-            const input = document.getElementById('hanziInput');
-            const raw = input.value.trim();
-            if (!raw) {
-                document.getElementById('hanziPlaceholder').textContent = '⚠️ Введите иероглиф(ы)';
-                document.getElementById('hanziPlaceholder').style.display = 'block';
-                document.getElementById('hwTarget').style.display = 'none';
-                document.getElementById('charLabel').textContent = '';
-                return;
-            }
-
-            const chars = [...raw];
-            if (chars.length > 4) {
-                const limited = chars.slice(0, 4);
-                document.getElementById('hanziInput').value = limited.join('');
-                initHanziWriter(limited);
-                return;
-            }
-
-            initHanziWriter(chars);
-
-            if (document.getElementById('autoSaveToggle').checked) {
-                for (const char of chars) {
-                    if (!notebook.some(n => n.char === char)) {
-                        let pinyin = '',
-                            translation = '';
-                        const found = allPhrases.find(p => p.chinese === char);
-                        if (found) { pinyin = found.pinyin;
-                            translation = found.translation; }
-                        notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
-                    }
-                }
-                localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
-                renderNotebook();
-                updateStats();
-                showToast(`✅ Сохранено: ${chars.join(', ')}`);
-            }
-        }
-
-        function repeatHanzi() {
-            const input = document.getElementById('hanziInput');
-            const raw = input.value.trim();
-            if (!raw) {
-                showToast('⚠️ Сначала введите иероглиф');
-                return;
-            }
-            const chars = [...raw];
-            if (chars.length > 4) {
-                const limited = chars.slice(0, 4);
-                document.getElementById('hanziInput').value = limited.join('');
-                initHanziWriter(limited);
-            } else {
-                initHanziWriter(chars);
-            }
-        }
-
-        function loadToHanzi(char) {
-            switchTab('hanzi');
-            document.getElementById('hanziInput').value = char;
-            setTimeout(() => initHanziWriter([char]), 200);
+            // Просто обновляем счётчик в статистике
+            updateStats();
         }
 
         // ============================================================
@@ -1594,309 +1018,23 @@
         window.speakChinese = speakChinese;
 
         // ============================================================
-        // 8. КАЛЛИГРАФИЯ
+        // 8. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
         // ============================================================
 
-        let canvas, ctx, isDrawing = false,
-            lastX, lastY;
-        let canvasHistory = [];
-        let currentColor = '#1a1a1a';
-        let canvasRefData = null;
-        let exampleVisible = false;
-        let brushSize = 8;
-        let canvasInitialized = false;
-        let savedExampleChars = '';
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            const target = document.getElementById('tab-' + tabName);
+            if (target) target.classList.add('active');
 
-        function initCanvas() {
-            canvas = document.getElementById('calligraphyCanvas');
-            if (!canvas) return;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabName) btn.classList.add('active');
+            });
 
-            const wrapper = canvas.parentElement;
-            const maxSize = Math.min(wrapper.clientWidth - 12, 550, window.innerHeight * 0.55);
-            const size = Math.max(maxSize, 250);
-
-            canvas.width = size;
-            canvas.height = size;
-            canvas.style.width = size + 'px';
-            canvas.style.height = size + 'px';
-
-            ctx = canvas.getContext('2d');
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.fillStyle = '#fffef9';
-            ctx.fillRect(0, 0, size, size);
-            drawGrid(ctx, size);
-
-            if (savedExampleChars) {
-                drawExample(savedExampleChars);
-                exampleVisible = true;
-                document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
-                document.getElementById('qText').textContent = `🖌️ Обводи образец "${savedExampleChars}"`;
-                canvasRefData = ctx.getImageData(0, 0, size, size);
-            } else {
-                canvasRefData = null;
-                exampleVisible = false;
-                document.getElementById('canvasTrace').textContent = '👁️ Образец';
-                document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
-            }
-
-            document.getElementById('qFill').style.width = '0%';
-            canvasHistory = [];
-            document.getElementById('canvasUndo').style.display = 'none';
-
-            if (!canvasInitialized) {
-                setupDrawing();
-                canvasInitialized = true;
-            }
+            if (tabName === 'dialogues') renderDialogues();
+            if (tabName === 'groups') renderGroups();
         }
-
-        function drawGrid(ctx, size) {
-            const p = size * 0.05,
-                c = size / 2;
-            ctx.save();
-            ctx.strokeStyle = '#e8e0d8';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(p, p, size - p * 2, size - p * 2);
-            ctx.setLineDash([4, 3]);
-            ctx.beginPath();
-            ctx.moveTo(c, p);
-            ctx.lineTo(c, size - p);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(p, c);
-            ctx.lineTo(size - p, c);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.restore();
-        }
-
-        function drawExample(chars) {
-            const size = canvas.width;
-            ctx.save();
-            ctx.globalAlpha = 0.2;
-            ctx.fillStyle = '#9b59b6';
-            const fontSize = size * 0.5;
-            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-
-            const charsArray = [...chars];
-            if (charsArray.length === 1) {
-                ctx.fillText(chars, size / 2, size / 2 + size * 0.02);
-            } else {
-                const spacing = size / (charsArray.length + 1);
-                for (let i = 0; i < charsArray.length; i++) {
-                    const x = spacing * (i + 1);
-                    const y = size / 2 + size * 0.02;
-                    ctx.fillText(charsArray[i], x, y);
-                }
-            }
-            ctx.restore();
-        }
-
-        function setupDrawing() {
-            function getPos(e) {
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-                let clientX, clientY;
-
-                if (e.touches && e.touches.length > 0) {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                } else if (e.changedTouches && e.changedTouches.length > 0) {
-                    clientX = e.changedTouches[0].clientX;
-                    clientY = e.changedTouches[0].clientY;
-                } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                }
-
-                return {
-                    x: (clientX - rect.left) * scaleX,
-                    y: (clientY - rect.top) * scaleY
-                };
-            }
-
-            function start(e) {
-                e.preventDefault();
-                isDrawing = true;
-                const p = getPos(e);
-                lastX = p.x;
-                lastY = p.y;
-                saveCanvasState();
-                document.getElementById('canvasUndo').style.display = 'inline-block';
-            }
-
-            function draw(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                const p = getPos(e);
-                const dist = Math.hypot(p.x - lastX, p.y - lastY);
-                if (dist < 0.5) {
-                    lastX = p.x;
-                    lastY = p.y;
-                    return;
-                }
-
-                ctx.save();
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = currentColor;
-                ctx.lineWidth = brushSize;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(p.x, p.y);
-                ctx.stroke();
-                ctx.restore();
-
-                lastX = p.x;
-                lastY = p.y;
-            }
-
-            function stop(e) {
-                if (!isDrawing) return;
-                isDrawing = false;
-                saveCanvasState();
-            }
-
-            canvas.removeEventListener('pointerdown', start);
-            canvas.removeEventListener('pointermove', draw);
-            canvas.removeEventListener('pointerup', stop);
-            canvas.removeEventListener('pointerleave', stop);
-            canvas.removeEventListener('pointercancel', stop);
-            canvas.removeEventListener('touchstart', start);
-            canvas.removeEventListener('touchmove', draw);
-            canvas.removeEventListener('touchend', stop);
-
-            canvas.addEventListener('pointerdown', start);
-            canvas.addEventListener('pointermove', draw);
-            canvas.addEventListener('pointerup', stop);
-            canvas.addEventListener('pointerleave', stop);
-            canvas.addEventListener('pointercancel', stop);
-
-            canvas.addEventListener('touchstart', start, { passive: false });
-            canvas.addEventListener('touchmove', draw, { passive: false });
-            canvas.addEventListener('touchend', stop, { passive: false });
-        }
-
-        function saveCanvasState() {
-            canvasHistory.push(canvas.toDataURL());
-            if (canvasHistory.length > 30) canvasHistory.shift();
-        }
-
-        function undoCanvas() {
-            if (canvasHistory.length < 2) return;
-            canvasHistory.pop();
-            const img = new Image();
-            img.onload = function() {
-                const size = canvas.width;
-                ctx.clearRect(0, 0, size, size);
-                ctx.drawImage(img, 0, 0);
-                if (canvasHistory.length <= 1) {
-                    document.getElementById('canvasUndo').style.display = 'none';
-                }
-                if (exampleVisible && savedExampleChars) {
-                    drawExample(savedExampleChars);
-                    canvasRefData = ctx.getImageData(0, 0, size, size);
-                }
-            };
-            img.src = canvasHistory[canvasHistory.length - 1];
-        }
-
-        function clearCanvas() {
-            const size = canvas.width;
-            ctx.fillStyle = '#fffef9';
-            ctx.fillRect(0, 0, size, size);
-            drawGrid(ctx, size);
-
-            if (exampleVisible && savedExampleChars) {
-                drawExample(savedExampleChars);
-                canvasRefData = ctx.getImageData(0, 0, size, size);
-            } else {
-                canvasRefData = null;
-            }
-
-            document.getElementById('qFill').style.width = '0%';
-            document.getElementById('qText').textContent = exampleVisible ? `🖌️ Обводи образец "${savedExampleChars}"` :
-                '🧽 Очищено';
-            canvasHistory = [];
-            document.getElementById('canvasUndo').style.display = 'none';
-        }
-
-        function showExample() {
-            const char = prompt('Введите иероглиф(ы) для образца (до 4 символов):', savedExampleChars || '永');
-            if (!char || char.length === 0 || char.length > 4) {
-                if (char && char.length > 4) {
-                    showToast('⚠️ Можно ввести не более 4 иероглифов');
-                }
-                return;
-            }
-            savedExampleChars = char;
-            clearCanvas();
-            drawExample(char);
-            const size = canvas.width;
-            canvasRefData = ctx.getImageData(0, 0, size, size);
-            exampleVisible = true;
-            document.getElementById('canvasTrace').textContent = '🙈 Скрыть';
-            document.getElementById('qText').textContent = `🖌️ Обводи образец "${char}"`;
-            try {
-                localStorage.setItem('chinese_example_chars', char);
-            } catch (e) {}
-        }
-
-        function hideExample() {
-            const size = canvas.width;
-            ctx.fillStyle = '#fffef9';
-            ctx.fillRect(0, 0, size, size);
-            drawGrid(ctx, size);
-            canvasRefData = null;
-            exampleVisible = false;
-            document.getElementById('canvasTrace').textContent = '👁️ Образец';
-            document.getElementById('qText').textContent = '🖌️ Рисуй иероглифы кистью';
-        }
-
-        function checkQuality() {
-            if (!canvasRefData) {
-                document.getElementById('qText').textContent = '👁️ Сначала покажи образец';
-                return;
-            }
-            const size = canvas.width;
-            const current = ctx.getImageData(0, 0, size, size);
-            const dRef = canvasRefData.data;
-            const dCur = current.data;
-            let match = 0,
-                totalRef = 0,
-                userOutside = 0;
-            const threshold = 235;
-            for (let i = 0; i < dRef.length; i += 4) {
-                const isRef = (dRef[i] < threshold || dRef[i + 1] < threshold || dRef[i + 2] < threshold);
-                const isUser = (dCur[i] < threshold || dCur[i + 1] < threshold || dCur[i + 2] < threshold);
-                if (isRef) { totalRef++;
-                    if (isUser) match++; } else if (isUser) { userOutside++; }
-            }
-            if (totalRef === 0) {
-                document.getElementById('qText').textContent = '📝 Нет эталона';
-                return;
-            }
-            const pct = Math.round(2 * (match / totalRef) * (match / (totalRef + userOutside + 0.001)) /
-                ((match / totalRef) + (match / (totalRef + userOutside + 0.001)) + 0.001) * 100);
-            const fill = document.getElementById('qFill');
-            const text = document.getElementById('qText');
-            fill.style.width = pct + '%';
-            if (pct > 60) { fill.style.background = '#2ecc71';
-                text.textContent = `🌟 Отлично! ${pct}%`; } else if (pct > 35) { fill.style.background = '#f39c12';
-                text.textContent = `👍 Хорошо! ${pct}%`; } else { fill.style.background = '#e67e22';
-                text.textContent = `📝 Продолжай (${pct}%)`; }
-        }
-
-        function saveCanvasImage() {
-            const link = document.createElement('a');
-            link.download = 'calligraphy_' + new Date().toISOString().slice(0, 10) + '.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast('💾 Рисунок сохранён');
-        }
+        window.switchTab = switchTab;
 
         // ============================================================
         // 9. ОБНОВЛЕНИЕ СТАТИСТИКИ
@@ -1926,73 +1064,14 @@
             const el = document.createElement('div');
             el.id = 'toastMsg';
             el.style.cssText =
-                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:10px 20px;border-radius:40px;z-index:9999;font-size:0.95rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:90%;text-align:center;';
+                'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#fff;padding:12px 24px;border-radius:40px;z-index:9999;font-size:1.1rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:90%;text-align:center;';
             el.textContent = msg;
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 1800);
         }
 
         // ============================================================
-        // 11. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
-        // ============================================================
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tc => {
-                tc.classList.remove('active');
-            });
-
-            const target = document.getElementById('tab-' + tabName);
-            if (target) {
-                target.classList.add('active');
-            }
-
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tabName) {
-                    btn.classList.add('active');
-                }
-            });
-
-            if (tabName === 'notebook') {
-                renderNotebook();
-            }
-            if (tabName === 'dialogues') {
-                renderDialogues();
-            }
-            if (tabName === 'hanzi') {
-                setTimeout(() => {
-                    const input = document.getElementById('hanziInput');
-                    if (input && input.value.trim()) {
-                        const chars = [...input.value.trim()];
-                        initHanziWriter(chars.slice(0, 4));
-                    } else {
-                        initHanziWriter([]);
-                    }
-                }, 150);
-            }
-            if (tabName === 'canvas') {
-                try {
-                    const saved = localStorage.getItem('chinese_example_chars');
-                    if (saved && !savedExampleChars) {
-                        savedExampleChars = saved;
-                    }
-                } catch (e) {}
-                setTimeout(initCanvas, 100);
-            }
-            if (tabName === 'groups') {
-                renderGroups();
-            }
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tabName = this.dataset.tab;
-                switchTab(tabName);
-            });
-        });
-
-        // ============================================================
-        // 12. СОБЫТИЯ
+        // 11. СОБЫТИЯ
         // ============================================================
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -2000,136 +1079,34 @@
             renderGroups();
         });
 
-        document.querySelectorAll('#categoryButtons button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#categoryButtons button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentCategory = this.dataset.cat;
-                renderGroups();
-            });
-        });
-
         document.getElementById('notebookNav').addEventListener('click', function(e) {
             e.preventDefault();
-            switchTab('notebook');
-        });
-
-        document.getElementById('showHanziBtn').addEventListener('click', showHanzi);
-        document.getElementById('repeatHanziBtn').addEventListener('click', repeatHanzi);
-        document.getElementById('hanziInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') { e.preventDefault();
-                showHanzi(); }
-        });
-        document.getElementById('hanziInput').addEventListener('input', function() {
-            const val = this.value.trim();
-            if (val.length > 0) {
-                const chars = [...val];
-                if (chars.length <= 4) initHanziWriter(chars);
-                else {
-                    const limited = chars.slice(0, 4);
-                    this.value = limited.join('');
-                    initHanziWriter(limited);
-                }
-            } else {
-                initHanziWriter([]);
-            }
-        });
-        document.getElementById('speedSlider').addEventListener('input', function() {
-            hanziSpeed = parseFloat(this.value);
-            document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1) + 'x';
-            const input = document.getElementById('hanziInput');
-            if (input && input.value.trim()) {
-                const chars = [...input.value.trim()];
-                initHanziWriter(chars.slice(0, 4));
-            }
-        });
-
-        document.getElementById('clearNotebookBtn').addEventListener('click', clearNotebook);
-        document.getElementById('exportNotebookBtn').addEventListener('click', exportNotebook);
-
-        document.getElementById('canvasClear').addEventListener('click', clearCanvas);
-        document.getElementById('canvasUndo').addEventListener('click', undoCanvas);
-        document.getElementById('canvasTrace').addEventListener('click', function() {
-            if (exampleVisible) {
-                hideExample();
-            } else {
-                showExample();
-            }
-        });
-        document.getElementById('canvasCheck').addEventListener('click', checkQuality);
-        document.getElementById('canvasSaveImg').addEventListener('click', saveCanvasImage);
-        document.getElementById('brushSizeSlider').addEventListener('input', function() {
-            brushSize = parseInt(this.value);
-            document.getElementById('brushSizeValue').textContent = brushSize;
-        });
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentColor = this.dataset.color;
-            });
+            // Показываем уведомление о дневнике
+            const count = notebook.length;
+            showToast(`📓 В дневнике ${count} записей`);
         });
 
         // ============================================================
-        // 13. СТАРТ
+        // 12. СТАРТ
         // ============================================================
 
+        renderTabs();
+        renderCategoryButtons();
+        renderGroups();
+        renderDialogues();
+        updateStats();
+
+        // Переключаем на первую вкладку
         switchTab('groups');
-
-        try {
-            const saved = localStorage.getItem('chinese_example_chars');
-            if (saved) {
-                savedExampleChars = saved;
-            }
-        } catch (e) {}
-
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (document.getElementById('tab-canvas').classList.contains('active')) {
-                    initCanvas();
-                }
-                if (document.getElementById('tab-hanzi').classList.contains('active')) {
-                    const input = document.getElementById('hanziInput');
-                    if (input && input.value.trim()) {
-                        const chars = [...input.value.trim()];
-                        initHanziWriter(chars.slice(0, 4));
-                    }
-                }
-            }, 300);
-        });
-
-        setTimeout(() => {
-            renderGroups();
-            renderDialogues();
-            renderNotebook();
-            updateStats();
-            setTimeout(() => initCanvas(), 150);
-            setTimeout(() => initHanziWriter([]), 200);
-        }, 200);
-
-        window.speakChinese = speakChinese;
-        window.toggleNotebook = toggleNotebook;
-        window.removeFromNotebook = removeFromNotebook;
-        window.loadToHanzi = loadToHanzi;
-        window.showToast = showToast;
-        window.initHanziWriter = initHanziWriter;
-        window.showHanzi = showHanzi;
-        window.repeatHanzi = repeatHanzi;
-        window.undoCanvas = undoCanvas;
-        window.saveCanvasImage = saveCanvasImage;
-        window.exportNotebook = exportNotebook;
-        window.switchTab = switchTab;
-        window.initCanvas = initCanvas;
-        window.clearCanvas = clearCanvas;
-        window.showExample = showExample;
-        window.hideExample = hideExample;
-        window.checkQuality = checkQuality;
 
         console.log('✅ Приложение загружено!');
         console.log('📄 Всего фраз:', allPhrases.length);
         console.log('💬 Всего диалогов:', allDialogues.length);
+        console.log('📓 В дневнике:', notebook.length);
+
+        window.toggleNotebook = toggleNotebook;
+        window.speakChinese = speakChinese;
+        window.switchTab = switchTab;
     </script>
 
 </body>
