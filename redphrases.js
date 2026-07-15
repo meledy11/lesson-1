@@ -1348,10 +1348,28 @@ const redBookDialogues = [
             { speaker: "B", chinese: "偶尔吃一次可以，不要天天吃。", pinyin: "ǒu'ěr chī yīcì kěyǐ, bùyào tiāntiān chī.", russian: "Изредка можно, не каждый день." },
         ],
     },
-
-    // ----- ДИАЛОГ 40: Китайский чай -----
     {
-        id: "d40",
+    id: "d40",
+    title: "В кофейне ☕",
+    lines: [
+        { chinese: "今天，我去咖啡店。", pinyin: "jīntiān, wǒ qù kāfēi diàn.", russian: "Сегодня я иду в кофейню." },
+        { chinese: "我想买一杯咖啡。", pinyin: "wǒ xiǎng mǎi yī bēi kāfēi.", russian: "Я хочу купить чашку кофе." },
+        { chinese: "这里很安静。", pinyin: "zhèlǐ hěn ānjìng.", russian: "Здесь очень тихо." },
+        { chinese: "我先看看菜单。", pinyin: "wǒ xiān kànkan càidān.", russian: "Я сначала посмотрю меню." },
+        { chinese: "我点了一杯拿铁。", pinyin: "wǒ diǎn le yī bēi nátěi.", russian: "Я заказал латте." },
+        { chinese: "我也点了一块蛋糕。", pinyin: "wǒ yě diǎn le yī kuài dàngāo.", russian: "Я тоже заказал кусок торта." },
+        { chinese: "我找一个位置坐下。", pinyin: "wǒ zhǎo yīgè wèizhì zuò xià.", russian: "Я нахожу место и сажусь." },
+        { chinese: "我一边喝咖啡，一边看书。", pinyin: "wǒ yībiān hē kāfēi, yībiān kànshū.", russian: "Я одновременно пью кофе и читаю книгу." },
+        { chinese: "我用电脑工作。", pinyin: "wǒ yòng diànnǎo gōngzuò.", russian: "Я работаю на компьютере." },
+        { chinese: "我喜欢这里的感觉。", pinyin: "wǒ xǐhuān zhèlǐ de gǎnjué.", russian: "Мне нравится атмосфера здесь." },
+        { chinese: "时间过得很快。", pinyin: "shíjiān guò de hěn kuài.", russian: "Время летит быстро." },
+        { chinese: "我离开咖啡店。", pinyin: "wǒ líkāi kāfēi diàn.", russian: "Я ухожу из кофейни." },
+    ],
+},
+
+    // ----- ДИАЛОГ 41: Китайский чай -----
+    {
+        id: "d41",
         title: "Китайский чай",
         category: "food",
         phrases: ["茶", "绿茶", "红茶", "乌龙茶", "茶道", "味道", "香", "热水", "茶杯"],
