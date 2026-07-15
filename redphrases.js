@@ -1366,8 +1366,28 @@ const redBookDialogues = [
         { chinese: "我离开咖啡店。", pinyin: "wǒ líkāi kāfēi diàn.", russian: "Я ухожу из кофейни." },
     ],
 },
+    {
+    id: "d41",
+    title: "Я учу китайский 📚",
+    category: "life",
+    phrases: ["学习", "汉语", "发音", "练习", "老师", "帮助", "纠正", "有趣", "视频", "词语", "信心"],
+    lines: [
+        { speaker: "📖", chinese: "我正在学习汉语。", pinyin: "wǒ zhèngzài xuéxí hànyǔ.", russian: "Я изучаю китайский язык." },
+        { speaker: "📖", chinese: "汉语对我来说有一点儿难。", pinyin: "hànyǔ duì wǒ lái shuō yǒu yīdiǎnr nán.", russian: "Китайский для меня немного сложный." },
+        { speaker: "📖", chinese: "但是我觉得很有趣。", pinyin: "dànshì wǒ juéde hěn yǒuqù.", russian: "Но я считаю, что это очень интересно." },
+        { speaker: "📖", chinese: "老师经常帮助我。", pinyin: "lǎoshī jīngcháng bāngzhù wǒ.", russian: "Учитель часто помогает мне." },
+        { speaker: "📖", chinese: "她会纠正我的发音。", pinyin: "tā huì jiūzhèng wǒ de fāyīn.", russian: "Она исправляет моё произношение." },
+        { speaker: "📖", chinese: "我每天都会练习说汉语。", pinyin: "wǒ měitiān dōu huì liànxí shuō hànyǔ.", russian: "Я каждый день практикую разговорный китайский." },
+        { speaker: "📖", chinese: "我也会写汉字。", pinyin: "wǒ yě huì xiě hànzì.", russian: "Я тоже умею писать иероглифы." },
+        { speaker: "📖", chinese: "有时候我会看中文视频。", pinyin: "yǒu shíhou wǒ huì kàn zhōngwén shìpín.", russian: "Иногда я смотрю китайские видео." },
+        { speaker: "📖", chinese: "我努力记住新的词语。", pinyin: "wǒ nǔlì jìzhù xīn de cíyǔ.", russian: "Я стараюсь запоминать новые слова." },
+        { speaker: "📖", chinese: "同学们也帮助我很多。", pinyin: "tóngxuémen yě bāngzhù wǒ hěnduō.", russian: "Одноклассники тоже мне очень помогают." },
+        { speaker: "📖", chinese: "现在我越来越有信心。", pinyin: "xiànzài wǒ yuè lái yuè yǒu xìnxīn.", russian: "Сейчас я становлюсь всё увереннее." },
+        { speaker: "📖", chinese: "我希望我的汉语更好。", pinyin: "wǒ xīwàng wǒ de hànyǔ gèng hǎo.", russian: "Я надеюсь, что мой китайский станет лучше." },
+    ],
+},
 
-    // ----- ДИАЛОГ 41: Китайский чай -----
+    // ----- ДИАЛОГ 42: Китайский чай -----
     {
         id: "d41",
         title: "Китайский чай",
