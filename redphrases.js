@@ -1386,8 +1386,26 @@ const redBookDialogues = [
         { speaker: "📖", chinese: "我希望我的汉语更好。", pinyin: "wǒ xīwàng wǒ de hànyǔ gèng hǎo.", russian: "Я надеюсь, что мой китайский станет лучше." },
     ],
 },
-
-    // ----- ДИАЛОГ 42: Китайский чай -----
+{
+    id: "d42",
+    title: "Мой выходной 🎉",
+    category: "life",
+    phrases: ["周末", "上学", "睡觉", "公园", "音乐", "朋友", "喝茶", "聊天", "逛街", "电影", "外卖", "开心"],
+    lines: [
+        { speaker: "📖", chinese: "周末我不去上学。", pinyin: "zhōumò wǒ bù qù shàngxué.", russian: "В выходные я не хожу в школу." },
+        { speaker: "📖", chinese: "我早上可以睡到九点。", pinyin: "wǒ zǎoshang kěyǐ shuì dào jiǔ diǎn.", russian: "Утром я могу спать до девяти часов." },
+        { speaker: "📖", chinese: "我也吃一点早餐。", pinyin: "wǒ yě chī yīdiǎn zǎocān.", russian: "Я тоже завтракаю." },
+        { speaker: "📖", chinese: "有时候我去公园。", pinyin: "yǒu shíhou wǒ qù gōngyuán.", russian: "Иногда я хожу в парк." },
+        { speaker: "📖", chinese: "我喜欢听音乐。", pinyin: "wǒ xǐhuān tīng yīnyuè.", russian: "Я люблю слушать музыку." },
+        { speaker: "📖", chinese: "下午我和朋友见面。", pinyin: "xiàwǔ wǒ hé péngyou jiànmiàn.", russian: "Днём я встречаюсь с друзьями." },
+        { speaker: "📖", chinese: "我们一起喝茶聊天。", pinyin: "wǒmen yīqǐ hē chá liáotiān.", russian: "Мы вместе пьём чай и болтаем." },
+        { speaker: "📖", chinese: "有时候我们去逛街。", pinyin: "yǒu shíhou wǒmen qù guàngjiē.", russian: "Иногда мы ходим по магазинам." },
+        { speaker: "📖", chinese: "晚上我在家看电影。", pinyin: "wǎnshang wǒ zài jiā kàn diànyǐng.", russian: "Вечером я смотрю фильм дома." },
+        { speaker: "📖", chinese: "我也喜欢点外卖。", pinyin: "wǒ yě xǐhuān diǎn wàimài.", russian: "Я тоже люблю заказывать доставку." },
+        { speaker: "📖", chinese: "周末让我很开心。", pinyin: "zhōumò ràng wǒ hěn kāixīn.", russian: "Выходные делают меня счастливым." },
+    ],
+},
+    // ----- ДИАЛОГ 43: Китайский чай -----
     {
         id: "d41",
         title: "Китайский чай",
