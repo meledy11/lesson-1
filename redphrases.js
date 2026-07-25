@@ -1424,10 +1424,26 @@ const redBookDialogues = [
         { chinese: "然后，我下车。", pinyin: "ránhòu, wǒ xià chē.", russian: "Затем я выхожу из машины." },
     ],
 },
-
-    // ----- ДИАЛОГ 43: Китайский чай -----
+{
+    id: "d43",
+    title: "Поход в магазин 🛒",
+    category: "life",
+    lines: [
+        { chinese: "今天，我想去超市。", pinyin: "jīntiān, wǒ xiǎng qù chāoshì.", russian: "Сегодня я хочу пойти в супермаркет." },
+        { chinese: "我先买水果。", pinyin: "wǒ xiān mǎi shuǐguǒ.", russian: "Я сначала куплю фрукты." },
+        { chinese: "我买了苹果和香蕉。", pinyin: "wǒ mǎi le píngguǒ hé xiāngjiāo.", russian: "Я купил яблоки и бананы." },
+        { chinese: "然后，我买牛奶。", pinyin: "ránhòu, wǒ mǎi niúnǎi.", russian: "Затем я покупаю молоко." },
+        { chinese: "我也买了一些面包。", pinyin: "wǒ yě mǎi le yīxiē miànbāo.", russian: "Я тоже купил немного хлеба." },
+        { chinese: "我看看有没有鸡肉。", pinyin: "wǒ kànkan yǒu méiyǒu jīròu.", russian: "Я посмотрю, есть ли курица." },
+        { chinese: "价格有一点儿贵。", pinyin: "jiàgé yǒu yīdiǎnr guì.", russian: "Цена немного дорогая." },
+        { chinese: "最后，我去付钱。", pinyin: "zuìhòu, wǒ qù fù qián.", russian: "В конце я иду платить." },
+        { chinese: "我用手机付款。", pinyin: "wǒ yòng shǒujī fùkuǎn.", russian: "Я оплачиваю через телефон." },
+        { chinese: "买完以后，我回家。", pinyin: "mǎi wán yǐhòu, wǒ huí jiā.", russian: "После покупки я иду домой." },
+    ],
+},
+    // ----- ДИАЛОГ 44: Китайский чай ----4
     {
-        id: "d43",
+        id: "d44",
         title: "Китайский чай",
         category: "food",
         phrases: ["茶", "绿茶", "红茶", "乌龙茶", "茶道", "味道", "香", "热水", "茶杯"],
