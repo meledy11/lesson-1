@@ -1363,7 +1363,7 @@ const redBookDialogues = [
         { chinese: "我有时候用电脑工作。", pinyin: "wǒ yǒushíhou yòng diànnǎo gōngzuò.", russian: "Иногда я работаю на компьютере." },
         { chinese: "我喜欢这里的感觉。", pinyin: "wǒ xǐhuān zhèlǐ de gǎnjué.", russian: "Мне нравится атмосфера здесь." },
         { chinese: "时间过得很快。", pinyin: "shíjiān guò de hěn kuài.", russian: "Время летит быстро." },
-        { chinese: "我离开咖啡店。", pinyin: "wǒ líkāi kāfēi diàn.", russian: "Я ухожу из кофейни." },
+        { chinese: "下午我离开咖啡店。", pinyin: "xiàwǔ wǒ líkāi kāfēi diàn.", russian: "Днём я ухожу из кофейни." },
     ],
 },
     {
