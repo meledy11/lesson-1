@@ -1405,9 +1405,29 @@ const redBookDialogues = [
         { speaker: "📖", chinese: "周末让我很开心。", pinyin: "zhōumò ràng wǒ hěn kāixīn.", russian: "Выходные делают меня счастливым." },
     ],
 },
+    {
+    id: "d42",
+    title: "Поездка на такси 🚕",
+    category: "life",
+    lines: [
+        { chinese: "今天，我要打车。", pinyin: "jīntiān, wǒ yào dǎ chē.", russian: "Сегодня я хочу взять такси." },
+        { chinese: "我用手机叫车。", pinyin: "wǒ yòng shǒujī jiào chē.", russian: "Я вызываю машину через телефон." },
+        { chinese: "车来了。", pinyin: "chē lái le.", russian: "Машина приехала." },
+        { chinese: "我上车以后，说“你好”。", pinyin: "wǒ shàng chē yǐhòu, shuō \"nǐ hǎo\".", russian: "После того как я сел в машину, говорю «здравствуйте»." },
+        { chinese: "我告诉司机：", pinyin: "wǒ gàosù sījī:", russian: "Я говорю водителю:" },
+        { chinese: "我要去这儿。", pinyin: "wǒ yào qù zhèr.", russian: "Я хочу поехать сюда." },
+        { chinese: "现在有一点儿堵车。", pinyin: "xiànzài yǒu yīdiǎnr dǔchē.", russian: "Сейчас немного пробка." },
+        { chinese: "我看看时间。", pinyin: "wǒ kànkan shíjiān.", russian: "Я смотрю на время." },
+        { chinese: "我有一点儿着急。", pinyin: "wǒ yǒu yīdiǎnr zháojí.", russian: "Я немного волнуюсь." },
+        { chinese: "司机开得很快。", pinyin: "sījī kāi de hěn kuài.", russian: "Водитель ведёт очень быстро." },
+        { chinese: "终于到了。我说谢谢。", pinyin: "zhōngyú dào le. Wǒ shuō xièxie.", russian: "Наконец приехал. Я говорю спасибо." },
+        { chinese: "然后，我下车。", pinyin: "ránhòu, wǒ xià chē.", russian: "Затем я выхожу из машины." },
+    ],
+},
+
     // ----- ДИАЛОГ 43: Китайский чай -----
     {
-        id: "d41",
+        id: "d43",
         title: "Китайский чай",
         category: "food",
         phrases: ["茶", "绿茶", "红茶", "乌龙茶", "茶道", "味道", "香", "热水", "茶杯"],
