@@ -870,10 +870,11 @@
             background: linear-gradient(135deg, #b8860b, #daa520);
             color: white;
             transition: all 0.3s;
+            font-weight: 700;
         }
         .hanzi-section .input-row .trace-btn.active {
             background: linear-gradient(135deg, #ffd700, #ffb800);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
             color: #1a1a1a;
         }
 
@@ -2543,7 +2544,7 @@
         }
 
         // ============================================================
-        // 10. РИСОВАЛКА — КАЛЛИГРАФИЧНАЯ КИСТЬ
+        // 10. РИСОВАЛКА — КАЛЛИГРАФИЧЕСКАЯ КИСТЬ
         // ============================================================
 
         let hanziWriter = null;
@@ -2561,6 +2562,10 @@
             traceCanvasHeight = 0;
         let audioCtx = null;
         let soundPlayedThisStroke = false;
+
+        // ===== КАЛЛИГРАФИЧЕСКИЕ ПАРАМЕТРЫ =====
+        const INK_COLORS = ['#b8860b', '#c8961e', '#daa520', '#d4a017'];
+        let currentInkIndex = 0;
 
         function initAudio() {
             try {
@@ -2660,7 +2665,7 @@
                     return;
                 }
 
-                // Автоматическое масштабирование: 1 иероглиф — крупно, несколько — мельче
+                // Автоматическое масштабирование
                 const padding = limited.length === 1 ? 6 : 4 + limited.length * 1.5;
 
                 hanziWriter = HanziWriter.create(target, limited, {
@@ -2697,7 +2702,7 @@
             }
         }
 
-        // ===== КАЛЛИГРАФИЧНАЯ КИСТЬ =====
+        // ===== КАЛЛИГРАФИЧЕСКАЯ КИСТЬ С ПЛАВНЫМИ ЛИНИЯМИ =====
 
         function setupTraceOverlay() {
             const wrapper = document.getElementById('hanziWrapper');
@@ -2718,6 +2723,10 @@
             traceCtx = canvas.getContext('2d');
             traceCanvasWidth = size;
             traceCanvasHeight = size;
+
+            // Включаем сглаживание
+            traceCtx.imageSmoothingEnabled = true;
+            traceCtx.imageSmoothingQuality = 'high';
 
             traceCtx.clearRect(0, 0, size, size);
             traceCtx.fillStyle = 'rgba(0,0,0,0)';
@@ -2773,13 +2782,17 @@
                 traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
                 if (traceHistory.length > 50) traceHistory.shift();
 
-                // Каллиграфическая точка начала — утолщение
+                // Каллиграфическая точка начала — мягкое утолщение
                 traceCtx.save();
-                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.15)';
-                traceCtx.shadowBlur = 8;
-                traceCtx.fillStyle = '#daa520';
+                traceCtx.shadowColor = 'rgba(180, 140, 60, 0.2)';
+                traceCtx.shadowBlur = 10;
+                const grad = traceCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 6);
+                grad.addColorStop(0, '#daa520');
+                grad.addColorStop(0.5, '#c8961e');
+                grad.addColorStop(1, '#b8860b');
+                traceCtx.fillStyle = grad;
                 traceCtx.beginPath();
-                traceCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                traceCtx.arc(p.x, p.y, 4, 0, Math.PI * 2);
                 traceCtx.fill();
                 traceCtx.restore();
             }
@@ -2799,45 +2812,57 @@
                 const dt = Math.max(1, now - traceLastTime);
                 const speed = dist / dt;
 
-                // Каллиграфия: толщина зависит от скорости и направления
-                let baseWidth = 2 + 8 / (1 + speed * 0.4);
-                baseWidth = Math.max(1.5, Math.min(12, baseWidth));
+                // Каллиграфическая толщина: медленно → толсто, быстро → тонко
+                let baseWidth = 2 + 10 / (1 + speed * 0.5);
+                baseWidth = Math.max(1.5, Math.min(14, baseWidth));
 
-                // Добавляем эффект пера: утолщение в зависимости от угла
+                // Утолщение на поворотах (эффект пера)
                 const angle = Math.atan2(p.y - traceLastY, p.x - traceLastX);
-                const angleFactor = 0.6 + 0.4 * Math.abs(Math.cos(angle));
-                const lineWidth = baseWidth * (0.8 + 0.4 * angleFactor);
+                const angleFactor = 0.7 + 0.3 * Math.abs(Math.cos(angle * 1.5));
+                const lineWidth = baseWidth * angleFactor;
 
-                // Тень для чернильного эффекта
+                // Выбор цвета чернил с лёгкой вариацией
+                const inkColor = INK_COLORS[currentInkIndex % INK_COLORS.length];
+                currentInkIndex = (currentInkIndex + 0.5) % INK_COLORS.length;
+
+                // ПЛАВНАЯ ЛИНИЯ — используем кривые Безье для сглаживания
                 traceCtx.save();
-                traceCtx.shadowColor = 'rgba(180, 140, 60, 0.15)';
-                traceCtx.shadowBlur = 6;
 
-                // Основная линия — золотисто-коричневая, как чернила
-                const gradient = traceCtx.createLinearGradient(
+                // Тень для объёма
+                traceCtx.shadowColor = 'rgba(160, 120, 50, 0.15)';
+                traceCtx.shadowBlur = 8;
+
+                // Основная линия с градиентом
+                const grad = traceCtx.createLinearGradient(
                     traceLastX, traceLastY, p.x, p.y
                 );
-                gradient.addColorStop(0, '#daa520');
-                gradient.addColorStop(0.5, '#c8961e');
-                gradient.addColorStop(1, '#b8860b');
+                const c1 = INK_COLORS[Math.floor(currentInkIndex) % INK_COLORS.length];
+                const c2 = INK_COLORS[(Math.floor(currentInkIndex) + 1) % INK_COLORS.length];
+                grad.addColorStop(0, c1);
+                grad.addColorStop(0.6, c2);
+                grad.addColorStop(1, c1);
 
-                traceCtx.strokeStyle = gradient;
+                traceCtx.strokeStyle = grad;
                 traceCtx.lineWidth = lineWidth;
                 traceCtx.lineCap = 'round';
                 traceCtx.lineJoin = 'round';
                 traceCtx.beginPath();
+
+                // Используем quadraticCurveTo для плавности
+                const midX = (traceLastX + p.x) / 2;
+                const midY = (traceLastY + p.y) / 2;
                 traceCtx.moveTo(traceLastX, traceLastY);
-                traceCtx.lineTo(p.x, p.y);
+                traceCtx.quadraticCurveTo(midX, midY, p.x, p.y);
                 traceCtx.stroke();
 
-                // Лёгкое внутреннее свечение для объёма
-                traceCtx.shadowBlur = 12;
-                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.08)';
-                traceCtx.strokeStyle = 'rgba(255, 215, 0, 0.1)';
-                traceCtx.lineWidth = lineWidth + 2;
+                // Лёгкое внутреннее свечение
+                traceCtx.shadowBlur = 15;
+                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.06)';
+                traceCtx.strokeStyle = 'rgba(255, 215, 0, 0.08)';
+                traceCtx.lineWidth = lineWidth + 3;
                 traceCtx.beginPath();
                 traceCtx.moveTo(traceLastX, traceLastY);
-                traceCtx.lineTo(p.x, p.y);
+                traceCtx.quadraticCurveTo(midX, midY, p.x, p.y);
                 traceCtx.stroke();
 
                 traceCtx.restore();
@@ -2852,6 +2877,24 @@
                     isTraceDrawing = false;
                     traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
                     if (traceHistory.length > 50) traceHistory.shift();
+
+                    // Завершаем штрих точкой
+                    if (traceCtx) {
+                        traceCtx.save();
+                        traceCtx.shadowColor = 'rgba(180, 140, 60, 0.15)';
+                        traceCtx.shadowBlur = 8;
+                        const grad = traceCtx.createRadialGradient(
+                            traceLastX, traceLastY, 0,
+                            traceLastX, traceLastY, 5
+                        );
+                        grad.addColorStop(0, '#daa520');
+                        grad.addColorStop(1, '#b8860b');
+                        traceCtx.fillStyle = grad;
+                        traceCtx.beginPath();
+                        traceCtx.arc(traceLastX, traceLastY, 3, 0, Math.PI * 2);
+                        traceCtx.fill();
+                        traceCtx.restore();
+                    }
                 }
             }
 
