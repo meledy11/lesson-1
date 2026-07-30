@@ -872,8 +872,9 @@
             color: white;
         }
         .hanzi-section .input-row .trace-btn.active {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            color: #1a1a1a;
         }
 
         .hanzi-section .speed-control {
@@ -1669,7 +1670,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) С ОБВОДКОЙ -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) С ЗОЛОТОЙ ОБВОДКОЙ -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-hanzi">
             <div class="hanzi-section">
@@ -2520,7 +2521,7 @@
         }
 
         // ============================================================
-        // 10. HANZI WRITER С ОБВОДКОЙ
+        // 10. HANZI WRITER С ЗОЛОТОЙ ОБВОДКОЙ
         // ============================================================
 
         let hanziWriter = null;
@@ -2536,8 +2537,83 @@
         let traceImageData = null;
         let traceCanvasWidth = 0,
             traceCanvasHeight = 0;
+        let audioCtx = null;
 
-        // Функция для поиска пиньиня и перевода
+        function initAudio() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            } catch (e) {}
+        }
+
+        // Приятный золотой звук — колокольчик с мягким затуханием
+        function playGoldenSound() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+
+                // Основной тон — мягкий и тёплый
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.type = 'sine';
+                osc1.frequency.value = 880 + Math.random() * 40; // между 880-920 Гц
+                gain1.gain.setValueAtTime(0.12, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc1.start(now);
+                osc1.stop(now + 0.2);
+
+                // Второй обертон — добавляет "колокольность"
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.type = 'sine';
+                osc2.frequency.value = 1320 + Math.random() * 30;
+                gain2.gain.setValueAtTime(0.06, now);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                osc2.start(now);
+                osc2.stop(now + 0.15);
+
+                // Третий — мягкий высокий "звон"
+                const osc3 = audioCtx.createOscillator();
+                const gain3 = audioCtx.createGain();
+                osc3.connect(gain3);
+                gain3.connect(audioCtx.destination);
+                osc3.type = 'triangle';
+                osc3.frequency.value = 2200 + Math.random() * 50;
+                gain3.gain.setValueAtTime(0.03, now);
+                gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc3.start(now);
+                osc3.stop(now + 0.12);
+
+                // Лёгкий шум для "мягкости"
+                const bufferSize = audioCtx.sampleRate * 0.02;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize * 3);
+                }
+                const noise = audioCtx.createBufferSource();
+                const gainNoise = audioCtx.createGain();
+                noise.buffer = buffer;
+                noise.connect(gainNoise);
+                gainNoise.connect(audioCtx.destination);
+                gainNoise.gain.setValueAtTime(0.04, now);
+                gainNoise.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                noise.start(now);
+                noise.stop(now + 0.04);
+
+            } catch (e) { /* тихо игнорируем */ }
+        }
+
         function findCharInfo(char) {
             const found = allPhrases.find(p => p.chinese === char);
             if (found) {
@@ -2601,7 +2677,6 @@
                 label.textContent = '';
                 target.style.display = 'none';
                 updateHanziInfo([]);
-                // Отключаем режим обводки
                 if (traceModeActive) toggleTraceMode();
                 return;
             }
@@ -2638,10 +2713,10 @@
                 setTimeout(() => {
                     if (hanziWriter) {
                         hanziWriter.animateCharacter();
+                        playGoldenSound();
                     }
                 }, 300);
 
-                // Если режим обводки активен — обновляем оверлей
                 if (traceModeActive) {
                     setTimeout(() => {
                         setupTraceOverlay();
@@ -2658,7 +2733,7 @@
             }
         }
 
-        // ===== ФУНКЦИИ ОБВОДКИ =====
+        // ===== ФУНКЦИИ ЗОЛОТОЙ ОБВОДКИ =====
 
         function setupTraceOverlay() {
             const wrapper = document.getElementById('hanziWrapper');
@@ -2680,17 +2755,13 @@
             traceCanvasWidth = size;
             traceCanvasHeight = size;
 
-            // Очищаем
             traceCtx.clearRect(0, 0, size, size);
-
-            // Делаем фон прозрачным
             traceCtx.fillStyle = 'rgba(0,0,0,0)';
             traceCtx.fillRect(0, 0, size, size);
 
             traceHistory = [];
             traceImageData = null;
 
-            // Настраиваем события рисования
             setupTraceDrawing();
         }
 
@@ -2723,12 +2794,12 @@
 
             function startDraw(e) {
                 e.preventDefault();
+                initAudio();
                 if (!traceCtx) return;
                 isTraceDrawing = true;
                 const p = getPos(e);
                 traceLastX = p.x;
                 traceLastY = p.y;
-                // Сохраняем состояние перед рисованием
                 traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
                 if (traceHistory.length > 50) traceHistory.shift();
             }
@@ -2744,33 +2815,23 @@
                     return;
                 }
 
-                // Проверяем, попадает ли линия в контур иероглифа
-                const isInside = checkIfInsideContour(p.x, p.y);
-
-                let color;
-                if (isInside) {
-                    // Золотая светящаяся
-                    color = '#ffd700';
-                    // Добавляем свечение
-                    traceCtx.shadowColor = '#ffd700';
-                    traceCtx.shadowBlur = 15;
-                } else {
-                    // Проверяем близость к контуру
-                    const distToContour = getDistanceToContour(p.x, p.y);
-                    if (distToContour < 15) {
-                        color = '#2ecc71'; // Зелёная — рядом
-                        traceCtx.shadowColor = '#2ecc71';
-                        traceCtx.shadowBlur = 8;
-                    } else {
-                        color = '#e74c3c'; // Красная — далеко
-                        traceCtx.shadowColor = '#e74c3c';
-                        traceCtx.shadowBlur = 5;
-                    }
-                }
-
+                // Всегда рисуем золотой светящейся линией
                 traceCtx.save();
                 traceCtx.globalCompositeOperation = 'source-over';
-                traceCtx.strokeStyle = color;
+
+                // Золотое свечение
+                const gradient = traceCtx.createRadialGradient(
+                    (p.x + traceLastX) / 2, (p.y + traceLastY) / 2, 0,
+                    (p.x + traceLastX) / 2, (p.y + traceLastY) / 2, 20
+                );
+                gradient.addColorStop(0, 'rgba(255, 215, 0, 0.8)');
+                gradient.addColorStop(0.5, 'rgba(255, 200, 50, 0.4)');
+                gradient.addColorStop(1, 'rgba(255, 180, 0, 0)');
+
+                // Основная золотая линия с сиянием
+                traceCtx.shadowColor = '#ffd700';
+                traceCtx.shadowBlur = 25;
+                traceCtx.strokeStyle = '#ffd700';
                 traceCtx.lineWidth = 6;
                 traceCtx.lineCap = 'round';
                 traceCtx.lineJoin = 'round';
@@ -2778,19 +2839,29 @@
                 traceCtx.moveTo(traceLastX, traceLastY);
                 traceCtx.lineTo(p.x, p.y);
                 traceCtx.stroke();
+
+                // Дополнительное внутреннее свечение
+                traceCtx.shadowBlur = 40;
+                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.3)';
+                traceCtx.strokeStyle = 'rgba(255, 235, 100, 0.3)';
+                traceCtx.lineWidth = 10;
+                traceCtx.beginPath();
+                traceCtx.moveTo(traceLastX, traceLastY);
+                traceCtx.lineTo(p.x, p.y);
+                traceCtx.stroke();
+
                 traceCtx.restore();
 
                 traceLastX = p.x;
                 traceLastY = p.y;
 
-                // Воспроизводим звук
-                playTraceSound(isInside);
+                // Приятный звук при каждом движении
+                playGoldenSound();
             }
 
             function stopDraw(e) {
                 if (isTraceDrawing) {
                     isTraceDrawing = false;
-                    // Сохраняем финальное состояние
                     traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
                     if (traceHistory.length > 50) traceHistory.shift();
                 }
@@ -2826,92 +2897,12 @@
                 return;
             }
 
-            // Копируем изображение иероглифа для анализа
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvas.height;
             const tempCtx = tempCanvas.getContext('2d');
             tempCtx.drawImage(canvas, 0, 0);
             traceImageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-        }
-
-        function checkIfInsideContour(x, y) {
-            if (!traceImageData) return false;
-            const data = traceImageData.data;
-            const w = traceImageData.width;
-            const h = traceImageData.height;
-
-            const ix = Math.round(x);
-            const iy = Math.round(y);
-
-            if (ix < 0 || ix >= w || iy < 0 || iy >= h) return false;
-
-            const idx = (iy * w + ix) * 4;
-            // Проверяем, есть ли черный пиксель (штрих иероглифа)
-            const r = data[idx];
-            const g = data[idx + 1];
-            const b = data[idx + 2];
-            // Если пиксель тёмный (близко к чёрному) — это штрих
-            return (r < 80 && g < 80 && b < 80);
-        }
-
-        function getDistanceToContour(x, y) {
-            if (!traceImageData) return 100;
-            const data = traceImageData.data;
-            const w = traceImageData.width;
-            const h = traceImageData.height;
-
-            const ix = Math.round(x);
-            const iy = Math.round(y);
-
-            // Ищем ближайший чёрный пиксель в радиусе 30
-            const radius = 30;
-            let minDist = radius;
-
-            for (let dy = -radius; dy <= radius; dy++) {
-                for (let dx = -radius; dx <= radius; dx++) {
-                    const px = ix + dx;
-                    const py = iy + dy;
-                    if (px < 0 || px >= w || py < 0 || py >= h) continue;
-
-                    const idx = (py * w + px) * 4;
-                    const r = data[idx];
-                    const g = data[idx + 1];
-                    const b = data[idx + 2];
-
-                    if (r < 80 && g < 80 && b < 80) {
-                        const dist = Math.hypot(dx, dy);
-                        if (dist < minDist) {
-                            minDist = dist;
-                            if (minDist < 2) return 0;
-                        }
-                    }
-                }
-            }
-            return minDist;
-        }
-
-        function playTraceSound(isInside) {
-            try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                if (isInside) {
-                    osc.frequency.value = 1200;
-                    osc.type = 'sine';
-                    gain.gain.value = 0.15;
-                } else {
-                    osc.frequency.value = 300;
-                    osc.type = 'triangle';
-                    gain.gain.value = 0.08;
-                }
-
-                osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.06);
-            } catch (e) { /* игнорируем */ }
         }
 
         function toggleTraceMode() {
@@ -2927,30 +2918,16 @@
                     setupTraceOverlay();
                     captureTraceImage();
                 }, 300);
-                showToast('✨ Режим обводки включён');
+                showToast('✨ Золотая обводка включена');
+                initAudio();
             } else {
                 overlay.classList.remove('active');
                 btn.classList.remove('active');
                 btn.textContent = '✨ Обвести';
                 showToast('Режим обводки выключен');
-                // Очищаем оверлей
                 if (traceCtx) {
                     traceCtx.clearRect(0, 0, traceCanvasWidth, traceCanvasHeight);
                 }
-            }
-        }
-
-        function clearTrace() {
-            if (traceCtx) {
-                traceCtx.clearRect(0, 0, traceCanvasWidth, traceCanvasHeight);
-                traceHistory = [];
-            }
-        }
-
-        function undoTrace() {
-            if (traceHistory.length > 0) {
-                const state = traceHistory.pop();
-                traceCtx.putImageData(state, 0, 0);
             }
         }
 
@@ -2977,6 +2954,7 @@
             }
 
             initHanziWriter(chars);
+            initAudio();
 
             if (document.getElementById('autoSaveToggle').checked) {
                 for (const char of chars) {
@@ -3016,6 +2994,7 @@
             } else {
                 initHanziWriter(chars);
             }
+            initAudio();
         }
 
         function loadToHanzi(char) {
@@ -3023,6 +3002,7 @@
             document.getElementById('hanziInput').value = char;
             setTimeout(() => {
                 initHanziWriter([char]);
+                initAudio();
                 if (traceModeActive) {
                     setTimeout(() => {
                         setupTraceOverlay();
@@ -3068,7 +3048,7 @@
         }
 
         // ============================================================
-        // 12. КАЛЛИГРАФИЯ
+        // 12. КАЛЛИГРАФИЯ (сохранена без изменений)
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -3442,7 +3422,6 @@
             if (tabName === 'quiz') initQuiz();
             if (tabName === 'spaced') renderSpaced();
             if (tabName === 'hanzi') {
-                // Отключаем режим обводки при переключении
                 if (traceModeActive) {
                     traceModeActive = false;
                     document.getElementById('traceOverlay').classList.remove('active');
@@ -3640,6 +3619,7 @@
             initCanvas();
             initHanziWriter([]);
             initQuiz();
+            initAudio();
         }, 300);
 
         switchTab('groups');
@@ -3674,8 +3654,7 @@
         window.answerSpaced = answerSpaced;
         window.resetSpaced = resetSpaced;
         window.toggleTraceMode = toggleTraceMode;
-        window.clearTrace = clearTrace;
-        window.undoTrace = undoTrace;
+        window.playGoldenSound = playGoldenSound;
     </script>
 
 </body>
