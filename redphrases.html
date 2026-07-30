@@ -800,7 +800,7 @@
             opacity: 0.4;
         }
 
-        /* ===== РИСОВАЛКА (HANZI WRITER) С ОБВОДКОЙ ===== */
+        /* ===== РИСОВАЛКА С ПРИЯТНЫМ ПЕРОМ И ЗВУКОМ ===== */
         #tab-hanzi {
             flex-direction: column;
             gap: 4px;
@@ -838,7 +838,7 @@
             font-size: 0.95rem;
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'KaiTi', serif;
             outline: none;
-            maxlength: 4;
+            maxlength: 1;
         }
         .hanzi-section .input-row input::placeholder {
             color: #6b5a45;
@@ -870,10 +870,11 @@
         .hanzi-section .input-row .trace-btn {
             background: linear-gradient(135deg, #f39c12, #e67e22);
             color: white;
+            transition: all 0.3s;
         }
         .hanzi-section .input-row .trace-btn.active {
             background: linear-gradient(135deg, #ffd700, #f39c12);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
             color: #1a1a1a;
         }
 
@@ -962,7 +963,7 @@
             z-index: 1;
         }
 
-        /* ===== ОВЕРЛЕЙ ДЛЯ РИСОВАНИЯ ПОВЕРХ ИЕРОГЛИФА ===== */
+        /* ===== ОВЕРЛЕЙ ДЛЯ РИСОВАНИЯ (ПРИЯТНОЕ ПЕРО) ===== */
         .trace-overlay {
             position: absolute;
             top: 0;
@@ -983,6 +984,29 @@
             width: 100% !important;
             height: 100% !important;
             border-radius: 8px;
+        }
+
+        /* ===== ИНФО ПОД РИСОВАЛКОЙ ===== */
+        .hanzi-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 4px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #d4c9a6;
+            padding: 4px 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .hanzi-info .pinyin {
+            color: #b8956a;
+            font-weight: 500;
+        }
+        .hanzi-info .translation {
+            color: #d4c9a6;
+            font-weight: 500;
         }
 
         /* ===== ДНЕВНИК ===== */
@@ -1670,12 +1694,12 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) С ЗОЛОТОЙ ОБВОДКОЙ -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (ПРИЯТНОЕ ПЕРО + ЗВУК) -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-hanzi">
             <div class="hanzi-section">
                 <div class="input-row">
-                    <input type="text" id="hanziInput" placeholder="Введите иероглиф(ы)..." maxlength="4" autocomplete="off">
+                    <input type="text" id="hanziInput" placeholder="Введите иероглиф..." maxlength="1" autocomplete="off">
                     <button id="showHanziBtn">✍️</button>
                     <button class="repeat-btn" id="repeatHanziBtn">🔄</button>
                     <button class="trace-btn" id="traceToggleBtn">✨ Обвести</button>
@@ -1689,17 +1713,16 @@
                     </label>
                 </div>
                 <div class="hanzi-wrapper" id="hanziWrapper">
-                    <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф(ы)</div>
+                    <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф</div>
                     <div class="hw-target" id="hwTarget"></div>
                     <div class="trace-overlay" id="traceOverlay">
                         <canvas id="traceCanvas"></canvas>
                     </div>
                     <div class="char-label" id="charLabel"></div>
                 </div>
-                <!-- Инфо: пиньинь и перевод -->
-                <div style="display:flex; justify-content:center; gap:16px; margin-top:4px; flex-shrink:0; flex-wrap:wrap; font-size:0.85rem; color:#d4c9a6;">
-                    <span id="hanziPinyin" style="color:#b8956a;">—</span>
-                    <span id="hanziTranslation">—</span>
+                <div class="hanzi-info">
+                    <span class="pinyin" id="hanziPinyin">—</span>
+                    <span class="translation" id="hanziTranslation">—</span>
                 </div>
             </div>
         </div>
@@ -2521,12 +2544,12 @@
         }
 
         // ============================================================
-        // 10. HANZI WRITER С ЗОЛОТОЙ ОБВОДКОЙ
+        // 10. РИСОВАЛКА — ПРИЯТНОЕ ПЕРО И ЗВУК
         // ============================================================
 
         let hanziWriter = null;
         let hanziSpeed = 1.0;
-        let currentHanziChars = [];
+        let currentChar = '';
         let traceModeActive = false;
         let traceCanvas = null;
         let traceCtx = null;
@@ -2550,8 +2573,8 @@
             } catch (e) {}
         }
 
-        // Приятный золотой звук — колокольчик с мягким затуханием
-        function playGoldenSound() {
+        // Приятный звук — мягкий колокольчик
+        function playPleasantSound() {
             try {
                 initAudio();
                 if (!audioCtx) return;
@@ -2564,52 +2587,35 @@
                 osc1.connect(gain1);
                 gain1.connect(audioCtx.destination);
                 osc1.type = 'sine';
-                osc1.frequency.value = 880 + Math.random() * 40; // между 880-920 Гц
-                gain1.gain.setValueAtTime(0.12, now);
-                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc1.frequency.value = 660 + Math.random() * 30;
+                gain1.gain.setValueAtTime(0.10, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
                 osc1.start(now);
-                osc1.stop(now + 0.2);
+                osc1.stop(now + 0.3);
 
-                // Второй обертон — добавляет "колокольность"
+                // Второй обертон — мягкий
                 const osc2 = audioCtx.createOscillator();
                 const gain2 = audioCtx.createGain();
                 osc2.connect(gain2);
                 gain2.connect(audioCtx.destination);
                 osc2.type = 'sine';
-                osc2.frequency.value = 1320 + Math.random() * 30;
-                gain2.gain.setValueAtTime(0.06, now);
-                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-                osc2.start(now);
-                osc2.stop(now + 0.15);
+                osc2.frequency.value = 880 + Math.random() * 20;
+                gain2.gain.setValueAtTime(0.06, now + 0.02);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc2.start(now + 0.02);
+                osc2.stop(now + 0.22);
 
-                // Третий — мягкий высокий "звон"
+                // Третий — лёгкий высокий отзвук
                 const osc3 = audioCtx.createOscillator();
                 const gain3 = audioCtx.createGain();
                 osc3.connect(gain3);
                 gain3.connect(audioCtx.destination);
                 osc3.type = 'triangle';
-                osc3.frequency.value = 2200 + Math.random() * 50;
-                gain3.gain.setValueAtTime(0.03, now);
-                gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-                osc3.start(now);
-                osc3.stop(now + 0.12);
-
-                // Лёгкий шум для "мягкости"
-                const bufferSize = audioCtx.sampleRate * 0.02;
-                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize * 3);
-                }
-                const noise = audioCtx.createBufferSource();
-                const gainNoise = audioCtx.createGain();
-                noise.buffer = buffer;
-                noise.connect(gainNoise);
-                gainNoise.connect(audioCtx.destination);
-                gainNoise.gain.setValueAtTime(0.04, now);
-                gainNoise.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-                noise.start(now);
-                noise.stop(now + 0.04);
+                osc3.frequency.value = 1320 + Math.random() * 40;
+                gain3.gain.setValueAtTime(0.03, now + 0.05);
+                gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                osc3.start(now + 0.05);
+                osc3.stop(now + 0.2);
 
             } catch (e) { /* тихо игнорируем */ }
         }
@@ -2626,42 +2632,28 @@
             return { pinyin: '', translation: '' };
         }
 
-        function updateHanziInfo(chars) {
+        function updateHanziInfo(char) {
             const pinyinEl = document.getElementById('hanziPinyin');
             const translationEl = document.getElementById('hanziTranslation');
 
-            if (!chars || chars.length === 0) {
+            if (!char) {
                 pinyinEl.textContent = '—';
                 translationEl.textContent = '—';
                 return;
             }
 
-            const mainChar = chars[0];
-            const info = findCharInfo(mainChar);
+            const info = findCharInfo(char);
             pinyinEl.textContent = info.pinyin || '—';
             translationEl.textContent = info.translation || '—';
-
-            if (chars.length > 1) {
-                const allInfo = chars.map(c => {
-                    const i = findCharInfo(c);
-                    return `${c} ${i.pinyin || '?'}`;
-                }).join(' | ');
-                pinyinEl.textContent = allInfo;
-                const allTrans = chars.map(c => {
-                    const i = findCharInfo(c);
-                    return i.translation || '?';
-                }).join(' | ');
-                translationEl.textContent = allTrans;
-            }
         }
 
-        function initHanziWriter(chars) {
+        function initHanziWriter(char) {
             const target = document.getElementById('hwTarget');
             const placeholder = document.getElementById('hanziPlaceholder');
             const wrapper = document.getElementById('hanziWrapper');
             const label = document.getElementById('charLabel');
 
-            currentHanziChars = chars || [];
+            currentChar = char || '';
 
             if (hanziWriter) {
                 try { hanziWriter.destroy(); } catch (e) {}
@@ -2671,25 +2663,24 @@
             target.innerHTML = '';
             target.style.display = 'block';
 
-            if (!chars || chars.length === 0) {
+            if (!char) {
                 placeholder.style.display = 'block';
-                placeholder.textContent = '📖 Введите иероглиф(ы)';
+                placeholder.textContent = '📖 Введите иероглиф';
                 label.textContent = '';
                 target.style.display = 'none';
-                updateHanziInfo([]);
+                updateHanziInfo('');
                 if (traceModeActive) toggleTraceMode();
                 return;
             }
 
             placeholder.style.display = 'none';
-            label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
+            label.textContent = char;
 
-            updateHanziInfo(chars);
+            updateHanziInfo(char);
 
             try {
                 const wrapperRect = wrapper.getBoundingClientRect();
                 const size = Math.min(wrapperRect.width - 16, 450, window.innerHeight * 0.45);
-                const text = chars.join('');
 
                 if (typeof HanziWriter === 'undefined') {
                     placeholder.style.display = 'block';
@@ -2698,7 +2689,7 @@
                     return;
                 }
 
-                hanziWriter = HanziWriter.create(target, text, {
+                hanziWriter = HanziWriter.create(target, char, {
                     width: Math.max(size, 150),
                     height: Math.max(size, 150),
                     padding: 6,
@@ -2713,7 +2704,7 @@
                 setTimeout(() => {
                     if (hanziWriter) {
                         hanziWriter.animateCharacter();
-                        playGoldenSound();
+                        playPleasantSound();
                     }
                 }, 300);
 
@@ -2733,7 +2724,7 @@
             }
         }
 
-        // ===== ФУНКЦИИ ЗОЛОТОЙ ОБВОДКИ =====
+        // ===== ФУНКЦИИ ОБВОДКИ =====
 
         function setupTraceOverlay() {
             const wrapper = document.getElementById('hanziWrapper');
@@ -2815,22 +2806,14 @@
                     return;
                 }
 
-                // Всегда рисуем золотой светящейся линией
+                // Золотая контрастная линия с мягким свечением
                 traceCtx.save();
-                traceCtx.globalCompositeOperation = 'source-over';
 
-                // Золотое свечение
-                const gradient = traceCtx.createRadialGradient(
-                    (p.x + traceLastX) / 2, (p.y + traceLastY) / 2, 0,
-                    (p.x + traceLastX) / 2, (p.y + traceLastY) / 2, 20
-                );
-                gradient.addColorStop(0, 'rgba(255, 215, 0, 0.8)');
-                gradient.addColorStop(0.5, 'rgba(255, 200, 50, 0.4)');
-                gradient.addColorStop(1, 'rgba(255, 180, 0, 0)');
+                // Внешнее свечение
+                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.5)';
+                traceCtx.shadowBlur = 30;
 
-                // Основная золотая линия с сиянием
-                traceCtx.shadowColor = '#ffd700';
-                traceCtx.shadowBlur = 25;
+                // Основная золотая линия
                 traceCtx.strokeStyle = '#ffd700';
                 traceCtx.lineWidth = 6;
                 traceCtx.lineCap = 'round';
@@ -2840,10 +2823,10 @@
                 traceCtx.lineTo(p.x, p.y);
                 traceCtx.stroke();
 
-                // Дополнительное внутреннее свечение
-                traceCtx.shadowBlur = 40;
+                // Внутреннее яркое свечение
+                traceCtx.shadowBlur = 50;
                 traceCtx.shadowColor = 'rgba(255, 215, 0, 0.3)';
-                traceCtx.strokeStyle = 'rgba(255, 235, 100, 0.3)';
+                traceCtx.strokeStyle = 'rgba(255, 235, 100, 0.4)';
                 traceCtx.lineWidth = 10;
                 traceCtx.beginPath();
                 traceCtx.moveTo(traceLastX, traceLastY);
@@ -2856,7 +2839,7 @@
                 traceLastY = p.y;
 
                 // Приятный звук при каждом движении
-                playGoldenSound();
+                playPleasantSound();
             }
 
             function stopDraw(e) {
@@ -2937,37 +2920,29 @@
             const input = document.getElementById('hanziInput');
             const raw = input.value.trim();
             if (!raw) {
-                document.getElementById('hanziPlaceholder').textContent = '⚠️ Введите иероглиф(ы)';
+                document.getElementById('hanziPlaceholder').textContent = '⚠️ Введите иероглиф';
                 document.getElementById('hanziPlaceholder').style.display = 'block';
                 document.getElementById('hwTarget').style.display = 'none';
                 document.getElementById('charLabel').textContent = '';
-                updateHanziInfo([]);
+                updateHanziInfo('');
                 return;
             }
 
-            const chars = [...raw];
-            if (chars.length > 4) {
-                const limited = chars.slice(0, 4);
-                document.getElementById('hanziInput').value = limited.join('');
-                initHanziWriter(limited);
-                return;
-            }
-
-            initHanziWriter(chars);
+            const char = raw[0];
+            document.getElementById('hanziInput').value = char;
+            initHanziWriter(char);
             initAudio();
 
             if (document.getElementById('autoSaveToggle').checked) {
-                for (const char of chars) {
-                    if (!notebook.some(n => n.char === char)) {
-                        let pinyin = '',
-                            translation = '';
-                        const found = allPhrases.find(p => p.chinese === char);
-                        if (found) { pinyin = found.pinyin;
-                            translation = found.translation; }
-                        notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
-                        if (!spacedData[char]) {
-                            spacedData[char] = { level: 0, interval: 1, nextReview: Date.now() };
-                        }
+                if (!notebook.some(n => n.char === char)) {
+                    let pinyin = '',
+                        translation = '';
+                    const found = allPhrases.find(p => p.chinese === char);
+                    if (found) { pinyin = found.pinyin;
+                        translation = found.translation; }
+                    notebook.push({ char, pinyin, translation, added: new Date().toISOString() });
+                    if (!spacedData[char]) {
+                        spacedData[char] = { level: 0, interval: 1, nextReview: Date.now() };
                     }
                 }
                 localStorage.setItem('chinese_redbook_notebook', JSON.stringify(notebook));
@@ -2975,7 +2950,7 @@
                 renderNotebook();
                 updateStats();
                 renderSpaced();
-                showToast(`✅ Сохранено: ${chars.join(', ')}`);
+                showToast(`✅ Сохранено: "${char}"`);
             }
         }
 
@@ -2986,14 +2961,9 @@
                 showToast('⚠️ Сначала введите иероглиф');
                 return;
             }
-            const chars = [...raw];
-            if (chars.length > 4) {
-                const limited = chars.slice(0, 4);
-                document.getElementById('hanziInput').value = limited.join('');
-                initHanziWriter(limited);
-            } else {
-                initHanziWriter(chars);
-            }
+            const char = raw[0];
+            document.getElementById('hanziInput').value = char;
+            initHanziWriter(char);
             initAudio();
         }
 
@@ -3001,7 +2971,7 @@
             switchTab('hanzi');
             document.getElementById('hanziInput').value = char;
             setTimeout(() => {
-                initHanziWriter([char]);
+                initHanziWriter(char);
                 initAudio();
                 if (traceModeActive) {
                     setTimeout(() => {
@@ -3048,7 +3018,7 @@
         }
 
         // ============================================================
-        // 12. КАЛЛИГРАФИЯ (сохранена без изменений)
+        // 12. КАЛЛИГРАФИЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -3431,10 +3401,11 @@
                 setTimeout(() => {
                     const input = document.getElementById('hanziInput');
                     if (input && input.value.trim()) {
-                        const chars = [...input.value.trim()];
-                        initHanziWriter(chars.slice(0, 4));
+                        const char = input.value.trim()[0];
+                        document.getElementById('hanziInput').value = char;
+                        initHanziWriter(char);
                     } else {
-                        initHanziWriter([]);
+                        initHanziWriter('');
                     }
                 }, 150);
             }
@@ -3505,28 +3476,17 @@
         document.getElementById('hanziInput').addEventListener('input', function() {
             const val = this.value.trim();
             if (val.length > 0) {
-                const chars = [...val];
-                if (chars.length <= 4) {
-                    initHanziWriter(chars);
-                    if (traceModeActive) {
-                        setTimeout(() => {
-                            setupTraceOverlay();
-                            captureTraceImage();
-                        }, 500);
-                    }
-                } else {
-                    const limited = chars.slice(0, 4);
-                    this.value = limited.join('');
-                    initHanziWriter(limited);
-                    if (traceModeActive) {
-                        setTimeout(() => {
-                            setupTraceOverlay();
-                            captureTraceImage();
-                        }, 500);
-                    }
+                const char = val[0];
+                this.value = char;
+                initHanziWriter(char);
+                if (traceModeActive) {
+                    setTimeout(() => {
+                        setupTraceOverlay();
+                        captureTraceImage();
+                    }, 500);
                 }
             } else {
-                initHanziWriter([]);
+                initHanziWriter('');
             }
         });
         document.getElementById('speedSlider').addEventListener('input', function() {
@@ -3534,8 +3494,9 @@
             document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1);
             const input = document.getElementById('hanziInput');
             if (input && input.value.trim()) {
-                const chars = [...input.value.trim()];
-                initHanziWriter(chars.slice(0, 4));
+                const char = input.value.trim()[0];
+                document.getElementById('hanziInput').value = char;
+                initHanziWriter(char);
                 if (traceModeActive) {
                     setTimeout(() => {
                         setupTraceOverlay();
@@ -3602,8 +3563,9 @@
                 if (document.getElementById('tab-hanzi').classList.contains('active')) {
                     const input = document.getElementById('hanziInput');
                     if (input && input.value.trim()) {
-                        const chars = [...input.value.trim()];
-                        initHanziWriter(chars.slice(0, 4));
+                        const char = input.value.trim()[0];
+                        document.getElementById('hanziInput').value = char;
+                        initHanziWriter(char);
                         if (traceModeActive) {
                             setTimeout(() => {
                                 setupTraceOverlay();
@@ -3617,7 +3579,7 @@
 
         setTimeout(() => {
             initCanvas();
-            initHanziWriter([]);
+            initHanziWriter('');
             initQuiz();
             initAudio();
         }, 300);
@@ -3654,7 +3616,7 @@
         window.answerSpaced = answerSpaced;
         window.resetSpaced = resetSpaced;
         window.toggleTraceMode = toggleTraceMode;
-        window.playGoldenSound = playGoldenSound;
+        window.playPleasantSound = playPleasantSound;
     </script>
 
 </body>
