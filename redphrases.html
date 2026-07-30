@@ -35,7 +35,7 @@
             flex-direction: column;
         }
 
-        /* ===== ВЕРХНЯЯ ПАНЕЛЬ - С КНОПКОЙ "НА ГЛАВНУЮ" ===== */
+        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -117,7 +117,7 @@
             box-shadow: 0 0px 0 #1a7a3a;
         }
 
-        /* ===== СТАТИСТИКА - КОМПАКТНАЯ ===== */
+        /* ===== СТАТИСТИКА ===== */
         .stats {
             display: flex;
             justify-content: center;
@@ -139,7 +139,7 @@
             font-size: 0.7rem;
         }
 
-        /* ===== ВКЛАДКИ - КОМПАКТНЫЕ ===== */
+        /* ===== ВКЛАДКИ ===== */
         .tabs {
             display: flex;
             gap: 3px;
@@ -185,7 +185,6 @@
             display: flex;
         }
 
-        /* ===== СКРОЛЛ ===== */
         .scroll-area {
             flex: 1;
             overflow-y: auto;
@@ -201,7 +200,6 @@
             border-radius: 4px;
         }
 
-        /* ===== ПОИСК ===== */
         .search {
             width: 100%;
             padding: 4px 10px;
@@ -223,7 +221,6 @@
             border-color: rgba(255, 215, 0, 0.2);
         }
 
-        /* ===== КАТЕГОРИИ - КОМПАКТНЫЕ ===== */
         .categories {
             display: flex;
             flex-wrap: wrap;
@@ -301,7 +298,7 @@
             max-height: 0;
         }
 
-        /* ===== КАРТОЧКА ФРАЗЫ - УВЕЛИЧЕННЫЕ ИЕРОГЛИФЫ, ПИНЬИНЬ, ПЕРЕВОД ===== */
+        /* ===== КАРТОЧКА ФРАЗЫ ===== */
         .phrase-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 12px;
@@ -407,7 +404,7 @@
             background: #f1c40f;
         }
 
-        /* ===== ДИАЛОГИ - УВЕЛИЧЕННЫЕ ИЕРОГЛИФЫ, ПИНЬИНЬ, ПЕРЕВОД ===== */
+        /* ===== ДИАЛОГИ ===== */
         .dialog-card {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 14px;
@@ -516,7 +513,6 @@
         #tab-quiz.active {
             display: flex;
         }
-
         .quiz-container {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 12px;
@@ -660,7 +656,6 @@
         #tab-spaced.active {
             display: flex;
         }
-
         .spaced-container {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 12px;
@@ -805,7 +800,7 @@
             opacity: 0.4;
         }
 
-        /* ===== РИСОВАЛКА ===== */
+        /* ===== РИСОВАЛКА (HANZI WRITER) С ЭМОДЗИ СБОКУ ===== */
         #tab-hanzi {
             flex-direction: column;
             gap: 4px;
@@ -911,27 +906,28 @@
             font-weight: 600;
         }
 
-        .hanzi-section .hanzi-wrapper {
+        .hanzi-wrapper {
             background: #fffef9;
             border-radius: 10px;
             padding: 4px;
             border: 2px solid #c8aa6e;
             flex: 1;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             position: relative;
             min-height: 160px;
             width: 100%;
+            gap: 12px;
         }
-        .hanzi-section .hanzi-wrapper .hw-target {
-            width: 100%;
-            max-width: 100%;
+        .hanzi-wrapper .hw-target {
+            flex: 1;
+            min-width: 0;
             aspect-ratio: 1/1;
             max-height: 100%;
             min-height: 130px;
         }
-        .hanzi-section .hanzi-wrapper .placeholder {
+        .hanzi-wrapper .placeholder {
             color: #b8956a;
             font-size: 0.8rem;
             text-align: center;
@@ -939,7 +935,7 @@
             position: absolute;
             pointer-events: none;
         }
-        .hanzi-section .hanzi-wrapper .char-label {
+        .hanzi-wrapper .char-label {
             position: absolute;
             bottom: 4px;
             right: 8px;
@@ -947,6 +943,35 @@
             font-size: 0.55rem;
             opacity: 0.5;
             pointer-events: none;
+        }
+
+        /* ===== ПУЛЬСИРУЮЩИЙ ЭМОДЗИ СБОКУ ===== */
+        .hanzi-emoji {
+            font-size: 4.5rem;
+            min-width: 70px;
+            text-align: center;
+            animation: pulse 1.2s ease-in-out infinite;
+            user-select: none;
+            flex-shrink: 0;
+            padding: 0 6px;
+            line-height: 1;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+            }
+        }
+        .hanzi-emoji.empty {
+            opacity: 0.25;
+            animation: none;
+            font-size: 3rem;
         }
 
         /* ===== ДНЕВНИК ===== */
@@ -957,7 +982,6 @@
         #tab-notebook.active {
             display: flex;
         }
-
         .notebook-container {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 12px;
@@ -1102,7 +1126,6 @@
         #tab-canvas.active {
             display: flex;
         }
-
         .canvas-container {
             background: rgba(30, 25, 20, 0.6);
             border-radius: 12px;
@@ -1410,7 +1433,7 @@
             text-align: center;
         }
 
-        /* ===== АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ (УВЕЛИЧЕННЫЕ ШРИФТЫ) ===== */
+        /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 600px) {
             body {
                 padding: 3px;
@@ -1444,7 +1467,6 @@
                 padding: 2px 6px;
                 font-size: 0.5rem;
             }
-
             .phrase-card .chinese {
                 font-size: 2.6rem !important;
             }
@@ -1462,7 +1484,6 @@
                 height: 32px;
                 font-size: 0.85rem;
             }
-
             .dialog-line .cn {
                 font-size: 2.2rem !important;
             }
@@ -1478,7 +1499,6 @@
             .dialog-card .title {
                 font-size: 1.2rem;
             }
-
             .quiz-container .quiz-question .q-char {
                 font-size: 3.2rem !important;
             }
@@ -1488,7 +1508,6 @@
             .notebook-item .char {
                 font-size: 2rem !important;
             }
-
             .main-menu-overlay .menu-container {
                 padding: 18px 16px;
             }
@@ -1502,6 +1521,10 @@
             .main-menu-overlay .menu-item .icon {
                 font-size: 1rem;
                 min-width: 24px;
+            }
+            .hanzi-emoji {
+                font-size: 3rem !important;
+                min-width: 50px !important;
             }
         }
         @media (max-width: 400px) {
@@ -1539,6 +1562,10 @@
             .top-bar .title {
                 font-size: 0.75rem;
             }
+            .hanzi-emoji {
+                font-size: 2.4rem !important;
+                min-width: 40px !important;
+            }
         }
     </style>
 </head>
@@ -1546,7 +1573,7 @@
 
     <div class="container">
 
-        <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ - С КНОПКОЙ "НА ГЛАВНУЮ" ===== -->
+        <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ ===== -->
         <div class="top-bar">
             <div class="left-group">
                 <a href="index.html" class="home-btn">◀ На главную</a>
@@ -1640,7 +1667,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) -->
+        <!-- ВКЛАДКА: РИСОВАЛКА (HANZI WRITER) С ЭМОДЗИ -->
         <!-- ========================================================== -->
         <div class="tab-content" id="tab-hanzi">
             <div class="hanzi-section">
@@ -1660,7 +1687,13 @@
                 <div class="hanzi-wrapper" id="hanziWrapper">
                     <div class="placeholder" id="hanziPlaceholder">📖 Введите иероглиф(ы)</div>
                     <div class="hw-target" id="hwTarget"></div>
+                    <div class="hanzi-emoji empty" id="hanziEmoji">🌟</div>
                     <div class="char-label" id="charLabel"></div>
+                </div>
+                <!-- Инфо: пиньинь и перевод -->
+                <div style="display:flex; justify-content:center; gap:16px; margin-top:4px; flex-shrink:0; flex-wrap:wrap; font-size:0.85rem; color:#d4c9a6;">
+                    <span id="hanziPinyin" style="color:#b8956a;">—</span>
+                    <span id="hanziTranslation">—</span>
                 </div>
             </div>
         </div>
@@ -1791,7 +1824,342 @@
         console.log('💬 Всего диалогов:', allDialogues.length);
 
         // ============================================================
-        // 2. ДИНАМИЧЕСКИЕ ВКЛАДКИ
+        // 2. АССОЦИАТИВНЫЕ ЭМОДЗИ ДЛЯ ИЕРОГЛИФОВ
+        // ============================================================
+
+        const emojiMap = {
+            '我': '🙋',
+            '你': '👤',
+            '他': '👨',
+            '她': '👩',
+            '好': '👍',
+            '不': '🚫',
+            '是': '✅',
+            '吃': '🍽️',
+            '喝': '🥤',
+            '饭': '🍚',
+            '水': '💧',
+            '茶': '🍵',
+            '咖啡': '☕',
+            '酒': '🍷',
+            '走': '🚶',
+            '跑': '🏃',
+            '去': '➡️',
+            '来': '👋',
+            '看': '👀',
+            '说': '🗣️',
+            '听': '👂',
+            '写': '✍️',
+            '读': '📖',
+            '学': '📚',
+            '习': '📝',
+            '工': '💼',
+            '作': '🔧',
+            '家': '🏠',
+            '店': '🏪',
+            '车': '🚗',
+            '路': '🛣️',
+            '雨': '🌧️',
+            '雪': '❄️',
+            '风': '🌬️',
+            '天': '☀️',
+            '月': '🌙',
+            '星': '⭐',
+            '花': '🌸',
+            '草': '🌿',
+            '树': '🌳',
+            '山': '⛰️',
+            '海': '🌊',
+            '鱼': '🐟',
+            '鸟': '🐦',
+            '猫': '🐱',
+            '狗': '🐶',
+            '爱': '❤️',
+            '喜': '😊',
+            '欢': '🎉',
+            '乐': '😄',
+            '开': '🔓',
+            '关': '🔒',
+            '大': '📏',
+            '小': '📐',
+            '多': '🔢',
+            '少': '🔢',
+            '快': '⚡',
+            '慢': '🐢',
+            '新': '🆕',
+            '旧': '📦',
+            '美': '✨',
+            '真': '💯',
+            '谢': '🙏',
+            '对': '✔️',
+            '错': '❌',
+            '帮': '🆘',
+            '忙': '🤝',
+            '请': '🙏',
+            '坐': '🪑',
+            '站': '🧍',
+            '睡': '😴',
+            '醒': '👀',
+            '笑': '😁',
+            '哭': '😢',
+            '热': '🔥',
+            '冷': '🥶',
+            '钱': '💰',
+            '元': '💵',
+            '号': '📞',
+            '码': '🔢',
+            '名': '📛',
+            '字': '🔤',
+            '老': '👴',
+            '师': '👨‍🏫',
+            '朋': '👫',
+            '友': '🤝',
+            '妈': '👩',
+            '爸': '👨',
+            '哥': '🧑',
+            '姐': '👩',
+            '弟': '👦',
+            '妹': '👧',
+            '孩': '🧒',
+            '子': '👶',
+            '女': '👩',
+            '男': '👨',
+            '生': '🌱',
+            '日': '📅',
+            '时': '🕐',
+            '间': '⏳',
+            '年': '📆',
+            '月': '📅',
+            '周': '📆',
+            '期': '📅',
+            '点': '📍',
+            '分': '⏱️',
+            '秒': '⏱️',
+            '今': '📅',
+            '明': '📅',
+            '昨': '📅',
+            '天': '☀️',
+            '气': '🌤️',
+            '情': '💕',
+            '感': '💭',
+            '想': '💭',
+            '知': '🧠',
+            '道': '🛤️',
+            '会': '🤝',
+            '能': '💪',
+            '可': '✅',
+            '以': '➡️',
+            '要': '🎯',
+            '有': '✅',
+            '在': '📍',
+            '到': '🏁',
+            '给': '🎁',
+            '出': '🚪',
+            '入': '🚪',
+            '上': '⬆️',
+            '下': '⬇️',
+            '左': '⬅️',
+            '右': '➡️',
+            '前': '⬆️',
+            '后': '⬇️',
+            '内': '🔲',
+            '外': '🔳',
+            '中': '🎯',
+            '间': '🔲',
+            '东': '➡️',
+            '西': '⬅️',
+            '南': '⬇️',
+            '北': '⬆️',
+            '心': '❤️',
+            '头': '🧠',
+            '手': '✋',
+            '脚': '🦶',
+            '眼': '👁️',
+            '耳': '👂',
+            '鼻': '👃',
+            '口': '👄',
+            '脸': '😊',
+            '身': '🧍',
+            '体': '💪',
+            '医': '🏥',
+            '院': '🏥',
+            '药': '💊',
+            '病': '🤒',
+            '痛': '😣',
+            '健': '💪',
+            '康': '✅',
+            '运': '🏃',
+            '动': '🏋️',
+            '游': '🏊',
+            '泳': '🏊',
+            '球': '⚽',
+            '足': '⚽',
+            '篮': '🏀',
+            '网': '🎾',
+            '电': '⚡',
+            '脑': '💻',
+            '机': '📱',
+            '信': '📨',
+            '息': '💬',
+            '网': '🌐',
+            '络': '🔗',
+            '微': '📱',
+            '信': '💬',
+            '抖': '📱',
+            '音': '🎵',
+            '搜': '🔍',
+            '索': '🔎',
+            '导': '🧭',
+            '航': '🧭',
+            '拍': '📸',
+            '照': '📷',
+            '视': '📹',
+            '频': '📺',
+            '话': '📞',
+            '号': '📞',
+            '码': '🔢',
+            '密': '🔐',
+            '码': '🔢',
+            '充': '🔋',
+            '电': '⚡',
+            '池': '🔋',
+            '下': '⬇️',
+            '载': '📥',
+            '上': '⬆️',
+            '传': '📤',
+            '软': '💿',
+            '件': '📦',
+            '淘': '🛒',
+            '宝': '💎',
+            '京': '🏙️',
+            '东': '🏙️',
+            '快': '📦',
+            '递': '📦',
+            '评': '⭐',
+            '价': '💰',
+            '退': '↩️',
+            '货': '📦',
+            '付': '💳',
+            '款': '💰',
+            '收': '📥',
+            '获': '🏆',
+            '红': '🔴',
+            '黄': '🟡',
+            '蓝': '🔵',
+            '白': '⚪',
+            '黑': '⚫',
+            '绿': '🟢',
+            '紫': '🟣',
+            '粉': '🩷',
+            '灰': '🔘',
+            '金': '🟡',
+            '银': '⚪',
+            '铜': '🟠',
+            '铁': '⚫',
+            '木': '🪵',
+            '火': '🔥',
+            '土': '🪨',
+            '金': '🟡',
+            '水': '💧',
+            '石': '🪨',
+            '田': '🌾',
+            '林': '🌲',
+            '森': '🌳',
+            '湖': '🏞️',
+            '河': '🌊',
+            '江': '🌊',
+            '海': '🌊',
+            '洋': '🌊',
+            '岛': '🏝️',
+            '山': '⛰️',
+            '峰': '🏔️',
+            '雪': '❄️',
+            '冰': '🧊',
+            '云': '☁️',
+            '雾': '🌫️',
+            '雷': '⚡',
+            '电': '⚡',
+            '光': '💡',
+            '明': '💡',
+            '暗': '🌑',
+            '亮': '✨',
+            '美': '✨',
+            '丽': '🌸',
+            '帅': '😎',
+            '酷': '😎',
+            '棒': '👏',
+            '绝': '🔥',
+            '妙': '✨',
+            '赞': '👍',
+            '好': '👍',
+            '优': '⭐',
+            '秀': '🌟',
+            '杰': '🏆',
+            '出': '🚀',
+            '色': '🌈',
+            '超': '🚀',
+            '级': '💎',
+        };
+
+        // Функция для получения эмодзи по иероглифу (с возвратом по умолчанию)
+        function getEmojiForChar(char) {
+            // Проверяем точное совпадение
+            if (emojiMap[char]) return emojiMap[char];
+
+            // Пробуем найти по первой букве пиньиня или по ключевому слову
+            const found = allPhrases.find(p => p.chinese === char);
+            if (found) {
+                const pinyin = found.pinyin || '';
+                // Ищем по первому слогу
+                const firstSyllable = pinyin.split(' ')[0] || '';
+                // Пробуем найти эмодзи по первому слогу (упрощённо)
+                for (const [key, emoji] of Object.entries(emojiMap)) {
+                    if (firstSyllable.startsWith(key) || key.startsWith(firstSyllable)) {
+                        return emoji;
+                    }
+                }
+                // Если есть перевод, пробуем по ключевым словам
+                const trans = found.translation || '';
+                const transLower = trans.toLowerCase();
+                if (transLower.includes('еда') || transLower.includes('кушать')) return '🍽️';
+                if (transLower.includes('пить')) return '🥤';
+                if (transLower.includes('идти') || transLower.includes('ходить')) return '🚶';
+                if (transLower.includes('смотреть') || transLower.includes('видеть')) return '👀';
+                if (transLower.includes('говорить') || transLower.includes('сказать')) return '🗣️';
+                if (transLower.includes('слушать') || transLower.includes('слышать')) return '👂';
+                if (transLower.includes('читать') || transLower.includes('книга')) return '📖';
+                if (transLower.includes('писать')) return '✍️';
+                if (transLower.includes('учиться') || transLower.includes('учить')) return '📚';
+                if (transLower.includes('работа')) return '💼';
+                if (transLower.includes('дом') || transLower.includes('дома')) return '🏠';
+                if (transLower.includes('магазин') || transLower.includes('покупка')) return '🛍️';
+                if (transLower.includes('машина') || transLower.includes('авто')) return '🚗';
+                if (transLower.includes('дорога') || transLower.includes('путь')) return '🛣️';
+                if (transLower.includes('дождь')) return '🌧️';
+                if (transLower.includes('снег')) return '❄️';
+                if (transLower.includes('ветер')) return '🌬️';
+                if (transLower.includes('солнце') || transLower.includes('небо')) return '☀️';
+                if (transLower.includes('луна')) return '🌙';
+                if (transLower.includes('звезда')) return '⭐';
+                if (transLower.includes('цветок')) return '🌸';
+                if (transLower.includes('трава')) return '🌿';
+                if (transLower.includes('дерево')) return '🌳';
+                if (transLower.includes('гора')) return '⛰️';
+                if (transLower.includes('море') || transLower.includes('океан')) return '🌊';
+                if (transLower.includes('рыба')) return '🐟';
+                if (transLower.includes('птица')) return '🐦';
+                if (transLower.includes('кошка') || transLower.includes('кот')) return '🐱';
+                if (transLower.includes('собака')) return '🐶';
+                if (transLower.includes('любовь') || transLower.includes('любить')) return '❤️';
+                if (transLower.includes('радость') || transLower.includes('счастье')) return '😊';
+            }
+
+            // Если ничего не найдено, возвращаем звёздочку
+            return '🌟';
+        }
+
+        // ============================================================
+        // 3. ДИНАМИЧЕСКИЕ ВКЛАДКИ
         // ============================================================
 
         const TAB_CONFIG = [
@@ -1818,7 +2186,7 @@
         }
 
         // ============================================================
-        // 3. КАТЕГОРИИ
+        // 4. КАТЕГОРИИ
         // ============================================================
 
         function getUniqueCategories() {
@@ -1866,7 +2234,7 @@
         }
 
         // ============================================================
-        // 4. ГРУППЫ (ФРАЗЫ)
+        // 5. ГРУППЫ (ФРАЗЫ)
         // ============================================================
 
         const groupKeywords = {
@@ -2042,7 +2410,7 @@
         }
 
         // ============================================================
-        // 5. ИЗБРАННОЕ
+        // 6. ИЗБРАННОЕ
         // ============================================================
 
         function toggleFavorite(char) {
@@ -2059,7 +2427,7 @@
         }
 
         // ============================================================
-        // 6. ДИАЛОГИ
+        // 7. ДИАЛОГИ
         // ============================================================
 
         function renderDialogues() {
@@ -2112,7 +2480,7 @@
         }
 
         // ============================================================
-        // 7. ВИКТОРИНА
+        // 8. ВИКТОРИНА
         // ============================================================
 
         let quizQuestions = [];
@@ -2246,7 +2614,7 @@
         }
 
         // ============================================================
-        // 8. ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ
+        // 9. ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ
         // ============================================================
 
         let spacedCards = [];
@@ -2278,7 +2646,6 @@
             const dueCards = spacedCards.filter(c => c.due);
 
             document.getElementById('spacedRemaining').textContent = dueCards.length;
-            document.getElementById('spacedTotal').textContent = spacedCards.length;
             document.getElementById('menuSpacedCount').textContent = dueCards.length;
 
             if (dueCards.length === 0) {
@@ -2369,7 +2736,7 @@
         }
 
         // ============================================================
-        // 9. ДНЕВНИК
+        // 10. ДНЕВНИК
         // ============================================================
 
         function toggleNotebook(char, pinyin, translation) {
@@ -2483,17 +2850,74 @@
         }
 
         // ============================================================
-        // 10. HANZI WRITER
+        // 11. HANZI WRITER С ПУЛЬСИРУЮЩИМ ЭМОДЗИ И ПИНЬИНЬ/ПЕРЕВОДОМ
         // ============================================================
 
         let hanziWriter = null;
         let hanziSpeed = 1.0;
+        let currentHanziChars = [];
+
+        // Функция для поиска пиньиня и перевода по иероглифу
+        function findCharInfo(char) {
+            const found = allPhrases.find(p => p.chinese === char);
+            if (found) {
+                return { pinyin: found.pinyin || '', translation: found.translation || '' };
+            }
+            // Пробуем найти в дневнике
+            const notebookItem = notebook.find(n => n.char === char);
+            if (notebookItem) {
+                return { pinyin: notebookItem.pinyin || '', translation: notebookItem.translation || '' };
+            }
+            return { pinyin: '', translation: '' };
+        }
+
+        function updateHanziInfo(chars) {
+            const pinyinEl = document.getElementById('hanziPinyin');
+            const translationEl = document.getElementById('hanziTranslation');
+            const emojiEl = document.getElementById('hanziEmoji');
+
+            if (!chars || chars.length === 0) {
+                pinyinEl.textContent = '—';
+                translationEl.textContent = '—';
+                emojiEl.textContent = '🌟';
+                emojiEl.className = 'hanzi-emoji empty';
+                return;
+            }
+
+            // Показываем информацию для первого иероглифа (или для всех, если их несколько)
+            const mainChar = chars[0];
+            const info = findCharInfo(mainChar);
+
+            pinyinEl.textContent = info.pinyin || '—';
+            translationEl.textContent = info.translation || '—';
+
+            // Эмодзи для первого иероглифа
+            const emoji = getEmojiForChar(mainChar);
+            emojiEl.textContent = emoji;
+            emojiEl.className = 'hanzi-emoji';
+
+            // Если несколько иероглифов, добавляем информацию о количестве
+            if (chars.length > 1) {
+                const allInfo = chars.map(c => {
+                    const i = findCharInfo(c);
+                    return `${c} ${i.pinyin || '?'}`;
+                }).join(' | ');
+                pinyinEl.textContent = allInfo;
+                const allTrans = chars.map(c => {
+                    const i = findCharInfo(c);
+                    return i.translation || '?';
+                }).join(' | ');
+                translationEl.textContent = allTrans;
+            }
+        }
 
         function initHanziWriter(chars) {
             const target = document.getElementById('hwTarget');
             const placeholder = document.getElementById('hanziPlaceholder');
             const wrapper = document.getElementById('hanziWrapper');
             const label = document.getElementById('charLabel');
+
+            currentHanziChars = chars || [];
 
             if (hanziWriter) {
                 try { hanziWriter.destroy(); } catch (e) {}
@@ -2508,11 +2932,15 @@
                 placeholder.textContent = '📖 Введите иероглиф(ы)';
                 label.textContent = '';
                 target.style.display = 'none';
+                updateHanziInfo([]);
                 return;
             }
 
             placeholder.style.display = 'none';
             label.textContent = chars.length + ' иероглиф' + (chars.length > 1 ? 'а' : '');
+
+            // Обновляем пиньинь, перевод и эмодзи
+            updateHanziInfo(chars);
 
             try {
                 const wrapperRect = wrapper.getBoundingClientRect();
@@ -2538,11 +2966,22 @@
                     showHintAfterMisses: 1,
                 });
 
+                // Добавляем обработчик для анимации — звук и яркое свечение
                 setTimeout(() => {
                     if (hanziWriter) {
                         hanziWriter.animateCharacter();
+                        // Воспроизводим звук при старте анимации
+                        playPingSound();
                     }
                 }, 300);
+
+                // Подписываемся на события анимации (для звука при каждом штрихе)
+                const origAnimate = hanziWriter.animateCharacter;
+                hanziWriter.animateCharacter = function() {
+                    origAnimate.call(this);
+                    // Звук при начале анимации
+                    setTimeout(playPingSound, 100);
+                };
 
             } catch (e) {
                 console.error('HanziWriter error:', e);
@@ -2553,6 +2992,28 @@
             }
         }
 
+        // Звук для рисовалки (короткий "пинг")
+        function playPingSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 800;
+                osc.type = 'sine';
+                gain.gain.value = 0.15;
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.08);
+                // Яркая вспышка (эффект свечения)
+                const emojiEl = document.getElementById('hanziEmoji');
+                emojiEl.style.filter = 'drop-shadow(0 0 30px rgba(255,215,0,0.9))';
+                setTimeout(() => {
+                    emojiEl.style.filter = 'drop-shadow(0 0 20px rgba(255,215,0,0.4))';
+                }, 200);
+            } catch (e) { /* игнорируем ошибки аудио */ }
+        }
+
         function showHanzi() {
             const input = document.getElementById('hanziInput');
             const raw = input.value.trim();
@@ -2561,6 +3022,7 @@
                 document.getElementById('hanziPlaceholder').style.display = 'block';
                 document.getElementById('hwTarget').style.display = 'none';
                 document.getElementById('charLabel').textContent = '';
+                updateHanziInfo([]);
                 return;
             }
 
@@ -2621,7 +3083,7 @@
         }
 
         // ============================================================
-        // 11. ОЗВУЧКА
+        // 12. ОЗВУЧКА
         // ============================================================
 
         let chineseVoice = null;
@@ -2656,7 +3118,7 @@
         }
 
         // ============================================================
-        // 12. КАЛЛИГРАФИЯ
+        // 13. КАЛЛИГРАФИЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -2961,7 +3423,7 @@
         }
 
         // ============================================================
-        // 13. ОБНОВЛЕНИЕ СТАТИСТИКИ
+        // 14. ОБНОВЛЕНИЕ СТАТИСТИКИ
         // ============================================================
 
         function updateStats() {
@@ -2986,7 +3448,7 @@
         }
 
         // ============================================================
-        // 14. ТОСТЫ
+        // 15. ТОСТЫ
         // ============================================================
 
         function showToast(msg) {
@@ -2998,7 +3460,7 @@
         }
 
         // ============================================================
-        // 15. ГЛАВНОЕ МЕНЮ
+        // 16. ГЛАВНОЕ МЕНЮ
         // ============================================================
 
         function openMenu() {
@@ -3011,7 +3473,7 @@
         }
 
         // ============================================================
-        // 16. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+        // 17. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
         // ============================================================
 
         function switchTab(tabName) {
@@ -3054,7 +3516,7 @@
         }
 
         // ============================================================
-        // 17. СОБЫТИЯ
+        // 18. СОБЫТИЯ
         // ============================================================
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -3155,7 +3617,7 @@
         });
 
         // ============================================================
-        // 18. СТАРТ
+        // 19. СТАРТ
         // ============================================================
 
         renderTabs();
