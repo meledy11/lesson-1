@@ -867,13 +867,13 @@
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
         }
         .hanzi-section .input-row .trace-btn {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
+            background: linear-gradient(135deg, #b8860b, #daa520);
             color: white;
             transition: all 0.3s;
         }
         .hanzi-section .input-row .trace-btn.active {
-            background: linear-gradient(135deg, #ffd700, #f39c12);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(135deg, #ffd700, #ffb800);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             color: #1a1a1a;
         }
 
@@ -993,7 +993,7 @@
             margin-top: 4px;
             flex-shrink: 0;
             flex-wrap: wrap;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #d4c9a6;
             padding: 4px 8px;
             background: rgba(0, 0, 0, 0.2);
@@ -1701,7 +1701,7 @@
                     <input type="text" id="hanziInput" placeholder="Введите иероглиф(ы)..." autocomplete="off">
                     <button id="showHanziBtn">✍️</button>
                     <button class="repeat-btn" id="repeatHanziBtn">🔄</button>
-                    <button class="trace-btn" id="traceToggleBtn">✨ Обвести</button>
+                    <button class="trace-btn" id="traceToggleBtn">🖊️ Обвести</button>
                 </div>
                 <div class="speed-control">
                     <label for="speedSlider">🐢</label>
@@ -2543,7 +2543,7 @@
         }
 
         // ============================================================
-        // 10. РИСОВАЛКА — КАЛЛИГРАФИЧНАЯ КИСТЬ + ЗВУК ТОЛЬКО ПРИ КАСАНИИ
+        // 10. РИСОВАЛКА — КАЛЛИГРАФИЧНАЯ КИСТЬ
         // ============================================================
 
         let hanziWriter = null;
@@ -2573,37 +2573,23 @@
             } catch (e) {}
         }
 
-        // Приятный короткий звук при касании
+        // Приятный звук при касании
         function playTouchSound() {
             try {
                 initAudio();
                 if (!audioCtx) return;
-
                 const now = audioCtx.currentTime;
-
-                const osc1 = audioCtx.createOscillator();
-                const gain1 = audioCtx.createGain();
-                osc1.connect(gain1);
-                gain1.connect(audioCtx.destination);
-                osc1.type = 'sine';
-                osc1.frequency.value = 880;
-                gain1.gain.setValueAtTime(0.10, now);
-                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-                osc1.start(now);
-                osc1.stop(now + 0.15);
-
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.type = 'sine';
-                osc2.frequency.value = 1320;
-                gain2.gain.setValueAtTime(0.05, now + 0.02);
-                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                osc2.start(now + 0.02);
-                osc2.stop(now + 0.12);
-
-            } catch (e) { /* тихо */ }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = 880;
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc.start(now);
+                osc.stop(now + 0.12);
+            } catch (e) {}
         }
 
         function findCharInfo(char) {
@@ -2621,13 +2607,11 @@
         function updateHanziInfo(text) {
             const pinyinEl = document.getElementById('hanziPinyin');
             const translationEl = document.getElementById('hanziTranslation');
-
             if (!text) {
                 pinyinEl.textContent = '—';
                 translationEl.textContent = '—';
                 return;
             }
-
             const chars = [...text];
             const info = chars.map(c => findCharInfo(c));
             const pinyins = info.map(i => i.pinyin || '?').join(' ');
@@ -2660,11 +2644,9 @@
                 return;
             }
 
-            // Ограничим 4 символа для HanziWriter
             const limited = text.slice(0, 4);
             placeholder.style.display = 'none';
             label.textContent = limited + ' (' + limited.length + ')';
-
             updateHanziInfo(limited);
 
             try {
@@ -2678,10 +2660,13 @@
                     return;
                 }
 
+                // Автоматическое масштабирование: 1 иероглиф — крупно, несколько — мельче
+                const padding = limited.length === 1 ? 6 : 4 + limited.length * 1.5;
+
                 hanziWriter = HanziWriter.create(target, limited, {
                     width: Math.max(size, 150),
                     height: Math.max(size, 150),
-                    padding: 6,
+                    padding: padding,
                     strokeColor: '#1a1a1a',
                     radicalColor: '#c0392b',
                     strokeAnimationSpeed: hanziSpeed,
@@ -2783,19 +2768,18 @@
                 traceLastTime = Date.now();
                 soundPlayedThisStroke = false;
 
-                // ЗВУК ТОЛЬКО ПРИ КАСАНИИ (один раз за штрих)
                 playTouchSound();
 
                 traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
                 if (traceHistory.length > 50) traceHistory.shift();
 
-                // Начальная точка (маленькая)
+                // Каллиграфическая точка начала — утолщение
                 traceCtx.save();
-                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.5)';
-                traceCtx.shadowBlur = 20;
-                traceCtx.fillStyle = '#ffd700';
+                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.15)';
+                traceCtx.shadowBlur = 8;
+                traceCtx.fillStyle = '#daa520';
                 traceCtx.beginPath();
-                traceCtx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+                traceCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
                 traceCtx.fill();
                 traceCtx.restore();
             }
@@ -2805,7 +2789,7 @@
                 e.preventDefault();
                 const p = getPos(e);
                 const dist = Math.hypot(p.x - traceLastX, p.y - traceLastY);
-                if (dist < 0.5) {
+                if (dist < 0.3) {
                     traceLastX = p.x;
                     traceLastY = p.y;
                     return;
@@ -2813,24 +2797,31 @@
 
                 const now = Date.now();
                 const dt = Math.max(1, now - traceLastTime);
-                const speed = dist / dt; // пикселей в миллисекунду
+                const speed = dist / dt;
 
-                // КАЛЛИГРАФИЯ: толщина зависит от скорости
-                // Медленно → толстая линия, быстро → тонкая
-                let lineWidth = 4 + 10 / (1 + speed * 0.3);
-                lineWidth = Math.max(2, Math.min(14, lineWidth));
+                // Каллиграфия: толщина зависит от скорости и направления
+                let baseWidth = 2 + 8 / (1 + speed * 0.4);
+                baseWidth = Math.max(1.5, Math.min(12, baseWidth));
 
-                // Также добавляем небольшой наклон для эффекта пера
+                // Добавляем эффект пера: утолщение в зависимости от угла
                 const angle = Math.atan2(p.y - traceLastY, p.x - traceLastX);
+                const angleFactor = 0.6 + 0.4 * Math.abs(Math.cos(angle));
+                const lineWidth = baseWidth * (0.8 + 0.4 * angleFactor);
 
+                // Тень для чернильного эффекта
                 traceCtx.save();
+                traceCtx.shadowColor = 'rgba(180, 140, 60, 0.15)';
+                traceCtx.shadowBlur = 6;
 
-                // Внешнее свечение
-                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.4)';
-                traceCtx.shadowBlur = 20;
+                // Основная линия — золотисто-коричневая, как чернила
+                const gradient = traceCtx.createLinearGradient(
+                    traceLastX, traceLastY, p.x, p.y
+                );
+                gradient.addColorStop(0, '#daa520');
+                gradient.addColorStop(0.5, '#c8961e');
+                gradient.addColorStop(1, '#b8860b');
 
-                // Основная золотая линия с переменной толщиной
-                traceCtx.strokeStyle = '#ffd700';
+                traceCtx.strokeStyle = gradient;
                 traceCtx.lineWidth = lineWidth;
                 traceCtx.lineCap = 'round';
                 traceCtx.lineJoin = 'round';
@@ -2839,11 +2830,11 @@
                 traceCtx.lineTo(p.x, p.y);
                 traceCtx.stroke();
 
-                // Внутреннее свечение
-                traceCtx.shadowBlur = 35;
-                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.2)';
-                traceCtx.strokeStyle = 'rgba(255, 235, 100, 0.3)';
-                traceCtx.lineWidth = lineWidth + 4;
+                // Лёгкое внутреннее свечение для объёма
+                traceCtx.shadowBlur = 12;
+                traceCtx.shadowColor = 'rgba(255, 215, 0, 0.08)';
+                traceCtx.strokeStyle = 'rgba(255, 215, 0, 0.1)';
+                traceCtx.lineWidth = lineWidth + 2;
                 traceCtx.beginPath();
                 traceCtx.moveTo(traceLastX, traceLastY);
                 traceCtx.lineTo(p.x, p.y);
@@ -2910,17 +2901,17 @@
             if (traceModeActive) {
                 overlay.classList.add('active');
                 btn.classList.add('active');
-                btn.textContent = '✨ Обв. вкл';
+                btn.textContent = '🖊️ Обв. вкл';
                 setTimeout(() => {
                     setupTraceOverlay();
                     captureTraceImage();
                 }, 300);
-                showToast('✨ Режим обводки включён');
+                showToast('🖊️ Режим обводки включён');
                 initAudio();
             } else {
                 overlay.classList.remove('active');
                 btn.classList.remove('active');
-                btn.textContent = '✨ Обвести';
+                btn.textContent = '🖊️ Обвести';
                 showToast('Режим обводки выключен');
                 if (traceCtx) {
                     traceCtx.clearRect(0, 0, traceCanvasWidth, traceCanvasHeight);
@@ -3035,7 +3026,7 @@
         }
 
         // ============================================================
-        // 12. КАЛЛИГРАФИЯ (полная версия)
+        // 12. КАЛЛИГРАФИЯ
         // ============================================================
 
         let canvas, ctx, isDrawing = false,
@@ -3413,7 +3404,7 @@
                     traceModeActive = false;
                     document.getElementById('traceOverlay').classList.remove('active');
                     document.getElementById('traceToggleBtn').classList.remove('active');
-                    document.getElementById('traceToggleBtn').textContent = '✨ Обвести';
+                    document.getElementById('traceToggleBtn').textContent = '🖊️ Обвести';
                 }
                 setTimeout(() => {
                     const input = document.getElementById('hanziInput');
