@@ -9,7 +9,7 @@
     <script src="redphrases.js">
     </script>
     <style>
-        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -877,26 +877,21 @@
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
             color: #1a1a1a;
         }
-        .hanzi-section .input-row .stroke-order-btn {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            transition: all 0.3s;
-            font-weight: 700;
-        }
-        .hanzi-section .input-row .stroke-order-btn.active {
-            background: linear-gradient(135deg, #ff6b6b, #e74c3c);
-            box-shadow: 0 0 25px rgba(231, 76, 60, 0.4);
-        }
-        .hanzi-section .input-row .draw-game-btn {
+        .hanzi-section .input-row .game-btn {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             color: white;
             transition: all 0.3s;
             font-weight: 700;
         }
-        .hanzi-section .input-row .draw-game-btn.active {
+        .hanzi-section .input-row .game-btn.active {
             background: linear-gradient(135deg, #00ff88, #00cc66);
             box-shadow: 0 0 25px rgba(46, 204, 113, 0.4);
             color: #1a1a1a;
+        }
+        .hanzi-section .input-row .clear-game-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: 700;
         }
 
         .hanzi-section .speed-control {
@@ -1001,29 +996,6 @@
             display: block;
         }
         .trace-overlay canvas {
-            display: block;
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 8px;
-        }
-
-        /* ===== ИГРОВОЙ ОВЕРЛЕЙ ДЛЯ РИСОВАНИЯ ===== */
-        .draw-game-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 15;
-            touch-action: none;
-            cursor: crosshair;
-            display: none;
-            border-radius: 8px;
-        }
-        .draw-game-overlay.active {
-            display: block;
-        }
-        .draw-game-overlay canvas {
             display: block;
             width: 100% !important;
             height: 100% !important;
@@ -1638,6 +1610,33 @@
                 font-size: 0.75rem;
             }
         }
+
+        /* ===== СТАТУС ИГРЫ ===== */
+        .game-status {
+            display: none;
+            text-align: center;
+            padding: 4px 12px;
+            margin-top: 4px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .game-status.active {
+            display: block;
+        }
+        .game-status .correct {
+            color: #2ecc71;
+        }
+        .game-status .wrong {
+            color: #e74c3c;
+        }
+        .game-status .info {
+            color: #f39c12;
+        }
+        .game-status .done {
+            color: #3498db;
+        }
     </style>
 </head>
 <body>
@@ -1747,8 +1746,8 @@
                     <button id="showHanziBtn">✍️</button>
                     <button class="repeat-btn" id="repeatHanziBtn">🔄</button>
                     <button class="trace-btn" id="traceToggleBtn">🖊️ Обвести</button>
-                    <button class="stroke-order-btn" id="strokeOrderBtn">📐 Порядок</button>
-                    <button class="draw-game-btn" id="drawGameBtn">🎮 Рисовать</button>
+                    <button class="game-btn" id="gameToggleBtn">🎮 Игра</button>
+                    <button class="clear-game-btn" id="clearGameBtn">🧹</button>
                 </div>
                 <div class="speed-control">
                     <label for="speedSlider">🐢</label>
@@ -1764,23 +1763,14 @@
                     <div class="trace-overlay" id="traceOverlay">
                         <canvas id="traceCanvas"></canvas>
                     </div>
-                    <div class="draw-game-overlay" id="drawGameOverlay">
-                        <canvas id="drawGameCanvas"></canvas>
-                    </div>
                     <div class="char-label" id="charLabel"></div>
-                    <!-- Индикатор режима игры -->
-                    <div id="drawGameInfo" style="display:none;position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:0.65rem;color:#2ecc71;background:rgba(0,0,0,0.7);padding:3px 12px;border-radius:12px;z-index:20;white-space:nowrap;pointer-events:none;">
-                        🎮 Рисуйте по образцу
-                    </div>
                 </div>
                 <div class="hanzi-info">
                     <span class="pinyin" id="hanziPinyin">—</span>
                     <span class="translation" id="hanziTranslation">—</span>
-                    <span id="drawGameScore" style="display:none;color:#2ecc71;font-weight:700;">Точность: 0%</span>
                 </div>
-                <!-- Индикатор режима порядка линий -->
-                <div id="strokeOrderInfo" style="display:none;text-align:center;font-size:0.7rem;color:#ff6b6b;margin-top:2px;padding:2px 10px;background:rgba(231,76,60,0.15);border-radius:12px;">
-                    📐 Режим порядка линий включён — нажмите на иероглиф для показа
+                <div class="game-status" id="gameStatus">
+                    <span id="gameStatusText">🎮 Рисуйте черты по порядку</span>
                 </div>
             </div>
         </div>
@@ -2602,14 +2592,13 @@
         }
 
         // ============================================================
-        // 10. РИСОВАЛКА — ИГРОВОЙ РЕЖИМ
+        // 10. РИСОВАЛКА — ИГРОВОЙ РЕЖИМ С ИСПОЛЬЗОВАНИЕМ quiz()
         // ============================================================
 
         let hanziWriter = null;
         let hanziSpeed = 1.0;
         let traceModeActive = false;
-        let strokeOrderModeActive = false;
-        let drawGameModeActive = false;
+        let gameModeActive = false;
         let traceCanvas = null;
         let traceCtx = null;
         let isTraceDrawing = false;
@@ -2621,29 +2610,10 @@
         let traceCanvasWidth = 0,
             traceCanvasHeight = 0;
         let audioCtx = null;
-        let soundPlayedThisStroke = false;
         let currentHanziText = '';
-        let strokeOrderStep = 0;
-        let strokeOrderTotal = 0;
-        let strokeOrderInterval = null;
+        let gameActive = false;
 
-        // Переменные для игрового режима
-        let drawGameCanvas = null;
-        let drawGameCtx = null;
-        let drawGameCanvasWidth = 0;
-        let drawGameCanvasHeight = 0;
-        let isDrawGameDrawing = false;
-        let drawGameLastX = 0,
-            drawGameLastY = 0;
-        let drawGameHistory = [];
-        let drawGameRefData = null;
-        let drawGameScore = 0;
-        let drawGameStrokes = [];
-
-        // ===== КАЛЛИГРАФИЧЕСКИЕ ПАРАМЕТРЫ =====
-        const INK_COLORS = ['#b8860b', '#c8961e', '#daa520', '#d4a017'];
-        let currentInkIndex = 0;
-
+        // ===== АУДИО =====
         function initAudio() {
             try {
                 if (!audioCtx) {
@@ -2705,14 +2675,15 @@
                 gain.connect(audioCtx.destination);
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(300, now);
-                osc.frequency.exponentialRampToValueAtTime(200, now + 0.3);
+                osc.frequency.exponentialRampToValueAtTime(150, now + 0.4);
                 gain.gain.setValueAtTime(0.05, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
                 osc.start(now);
-                osc.stop(now + 0.3);
+                osc.stop(now + 0.4);
             } catch (e) {}
         }
 
+        // ===== ПОИСК ИНФОРМАЦИИ ОБ ИЕРОГЛИФЕ =====
         function findCharInfo(char) {
             const found = allPhrases.find(p => p.chinese === char);
             if (found) {
@@ -2741,65 +2712,70 @@
             translationEl.textContent = translations || '—';
         }
 
-        // ===== РЕЖИМ ПОРЯДКА ЛИНИЙ =====
-        function toggleStrokeOrderMode() {
-            strokeOrderModeActive = !strokeOrderModeActive;
-            const btn = document.getElementById('strokeOrderBtn');
-            const info = document.getElementById('strokeOrderInfo');
+        // ===== ИГРОВОЙ РЕЖИМ =====
+        function toggleGameMode() {
+            gameModeActive = !gameModeActive;
+            const btn = document.getElementById('gameToggleBtn');
+            const status = document.getElementById('gameStatus');
 
-            if (strokeOrderModeActive) {
+            if (gameModeActive) {
                 if (traceModeActive) toggleTraceMode();
-                if (drawGameModeActive) toggleDrawGameMode();
+
                 btn.classList.add('active');
-                btn.textContent = '📐 Порядок вкл';
-                info.style.display = 'block';
-                showToast('📐 Режим порядка линий включён');
-                showStrokeOrder();
+                btn.textContent = '🎮 Игра вкл';
+                status.classList.add('active');
+                document.getElementById('gameStatusText').textContent = '🎮 Рисуйте черты по порядку!';
+
+                showToast('🎮 Игровой режим включён!');
+
+                // Запускаем игру с текущим иероглифом
+                const input = document.getElementById('hanziInput');
+                if (input && input.value.trim()) {
+                    startGame(input.value.trim().slice(0, 1));
+                } else {
+                    showToast('⚠️ Введите иероглиф');
+                    gameModeActive = false;
+                    btn.classList.remove('active');
+                    btn.textContent = '🎮 Игра';
+                    status.classList.remove('active');
+                }
             } else {
                 btn.classList.remove('active');
-                btn.textContent = '📐 Порядок';
-                info.style.display = 'none';
-                if (strokeOrderInterval) {
-                    clearInterval(strokeOrderInterval);
-                    strokeOrderInterval = null;
+                btn.textContent = '🎮 Игра';
+                status.classList.remove('active');
+                if (gameActive) {
+                    stopGame();
                 }
-                if (currentHanziText) {
-                    initHanziWriter(currentHanziText);
+                showToast('Игровой режим выключен');
+
+                // Возвращаем обычный режим
+                const input = document.getElementById('hanziInput');
+                if (input && input.value.trim()) {
+                    initHanziWriter(input.value.trim().slice(0, 4));
+                } else {
+                    initHanziWriter('');
                 }
-                showToast('Режим порядка линий выключен');
             }
         }
 
-        function showStrokeOrder() {
-            const input = document.getElementById('hanziInput');
-            const text = input.value.trim();
-            if (!text) {
-                showToast('⚠️ Введите иероглиф для показа порядка линий');
-                return;
-            }
-
-            const singleChar = text.slice(0, 1);
+        function startGame(char) {
+            const singleChar = char.slice(0, 1);
             currentHanziText = singleChar;
             document.getElementById('hanziInput').value = singleChar;
 
-            if (strokeOrderInterval) {
-                clearInterval(strokeOrderInterval);
-                strokeOrderInterval = null;
-            }
+            const target = document.getElementById('hwTarget');
+            const placeholder = document.getElementById('hanziPlaceholder');
+            const label = document.getElementById('charLabel');
 
             if (hanziWriter) {
                 try { hanziWriter.destroy(); } catch (e) {}
                 hanziWriter = null;
             }
 
-            const target = document.getElementById('hwTarget');
-            const placeholder = document.getElementById('hanziPlaceholder');
-            const label = document.getElementById('charLabel');
-
             target.innerHTML = '';
             target.style.display = 'block';
             placeholder.style.display = 'none';
-            label.textContent = singleChar + ' (порядок)';
+            label.textContent = '🎮 ' + singleChar;
             updateHanziInfo(singleChar);
 
             try {
@@ -2814,6 +2790,7 @@
                     return;
                 }
 
+                // Создаём writer с включённым режимом викторины
                 hanziWriter = HanziWriter.create(target, singleChar, {
                     width: Math.max(size, 150),
                     height: Math.max(size, 150),
@@ -2826,415 +2803,146 @@
                     showHintAfterMisses: 1,
                 });
 
+                gameActive = true;
+
+                // Запускаем викторину
                 setTimeout(() => {
-                    if (hanziWriter) {
-                        const totalStrokes = hanziWriter.getTotalStrokes ? hanziWriter.getTotalStrokes() : 10;
-                        strokeOrderTotal = totalStrokes || 10;
-                        strokeOrderStep = 0;
-                        hanziWriter.hideCharacter();
-
-                        strokeOrderInterval = setInterval(() => {
-                            if (!strokeOrderModeActive || !hanziWriter) {
-                                clearInterval(strokeOrderInterval);
-                                strokeOrderInterval = null;
-                                return;
-                            }
-
-                            strokeOrderStep++;
-                            if (strokeOrderStep > strokeOrderTotal) {
-                                hanziWriter.showCharacter();
-                                document.getElementById('strokeOrderInfo').textContent =
-                                    `📐 Порядок линий: ${strokeOrderTotal} черт — завершено!`;
-                                clearInterval(strokeOrderInterval);
-                                strokeOrderInterval = null;
-                                return;
-                            }
-
-                            try {
-                                hanziWriter.animateCharacter({
-                                    onComplete: () => {}
-                                });
-                                document.getElementById('strokeOrderInfo').textContent =
-                                    `📐 Черта ${strokeOrderStep} из ${strokeOrderTotal}`;
-                                if (hanziWriter.showStrokes) {
-                                    const indices = [];
-                                    for (let i = 0; i < strokeOrderStep; i++) {
-                                        indices.push(i);
-                                    }
-                                    hanziWriter.showStrokes(indices);
-                                }
-                            } catch (e) {
-                                hanziWriter.animateCharacter();
-                            }
-                        }, 800 / hanziSpeed);
+                    if (hanziWriter && gameActive) {
+                        startQuizMode();
                     }
                 }, 400);
 
             } catch (e) {
-                console.error('Stroke order error:', e);
+                console.error('Game error:', e);
                 placeholder.style.display = 'block';
                 placeholder.textContent = '❌ Ошибка: ' + e.message;
                 target.style.display = 'none';
                 label.textContent = '';
+                gameActive = false;
             }
         }
 
-        // ===== ИГРОВОЙ РЕЖИМ "РИСОВАНИЕ ПО ОБРАЗЦУ" =====
-        function toggleDrawGameMode() {
-            drawGameModeActive = !drawGameModeActive;
-            const btn = document.getElementById('drawGameBtn');
-            const overlay = document.getElementById('drawGameOverlay');
-            const info = document.getElementById('drawGameInfo');
-            const scoreEl = document.getElementById('drawGameScore');
+        function startQuizMode() {
+            if (!hanziWriter || !gameActive) return;
 
-            if (drawGameModeActive) {
-                if (traceModeActive) toggleTraceMode();
-                if (strokeOrderModeActive) toggleStrokeOrderMode();
+            const statusText = document.getElementById('gameStatusText');
 
-                btn.classList.add('active');
-                btn.textContent = '🎮 Рисовать вкл';
-                overlay.classList.add('active');
-                info.style.display = 'block';
-                scoreEl.style.display = 'inline';
+            // Запускаем quiz() режим
+            hanziWriter.quiz({
+                // Показываем подсказку (слабый контур)
+                showHint: true,
+                // Цвет правильной черты
+                correctColor: '#2ecc71',
+                // Цвет неправильной черты
+                wrongColor: '#e74c3c',
+                // Цвет пропущенной черты
+                missedColor: '#f39c12',
 
-                showToast('🎮 Режим рисования включён — обводите иероглиф');
-                initDrawGame();
+                // Когда пользователь правильно нарисовал черту
+                onCorrectStroke: function(strokeNum) {
+                    statusText.textContent = `✅ Черта ${strokeNum} правильная!`;
+                    statusText.style.color = '#2ecc71';
+                    playSuccessSound();
+                    showToast(`✅ Черта ${strokeNum} — правильно!`);
+                },
+
+                // Когда пользователь ошибся
+                onWrongStroke: function(strokeNum) {
+                    statusText.textContent = `❌ Черта ${strokeNum} неправильная! Попробуйте снова`;
+                    statusText.style.color = '#e74c3c';
+                    playFailSound();
+                    showToast(`❌ Черта ${strokeNum} — неправильно!`);
+                },
+
+                // Когда пользователь пропустил черту
+                onMissedStroke: function(strokeNum) {
+                    statusText.textContent = `⚠️ Черта ${strokeNum} пропущена`;
+                    statusText.style.color = '#f39c12';
+                },
+
+                // Когда завершено
+                onComplete: function(summaryData) {
+                    const total = summaryData.correct + summaryData.wrong + summaryData.missed;
+                    const accuracy = total > 0 ? Math.round(summaryData.correct / total * 100) : 0;
+
+                    if (accuracy >= 80) {
+                        statusText.textContent = `🎉 Отлично! ${accuracy}% правильно (${summaryData.correct}/${total})`;
+                        statusText.style.color = '#2ecc71';
+                        playSuccessSound();
+                        showToast(`🎉 Отлично! ${accuracy}%`);
+                    } else if (accuracy >= 50) {
+                        statusText.textContent = `👍 Хорошо! ${accuracy}% правильно (${summaryData.correct}/${total})`;
+                        statusText.style.color = '#f39c12';
+                        showToast(`👍 ${accuracy}% правильно`);
+                    } else {
+                        statusText.textContent = `📝 Попробуйте ещё раз! ${accuracy}% правильно (${summaryData.correct}/${total})`;
+                        statusText.style.color = '#e74c3c';
+                        showToast(`📝 ${accuracy}% — попробуйте ещё`);
+                    }
+
+                    // Кнопка для повторной попытки
+                    setTimeout(() => {
+                        if (gameActive && hanziWriter) {
+                            statusText.textContent = '🔄 Нажмите "🧹 Очистить" для новой попытки';
+                            statusText.style.color = '#3498db';
+                        }
+                    }, 2000);
+                }
+            });
+        }
+
+        function stopGame() {
+            gameActive = false;
+            if (hanziWriter) {
+                try {
+                    // Пытаемся остановить quiz
+                    if (hanziWriter.cancelQuiz) {
+                        hanziWriter.cancelQuiz();
+                    }
+                    hanziWriter.destroy();
+                } catch (e) {}
+                hanziWriter = null;
+            }
+            document.getElementById('gameStatusText').textContent = '🎮 Игра остановлена';
+            document.getElementById('gameStatusText').style.color = '#b8956a';
+        }
+
+        function clearGame() {
+            if (gameActive && hanziWriter) {
+                try {
+                    if (hanziWriter.cancelQuiz) {
+                        hanziWriter.cancelQuiz();
+                    }
+                } catch (e) {}
+                // Перезапускаем игру
+                const input = document.getElementById('hanziInput');
+                if (input && input.value.trim()) {
+                    startGame(input.value.trim().slice(0, 1));
+                    showToast('🔄 Игра перезапущена');
+                }
             } else {
-                btn.classList.remove('active');
-                btn.textContent = '🎮 Рисовать';
-                overlay.classList.remove('active');
-                info.style.display = 'none';
-                scoreEl.style.display = 'none';
-                drawGameScore = 0;
-                updateDrawGameScore(0);
-
-                if (currentHanziText) {
-                    initHanziWriter(currentHanziText);
-                }
-                showToast('Режим рисования выключен');
-            }
-        }
-
-        function initDrawGame() {
-            const input = document.getElementById('hanziInput');
-            const text = input.value.trim();
-            if (!text) {
-                showToast('⚠️ Введите иероглиф для рисования');
-                return;
-            }
-
-            const singleChar = text.slice(0, 1);
-            currentHanziText = singleChar;
-            document.getElementById('hanziInput').value = singleChar;
-
-            const wrapper = document.getElementById('hanziWrapper');
-            const overlay = document.getElementById('drawGameOverlay');
-            const canvas = document.getElementById('drawGameCanvas');
-
-            if (!overlay || !canvas) return;
-
-            const rect = wrapper.getBoundingClientRect();
-            const size = rect.width - 8;
-
-            canvas.width = size;
-            canvas.height = size;
-            canvas.style.width = size + 'px';
-            canvas.style.height = size + 'px';
-
-            drawGameCanvas = canvas;
-            drawGameCtx = canvas.getContext('2d');
-            drawGameCanvasWidth = size;
-            drawGameCanvasHeight = size;
-
-            drawGameCtx.imageSmoothingEnabled = true;
-            drawGameCtx.imageSmoothingQuality = 'high';
-
-            drawGameHistory = [];
-            drawGameScore = 0;
-            updateDrawGameScore(0);
-
-            // Показываем образец для обводки
-            showDrawGameExample(singleChar);
-
-            // Настраиваем рисование
-            setupDrawGameDrawing();
-
-            // Скрываем HanziWriter
-            const target = document.getElementById('hwTarget');
-            target.style.display = 'none';
-            document.getElementById('hanziPlaceholder').style.display = 'none';
-            document.getElementById('charLabel').textContent = '🎮 ' + singleChar;
-            updateHanziInfo(singleChar);
-        }
-
-        function showDrawGameExample(char) {
-            const ctx = drawGameCtx;
-            const size = drawGameCanvasWidth;
-
-            // Очищаем фон
-            ctx.fillStyle = 'rgba(255, 255, 249, 0.3)';
-            ctx.fillRect(0, 0, size, size);
-
-            // Рисуем сетку
-            ctx.save();
-            ctx.strokeStyle = 'rgba(200, 200, 200, 0.3)';
-            ctx.lineWidth = 0.5;
-            const gridSize = size / 8;
-            for (let i = 0; i <= 8; i++) {
-                const pos = i * gridSize;
-                ctx.beginPath();
-                ctx.moveTo(pos, 0);
-                ctx.lineTo(pos, size);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(0, pos);
-                ctx.lineTo(size, pos);
-                ctx.stroke();
-            }
-            ctx.restore();
-
-            // Рисуем полупрозрачный иероглиф как образец
-            ctx.save();
-            ctx.globalAlpha = 0.25;
-            ctx.fillStyle = '#2ecc71';
-            const fontSize = size * 0.6;
-            ctx.font = `900 ${fontSize}px "Noto Sans CJK SC", "KaiTi", "STKaiti", serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(char, size / 2, size / 2 + size * 0.02);
-            ctx.restore();
-
-            // Сохраняем эталон для проверки
-            drawGameRefData = ctx.getImageData(0, 0, size, size);
-        }
-
-        function setupDrawGameDrawing() {
-            const canvas = drawGameCanvas;
-            if (!canvas) return;
-
-            function getPos(e) {
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-                let clientX, clientY;
-
-                if (e.touches && e.touches.length > 0) {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                } else if (e.changedTouches && e.changedTouches.length > 0) {
-                    clientX = e.changedTouches[0].clientX;
-                    clientY = e.changedTouches[0].clientY;
-                } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                }
-
-                return {
-                    x: (clientX - rect.left) * scaleX,
-                    y: (clientY - rect.top) * scaleY
-                };
-            }
-
-            function startDraw(e) {
-                e.preventDefault();
-                initAudio();
-                if (!drawGameCtx) return;
-                isDrawGameDrawing = true;
-                const p = getPos(e);
-                drawGameLastX = p.x;
-                drawGameLastY = p.y;
-                soundPlayedThisStroke = false;
-                playTouchSound();
-
-                drawGameHistory.push(drawGameCtx.getImageData(0, 0, drawGameCanvasWidth, drawGameCanvasHeight));
-                if (drawGameHistory.length > 30) drawGameHistory.shift();
-
-                // Начальная точка
-                drawGameCtx.save();
-                drawGameCtx.shadowColor = 'rgba(46, 204, 113, 0.2)';
-                drawGameCtx.shadowBlur = 8;
-                drawGameCtx.fillStyle = '#2ecc71';
-                drawGameCtx.beginPath();
-                drawGameCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-                drawGameCtx.fill();
-                drawGameCtx.restore();
-            }
-
-            function draw(e) {
-                if (!isDrawGameDrawing || !drawGameCtx) return;
-                e.preventDefault();
-                const p = getPos(e);
-                const dist = Math.hypot(p.x - drawGameLastX, p.y - drawGameLastY);
-                if (dist < 0.3) {
-                    drawGameLastX = p.x;
-                    drawGameLastY = p.y;
-                    return;
-                }
-
-                const now = Date.now();
-                const dt = Math.max(1, now - traceLastTime);
-                const speed = dist / dt;
-
-                let baseWidth = 2 + 12 / (1 + speed * 0.3);
-                baseWidth = Math.max(2, Math.min(16, baseWidth));
-
-                drawGameCtx.save();
-                drawGameCtx.shadowColor = 'rgba(46, 204, 113, 0.15)';
-                drawGameCtx.shadowBlur = 6;
-
-                const grad = drawGameCtx.createLinearGradient(
-                    drawGameLastX, drawGameLastY, p.x, p.y
-                );
-                grad.addColorStop(0, '#2ecc71');
-                grad.addColorStop(0.5, '#27ae60');
-                grad.addColorStop(1, '#2ecc71');
-
-                drawGameCtx.strokeStyle = grad;
-                drawGameCtx.lineWidth = baseWidth;
-                drawGameCtx.lineCap = 'round';
-                drawGameCtx.lineJoin = 'round';
-                drawGameCtx.beginPath();
-                drawGameCtx.moveTo(drawGameLastX, drawGameLastY);
-                drawGameCtx.lineTo(p.x, p.y);
-                drawGameCtx.stroke();
-                drawGameCtx.restore();
-
-                drawGameLastX = p.x;
-                drawGameLastY = p.y;
-                traceLastTime = now;
-            }
-
-            function stopDraw(e) {
-                if (isDrawGameDrawing) {
-                    isDrawGameDrawing = false;
-                    drawGameHistory.push(drawGameCtx.getImageData(0, 0, drawGameCanvasWidth, drawGameCanvasHeight));
-                    if (drawGameHistory.length > 30) drawGameHistory.shift();
-
-                    // Автоматически проверяем после каждого штриха
-                    checkDrawGameQuality();
-                }
-            }
-
-            canvas.removeEventListener('pointerdown', startDraw);
-            canvas.removeEventListener('pointermove', draw);
-            canvas.removeEventListener('pointerup', stopDraw);
-            canvas.removeEventListener('pointerleave', stopDraw);
-            canvas.removeEventListener('pointercancel', stopDraw);
-            canvas.removeEventListener('touchstart', startDraw);
-            canvas.removeEventListener('touchmove', draw);
-            canvas.removeEventListener('touchend', stopDraw);
-
-            canvas.addEventListener('pointerdown', startDraw);
-            canvas.addEventListener('pointermove', draw);
-            canvas.addEventListener('pointerup', stopDraw);
-            canvas.addEventListener('pointerleave', stopDraw);
-            canvas.addEventListener('pointercancel', stopDraw);
-
-            canvas.addEventListener('touchstart', startDraw, { passive: false });
-            canvas.addEventListener('touchmove', draw, { passive: false });
-            canvas.addEventListener('touchend', stopDraw, { passive: false });
-        }
-
-        function checkDrawGameQuality() {
-            if (!drawGameRefData) {
-                updateDrawGameScore(0);
-                return;
-            }
-
-            const size = drawGameCanvasWidth;
-            const current = drawGameCtx.getImageData(0, 0, size, size);
-            const dRef = drawGameRefData.data;
-            const dCur = current.data;
-
-            let match = 0,
-                totalRef = 0,
-                userOutside = 0;
-            const threshold = 200;
-
-            for (let i = 0; i < dRef.length; i += 4) {
-                const isRef = (dRef[i] < threshold || dRef[i + 1] < threshold || dRef[i + 2] < threshold);
-                const isUser = (dCur[i] < threshold || dCur[i + 1] < threshold || dCur[i + 2] < threshold);
-                if (isRef) {
-                    totalRef++;
-                    if (isUser) match++;
-                } else if (isUser) {
-                    userOutside++;
-                }
-            }
-
-            if (totalRef === 0) {
-                updateDrawGameScore(0);
-                return;
-            }
-
-            // Улучшенная формула оценки
-            const precision = match / totalRef;
-            const recall = match / (totalRef + userOutside + 0.001);
-            const f1 = 2 * precision * recall / (precision + recall + 0.001);
-            const score = Math.round(f1 * 100);
-
-            updateDrawGameScore(score);
-
-            if (score > 70) {
-                playSuccessSound();
-            } else if (score > 30) {
-                // Продолжаем
-            } else {
-                playFailSound();
-            }
-        }
-
-        function updateDrawGameScore(score) {
-            drawGameScore = score;
-            const scoreEl = document.getElementById('drawGameScore');
-            if (scoreEl) {
-                scoreEl.textContent = `Точность: ${score}%`;
-                if (score > 70) {
-                    scoreEl.style.color = '#2ecc71';
-                } else if (score > 40) {
-                    scoreEl.style.color = '#f39c12';
-                } else {
-                    scoreEl.style.color = '#e74c3c';
+                showToast('🧹 Очищено');
+                if (gameModeActive) {
+                    const input = document.getElementById('hanziInput');
+                    if (input && input.value.trim()) {
+                        startGame(input.value.trim().slice(0, 1));
+                    }
                 }
             }
         }
 
-        function clearDrawGame() {
-            if (drawGameCtx) {
-                const size = drawGameCanvasWidth;
-                drawGameCtx.fillStyle = 'rgba(255, 255, 249, 0.3)';
-                drawGameCtx.fillRect(0, 0, size, size);
-                drawGameHistory = [];
-                drawGameScore = 0;
-                updateDrawGameScore(0);
-                if (currentHanziText) {
-                    showDrawGameExample(currentHanziText);
-                }
-                showToast('🧽 Очищено');
-            }
-        }
-
+        // ===== ОБЫЧНЫЙ РЕЖИМ РИСОВАЛКИ =====
         function initHanziWriter(text) {
+            // Если включён игровой режим, используем его
+            if (gameModeActive && text && text.length > 0) {
+                startGame(text.slice(0, 1));
+                return;
+            }
+
             const target = document.getElementById('hwTarget');
             const placeholder = document.getElementById('hanziPlaceholder');
             const wrapper = document.getElementById('hanziWrapper');
             const label = document.getElementById('charLabel');
-
-            // Если включён игровой режим, не инициализируем HanziWriter
-            if (drawGameModeActive) {
-                target.style.display = 'none';
-                placeholder.style.display = 'none';
-                if (text) {
-                    label.textContent = '🎮 ' + text.slice(0, 1);
-                    updateHanziInfo(text.slice(0, 1));
-                }
-                return;
-            }
-
-            if (strokeOrderModeActive && text && text.length > 0) {
-                showStrokeOrder();
-                return;
-            }
 
             if (hanziWriter) {
                 try { hanziWriter.destroy(); } catch (e) {}
@@ -3307,8 +3015,7 @@
             }
         }
 
-        // ===== КАЛЛИГРАФИЧЕСКАЯ КИСТЬ (режим обводки) =====
-
+        // ===== РЕЖИМ ОБВОДКИ =====
         function setupTraceOverlay() {
             const wrapper = document.getElementById('hanziWrapper');
             const overlay = document.getElementById('traceOverlay');
@@ -3338,7 +3045,6 @@
 
             traceHistory = [];
             traceImageData = null;
-            soundPlayedThisStroke = false;
 
             setupTraceDrawing();
         }
@@ -3370,6 +3076,9 @@
                 };
             }
 
+            const INK_COLORS = ['#b8860b', '#c8961e', '#daa520', '#d4a017'];
+            let currentInkIndex = 0;
+
             function startDraw(e) {
                 e.preventDefault();
                 initAudio();
@@ -3379,8 +3088,6 @@
                 traceLastX = p.x;
                 traceLastY = p.y;
                 traceLastTime = Date.now();
-                soundPlayedThisStroke = false;
-
                 playTouchSound();
 
                 traceHistory.push(traceCtx.getImageData(0, 0, traceCanvasWidth, traceCanvasHeight));
@@ -3530,8 +3237,7 @@
         }
 
         function toggleTraceMode() {
-            if (strokeOrderModeActive) toggleStrokeOrderMode();
-            if (drawGameModeActive) toggleDrawGameMode();
+            if (gameModeActive) toggleGameMode();
 
             traceModeActive = !traceModeActive;
             const overlay = document.getElementById('traceOverlay');
@@ -3558,8 +3264,7 @@
             }
         }
 
-        // ===== ОСНОВНЫЕ ФУНКЦИИ РИСОВАЛКИ =====
-
+        // ===== ОСНОВНЫЕ ФУНКЦИИ =====
         function showHanzi() {
             const input = document.getElementById('hanziInput');
             const raw = input.value.trim();
@@ -3576,8 +3281,8 @@
             currentHanziText = text;
             document.getElementById('hanziInput').value = text;
 
-            if (drawGameModeActive) {
-                initDrawGame();
+            if (gameModeActive) {
+                startGame(text.slice(0, 1));
             } else {
                 initHanziWriter(text);
             }
@@ -3618,8 +3323,8 @@
             currentHanziText = text;
             document.getElementById('hanziInput').value = text;
 
-            if (drawGameModeActive) {
-                initDrawGame();
+            if (gameModeActive) {
+                startGame(text.slice(0, 1));
             } else {
                 initHanziWriter(text);
             }
@@ -3631,8 +3336,8 @@
             document.getElementById('hanziInput').value = char;
             currentHanziText = char;
             setTimeout(() => {
-                if (drawGameModeActive) {
-                    initDrawGame();
+                if (gameModeActive) {
+                    startGame(char.slice(0, 1));
                 } else {
                     initHanziWriter(char);
                 }
@@ -4062,22 +3767,11 @@
                     document.getElementById('traceToggleBtn').classList.remove('active');
                     document.getElementById('traceToggleBtn').textContent = '🖊️ Обвести';
                 }
-                if (drawGameModeActive) {
+                if (gameModeActive) {
                     setTimeout(() => {
                         const input = document.getElementById('hanziInput');
                         if (input && input.value.trim()) {
-                            initDrawGame();
-                        } else {
-                            initDrawGame();
-                        }
-                    }, 150);
-                } else if (strokeOrderModeActive) {
-                    setTimeout(() => {
-                        const input = document.getElementById('hanziInput');
-                        if (input && input.value.trim()) {
-                            showStrokeOrder();
-                        } else {
-                            initHanziWriter('');
+                            startGame(input.value.trim().slice(0, 1));
                         }
                     }, 150);
                 } else {
@@ -4148,12 +3842,12 @@
         document.getElementById('spacedEasy').addEventListener('click', () => answerSpaced('easy'));
         document.getElementById('spacedReset').addEventListener('click', resetSpaced);
 
-        // Hanzi Writer
+        // Рисовалка
         document.getElementById('showHanziBtn').addEventListener('click', showHanzi);
         document.getElementById('repeatHanziBtn').addEventListener('click', repeatHanzi);
         document.getElementById('traceToggleBtn').addEventListener('click', toggleTraceMode);
-        document.getElementById('strokeOrderBtn').addEventListener('click', toggleStrokeOrderMode);
-        document.getElementById('drawGameBtn').addEventListener('click', toggleDrawGameMode);
+        document.getElementById('gameToggleBtn').addEventListener('click', toggleGameMode);
+        document.getElementById('clearGameBtn').addEventListener('click', clearGame);
 
         document.getElementById('hanziInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') { e.preventDefault();
@@ -4165,10 +3859,8 @@
                 const text = val.slice(0, 4);
                 if (val.length > 4) this.value = text;
                 currentHanziText = text;
-                if (drawGameModeActive) {
-                    initDrawGame();
-                } else if (strokeOrderModeActive) {
-                    showStrokeOrder();
+                if (gameModeActive) {
+                    startGame(text.slice(0, 1));
                 } else {
                     initHanziWriter(text);
                     if (traceModeActive) {
@@ -4179,33 +3871,23 @@
                     }
                 }
             } else {
-                if (drawGameModeActive) {
-                    // Очищаем игровой режим
-                    if (drawGameCtx) {
-                        const size = drawGameCanvasWidth;
-                        drawGameCtx.fillStyle = 'rgba(255, 255, 249, 0.3)';
-                        drawGameCtx.fillRect(0, 0, size, size);
-                        drawGameHistory = [];
-                        drawGameScore = 0;
-                        updateDrawGameScore(0);
-                    }
+                if (gameModeActive) {
+                    stopGame();
                 } else {
                     initHanziWriter('');
                 }
             }
         });
+
         document.getElementById('speedSlider').addEventListener('input', function() {
             hanziSpeed = parseFloat(this.value);
             document.getElementById('speedValue').textContent = hanziSpeed.toFixed(1);
-            const input = document.getElementById('hanziInput');
-            if (input && input.value.trim()) {
-                const text = input.value.trim().slice(0, 4);
-                document.getElementById('hanziInput').value = text;
-                if (drawGameModeActive) {
-                    initDrawGame();
-                } else if (strokeOrderModeActive) {
-                    showStrokeOrder();
-                } else {
+            // Скорость влияет только на анимацию в обычном режиме
+            if (!gameModeActive) {
+                const input = document.getElementById('hanziInput');
+                if (input && input.value.trim()) {
+                    const text = input.value.trim().slice(0, 4);
+                    document.getElementById('hanziInput').value = text;
                     initHanziWriter(text);
                     if (traceModeActive) {
                         setTimeout(() => {
@@ -4276,10 +3958,8 @@
                     if (input && input.value.trim()) {
                         const text = input.value.trim().slice(0, 4);
                         document.getElementById('hanziInput').value = text;
-                        if (drawGameModeActive) {
-                            initDrawGame();
-                        } else if (strokeOrderModeActive) {
-                            showStrokeOrder();
+                        if (gameModeActive) {
+                            startGame(text.slice(0, 1));
                         } else {
                             initHanziWriter(text);
                             if (traceModeActive) {
@@ -4333,12 +4013,13 @@
         window.answerSpaced = answerSpaced;
         window.resetSpaced = resetSpaced;
         window.toggleTraceMode = toggleTraceMode;
-        window.toggleStrokeOrderMode = toggleStrokeOrderMode;
-        window.showStrokeOrder = showStrokeOrder;
-        window.toggleDrawGameMode = toggleDrawGameMode;
-        window.initDrawGame = initDrawGame;
-        window.clearDrawGame = clearDrawGame;
+        window.toggleGameMode = toggleGameMode;
+        window.startGame = startGame;
+        window.stopGame = stopGame;
+        window.clearGame = clearGame;
         window.playTouchSound = playTouchSound;
+        window.playSuccessSound = playSuccessSound;
+        window.playFailSound = playFailSound;
     </script>
 
 </body>
