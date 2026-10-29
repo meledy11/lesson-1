@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
 <script src="frequency-db.js"></script>
+<script src="hsk1-data.js"></script>
 <script src="Bazahsk1majong2.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
@@ -160,47 +161,80 @@ function speakChinese(text){
   },40);
 }
 
-/* ===== БАЗА КЛЮЧЕЙ (объединённая) ===== */
+/* ===== ПИНЬИНЬ КЛЮЧЕЙ (вручную) ===== */
 const keyData={
-  '亻':{pinyin:'rén',meaning:'человек'},'女':{pinyin:'nǚ',meaning:'женщина'},
-  '口':{pinyin:'kǒu',meaning:'рот'},'日':{pinyin:'rì',meaning:'солнце'},
-  '月':{pinyin:'yuè',meaning:'луна/мясо'},'木':{pinyin:'mù',meaning:'дерево'},
-  '水':{pinyin:'shuǐ',meaning:'вода'},'氵':{pinyin:'shuǐ',meaning:'вода'},
-  '火':{pinyin:'huǒ',meaning:'огонь'},'灬':{pinyin:'huǒ',meaning:'огонь'},
-  '土':{pinyin:'tǔ',meaning:'земля'},'金':{pinyin:'jīn',meaning:'металл/золото'},
-  '钅':{pinyin:'jīn',meaning:'металл'},
-  '心':{pinyin:'xīn',meaning:'сердце'},'忄':{pinyin:'xīn',meaning:'сердце'},
-  '手':{pinyin:'shǒu',meaning:'рука'},'扌':{pinyin:'shǒu',meaning:'рука'},
-  '足':{pinyin:'zú',meaning:'нога'},'辶':{pinyin:'chuò',meaning:'движение'},
-  '讠':{pinyin:'yán',meaning:'речь'},'饣':{pinyin:'shí',meaning:'еда'},
-  '阝':{pinyin:'yì',meaning:'город/холм'},'宀':{pinyin:'mián',meaning:'крыша'},
-  '广':{pinyin:'guǎng',meaning:'здание'},'厂':{pinyin:'hǎn',meaning:'утёс'},
-  '尸':{pinyin:'shī',meaning:'тело'},'弓':{pinyin:'gōng',meaning:'лук'},
-  '戈':{pinyin:'gē',meaning:'копьё'},'彳':{pinyin:'chì',meaning:'шаг'},
-  '歹':{pinyin:'dǎi',meaning:'смерть'},'门':{pinyin:'mén',meaning:'дверь'},
-  '马':{pinyin:'mǎ',meaning:'лошадь'},'鸟':{pinyin:'niǎo',meaning:'птица'},
-  '鱼':{pinyin:'yú',meaning:'рыба'},'虫':{pinyin:'chóng',meaning:'насекомое'},
-  '艹':{pinyin:'cǎo',meaning:'трава'},'竹':{pinyin:'zhú',meaning:'бамбук'},
-  '米':{pinyin:'mǐ',meaning:'рис'},'纟':{pinyin:'sī',meaning:'шёлк'},
-  '贝':{pinyin:'bèi',meaning:'раковина'},'车':{pinyin:'chē',meaning:'машина'},
-  '走':{pinyin:'zǒu',meaning:'идти'},'身':{pinyin:'shēn',meaning:'тело'},
-  '人':{pinyin:'rén',meaning:'человек'},'子':{pinyin:'zǐ',meaning:'ребёнок'},
-  '小':{pinyin:'xiǎo',meaning:'маленький'},'大':{pinyin:'dà',meaning:'большой'},
-  '白':{pinyin:'bái',meaning:'белый'},'方':{pinyin:'fāng',meaning:'квадрат/метод'},
-  '文':{pinyin:'wén',meaning:'текст/культура'},'正':{pinyin:'zhèng',meaning:'прямой/правильный'},
-  '可':{pinyin:'kě',meaning:'можно'},'天':{pinyin:'tiān',meaning:'небо/день'},
-  '生':{pinyin:'shēng',meaning:'жизнь/рождаться'},'田':{pinyin:'tián',meaning:'поле'},
-  '力':{pinyin:'lì',meaning:'сила'},'又':{pinyin:'yòu',meaning:'снова'},
-  '十':{pinyin:'shí',meaning:'десять'},'八':{pinyin:'bā',meaning:'восемь'},
-  '一':{pinyin:'yī',meaning:'один'},'二':{pinyin:'èr',meaning:'два'},
-  '三':{pinyin:'sān',meaning:'три'},'山':{pinyin:'shān',meaning:'гора'},
-  '石':{pinyin:'shí',meaning:'камень'},'雨':{pinyin:'yǔ',meaning:'дождь'},
-  '青':{pinyin:'qīng',meaning:'сине-зелёный'},'黄':{pinyin:'huáng',meaning:'жёлтый'},
-  '红':{pinyin:'hóng',meaning:'красный'},'黑':{pinyin:'hēi',meaning:'чёрный'},
-  '目':{pinyin:'mù',meaning:'глаз'},'王':{pinyin:'yù',meaning:'нефрит'},
-  '刀':{pinyin:'dāo',meaning:'нож'},'刂':{pinyin:'dāo',meaning:'нож'}
+  '亻':{pinyin:'rén'},'女':{pinyin:'nǚ'},'口':{pinyin:'kǒu'},'日':{pinyin:'rì'},
+  '月':{pinyin:'yuè'},'木':{pinyin:'mù'},'水':{pinyin:'shuǐ'},'氵':{pinyin:'shuǐ'},
+  '火':{pinyin:'huǒ'},'灬':{pinyin:'huǒ'},'土':{pinyin:'tǔ'},'金':{pinyin:'jīn'},
+  '钅':{pinyin:'jīn'},'心':{pinyin:'xīn'},'忄':{pinyin:'xīn'},'手':{pinyin:'shǒu'},
+  '扌':{pinyin:'shǒu'},'足':{pinyin:'zú'},'辶':{pinyin:'chuò'},'讠':{pinyin:'yán'},
+  '饣':{pinyin:'shí'},'阝':{pinyin:'yì'},'宀':{pinyin:'mián'},'广':{pinyin:'guǎng'},
+  '厂':{pinyin:'hǎn'},'尸':{pinyin:'shī'},'弓':{pinyin:'gōng'},'戈':{pinyin:'gē'},
+  '彳':{pinyin:'chì'},'歹':{pinyin:'dǎi'},'门':{pinyin:'mén'},'马':{pinyin:'mǎ'},
+  '鸟':{pinyin:'niǎo'},'鱼':{pinyin:'yú'},'虫':{pinyin:'chóng'},'艹':{pinyin:'cǎo'},
+  '竹':{pinyin:'zhú'},'⺮':{pinyin:'zhú'},'米':{pinyin:'mǐ'},'纟':{pinyin:'sī'},
+  '贝':{pinyin:'bèi'},'车':{pinyin:'chē'},'走':{pinyin:'zǒu'},'身':{pinyin:'shēn'},
+  '人':{pinyin:'rén'},'子':{pinyin:'zǐ'},'小':{pinyin:'xiǎo'},'大':{pinyin:'dà'},
+  '白':{pinyin:'bái'},'方':{pinyin:'fāng'},'文':{pinyin:'wén'},'正':{pinyin:'zhèng'},
+  '可':{pinyin:'kě'},'天':{pinyin:'tiān'},'生':{pinyin:'shēng'},'田':{pinyin:'tián'},
+  '力':{pinyin:'lì'},'又':{pinyin:'yòu'},'十':{pinyin:'shí'},'八':{pinyin:'bā'},
+  '一':{pinyin:'yī'},'二':{pinyin:'èr'},'三':{pinyin:'sān'},'山':{pinyin:'shān'},
+  '石':{pinyin:'shí'},'雨':{pinyin:'yǔ'},'青':{pinyin:'qīng'},'黄':{pinyin:'huáng'},
+  '红':{pinyin:'hóng'},'黑':{pinyin:'hēi'},'目':{pinyin:'mù'},'王':{pinyin:'yù'},
+  '刀':{pinyin:'dāo'},'刂':{pinyin:'dāo'},'衣':{pinyin:'yī'},'衤':{pinyin:'yī'},
+  '示':{pinyin:'shì'},'礻':{pinyin:'shì'},'犬':{pinyin:'quǎn'},'犭':{pinyin:'quǎn'},
+  '网':{pinyin:'wǎng'},'罒':{pinyin:'wǎng'},'疒':{pinyin:'nè'},'攵':{pinyin:'pū'},
+  '夂':{pinyin:'zhǐ'},'冫':{pinyin:'bīng'},'廾':{pinyin:'gǒng'},'彐':{pinyin:'jì'},
+  '匚':{pinyin:'fāng'},'卩':{pinyin:'jié'},'厶':{pinyin:'sī'},'匕':{pinyin:'bǐ'},
+  '卜':{pinyin:'bǔ'},'亠':{pinyin:'tóu'},'冖':{pinyin:'mì'},'冂':{pinyin:'jiōng'},
+  '凵':{pinyin:'kǎn'},'勹':{pinyin:'bāo'},'囗':{pinyin:'wéi'},'夕':{pinyin:'xī'},
+  '寸':{pinyin:'cùn'},'户':{pinyin:'hù'},'穴':{pinyin:'xué'},'舟':{pinyin:'zhōu'},
+  '页':{pinyin:'yè'},'欠':{pinyin:'qiàn'},'斤':{pinyin:'jīn'},'矢':{pinyin:'shǐ'},
+  '豆':{pinyin:'dòu'},'里':{pinyin:'lǐ'},'高':{pinyin:'gāo'},'长':{pinyin:'cháng'},
+  '飞':{pinyin:'fēi'},'风':{pinyin:'fēng'},'见':{pinyin:'jiàn'},'比':{pinyin:'bǐ'},
+  '干':{pinyin:'gān'},'工':{pinyin:'gōng'},'己':{pinyin:'jǐ'},'巴':{pinyin:'bā'},
+  '几':{pinyin:'jǐ'},'用':{pinyin:'yòng'},'立':{pinyin:'lì'},'西':{pinyin:'xī'}
 };
-function getKeyInfo(c){return keyData[c]||{pinyin:'',meaning:'ключ'}}
+
+/* ===== АВТОГЕНЕРАЦИЯ ЗНАЧЕНИЙ КЛЮЧЕЙ ИЗ ТРЁХ БАЗ ===== */
+const keyMeaningMap={};
+function buildKeyMeaningMap(){
+  if(typeof HSK1_DATA!=='undefined'&&Array.isArray(HSK1_DATA)){
+    for(const w of HSK1_DATA){
+      if(w.radical&&w.radicalMeaning&&!keyMeaningMap[w.radical]){
+        keyMeaningMap[w.radical]=w.radicalMeaning;
+      }
+    }
+  }
+  if(typeof frequencyDB!=='undefined'&&Array.isArray(frequencyDB)){
+    for(const w of frequencyDB){
+      (w.parts||[]).forEach(p=>{
+        if(p.char&&p.meaning&&!keyMeaningMap[p.char]){
+          keyMeaningMap[p.char]=p.meaning;
+        }
+      });
+    }
+  }
+  if(typeof Bazahsk1majong2!=='undefined'&&Array.isArray(Bazahsk1majong2)){
+    for(const w of Bazahsk1majong2){
+      const keys=(Array.isArray(w.keys)?w.keys:(Array.isArray(w.parts)?w.parts:[]));
+      keys.forEach(k=>{
+        const ch=typeof k==='string'?k:(k&&k.char);
+        const mn=typeof k==='object'&&k?k.meaning:null;
+        if(ch&&mn&&!keyMeaningMap[ch])keyMeaningMap[ch]=mn;
+      });
+    }
+  }
+}
+buildKeyMeaningMap();
+
+function getKeyInfo(c){
+  const manual=keyData[c]||{};
+  return{
+    pinyin:manual.pinyin||'',
+    meaning:manual.meaning||keyMeaningMap[c]||'ключ'
+  };
+}
 
 /* ===== ТЕТРАДЬ ===== */
 function addToCopybookOnly(char,pinyin,meaning){
@@ -223,25 +257,7 @@ function showToast(m){
   setTimeout(()=>t.remove(),2000);
 }
 
-/* ===== ВСТРОЕННЫЕ СЛОВА (резерв) ===== */
-const builtinWords=[
-  {word:"好",keys:["女","子"],pinyin:"hǎo",meaning:"хорошо"},
-  {word:"明",keys:["日","月"],pinyin:"míng",meaning:"яркий"},
-  {word:"林",keys:["木","木"],pinyin:"lín",meaning:"лес"},
-  {word:"森",keys:["木","木","木"],pinyin:"sēn",meaning:"густой лес"},
-  {word:"众",keys:["人","人","人"],pinyin:"zhòng",meaning:"толпа"},
-  {word:"品",keys:["口","口","口"],pinyin:"pǐn",meaning:"продукт"},
-  {word:"鑫",keys:["金","金","金"],pinyin:"xīn",meaning:"процветание"},
-  {word:"淼",keys:["水","水","水"],pinyin:"miǎo",meaning:"много воды"},
-  {word:"炎",keys:["火","火"],pinyin:"yán",meaning:"жар"},
-  {word:"昌",keys:["日","日"],pinyin:"chāng",meaning:"процветающий"},
-  {word:"朋",keys:["月","月"],pinyin:"péng",meaning:"друг"},
-  {word:"双",keys:["又","又"],pinyin:"shuāng",meaning:"пара"},
-  {word:"尖",keys:["大","小"],pinyin:"jiān",meaning:"острый"},
-  {word:"劣",keys:["小","力"],pinyin:"liè",meaning:"плохой"}
-];
-
-/* ===== ПАРЫ ИЗ ВСЕХ БАЗ ===== */
+/* ===== ПАРЫ ИЗ ТРЁХ БАЗ ===== */
 function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
 function getAllKeyWordPairs(){
@@ -253,16 +269,15 @@ function getAllKeyWordPairs(){
     if(keyChar===wordChar)return;
     if(keyChar.length>2)return;
     if(usedWords.has(wordChar))return;
-    const ki=getKeyInfo(keyChar);
-    if(!ki.pinyin&&!ki.meaning)return;
     usedWords.add(wordChar);
+    const ki=getKeyInfo(keyChar);
     pairs.push({
       wordChar,wordPinyin:wordPinyin||'',wordMeaning:wordMeaning||'',
       keyChar,keyPinyin:ki.pinyin,keyMeaning:ki.meaning
     });
   }
 
-  // 1) frequencyDB
+  // 1) frequencyDB — приоритет
   if(typeof frequencyDB!=='undefined'&&Array.isArray(frequencyDB)){
     for(const w of frequencyDB){
       if(!w.parts||!w.parts.length)continue;
@@ -272,24 +287,26 @@ function getAllKeyWordPairs(){
     }
   }
 
-  // 2) Bazahsk1majong2 (формат keys или parts)
+  // 2) HSK1_DATA — radical задан явно
+  if(typeof HSK1_DATA!=='undefined'&&Array.isArray(HSK1_DATA)){
+    for(const w of HSK1_DATA){
+      if(!w.radical)continue;
+      if(w.radical.length>2)continue;
+      pushPair(w.char,w.pinyin,w.meaning,w.radical);
+    }
+  }
+
+  // 3) Bazahsk1majong2
   if(typeof Bazahsk1majong2!=='undefined'&&Array.isArray(Bazahsk1majong2)){
     for(const w of Bazahsk1majong2){
       let keys=null;
       if(Array.isArray(w.keys)&&w.keys.length)keys=w.keys;
       else if(Array.isArray(w.parts)&&w.parts.length)keys=w.parts.map(p=>p.char||p);
       if(!keys)continue;
-      const keyChar=keys.find(k=>k&&k!==w.char&&k.length<=2);
+      const keyChar=keys.find(k=>k&&k!==(w.char||w.word)&&k.length<=2);
       if(!keyChar)continue;
       pushPair(w.char||w.word,w.pinyin,w.meaning,keyChar);
     }
-  }
-
-  // 3) Встроенные
-  for(const w of builtinWords){
-    const keyChar=w.keys.find(k=>k&&k!==w.word&&k.length<=2);
-    if(!keyChar)continue;
-    pushPair(w.word,w.pinyin,w.meaning,keyChar);
   }
 
   return pairs;
@@ -476,6 +493,15 @@ function showLearnModal(word,isNew){
       }
     }
   }
+  if(examples.length<3&&typeof HSK1_DATA!=='undefined'&&word.keyChar){
+    for(const w of HSK1_DATA){
+      if(examples.length>=3)break;
+      if(!w.char||w.char===word.char)continue;
+      if(w.radical===word.keyChar&&!examples.some(e=>e.char===w.char)){
+        examples.push({char:w.char,pinyin:w.pinyin||'',meaning:w.meaning||''});
+      }
+    }
+  }
   if(examples.length<3&&typeof Bazahsk1majong2!=='undefined'&&word.keyChar){
     for(const w of Bazahsk1majong2){
       if(examples.length>=3)break;
@@ -582,7 +608,7 @@ function initGame(){
   const limit=LEVEL_CONFIG[currentLevel]||6;
   const pairs=getPairsForGame(limit);
   if(!pairs.length){
-    msgEl.textContent='❌ Нет данных. Проверьте frequency-db.js / Bazahsk1majong2.js';
+    msgEl.textContent='❌ Нет данных. Проверьте frequency-db.js / hsk1-data.js / Bazahsk1majong2.js';
     dbStatus.textContent='❌ База пуста';
     return;
   }
@@ -773,7 +799,7 @@ document.getElementById('resetGameBtn').onclick=()=>initGame();
 /* ===== СТАРТ ===== */
 window.addEventListener('load',()=>{
   const wait=setInterval(()=>{
-    if(typeof frequencyDB!=='undefined'||typeof Bazahsk1majong2!=='undefined'||performance.now()>3000){
+    if(typeof frequencyDB!=='undefined'||typeof HSK1_DATA!=='undefined'||typeof Bazahsk1majong2!=='undefined'||performance.now()>3000){
       clearInterval(wait);
       const all=getAllKeyWordPairs();
       dbStatus.textContent=`📚 База: ${all.length} возможных пар`;
